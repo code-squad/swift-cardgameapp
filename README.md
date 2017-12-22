@@ -11,3 +11,5 @@
 
 #### 실행 화면
 
+![Alt text](CardGameApp/images/screenshot-step1.jpeg)
+
