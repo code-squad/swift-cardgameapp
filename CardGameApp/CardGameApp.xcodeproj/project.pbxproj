@@ -14,6 +14,7 @@
 		C982F6C31FEBB15000B2AC34 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C982F6C11FEBB15000B2AC34 /* LaunchScreen.storyboard */; };
 		C982F6CE1FEBB15100B2AC34 /* CardGameAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6CD1FEBB15100B2AC34 /* CardGameAppTests.swift */; };
 		C982F6D81FECD2EB00B2AC34 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6BA1FEBB15000B2AC34 /* ViewController.swift */; };
+		C982F6DB1FED01D000B2AC34 /* CardClassTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6DA1FED01D000B2AC34 /* CardClassTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,7 @@
 		C982F6C91FEBB15000B2AC34 /* CardGameAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardGameAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C982F6CD1FEBB15100B2AC34 /* CardGameAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameAppTests.swift; sourceTree = "<group>"; };
 		C982F6CF1FEBB15100B2AC34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C982F6DA1FED01D000B2AC34 /* CardClassTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardClassTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 		C982F6B71FEBB15000B2AC34 /* CardGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				C982F6D91FED008200B2AC34 /* Model */,
 				C982F6B81FEBB15000B2AC34 /* AppDelegate.swift */,
 				C982F6BA1FEBB15000B2AC34 /* ViewController.swift */,
 				C982F6BC1FEBB15000B2AC34 /* Main.storyboard */,
@@ -92,9 +95,17 @@
 			isa = PBXGroup;
 			children = (
 				C982F6CD1FEBB15100B2AC34 /* CardGameAppTests.swift */,
+				C982F6DA1FED01D000B2AC34 /* CardClassTest.swift */,
 				C982F6CF1FEBB15100B2AC34 /* Info.plist */,
 			);
 			path = CardGameAppTests;
+			sourceTree = "<group>";
+		};
+		C982F6D91FED008200B2AC34 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,6 +220,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C982F6DB1FED01D000B2AC34 /* CardClassTest.swift in Sources */,
 				C982F6D81FECD2EB00B2AC34 /* ViewController.swift in Sources */,
 				C982F6CE1FEBB15100B2AC34 /* CardGameAppTests.swift in Sources */,
 			);
