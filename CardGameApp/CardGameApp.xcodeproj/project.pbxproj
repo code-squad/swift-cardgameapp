@@ -17,6 +17,7 @@
 		C982F6CE1FEBB15100B2AC34 /* CardGameAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6CD1FEBB15100B2AC34 /* CardGameAppTests.swift */; };
 		C982F6D81FECD2EB00B2AC34 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6BA1FEBB15000B2AC34 /* ViewController.swift */; };
 		C982F6DB1FED01D000B2AC34 /* CardClassTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6DA1FED01D000B2AC34 /* CardClassTest.swift */; };
+		C982F6E11FEEBE5C00B2AC34 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6E01FEEBE5C00B2AC34 /* Card.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		C982F6CD1FEBB15100B2AC34 /* CardGameAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameAppTests.swift; sourceTree = "<group>"; };
 		C982F6CF1FEBB15100B2AC34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C982F6DA1FED01D000B2AC34 /* CardClassTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardClassTest.swift; sourceTree = "<group>"; };
+		C982F6E01FEEBE5C00B2AC34 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		CE1D9B377DF587A0FB4CDA90 /* Pods-CardGameAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		F2188B0007DB4D2FE0A6C1CF /* Pods-CardGameApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameApp/Pods-CardGameApp.release.xcconfig"; sourceTree = "<group>"; };
 		F64A860C67A7D39A3579BC59 /* Pods-CardGameApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameApp/Pods-CardGameApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 		C982F6D91FED008200B2AC34 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C982F6E01FEEBE5C00B2AC34 /* Card.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C982F6BB1FEBB15000B2AC34 /* ViewController.swift in Sources */,
+				C982F6E11FEEBE5C00B2AC34 /* Card.swift in Sources */,
 				C982F6B91FEBB15000B2AC34 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

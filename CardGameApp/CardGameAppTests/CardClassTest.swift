@@ -10,20 +10,35 @@ import XCTest
 @testable import CardGameApp
 
 class CardClassTest: XCTestCase {
-    
+
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+
+    func test_card_description_spadeAce() {
+        let spadeAce = Card(suit: .spade, rank: .ace)
+        XCTAssertEqual(spadeAce.description, "♠️A")
     }
-    
+
+    func test_card_description_heartJack() {
+        let heartJack = Card(suit: .heard, rank: .jack)
+        XCTAssertEqual(heartJack.description, "♥️J")
+    }
+
+    func test_card_description_diamondQueen() {
+        let diamondQueen = Card(suit: .diamond, rank: .queen)
+        XCTAssertEqual(diamondQueen.description, "♦️Q")
+    }
+
+    func test_card_description_clubTen() {
+        let clubTen = Card(suit: .club, rank: .ten)
+        XCTAssertEqual(clubTen.description, "♣️10")
+    }
+
 }
