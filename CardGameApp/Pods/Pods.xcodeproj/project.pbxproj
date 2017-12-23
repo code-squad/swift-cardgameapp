@@ -1,0 +1,535 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		193646B4CF033604BF7FA93318B101C1 /* Pods-CardGameAppTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 57DFA5D7E57FE1FEAE7092C23BA74D3E /* Pods-CardGameAppTests-dummy.m */; };
+		5B38997228FE25B76DB190BA91BFBF3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		6A750CA931B137F824194304871D6A42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		72603C9A5E774C5D0C6BD0353DF7BDCB /* Pods-CardGameAppTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B10D0E296BA676E5F3B4AE2DA4E53EAC /* Pods-CardGameAppTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EB62859389BFCE1AA7A8D7BCA4C01E25 /* Pods-CardGameApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E083F190F875F0B5E1780DF1DA4B7711 /* Pods-CardGameApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F5AB8B3CF77127F1E0DBD88A930E1224 /* Pods-CardGameApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7059481493373B1816FCBFD4BCE2FC /* Pods-CardGameApp-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		030CD706EE3049A81CF3FAAF0564A1FB /* Pods-CardGameAppTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-CardGameAppTests.modulemap"; sourceTree = "<group>"; };
+		280A075F9541459735E31978FDEB7748 /* Pods-CardGameApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-CardGameApp.modulemap"; sourceTree = "<group>"; };
+		2C7059481493373B1816FCBFD4BCE2FC /* Pods-CardGameApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CardGameApp-dummy.m"; sourceTree = "<group>"; };
+		37FDC5392DD0DAEF9E971ECBC9018089 /* Pods-CardGameAppTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CardGameAppTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		391B38979CA5E4CBAC37D7A93757F11D /* Pods-CardGameApp-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CardGameApp-resources.sh"; sourceTree = "<group>"; };
+		39CAA5F2FE48312A31512FF3BE9F8908 /* Pods-CardGameAppTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CardGameAppTests-resources.sh"; sourceTree = "<group>"; };
+		3AA6F1ED38F8B0B033752ECC98B082BD /* Pods-CardGameApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CardGameApp.release.xcconfig"; sourceTree = "<group>"; };
+		57DFA5D7E57FE1FEAE7092C23BA74D3E /* Pods-CardGameAppTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-CardGameAppTests-dummy.m"; sourceTree = "<group>"; };
+		58EDDD41CF4B4DCF7D5D253442BB3C6E /* Pods-CardGameAppTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CardGameAppTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		75CFDA564674CEF4AACD54FF25EF42F2 /* Pods-CardGameApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-CardGameApp-acknowledgements.markdown"; sourceTree = "<group>"; };
+		77CFDBFD853BAA49521CAD139EB630EE /* Pods-CardGameAppTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CardGameAppTests-frameworks.sh"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		AF325CF793AE76683732AED06C490E37 /* Pods-CardGameApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-CardGameApp-acknowledgements.plist"; sourceTree = "<group>"; };
+		B10D0E296BA676E5F3B4AE2DA4E53EAC /* Pods-CardGameAppTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CardGameAppTests-umbrella.h"; sourceTree = "<group>"; };
+		C15CFE4D61D7D74FD0A50E983855DA5B /* Pods-CardGameApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CardGameApp.debug.xcconfig"; sourceTree = "<group>"; };
+		C7E3CB8D4C9FDC89C15282EF31338803 /* Pods-CardGameAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CardGameAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		C8300BA015FD097BB9EB5F113FAEE73A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA3A863B3EC15D59CB11DF81F137D242 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E083F190F875F0B5E1780DF1DA4B7711 /* Pods-CardGameApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-CardGameApp-umbrella.h"; sourceTree = "<group>"; };
+		E7F9E6F81CBBD588116B15303D5CCADA /* Pods_CardGameApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CardGameApp.framework; path = "Pods-CardGameApp.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBD3B69150083212A55414BC413EB1CE /* Pods-CardGameApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-CardGameApp-frameworks.sh"; sourceTree = "<group>"; };
+		ECBD9A31708B276F403BB06EFCC26E9A /* Pods-CardGameAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-CardGameAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F0543359E401467D21137165B4E542CF /* Pods_CardGameAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_CardGameAppTests.framework; path = "Pods-CardGameAppTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		16A44F295B84A8D14CC9D3C7A49369E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A750CA931B137F824194304871D6A42 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		386A6D89B02E2C2E3D2D4345CCAF5EC9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B38997228FE25B76DB190BA91BFBF3E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		13DAEB8A5FE96C349E256A6EDA7BCD21 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				7517956AB2654CE13AAD2915C700E865 /* Pods-CardGameApp */,
+				579C7B9B2F0DE65B306BBCF4C0990723 /* Pods-CardGameAppTests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		32A23E08346748F1793F899C5FF672C1 /* SwiftLint */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SwiftLint;
+			path = SwiftLint;
+			sourceTree = "<group>";
+		};
+		3FB5166764A309EFB38092FECE628577 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E7F9E6F81CBBD588116B15303D5CCADA /* Pods_CardGameApp.framework */,
+				F0543359E401467D21137165B4E542CF /* Pods_CardGameAppTests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		579C7B9B2F0DE65B306BBCF4C0990723 /* Pods-CardGameAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				DA3A863B3EC15D59CB11DF81F137D242 /* Info.plist */,
+				030CD706EE3049A81CF3FAAF0564A1FB /* Pods-CardGameAppTests.modulemap */,
+				58EDDD41CF4B4DCF7D5D253442BB3C6E /* Pods-CardGameAppTests-acknowledgements.markdown */,
+				37FDC5392DD0DAEF9E971ECBC9018089 /* Pods-CardGameAppTests-acknowledgements.plist */,
+				57DFA5D7E57FE1FEAE7092C23BA74D3E /* Pods-CardGameAppTests-dummy.m */,
+				77CFDBFD853BAA49521CAD139EB630EE /* Pods-CardGameAppTests-frameworks.sh */,
+				39CAA5F2FE48312A31512FF3BE9F8908 /* Pods-CardGameAppTests-resources.sh */,
+				B10D0E296BA676E5F3B4AE2DA4E53EAC /* Pods-CardGameAppTests-umbrella.h */,
+				ECBD9A31708B276F403BB06EFCC26E9A /* Pods-CardGameAppTests.debug.xcconfig */,
+				C7E3CB8D4C9FDC89C15282EF31338803 /* Pods-CardGameAppTests.release.xcconfig */,
+			);
+			name = "Pods-CardGameAppTests";
+			path = "Target Support Files/Pods-CardGameAppTests";
+			sourceTree = "<group>";
+		};
+		7517956AB2654CE13AAD2915C700E865 /* Pods-CardGameApp */ = {
+			isa = PBXGroup;
+			children = (
+				C8300BA015FD097BB9EB5F113FAEE73A /* Info.plist */,
+				280A075F9541459735E31978FDEB7748 /* Pods-CardGameApp.modulemap */,
+				75CFDA564674CEF4AACD54FF25EF42F2 /* Pods-CardGameApp-acknowledgements.markdown */,
+				AF325CF793AE76683732AED06C490E37 /* Pods-CardGameApp-acknowledgements.plist */,
+				2C7059481493373B1816FCBFD4BCE2FC /* Pods-CardGameApp-dummy.m */,
+				EBD3B69150083212A55414BC413EB1CE /* Pods-CardGameApp-frameworks.sh */,
+				391B38979CA5E4CBAC37D7A93757F11D /* Pods-CardGameApp-resources.sh */,
+				E083F190F875F0B5E1780DF1DA4B7711 /* Pods-CardGameApp-umbrella.h */,
+				C15CFE4D61D7D74FD0A50E983855DA5B /* Pods-CardGameApp.debug.xcconfig */,
+				3AA6F1ED38F8B0B033752ECC98B082BD /* Pods-CardGameApp.release.xcconfig */,
+			);
+			name = "Pods-CardGameApp";
+			path = "Target Support Files/Pods-CardGameApp";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				9758CC519AE2C57A9659FFC01AAD26F9 /* Pods */,
+				3FB5166764A309EFB38092FECE628577 /* Products */,
+				13DAEB8A5FE96C349E256A6EDA7BCD21 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		9758CC519AE2C57A9659FFC01AAD26F9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				32A23E08346748F1793F899C5FF672C1 /* SwiftLint */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D35AF013A5F0BAD4F32504907A52519E /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D35AF013A5F0BAD4F32504907A52519E /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		059ADBACFC9889DACDCD6CF811A77F4C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				72603C9A5E774C5D0C6BD0353DF7BDCB /* Pods-CardGameAppTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD5448DBEEA07DD90DB9FA4CC6880E2C /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB62859389BFCE1AA7A8D7BCA4C01E25 /* Pods-CardGameApp-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		21BA7B8D7F3CEC94DEDFDEF34B73DB5B /* Pods-CardGameApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA2DE43AF26657A2A43B4711DC5F4219 /* Build configuration list for PBXNativeTarget "Pods-CardGameApp" */;
+			buildPhases = (
+				24F6A8CD072833677EAFBAE3C0C30276 /* Sources */,
+				16A44F295B84A8D14CC9D3C7A49369E1 /* Frameworks */,
+				BD5448DBEEA07DD90DB9FA4CC6880E2C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-CardGameApp";
+			productName = "Pods-CardGameApp";
+			productReference = E7F9E6F81CBBD588116B15303D5CCADA /* Pods_CardGameApp.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		7826B1B2FAABE24031DAA1A22DBE3777 /* Pods-CardGameAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 03FB61E9A26AC6562285C0C6806D6F00 /* Build configuration list for PBXNativeTarget "Pods-CardGameAppTests" */;
+			buildPhases = (
+				A791D54CE1B9423789384540216B3F52 /* Sources */,
+				386A6D89B02E2C2E3D2D4345CCAF5EC9 /* Frameworks */,
+				059ADBACFC9889DACDCD6CF811A77F4C /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-CardGameAppTests";
+			productName = "Pods-CardGameAppTests";
+			productReference = F0543359E401467D21137165B4E542CF /* Pods_CardGameAppTests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 3FB5166764A309EFB38092FECE628577 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				21BA7B8D7F3CEC94DEDFDEF34B73DB5B /* Pods-CardGameApp */,
+				7826B1B2FAABE24031DAA1A22DBE3777 /* Pods-CardGameAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		24F6A8CD072833677EAFBAE3C0C30276 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F5AB8B3CF77127F1E0DBD88A930E1224 /* Pods-CardGameApp-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A791D54CE1B9423789384540216B3F52 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				193646B4CF033604BF7FA93318B101C1 /* Pods-CardGameAppTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2F8E88D8FAC39104C116C846E523D06D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3AA6F1ED38F8B0B033752ECC98B082BD /* Pods-CardGameApp.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-CardGameApp/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-CardGameApp/Pods-CardGameApp.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_CardGameApp;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		3E601A8C4ACC4952DCE2B2FB1B7CF126 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7E3CB8D4C9FDC89C15282EF31338803 /* Pods-CardGameAppTests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-CardGameAppTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_CardGameAppTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		ABC1C622E3A94D5EFA80B6DBB5E64193 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D72E489B59C3A70112D2342F402BD262 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		E2983B00161AC4A2BF70E8D4843FE97C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C15CFE4D61D7D74FD0A50E983855DA5B /* Pods-CardGameApp.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-CardGameApp/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-CardGameApp/Pods-CardGameApp.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_CardGameApp;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		ECBD27033C5A2791B53E4AFD9DD63C1F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ECBD9A31708B276F403BB06EFCC26E9A /* Pods-CardGameAppTests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-CardGameAppTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_CardGameAppTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		03FB61E9A26AC6562285C0C6806D6F00 /* Build configuration list for PBXNativeTarget "Pods-CardGameAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECBD27033C5A2791B53E4AFD9DD63C1F /* Debug */,
+				3E601A8C4ACC4952DCE2B2FB1B7CF126 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D72E489B59C3A70112D2342F402BD262 /* Debug */,
+				ABC1C622E3A94D5EFA80B6DBB5E64193 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA2DE43AF26657A2A43B4711DC5F4219 /* Build configuration list for PBXNativeTarget "Pods-CardGameApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E2983B00161AC4A2BF70E8D4843FE97C /* Debug */,
+				2F8E88D8FAC39104C116C846E523D06D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
