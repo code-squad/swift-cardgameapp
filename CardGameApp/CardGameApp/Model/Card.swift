@@ -44,6 +44,12 @@ class Card {
     }
 }
 
+extension Card: Equatable {
+    static func == (lhs: Card, rhs: Card) -> Bool {
+        return lhs.rank == rhs.rank && lhs.suit == rhs.suit
+    }
+}
+
 protocol EnumCollection: Hashable {}
 extension EnumCollection {
     static func cases() -> AnySequence<Self> {
