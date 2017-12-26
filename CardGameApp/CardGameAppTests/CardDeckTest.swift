@@ -31,9 +31,7 @@ class CardDeckTest: XCTestCase {
         cardDeck.shuffle()
         let originalCards = CardDeck()
         for card in originalCards.cards {
-            XCTAssertTrue(cardDeck.cards.contains {
-                $0.description == card.description
-            })
+            XCTAssertTrue(cardDeck.cards.contains {$0 == card})
         }
     }
 

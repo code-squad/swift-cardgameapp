@@ -44,12 +44,10 @@ struct CardDeck {
     }
 
     mutating func pickCards(number: Int) -> [Card]? {
+        if self.count() < number { return nil }
         var pikedCards = [Card]()
         for _ in 0..<number {
-            guard let card = removeOne() else {
-                return nil
-            }
-            pikedCards.append(card)
+            pikedCards.append(removeOne()!)
         }
         return pikedCards
     }
