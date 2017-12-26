@@ -41,4 +41,10 @@ class CardClassTest: XCTestCase {
         XCTAssertEqual(clubTen.description, "♣️10")
     }
 
+    func test_card_makeImage() {
+        let clubTen = Card(suit: .club, rank: .ten)
+        let image = clubTen.makeImage()
+        XCTAssertNotNil(image)
+    }
+
 }

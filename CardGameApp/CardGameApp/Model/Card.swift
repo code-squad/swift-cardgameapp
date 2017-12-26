@@ -6,13 +6,21 @@
 //  Copyright © 2017년 yang hee jung. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class Card {
     //스페이드(spade:♠)·하트(heart:♥)·다이아몬드(diamond:◆)·클럽(club:♣)
     enum Suit: Character, EnumCollection {
         case spade = "♠️", heart = "♥️", diamond = "♦️", club = "♣️"
 
+        var value: String {
+            switch self {
+            case .spade: return "s"
+            case .heart: return "h"
+            case .diamond: return "d"
+            case .club: return "c"
+            }
+        }
         static var allTypes = Array(Suit.cases())
     }
     // A(ace), K(king), Q(queen), J(jack), 10, 9, 8, 7, 6, 5, 4, 3, 2
@@ -41,6 +49,11 @@ class Card {
     init(suit: Suit, rank: Rank) {
         self.suit = suit
         self.rank = rank
+    }
+
+    func makeImage() -> UIImage? {
+        let name = (suit.value + rank.value).appending(".png")
+        return UIImage(named: name)
     }
 }
 
