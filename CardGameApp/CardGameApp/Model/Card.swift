@@ -33,7 +33,7 @@ class Card {
             case .ace: return "A"
             case .jack: return "J"
             case .queen: return "Q"
-            case .king: return "k"
+            case .king: return "K"
             default: return "\(self.rawValue)"
             }
         }
@@ -52,8 +52,12 @@ class Card {
     }
 
     func makeImage() -> UIImage? {
-        let name = (suit.value + rank.value).appending(".png")
+        let name = (suit.value + rank.value)
         return UIImage(named: name)
+    }
+
+    func makeBackImage() -> UIImage? {
+        return UIImage(named: "card-back")
     }
 }
 
