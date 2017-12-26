@@ -27,7 +27,7 @@ class CardClassTest: XCTestCase {
     }
 
     func test_card_description_heartJack() {
-        let heartJack = Card(suit: .heard, rank: .jack)
+        let heartJack = Card(suit: .heart, rank: .jack)
         XCTAssertEqual(heartJack.description, "♥️J")
     }
 
