@@ -15,16 +15,6 @@ struct CardDeck {
         cards = makeCards()
     }
 
-    func makeCards() -> [Card] {
-        var cards = [Card]()
-        for suit in Card.Suit.allTypes {
-            for rank in Card.Rank.allTypes {
-                cards.append(Card(suit: suit, rank: rank))
-            }
-        }
-        return cards
-    }
-
     // count() 갖고 있는 카드 개수를 반환한다.
     func count() -> Int {
         return cards.count
@@ -41,13 +31,37 @@ struct CardDeck {
     }
 
     // removeOne() 기능은 카드 인스턴스 중에 하나를 반환하고 목록에서 삭제한다.
-    mutating func removeOne() -> Card {
+    mutating func removeOne() -> Card? {
+        if cards.isEmpty { return nil }
         let deleteCard = cards[self.count()-1]
         cards.removeLast()
         return deleteCard
     }
+
     // reset() 처음처럼 모든 카드를 다시 채워넣는다.
     mutating func reset() {
         cards = makeCards()
     }
+
+    mutating func pickCards(number: Int) -> [Card]? {
+        var pikedCards = [Card]()
+        for _ in 0..<number {
+            guard let card = removeOne() else {
+                return nil
+            }
+            pikedCards.append(card)
+        }
+        return pikedCards
+    }
+
+    private func makeCards() -> [Card] {
+        var cards = [Card]()
+        for suit in Card.Suit.allTypes {
+            for rank in Card.Rank.allTypes {
+                cards.append(Card(suit: suit, rank: rank))
+            }
+        }
+        return cards
+    }
+
 }
