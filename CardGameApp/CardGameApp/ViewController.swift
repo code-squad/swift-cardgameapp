@@ -14,15 +14,13 @@ class ViewController: UIViewController {
         let image = UIImage(named: "card-back")
         for i in 0...6 {
             imageViews.append(UIImageView(image: image!))
-            imageViews[i].translatesAutoresizingMaskIntoConstraints = false
-            imageViews[i].heightAnchor.constraint(equalTo: imageViews[i].widthAnchor, multiplier: 1.27).isActive = true
+            makeCardViewPosition(view: &imageViews[i])
         }
         return imageViews
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         makeBackGroundImage()
         allocateCardImageViews()
     }
@@ -35,17 +33,27 @@ class ViewController: UIViewController {
     }
 
     private func allocateCardImageViews() {
-        let stackView = UIStackView()
+        var stackView = UIStackView()
         stackView.axis = .horizontal
         for i in 0...6 {
             stackView.addArrangedSubview(cardImageViews[i])
         }
         stackView.distribution = .fillEqually
+        stackView.spacing = 2
         view.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        makeStackViewPosition(view: &stackView)
+    }
+
+    private func makeStackViewPosition(view: inout UIStackView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+    }
+
+    private func makeCardViewPosition(view: inout UIImageView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.27).isActive = true
     }
 
 }
