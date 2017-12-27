@@ -24,12 +24,14 @@ class ViewController: UIViewController {
     }()
 
     lazy var backCardImageView: UIImageView = { [unowned self] in
-        let image = makeRandomCardImages(1).first
-        return UIImageView(image: image!)
+        let card = try? pickCards(number: 1)
+        let image = card![0].makeBackImage()
+        return UIImageView(image: image)
     }()
 
     lazy var cardImageViews: [UIImageView] = { [unowned self] in
-        return makeRandomCardImageViews()
+        let cards = try? pickCards(number: 7)
+        return makeRandomCardImageViews(cards: cards!)
     }()
 
     // MARK: Override...
@@ -42,9 +44,14 @@ class ViewController: UIViewController {
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            cardImageViews.forEach {$0.removeFromSuperview()}
-            cardImageViews = makeRandomCardImageViews()
-            setCardViewLayout()
+            do {
+                let cards = try pickCards(number: 7)
+                cardImageViews.forEach {$0.removeFromSuperview()}
+                cardImageViews = makeRandomCardImageViews(cards: cards)
+                setCardViewLayout()
+            } catch let error {
+                showAlert(message: error.localizedDescription)
+            }
         }
     }
 
@@ -57,28 +64,25 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.init(patternImage: patternImage)
     }
 
-    private func pickCards(number: Int) -> [Card] {
+    private func pickCards(number: Int) throws -> [Card] {
         cardDeck.shuffle()
         do {
             let cards = try cardDeck.pickCards(number: number)
             return cards
         } catch let error {
-            showAlert(message: error.localizedDescription)
+            throw error
         }
-        return []
     }
 
-    private func makeRandomCardImages(_ number: Int) -> [UIImage] {
-        let cards = pickCards(number: number)
-        if number == 1 { return [(cards[0].makeBackImage())] }
+    private func makeRandomCardImages(_ cards: [Card]) -> [UIImage] {
         var images = [UIImage]()
         cards.forEach { images.append($0.makeImage()) }
         return images
     }
 
-    private func makeRandomCardImageViews() -> [UIImageView] {
+    private func makeRandomCardImageViews(cards: [Card]) -> [UIImageView] {
         var imageViews = [UIImageView]()
-        let images = makeRandomCardImages(7)
+        let images = makeRandomCardImages(cards)
         images.forEach {imageViews.append(UIImageView(image: $0))}
         return imageViews
     }
