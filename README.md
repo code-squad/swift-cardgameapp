@@ -13,3 +13,11 @@
 
 ![Alt text](CardGameApp/images/screenshot-step1.jpeg)
 
+
+
+### step-2
+
+#### 실행화면
+
+![Alt text](CardGameApp/images/screenshot_step2.jpeg)
+
