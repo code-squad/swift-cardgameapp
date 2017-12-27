@@ -52,32 +52,29 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.init(patternImage: patternImage)
     }
 
-    func pickCards(number: Int) -> [Card]? {
+    private func pickCards(number: Int) -> [Card]? {
         cardDeck.shuffle()
         let cards = cardDeck.pickCards(number: number)
         return cards
     }
 
-    func makeRandomCardImages(_ number: Int) -> [UIImage] {
+    private func makeRandomCardImages(_ number: Int) -> [UIImage] {
         guard let cards = pickCards(number: number) else {
             return []
         }
-        if number == 1 { return [(cards.first?.makeBackImage())!] }
+        if number == 1 { return [(cards[0].makeBackImage())!] }
         var images = [UIImage]()
         cards.forEach { images.append($0.makeImage()!) }
         return images
     }
 
-    func setUIViewLayout() {
+    private func setUIViewLayout() {
         emptyViews.forEach { $0.setLatio() }
         backCardImageView.setLatio()
         cardImageViews.forEach { $0.setLatio() }
 
-        let frontStackVeiw = UIStackView()
-        frontStackVeiw.axis = .horizontal
-        emptyViews.forEach { frontStackVeiw.addArrangedSubview($0) }
-        frontStackVeiw.distribution = .fillEqually
-        frontStackVeiw.spacing = 2
+        var frontStackVeiw = UIStackView()
+        makeGridViews(stackview: &frontStackVeiw, contentsview: &emptyViews)
         view.addSubview(frontStackVeiw)
         frontStackVeiw.setAutolayout()
         frontStackVeiw.top(equal: view.safeAreaLayoutGuide.topAnchor)
@@ -88,14 +85,11 @@ class ViewController: UIViewController {
         backCardImageView.top(equal: view.safeAreaLayoutGuide.topAnchor)
         backCardImageView.trailing(equal: view.trailingAnchor)
 
-        let backStackVeiw = UIStackView()
-        backStackVeiw.axis = .horizontal
-        cardImageViews.forEach { backStackVeiw.addArrangedSubview($0) }
-        backStackVeiw.distribution = .fillEqually
-        backStackVeiw.spacing = 2
+        var backStackVeiw = UIStackView()
+        makeGridViews(stackview: &backStackVeiw, contentsview: &cardImageViews)
         view.addSubview(backStackVeiw)
         backStackVeiw.setAutolayout()
-        backStackVeiw.top(equal: frontStackVeiw.bottomAnchor, constant: 2)
+        backStackVeiw.top(equal: frontStackVeiw.bottomAnchor, constant: 10)
         backStackVeiw.leading(equal: view.leadingAnchor)
         backStackVeiw.trailing(equal: view.trailingAnchor)
 
@@ -103,6 +97,12 @@ class ViewController: UIViewController {
         backCardImageView.leading(equal: cardImageViews[6].leadingAnchor)
     }
 
+    private func makeGridViews<T>(stackview: inout UIStackView, contentsview: inout [T]) {
+        stackview.axis = .horizontal
+        contentsview.forEach { stackview.addArrangedSubview(($0 as? UIView)!) }
+        stackview.distribution = .fillEqually
+        stackview.spacing = 2
+    }
 }
 
 protocol CardViewLayoutProtocol {
