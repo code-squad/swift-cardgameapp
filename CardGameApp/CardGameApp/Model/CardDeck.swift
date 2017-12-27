@@ -43,6 +43,7 @@ struct CardDeck {
         cards = makeCards()
     }
 
+    // 카드를 꺼낸다
     mutating func pickCards(number: Int) -> [Card]? {
         if self.count() < number { return nil }
         var pikedCards = [Card]()
