@@ -89,7 +89,7 @@ class ViewController: UIViewController {
     private func setEmptyViewLayout() {
         for i in 0..<emptyViews.count {
             self.view.addSubview(emptyViews[i])
-            emptyViews[i].setLatio()
+            emptyViews[i].setRatio()
             emptyViews[i].top(equal: self.view)
             if i==0 {
                 emptyViews[i].leading(equal: self.view.leadingAnchor, constant: 3)
@@ -103,7 +103,7 @@ class ViewController: UIViewController {
     private func setCardViewLayout() {
         for i in 0..<cardImageViews.count {
             self.view.addSubview(cardImageViews[i])
-            cardImageViews[i].setLatio()
+            cardImageViews[i].setRatio()
             cardImageViews[i].top(equal: self.view, constant: 100)
             if i==0 {
                 cardImageViews[i].leading(equal: self.view.leadingAnchor, constant: 3)
@@ -116,7 +116,7 @@ class ViewController: UIViewController {
 
     private func setBackCardViewLayout() {
         self.view.addSubview(backCardImageView)
-        backCardImageView.setLatio()
+        backCardImageView.setRatio()
         backCardImageView.top(equal: self.view)
         backCardImageView.trailing(equal: self.view.trailingAnchor, constant: -3)
         backCardImageView.width(constant: 55)
@@ -125,11 +125,11 @@ class ViewController: UIViewController {
 }
 
 protocol CardViewLayoutProtocol {
-    func setLatio()
+    func setRatio()
 }
 
 extension UIView: CardViewLayoutProtocol {
-    func setLatio() {
+    func setRatio() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.27).isActive = true
     }
