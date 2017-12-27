@@ -73,35 +73,45 @@ class ViewController: UIViewController {
     }
 
     private func setUIViewLayout() {
+        setEmptyViewLayout()
+        setBackCardViewLayout()
+        setCardViewLayout()
+    }
+
+    private func setEmptyViewLayout() {
         for i in 0..<emptyViews.count {
             self.view.addSubview(emptyViews[i])
             emptyViews[i].setLatio()
-            emptyViews[i].top(equal: self.view.safeAreaLayoutGuide.topAnchor)
+            emptyViews[i].top(equal: self.view)
             if i==0 {
                 emptyViews[i].leading(equal: self.view.leadingAnchor, constant: 3)
             } else {
                 emptyViews[i].leading(equal: emptyViews[i-1].trailingAnchor, constant: 3)
             }
-            emptyViews[i].widthAnchor.constraint(equalToConstant: 55).isActive = true
+            emptyViews[i].width(constant: 55)
         }
+    }
 
-        self.view.addSubview(backCardImageView)
-        backCardImageView.setLatio()
-        backCardImageView.top(equal: self.view.safeAreaLayoutGuide.topAnchor)
-        backCardImageView.trailing(equal: self.view.trailingAnchor, constant: -3)
-        backCardImageView.widthAnchor.constraint(equalToConstant: 55).isActive = true
-
+    private func setCardViewLayout() {
         for i in 0..<cardImageViews.count {
             self.view.addSubview(cardImageViews[i])
             cardImageViews[i].setLatio()
-            cardImageViews[i].top(equal: self.view.safeAreaLayoutGuide.topAnchor, constant: 100)
+            cardImageViews[i].top(equal: self.view, constant: 100)
             if i==0 {
                 cardImageViews[i].leading(equal: self.view.leadingAnchor, constant: 3)
             } else {
                 cardImageViews[i].leading(equal: cardImageViews[i-1].trailingAnchor, constant: 3)
             }
-            cardImageViews[i].widthAnchor.constraint(equalToConstant: 55).isActive = true
+            cardImageViews[i].width(constant: 55)
         }
+    }
+
+    private func setBackCardViewLayout() {
+        self.view.addSubview(backCardImageView)
+        backCardImageView.setLatio()
+        backCardImageView.top(equal: self.view)
+        backCardImageView.trailing(equal: self.view.trailingAnchor, constant: -3)
+        backCardImageView.width(constant: 55)
     }
 
 }
@@ -122,12 +132,8 @@ extension UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    func top(equal: NSLayoutYAxisAnchor, constant: CGFloat = 0) {
-        self.topAnchor.constraint(equalTo: equal, constant: constant).isActive = true
-    }
-
-    func bottom(equal: NSLayoutYAxisAnchor, constant: CGFloat = 0) {
-        self.bottomAnchor.constraint(equalTo: equal, constant: constant).isActive = true
+    func top(equal: UIView, constant: CGFloat = 0) {
+        self.topAnchor.constraint(equalTo: equal.safeAreaLayoutGuide.topAnchor, constant: constant).isActive = true
     }
 
     func leading(equal: NSLayoutXAxisAnchor, constant: CGFloat = 0) {
@@ -136,5 +142,9 @@ extension UIView {
 
     func trailing(equal: NSLayoutXAxisAnchor, constant: CGFloat = 0) {
         self.trailingAnchor.constraint(equalTo: equal, constant: constant).isActive = true
+    }
+
+    func width(constant: CGFloat) {
+        self.widthAnchor.constraint(equalToConstant: constant).isActive = true
     }
 }
