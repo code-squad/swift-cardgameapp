@@ -40,6 +40,14 @@ class ViewController: UIViewController {
         setUIViewLayout()
     }
 
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            cardImageViews.forEach {$0.removeFromSuperview()}
+            cardImageViews = makeRandomCardImageViews()
+            setCardViewLayout()
+        }
+    }
+
     // MARK: Methods...
 
     private func makeBackGroundImage() {
