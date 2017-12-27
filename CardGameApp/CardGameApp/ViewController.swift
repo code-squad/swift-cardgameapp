@@ -57,19 +57,22 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.init(patternImage: patternImage)
     }
 
-    private func pickCards(number: Int) -> [Card]? {
+    private func pickCards(number: Int) -> [Card] {
         cardDeck.shuffle()
-        let cards = cardDeck.pickCards(number: number)
-        return cards
+        do {
+            let cards = try cardDeck.pickCards(number: number)
+            return cards
+        } catch let error {
+            showAlert(message: error.localizedDescription)
+        }
+        return []
     }
 
     private func makeRandomCardImages(_ number: Int) -> [UIImage] {
-        guard let cards = pickCards(number: number) else {
-            return []
-        }
-        if number == 1 { return [(cards[0].makeBackImage())!] }
+        let cards = pickCards(number: number)
+        if number == 1 { return [(cards[0].makeBackImage())] }
         var images = [UIImage]()
-        cards.forEach { images.append($0.makeImage()!) }
+        cards.forEach { images.append($0.makeImage()) }
         return images
     }
 
@@ -120,6 +123,19 @@ class ViewController: UIViewController {
         backCardImageView.top(equal: self.view)
         backCardImageView.trailing(equal: self.view.trailingAnchor, constant: -3)
         backCardImageView.width(constant: 55)
+    }
+
+    private func showAlert(title: String = "잠깐!", message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction: UIAlertAction = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: { (action: UIAlertAction) in
+                alert.dismiss(animated: true, completion: nil)
+
+        })
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
 
 }

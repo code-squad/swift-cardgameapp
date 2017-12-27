@@ -51,13 +51,19 @@ class Card {
         self.rank = rank
     }
 
-    func makeImage() -> UIImage? {
+    func makeImage() -> UIImage {
         let name = (suit.value + rank.value)
-        return UIImage(named: name)
+        if let image = UIImage(named: name) {
+            return image
+        }
+        return UIImage()
     }
 
-    func makeBackImage() -> UIImage? {
-        return UIImage(named: "card-back")
+    func makeBackImage() -> UIImage {
+        if let image = UIImage(named: "card-back") {
+            return image
+        }
+        return UIImage()
     }
 }
 
@@ -66,6 +72,7 @@ extension Card: Equatable {
         return lhs.rank == rhs.rank && lhs.suit == rhs.suit
     }
 }
+
 
 protocol EnumCollection: Hashable {}
 extension EnumCollection {

@@ -44,11 +44,14 @@ struct CardDeck {
     }
 
     // 카드를 꺼낸다
-    mutating func pickCards(number: Int) -> [Card]? {
-        if self.count() < number { return nil }
+    mutating func pickCards(number: Int) throws -> [Card] {
         var pikedCards = [Card]()
         for _ in 0..<number {
-            pikedCards.append(removeOne()!)
+            guard let remove = removeOne() else {
+                throw CardGameError.emptyCard
+            }
+            pikedCards.append(remove)
+
         }
         return pikedCards
     }
