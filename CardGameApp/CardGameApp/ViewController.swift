@@ -29,10 +29,7 @@ class ViewController: UIViewController {
     }()
 
     lazy var cardImageViews: [UIImageView] = { [unowned self] in
-        var imageViews = [UIImageView]()
-        let images = makeRandomCardImages(7)
-        images.forEach {imageViews.append(UIImageView(image: $0))}
-        return imageViews
+        return makeRandomCardImageViews()
     }()
 
     // MARK: Override...
@@ -68,41 +65,45 @@ class ViewController: UIViewController {
         return images
     }
 
+    private func makeRandomCardImageViews() -> [UIImageView] {
+        var imageViews = [UIImageView]()
+        let images = makeRandomCardImages(7)
+        images.forEach {imageViews.append(UIImageView(image: $0))}
+        return imageViews
+    }
+
     private func setUIViewLayout() {
-        emptyViews.forEach { $0.setLatio() }
+        for i in 0..<emptyViews.count {
+            self.view.addSubview(emptyViews[i])
+            emptyViews[i].setLatio()
+            emptyViews[i].top(equal: self.view.safeAreaLayoutGuide.topAnchor)
+            if i==0 {
+                emptyViews[i].leading(equal: self.view.leadingAnchor, constant: 3)
+            } else {
+                emptyViews[i].leading(equal: emptyViews[i-1].trailingAnchor, constant: 3)
+            }
+            emptyViews[i].widthAnchor.constraint(equalToConstant: 55).isActive = true
+        }
+
+        self.view.addSubview(backCardImageView)
         backCardImageView.setLatio()
-        cardImageViews.forEach { $0.setLatio() }
+        backCardImageView.top(equal: self.view.safeAreaLayoutGuide.topAnchor)
+        backCardImageView.trailing(equal: self.view.trailingAnchor, constant: -3)
+        backCardImageView.widthAnchor.constraint(equalToConstant: 55).isActive = true
 
-        var frontStackVeiw = UIStackView()
-        makeGridViews(stackview: &frontStackVeiw, contentsview: &emptyViews)
-        view.addSubview(frontStackVeiw)
-        frontStackVeiw.setAutolayout()
-        frontStackVeiw.top(equal: view.safeAreaLayoutGuide.topAnchor)
-        frontStackVeiw.leading(equal: view.leadingAnchor)
-
-        view.addSubview(backCardImageView)
-        backCardImageView.setAutolayout()
-        backCardImageView.top(equal: view.safeAreaLayoutGuide.topAnchor)
-        backCardImageView.trailing(equal: view.trailingAnchor)
-
-        var backStackVeiw = UIStackView()
-        makeGridViews(stackview: &backStackVeiw, contentsview: &cardImageViews)
-        view.addSubview(backStackVeiw)
-        backStackVeiw.setAutolayout()
-        backStackVeiw.top(equal: frontStackVeiw.bottomAnchor, constant: 10)
-        backStackVeiw.leading(equal: view.leadingAnchor)
-        backStackVeiw.trailing(equal: view.trailingAnchor)
-
-        frontStackVeiw.trailing(equal: cardImageViews[3].trailingAnchor)
-        backCardImageView.leading(equal: cardImageViews[6].leadingAnchor)
+        for i in 0..<cardImageViews.count {
+            self.view.addSubview(cardImageViews[i])
+            cardImageViews[i].setLatio()
+            cardImageViews[i].top(equal: self.view.safeAreaLayoutGuide.topAnchor, constant: 100)
+            if i==0 {
+                cardImageViews[i].leading(equal: self.view.leadingAnchor, constant: 3)
+            } else {
+                cardImageViews[i].leading(equal: cardImageViews[i-1].trailingAnchor, constant: 3)
+            }
+            cardImageViews[i].widthAnchor.constraint(equalToConstant: 55).isActive = true
+        }
     }
 
-    private func makeGridViews<T>(stackview: inout UIStackView, contentsview: inout [T]) {
-        stackview.axis = .horizontal
-        contentsview.forEach { stackview.addArrangedSubview(($0 as? UIView)!) }
-        stackview.distribution = .fillEqually
-        stackview.spacing = 2
-    }
 }
 
 protocol CardViewLayoutProtocol {
