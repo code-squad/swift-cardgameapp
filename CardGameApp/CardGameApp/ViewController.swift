@@ -25,13 +25,15 @@ class ViewController: UIViewController {
 
     lazy var backCardImageView: UIImageView = { [unowned self] in
         let card = try? pickCards(number: 1)
-        let image = card![0].makeBackImage()
+        let image = card?.first?.makeBackImage()
         return UIImageView(image: image)
     }()
 
     lazy var cardImageViews: [UIImageView] = { [unowned self] in
-        let cards = try? pickCards(number: 7)
-        return makeRandomCardImageViews(cards: cards!)
+        guard let cards = try? pickCards(number: 7) else {
+            return []
+        }
+        return makeRandomCardImageViews(cards: cards)
     }()
 
     // MARK: Override...
