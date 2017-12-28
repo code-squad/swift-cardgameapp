@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.init(patternImage: patternImage)
     }
 
-    // 카드 스텍 초기화
+    // 카드 스택 초기화
     private func makeCardStack() {
         // 카드를 섞는다.
         cardDeck.shuffle()
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
             guard let cards = try? cardDeck.pickCards(number: i) else {
                 continue
             }
-            // i 개의 카드를 카드스텍에 푸시한다.
+            // i 개의 카드를 카드 스택에 푸시한다.
             for j in 1...i {
                 cardStacks[i-1].push(card: cards[j-1])
             }
@@ -194,5 +194,9 @@ extension UIView {
 
     func width(constant: CGFloat) {
         self.widthAnchor.constraint(equalToConstant: constant).isActive = true
+    }
+
+    func height(constant: CGFloat) {
+        self.heightAnchor.constraint(equalToConstant: constant).isActive = true
     }
 }

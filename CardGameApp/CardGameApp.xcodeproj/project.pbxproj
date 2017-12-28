@@ -22,6 +22,7 @@
 		C982F6E51FF143C200B2AC34 /* CardDeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6E41FF143C200B2AC34 /* CardDeckTest.swift */; };
 		C9EB73821FF387D400CDBB1E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73811FF387D400CDBB1E /* Error.swift */; };
 		C9EB73841FF4BAFC00CDBB1E /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */; };
+		C9EB73C31FF4CF2A00CDBB1E /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73C21FF4CF2A00CDBB1E /* CardStackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		C982F6E41FF143C200B2AC34 /* CardDeckTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckTest.swift; sourceTree = "<group>"; };
 		C9EB73811FF387D400CDBB1E /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
+		C9EB73C21FF4CF2A00CDBB1E /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		CE1D9B377DF587A0FB4CDA90 /* Pods-CardGameAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		F2188B0007DB4D2FE0A6C1CF /* Pods-CardGameApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameApp/Pods-CardGameApp.release.xcconfig"; sourceTree = "<group>"; };
 		F64A860C67A7D39A3579BC59 /* Pods-CardGameApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameApp/Pods-CardGameApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		C982F6B71FEBB15000B2AC34 /* CardGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				C9EB73C11FF4CF0200CDBB1E /* View */,
 				C982F6D91FED008200B2AC34 /* Model */,
 				C982F6B81FEBB15000B2AC34 /* AppDelegate.swift */,
 				C982F6BA1FEBB15000B2AC34 /* ViewController.swift */,
@@ -153,6 +156,14 @@
 				C9EB73811FF387D400CDBB1E /* Error.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C9EB73C11FF4CF0200CDBB1E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C9EB73C21FF4CF2A00CDBB1E /* CardStackView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -378,6 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C982F6BB1FEBB15000B2AC34 /* ViewController.swift in Sources */,
+				C9EB73C31FF4CF2A00CDBB1E /* CardStackView.swift in Sources */,
 				C982F6E11FEEBE5C00B2AC34 /* Card.swift in Sources */,
 				C9EB73841FF4BAFC00CDBB1E /* CardStack.swift in Sources */,
 				C982F6E31FEECE8200B2AC34 /* CardDeck.swift in Sources */,

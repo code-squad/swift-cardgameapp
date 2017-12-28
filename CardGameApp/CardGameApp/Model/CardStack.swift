@@ -9,7 +9,7 @@
 import Foundation
 
 struct CardStack {
-    var cards = [Card]()
+    private var cards = [Card]()
 
     var isEmpty: Bool {
         return cards.isEmpty
