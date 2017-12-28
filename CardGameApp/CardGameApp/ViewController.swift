@@ -24,15 +24,16 @@ class ViewController: UIViewController {
     }()
 
     lazy var backCardImageView: UIImageView = { [unowned self] in
-        let image = makeRandomCardImages(1).first
-        return UIImageView(image: image!)
+        let card = try? pickCards(number: 1)
+        let image = card?.first?.makeBackImage()
+        return UIImageView(image: image)
     }()
 
     lazy var cardImageViews: [UIImageView] = { [unowned self] in
-        var imageViews = [UIImageView]()
-        let images = makeRandomCardImages(7)
-        images.forEach {imageViews.append(UIImageView(image: $0))}
-        return imageViews
+        guard let cards = try? pickCards(number: 7) else {
+            return []
+        }
+        return makeRandomCardImageViews(cards: cards)
     }()
 
     // MARK: Override...
@@ -41,6 +42,19 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         makeBackGroundImage()
         setUIViewLayout()
+    }
+
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            do {
+                let cards = try pickCards(number: 7)
+                cardImageViews.forEach {$0.removeFromSuperview()}
+                cardImageViews = makeRandomCardImageViews(cards: cards)
+                setCardViewLayout()
+            } catch let error {
+                showAlert(message: error.localizedDescription)
+            }
+        }
     }
 
     // MARK: Methods...
@@ -52,65 +66,92 @@ class ViewController: UIViewController {
         view.backgroundColor = UIColor.init(patternImage: patternImage)
     }
 
-    private func pickCards(number: Int) -> [Card]? {
+    private func pickCards(number: Int) throws -> [Card] {
         cardDeck.shuffle()
-        let cards = cardDeck.pickCards(number: number)
-        return cards
+        do {
+            let cards = try cardDeck.pickCards(number: number)
+            return cards
+        } catch let error {
+            throw error
+        }
     }
 
-    private func makeRandomCardImages(_ number: Int) -> [UIImage] {
-        guard let cards = pickCards(number: number) else {
-            return []
-        }
-        if number == 1 { return [(cards[0].makeBackImage())!] }
+    private func makeRandomCardImages(_ cards: [Card]) -> [UIImage] {
         var images = [UIImage]()
-        cards.forEach { images.append($0.makeImage()!) }
+        cards.forEach { images.append($0.makeImage()) }
         return images
     }
 
+    private func makeRandomCardImageViews(cards: [Card]) -> [UIImageView] {
+        var imageViews = [UIImageView]()
+        let images = makeRandomCardImages(cards)
+        images.forEach {imageViews.append(UIImageView(image: $0))}
+        return imageViews
+    }
+
     private func setUIViewLayout() {
-        emptyViews.forEach { $0.setLatio() }
-        backCardImageView.setLatio()
-        cardImageViews.forEach { $0.setLatio() }
-
-        var frontStackVeiw = UIStackView()
-        makeGridViews(stackview: &frontStackVeiw, contentsview: &emptyViews)
-        view.addSubview(frontStackVeiw)
-        frontStackVeiw.setAutolayout()
-        frontStackVeiw.top(equal: view.safeAreaLayoutGuide.topAnchor)
-        frontStackVeiw.leading(equal: view.leadingAnchor)
-
-        view.addSubview(backCardImageView)
-        backCardImageView.setAutolayout()
-        backCardImageView.top(equal: view.safeAreaLayoutGuide.topAnchor)
-        backCardImageView.trailing(equal: view.trailingAnchor)
-
-        var backStackVeiw = UIStackView()
-        makeGridViews(stackview: &backStackVeiw, contentsview: &cardImageViews)
-        view.addSubview(backStackVeiw)
-        backStackVeiw.setAutolayout()
-        backStackVeiw.top(equal: frontStackVeiw.bottomAnchor, constant: 10)
-        backStackVeiw.leading(equal: view.leadingAnchor)
-        backStackVeiw.trailing(equal: view.trailingAnchor)
-
-        frontStackVeiw.trailing(equal: cardImageViews[3].trailingAnchor)
-        backCardImageView.leading(equal: cardImageViews[6].leadingAnchor)
+        setEmptyViewLayout()
+        setBackCardViewLayout()
+        setCardViewLayout()
     }
 
-    private func makeGridViews<T>(stackview: inout UIStackView, contentsview: inout [T]) {
-        stackview.axis = .horizontal
-        contentsview.forEach { stackview.addArrangedSubview(($0 as? UIView)!) }
-        stackview.distribution = .fillEqually
-        stackview.spacing = 2
+    private func setEmptyViewLayout() {
+        for i in 0..<emptyViews.count {
+            self.view.addSubview(emptyViews[i])
+            emptyViews[i].setRatio()
+            emptyViews[i].top(equal: self.view)
+            if i==0 {
+                emptyViews[i].leading(equal: self.view.leadingAnchor, constant: 3)
+            } else {
+                emptyViews[i].leading(equal: emptyViews[i-1].trailingAnchor, constant: 3)
+            }
+            emptyViews[i].width(constant: 55)
+        }
     }
+
+    private func setCardViewLayout() {
+        for i in 0..<cardImageViews.count {
+            self.view.addSubview(cardImageViews[i])
+            cardImageViews[i].setRatio()
+            cardImageViews[i].top(equal: self.view, constant: 100)
+            if i==0 {
+                cardImageViews[i].leading(equal: self.view.leadingAnchor, constant: 3)
+            } else {
+                cardImageViews[i].leading(equal: cardImageViews[i-1].trailingAnchor, constant: 3)
+            }
+            cardImageViews[i].width(constant: 55)
+        }
+    }
+
+    private func setBackCardViewLayout() {
+        self.view.addSubview(backCardImageView)
+        backCardImageView.setRatio()
+        backCardImageView.top(equal: self.view)
+        backCardImageView.trailing(equal: self.view.trailingAnchor, constant: -3)
+        backCardImageView.width(constant: 55)
+    }
+
+    private func showAlert(title: String = "잠깐!", message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction: UIAlertAction = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: { (action: UIAlertAction) in
+                alert.dismiss(animated: true, completion: nil)
+
+        })
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+
 }
 
 protocol CardViewLayoutProtocol {
-    func setLatio()
+    func setRatio()
 }
 
 extension UIView: CardViewLayoutProtocol {
-    func setLatio() {
+    func setRatio() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.27).isActive = true
     }
@@ -121,12 +162,8 @@ extension UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 
-    func top(equal: NSLayoutYAxisAnchor, constant: CGFloat = 0) {
-        self.topAnchor.constraint(equalTo: equal, constant: constant).isActive = true
-    }
-
-    func bottom(equal: NSLayoutYAxisAnchor, constant: CGFloat = 0) {
-        self.bottomAnchor.constraint(equalTo: equal, constant: constant).isActive = true
+    func top(equal: UIView, constant: CGFloat = 0) {
+        self.topAnchor.constraint(equalTo: equal.safeAreaLayoutGuide.topAnchor, constant: constant).isActive = true
     }
 
     func leading(equal: NSLayoutXAxisAnchor, constant: CGFloat = 0) {
@@ -135,5 +172,9 @@ extension UIView {
 
     func trailing(equal: NSLayoutXAxisAnchor, constant: CGFloat = 0) {
         self.trailingAnchor.constraint(equalTo: equal, constant: constant).isActive = true
+    }
+
+    func width(constant: CGFloat) {
+        self.widthAnchor.constraint(equalToConstant: constant).isActive = true
     }
 }
