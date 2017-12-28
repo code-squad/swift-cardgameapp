@@ -12,6 +12,8 @@ class ViewController: UIViewController {
 
     // MARK: Properties...
     var cardDeck = CardDeck()
+    var cardStacks: [CardStack] = []
+
     lazy var emptyViews: [UIView] = { [unowned self] in
         var views = [UIView]()
         for _ in 0...3 {
@@ -64,6 +66,22 @@ class ViewController: UIViewController {
             return
         }
         view.backgroundColor = UIColor.init(patternImage: patternImage)
+    }
+
+    // 카드 스텍 초기화
+    private func makeCardStack() {
+        // 카드를 섞는다.
+        cardDeck.shuffle()
+        for i in 1...7 {
+            // 카드를 i개 뽑는다.
+            guard let cards = try? cardDeck.pickCards(number: i) else {
+                continue
+            }
+            // i 개의 카드를 카드스텍에 푸시한다.
+            for j in 1...i {
+                cardStacks[i-1].push(card: cards[j-1])
+            }
+        }
     }
 
     private func pickCards(number: Int) throws -> [Card] {

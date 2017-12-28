@@ -23,7 +23,6 @@ struct CardStack {
         return cards.last
     }
 
-
     mutating func push(card: Card) {
         cards.append(card)
     }
@@ -31,7 +30,4 @@ struct CardStack {
     mutating func pop() -> Card? {
         return cards.popLast()
     }
-
-
-
 }
