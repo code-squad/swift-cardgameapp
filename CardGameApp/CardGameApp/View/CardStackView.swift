@@ -8,50 +8,40 @@
 
 import UIKit
 
-class CardStackView: UIStackView {
+class CardStackView {
     var cardStack: CardStack? {
-        willSet(newValue) {
-            makeCardStackView(newValue)
+        willSet(newStack) {
+            makeCardStackImageView(newStack)
         }
     }
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
+    var cardStackImageViews: [UIImageView] = [UIImageView]()
 
-    required init(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-
+    init() {}
     deinit {
         cardStack = nil
     }
 }
 
-// Settings
 extension CardStackView {
     func setCardStack(_ cardStack: CardStack) {
         self.cardStack = cardStack
     }
 
-    private func makeCardStackView(_ cardStack: CardStack?) {
-        guard var cardStack = cardStack else { return }
-        self.setAutolayout()
-        self.axis = .vertical
-        while cardStack.count > 1 {
-            guard let card = cardStack.pop() else { break }
-            let backCardView = makeImageView(card.makeBackImage())
-            self.addArrangedSubview(backCardView)
+    func makeCardStackImageView(_ cardStack: CardStack?) {
+        var imageViews = [UIImageView]()
+        guard var stack = cardStack else {
+            return
         }
-        guard let lastCard = cardStack.pop() else { return }
-        let lastCardView = makeImageView(lastCard.makeImage())
-        self.addArrangedSubview(lastCardView)
-        self.distribution = .fillEqually
+        while stack.count > 1 {
+            guard let card = stack.pop() else {
+                break
+            }
+            imageViews.append(UIImageView(image: card.makeBackImage()))
+        }
+        guard let card = stack.pop() else {
+            return
+        }
+        imageViews.append(UIImageView(image: card.makeImage()))
+        cardStackImageViews = imageViews
     }
-
-    private func makeImageView(_ image: UIImage) -> UIImageView {
-        let cardView = UIImageView(image: image)
-        cardView.contentMode = .scaleAspectFill
-        return cardView
-    }
-
 }

@@ -10,12 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    // MARK: Properties...
+    // MARK: Object Properties
+
     var cardDeck = CardDeck()
+    var remainShowCards = [Card]()
+    lazy var remainBackCards: [Card] = { [unowned self] in
+        return cardDeck.cards
+    }()
+
     lazy var cardStacks: [CardStack] = { [unowned self] in
         return makeCardStack()
     }()
 
+    // MARK: View Properties
+
+    // 상단 비어 있는 뷰
     lazy var emptyViews: [UIView] = { [unowned self] in
         var views = [UIView]()
         for _ in 0...3 {
@@ -27,12 +36,26 @@ class ViewController: UIViewController {
         return views
     }()
 
-    lazy var backCardImageView: UIImageView = { [unowned self] in
-        let card = try? pickCards(number: 1)
-        let image = card?.first?.makeBackImage()
-        return UIImageView(image: image)
+    // 상단 맨 오른쪽 남은 카드들
+    lazy var remainBackCardsView: UIView = { [unowned self] in
+        var view = UIView()
+        let tap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(self.remainCardsViewDidTap(_:))
+        )
+        view.addGestureRecognizer(tap)
+        view.isUserInteractionEnabled = true
+        return view
     }()
 
+    lazy var remainShowCardsView = UIView()
+//    lazy var backCardImageView: UIImageView = { [unowned self] in
+//        let card = try? pickCards(number: 1)
+//        let image = card?.first?.makeBackImage()
+//        return UIImageView(image: image)
+//    }()
+
+    // 카드 스택이 들어 있는 뷰
     lazy var cardStackViews: [CardStackView] = { [unowned self] in
         var cardStackViews = [CardStackView]()
         cardStacks.forEach { (cardStack: CardStack) in
@@ -69,6 +92,11 @@ class ViewController: UIViewController {
                 showAlert(message: error.localizedDescription)
             }
         }
+    }
+
+    // MARK: Events...
+    @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {
+        print("remainCardsViewDidTap")
     }
 
     // MARK: Methods...
@@ -125,7 +153,7 @@ class ViewController: UIViewController {
 
     private func setUIViewLayout() {
         setEmptyViewLayout()
-        setBackCardViewLayout()
+        setRemainBackCardsViewLayout()
         setCardStackViewLayout()
     }
 
@@ -146,26 +174,30 @@ class ViewController: UIViewController {
     private func setCardStackViewLayout() {
         let widthOfCard = (self.view.frame.width - 24) / 7
         for i in 0..<cardStackViews.count {
-            self.view.addSubview(cardStackViews[i])
-            let ratioOfCardToView = CGFloat( 0.05 * Double(i) )
-            cardStackViews[i].top(equal: self.view, constant: 150)
-            if i==0 {
-                cardStackViews[i].leading(equal: self.view.leadingAnchor, constant: 3)
-            } else {
-                cardStackViews[i].leading(equal: cardStackViews[i-1].trailingAnchor, constant: 3)
+            // horizontal
+            for j in 0..<cardStackViews[i].cardStackImageViews.count {
+                // vertical
+                view.addSubview(cardStackViews[i].cardStackImageViews[j])
+                cardStackViews[i].cardStackImageViews[j].setRatio()
+                cardStackViews[i].cardStackImageViews[j].top(equal: view, constant: 100 + CGFloat(j) * 30)
+                if i==0 {
+                     cardStackViews[i].cardStackImageViews[j].leading(equal: view.leadingAnchor, constant: 3)
+                } else {
+                    cardStackViews[i].cardStackImageViews[j].leading(
+                        equal: cardStackViews[i-1].cardStackImageViews[0].trailingAnchor,
+                        constant: 3)
+                }
+                cardStackViews[i].cardStackImageViews[j].width(constant: widthOfCard)
             }
-            cardStackViews[i].width(constant: widthOfCard)
-
-            cardStackViews[i].height(equal: self.view, multiplier: ratioOfCardToView)
         }
     }
 
-    private func setBackCardViewLayout() {
-        self.view.addSubview(backCardImageView)
-        backCardImageView.setRatio()
-        backCardImageView.top(equal: self.view)
-        backCardImageView.trailing(equal: self.view.trailingAnchor, constant: -3)
-        backCardImageView.width(constant: 55)
+    private func setRemainBackCardsViewLayout() {
+        self.view.addSubview(remainBackCardsView)
+        remainBackCardsView.setRatio()
+        remainBackCardsView.top(equal: self.view)
+        remainBackCardsView.trailing(equal: self.view.trailingAnchor, constant: -3)
+        remainBackCardsView.width(constant: 55)
     }
 
     private func showAlert(title: String = "잠깐!", message: String) {
