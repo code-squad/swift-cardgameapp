@@ -126,8 +126,7 @@ class ViewController: UIViewController {
     private func setUIViewLayout() {
         setEmptyViewLayout()
         setBackCardViewLayout()
-        setCardViewLayout()
-        //setCardStackViewLayout()
+        setCardStackViewLayout()
     }
 
     private func setEmptyViewLayout() {
@@ -144,7 +143,7 @@ class ViewController: UIViewController {
         }
     }
 
-    private func setCardViewLayout() {
+    private func setCardStackViewLayout() {
         let widthOfCard = (self.view.frame.width - 24) / 7
         for i in 0..<cardStackViews.count {
             self.view.addSubview(cardStackViews[i])
