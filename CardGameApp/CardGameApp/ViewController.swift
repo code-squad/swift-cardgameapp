@@ -12,7 +12,9 @@ class ViewController: UIViewController {
 
     // MARK: Properties...
     var cardDeck = CardDeck()
-    var cardStacks: [CardStack] = []
+    lazy var cardStacks: [CardStack] = { [unowned self] in
+        return makeCardStack()
+    }()
 
     lazy var emptyViews: [UIView] = { [unowned self] in
         var views = [UIView]()
@@ -29,6 +31,16 @@ class ViewController: UIViewController {
         let card = try? pickCards(number: 1)
         let image = card?.first?.makeBackImage()
         return UIImageView(image: image)
+    }()
+
+    lazy var cardStackViews: [CardStackView] = { [unowned self] in
+        var cardStackViews = [CardStackView]()
+        cardStacks.forEach { (cardStack: CardStack) in
+            var cardStackView = CardStackView()
+            cardStackView.setCardStack(cardStack)
+            cardStackViews.append(cardStackView)
+        }
+        return cardStackViews
     }()
 
     lazy var cardImageViews: [UIImageView] = { [unowned self] in
@@ -52,7 +64,7 @@ class ViewController: UIViewController {
                 let cards = try pickCards(number: 7)
                 cardImageViews.forEach {$0.removeFromSuperview()}
                 cardImageViews = makeRandomCardImageViews(cards: cards)
-                setCardViewLayout()
+                //setCardViewLayout()
             } catch let error {
                 showAlert(message: error.localizedDescription)
             }
@@ -69,19 +81,23 @@ class ViewController: UIViewController {
     }
 
     // 카드 스택 초기화
-    private func makeCardStack() {
+    private func makeCardStack() -> [CardStack] {
         // 카드를 섞는다.
         cardDeck.shuffle()
+        var newCardStacks = [CardStack]()
         for i in 1...7 {
             // 카드를 i개 뽑는다.
+            var cardStack = CardStack()
             guard let cards = try? cardDeck.pickCards(number: i) else {
                 continue
             }
             // i 개의 카드를 카드 스택에 푸시한다.
             for j in 1...i {
-                cardStacks[i-1].push(card: cards[j-1])
+                cardStack.push(card: cards[j-1])
             }
+            newCardStacks.append(cardStack)
         }
+        return newCardStacks
     }
 
     private func pickCards(number: Int) throws -> [Card] {
@@ -111,6 +127,7 @@ class ViewController: UIViewController {
         setEmptyViewLayout()
         setBackCardViewLayout()
         setCardViewLayout()
+        //setCardStackViewLayout()
     }
 
     private func setEmptyViewLayout() {
@@ -128,16 +145,19 @@ class ViewController: UIViewController {
     }
 
     private func setCardViewLayout() {
-        for i in 0..<cardImageViews.count {
-            self.view.addSubview(cardImageViews[i])
-            cardImageViews[i].setRatio()
-            cardImageViews[i].top(equal: self.view, constant: 100)
+        let widthOfCard = (self.view.frame.width - 24) / stackview
+        for i in 0..<cardStackViews.count {
+            self.view.addSubview(cardStackViews[i])
+            let ratioOfCardToView = CGFloat( 0.05 * Double(i) )
+            cardStackViews[i].top(equal: self.view, constant: 150)
             if i==0 {
-                cardImageViews[i].leading(equal: self.view.leadingAnchor, constant: 3)
+                cardStackViews[i].leading(equal: self.view.leadingAnchor, constant: 3)
             } else {
-                cardImageViews[i].leading(equal: cardImageViews[i-1].trailingAnchor, constant: 3)
+                cardStackViews[i].leading(equal: cardStackViews[i-1].trailingAnchor, constant: 3)
             }
-            cardImageViews[i].width(constant: 55)
+            cardStackViews[i].width(constant: widthOfCard)
+
+            cardStackViews[i].height(equal: self.view, multiplier: ratioOfCardToView)
         }
     }
 
@@ -196,7 +216,7 @@ extension UIView {
         self.widthAnchor.constraint(equalToConstant: constant).isActive = true
     }
 
-    func height(constant: CGFloat) {
-        self.heightAnchor.constraint(equalToConstant: constant).isActive = true
+    func height(equal: UIView, multiplier: CGFloat) {
+        self.heightAnchor.constraint(equalTo: equal.heightAnchor, multiplier: multiplier).isActive = true
     }
 }

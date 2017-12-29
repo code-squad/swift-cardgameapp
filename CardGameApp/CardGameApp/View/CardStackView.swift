@@ -8,8 +8,7 @@
 
 import UIKit
 
-class CardStackView: UIView {
-    var stackView: UIStackView?
+class CardStackView: UIStackView {
     var cardStack: CardStack? {
         willSet(newValue) {
             makeCardStackView(newValue)
@@ -19,48 +18,40 @@ class CardStackView: UIView {
         super.init(frame: frame)
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init(coder: NSCoder) {
+        super.init(coder: coder)
     }
 
     deinit {
-        stackView = nil
         cardStack = nil
     }
 }
 
 // Settings
 extension CardStackView {
-    func setCards(_ cardStack: CardStack) {
+    func setCardStack(_ cardStack: CardStack) {
         self.cardStack = cardStack
     }
 
     private func makeCardStackView(_ cardStack: CardStack?) {
         guard var cardStack = cardStack else { return }
-        let myStackView = UIStackView()
-        myStackView.axis = .vertical
+        self.setAutolayout()
+        self.axis = .vertical
         while cardStack.count > 1 {
             guard let card = cardStack.pop() else { break }
-            let backCardView = makeBackCardImageView(card)
-            myStackView.addArrangedSubview(backCardView)
+            let backCardView = makeImageView(card.makeBackImage())
+            self.addArrangedSubview(backCardView)
         }
-        guard let lastCard = cardStack.pop() else { return}
-        let lastCardView = makeLastCardImageView(lastCard)
-        myStackView.addArrangedSubview(lastCardView)
-        self.stackView = myStackView
+        guard let lastCard = cardStack.pop() else { return }
+        let lastCardView = makeImageView(lastCard.makeImage())
+        self.addArrangedSubview(lastCardView)
+        self.distribution = .fillEqually
     }
 
-    private func makeBackCardImageView(_ card: Card) -> UIImageView {
-        let backCardImage = card.makeBackImage()
-        let cardView = UIImageView(image: backCardImage)
-        cardView.height(constant: 20)
-        cardView.contentMode = .top
+    private func makeImageView(_ image: UIImage) -> UIImageView {
+        let cardView = UIImageView(image: image)
+        cardView.contentMode = .scaleAspectFill
         return cardView
     }
 
-    private func makeLastCardImageView(_ card: Card) -> UIImageView {
-        let lastCardImage = card.makeImage()
-        let lastCardView = UIImageView(image: lastCardImage)
-        return lastCardView
-    }
 }
