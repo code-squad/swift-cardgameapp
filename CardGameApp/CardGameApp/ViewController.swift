@@ -145,7 +145,7 @@ class ViewController: UIViewController {
     }
 
     private func setCardViewLayout() {
-        let widthOfCard = (self.view.frame.width - 24) / stackview
+        let widthOfCard = (self.view.frame.width - 24) / 7
         for i in 0..<cardStackViews.count {
             self.view.addSubview(cardStackViews[i])
             let ratioOfCardToView = CGFloat( 0.05 * Double(i) )
