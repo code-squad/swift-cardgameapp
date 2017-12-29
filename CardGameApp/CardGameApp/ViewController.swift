@@ -173,49 +173,10 @@ class ViewController: UIViewController {
         let okAction: UIAlertAction = UIAlertAction(
             title: "OK",
             style: .default,
-            handler: { (action: UIAlertAction) in
+            handler: { _ in
                 alert.dismiss(animated: true, completion: nil)
-
         })
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
-    }
-
-}
-
-protocol CardViewLayoutProtocol {
-    func setRatio()
-}
-
-extension UIView: CardViewLayoutProtocol {
-    func setRatio() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.27).isActive = true
-    }
-}
-
-extension UIView {
-    func setAutolayout() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    func top(equal: UIView, constant: CGFloat = 0) {
-        self.topAnchor.constraint(equalTo: equal.safeAreaLayoutGuide.topAnchor, constant: constant).isActive = true
-    }
-
-    func leading(equal: NSLayoutXAxisAnchor, constant: CGFloat = 0) {
-        self.leadingAnchor.constraint(equalTo: equal, constant: constant).isActive = true
-    }
-
-    func trailing(equal: NSLayoutXAxisAnchor, constant: CGFloat = 0) {
-        self.trailingAnchor.constraint(equalTo: equal, constant: constant).isActive = true
-    }
-
-    func width(constant: CGFloat) {
-        self.widthAnchor.constraint(equalToConstant: constant).isActive = true
-    }
-
-    func height(equal: UIView, multiplier: CGFloat) {
-        self.heightAnchor.constraint(equalTo: equal.heightAnchor, multiplier: multiplier).isActive = true
     }
 }
