@@ -20,6 +20,21 @@ extension UIView: CardViewLayoutProtocol {
 }
 
 extension UIView {
+    func setGridLayout(_ views: [UIView], top: CGFloat = 0) {
+        let widthOfCard = (self.frame.width - 24) / 7
+        for i in 0..<views.count {
+            self.addSubview(views[i])
+            views[i].setRatio()
+            views[i].top(equal: self, constant: top)
+            if i==0 {
+                views[i].leading(equal: self.leadingAnchor, constant: 3)
+            } else {
+                views[i].leading(equal: views[i-1].trailingAnchor, constant: 3)
+            }
+            views[i].width(constant: widthOfCard)
+        }
+    }
+
     func setAutolayout() {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
