@@ -11,6 +11,11 @@ import Foundation
 struct CardDeck {
     private(set) var cards: [Card] = []
 
+    var top: Card? {
+        if self.count()-1 < 0 { return nil }
+        return cards[self.count()-1]
+    }
+
     init() {
         cards = makeCards()
     }
@@ -31,7 +36,7 @@ struct CardDeck {
     }
 
     // removeOne() 기능은 카드 인스턴스 중에 하나를 반환하고 목록에서 삭제한다.
-    mutating func removeOne() -> Card? {
+    @discardableResult mutating func removeOne() -> Card? {
         if cards.isEmpty { return nil }
         let deleteCard = cards[self.count()-1]
         cards.removeLast()

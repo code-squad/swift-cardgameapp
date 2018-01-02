@@ -37,19 +37,10 @@ class ViewController: UIViewController {
 
     // 상단 맨 오른쪽 남은 카드들
     lazy var remainBackCardsView: UIImageView = { [unowned self] in
-        guard let pickedCard = cardDeck.removeOne() else {
-            return UIImageView()
-        }
-        var view = UIImageView(image: pickedCard.makeBackImage())
-        let tap = UITapGestureRecognizer(
-            target: self,
-            action: #selector(self.remainCardsViewDidTap(_:))
-        )
-        view.addGestureRecognizer(tap)
-        view.isUserInteractionEnabled = true
-        return view
+        // 카드 덱에 있는 맨 위
+        return makeBackCard()
     }()
-    var remainShowCardsView = UIView()
+    var remainShowCardsView = UIImageView()
 
     // 카드 스택이 들어 있는 뷰
     lazy var cardStackViews: [CardStackView] = { [unowned self] in
@@ -77,7 +68,14 @@ class ViewController: UIViewController {
     // MARK: Events...
 
     @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {
-        print("remainCardsViewDidTap")
+        guard let removeCard = cardDeck.removeOne() else {
+            return
+        }
+        remainShowCards.append(removeCard)
+        remainShowCardsView = UIImageView(image: removeCard.makeImage())
+        setRemainShowCardsView()
+        remainBackCardsView = makeBackCard()
+        setRemainBackCardsViewLayout()
     }
 
     // MARK: Methods...
@@ -92,6 +90,20 @@ class ViewController: UIViewController {
             views.append(emptyView)
         }
         return views
+    }
+
+    private func makeBackCard() -> UIImageView {
+        guard let pickedCard = cardDeck.top else {
+            return UIImageView()
+        }
+        var view = UIImageView(image: pickedCard.makeBackImage())
+        let tap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(self.remainCardsViewDidTap(_:))
+        )
+        view.addGestureRecognizer(tap)
+        view.isUserInteractionEnabled = true
+        return view
     }
 
     private func makeBackGroundImage() {
