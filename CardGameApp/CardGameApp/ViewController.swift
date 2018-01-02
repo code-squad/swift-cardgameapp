@@ -14,9 +14,6 @@ class ViewController: UIViewController {
 
     var cardDeck = CardDeck()
     var remainShowCards = [Card]()
-    lazy var remainBackCards: [Card] = { [unowned self] in
-        return cardDeck.cards
-    }()
 
     lazy var cardStacks: [CardStack] = { [unowned self] in
         return makeCardStack()
@@ -39,8 +36,11 @@ class ViewController: UIViewController {
     }()
 
     // 상단 맨 오른쪽 남은 카드들
-    lazy var remainBackCardsView: UIView = { [unowned self] in
-        var view = UIView()
+    lazy var remainBackCardsView: UIImageView = { [unowned self] in
+        guard let pickedCard = cardDeck.removeOne() else {
+            return UIImageView()
+        }
+        var view = UIImageView(image: pickedCard.makeBackImage())
         let tap = UITapGestureRecognizer(
             target: self,
             action: #selector(self.remainCardsViewDidTap(_:))
@@ -171,4 +171,3 @@ class ViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 }
-
