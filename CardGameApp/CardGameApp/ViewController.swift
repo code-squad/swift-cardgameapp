@@ -49,11 +49,7 @@ class ViewController: UIViewController {
         view.isUserInteractionEnabled = true
         return view
     }()
-
-    lazy var remainShowCardsView: UIView = { [unowned self] in
-        let emptyView = makeEmptyViews(count: 1)
-        return emptyView[0]
-    }()
+    var remainShowCardsView = UIView()
 
     // 카드 스택이 들어 있는 뷰
     lazy var cardStackViews: [CardStackView] = { [unowned self] in
@@ -130,9 +126,10 @@ class ViewController: UIViewController {
         setRemainBackCardsViewLayout()
         setEmptyStackViewsLayout()
         setCardStackViewLayout()
+        setRemainShowCardsView()
     }
 
-    // 상단 비어있는 네 개의 뷰
+    // 왼쪽 상단 비어있는 네 개의 뷰
     private func setEmptyViewLayout() {
         self.view.setGridLayout(emptyViews)
     }
@@ -142,6 +139,7 @@ class ViewController: UIViewController {
         self.view.setGridLayout(emptyStackViews, top: 100)
     }
 
+    // 카드가 쌓인 카드 스택 뷰
     private func setCardStackViewLayout() {
         emptyStackViews.forEach { (stackview: UIView) in
             let i = emptyStackViews.index(of: stackview) ?? emptyStackViews.endIndex
@@ -150,6 +148,7 @@ class ViewController: UIViewController {
         }
     }
 
+    // 오른쪽 상단 남은 카드들의 뒷면
     private func setRemainBackCardsViewLayout() {
         let widthOfCard = (self.view.frame.width - 24) / 7
         self.view.addSubview(remainBackCardsView)
@@ -157,6 +156,17 @@ class ViewController: UIViewController {
         remainBackCardsView.top(equal: self.view)
         remainBackCardsView.trailing(equal: self.view.trailingAnchor, constant: -3)
         remainBackCardsView.width(constant: widthOfCard)
+    }
+
+    // 남은 카드들을 올려 놓는 곳
+    func setRemainShowCardsView() {
+        let widthOfCard = (self.view.frame.width - 24) / 7
+        let halfOfWidth = widthOfCard / 2
+        self.view.addSubview(remainShowCardsView)
+        remainShowCardsView.setRatio()
+        remainShowCardsView.top(equal: self.view)
+        remainShowCardsView.trailing(equal: remainBackCardsView.leadingAnchor, constant: -(halfOfWidth + 3))
+        remainShowCardsView.width(constant: widthOfCard)
     }
 
     private func showAlert(title: String = "잠깐!", message: String) {
