@@ -36,10 +36,7 @@ class ViewController: UIViewController {
     }()
 
     // 상단 맨 오른쪽 남은 카드들
-    lazy var remainBackCardsView: UIImageView = { [unowned self] in
-        // 카드 덱에 있는 맨 위
-        return makeBackCard()
-    }()
+    var remainBackCardsView = UIImageView()
     var remainShowCardsView = UIImageView()
 
     // 카드 스택이 들어 있는 뷰
@@ -62,20 +59,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         makeBackGroundImage()
+        remainBackCardsView = makeBackCard()
         setUIViewLayout()
     }
 
     // MARK: Events...
 
     @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {
-        guard let removeCard = cardDeck.removeOne() else {
-            return
-        }
-        remainShowCards.append(removeCard)
-        remainShowCardsView = UIImageView(image: removeCard.makeImage())
-        setRemainShowCardsView()
-        remainBackCardsView = makeBackCard()
-        setRemainBackCardsViewLayout()
+
     }
 
     // MARK: Methods...
@@ -92,11 +83,25 @@ class ViewController: UIViewController {
         return views
     }
 
+    private func makeRefreshView() -> UIImageView {
+        guard let image = UIImage(named: "cardgameapp-refresh-app") else {
+            return UIImageView()
+        }
+        let view = UIImageView(image: image)
+        let tap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(self.remainCardsViewDidTap(_:))
+        )
+        view.addGestureRecognizer(tap)
+        view.isUserInteractionEnabled = true
+        return view
+    }
+
     private func makeBackCard() -> UIImageView {
         guard let pickedCard = cardDeck.top else {
             return UIImageView()
         }
-        var view = UIImageView(image: pickedCard.makeBackImage())
+        let view = UIImageView(image: pickedCard.makeBackImage())
         let tap = UITapGestureRecognizer(
             target: self,
             action: #selector(self.remainCardsViewDidTap(_:))
@@ -171,7 +176,7 @@ class ViewController: UIViewController {
     }
 
     // 남은 카드들을 올려 놓는 곳
-    func setRemainShowCardsView() {
+    private func setRemainShowCardsView() {
         let widthOfCard = (self.view.frame.width - 24) / 7
         let halfOfWidth = widthOfCard / 2
         self.view.addSubview(remainShowCardsView)
