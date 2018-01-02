@@ -36,6 +36,10 @@ extension UIView {
         self.trailingAnchor.constraint(equalTo: equal, constant: constant).isActive = true
     }
 
+    func width(equal: NSLayoutAnchor<NSLayoutDimension>) {
+        self.widthAnchor.constraint(equalTo: equal).isActive = true
+    }
+
     func width(constant: CGFloat) {
         self.widthAnchor.constraint(equalToConstant: constant).isActive = true
     }

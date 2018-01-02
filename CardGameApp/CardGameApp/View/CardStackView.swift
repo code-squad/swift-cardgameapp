@@ -8,17 +8,19 @@
 
 import UIKit
 
-class CardStackView {
+class CardStackView: UIView {
     var cardStack: CardStack? {
         willSet(newStack) {
             makeCardStackImageView(newStack)
         }
     }
     var cardStackImageViews: [UIImageView] = [UIImageView]()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
 
-    init() {}
-    deinit {
-        cardStack = nil
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }
 
@@ -44,4 +46,26 @@ extension CardStackView {
         imageViews.append(UIImageView(image: card.makeImage()))
         cardStackImageViews = imageViews
     }
+
+    func setCardStackViewLayout() {
+        let emptyView = UIView()
+        emptyView.layer.borderWidth = 1
+        emptyView.layer.borderColor = UIColor.white.cgColor
+        self.addSubview(emptyView)
+        emptyView.setRatio()
+        emptyView.top(equal: self)
+        emptyView.leading(equal: self.leadingAnchor)
+        emptyView.trailing(equal: self.trailingAnchor)
+        emptyView.width(equal: self.widthAnchor)
+        cardStackImageViews.forEach { (imageview: UIImageView) in
+            let i = cardStackImageViews.index(of: imageview) ?? cardStackImageViews.endIndex
+            self.addSubview(imageview)
+            imageview.setRatio()
+            imageview.top(equal: self, constant: CGFloat(i) * 30)
+            imageview.leading(equal: self.leadingAnchor)
+            imageview.trailing(equal: self.trailingAnchor)
+            imageview.width(equal: self.widthAnchor)
+        }
+    }
+
 }

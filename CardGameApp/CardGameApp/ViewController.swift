@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    // MARK: Object Properties
+    // MARK: Object Properties...
 
     var cardDeck = CardDeck()
     var remainShowCards = [Card]()
@@ -22,16 +22,18 @@ class ViewController: UIViewController {
         return makeCardStack()
     }()
 
-    // MARK: View Properties
+    // MARK: View Properties...
 
     // 상단 비어 있는 뷰
     lazy var emptyViews: [UIView] = { [unowned self] in
+        return makeEmptyViews(count: 4)
+    }()
+
+    // 스택 뷰 셋팅
+    lazy var emptyStackViews: [UIView] = { [unowned self] in
         var views = [UIView]()
-        for _ in 0...3 {
-            let emptyView = UIView()
-            emptyView.layer.borderWidth = 1
-            emptyView.layer.borderColor = UIColor.white.cgColor
-            views.append(emptyView)
+        for _ in 1...7 {
+            views.append(UIView())
         }
         return views
     }()
@@ -48,29 +50,24 @@ class ViewController: UIViewController {
         return view
     }()
 
-    lazy var remainShowCardsView = UIView()
-//    lazy var backCardImageView: UIImageView = { [unowned self] in
-//        let card = try? pickCards(number: 1)
-//        let image = card?.first?.makeBackImage()
-//        return UIImageView(image: image)
-//    }()
+    lazy var remainShowCardsView: UIView = { [unowned self] in
+        let emptyView = makeEmptyViews(count: 1)
+        return emptyView[0]
+    }()
 
     // 카드 스택이 들어 있는 뷰
     lazy var cardStackViews: [CardStackView] = { [unowned self] in
         var cardStackViews = [CardStackView]()
+        let widthOfCard = (self.view.frame.width - 24) / 7
+        let heightOfView = self.view.frame.height
         cardStacks.forEach { (cardStack: CardStack) in
-            var cardStackView = CardStackView()
+            var cardStackView = CardStackView(
+                frame: CGRect(x: 0, y: 0, width: widthOfCard, height: heightOfView - 100)
+            )
             cardStackView.setCardStack(cardStack)
             cardStackViews.append(cardStackView)
         }
         return cardStackViews
-    }()
-
-    lazy var cardImageViews: [UIImageView] = { [unowned self] in
-        guard let cards = try? pickCards(number: 7) else {
-            return []
-        }
-        return makeRandomCardImageViews(cards: cards)
     }()
 
     // MARK: Override...
@@ -81,25 +78,25 @@ class ViewController: UIViewController {
         setUIViewLayout()
     }
 
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            do {
-                let cards = try pickCards(number: 7)
-                cardImageViews.forEach {$0.removeFromSuperview()}
-                cardImageViews = makeRandomCardImageViews(cards: cards)
-                //setCardViewLayout()
-            } catch let error {
-                showAlert(message: error.localizedDescription)
-            }
-        }
-    }
-
     // MARK: Events...
+
     @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {
         print("remainCardsViewDidTap")
     }
 
     // MARK: Methods...
+
+    private func makeEmptyViews(count: Int) -> [UIView] {
+        var views = [UIView]()
+        for _ in 0..<count {
+            let emptyView = UIView()
+            emptyView.layer.borderWidth = 1
+            emptyView.layer.borderColor = UIColor.white.cgColor
+            emptyView.clipsToBounds = true
+            views.append(emptyView)
+        }
+        return views
+    }
 
     private func makeBackGroundImage() {
         guard let patternImage = UIImage(named: "bg_pattern") else {
@@ -128,76 +125,38 @@ class ViewController: UIViewController {
         return newCardStacks
     }
 
-    private func pickCards(number: Int) throws -> [Card] {
-        cardDeck.shuffle()
-        do {
-            let cards = try cardDeck.pickCards(number: number)
-            return cards
-        } catch let error {
-            throw error
-        }
-    }
-
-    private func makeRandomCardImages(_ cards: [Card]) -> [UIImage] {
-        var images = [UIImage]()
-        cards.forEach { images.append($0.makeImage()) }
-        return images
-    }
-
-    private func makeRandomCardImageViews(cards: [Card]) -> [UIImageView] {
-        var imageViews = [UIImageView]()
-        let images = makeRandomCardImages(cards)
-        images.forEach {imageViews.append(UIImageView(image: $0))}
-        return imageViews
-    }
-
     private func setUIViewLayout() {
         setEmptyViewLayout()
         setRemainBackCardsViewLayout()
+        setEmptyStackViewsLayout()
         setCardStackViewLayout()
     }
 
+    // 상단 비어있는 네 개의 뷰
     private func setEmptyViewLayout() {
-        for i in 0..<emptyViews.count {
-            self.view.addSubview(emptyViews[i])
-            emptyViews[i].setRatio()
-            emptyViews[i].top(equal: self.view)
-            if i==0 {
-                emptyViews[i].leading(equal: self.view.leadingAnchor, constant: 3)
-            } else {
-                emptyViews[i].leading(equal: emptyViews[i-1].trailingAnchor, constant: 3)
-            }
-            emptyViews[i].width(constant: 55)
-        }
+        self.view.setGridLayout(emptyViews)
+    }
+
+    // 비어있는 카드 스택 뷰
+    private func setEmptyStackViewsLayout() {
+        self.view.setGridLayout(emptyStackViews, top: 100)
     }
 
     private func setCardStackViewLayout() {
-        let widthOfCard = (self.view.frame.width - 24) / 7
-        for i in 0..<cardStackViews.count {
-            // horizontal
-            for j in 0..<cardStackViews[i].cardStackImageViews.count {
-                // vertical
-                view.addSubview(cardStackViews[i].cardStackImageViews[j])
-                cardStackViews[i].cardStackImageViews[j].setRatio()
-                cardStackViews[i].cardStackImageViews[j].top(equal: view, constant: 100 + CGFloat(j) * 30)
-                if i==0 {
-                     cardStackViews[i].cardStackImageViews[j].leading(equal: view.leadingAnchor, constant: 3)
-                } else {
-                    cardStackViews[i].cardStackImageViews[j].leading(
-                        equal: cardStackViews[i-1].cardStackImageViews[0].trailingAnchor,
-                        constant: 3)
-                }
-                cardStackViews[i].cardStackImageViews[j].width(constant: widthOfCard)
-            }
+        emptyStackViews.forEach { (stackview: UIView) in
+            let i = emptyStackViews.index(of: stackview) ?? emptyStackViews.endIndex
+            stackview.addSubview(cardStackViews[i])
+            cardStackViews[i].setCardStackViewLayout()
         }
     }
 
     private func setRemainBackCardsViewLayout() {
+        let widthOfCard = (self.view.frame.width - 24) / 7
         self.view.addSubview(remainBackCardsView)
         remainBackCardsView.setRatio()
         remainBackCardsView.top(equal: self.view)
         remainBackCardsView.trailing(equal: self.view.trailingAnchor, constant: -3)
-        remainBackCardsView.width(constant: 55)
+        remainBackCardsView.width(constant: widthOfCard)
     }
 
     private func showAlert(title: String = "잠깐!", message: String) {
@@ -210,5 +169,22 @@ class ViewController: UIViewController {
         })
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension UIView {
+    func setGridLayout(_ views: [UIView], top: CGFloat = 0) {
+        let widthOfCard = (self.frame.width - 24) / 7
+        for i in 0..<views.count {
+            self.addSubview(views[i])
+            views[i].setRatio()
+            views[i].top(equal: self, constant: top)
+            if i==0 {
+                views[i].leading(equal: self.leadingAnchor, constant: 3)
+            } else {
+                views[i].leading(equal: views[i-1].trailingAnchor, constant: 3)
+            }
+            views[i].width(constant: widthOfCard)
+        }
     }
 }
