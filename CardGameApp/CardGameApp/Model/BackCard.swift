@@ -8,6 +8,7 @@
 
 import UIKit
 
+// 카드 뒷면의 view와 상태를 갖고 있는 Data Object
 struct BackCard {
     let refreshImage = UIImage(named: "cardgameapp-refresh-app")
     let backImage = UIImage(named: "card-back")
