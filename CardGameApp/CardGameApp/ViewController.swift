@@ -14,7 +14,11 @@ class ViewController: UIViewController {
     var cardDeck = CardDeck()
     var cardStacks = [CardStack]()
     var remainBackCards = [Card]()
-    var remainShowCards = [Card]()
+    var remainShowCards: [Card] = [] {
+        willSet(newVal) {
+            changeShowCardView(newVal)
+        }
+    }
 
     // MARK: View Properties
 
@@ -36,7 +40,7 @@ class ViewController: UIViewController {
     var cardStackViews = [CardStackView]()
 
     var showCardView = UIImageView()
-    var backCardView = UIImageView()
+    var backCard = BackCard()
 
     // MARK: Override...
 
@@ -48,43 +52,46 @@ class ViewController: UIViewController {
         setViews()
         // 배경 초기화
         setBackGroundImage()
+        // 뷰 배치하기
         setUIViewLayout()
     }
 
     // MARK: Events...
 
-    var backCardViewState: State = .normal
-    enum State {
-        case refresh
-        case normal
-    }
     @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {
-        switch backCardViewState {
+        switch backCard.state {
         case .refresh:
+            // refresh 이미지 일 때, back card는 show card에 있는 카드를 모두 가져온다.
             remainBackCards.append(contentsOf: remainShowCards)
             remainShowCards.removeAll(keepingCapacity: false)
-            showCardView.image = UIImage()
-            guard let backCard = remainBackCards.last else {
-                return
-            }
-            backCardView.image = backCard.makeBackImage()
-            backCardViewState = .normal
+            backCard.view.image = backCard.backImage
         case .normal:
             let card = remainBackCards.removeLast()
             remainShowCards.append(card)
-            if remainBackCards.count == 0 {
-                backCardViewState = .refresh
-                let image = UIImage(named: "cardgameapp-refresh-app")
-                backCardView.image = image
-            } else {
-                guard let backCard = remainBackCards.last else {
-                    return
-                }
-                backCardView.image = backCard.makeBackImage()
-            }
-            showCardView.image = card.makeImage()
+            changeBackCardView()
         }
     }
+    private func changeShowCardView(_ cards: [Card]) {
+        guard let card = cards.last else {
+            // show 카드를 비웠을 때, show 카드는 빈 view image이다.
+            showCardView.image = UIImage()
+            backCard.state = .normal
+            return
+        }
+        showCardView.image = card.makeImage()
+    }
+
+    private func changeBackCardView() {
+        // back 카드가 하나도 없다면, refresh 이미지로 바꿔준다.
+        if remainBackCards.count == 0 {
+            backCard.state = .refresh
+            backCard.view.image = backCard.refreshImage
+        }
+    }
+}
+
+extension ViewController {
+
 }
 
 // MARK: Data Initialize Methods
@@ -121,7 +128,7 @@ extension ViewController {
 extension ViewController {
     private func setViews() {
         cardStackViews = makeCardStackView()
-        backCardView = makeBackCardView()
+        backCard.view = makeBackCardView()
     }
 
     private func makeCardStackView() -> [CardStackView] {
@@ -205,11 +212,11 @@ extension ViewController {
 
     private func setBackCardViewLayout() {
         let widthOfCard = (self.view.frame.width - 24) / 7
-        self.view.addSubview(backCardView)
-        backCardView.setRatio()
-        backCardView.top(equal: self.view)
-        backCardView.trailing(equal: self.view.trailingAnchor, constant: -3)
-        backCardView.width(constant: widthOfCard)
+        self.view.addSubview(backCard.view)
+        backCard.view.setRatio()
+        backCard.view.top(equal: self.view)
+        backCard.view.trailing(equal: self.view.trailingAnchor, constant: -3)
+        backCard.view.width(constant: widthOfCard)
     }
 
     // 남은 카드들을 올려 놓는 곳
@@ -219,7 +226,7 @@ extension ViewController {
         self.view.addSubview(showCardView)
         showCardView.setRatio()
         showCardView.top(equal: self.view)
-        showCardView.trailing(equal: backCardView.leadingAnchor, constant: -(halfOfWidth + 3))
+        showCardView.trailing(equal: backCard.view.leadingAnchor, constant: -(halfOfWidth + 3))
         showCardView.width(constant: widthOfCard)
     }
 }
