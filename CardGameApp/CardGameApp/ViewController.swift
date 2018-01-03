@@ -9,113 +9,91 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    // MARK: Object Properties...
+    // MARK: Object Properties
 
     var cardDeck = CardDeck()
+    var cardStacks = [CardStack]()
+    var remainBackCards = [Card]()
     var remainShowCards = [Card]()
 
-    lazy var cardStacks: [CardStack] = { [unowned self] in
-        return makeCardStack()
-    }()
-
-    // MARK: View Properties...
+    // MARK: View Properties
 
     // 상단 비어 있는 뷰
     lazy var emptyViews: [UIView] = { [unowned self] in
-        return makeEmptyViews(count: 4)
-    }()
-
-    // 스택 뷰 셋팅
-    lazy var emptyStackViews: [UIView] = { [unowned self] in
         var views = [UIView]()
-        for _ in 1...7 {
-            views.append(UIView())
-        }
+        for _ in 1...4 { views.append(UIView().makeEmptyView()) }
         return views
     }()
 
-    // 상단 맨 오른쪽 남은 카드들
-    var remainBackCardsView = UIImageView()
-    var remainShowCardsView = UIImageView()
-
-    // 카드 스택이 들어 있는 뷰
-    lazy var cardStackViews: [CardStackView] = { [unowned self] in
-        var cardStackViews = [CardStackView]()
-        let widthOfCard = (self.view.frame.width - 24) / 7
-        let heightOfView = self.view.frame.height
-        cardStacks.forEach { (cardStack: CardStack) in
-            var cardStackView = CardStackView(
-                frame: CGRect(x: 0, y: 0, width: widthOfCard, height: heightOfView - 100)
-            )
-            cardStackView.setCardStack(cardStack)
-            cardStackViews.append(cardStackView)
-        }
-        return cardStackViews
+    // 비어있는 스택 뷰 셋팅
+    lazy var emptyStackViews: [UIView] = { [unowned self] in
+        var views = [UIView]()
+        for _ in 1...7 { views.append(UIView())}
+        return views
     }()
+
+    // 카드가 들어있는 스택 뷰
+    var cardStackViews = [CardStackView]()
+
+    var showCardView = UIImageView()
+    var backCardView = UIImageView()
 
     // MARK: Override...
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        makeBackGroundImage()
-        remainBackCardsView = makeBackCard()
+        // 데이터 초기화
+        setDatas()
+        // 뷰 초기화
+        setViews()
+        // 배경 초기화
+        setBackGroundImage()
         setUIViewLayout()
     }
 
     // MARK: Events...
 
+    var backCardViewState: State = .normal
+    enum State {
+        case refresh
+        case normal
+    }
     @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {
-
-    }
-
-    // MARK: Methods...
-
-    private func makeEmptyViews(count: Int) -> [UIView] {
-        var views = [UIView]()
-        for _ in 0..<count {
-            let emptyView = UIView()
-            emptyView.layer.borderWidth = 1
-            emptyView.layer.borderColor = UIColor.white.cgColor
-            emptyView.clipsToBounds = true
-            views.append(emptyView)
+        switch backCardViewState {
+        case .refresh:
+            remainBackCards.append(contentsOf: remainShowCards)
+            remainShowCards.removeAll(keepingCapacity: false)
+            showCardView.image = UIImage()
+            guard let backCard = remainBackCards.last else {
+                return
+            }
+            backCardView.image = backCard.makeBackImage()
+            backCardViewState = .normal
+        case .normal:
+            let card = remainBackCards.removeLast()
+            remainShowCards.append(card)
+            if remainBackCards.count == 0 {
+                backCardViewState = .refresh
+                let image = UIImage(named: "cardgameapp-refresh-app")
+                backCardView.image = image
+            } else {
+                guard let backCard = remainBackCards.last else {
+                    return
+                }
+                backCardView.image = backCard.makeBackImage()
+            }
+            showCardView.image = card.makeImage()
         }
-        return views
     }
+}
 
-    private func makeRefreshView() -> UIImageView {
-        guard let image = UIImage(named: "cardgameapp-refresh-app") else {
-            return UIImageView()
-        }
-        let view = UIImageView(image: image)
-        let tap = UITapGestureRecognizer(
-            target: self,
-            action: #selector(self.remainCardsViewDidTap(_:))
-        )
-        view.addGestureRecognizer(tap)
-        view.isUserInteractionEnabled = true
-        return view
-    }
-
-    private func makeBackCard() -> UIImageView {
-        guard let pickedCard = cardDeck.top else {
-            return UIImageView()
-        }
-        let view = UIImageView(image: pickedCard.makeBackImage())
-        let tap = UITapGestureRecognizer(
-            target: self,
-            action: #selector(self.remainCardsViewDidTap(_:))
-        )
-        view.addGestureRecognizer(tap)
-        view.isUserInteractionEnabled = true
-        return view
-    }
-
-    private func makeBackGroundImage() {
-        guard let patternImage = UIImage(named: "bg_pattern") else {
-            return
-        }
-        view.backgroundColor = UIColor.init(patternImage: patternImage)
+// MARK: Data Initialize Methods
+extension ViewController {
+    private func setDatas() {
+        // 카드 스택을 할당.
+        cardStacks = makeCardStack()
+        // 카드 스택에 할당하고 남은 카드
+        remainBackCards = cardDeck.cards
     }
 
     // 카드 스택 초기화
@@ -137,13 +115,73 @@ class ViewController: UIViewController {
         }
         return newCardStacks
     }
+}
 
+// MARK: View Initialize Methods
+extension ViewController {
+    private func setViews() {
+        cardStackViews = makeCardStackView()
+        backCardView = makeBackCardView()
+    }
+
+    private func makeCardStackView() -> [CardStackView] {
+        var cardStackViews = [CardStackView]()
+        let widthOfCard = (self.view.frame.width - 24) / 7
+        let heightOfView = self.view.frame.height
+        cardStacks.forEach { (cardStack: CardStack) in
+            let cardStackView = CardStackView(
+                frame: CGRect(x: 0, y: 0, width: widthOfCard, height: heightOfView - 100)
+            )
+            cardStackView.setCardStack(cardStack)
+            cardStackViews.append(cardStackView)
+        }
+        return cardStackViews
+    }
+
+    private func makeBackCardView() -> UIImageView {
+        guard let pickedCard = cardDeck.top else {
+            return UIImageView()
+        }
+        let view = UIImageView(image: pickedCard.makeBackImage())
+        let tap = UITapGestureRecognizer(
+            target: self,
+            action: #selector(self.remainCardsViewDidTap(_:))
+        )
+        view.addGestureRecognizer(tap)
+        view.isUserInteractionEnabled = true
+        return view
+    }
+}
+ // MARK: Methods...
+extension ViewController {
+    private func setBackGroundImage() {
+        guard let patternImage = UIImage(named: "bg_pattern") else {
+            return
+        }
+        view.backgroundColor = UIColor.init(patternImage: patternImage)
+    }
+
+    private func showAlert(title: String = "잠깐!", message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction: UIAlertAction = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: { _ in
+                alert.dismiss(animated: true, completion: nil)
+        })
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: Draw
+extension ViewController {
     private func setUIViewLayout() {
         setEmptyViewLayout()
-        setRemainBackCardsViewLayout()
+        setBackCardViewLayout()
         setEmptyStackViewsLayout()
         setCardStackViewLayout()
-        setRemainShowCardsView()
+        setShowCardViewLayout()
     }
 
     // 왼쪽 상단 비어있는 네 개의 뷰
@@ -165,36 +203,23 @@ class ViewController: UIViewController {
         }
     }
 
-    // 오른쪽 상단 남은 카드들의 뒷면
-    private func setRemainBackCardsViewLayout() {
+    private func setBackCardViewLayout() {
         let widthOfCard = (self.view.frame.width - 24) / 7
-        self.view.addSubview(remainBackCardsView)
-        remainBackCardsView.setRatio()
-        remainBackCardsView.top(equal: self.view)
-        remainBackCardsView.trailing(equal: self.view.trailingAnchor, constant: -3)
-        remainBackCardsView.width(constant: widthOfCard)
+        self.view.addSubview(backCardView)
+        backCardView.setRatio()
+        backCardView.top(equal: self.view)
+        backCardView.trailing(equal: self.view.trailingAnchor, constant: -3)
+        backCardView.width(constant: widthOfCard)
     }
 
     // 남은 카드들을 올려 놓는 곳
-    private func setRemainShowCardsView() {
+    private func setShowCardViewLayout() {
         let widthOfCard = (self.view.frame.width - 24) / 7
         let halfOfWidth = widthOfCard / 2
-        self.view.addSubview(remainShowCardsView)
-        remainShowCardsView.setRatio()
-        remainShowCardsView.top(equal: self.view)
-        remainShowCardsView.trailing(equal: remainBackCardsView.leadingAnchor, constant: -(halfOfWidth + 3))
-        remainShowCardsView.width(constant: widthOfCard)
-    }
-
-    private func showAlert(title: String = "잠깐!", message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction: UIAlertAction = UIAlertAction(
-            title: "OK",
-            style: .default,
-            handler: { _ in
-                alert.dismiss(animated: true, completion: nil)
-        })
-        alert.addAction(okAction)
-        present(alert, animated: true, completion: nil)
+        self.view.addSubview(showCardView)
+        showCardView.setRatio()
+        showCardView.top(equal: self.view)
+        showCardView.trailing(equal: backCardView.leadingAnchor, constant: -(halfOfWidth + 3))
+        showCardView.width(constant: widthOfCard)
     }
 }
