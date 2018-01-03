@@ -47,16 +47,12 @@ extension CardStackView {
         cardStackImageViews = imageViews
     }
 
-    func setCardStackViewLayout() {
-        let emptyView = UIView()
-        emptyView.layer.borderWidth = 1
-        emptyView.layer.borderColor = UIColor.white.cgColor
-        self.addSubview(emptyView)
-        emptyView.setRatio()
-        emptyView.top(equal: self)
-        emptyView.leading(equal: self.leadingAnchor)
-        emptyView.trailing(equal: self.trailingAnchor)
-        emptyView.width(equal: self.widthAnchor)
+    func setLayout() {
+        setEmptyStackViewLayout()
+        setCardStackViewLayout()
+    }
+
+    private func setCardStackViewLayout() {
         cardStackImageViews.forEach { (imageview: UIImageView) in
             let i = cardStackImageViews.index(of: imageview) ?? cardStackImageViews.endIndex
             self.addSubview(imageview)
@@ -66,6 +62,16 @@ extension CardStackView {
             imageview.trailing(equal: self.trailingAnchor)
             imageview.width(equal: self.widthAnchor)
         }
+    }
+
+    private func setEmptyStackViewLayout() {
+        let emptyView = UIView().makeEmptyView()
+        self.addSubview(emptyView)
+        emptyView.setRatio()
+        emptyView.top(equal: self)
+        emptyView.leading(equal: self.leadingAnchor)
+        emptyView.trailing(equal: self.trailingAnchor)
+        emptyView.width(equal: self.widthAnchor)
     }
 
 }

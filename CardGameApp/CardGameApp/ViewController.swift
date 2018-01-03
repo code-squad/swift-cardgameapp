@@ -9,6 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
+
     // MARK: Object Properties
     lazy var widthOfCard: CGFloat = { [unowned self] in
         return (self.view.frame.width - 24) / 7
@@ -160,6 +161,7 @@ extension ViewController {
         return view
     }
 }
+
  // MARK: Methods...
 extension ViewController {
     private func setBackGroundImage() {
@@ -208,7 +210,7 @@ extension ViewController {
         emptyStackViews.forEach { (stackview: UIView) in
             let i = emptyStackViews.index(of: stackview) ?? emptyStackViews.endIndex
             stackview.addSubview(cardStackViews[i])
-            cardStackViews[i].setCardStackViewLayout()
+            cardStackViews[i].setLayout()
         }
     }
 
