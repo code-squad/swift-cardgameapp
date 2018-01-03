@@ -61,7 +61,8 @@ class ViewController: UIViewController {
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            
+            resetDatas()
+            changeCardStackView()
         }
     }
 
@@ -74,15 +75,20 @@ extension ViewController {
         switch backCard.state {
         case .refresh:
             // refresh 이미지 일 때, back card는 show card에 있는 카드를 모두 가져온다.
-            remainBackCards.append(contentsOf: remainShowCards)
-            remainShowCards.removeAll(keepingCapacity: false)
-            backCard.view.image = backCard.backImage
+            refreshRamainCardView()
         case .normal:
             let card = remainBackCards.removeLast()
             remainShowCards.append(card)
             changeBackCardView()
         }
     }
+
+    private func refreshRamainCardView() {
+        remainBackCards.append(contentsOf: remainShowCards)
+        remainShowCards.removeAll(keepingCapacity: false)
+        backCard.view.image = backCard.backImage
+    }
+
     private func changeShowCardView(_ cards: [Card]) {
         guard let card = cards.last else {
             // show 카드를 비웠을 때, show 카드는 빈 view image이다.
@@ -112,6 +118,13 @@ extension ViewController {
         remainBackCards = cardDeck.cards
     }
 
+    private func resetDatas() {
+        self.cardDeck = CardDeck()
+        setDatas()
+        remainShowCards.removeAll()
+        backCard.view.image = backCard.backImage
+    }
+
     // 카드 스택 초기화
     private func makeCardStack() -> [CardStack] {
         // 카드를 섞는다.
@@ -138,6 +151,11 @@ extension ViewController {
     private func setViews() {
         cardStackViews = makeCardStackView()
         backCard.view = makeBackCardView()
+    }
+
+    private func changeCardStackView() {
+        var copyCardStacks = self.cardStacks
+        cardStackViews.forEach { $0.changeImages(copyCardStacks.removeFirst()) }
     }
 
     private func makeCardStackView() -> [CardStackView] {

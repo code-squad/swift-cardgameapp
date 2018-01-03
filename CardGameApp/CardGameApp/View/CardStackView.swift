@@ -29,9 +29,7 @@ extension CardStackView {
 
     func changeImages(_ cardStack: CardStack?) {
         var images = makeCardImages(cardStack)
-        cardStackImageViews.forEach { (imageView: UIImageView) in
-            imageView.image = images.removeFirst()
-        }
+        cardStackImageViews.forEach { $0.image = images.removeFirst() }
     }
 
     private func makeCardImages(_ cardStack: CardStack?) -> [UIImage] {
