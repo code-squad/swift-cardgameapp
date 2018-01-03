@@ -10,7 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
     // MARK: Object Properties
-
+    lazy var widthOfCard: CGFloat = { [unowned self] in
+        return (self.view.frame.width - 24) / 7
+    }()
     var cardDeck = CardDeck()
     var cardStacks = [CardStack]()
     var remainBackCards = [Card]()
@@ -56,8 +58,11 @@ class ViewController: UIViewController {
         setUIViewLayout()
     }
 
-    // MARK: Events...
+}
 
+// MARK: Events...
+
+extension ViewController {
     @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {
         switch backCard.state {
         case .refresh:
@@ -88,9 +93,6 @@ class ViewController: UIViewController {
             backCard.view.image = backCard.refreshImage
         }
     }
-}
-
-extension ViewController {
 
 }
 
@@ -133,7 +135,6 @@ extension ViewController {
 
     private func makeCardStackView() -> [CardStackView] {
         var cardStackViews = [CardStackView]()
-        let widthOfCard = (self.view.frame.width - 24) / 7
         let heightOfView = self.view.frame.height
         cardStacks.forEach { (cardStack: CardStack) in
             let cardStackView = CardStackView(
@@ -198,7 +199,8 @@ extension ViewController {
 
     // 비어있는 카드 스택 뷰
     private func setEmptyStackViewsLayout() {
-        self.view.setGridLayout(emptyStackViews, top: 100)
+        let cardHeight = widthOfCard * 1.27
+        self.view.setGridLayout(emptyStackViews, top: cardHeight + 10)
     }
 
     // 카드가 쌓인 카드 스택 뷰
@@ -211,7 +213,6 @@ extension ViewController {
     }
 
     private func setBackCardViewLayout() {
-        let widthOfCard = (self.view.frame.width - 24) / 7
         self.view.addSubview(backCard.view)
         backCard.view.setRatio()
         backCard.view.top(equal: self.view)
@@ -221,7 +222,6 @@ extension ViewController {
 
     // 남은 카드들을 올려 놓는 곳
     private func setShowCardViewLayout() {
-        let widthOfCard = (self.view.frame.width - 24) / 7
         let halfOfWidth = widthOfCard / 2
         self.view.addSubview(showCardView)
         showCardView.setRatio()
