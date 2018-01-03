@@ -9,11 +9,6 @@
 import UIKit
 
 class CardStackView: UIView {
-    var cardStack: CardStack? {
-        willSet(newStack) {
-            makeCardStackImageView(newStack)
-        }
-    }
     var cardStackImageViews: [UIImageView] = [UIImageView]()
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,26 +20,37 @@ class CardStackView: UIView {
 }
 
 extension CardStackView {
-    func setCardStack(_ cardStack: CardStack) {
-        self.cardStack = cardStack
-    }
-
     func makeCardStackImageView(_ cardStack: CardStack?) {
         var imageViews = [UIImageView]()
+        let images = makeCardImages(cardStack)
+        images.forEach {imageViews.append(UIImageView(image: $0))}
+        cardStackImageViews = imageViews
+    }
+
+    func changeImages(_ cardStack: CardStack?) {
+        var images = makeCardImages(cardStack)
+        cardStackImageViews.forEach { (imageView: UIImageView) in
+            imageView.image = images.removeFirst()
+        }
+    }
+
+    private func makeCardImages(_ cardStack: CardStack?) -> [UIImage] {
+        var images = [UIImage]()
         guard var stack = cardStack else {
-            return
+            return images
         }
         while stack.count > 1 {
             guard let card = stack.pop() else {
                 break
             }
-            imageViews.append(UIImageView(image: card.makeBackImage()))
+            images.append(card.makeBackImage())
         }
         guard let card = stack.pop() else {
-            return
+            return images
         }
-        imageViews.append(UIImageView(image: card.makeImage()))
-        cardStackImageViews = imageViews
+        images.append(card.makeImage())
+        return images
+
     }
 
     func setLayout() {

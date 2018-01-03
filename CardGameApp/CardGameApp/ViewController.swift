@@ -59,6 +59,12 @@ class ViewController: UIViewController {
         setUIViewLayout()
     }
 
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            
+        }
+    }
+
 }
 
 // MARK: Events...
@@ -141,7 +147,7 @@ extension ViewController {
             let cardStackView = CardStackView(
                 frame: CGRect(x: 0, y: 0, width: widthOfCard, height: heightOfView - 100)
             )
-            cardStackView.setCardStack(cardStack)
+            cardStackView.makeCardStackImageView(cardStack)
             cardStackViews.append(cardStackView)
         }
         return cardStackViews
