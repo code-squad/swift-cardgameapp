@@ -27,9 +27,9 @@ class ViewController: UIViewController {
 
     // 상단 비어 있는 뷰
     lazy var emptyViews: [UIView] = { [unowned self] in
-        var views = [UIView](repeating: UIView(), count: 4)
+        var views = [UIView?](repeating: nil, count: 4)
         var newViews = views.map { _ in return UIView().makeEmptyView()}
-        return views
+        return newViews
     }()
 
     // 비어있는 스택 뷰 셋팅
@@ -65,17 +65,17 @@ class ViewController: UIViewController {
             changeCardStackView()
         }
     }
-
-    func makeUIView() -> UIView {
-        let view = UIView()
-        return view
-    }
-
 }
 
 // MARK: Events...
 
 extension ViewController {
+
+    /*
+     UIGestureRecognizer의 action을 지정하기 위해서는 Selector를 사용해야 하는데,
+     Selector는 Objective-C의 라이브러리이다. swift파일의 함수를 Objective-C파일에서 접근하기 위해서는
+     @objc를 명시해야 한다.
+     */
     @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {
         switch backCard.state {
         case .refresh:
