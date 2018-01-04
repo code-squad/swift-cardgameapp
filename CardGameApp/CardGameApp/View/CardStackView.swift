@@ -88,5 +88,4 @@ extension CardStackView {
         emptyView.trailing(equal: self.trailingAnchor)
         emptyView.width(equal: self.widthAnchor)
     }
-
 }

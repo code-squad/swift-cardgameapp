@@ -70,3 +70,4 @@ extension UIView {
         self.heightAnchor.constraint(equalTo: equal.heightAnchor, multiplier: multiplier).isActive = true
     }
 }
+

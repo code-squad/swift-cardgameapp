@@ -27,16 +27,16 @@ class ViewController: UIViewController {
 
     // 상단 비어 있는 뷰
     lazy var emptyViews: [UIView] = { [unowned self] in
-        var views = [UIView]()
-        for _ in 1...4 { views.append(UIView().makeEmptyView()) }
+        var views = [UIView](repeating: UIView(), count: 4)
+        var newViews = views.map { _ in return UIView().makeEmptyView()}
         return views
     }()
 
     // 비어있는 스택 뷰 셋팅
     lazy var emptyStackViews: [UIView] = { [unowned self] in
-        var views = [UIView]()
-        for _ in 1...7 { views.append(UIView())}
-        return views
+        var views = [UIView?](repeating: nil, count: 7)
+        var newViews = views.map { _ in return UIView() }
+        return newViews
     }()
 
     // 카드가 들어있는 스택 뷰
@@ -64,6 +64,11 @@ class ViewController: UIViewController {
             resetDatas()
             changeCardStackView()
         }
+    }
+
+    func makeUIView() -> UIView {
+        let view = UIView()
+        return view
     }
 
 }
