@@ -50,19 +50,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // 데이터 초기화
-        setDatas()
+        initData()
         // 뷰 초기화
-        setViews()
+        initViews()
         // 배경 초기화
-        setBackGroundImage()
+        initBackGroundImage()
         // 뷰 배치하기
-        setUIViewLayout()
+        initUIViewLayout()
     }
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            resetDatas()
-            changeCardStackView()
+            resetData()
+            resetCardStackView()
         }
     }
 }
@@ -97,7 +97,7 @@ extension ViewController {
     private func changeShowCardView(_ cards: [Card]) {
         guard let card = cards.last else {
             // show 카드를 비웠을 때, show 카드는 빈 view image이다.
-            showCardView.image = UIImage()
+            showCardView.image = nil
             backCard.state = .normal
             return
         }
@@ -116,16 +116,16 @@ extension ViewController {
 
 // MARK: Data Initialize Methods
 extension ViewController {
-    private func setDatas() {
+    private func initData() {
         // 카드 스택을 할당.
         cardStacks = makeCardStack()
         // 카드 스택에 할당하고 남은 카드
         remainBackCards = cardDeck.cards
     }
 
-    private func resetDatas() {
+    private func resetData() {
         self.cardDeck = CardDeck()
-        setDatas()
+        initData()
         remainShowCards.removeAll()
         backCard.view.image = backCard.backImage
     }
@@ -153,12 +153,12 @@ extension ViewController {
 
 // MARK: View Initialize Methods
 extension ViewController {
-    private func setViews() {
+    private func initViews() {
         cardStackViews = makeCardStackView()
         backCard.view = makeBackCardView()
     }
 
-    private func changeCardStackView() {
+    private func resetCardStackView() {
         var copyCardStacks = self.cardStacks
         cardStackViews.forEach { $0.changeImages(copyCardStacks.removeFirst()) }
     }
@@ -193,7 +193,7 @@ extension ViewController {
 
  // MARK: Methods...
 extension ViewController {
-    private func setBackGroundImage() {
+    private func initBackGroundImage() {
         guard let patternImage = UIImage(named: "bg_pattern") else {
             return
         }
@@ -215,27 +215,27 @@ extension ViewController {
 
 // MARK: Draw
 extension ViewController {
-    private func setUIViewLayout() {
-        setEmptyViewLayout()
-        setBackCardViewLayout()
-        setEmptyStackViewsLayout()
-        setCardStackViewLayout()
-        setShowCardViewLayout()
+    private func initUIViewLayout() {
+        initEmptyViewLayout()
+        initBackCardViewLayout()
+        initEmptyStackViewsLayout()
+        initCardStackViewLayout()
+        initShowCardViewLayout()
     }
 
     // 왼쪽 상단 비어있는 네 개의 뷰
-    private func setEmptyViewLayout() {
+    private func initEmptyViewLayout() {
         self.view.setGridLayout(emptyViews)
     }
 
     // 비어있는 카드 스택 뷰
-    private func setEmptyStackViewsLayout() {
+    private func initEmptyStackViewsLayout() {
         let cardHeight = widthOfCard * 1.27
         self.view.setGridLayout(emptyStackViews, top: cardHeight + 10)
     }
 
     // 카드가 쌓인 카드 스택 뷰
-    private func setCardStackViewLayout() {
+    private func initCardStackViewLayout() {
         emptyStackViews.forEach { (stackview: UIView) in
             let i = emptyStackViews.index(of: stackview) ?? emptyStackViews.endIndex
             stackview.addSubview(cardStackViews[i])
@@ -243,7 +243,7 @@ extension ViewController {
         }
     }
 
-    private func setBackCardViewLayout() {
+    private func initBackCardViewLayout() {
         self.view.addSubview(backCard.view)
         backCard.view.setRatio()
         backCard.view.top(equal: self.view)
@@ -252,7 +252,7 @@ extension ViewController {
     }
 
     // 남은 카드들을 올려 놓는 곳
-    private func setShowCardViewLayout() {
+    private func initShowCardViewLayout() {
         let halfOfWidth = widthOfCard / 2
         self.view.addSubview(showCardView)
         showCardView.setRatio()
