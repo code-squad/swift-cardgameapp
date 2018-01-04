@@ -162,7 +162,6 @@
 				C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */,
 				C9EB73C71FFB882200CDBB1E /* CardQueue.swift */,
 				C9EB73811FF387D400CDBB1E /* Error.swift */,
-				C9EB73CB1FFCC26A00CDBB1E /* BackCardView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -171,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				C9EB73C21FF4CF2A00CDBB1E /* CardStackView.swift */,
+				C9EB73CB1FFCC26A00CDBB1E /* BackCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
