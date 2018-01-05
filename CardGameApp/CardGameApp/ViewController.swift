@@ -34,12 +34,7 @@ class ViewController: UIViewController {
     var cardStackViews = [CardStackView]()
     var showCardView = UIImageView()
     var backCardView: BackCardView!
-    lazy var emptyTopViews: [UIView] = { [unowned self] in
-        var views = [UIView?](repeating: nil, count: 4)
-        var newViews = views.map { _ in return UIView().makeEmptyView()}
-        return newViews
-    }()
-
+    var emptyTopViews: CardDeckView!
     // MARK: Override
 
     override func viewDidLoad() {
@@ -47,11 +42,11 @@ class ViewController: UIViewController {
         initProperties()
         initBackGroundImage()
 
-        self.view.setGridLayout(emptyTopViews)
+        self.view.addSubview(emptyTopViews)
 
-        cardStackViews.forEach { (stackView: CardStackView) in
-            self.view.addSubview(stackView)
-            stackView.setLayout()
+        cardStackViews.forEach {
+            self.view.addSubview($0)
+            $0.setLayout()
         }
 
         self.view.addSubview(backCardView)
@@ -85,6 +80,15 @@ extension ViewController {
         // 카드 스택에 할당하고 남은 카드
         remainBackCards = cardDeck.cards
         cardStackViews = makeCardStackView()
+        emptyTopViews = CardDeckView(
+            frame: CGRect(
+                x: Size.constant,
+                y: Size.statusBarHeight,
+                width: Size.cardWidth * 4 + Size.constant * 4,
+                height: Size.cardHeight
+            )
+        )
+        emptyTopViews.setLayout()
         backCardView = BackCardView(
             frame: CGRect(
                 x: Size.constant*7 + Size.cardWidth*6,
@@ -132,7 +136,7 @@ extension ViewController {
         var cardStackViews = [CardStackView]()
         let heightOfView = self.view.frame.height
         var i: CGFloat = 0
-        cardStacks.forEach { (cardStack: CardStack) in
+        cardStacks.forEach {
             let cardStackView = CardStackView(
                 frame: CGRect(
                     x: Size.constant * (i+1) + Size.cardWidth * i,
@@ -140,7 +144,7 @@ extension ViewController {
                     width: Size.cardWidth,
                     height: heightOfView - 100)
             )
-            cardStackView.makeCardStackImageView(cardStack)
+            cardStackView.makeCardStackImageView($0)
             cardStackViews.append(cardStackView)
             i += 1
         }
