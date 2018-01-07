@@ -24,8 +24,4 @@ class CardGameAppTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_imageViews_exist() {
-        XCTAssertEqual(sut.cardImageViews.count, 7)
-    }
-
 }

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0CEC9AEE637B8522E78C8C5F /* Pods_CardGameApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0CC476E2D004C3C4B92CB00 /* Pods_CardGameApp.framework */; };
 		5D8043338A429A7E9962E733 /* Pods_CardGameAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A065591CA17870D2DA2F2A /* Pods_CardGameAppTests.framework */; };
+		C973A9FE2001E92C00D71FA1 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73C21FF4CF2A00CDBB1E /* CardStackView.swift */; };
+		C973AA002001EA8300D71FA1 /* CardStackViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C973A9FF2001EA8300D71FA1 /* CardStackViewTest.swift */; };
 		C982F6B91FEBB15000B2AC34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6B81FEBB15000B2AC34 /* AppDelegate.swift */; };
 		C982F6BB1FEBB15000B2AC34 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6BA1FEBB15000B2AC34 /* ViewController.swift */; };
 		C982F6BE1FEBB15000B2AC34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C982F6BC1FEBB15000B2AC34 /* Main.storyboard */; };
@@ -43,6 +45,7 @@
 		18A065591CA17870D2DA2F2A /* Pods_CardGameAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardGameAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE23E4DD324163A38FF0EB7 /* Pods-CardGameAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C0CC476E2D004C3C4B92CB00 /* Pods_CardGameApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardGameApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C973A9FF2001EA8300D71FA1 /* CardStackViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewTest.swift; sourceTree = "<group>"; };
 		C982F6B51FEBB15000B2AC34 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C982F6B81FEBB15000B2AC34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C982F6BA1FEBB15000B2AC34 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +154,7 @@
 				C982F6CD1FEBB15100B2AC34 /* CardGameAppTests.swift */,
 				C982F6DA1FED01D000B2AC34 /* CardClassTest.swift */,
 				C982F6E41FF143C200B2AC34 /* CardDeckTest.swift */,
+				C973A9FF2001EA8300D71FA1 /* CardStackViewTest.swift */,
 				C982F6CF1FEBB15100B2AC34 /* Info.plist */,
 			);
 			path = CardGameAppTests;
@@ -426,8 +430,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C973A9FE2001E92C00D71FA1 /* CardStackView.swift in Sources */,
 				C982F6DB1FED01D000B2AC34 /* CardClassTest.swift in Sources */,
 				C982F6D81FECD2EB00B2AC34 /* ViewController.swift in Sources */,
+				C973AA002001EA8300D71FA1 /* CardStackViewTest.swift in Sources */,
 				C982F6E51FF143C200B2AC34 /* CardDeckTest.swift in Sources */,
 				C982F6CE1FEBB15100B2AC34 /* CardGameAppTests.swift in Sources */,
 			);

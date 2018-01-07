@@ -35,6 +35,7 @@ class ViewController: UIViewController {
     var showCardView = UIImageView()
     var backCardView: BackCardView!
     var emptyTopViews: CardDeckView!
+
     // MARK: Override
 
     override func viewDidLoad() {
@@ -80,6 +81,12 @@ extension ViewController {
         // 카드 스택에 할당하고 남은 카드
         remainBackCards = cardDeck.cards
         cardStackViews = makeCardStackView()
+        cardStackViews.forEach {
+            $0.addDoubleTapGesture(
+                self,
+                action: #selector(self.cardViewDidTap)
+            )
+        }
         emptyTopViews = CardDeckView(
             frame: CGRect(
                 x: Size.constant,
@@ -172,6 +179,10 @@ extension ViewController {
             remainShowCards.append(card)
             changeBackCardView()
         }
+    }
+
+    @objc func cardViewDidTap() {
+        print("cardViewDidTap")
     }
 }
 

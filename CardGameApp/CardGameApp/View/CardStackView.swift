@@ -55,12 +55,12 @@ extension CardStackView {
         return images
 
     }
-
 }
 
 // MARK: Layout
 extension CardStackView {
     func setLayout() {
+        // 0: emptyView ... last: show view
         setEmptyStackViewLayout()
         setCardStackViewLayout()
     }
@@ -87,5 +87,18 @@ extension CardStackView {
         emptyView.leading(equal: self.leadingAnchor)
         emptyView.trailing(equal: self.trailingAnchor)
         emptyView.width(equal: self.widthAnchor)
+    }
+}
+
+// MARK: Event
+extension CardStackView {
+    func addDoubleTapGesture(_ target: Any?, action: Selector) {
+        let tapRecognizer = UITapGestureRecognizer(target: target, action: action)
+        tapRecognizer.numberOfTapsRequired = 2
+        cardStackImageViews.forEach {
+            $0.addGestureRecognizer(tapRecognizer)
+            $0.isUserInteractionEnabled = true
+        }
+
     }
 }
