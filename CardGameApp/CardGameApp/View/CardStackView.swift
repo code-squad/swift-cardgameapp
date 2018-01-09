@@ -9,8 +9,10 @@
 import UIKit
 
 class CardStackView: UIView {
+
     // 카드 이미지 스택
-    var cardStackImageViews: [UIImageView] = [UIImageView]()
+    var cardStackImageViews = [UIImageView]()
+    //var cardActions: 
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -33,6 +35,7 @@ extension CardStackView {
     func popCardStackView(card: Card) {
         cardStackImageViews.removeLast()
         cardStackImageViews.last?.image = card.makeImage()
+        cardStackImageViews.last?.isUserInteractionEnabled = true
     }
 
     // 카드 스택 이미지 뷰를 변경한다.
@@ -99,12 +102,12 @@ extension CardStackView {
 // MARK: Event
 extension CardStackView {
     func addDoubleTapGesture(_ target: Any?, action: Selector) {
-        let tapRecognizer = UITapGestureRecognizer(target: target, action: action)
-        tapRecognizer.numberOfTapsRequired = 2
         cardStackImageViews.forEach {
+            let tapRecognizer = UITapGestureRecognizer(target: target, action: action)
+            tapRecognizer.numberOfTapsRequired = 2
             $0.addGestureRecognizer(tapRecognizer)
-            $0.isUserInteractionEnabled = true
+            $0.isUserInteractionEnabled = false
         }
-
+        cardStackImageViews.last?.isUserInteractionEnabled = true
     }
 }

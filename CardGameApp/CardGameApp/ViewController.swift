@@ -16,7 +16,8 @@ class ViewController: UIViewController {
     @IBOutlet var cardStackViews: [UIView]!
 
     var cardDeck = CardDeck()
-    var cardStacks = [CardStack]() 
+
+    var cardStacks = [CardStack]()
     var topCardStacks = [CardStack]()
     var remainBackCards = [Card]() {
         willSet {
@@ -128,12 +129,10 @@ extension ViewController {
 
     fileprivate func initAndLayoutCardStackView() {
         var myCardStackViews = makeCardStackView()
-        myCardStackViews.forEach {
-            $0.addDoubleTapGesture(self, action: #selector(self.cardStackViewDidDoubleTap(_:)))
-        }
         cardStackViews.forEach {
             $0.backgroundColor = UIColor.clear
             let stackView = myCardStackViews.removeFirst()
+            stackView.addDoubleTapGesture(self, action: #selector(self.cardStackViewDidDoubleTap(_:)))
             $0.addSubview(stackView)
             stackView.setLayout()
         }
@@ -197,33 +196,36 @@ extension ViewController {
 
 extension ViewController {
     @objc func cardStackViewDidDoubleTap(_ sender: UITapGestureRecognizer) {
+        print("cardStackViewDidDoubleTap")
         let location = sender.location(in: self.view)
         let indexOfCardStacks = getIndex(pointX: location.x)
-        guard let selectedView = sender.view as? UIImageView,
+        guard let selectedImageView = sender.view as? UIImageView,
+            let selectedCardStackView = selectedImageView.superview as? CardStackView,
+            let backgroundView = selectedCardStackView.superview,
             let selectedCard = cardStacks[indexOfCardStacks].top else {
                 return
         }
         if selectedCard.isAce {
             let indexEmptyTopCard = getIndexEmptyTopCardStack()
-            let moveZero = cardStackViews[indexOfCardStacks].frame.origin
+            let moveZero = backgroundView.frame.origin
             let emptyViewPos = topCardsViews[indexEmptyTopCard].frame.origin
             UIView.animate(
                 withDuration: 0.5,
                 animations: {
-                    selectedView.frame.origin.x = -moveZero.x
-                    selectedView.frame.origin.x += emptyViewPos.x
-                    selectedView.frame.origin.y = -moveZero.y
-                    selectedView.frame.origin.y += emptyViewPos.y
+                    selectedImageView.frame.origin.x = -moveZero.x
+                    selectedImageView.frame.origin.x += emptyViewPos.x
+                    selectedImageView.frame.origin.y = -moveZero.y
+                    selectedImageView.frame.origin.y += emptyViewPos.y
             },
                 completion: nil
             )
             cardStacks[indexOfCardStacks].pop()
+            topCardStacks[indexEmptyTopCard].push(card: selectedCard)
             guard let topCard = cardStacks[indexOfCardStacks].top,
                 let cardStackView = cardStackViews[indexOfCardStacks].subviews.last as? CardStackView  else {
                 return
             }
             cardStackView.popCardStackView(card: topCard)
-            topCardStacks[indexEmptyTopCard].push(card: selectedCard)
         }
     }
 
