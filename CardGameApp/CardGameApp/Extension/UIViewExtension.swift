@@ -35,7 +35,7 @@ extension UIView {
         }
     }
 
-    func makeEmptyView() -> UIView {
+    @discardableResult func makeEmptyView() -> UIView {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.white.cgColor
         self.clipsToBounds = true
@@ -68,5 +68,20 @@ extension UIView {
 
     func height(equal: UIView, multiplier: CGFloat) {
         self.heightAnchor.constraint(equalTo: equal.heightAnchor, multiplier: multiplier).isActive = true
+    }
+}
+
+extension Int {
+    var cgfloat: CGFloat {
+        return CGFloat(self)
+    }
+}
+
+extension UIImageView {
+    func addTapGesture(_ target: Any?, action: Selector) {
+        let tapRecognizer = UITapGestureRecognizer(target: target, action: action)
+        tapRecognizer.numberOfTapsRequired = 1
+        self.addGestureRecognizer(tapRecognizer)
+        self.isUserInteractionEnabled = true
     }
 }

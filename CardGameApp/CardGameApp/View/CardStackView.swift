@@ -30,6 +30,11 @@ extension CardStackView {
         cardStackImageViews = imageViews
     }
 
+    func popCardStackView(card: Card) {
+        cardStackImageViews.removeLast()
+        cardStackImageViews.last?.image = card.makeImage()
+    }
+
     // 카드 스택 이미지 뷰를 변경한다.
     func changeImages(_ cardStack: CardStack?) {
         var images = makeCardImages(cardStack)
@@ -42,16 +47,17 @@ extension CardStackView {
         guard var stack = cardStack else {
             return images
         }
-        while stack.count > 1 {
-            guard let card = stack.pop() else {
-                break
-            }
-            images.append(card.makeBackImage())
-        }
         guard let card = stack.pop() else {
             return images
         }
-        images.append(card.makeImage())
+        images.insert(card.makeImage(), at: 0)
+        while !stack.isEmpty {
+            guard let card = stack.pop() else {
+                break
+            }
+            images.insert(card.makeBackImage(), at: 0)
+        }
+
         return images
 
     }

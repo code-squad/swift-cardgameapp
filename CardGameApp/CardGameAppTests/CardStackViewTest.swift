@@ -14,7 +14,7 @@ class CardStackViewTest: XCTestCase {
         super.setUp()
         _ = sut.view
     }
-    
+
     override func tearDown() {
         super.tearDown()
     }

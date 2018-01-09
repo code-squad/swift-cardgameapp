@@ -9,8 +9,25 @@
 import UIKit
 
 class ViewController: UIViewController {
+    @IBOutlet var topCardsView: [UIImageView]!
+    @IBOutlet var showCardView: UIImageView!
+    @IBOutlet var backCardView: UIImageView!
+    @IBOutlet var cardStackViews: [UIView]!
 
-    // MARK: Layout Size
+    // MARK: Properties
+    var cardDeck = CardDeck()
+    var cardStacks = [CardStack]()
+    var topCardStacks = [CardStack]()
+    var remainBackCards = [Card]() {
+        willSet {
+            changeRemainBackCardView(cards: newValue)
+        }
+    }
+    var remainShowCards = [Card]() {
+        willSet {
+            changeRemainShowCardView(cards: newValue)
+        }
+    }
     struct Size {
         static let constant: CGFloat = 3
         static let cardStackCount: Int = 7
@@ -19,48 +36,10 @@ class ViewController: UIViewController {
         static let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
     }
 
-    // MARK: Properties
-    var cardDeck = CardDeck()
-    var cardStacks = [CardStack]()
-    var remainBackCards = [Card]()
-    var remainShowCards: [Card] = [] {
-        willSet(newVal) {
-            changeShowCardView(newVal)
-        }
-    }
-
-    // MARK: Views
-
-    var cardStackViews = [CardStackView]()
-    var showCardView = UIImageView()
-    var backCardView: BackCardView!
-    var emptyTopViews: CardDeckView!
-
-    // MARK: Override
-
     override func viewDidLoad() {
         super.viewDidLoad()
         initProperties()
         initBackGroundImage()
-
-        self.view.addSubview(emptyTopViews)
-
-        cardStackViews.forEach {
-            self.view.addSubview($0)
-            $0.setLayout()
-        }
-
-        self.view.addSubview(backCardView)
-
-        let halfOfCardWidth = Size.cardWidth / 2
-        self.view.addSubview(showCardView)
-        showCardView.setRatio()
-        showCardView.top(equal: self.view)
-        showCardView.trailing(
-            equal:backCardView.leadingAnchor,
-            constant: -(halfOfCardWidth + Size.constant)
-        )
-        showCardView.width(constant: Size.cardWidth)
     }
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
@@ -69,42 +48,32 @@ class ViewController: UIViewController {
             resetCardStackView()
         }
     }
-
 }
-// MARK: Initialize, Make Object
+
 extension ViewController {
     private func initProperties() {
         Size.cardWidth = (self.view.frame.width - Size.constant * 8) / CGFloat(Size.cardStackCount)
         Size.cardHeight = Size.cardWidth * 1.27
-        // 카드 스택을 할당.
         cardStacks = makeCardStack()
-        // 카드 스택에 할당하고 남은 카드
+        for _ in 0...3 { topCardStacks.append(CardStack()) }
         remainBackCards = cardDeck.cards
-        cardStackViews = makeCardStackView()
-        cardStackViews.forEach {
-            $0.addDoubleTapGesture(
-                self,
-                action: #selector(self.cardViewDidTap)
-            )
+        var myCardStackViews = makeCardStackView()
+        myCardStackViews.forEach {
+            $0.addDoubleTapGesture(self, action: #selector(self.cardStackViewDidDoubleTap(_:)))
         }
-        emptyTopViews = CardDeckView(
-            frame: CGRect(
-                x: Size.constant,
-                y: Size.statusBarHeight,
-                width: Size.cardWidth * 4 + Size.constant * 4,
-                height: Size.cardHeight
-            )
+        cardStackViews.forEach {
+            $0.backgroundColor = UIColor.clear
+            let stackView = myCardStackViews.removeFirst()
+            $0.addSubview(stackView)
+            stackView.setLayout()
+            self.view.addSubview($0)
+        }
+        backCardView.image = UIImage(named: "card-back")!
+        backCardView.addTapGesture(
+            self,
+            action: #selector(self.remainCardsViewDidTap(_:))
         )
-        emptyTopViews.setLayout()
-        backCardView = BackCardView(
-            frame: CGRect(
-                x: Size.constant*7 + Size.cardWidth*6,
-                y: Size.statusBarHeight,
-                width: Size.cardWidth,
-                height: Size.cardHeight
-            )
-        )
-        backCardView.addGesture(self, action: #selector(self.remainCardsViewDidTap(_:)))
+        topCardsView.forEach { $0.makeEmptyView() }
     }
 
     private func resetData() {
@@ -112,31 +81,24 @@ extension ViewController {
         cardStacks = makeCardStack()
         remainBackCards = cardDeck.cards
         remainShowCards.removeAll()
-        backCardView.state = .normal
     }
 
-    private func makeCardStack() -> [CardStack] {
-        // 카드를 섞는다.
-        cardDeck.shuffle()
-        var newCardStacks = [CardStack]()
-        for i in 1...Size.cardStackCount {
-            // 카드를 i개 뽑는다.
-            var cardStack = CardStack()
-            guard let cards = try? cardDeck.pickCards(number: i) else {
-                continue
-            }
-            // i 개의 카드를 카드 스택에 푸시한다.
-            for j in 1...i {
-                cardStack.push(card: cards[j-1])
-            }
-            newCardStacks.append(cardStack)
+    func getIndex(pointX: CGFloat) -> Int {
+        for i in 0..<7 {
+            let cgfloatI = CGFloat(i)
+            let minX = Size.constant * (cgfloatI + 1) + Size.cardWidth * (cgfloatI)
+            let maxX = Size.constant * (cgfloatI + 1) + Size.cardWidth * (cgfloatI + 1)
+            if pointX >= minX && pointX <= maxX { return i }
         }
-        return newCardStacks
+        return 0
     }
 
-    private func resetCardStackView() {
-        var copyCardStacks = self.cardStacks
-        cardStackViews.forEach { $0.changeImages(copyCardStacks.removeFirst()) }
+    func getIndexEmptyTopCardStack() -> Int {
+        for i in 0..<topCardStacks.count where topCardStacks[i].isEmpty {
+            print(i)
+            return i
+        }
+        return 0
     }
 
     private func makeCardStackView() -> [CardStackView] {
@@ -145,11 +107,7 @@ extension ViewController {
         var i: CGFloat = 0
         cardStacks.forEach {
             let cardStackView = CardStackView(
-                frame: CGRect(
-                    x: Size.constant * (i+1) + Size.cardWidth * i,
-                    y: Size.statusBarHeight + Size.cardHeight + 10,
-                    width: Size.cardWidth,
-                    height: heightOfView - 100)
+                frame: CGRect(x: 0, y: 0, width: Size.cardWidth, height: heightOfView - 100)
             )
             cardStackView.makeCardStackImageView($0)
             cardStackViews.append(cardStackView)
@@ -158,36 +116,18 @@ extension ViewController {
         return cardStackViews
     }
 
-}
-
-// MARK: Events
-
-extension ViewController {
-
-    /*
-     UIGestureRecognizer의 action을 지정하기 위해서는 Selector를 사용해야 하는데,
-     Selector는 Objective-C의 라이브러리이다. swift파일의 함수를 Objective-C파일에서 접근하기 위해서는
-     @objc를 명시해야 한다.
-     */
-    @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {
-        switch backCardView.state {
-        case .refresh:
-            // refresh 이미지 일 때, back card는 show card에 있는 카드를 모두 가져온다.
-            refreshRamainCardView()
-        case .normal:
-            let card = remainBackCards.removeLast()
-            remainShowCards.append(card)
-            changeBackCardView()
+    private func makeCardStack() -> [CardStack] {
+        cardDeck.shuffle()
+        var newCardStacks = [CardStack]()
+        for i in 1...Size.cardStackCount {
+            guard let cards = try? cardDeck.pickCards(number: i) else {
+                continue
+            }
+            newCardStacks.append(CardStack(cards: cards))
         }
+        return newCardStacks
     }
 
-    @objc func cardViewDidTap() {
-        print("cardViewDidTap")
-    }
-}
-
- // MARK: Methods
-extension ViewController {
     private func initBackGroundImage() {
         guard let patternImage = UIImage(named: "bg_pattern") else {
             return
@@ -195,26 +135,81 @@ extension ViewController {
         view.backgroundColor = UIColor.init(patternImage: patternImage)
     }
 
-    private func refreshRamainCardView() {
-        remainBackCards.append(contentsOf: remainShowCards)
-        remainShowCards.removeAll(keepingCapacity: false)
+    private func resetCardStackView() {
+        var copyCardStacks = self.cardStacks
+        cardStackViews.forEach { (view: UIView) in
+            guard let cardStackView = view.subviews.first as? CardStackView else {
+                return
+            }
+            let cardStack = copyCardStacks.removeFirst()
+            cardStackView.changeImages(cardStack)
+        }
     }
 
-    private func changeShowCardView(_ cards: [Card]) {
-        guard let card = cards.last else {
-            // show 카드를 비웠을 때, show 카드는 빈 view image이다.
+    func changeRemainBackCardView(cards: [Card]) {
+        let refreshImage = UIImage(named: "cardgameapp-refresh-app")!
+        let backImage = UIImage(named: "card-back")!
+        if cards.isEmpty {
+            backCardView.image = refreshImage
+        } else {
+            backCardView.image = backImage
+        }
+    }
+
+    func changeRemainShowCardView(cards: [Card]) {
+        if cards.isEmpty {
             showCardView.image = nil
-            backCardView.state = .normal
-            return
-        }
-        showCardView.image = card.makeImage()
-    }
-
-    private func changeBackCardView() {
-        // back 카드가 하나도 없다면, refresh 이미지로 바꿔준다.
-        if remainBackCards.count == 0 {
-            backCardView.state = .refresh
+        } else {
+            guard let lastCard = cards.last else {
+                return
+            }
+            showCardView.image = lastCard.makeImage()
         }
     }
+}
 
+extension ViewController {
+    @objc func cardStackViewDidDoubleTap(_ sender: UITapGestureRecognizer) {
+        let location = sender.location(in: self.view)
+        let indexOfCardStacks = getIndex(pointX: location.x)
+        guard let selectedView = sender.view as? UIImageView,
+            let topCard = cardStacks[indexOfCardStacks].top else {
+                return
+        }
+        if topCard.isAce {
+            let indexEmptyTopCard = getIndexEmptyTopCardStack()
+            let moveZero = cardStackViews[indexOfCardStacks].frame.origin
+            let emptyViewPos = topCardsView[indexEmptyTopCard].frame.origin
+            UIView.animate(
+                withDuration: 0.5,
+                animations: {
+                    selectedView.frame.origin.x = -moveZero.x
+                    selectedView.frame.origin.x += emptyViewPos.x
+                    selectedView.frame.origin.y = -moveZero.y
+                    selectedView.frame.origin.y += emptyViewPos.y
+            },
+                completion: nil
+            )
+        }
+    }
+
+    @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {
+        let refreshImage = UIImage(named: "cardgameapp-refresh-app")!
+        let backImage = UIImage(named: "card-back")!
+        guard let imageView = recognizer.view as? UIImageView,
+            let cardImage = imageView.image else {
+                return
+        }
+        switch cardImage {
+        case refreshImage:
+            remainBackCards.append(contentsOf: remainShowCards)
+            remainShowCards.removeAll(keepingCapacity: false)
+        case backImage:
+            // 카드를 꺼낸다.
+            let card = remainBackCards.removeLast()
+            remainShowCards.append(card)
+        default: break
+        }
+
+    }
 }

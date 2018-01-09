@@ -46,6 +46,10 @@ class Card {
         return "\(suit.rawValue)\(rank.value)"
     }
 
+    var isAce: Bool {
+        return rank == .ace
+    }
+
     init(suit: Suit, rank: Rank) {
         self.suit = suit
         self.rank = rank
