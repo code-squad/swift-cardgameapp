@@ -9,12 +9,12 @@
 import UIKit
 
 class ViewController: UIViewController {
+    // MARK: Properties
     @IBOutlet var topCardsView: [UIImageView]!
     @IBOutlet var showCardView: UIImageView!
     @IBOutlet var backCardView: UIImageView!
     @IBOutlet var cardStackViews: [UIView]!
 
-    // MARK: Properties
     var cardDeck = CardDeck()
     var cardStacks = [CardStack]()
     var topCardStacks = [CardStack]()
