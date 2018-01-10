@@ -84,4 +84,25 @@ extension UIImageView {
         self.addGestureRecognizer(tapRecognizer)
         self.isUserInteractionEnabled = true
     }
+
+    func addDoubleTapGesture(_ target: Any?, action: Selector) {
+        let tapRecognizer = UITapGestureRecognizer(target: target, action: action)
+        tapRecognizer.numberOfTapsRequired = 2
+        self.addGestureRecognizer(tapRecognizer)
+        self.isUserInteractionEnabled = true
+    }
+
+    func willMove(from original: CGPoint, to viewPosition: CGPoint, action: @escaping (Bool) -> Void ) {
+        UIView.animate(
+            withDuration: 0.5,
+            animations: {
+                self.frame.origin.x = -original.x
+                self.frame.origin.x += viewPosition.x
+                self.frame.origin.y = -original.y
+                self.frame.origin.y += viewPosition.y
+        },
+            completion: action
+        )
+    }
+
 }

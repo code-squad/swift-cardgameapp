@@ -30,27 +30,12 @@ struct CardStack {
 
     mutating func push(card: Card) {
         cards.append(card)
-//        NotificationCenter.default.post(
-//            name: .didPushCardStackNotifiacation,
-//            object: self,
-//            userInfo: ["card": card]
-//        )
     }
 
     @discardableResult mutating func pop() -> Card? {
         guard let card = cards.popLast() else {
             return nil
         }
-//        NotificationCenter.default.post(
-//            name: .didPopCardStackNotifiacation,
-//            object: self,
-//            userInfo: ["card": card]
-//        )
         return card
     }
-}
-
-extension Notification.Name {
-    static let didPopCardStackNotifiacation = Notification.Name(rawValue: "didPopCardStack")
-    static let didPushCardStackNotifiacation = Notification.Name(rawValue: "didPushCardStack")
 }

@@ -9,7 +9,9 @@
 import UIKit
 
 class Card {
-    //스페이드(spade:♠)·하트(heart:♥)·다이아몬드(diamond:◆)·클럽(club:♣)
+    let suit: Suit
+    let rank: Rank
+
     enum Suit: Character, EnumCollection {
         case spade = "♠️", heart = "♥️", diamond = "♦️", club = "♣️"
 
@@ -23,6 +25,7 @@ class Card {
         }
         static var allTypes = Array(Suit.cases())
     }
+
     // A(ace), K(king), Q(queen), J(jack), 10, 9, 8, 7, 6, 5, 4, 3, 2
     enum Rank: Int, EnumCollection {
         case ace = 1, two, three, four, five, six, saven, eight, nine, ten
@@ -39,20 +42,24 @@ class Card {
         }
         static var allTypes = Array(Rank.cases())
     }
-    let suit: Suit
-    let rank: Rank
-
-    var description: String {
-        return "\(suit.rawValue)\(rank.value)"
-    }
-
-    var isAce: Bool {
-        return rank == .ace
-    }
 
     init(suit: Suit, rank: Rank) {
         self.suit = suit
         self.rank = rank
+    }
+}
+// MARK: Public Methods
+extension Card {
+    var description: String {
+        return "\(suit.rawValue)\(rank.value)"
+    }
+
+    func isSameSuitAndNextRank(with card: Card?) -> Bool {
+        return self.isSameSuit(with: card) && self.isNextRank(of: card)
+    }
+
+    func isDifferentColorAndPreviousRank(with card: Card?) -> Bool {
+        return self.isDifferentColor(with: card) && self.isPreviousRank(of: card)
     }
 
     func makeImage() -> UIImage {
@@ -69,11 +76,52 @@ class Card {
         }
         return UIImage()
     }
-}
 
-extension Card: Equatable {
-    static func == (lhs: Card, rhs: Card) -> Bool {
-        return lhs.rank == rhs.rank && lhs.suit == rhs.suit
+}
+// MARK: Private Methods
+extension Card {
+    private var isAce: Bool {
+        return self.rank == .ace
+    }
+
+    private var isKing: Bool {
+        return self.rank == .king
+    }
+
+    private var isRed: Bool {
+        return self.suit == .heart || self.suit == .diamond
+    }
+
+    private var isBlack: Bool {
+        return self.suit == .spade || self.suit == .club
+    }
+
+    private func isDifferentColor(with card: Card?) -> Bool {
+        guard let compare = card else {
+            return true
+        }
+        return self.isRed && compare.isBlack || self.isBlack && compare.isRed
+    }
+
+    private func isNextRank(of card: Card?) -> Bool {
+        guard let pre = card else {
+            return self.isAce
+        }
+        return self.rank.rawValue == pre.rank.rawValue + 1
+    }
+
+    private func isPreviousRank(of card: Card?) -> Bool {
+        guard let next = card else {
+            return self.isKing
+        }
+        return self.rank.rawValue + 1 == next.rank.rawValue
+    }
+
+    private func isSameSuit(with card: Card?) -> Bool {
+        guard let compare = card else {
+            return true
+        }
+        return self.suit == compare.suit
     }
 }
 
