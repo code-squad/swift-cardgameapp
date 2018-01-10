@@ -14,6 +14,7 @@ class CardStackView: UIView {
     // var emptyView = UIImageView()
     let countOfCardDeck = 52
     let constants: CGFloat = 30
+
     var allCardStackViews = [UIImageView]()
     var cardImages = [UIImage]()
     var topIndex: Int? {
@@ -46,10 +47,27 @@ extension CardStackView {
         }
     }
 
+    func resetCardStackImageView(_ cardStack: CardStack) {
+        cardImages.removeAll()
+        UIView.animate(
+            withDuration: 0.5,
+            animations: {
+                var i: CGFloat = 0
+                self.allCardStackViews.forEach {
+                    $0.frame.origin.x = self.frame.origin.x
+                    $0.frame.origin.y = self.frame.origin.y + i * 30
+                    $0.isUserInteractionEnabled = false
+                    i += 1
+                }},
+            completion: { _ in
+                self.setCardStackImageView(cardStack)
+                self.setEnabledGestureOfLastCard()
+        })
+    }
+
     func popCardStackView(previousCard: Card?) {
-        print("pop")
         // 현재꺼 비 활성화, 현재 카드 제거
-        setDisabledGestureOfCurrentCard()
+        setDisabledGestureOfPreviousCard()
         cardImages.removeLast()
         // 위 카드 활성화
         guard let previous = previousCard,
@@ -61,18 +79,24 @@ extension CardStackView {
     }
 
     func pushCardStackView(card: Card) {
-        print("push")
         // 현재 카드 비 활성화
-        setDisabledGestureOfCurrentCard()
+        setDisabledGestureOfPreviousCard()
         cardImages.append(card.makeImage())
         allCardStackViews[self.topIndex!].isUserInteractionEnabled = true
     }
 
-    private func setDisabledGestureOfCurrentCard() {
+    private func setDisabledGestureOfPreviousCard() {
         if let currentIndex = self.topIndex {
             allCardStackViews[currentIndex].isUserInteractionEnabled = false
         }
     }
+
+    private func setEnabledGestureOfLastCard() {
+        if let currentIndex = self.topIndex {
+            allCardStackViews[currentIndex].isUserInteractionEnabled = true
+        }
+    }
+
     // 카드 이미지 뷰를 만드는 함수 (마지막 카드만 카드 앞면.)
     private func makeCardImages(_ cardStack: CardStack) -> [UIImage] {
         var images = [UIImage]()
@@ -131,9 +155,6 @@ extension CardStackView {
             $0.addGestureRecognizer(tapRecognizer)
             $0.isUserInteractionEnabled = false
         }
-        guard let index = self.topIndex else {
-            return
-        }
-        allCardStackViews[index].isUserInteractionEnabled = true
+        setEnabledGestureOfLastCard()
     }
 }

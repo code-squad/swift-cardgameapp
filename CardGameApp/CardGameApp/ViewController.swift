@@ -37,6 +37,12 @@ class ViewController: UIViewController {
         static let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
     }
 
+    struct Image {
+        static let refreshImage = UIImage(named: "cardgameapp-refresh-app")!
+        static let backImage = UIImage(named: "card-back")!
+        static let backgroundImage = UIImage(named: "bg_pattern")!
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         initProperties()
@@ -69,18 +75,20 @@ extension ViewController {
     private func resetData() {
         self.cardDeck = CardDeck()
         cardStacks = makeCardStack()
+        topCardStacks.removeAll()
+        topCardStacks = makeTopCardStacks()
         remainBackCards = cardDeck.cards
         remainShowCards.removeAll()
     }
 
     private func resetCardStackView() {
         var copyCardStacks = self.cardStacks
-        cardStackViews.forEach { (view: UIView) in
-            guard let cardStackView = view.subviews.first as? CardStackView else {
+        cardStackViews.forEach {
+            guard let cardStackView = $0.subviews.first as? CardStackView else {
                 return
             }
             let cardStack = copyCardStacks.removeFirst()
-            cardStackView.setCardStackImageView(cardStack)
+            cardStackView.resetCardStackImageView(cardStack)
         }
     }
 
@@ -121,10 +129,7 @@ extension ViewController {
     // Initialize Views
 
     private func initBackGroundImage() {
-        guard let patternImage = UIImage(named: "bg_pattern") else {
-            return
-        }
-        view.backgroundColor = UIColor.init(patternImage: patternImage)
+        view.backgroundColor = UIColor.init(patternImage: Image.backgroundImage)
     }
 
     fileprivate func initAndLayoutCardStackView() {
@@ -151,12 +156,10 @@ extension ViewController {
 
     // Change Views
     private func changeRemainBackCardView(cards: [Card]) {
-        let refreshImage = UIImage(named: "cardgameapp-refresh-app")!
-        let backImage = UIImage(named: "card-back")!
         if cards.isEmpty {
-            backCardView.image = refreshImage
+            backCardView.image = Image.refreshImage
         } else {
-            backCardView.image = backImage
+            backCardView.image = Image.backImage
         }
     }
 
@@ -207,32 +210,28 @@ extension ViewController {
 
 extension ViewController {
     @objc func cardStackViewDidDoubleTap(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: self.view)
-        let indexOfSelectedCardStacks = selectCurrentIndexOfCardStack(pointX: location.x)
+        let currentLocation = sender.location(in: self.view)
+        let indexTapped = selectCurrentIndexOfCardStack(pointX: currentLocation.x)
         guard let selectedImageView = sender.view as? UIImageView,
             let selectedCardStackView = selectedImageView.superview as? CardStackView,
             let backgroundView = selectedCardStackView.superview,
-            let selectedCard = cardStacks[indexOfSelectedCardStacks].top else {
+            let selectedCard = cardStacks[indexTapped].top else {
                 return
         }
         let originalPos = backgroundView.frame.origin
+
         if let indexTopView = selectTopViewIndexForInsert(card: selectedCard) {
             let topViewPos = topCardsViews[indexTopView].frame.origin
             selectedImageView.willMove(
                 from: originalPos,
                 to: topViewPos,
                 action: { _ in
-                    self.cardStacks[indexOfSelectedCardStacks].pop()
+                    self.cardStacks[indexTapped].pop()
                     self.topCardStacks[indexTopView].push(card: selectedCard)
-                    guard let topCard = self.cardStacks[indexOfSelectedCardStacks].top else {
-                        return
-                    }
+                    let topCard = self.cardStacks[indexTapped].top
                     selectedCardStackView.popCardStackView(previousCard: topCard) }
             )
-            return
-        }
-
-        if let indexCardStack = selectCardStackViewIndexForInsert(card: selectedCard) {
+        } else if let indexCardStack = selectCardStackViewIndexForInsert(card: selectedCard) {
             var cardStackViewPos = cardStackViews[indexCardStack].frame.origin
             cardStackViewPos.y += ( 30 * CGFloat(cardStacks[indexCardStack].count) )
 
@@ -240,9 +239,9 @@ extension ViewController {
                 from: originalPos,
                 to: cardStackViewPos,
                 action: { _ in
-                    self.cardStacks[indexOfSelectedCardStacks].pop()
+                    self.cardStacks[indexTapped].pop()
                     self.cardStacks[indexCardStack].push(card: selectedCard)
-                    let topCard = self.cardStacks[indexOfSelectedCardStacks].top
+                    let topCard = self.cardStacks[indexTapped].top
                     selectedCardStackView.popCardStackView(previousCard: topCard)
                     // 목적지
                     if let targetCardStackView = self.cardStackViews[indexCardStack]
@@ -255,17 +254,15 @@ extension ViewController {
     }
 
     @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {
-        let refreshImage = UIImage(named: "cardgameapp-refresh-app")!
-        let backImage = UIImage(named: "card-back")!
         guard let imageView = recognizer.view as? UIImageView,
             let cardImage = imageView.image else {
                 return
         }
         switch cardImage {
-        case refreshImage:
+        case Image.refreshImage:
             remainBackCards.append(contentsOf: remainShowCards)
             remainShowCards.removeAll(keepingCapacity: false)
-        case backImage:
+        case Image.backImage:
             // 카드를 꺼낸다.
             let card = remainBackCards.removeLast()
             remainShowCards.append(card)
