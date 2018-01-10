@@ -40,7 +40,7 @@ class ViewController: UIViewController {
     struct Image {
         static let refreshImage = UIImage(named: "cardgameapp-refresh-app")!
         static let backImage = UIImage(named: "card-back")!
-        static let backgroundImage = UIImage(named: "bg_pattern")!
+        static let bgImage = UIImage(named: "bg_pattern")!
     }
 
     override func viewDidLoad() {
@@ -129,7 +129,7 @@ extension ViewController {
     // Initialize Views
 
     private func initBackGroundImage() {
-        view.backgroundColor = UIColor.init(patternImage: Image.backgroundImage)
+        view.backgroundColor = UIColor.init(patternImage: Image.bgImage)
     }
 
     fileprivate func initAndLayoutCardStackView() {
@@ -143,7 +143,7 @@ extension ViewController {
     }
 
     fileprivate func initBackCardView() {
-        backCardView.image = UIImage(named: "card-back")!
+        backCardView.image = Image.backImage
         backCardView.addTapGesture(
             self,
             action: #selector(self.remainCardsViewDidTap(_:))
@@ -175,6 +175,8 @@ extension ViewController {
     }
 
     // get view position
+
+    // x좌표를 갖고 현재 위치가 몇번 째 카드 스택에 속하는지 인덱스 반환.
     private func selectCurrentIndexOfCardStack(pointX: CGFloat) -> Int {
         for i in 0..<7 {
             let cgfloatI = CGFloat(i)
@@ -185,7 +187,8 @@ extension ViewController {
         return 0
     }
 
-    private func selectTopViewIndexForInsert(card: Card) -> Int? {
+    // Top View로 이동 시, 카드가 이동할 Top View 인덱스를 반환
+    private func selectTargetTopViewIndex(card: Card) -> Int? {
         for index in 0..<topCardStacks.count {
             let top = topCardStacks[index].top
             if card.isSameSuitAndNextRank(with: top) {
@@ -195,7 +198,8 @@ extension ViewController {
         return nil
     }
 
-    private func selectCardStackViewIndexForInsert(card: Card) -> Int? {
+    // card Stack View로 이동 시, 카드가 이동할 card stack view 인덱스를 반환
+    private func selectTargetCardStackViewIndex(card: Card) -> Int? {
         for index in 0..<cardStacks.count {
             let top = cardStacks[index].top
             if card.isDifferentColorAndPreviousRank(with: top) {
@@ -203,6 +207,12 @@ extension ViewController {
             }
         }
         return nil
+    }
+
+    func move(card: Card, from start: Int, to destination: Int) -> Card? {
+        cardStacks[start].pop()
+        topCardStacks[destination].push(card: card)
+        return self.cardStacks[start].top
     }
 }
 
@@ -220,18 +230,16 @@ extension ViewController {
         }
         let originalPos = backgroundView.frame.origin
 
-        if let indexTopView = selectTopViewIndexForInsert(card: selectedCard) {
+        if let indexTopView = selectTargetTopViewIndex(card: selectedCard) {
             let topViewPos = topCardsViews[indexTopView].frame.origin
             selectedImageView.willMove(
                 from: originalPos,
                 to: topViewPos,
                 action: { _ in
-                    self.cardStacks[indexTapped].pop()
-                    self.topCardStacks[indexTopView].push(card: selectedCard)
-                    let topCard = self.cardStacks[indexTapped].top
+                    let topCard = self.move(card: selectedCard, from: indexTapped, to: indexTopView)
                     selectedCardStackView.popCardStackView(previousCard: topCard) }
             )
-        } else if let indexCardStack = selectCardStackViewIndexForInsert(card: selectedCard) {
+        } else if let indexCardStack = selectTargetCardStackViewIndex(card: selectedCard) {
             var cardStackViewPos = cardStackViews[indexCardStack].frame.origin
             cardStackViewPos.y += ( 30 * CGFloat(cardStacks[indexCardStack].count) )
 
@@ -239,9 +247,7 @@ extension ViewController {
                 from: originalPos,
                 to: cardStackViewPos,
                 action: { _ in
-                    self.cardStacks[indexTapped].pop()
-                    self.cardStacks[indexCardStack].push(card: selectedCard)
-                    let topCard = self.cardStacks[indexTapped].top
+                    let topCard = self.move(card: selectedCard, from: indexTapped, to: indexCardStack)
                     selectedCardStackView.popCardStackView(previousCard: topCard)
                     // 목적지
                     if let targetCardStackView = self.cardStackViews[indexCardStack]
