@@ -83,11 +83,7 @@ extension CardStackView {
         var i: CGFloat = 0
         cardImageViews.forEach {
             self.addSubview($0)
-            $0.setRatio()
-            $0.top(equal: self, constant: i * constant)
-            $0.leading(equal: self.leadingAnchor)
-            $0.trailing(equal: self.trailingAnchor)
-            $0.width(equal: self.widthAnchor)
+            $0.fitLayout(with: self, topConstant: i * constant)
             i += 1
         }
     }
@@ -103,9 +99,9 @@ extension CardStackView {
 
 // MARK: Event
 extension CardStackView {
-    func addDoubleTapGesture(_ target: Any?, action: Selector) {
+    func addDoubleTapGesture(action: Action) {
         cardImageViews.forEach {
-            let tapRecognizer = UITapGestureRecognizer(target: target, action: action)
+            let tapRecognizer = UITapGestureRecognizer(target: action.target, action: action.selector)
             tapRecognizer.numberOfTapsRequired = 2
             $0.addGestureRecognizer(tapRecognizer)
             $0.isUserInteractionEnabled = false
