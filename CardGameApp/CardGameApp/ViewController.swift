@@ -208,12 +208,6 @@ extension ViewController {
         }
         return nil
     }
-
-    func move(card: Card, from start: Int, to destination: Int) -> Card? {
-        cardStacks[start].pop()
-        topCardStacks[destination].push(card: card)
-        return self.cardStacks[start].top
-    }
 }
 
 // MARK: Events
@@ -236,10 +230,13 @@ extension ViewController {
                 from: originalPos,
                 to: topViewPos,
                 action: { _ in
-                    let topCard = self.move(card: selectedCard, from: indexTapped, to: indexTopView)
-                    selectedCardStackView.popCardStackView(previousCard: topCard) }
-            )
+                    self.cardStacks[indexTapped].pop()
+                    self.topCardStacks[indexTopView].push(card: selectedCard)
+                    let topCard = self.cardStacks[indexTapped].top
+                    selectedCardStackView.popCardStackView(previousCard: topCard)
+            })
         } else if let indexCardStack = selectTargetCardStackViewIndex(card: selectedCard) {
+            self.view.bringSubview(toFront: selectedImageView)
             var cardStackViewPos = cardStackViews[indexCardStack].frame.origin
             cardStackViewPos.y += ( 30 * CGFloat(cardStacks[indexCardStack].count) )
 
@@ -247,7 +244,9 @@ extension ViewController {
                 from: originalPos,
                 to: cardStackViewPos,
                 action: { _ in
-                    let topCard = self.move(card: selectedCard, from: indexTapped, to: indexCardStack)
+                    self.cardStacks[indexTapped].pop()
+                    self.cardStacks[indexCardStack].push(card: selectedCard)
+                    let topCard = self.cardStacks[indexTapped].top
                     selectedCardStackView.popCardStackView(previousCard: topCard)
                     // 목적지
                     if let targetCardStackView = self.cardStackViews[indexCardStack]

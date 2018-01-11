@@ -12,7 +12,6 @@
 		C973A9FE2001E92C00D71FA1 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73C21FF4CF2A00CDBB1E /* CardStackView.swift */; };
 		C973AA002001EA8300D71FA1 /* CardStackViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C973A9FF2001EA8300D71FA1 /* CardStackViewTest.swift */; };
 		C982F6B91FEBB15000B2AC34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6B81FEBB15000B2AC34 /* AppDelegate.swift */; };
-		C982F6BB1FEBB15000B2AC34 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6BA1FEBB15000B2AC34 /* ViewController.swift */; };
 		C982F6BE1FEBB15000B2AC34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C982F6BC1FEBB15000B2AC34 /* Main.storyboard */; };
 		C982F6C01FEBB15000B2AC34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C982F6BF1FEBB15000B2AC34 /* Assets.xcassets */; };
 		C982F6C31FEBB15000B2AC34 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C982F6C11FEBB15000B2AC34 /* LaunchScreen.storyboard */; };
@@ -22,6 +21,7 @@
 		C982F6E11FEEBE5C00B2AC34 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6E01FEEBE5C00B2AC34 /* Card.swift */; };
 		C982F6E31FEECE8200B2AC34 /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6E21FEECE8200B2AC34 /* CardDeck.swift */; };
 		C982F6E51FF143C200B2AC34 /* CardDeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6E41FF143C200B2AC34 /* CardDeckTest.swift */; };
+		C9996FAD2006616C002EDB13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6BA1FEBB15000B2AC34 /* ViewController.swift */; };
 		C9EB73821FF387D400CDBB1E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73811FF387D400CDBB1E /* Error.swift */; };
 		C9EB73841FF4BAFC00CDBB1E /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */; };
 		C9EB73C31FF4CF2A00CDBB1E /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73C21FF4CF2A00CDBB1E /* CardStackView.swift */; };
@@ -403,13 +403,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C982F6BB1FEBB15000B2AC34 /* ViewController.swift in Sources */,
 				C9EB73C31FF4CF2A00CDBB1E /* CardStackView.swift in Sources */,
 				C982F6E11FEEBE5C00B2AC34 /* Card.swift in Sources */,
 				C9EB73841FF4BAFC00CDBB1E /* CardStack.swift in Sources */,
 				C982F6E31FEECE8200B2AC34 /* CardDeck.swift in Sources */,
 				C9EB73821FF387D400CDBB1E /* Error.swift in Sources */,
 				C9EB73C61FF5D74700CDBB1E /* UIViewExtension.swift in Sources */,
+				C9996FAD2006616C002EDB13 /* ViewController.swift in Sources */,
 				C982F6B91FEBB15000B2AC34 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
