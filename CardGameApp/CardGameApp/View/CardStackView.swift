@@ -10,24 +10,13 @@ import UIKit
 
 class CardStackView: UIView {
 
-    // 카드 이미지 스택
-    // var emptyView = UIImageView()
     let countOfCardDeck = 52
-    let constants: CGFloat = 30
-
-    var allCardStackViews = [UIImageView]()
-    var cardImages = [UIImage]()
-    var topIndex: Int? {
-        if cardImages.isEmpty {
-            return nil
-        }
-        return cardImages.count - 1
-    }
+    let constant = CGFloat(30)
+    var cardImageViews = [UIImageView]()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setEmptyView()
-        setAllCardStackViews()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -39,62 +28,35 @@ class CardStackView: UIView {
 extension CardStackView {
     // 카드 스택 이미지 뷰를 처음 생성한다.
     func setCardStackImageView(_ cardStack: CardStack) {
-        cardImages = makeCardImages(cardStack)
-        var i = 0
+        let cardImages = makeCardImages(cardStack)
         cardImages.forEach {
-            allCardStackViews[i].image = $0
-            i += 1
+            cardImageViews.append(UIImageView(image: $0))
         }
+        addCardViewAndSetLayout()
     }
 
     func resetCardStackImageView(_ cardStack: CardStack) {
-        cardImages.removeAll()
-        UIView.animate(
-            withDuration: 0.5,
-            animations: {
-                var i: CGFloat = 0
-                self.allCardStackViews.forEach {
-                    $0.frame.origin.x = self.frame.origin.x
-                    $0.frame.origin.y = self.frame.origin.y + i * 30
-                    $0.isUserInteractionEnabled = false
-                    i += 1
-                }},
-            completion: { _ in
-                self.setCardStackImageView(cardStack)
-                self.setEnabledGestureOfLastCard()
-        })
+        cardImageViews.removeAll()
+        subviews.forEach { $0.removeFromSuperview() }
+        setEmptyView()
+        setCardStackImageView(cardStack)
     }
 
     func popCardStackView(previousCard: Card?) {
         // 현재꺼 비 활성화, 현재 카드 제거
-        setDisabledGestureOfPreviousCard()
-        cardImages.removeLast()
-        // 위 카드 활성화
-        guard let previous = previousCard,
-            let index = self.topIndex else {
-            return
-        }
-        allCardStackViews[index].image = previous.makeImage()
-        allCardStackViews[index].isUserInteractionEnabled = true
+        cardImageViews.removeLast()
+        cardImageViews.last?.isUserInteractionEnabled = true
+        ( self.subviews.last as? UIImageView)?.image = previousCard?.makeImage()
+       // self.subviews.last?.removeFromSuperview()
     }
 
-    func pushCardStackView(card: Card) {
+    func pushCardStackView(_ cardView: UIImageView) {
         // 현재 카드 비 활성화
-        setDisabledGestureOfPreviousCard()
-        cardImages.append(card.makeImage())
-        allCardStackViews[self.topIndex!].isUserInteractionEnabled = true
-    }
-
-    private func setDisabledGestureOfPreviousCard() {
-        if let currentIndex = self.topIndex {
-            allCardStackViews[currentIndex].isUserInteractionEnabled = false
-        }
-    }
-
-    private func setEnabledGestureOfLastCard() {
-        if let currentIndex = self.topIndex {
-            allCardStackViews[currentIndex].isUserInteractionEnabled = true
-        }
+        self.subviews.last?.isUserInteractionEnabled = false
+        self.addSubview(cardView)
+        self.subviews.last?.fitLayout(with: self, topConstant: constant * cardImageViews.count.cgfloat)
+        self.subviews.last?.isUserInteractionEnabled = true
+        cardImageViews.append(cardView)
     }
 
     // 카드 이미지 뷰를 만드는 함수 (마지막 카드만 카드 앞면.)
@@ -117,31 +79,24 @@ extension CardStackView {
 
 // MARK: Layout
 extension CardStackView {
-    private func setAllCardStackViews() {
-        let imageViews = [UIImageView?](repeating: nil, count: countOfCardDeck)
-        allCardStackViews = imageViews.map { _ in return UIImageView() }
+    private func addCardViewAndSetLayout() {
         var i: CGFloat = 0
-        allCardStackViews.forEach {
+        cardImageViews.forEach {
             self.addSubview($0)
             $0.setRatio()
-            $0.top(equal: self, constant: i * constants)
+            $0.top(equal: self, constant: i * constant)
             $0.leading(equal: self.leadingAnchor)
             $0.trailing(equal: self.trailingAnchor)
             $0.width(equal: self.widthAnchor)
             i += 1
         }
-
     }
 
     // 빈 카드 카드 스택 뷰 배치
     private func setEmptyView() {
         let emptyView = UIView().makeEmptyView()
         self.addSubview(emptyView)
-        emptyView.setRatio()
-        emptyView.top(equal: self)
-        emptyView.leading(equal: self.leadingAnchor)
-        emptyView.trailing(equal: self.trailingAnchor)
-        emptyView.width(equal: self.widthAnchor)
+        emptyView.fitLayout(with: self)
     }
 
 }
@@ -149,12 +104,12 @@ extension CardStackView {
 // MARK: Event
 extension CardStackView {
     func addDoubleTapGesture(_ target: Any?, action: Selector) {
-        allCardStackViews.forEach {
+        cardImageViews.forEach {
             let tapRecognizer = UITapGestureRecognizer(target: target, action: action)
             tapRecognizer.numberOfTapsRequired = 2
             $0.addGestureRecognizer(tapRecognizer)
             $0.isUserInteractionEnabled = false
         }
-        setEnabledGestureOfLastCard()
+        cardImageViews.last?.isUserInteractionEnabled = true
     }
 }

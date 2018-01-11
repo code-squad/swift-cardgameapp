@@ -20,6 +20,13 @@ extension UIView: CardViewLayoutProtocol {
 }
 
 extension UIView {
+    func addTapGesture(_ target: Any?, action: Selector) {
+        let tapRecognizer = UITapGestureRecognizer(target: target, action: action)
+        tapRecognizer.numberOfTapsRequired = 1
+        self.addGestureRecognizer(tapRecognizer)
+        self.isUserInteractionEnabled = true
+    }
+
     func setGridLayout(_ views: [UIView], top: CGFloat = 0) {
         let widthOfCard = (self.frame.width - 24) / 7
         for i in 0..<views.count {
@@ -40,6 +47,14 @@ extension UIView {
         self.layer.borderColor = UIColor.white.cgColor
         self.clipsToBounds = true
         return self
+    }
+
+    func fitLayout(with view: UIView, topConstant: CGFloat = 0) {
+        self.setRatio()
+        self.top(equal: view, constant: topConstant)
+        self.leading(equal: view.leadingAnchor)
+        self.trailing(equal:view.trailingAnchor)
+        self.width(equal: view.widthAnchor)
     }
 
     func setAutolayout() {
@@ -78,12 +93,6 @@ extension Int {
 }
 
 extension UIImageView {
-    func addTapGesture(_ target: Any?, action: Selector) {
-        let tapRecognizer = UITapGestureRecognizer(target: target, action: action)
-        tapRecognizer.numberOfTapsRequired = 1
-        self.addGestureRecognizer(tapRecognizer)
-        self.isUserInteractionEnabled = true
-    }
 
     func addDoubleTapGesture(_ target: Any?, action: Selector) {
         let tapRecognizer = UITapGestureRecognizer(target: target, action: action)

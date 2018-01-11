@@ -10,8 +10,9 @@ import UIKit
 
 class ViewController: UIViewController {
     // MARK: Properties
-    @IBOutlet var topCardsViews: [UIImageView]!
-    @IBOutlet var showCardView: UIImageView!
+
+    @IBOutlet var topCardViews: [UIView]!
+    @IBOutlet var showCardView: UIView!
     @IBOutlet var backCardView: UIImageView!
     @IBOutlet var cardStackViews: [UIView]!
 
@@ -53,6 +54,7 @@ class ViewController: UIViewController {
         if motion == .motionShake {
             resetData()
             resetCardStackView()
+            retsetTopViews()
         }
     }
 }
@@ -89,6 +91,18 @@ extension ViewController {
             }
             let cardStack = copyCardStacks.removeFirst()
             cardStackView.resetCardStackImageView(cardStack)
+            cardStackView.addDoubleTapGesture(
+                self,
+                action: #selector(self.cardStackViewDidDoubleTap(_:))
+            )
+        }
+    }
+
+    private func retsetTopViews() {
+        topCardViews.forEach { (cardView: UIView) in
+            cardView.subviews.forEach {
+                $0.removeFromSuperview()
+            }
         }
     }
 
@@ -151,7 +165,9 @@ extension ViewController {
     }
 
     fileprivate func initTopCardViews() {
-        topCardsViews.forEach { $0.makeEmptyView() }
+        topCardViews.forEach {
+            $0.makeEmptyView()
+        }
     }
 
     // Change Views
@@ -165,12 +181,17 @@ extension ViewController {
 
     private func changeRemainShowCardView(cards: [Card]) {
         if cards.isEmpty {
-            showCardView.image = nil
+            showCardView.subviews.forEach { $0.removeFromSuperview() }
         } else {
             guard let lastCard = cards.last else {
                 return
             }
-            showCardView.image = lastCard.makeImage()
+            showCardView.addSubview(UIImageView(image: lastCard.makeImage()))
+            showCardView.subviews.last?.setRatio()
+            showCardView.subviews.last?.top(equal: showCardView)
+            showCardView.subviews.last?.leading(equal: showCardView.leadingAnchor)
+            showCardView.subviews.last?.trailing(equal: showCardView.trailingAnchor)
+            showCardView.width(equal: showCardView.widthAnchor)
         }
     }
 
@@ -225,7 +246,7 @@ extension ViewController {
         let originalPos = backgroundView.frame.origin
 
         if let indexTopView = selectTargetTopViewIndex(card: selectedCard) {
-            let topViewPos = topCardsViews[indexTopView].frame.origin
+            let topViewPos = topCardViews[indexTopView].frame.origin
             selectedImageView.willMove(
                 from: originalPos,
                 to: topViewPos,
@@ -233,7 +254,12 @@ extension ViewController {
                     self.cardStacks[indexTapped].pop()
                     self.topCardStacks[indexTopView].push(card: selectedCard)
                     let topCard = self.cardStacks[indexTapped].top
+                    selectedImageView.removeFromSuperview()
                     selectedCardStackView.popCardStackView(previousCard: topCard)
+                    self.topCardViews[indexTopView].addSubview(selectedImageView)
+                    selectedImageView.fitLayout(with: self.topCardViews[indexTopView])
+                    selectedImageView.isUserInteractionEnabled = false
+                    self.viewWillLayoutSubviews()
             })
         } else if let indexCardStack = selectTargetCardStackViewIndex(card: selectedCard) {
             self.view.bringSubview(toFront: selectedImageView)
@@ -247,13 +273,15 @@ extension ViewController {
                     self.cardStacks[indexTapped].pop()
                     self.cardStacks[indexCardStack].push(card: selectedCard)
                     let topCard = self.cardStacks[indexTapped].top
+                    selectedImageView.removeFromSuperview()
                     selectedCardStackView.popCardStackView(previousCard: topCard)
                     // 목적지
                     if let targetCardStackView = self.cardStackViews[indexCardStack]
                         .subviews
                         .first as? CardStackView {
-                        targetCardStackView.pushCardStackView(card: selectedCard)
-                    } }
+                        targetCardStackView.pushCardStackView(selectedImageView)
+                    }
+                    self.viewWillLayoutSubviews() }
             )
         }
     }

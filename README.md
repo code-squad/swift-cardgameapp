@@ -43,4 +43,6 @@
 
   스토리보드로 뷰 컨트롤러를 초기화 할 때, iOS는 이 메소드 대신 init(coder:)를 호출하면서 새로운 뷰 컨트롤러를 만든다.
 
-  ​
+- removeFromSuperView()
+
+  - Unlinks the view from its superview and its window, and removes it from the responder chain.
