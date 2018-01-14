@@ -31,6 +31,12 @@ class CardStackViewModel {
         return newCardStacks
     }
 
+    func reset() {
+        cardDeck.reset()
+        cardStacks.removeAll()
+        cardStacks = makeCardStack()
+    }
+
     // 카드 스택 뷰 배열 만들기
     func makeCardStackView(frame: CGRect, action: Action) -> [CardStackView] {
         var cardStackViews = [CardStackView]()

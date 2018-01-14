@@ -26,9 +26,19 @@ class CardStackDummyView: UIStackView {
 
     func setCardStackDummyView(_ cardStackView: [CardStackView] ) {
         var i = 0
-        self.subviews.forEach {
+        subviews.forEach {
             $0.addSubview(cardStackView[i])
             i += 1
         }
     }
+
+    func removeCardStackDummyView() {
+        subviews.forEach { (view: UIView) in
+            guard let cardStackView = view as? CardStackView else {
+                return
+            }
+            cardStackView.removeAllCardViews()
+        }
+    }
+
 }

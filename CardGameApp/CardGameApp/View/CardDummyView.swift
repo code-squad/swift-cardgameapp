@@ -15,21 +15,21 @@ class CardDummyView: UIStackView {
 
     required init(coder: NSCoder) {
         super.init(coder: coder)
-        initDummyView()
+        initCardDummy()
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
     }
 
-    func initDummyView() {
+    func initCardDummy() {
         self.subviews.forEach {
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.white.cgColor
         }
     }
 
-    private func retsetDummyView() {
+    func removeAllCardDummy() {
         self.subviews.forEach { (view: UIView) in
             view.subviews.forEach {
                 $0.removeFromSuperview()

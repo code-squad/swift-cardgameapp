@@ -9,13 +9,19 @@
 import UIKit
 
 class CardDummyViewModel {
-    private var cardDummy: [CardStack] = {
-        let cardStacks = [CardStack?](repeating: nil, count: 4)
-        return cardStacks.map { _ in return CardStack() }
-    }()
+    private var cardDummy = [CardStack]()
 
-    deinit {
-        cardDummy.removeAll()
+    init() {
+        cardDummy = makeCardDummy()
     }
 
+    private func makeCardDummy() -> [CardStack] {
+        let cardStacks = [CardStack?](repeating: nil, count: 4)
+        return cardStacks.map { _ in return CardStack() }
+    }
+
+    func reset() {
+        cardDummy.removeAll()
+        cardDummy = makeCardDummy()
+    }
 }

@@ -48,12 +48,17 @@ class ViewController: UIViewController {
         initProperties()
         initViews()
         initBackGroundImage()
-        cardStackDummyView.layoutSubviews()
     }
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            resetData()
+            cardStackVM.reset()
+            cardDummyVM.reset()
+            remainBackCards = cardStackVM.remainCards
+            remainShowCards.removeAll()
+            cardDummyView.removeAllCardDummy()
+            cardStackDummyView.removeCardStackDummyView()
+            initCardStackDummyView()
         }
     }
 }
@@ -62,18 +67,12 @@ extension ViewController {
     private func initProperties() {
         Size.cardWidth = (self.view.frame.width - Size.constant * 8) / CGFloat(Size.cardStackCount)
         Size.cardHeight = Size.cardWidth * 1.27
-
         remainBackCards = cardStackVM.remainCards
     }
 
-    func initViews() {
+    private func initViews() {
         initCardStackDummyView()
         initBackCardView()
-    }
-    // Reset Properties
-    private func resetData() {
-        remainBackCards = cardStackVM.remainCards
-        remainShowCards.removeAll()
     }
 
     // Initialize Views

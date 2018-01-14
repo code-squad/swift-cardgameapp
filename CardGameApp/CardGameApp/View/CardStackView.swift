@@ -43,6 +43,10 @@ extension CardStackView {
         }
     }
 
+    func removeAllCardViews() {
+        subviews.forEach { $0.removeFromSuperview() }
+    }
+
     func addDoubleTapGestureAllSubViews(action: Action) {
         subviews.forEach {
             let tapRecognizer = UITapGestureRecognizer(target: action.target, action: action.selector)
@@ -56,7 +60,6 @@ extension CardStackView {
         subviews.forEach { $0.isUserInteractionEnabled = false }
         subviews[index].isUserInteractionEnabled = true
     }
-
 
     // 카드 이미지 뷰를 만드는 함수 (마지막 카드만 카드 앞면.)
     private func makeCardImageViews(_ cardStack: CardStack) -> [UIImageView] {
