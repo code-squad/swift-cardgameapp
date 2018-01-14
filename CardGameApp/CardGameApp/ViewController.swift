@@ -17,8 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet var cardStackDummyView: CardStackDummyView!
 
     var cardStackVM = CardStackViewModel()
-
-    var topCardStacks = [CardStack]()
+    var cardDummyVM = CardDummyViewModel()
     var remainBackCards = [Card]() {
         willSet {
             changeRemainBackCardView(cards: newValue)
@@ -29,6 +28,7 @@ class ViewController: UIViewController {
             changeRemainShowCardView(cards: newValue)
         }
     }
+
     struct Size {
         static let constant: CGFloat = 3
         static let cardStackCount: Int = 7
@@ -46,6 +46,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initProperties()
+        initViews()
         initBackGroundImage()
         cardStackDummyView.layoutSubviews()
     }
@@ -62,41 +63,31 @@ extension ViewController {
         Size.cardWidth = (self.view.frame.width - Size.constant * 8) / CGFloat(Size.cardStackCount)
         Size.cardHeight = Size.cardWidth * 1.27
 
-        topCardStacks = makeTopCardStacks()
         remainBackCards = cardStackVM.remainCards
-
-        // View Init
-        initAndLayoutCardStackView()
-        initBackCardView()
     }
 
+    func initViews() {
+        initCardStackDummyView()
+        initBackCardView()
+    }
     // Reset Properties
     private func resetData() {
-        cardStackVM = CardStackViewModel()
-        topCardStacks.removeAll()
-        topCardStacks = makeTopCardStacks()
         remainBackCards = cardStackVM.remainCards
         remainShowCards.removeAll()
     }
 
-    // Make Objects
-    private func makeTopCardStacks() -> [CardStack] {
-        let cardStacks = [CardStack?](repeating: nil, count: 4)
-        let newCardStacks = cardStacks.map { _ in return CardStack()}
-        return newCardStacks
-    }
     // Initialize Views
 
     private func initBackGroundImage() {
         view.backgroundColor = UIColor.init(patternImage: Image.bgImage)
     }
 
-    fileprivate func initAndLayoutCardStackView() {
+    fileprivate func initCardStackDummyView() {
         let frame = CGRect(x: 0, y: 0, width: Size.cardWidth, height: cardStackDummyView.frame.height)
         let action = Action(target: self, selector: #selector(self.cardStackViewDidDoubleTap(_:)))
-        let myCardStackViews = cardStackVM.makeCardStackView(frame: frame, action: action)
-        cardStackDummyView.setCardStackDummyView(myCardStackViews)
-}
+        let newCardStackViews = cardStackVM.makeCardStackView(frame: frame, action: action)
+        cardStackDummyView.setCardStackDummyView(newCardStackViews)
+    }
 
     fileprivate func initBackCardView() {
         backCardView.image = Image.backImage
@@ -138,17 +129,6 @@ extension ViewController {
             if pointX >= minX && pointX <= maxX { return i }
         }
         return 0
-    }
-
-    // Top View로 이동 시, 카드가 이동할 Top View 인덱스를 반환
-    private func selectTargetTopViewIndex(card: Card) -> Int? {
-        for index in 0..<topCardStacks.count {
-            let top = topCardStacks[index].top
-            if card.isSameSuitAndNextRank(with: top) {
-                return index
-            }
-        }
-        return nil
     }
 }
 

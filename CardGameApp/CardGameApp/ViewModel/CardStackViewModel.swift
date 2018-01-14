@@ -18,6 +18,7 @@ class CardStackViewModel {
         cardStacks = makeCardStack()
     }
 
+    // 카드 스택 배열 만들기
     private func makeCardStack() -> [CardStack] {
         cardDeck.shuffle()
         var newCardStacks = [CardStack]()
@@ -30,6 +31,7 @@ class CardStackViewModel {
         return newCardStacks
     }
 
+    // 카드 스택 뷰 배열 만들기
     func makeCardStackView(frame: CGRect, action: Action) -> [CardStackView] {
         var cardStackViews = [CardStackView]()
         cardStacks.forEach {
