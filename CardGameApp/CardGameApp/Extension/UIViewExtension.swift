@@ -50,11 +50,12 @@ extension UIView {
     }
 
     func fitLayout(with view: UIView, topConstant: CGFloat = 0) {
-        self.setRatio()
+        self.setAutolayout()
         self.top(equal: view, constant: topConstant)
         self.leading(equal: view.leadingAnchor)
         self.trailing(equal:view.trailingAnchor)
         self.width(equal: view.widthAnchor)
+        self.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.27).isActive = true
     }
 
     func setAutolayout() {
@@ -81,8 +82,8 @@ extension UIView {
         self.widthAnchor.constraint(equalToConstant: constant).isActive = true
     }
 
-    func height(equal: UIView, multiplier: CGFloat) {
-        self.heightAnchor.constraint(equalTo: equal.heightAnchor, multiplier: multiplier).isActive = true
+    func height(equal: NSLayoutDimension, multiplier: CGFloat = 0) {
+        self.heightAnchor.constraint(equalTo: equal, multiplier: multiplier).isActive = true
     }
 }
 

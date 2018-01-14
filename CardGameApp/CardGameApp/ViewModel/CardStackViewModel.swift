@@ -32,15 +32,13 @@ class CardStackViewModel {
 
     func makeCardStackView(frame: CGRect, action: Action) -> [CardStackView] {
         var cardStackViews = [CardStackView]()
-        var i: CGFloat = 0
         cardStacks.forEach {
-            let cardStackView = CardStackView(
-                frame: frame
-            )
+            let lastIndex = $0.count - 1
+            let cardStackView = CardStackView(frame: frame)
             cardStackView.setCardStackImageView($0)
-            cardStackView.addDoubleTapGesture(action: action)
+            cardStackView.addDoubleTapGestureAllSubViews(action: action)
+            cardStackView.validUserInterationOnly(on: lastIndex)
             cardStackViews.append(cardStackView)
-            i += 1
         }
         return cardStackViews
     }

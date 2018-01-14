@@ -11,10 +11,10 @@ import UIKit
 class ViewController: UIViewController {
     // MARK: Properties
 
-    @IBOutlet var topCardViews: [UIView]!
+    @IBOutlet var cardDummyView: CardDummyView!
     @IBOutlet var showCardView: UIView!
     @IBOutlet var backCardView: UIImageView!
-    @IBOutlet var cardStackViews: [UIView]!
+    @IBOutlet var cardStackDummyView: CardStackDummyView!
 
     var cardStackVM = CardStackViewModel()
 
@@ -47,13 +47,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         initProperties()
         initBackGroundImage()
+        cardStackDummyView.layoutSubviews()
     }
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             resetData()
-            resetCardStackView()
-            retsetTopViews()
         }
     }
 }
@@ -62,13 +61,13 @@ extension ViewController {
     private func initProperties() {
         Size.cardWidth = (self.view.frame.width - Size.constant * 8) / CGFloat(Size.cardStackCount)
         Size.cardHeight = Size.cardWidth * 1.27
+
         topCardStacks = makeTopCardStacks()
         remainBackCards = cardStackVM.remainCards
 
         // View Init
         initAndLayoutCardStackView()
         initBackCardView()
-        initTopCardViews()
     }
 
     // Reset Properties
@@ -78,23 +77,6 @@ extension ViewController {
         topCardStacks = makeTopCardStacks()
         remainBackCards = cardStackVM.remainCards
         remainShowCards.removeAll()
-    }
-
-    private func resetCardStackView() {
-        cardStackViews.forEach { (uiView: UIView) in
-            uiView.subviews.forEach {
-                $0.removeFromSuperview()
-            }
-        }
-        initAndLayoutCardStackView()
-    }
-
-    private func retsetTopViews() {
-        topCardViews.forEach { (cardView: UIView) in
-            cardView.subviews.forEach {
-                $0.removeFromSuperview()
-            }
-        }
     }
 
     // Make Objects
@@ -110,15 +92,11 @@ extension ViewController {
     }
 
     fileprivate func initAndLayoutCardStackView() {
-        let heightOfView = self.view.frame.height
-        let frame = CGRect(x: 0, y: 0, width: Size.cardWidth, height: heightOfView - 100)
+        let frame = CGRect(x: 0, y: 0, width: Size.cardWidth, height: cardStackDummyView.frame.height)
         let action = Action(target: self, selector: #selector(self.cardStackViewDidDoubleTap(_:)))
-        var myCardStackViews = cardStackVM.makeCardStackView(frame: frame, action: action)
-        cardStackViews.forEach {
-            let stackView = myCardStackViews.removeFirst()
-            $0.addSubview(stackView)
-        }
-    }
+        let myCardStackViews = cardStackVM.makeCardStackView(frame: frame, action: action)
+        cardStackDummyView.setCardStackDummyView(myCardStackViews)
+}
 
     fileprivate func initBackCardView() {
         backCardView.image = Image.backImage
@@ -126,12 +104,6 @@ extension ViewController {
             self,
             action: #selector(self.remainCardsViewDidTap(_:))
         )
-    }
-
-    fileprivate func initTopCardViews() {
-        topCardViews.forEach {
-            $0.makeEmptyView()
-        }
     }
 
     // Change Views
@@ -184,55 +156,7 @@ extension ViewController {
 
 extension ViewController {
     @objc func cardStackViewDidDoubleTap(_ sender: UITapGestureRecognizer) {
-        let tappedLocation = sender.location(in: self.view)
-        let indexTapped = selectCurrentIndexOfCardStack(pointX: tappedLocation.x)
-        guard let selectedImageView = sender.view as? UIImageView,
-            let selectedCardStackView = selectedImageView.superview as? CardStackView,
-            let backgroundView = selectedCardStackView.superview,
-            let selectedCard = cardStackVM.top(cardStackIndex: indexTapped) else {
-                return
-        }
-        let currentOriginPos = backgroundView.frame.origin
-
-        if let indexTopView = selectTargetTopViewIndex(card: selectedCard) {
-            let topViewPos = topCardViews[indexTopView].frame.origin
-            selectedImageView.willMove(
-                from: currentOriginPos,
-                to: topViewPos,
-                action: { _ in
-                    self.cardStackVM.pop(cardStackIndex: indexTapped)
-                    self.topCardStacks[indexTopView].push(card: selectedCard)
-                    let topCard = self.cardStackVM.top(cardStackIndex: indexTapped)
-                    selectedImageView.removeFromSuperview()
-                    selectedCardStackView.popCardStackView(previousCard: topCard)
-                    self.topCardViews[indexTopView].addSubview(selectedImageView)
-                    selectedImageView.fitLayout(with: self.topCardViews[indexTopView])
-                    selectedImageView.isUserInteractionEnabled = false
-                    self.viewWillLayoutSubviews()
-            })
-        } else if let indexCardStack = cardStackVM.selectTargetCardStackViewIndex(card: selectedCard) {
-            self.view.bringSubview(toFront: selectedImageView)
-            var cardStackViewPos = cardStackViews[indexCardStack].frame.origin
-            cardStackViewPos.y += ( 30 * CGFloat(cardStackVM.count(cardStackIndex: indexCardStack)) )
-
-            selectedImageView.willMove(
-                from: currentOriginPos,
-                to: cardStackViewPos,
-                action: { _ in
-                    self.cardStackVM.pop(cardStackIndex: indexTapped)
-                    self.cardStackVM.push(cardStackIndex: indexCardStack, card: selectedCard)
-                    let topCard = self.cardStackVM.top(cardStackIndex: indexTapped)
-                    selectedImageView.removeFromSuperview()
-                    selectedCardStackView.popCardStackView(previousCard: topCard)
-                    // 목적지
-                    if let targetCardStackView = self.cardStackViews[indexCardStack]
-                        .subviews
-                        .first as? CardStackView {
-                        targetCardStackView.pushCardStackView(selectedImageView)
-                    }
-                    self.viewWillLayoutSubviews() }
-            )
-        }
+        print("cardStackViewDidDoubleTap")
     }
 
     @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {
@@ -250,6 +174,5 @@ extension ViewController {
             remainShowCards.append(card)
         default: break
         }
-
     }
 }
