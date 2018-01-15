@@ -116,27 +116,30 @@ extension ViewController {
 // MARK: Events
 
 extension ViewController: CardStackDummyViewDelegate {
+    fileprivate func move(tappedView: UIView, from stackDummyIndex: Int, to dummyIndex: Int) {
+        let popCard = self.cardStackVM.pop(cardStackIndex: stackDummyIndex)!
+        self.cardDummyVM.push(index: dummyIndex, card: popCard)
+        let topCard = self.cardStackVM.top(cardStackIndex: stackDummyIndex)
+        tappedView.removeFromSuperview()
+        self.cardStackDummyView.pop(index: stackDummyIndex, previousCard: topCard)
+        self.cardDummyView.push(index: dummyIndex, cardView: tappedView)
+    }
+
     func cardViewDidDoubleTap(tappedView: UIView, cardStackIdx: Int, origin: CGPoint) {
+        let constant: CGFloat = 7.5
         guard let selectedCard = cardStackVM.top(cardStackIndex: cardStackIdx) else { return }
         if let indexTopView = cardDummyVM.selectTargetTopViewIndex(card: selectedCard) {
             var topViewPos = cardDummyView.position(index: indexTopView)
             topViewPos.x += cardStackDummyView.frame.origin.x
-            topViewPos.y += cardStackDummyView.frame.origin.y
-            print(topViewPos)
             UIView.animate(
                 withDuration: 0.5,
                 animations: {
                     tappedView.frame.origin.x = -origin.x
                     tappedView.frame.origin.x += topViewPos.x
-                    tappedView.frame.origin.y = -(7.5 + Size.cardHeight)
+                    tappedView.frame.origin.y = -(constant + Size.cardHeight)
             },
                 completion: { _ in
-                    self.cardStackVM.pop(cardStackIndex: cardStackIdx)
-                    self.cardDummyVM.push(index: indexTopView, card: selectedCard)
-                    let topCard = self.cardStackVM.top(cardStackIndex: cardStackIdx)
-                    tappedView.removeFromSuperview()
-                    self.cardStackDummyView.pop(index: cardStackIdx, previousCard: topCard)
-                    self.cardDummyView.push(index: indexTopView, cardView: tappedView)
+                    self.move(tappedView: tappedView, from: cardStackIdx, to: indexTopView)
             })
         }
     }

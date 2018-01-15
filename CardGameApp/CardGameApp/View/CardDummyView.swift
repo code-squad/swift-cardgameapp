@@ -34,16 +34,13 @@ class CardDummyView: UIView {
     }
 
     func push(index: Int, cardView: UIView) {
-        let view = cardView
-        print(index)
-        subviews[index].addSubview(view)
-        view.setAutolayout()
-        view.top(equal: subviews[index])
-        view.leading(equal: subviews[index].leadingAnchor)
-        view.trailing(equal: subviews[index].trailingAnchor)
-        view.bottomAnchor.constraint(equalTo: subviews[index].bottomAnchor).isActive = true
-        view.isUserInteractionEnabled = false
-        self.layoutSubviews()
+        subviews[index].addSubview(cardView)
+        cardView.setAutolayout()
+        cardView.top(equal: subviews[index])
+        cardView.leading(equal: subviews[index].leadingAnchor)
+        cardView.trailing(equal: subviews[index].trailingAnchor)
+        cardView.bottomAnchor.constraint(equalTo: subviews[index].bottomAnchor).isActive = true
+        cardView.isUserInteractionEnabled = false
     }
 
     func removeAllCardDummy() {
