@@ -65,17 +65,13 @@ extension CardStackView {
     private func makeCardImageViews(_ cardStack: CardStack) -> [UIImageView] {
         var imageViews = [UIImageView]()
         var stack = cardStack
-        guard let card = stack.pop() else {
-            return []
-        }
-        let cardView = CardView(frame: frame)
-        cardView.image = card.makeImage()
-        imageViews.insert(UIImageView(image: card.makeImage()), at: 0)
-        while !stack.isEmpty {
-            guard let card = stack.pop() else {
-                break
-            }
-            imageViews.insert(UIImageView(image: card.makeBackImage()), at: 0)
+        while true {
+            guard let card = stack.pop() else { break }
+            let imageView = UIImageView()
+            if stack.isEmpty {
+                imageView.image = card.makeImage()
+            } else { imageView.image = card.makeBackImage() }
+            imageViews.append(imageView)
         }
         return imageViews
     }

@@ -45,6 +45,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        cardStackDummyView.delegate = self
         initProperties()
         initViews()
         initBackGroundImage()
@@ -58,7 +59,6 @@ class ViewController: UIViewController {
             remainShowCards.removeAll()
             cardDummyView.removeAllCardDummy()
             cardStackDummyView.removeCardStackDummyView()
-            initCardStackDummyView()
         }
     }
 }
@@ -71,7 +71,7 @@ extension ViewController {
     }
 
     private func initViews() {
-        initCardStackDummyView()
+        cardStackDummyView.setCardStackDummyView(cardStackVM.cardStacks)
         initBackCardView()
     }
 
@@ -79,13 +79,6 @@ extension ViewController {
 
     private func initBackGroundImage() {
         view.backgroundColor = UIColor.init(patternImage: Image.bgImage)
-    }
-
-    fileprivate func initCardStackDummyView() {
-        let frame = CGRect(x: 0, y: 0, width: Size.cardWidth, height: cardStackDummyView.frame.height)
-        let action = Action(target: self, selector: #selector(self.cardStackViewDidDoubleTap(_:)))
-        let newCardStackViews = cardStackVM.makeCardStackView(frame: frame, action: action)
-        cardStackDummyView.setCardStackDummyView(newCardStackViews)
     }
 
     fileprivate func initBackCardView() {
@@ -133,9 +126,9 @@ extension ViewController {
 
 // MARK: Events
 
-extension ViewController {
-    @objc func cardStackViewDidDoubleTap(_ sender: UITapGestureRecognizer) {
-        print("cardStackViewDidDoubleTap")
+extension ViewController: CardStackDummyViewDelegate {
+    func cardViewDidDoubleTap(_ sender: UITapGestureRecognizer) {
+        print("cardViewDidDoubleTap")
     }
 
     @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {

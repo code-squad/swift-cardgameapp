@@ -38,7 +38,7 @@ class CardStackViewModel {
     }
 
     // 카드 스택 뷰 배열 만들기
-    func makeCardStackView(frame: CGRect, action: Action) -> [CardStackView] {
+    func makeCardStackDummyView(frame: CGRect, action: Action) {
         var cardStackViews = [CardStackView]()
         cardStacks.forEach {
             let lastIndex = $0.count - 1
@@ -48,7 +48,7 @@ class CardStackViewModel {
             cardStackView.validUserInterationOnly(on: lastIndex)
             cardStackViews.append(cardStackView)
         }
-        return cardStackViews
+        return
     }
 
     // card Stack View로 이동 시, 카드가 이동할 card stack view 인덱스를 반환
