@@ -47,6 +47,11 @@ extension CardStackView {
         subviews.forEach { $0.removeFromSuperview() }
     }
 
+    func popCardStackView(previousCard: Card) {
+        subviews.last?.isUserInteractionEnabled = true
+        ( self.subviews.last as? UIImageView)?.image = previousCard.makeImage()
+    }
+
     func addDoubleTapGestureAllSubViews(action: Action) {
         subviews.forEach {
             let tapRecognizer = UITapGestureRecognizer(target: action.target, action: action.selector)
@@ -65,13 +70,14 @@ extension CardStackView {
     private func makeCardImageViews(_ cardStack: CardStack) -> [UIImageView] {
         var imageViews = [UIImageView]()
         var stack = cardStack
+        let count = stack.count
         while true {
             guard let card = stack.pop() else { break }
             let imageView = UIImageView()
-            if stack.isEmpty {
+            if stack.count == count - 1 {
                 imageView.image = card.makeImage()
             } else { imageView.image = card.makeBackImage() }
-            imageViews.append(imageView)
+            imageViews.insert(imageView, at: 0)
         }
         return imageViews
     }

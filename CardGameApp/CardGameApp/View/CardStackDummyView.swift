@@ -11,7 +11,6 @@ import UIKit
 class CardStackDummyView: UIStackView {
 
     weak var delegate: CardStackDummyViewDelegate?
-    var embededViews = [CardStackView]()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,11 +25,12 @@ class CardStackDummyView: UIStackView {
     }
 
     func setCardStackDummyView(_ cardStacks: [CardStack]) {
-        makeCardStackViews(cardStacks)
-        addCardStackViews()
+        let cardStackViews = makeCardStackViews(cardStacks)
+        addCardStackViews(cardStackViews)
     }
 
-    private func makeCardStackViews(_ cardStacks: [CardStack]) {
+    private func makeCardStackViews(_ cardStacks: [CardStack]) -> [CardStackView] {
+        var embededViews = [CardStackView]()
         cardStacks.forEach {
             let lastIndex = $0.count - 1
             guard let width = subviews.first?.frame.width else { return }
@@ -42,31 +42,55 @@ class CardStackDummyView: UIStackView {
             cardStackView.validUserInterationOnly(on: lastIndex)
             embededViews.append(cardStackView)
         }
+        return embededViews
     }
 
-    private func addCardStackViews() {
+    private func addCardStackViews(_ cardStackViews: [CardStackView]) {
         var i = 0
         subviews.forEach {
-            $0.addSubview(embededViews[i])
+            $0.addSubview(cardStackViews[i])
             i += 1
         }
     }
 
     func removeCardStackDummyView() {
         subviews.forEach {
-            guard let cardStackView = $0 as? CardStackView else {
-                return
-            }
-            cardStackView.removeAllCardViews()
+            let subview = $0.subviews.first
+            subview?.removeFromSuperview()
         }
     }
 
-    @objc func cardViewDidDoubleTap(_ sender: UITapGestureRecognizer) {
-        delegate?.cardViewDidDoubleTap(sender)
+    func pop(index: Int, previousCard: Card?) {
+        guard let card = previousCard else { return }
+        let subview = subviews[index].subviews.first
+        let cardStackview = subview as? CardStackView
+        cardStackview?.popCardStackView(previousCard: card)
+        self.layoutSubviews()
     }
 
+    // get view position
+
+    // x좌표를 갖고 현재 위치가 몇번 째 카드 스택에 속하는지 인덱스 반환.
+    private func selectCurrentIndexOfCardStack(pointX: CGFloat) -> Int {
+        let dummyViewFrame = self.frame
+        let distributionWidth = dummyViewFrame.width / 7
+        return Int(pointX / distributionWidth)
+    }
+
+    @objc func cardViewDidDoubleTap(_ sender: UITapGestureRecognizer) {
+        let tappedLocation = sender.location(in: self)
+        let indexTapped = selectCurrentIndexOfCardStack(pointX: tappedLocation.x)
+        guard let tappedView = sender.view as? UIImageView else { return }
+        let x = subviews[indexTapped].frame.origin.x
+        let y = tappedView.frame.origin.y
+        delegate?.cardViewDidDoubleTap(
+            tappedView: tappedView,
+            cardStackIdx: indexTapped,
+            origin: CGPoint(x: x, y: y)
+        )
+    }
 }
 
 protocol CardStackDummyViewDelegate: class {
-    func cardViewDidDoubleTap(_ sender: UITapGestureRecognizer)
+    func cardViewDidDoubleTap(tappedView: UIView, cardStackIdx: Int, origin: CGPoint)
 }
