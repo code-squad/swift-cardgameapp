@@ -31,12 +31,22 @@ class CardDummyViewModel {
         return nil
     }
 
-    func push(index: Int, card: Card) {
-        cardDummy[index].push(card: card)
-    }
-
     func reset() {
         cardDummy.removeAll()
         cardDummy = makeCardDummy()
+    }
+}
+
+extension CardDummyViewModel: CardStackMovableModel {
+    func top(index: Int) -> Card? {
+        return cardDummy[index].top
+    }
+
+    @discardableResult func pop(index: Int) -> Card? {
+        return cardDummy[index].pop()
+    }
+
+    func push(index: Int, card: Card) {
+        cardDummy[index].push(card: card)
     }
 }

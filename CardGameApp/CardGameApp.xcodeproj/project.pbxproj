@@ -22,6 +22,9 @@
 		C982F6E31FEECE8200B2AC34 /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6E21FEECE8200B2AC34 /* CardDeck.swift */; };
 		C982F6E51FF143C200B2AC34 /* CardDeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6E41FF143C200B2AC34 /* CardDeckTest.swift */; };
 		C98BE65A200B55BF004A18B9 /* CardDummyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE659200B55BF004A18B9 /* CardDummyViewModel.swift */; };
+		C98BE65C200D112A004A18B9 /* CardStackMovableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE65B200D112A004A18B9 /* CardStackMovableModel.swift */; };
+		C98BE65E200D116D004A18B9 /* CardStackMovableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE65D200D116D004A18B9 /* CardStackMovableView.swift */; };
+		C98BE660200D11DB004A18B9 /* MoveInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE65F200D11DB004A18B9 /* MoveInfo.swift */; };
 		C9996FAD2006616C002EDB13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6BA1FEBB15000B2AC34 /* ViewController.swift */; };
 		C9996FAF20075568002EDB13 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FAE20075567002EDB13 /* Action.swift */; };
 		C9996FB22007655D002EDB13 /* CardStackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FB12007655D002EDB13 /* CardStackViewModel.swift */; };
@@ -64,6 +67,9 @@
 		C982F6E21FEECE8200B2AC34 /* CardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
 		C982F6E41FF143C200B2AC34 /* CardDeckTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckTest.swift; sourceTree = "<group>"; };
 		C98BE659200B55BF004A18B9 /* CardDummyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDummyViewModel.swift; sourceTree = "<group>"; };
+		C98BE65B200D112A004A18B9 /* CardStackMovableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackMovableModel.swift; sourceTree = "<group>"; };
+		C98BE65D200D116D004A18B9 /* CardStackMovableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackMovableView.swift; sourceTree = "<group>"; };
+		C98BE65F200D11DB004A18B9 /* MoveInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveInfo.swift; sourceTree = "<group>"; };
 		C9996FAE20075567002EDB13 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		C9996FB12007655D002EDB13 /* CardStackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewModel.swift; sourceTree = "<group>"; };
 		C9996FD32008BCB9002EDB13 /* CardDummyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDummyView.swift; sourceTree = "<group>"; };
@@ -175,6 +181,7 @@
 				C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */,
 				C9EB73811FF387D400CDBB1E /* Error.swift */,
 				C9996FAE20075567002EDB13 /* Action.swift */,
+				C98BE65F200D11DB004A18B9 /* MoveInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -184,6 +191,7 @@
 			children = (
 				C9996FB12007655D002EDB13 /* CardStackViewModel.swift */,
 				C98BE659200B55BF004A18B9 /* CardDummyViewModel.swift */,
+				C98BE65B200D112A004A18B9 /* CardStackMovableModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -195,6 +203,7 @@
 				C9996FD32008BCB9002EDB13 /* CardDummyView.swift */,
 				C9996FD52008C97E002EDB13 /* CardView.swift */,
 				C9996FD72008CB01002EDB13 /* CardStackView.swift */,
+				C98BE65D200D116D004A18B9 /* CardStackMovableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -430,11 +439,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9996FD82008CB01002EDB13 /* CardStackView.swift in Sources */,
+				C98BE65C200D112A004A18B9 /* CardStackMovableModel.swift in Sources */,
 				C98BE65A200B55BF004A18B9 /* CardDummyViewModel.swift in Sources */,
 				C9EB73C31FF4CF2A00CDBB1E /* CardStackDummyView.swift in Sources */,
 				C9996FAF20075568002EDB13 /* Action.swift in Sources */,
 				C982F6E11FEEBE5C00B2AC34 /* Card.swift in Sources */,
+				C98BE65E200D116D004A18B9 /* CardStackMovableView.swift in Sources */,
 				C9996FD42008BCB9002EDB13 /* CardDummyView.swift in Sources */,
+				C98BE660200D11DB004A18B9 /* MoveInfo.swift in Sources */,
 				C9EB73841FF4BAFC00CDBB1E /* CardStack.swift in Sources */,
 				C982F6E31FEECE8200B2AC34 /* CardDeck.swift in Sources */,
 				C9996FB22007655D002EDB13 /* CardStackViewModel.swift in Sources */,

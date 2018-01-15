@@ -82,7 +82,17 @@ final class CardStackDummyView: UIStackView {
         let y = moveY(from: startIndex, to: endIndex)
         return CGPoint(x: x, y: y)
     }
+    // get view position
 
+    // x좌표를 갖고 현재 위치가 몇번 째 카드 스택에 속하는지 인덱스 반환.
+    private func selectCurrentIndexOfCardStack(pointX: CGFloat) -> Int {
+        let dummyViewFrame = self.frame
+        let distributionWidth = dummyViewFrame.width / 7
+        return Int(pointX / distributionWidth)
+    }
+}
+
+extension CardStackDummyView: CardStackMovableView {
     func pop(index: Int, previousCard: Card?) {
         guard let card = previousCard else { return }
         let subview = subviews[index].subviews.first
@@ -96,15 +106,6 @@ final class CardStackDummyView: UIStackView {
         let cardStackview = subview as? CardStackView
         cardStackview?.pushCardStackView(cardView: cardView)
         self.layoutSubviews()
-    }
-
-    // get view position
-
-    // x좌표를 갖고 현재 위치가 몇번 째 카드 스택에 속하는지 인덱스 반환.
-    private func selectCurrentIndexOfCardStack(pointX: CGFloat) -> Int {
-        let dummyViewFrame = self.frame
-        let distributionWidth = dummyViewFrame.width / 7
-        return Int(pointX / distributionWidth)
     }
 }
 

@@ -9,7 +9,6 @@
 import UIKit
 
 extension UIView {
-
     @discardableResult func makeEmptyView() -> UIView {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.white.cgColor

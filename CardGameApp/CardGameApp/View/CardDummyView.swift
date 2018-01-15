@@ -34,6 +34,20 @@ class CardDummyView: UIView {
         return subviews[index].frame.origin
     }
 
+    func removeAllCardDummy() {
+        self.subviews.forEach { (view: UIView) in
+            view.subviews.forEach {
+                $0.removeFromSuperview()
+            }
+        }
+    }
+}
+
+extension CardDummyView: CardStackMovableView {
+    func pop(index: Int, previousCard: Card?) {
+        // Not yet
+    }
+
     func push(index: Int, cardView: UIView) {
         subviews[index].addSubview(cardView)
         cardView.translatesAutoresizingMaskIntoConstraints = false
@@ -42,13 +56,5 @@ class CardDummyView: UIView {
         cardView.trailingAnchor.constraint(equalTo: subviews[index].trailingAnchor).isActive = true
         cardView.bottomAnchor.constraint(equalTo: subviews[index].bottomAnchor).isActive = true
         cardView.isUserInteractionEnabled = false
-    }
-
-    func removeAllCardDummy() {
-        self.subviews.forEach { (view: UIView) in
-            view.subviews.forEach {
-                $0.removeFromSuperview()
-            }
-        }
     }
 }

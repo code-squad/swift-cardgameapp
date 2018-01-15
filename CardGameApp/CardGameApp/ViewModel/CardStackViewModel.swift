@@ -51,16 +51,18 @@ class CardStackViewModel {
     func count(cardStackIndex: Int) -> Int {
         return cardStacks[cardStackIndex].count
     }
+}
 
-    func top(cardStackIndex: Int) -> Card? {
-        return cardStacks[cardStackIndex].top
+extension CardStackViewModel: CardStackMovableModel {
+    func top(index: Int) -> Card? {
+        return cardStacks[index].top
     }
 
-    @discardableResult func pop(cardStackIndex: Int) -> Card? {
-        return cardStacks[cardStackIndex].pop()
+    @discardableResult func pop(index: Int) -> Card? {
+        return cardStacks[index].pop()
     }
 
-    func push(cardStackIndex: Int, card: Card) {
-        cardStacks[cardStackIndex].push(card: card)
+    func push(index: Int, card: Card) {
+        cardStacks[index].push(card: card)
     }
 }
