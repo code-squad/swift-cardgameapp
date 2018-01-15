@@ -84,10 +84,9 @@ extension ViewController {
 
     fileprivate func initBackCardView() {
         backCardView.image = Image.backImage
-        backCardView.addTapGesture(
-            self,
-            action: #selector(self.remainCardsViewDidTap(_:))
-        )
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.remainCardsViewDidTap(_:)))
+        tapRecognizer.numberOfTapsRequired = 1
+        backCardView.addGestureRecognizer(tapRecognizer)
     }
 
     // Change Views
@@ -107,7 +106,15 @@ extension ViewController {
                 return
             }
             showCardView.addSubview(UIImageView(image: lastCard.makeImage()))
-            showCardView.subviews.last?.fitLayout(with: showCardView)
+            guard let subview = showCardView.subviews.last else { return }
+
+            subview.translatesAutoresizingMaskIntoConstraints = false
+            subview.topAnchor.constraint(equalTo: showCardView.topAnchor).isActive = true
+            subview.leadingAnchor.constraint(equalTo: showCardView.leadingAnchor).isActive = true
+            subview.trailingAnchor.constraint(equalTo: showCardView.trailingAnchor).isActive = true
+            subview.widthAnchor.constraint(equalTo: showCardView.widthAnchor).isActive = true
+            subview.heightAnchor.constraint(equalTo: subview.widthAnchor, multiplier: 1.27).isActive = true
+
         }
     }
 
@@ -116,30 +123,47 @@ extension ViewController {
 // MARK: Events
 
 extension ViewController: CardStackDummyViewDelegate {
-    fileprivate func move(tappedView: UIView, from stackDummyIndex: Int, to dummyIndex: Int) {
-        let popCard = self.cardStackVM.pop(cardStackIndex: stackDummyIndex)!
-        self.cardDummyVM.push(index: dummyIndex, card: popCard)
-        let topCard = self.cardStackVM.top(cardStackIndex: stackDummyIndex)
-        tappedView.removeFromSuperview()
-        self.cardStackDummyView.pop(index: stackDummyIndex, previousCard: topCard)
-        self.cardDummyView.push(index: dummyIndex, cardView: tappedView)
-    }
-
-    func cardViewDidDoubleTap(tappedView: UIView, cardStackIdx: Int, origin: CGPoint) {
-        let constant: CGFloat = 7.5
+    func moveToCardStackDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, cardStackIdx: Int) {
         guard let selectedCard = cardStackVM.top(cardStackIndex: cardStackIdx) else { return }
-        if let indexTopView = cardDummyVM.selectTargetTopViewIndex(card: selectedCard) {
-            var topViewPos = cardDummyView.position(index: indexTopView)
-            topViewPos.x += cardStackDummyView.frame.origin.x
+        if cardDummyVM.selectTargetTopViewIndex(card: selectedCard) != nil { return }
+        if let indexCardStack = cardStackVM.selectTargetCardStackViewIndex(card: selectedCard) {
+            let moveOrigin = cardStackDummyView.distance(from: cardStackIdx, to: indexCardStack)
             UIView.animate(
                 withDuration: 0.5,
                 animations: {
-                    tappedView.frame.origin.x = -origin.x
-                    tappedView.frame.origin.x += topViewPos.x
-                    tappedView.frame.origin.y = -(constant + Size.cardHeight)
+                    tappedView.frame.origin.x += moveOrigin.x
+                    tappedView.frame.origin.y += moveOrigin.y
             },
                 completion: { _ in
-                    self.move(tappedView: tappedView, from: cardStackIdx, to: indexTopView)
+                    self.cardStackVM.pop(cardStackIndex: cardStackIdx)
+                    self.cardStackVM.push(cardStackIndex: indexCardStack, card: selectedCard)
+                    let topCard = self.cardStackVM.top(cardStackIndex: cardStackIdx)
+                    tappedView.removeFromSuperview()
+                    cardStackDummyView.pop(index: cardStackIdx, previousCard: topCard)
+                    cardStackDummyView.push(index: indexCardStack, cardView: tappedView)
+            })
+        }
+    }
+
+    func moveToCardDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, cardStackIdx: Int) {
+        let constant: CGFloat = 7.5
+        guard let selectedCard = cardStackVM.top(cardStackIndex: cardStackIdx) else { return }
+        if let indexTopView = cardDummyVM.selectTargetTopViewIndex(card: selectedCard) {
+            let topViewPos = cardDummyView.position(index: indexTopView)
+            let moveXPos = cardStackDummyView.moveX(from: 0, to: cardStackIdx)
+            UIView.animate(
+                withDuration: 0.5,
+                animations: {
+                    tappedView.frame.origin.x = -moveXPos
+                    tappedView.frame.origin.x += topViewPos.x
+                    tappedView.frame.origin.y = -(constant + Size.cardHeight) },
+                completion: { _ in
+                    let popCard = self.cardStackVM.pop(cardStackIndex: cardStackIdx)!
+                    self.cardDummyVM.push(index: indexTopView, card: popCard)
+                    let topCard = self.cardStackVM.top(cardStackIndex: cardStackIdx)
+                    tappedView.removeFromSuperview()
+                    cardStackDummyView.pop(index: cardStackIdx, previousCard: topCard)
+                    self.cardDummyView.push(index: indexTopView, cardView: tappedView)
             })
         }
     }

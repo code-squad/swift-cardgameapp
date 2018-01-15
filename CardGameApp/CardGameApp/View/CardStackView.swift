@@ -34,13 +34,17 @@ extension CardStackView {
         cardImageViews.forEach {
             let cardIndex = CGFloat(subviews.count)
             self.addSubview($0)
-            $0.setAutolayout()
+            $0.translatesAutoresizingMaskIntoConstraints = false
             $0.topAnchor.constraint(equalTo: self.topAnchor, constant: cardIndex*constant).isActive = true
             $0.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
             $0.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
             $0.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
             $0.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.27).isActive = true
         }
+    }
+
+    func topConstantOfLastCard() -> CGFloat {
+        return subviews.last?.frame.origin.y ?? 0
     }
 
     func removeAllCardViews() {
@@ -50,6 +54,18 @@ extension CardStackView {
     func popCardStackView(previousCard: Card) {
         subviews.last?.isUserInteractionEnabled = true
         ( self.subviews.last as? UIImageView)?.image = previousCard.makeImage()
+    }
+
+    func pushCardStackView(cardView: UIView) {
+        subviews.last?.isUserInteractionEnabled = false
+        self.addSubview(cardView)
+        cardView.translatesAutoresizingMaskIntoConstraints = false
+        cardView.topAnchor.constraint(equalTo: self.topAnchor, constant: (subviews.count-1).cgfloat*constant).isActive = true
+        cardView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        cardView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        cardView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        cardView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.27).isActive = true
+        subviews.last?.isUserInteractionEnabled = true
     }
 
     func addDoubleTapGestureAllSubViews(action: Action) {
@@ -90,7 +106,12 @@ extension CardStackView {
     private func setEmptyView() {
         let emptyView = UIView().makeEmptyView()
         self.addSubview(emptyView)
-        emptyView.fitLayout(with: self)
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        emptyView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        emptyView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        emptyView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        emptyView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        emptyView.heightAnchor.constraint(equalTo: emptyView.widthAnchor, multiplier: 1.27).isActive = true
     }
 
 }

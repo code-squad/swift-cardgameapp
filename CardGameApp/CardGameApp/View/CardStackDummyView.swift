@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardStackDummyView: UIStackView {
+final class CardStackDummyView: UIStackView {
 
     weak var delegate: CardStackDummyViewDelegate?
 
@@ -60,11 +60,41 @@ class CardStackDummyView: UIStackView {
         }
     }
 
+    func moveX(from startIndex: Int, to endIndex: Int) -> CGFloat {
+        let startX = subviews[startIndex].frame.origin.x
+        let endX = subviews[endIndex].frame.origin.x
+        return endX - startX
+    }
+
+    func moveY(from startIndex: Int, to endIndex: Int) -> CGFloat {
+        let startSubview = subviews[startIndex].subviews.first
+        let endSubview = subviews[endIndex].subviews.first
+        guard let startCardStackview = startSubview as? CardStackView,
+            let endCardStackview = endSubview as? CardStackView else {
+            return CGFloat(0)
+        }
+        let willMove = endCardStackview.topConstantOfLastCard() + 30
+        return willMove - startCardStackview.topConstantOfLastCard()
+    }
+
+    func distance(from startIndex: Int, to endIndex: Int) -> CGPoint {
+        let x = moveX(from: startIndex, to: endIndex)
+        let y = moveY(from: startIndex, to: endIndex)
+        return CGPoint(x: x, y: y)
+    }
+
     func pop(index: Int, previousCard: Card?) {
         guard let card = previousCard else { return }
         let subview = subviews[index].subviews.first
         let cardStackview = subview as? CardStackView
         cardStackview?.popCardStackView(previousCard: card)
+        self.layoutSubviews()
+    }
+
+    func push(index: Int, cardView: UIView) {
+        let subview = subviews[index].subviews.first
+        let cardStackview = subview as? CardStackView
+        cardStackview?.pushCardStackView(cardView: cardView)
         self.layoutSubviews()
     }
 
@@ -76,21 +106,27 @@ class CardStackDummyView: UIStackView {
         let distributionWidth = dummyViewFrame.width / 7
         return Int(pointX / distributionWidth)
     }
+}
 
+// MARK: Events
+extension CardStackDummyView {
     @objc func cardViewDidDoubleTap(_ sender: UITapGestureRecognizer) {
         let tappedLocation = sender.location(in: self)
         let indexTapped = selectCurrentIndexOfCardStack(pointX: tappedLocation.x)
         guard let tappedView = sender.view as? UIImageView else { return }
-        let x = subviews[indexTapped].frame.origin.x
-        let y = tappedView.frame.origin.y
-        delegate?.cardViewDidDoubleTap(
-            tappedView: tappedView,
-            cardStackIdx: indexTapped,
-            origin: CGPoint(x: x, y: y)
+        delegate?.moveToCardDummyView (
+            self, tappedView: tappedView,
+            cardStackIdx: indexTapped
+        )
+        delegate?.moveToCardStackDummyView (
+            self, tappedView: tappedView,
+            cardStackIdx: indexTapped
         )
     }
+
 }
 
-protocol CardStackDummyViewDelegate: class {
-    func cardViewDidDoubleTap(tappedView: UIView, cardStackIdx: Int, origin: CGPoint)
+protocol CardStackDummyViewDelegate: NSObjectProtocol {
+    func moveToCardDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, cardStackIdx: Int)
+    func moveToCardStackDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, cardStackIdx: Int)
 }

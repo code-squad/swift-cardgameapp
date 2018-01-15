@@ -9,6 +9,7 @@
 import UIKit
 
 class CardDummyView: UIView {
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -35,10 +36,10 @@ class CardDummyView: UIView {
 
     func push(index: Int, cardView: UIView) {
         subviews[index].addSubview(cardView)
-        cardView.setAutolayout()
-        cardView.top(equal: subviews[index])
-        cardView.leading(equal: subviews[index].leadingAnchor)
-        cardView.trailing(equal: subviews[index].trailingAnchor)
+        cardView.translatesAutoresizingMaskIntoConstraints = false
+        cardView.topAnchor.constraint(equalTo: subviews[index].topAnchor).isActive = true
+        cardView.leadingAnchor.constraint(equalTo: subviews[index].leadingAnchor).isActive = true
+        cardView.trailingAnchor.constraint(equalTo: subviews[index].trailingAnchor).isActive = true
         cardView.bottomAnchor.constraint(equalTo: subviews[index].bottomAnchor).isActive = true
         cardView.isUserInteractionEnabled = false
     }
