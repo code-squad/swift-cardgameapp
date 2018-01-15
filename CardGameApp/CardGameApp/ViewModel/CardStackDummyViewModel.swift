@@ -1,5 +1,5 @@
 //
-//  CardStackViewModel.swift
+//  CardStackDummyViewModel.swift
 //  CardGameApp
 //
 //  Created by yangpc on 2018. 1. 11..
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardStackViewModel {
+class CardStackDummyViewModel {
     private var cardDeck = CardDeck()
     private(set) var cardStacks = [CardStack]()
     var remainCards: [Card] {
@@ -38,7 +38,7 @@ class CardStackViewModel {
     }
 
     // card Stack View로 이동 시, 카드가 이동할 card stack view 인덱스를 반환
-    func selectTargetCardStackViewIndex(card: Card) -> Int? {
+    func targetIndex(card: Card) -> Int? {
         for index in 0..<cardStacks.count {
             let top = cardStacks[index].top
             if card.isDifferentColorAndPreviousRank(with: top) {
@@ -53,7 +53,7 @@ class CardStackViewModel {
     }
 }
 
-extension CardStackViewModel: CardStackMovableModel {
+extension CardStackDummyViewModel: CardStackMovableModel {
     func top(index: Int) -> Card? {
         return cardStacks[index].top
     }

@@ -21,7 +21,7 @@ class CardDummyViewModel {
     }
 
     // Top View로 이동 시, 카드가 이동할 Top View 인덱스를 반환
-    func selectTargetTopViewIndex(card: Card) -> Int? {
+    func targetIndex(card: Card) -> Int? {
         for index in 0..<cardDummy.count {
             let top = cardDummy[index].top
             if card.isSameSuitAndNextRank(with: top) {

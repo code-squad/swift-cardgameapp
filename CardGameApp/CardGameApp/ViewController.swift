@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet var backCardView: UIImageView!
     @IBOutlet var cardStackDummyView: CardStackDummyView!
 
-    var cardStackVM = CardStackViewModel()
+    var stackDummyVM = CardStackDummyViewModel()
     var cardDummyVM = CardDummyViewModel()
     var remainBackCards = [Card]() {
         willSet {
@@ -53,13 +53,13 @@ class ViewController: UIViewController {
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            cardStackVM.reset()
+            stackDummyVM.reset()
             cardDummyVM.reset()
-            remainBackCards = cardStackVM.remainCards
+            remainBackCards = stackDummyVM.remainCards
             remainShowCards.removeAll()
             cardDummyView.removeAllCardDummy()
             cardStackDummyView.removeCardStackDummyView()
-            cardStackDummyView.setCardStackDummyView(cardStackVM.cardStacks)
+            cardStackDummyView.setCardStackDummyView(stackDummyVM.cardStacks)
         }
     }
 }
@@ -68,11 +68,11 @@ extension ViewController {
     private func initProperties() {
         Size.cardWidth = (self.view.frame.width - Size.constant * 8) / CGFloat(Size.cardStackCount)
         Size.cardHeight = Size.cardWidth * 1.27
-        remainBackCards = cardStackVM.remainCards
+        remainBackCards = stackDummyVM.remainCards
     }
 
     private func initViews() {
-        cardStackDummyView.setCardStackDummyView(cardStackVM.cardStacks)
+        cardStackDummyView.setCardStackDummyView(stackDummyVM.cardStacks)
         initBackCardView()
     }
 
@@ -120,25 +120,25 @@ extension ViewController {
 
 }
 
-// MARK: Events
+// MARK: CardStackDummyViewDelegate
 
 extension ViewController: CardStackDummyViewDelegate {
-    fileprivate func move(start: StartInfo, end: EndInfo, targetView: UIView) {
+    fileprivate func move(start: StartInfo, target: TargetInfo, tappedView: UIView) {
         let selectedCard = start.viewModel.pop(index: start.index)!
-        end.viewModel.push(index: end.index, card: selectedCard)
+        target.viewModel.push(index: target.index, card: selectedCard)
         let topCard = start.viewModel.top(index: start.index)
-        targetView.removeFromSuperview()
+        tappedView.removeFromSuperview()
         start.view.pop(index: start.index, previousCard: topCard)
-        end.view.push(index: end.index, cardView: targetView)
+        target.view.push(index: target.index, cardView: tappedView)
     }
 
-    func moveToCardStackDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, cardStackIdx: Int) {
-        guard let selectedCard = cardStackVM.top(index: cardStackIdx),
-            cardDummyVM.selectTargetTopViewIndex(card: selectedCard) == nil,
-            let indexCardStack = cardStackVM.selectTargetCardStackViewIndex(card: selectedCard) else {
+    func moveToCardStackDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, startIndex: Int) {
+        guard let selectedCard = stackDummyVM.top(index: startIndex),
+            cardDummyVM.targetIndex(card: selectedCard) == nil,
+            let targetIndex = stackDummyVM.targetIndex(card: selectedCard) else {
                 return
         }
-        let moveOrigin = cardStackDummyView.distance(from: cardStackIdx, to: indexCardStack)
+        let moveOrigin = cardStackDummyView.movePoint(from: startIndex, to: targetIndex)
         UIView.animate(
             withDuration: 0.5,
             animations: {
@@ -146,20 +146,20 @@ extension ViewController: CardStackDummyViewDelegate {
                 tappedView.frame.origin.y += moveOrigin.y
         },
             completion: { _ in
-                let start = StartModel(view: cardStackDummyView, viewModel: self.cardStackVM, index: cardStackIdx)
-                let end = EndModel(view: cardStackDummyView, viewModel: self.cardStackVM, index: indexCardStack)
-                self.move(start: start, end: end, targetView: tappedView)}
+                let start = StartModel(view: cardStackDummyView, viewModel: self.stackDummyVM, index: startIndex)
+                let target = TargetModel(view: cardStackDummyView, viewModel: self.stackDummyVM, index: targetIndex)
+                self.move(start: start, target: target, tappedView: tappedView)}
         )
     }
 
-    func moveToCardDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, cardStackIdx: Int) {
+    func moveToCardDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, startIndex: Int) {
         let constant: CGFloat = 7.5
-        guard let selectedCard = cardStackVM.top(index: cardStackIdx),
-            let indexTopView = cardDummyVM.selectTargetTopViewIndex(card: selectedCard) else {
+        guard let selectedCard = stackDummyVM.top(index: startIndex),
+            let targetIndex = cardDummyVM.targetIndex(card: selectedCard) else {
                 return
         }
-        let topViewPos = cardDummyView.position(index: indexTopView)
-        let moveXPos = cardStackDummyView.moveX(from: 0, to: cardStackIdx)
+        let topViewPos = cardDummyView.position(index: targetIndex)
+        let moveXPos = cardStackDummyView.moveX(from: 0, to: startIndex)
         UIView.animate(
             withDuration: 0.5,
             animations: {
@@ -167,13 +167,15 @@ extension ViewController: CardStackDummyViewDelegate {
                 tappedView.frame.origin.x += topViewPos.x
                 tappedView.frame.origin.y = -(constant + Size.cardHeight) },
             completion: { _ in
-                let start = StartModel(view: cardStackDummyView, viewModel: self.cardStackVM, index: cardStackIdx)
-                let end = EndModel(view: self.cardDummyView, viewModel: self.cardDummyVM, index: indexTopView)
-                self.move(start: start, end: end, targetView: tappedView)
-
+                let start = StartModel(view: cardStackDummyView, viewModel: self.stackDummyVM, index: startIndex)
+                let target = TargetModel(view: self.cardDummyView, viewModel: self.cardDummyVM, index: targetIndex)
+                self.move(start: start, target: target, tappedView: tappedView)
         })
     }
+}
 
+// MARK: Events
+extension ViewController {
     @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {
         guard let imageView = recognizer.view as? UIImageView,
             let cardImage = imageView.image else {
@@ -190,4 +192,5 @@ extension ViewController: CardStackDummyViewDelegate {
         default: break
         }
     }
+
 }

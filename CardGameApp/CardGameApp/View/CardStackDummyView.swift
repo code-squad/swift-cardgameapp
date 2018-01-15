@@ -60,32 +60,32 @@ final class CardStackDummyView: UIStackView {
         }
     }
 
-    func moveX(from startIndex: Int, to endIndex: Int) -> CGFloat {
+    func moveX(from startIndex: Int, to targetIndex: Int) -> CGFloat {
         let startX = subviews[startIndex].frame.origin.x
-        let endX = subviews[endIndex].frame.origin.x
-        return endX - startX
+        let targetX = subviews[targetIndex].frame.origin.x
+        return targetX - startX
     }
 
-    func moveY(from startIndex: Int, to endIndex: Int) -> CGFloat {
+    func moveY(from startIndex: Int, to targetIndex: Int) -> CGFloat {
         let startSubview = subviews[startIndex].subviews.first
-        let endSubview = subviews[endIndex].subviews.first
+        let targetSubview = subviews[targetIndex].subviews.first
         guard let startCardStackview = startSubview as? CardStackView,
-            let endCardStackview = endSubview as? CardStackView else {
+            let targetCardStackview = targetSubview as? CardStackView else {
             return CGFloat(0)
         }
-        let willMove = endCardStackview.topConstantOfLastCard() + 30
+        let willMove = targetCardStackview.topConstantOfLastCard() + 30
         return willMove - startCardStackview.topConstantOfLastCard()
     }
 
-    func distance(from startIndex: Int, to endIndex: Int) -> CGPoint {
-        let x = moveX(from: startIndex, to: endIndex)
-        let y = moveY(from: startIndex, to: endIndex)
+    func movePoint(from startIndex: Int, to targetIndex: Int) -> CGPoint {
+        let x = moveX(from: startIndex, to: targetIndex)
+        let y = moveY(from: startIndex, to: targetIndex)
         return CGPoint(x: x, y: y)
     }
     // get view position
 
     // x좌표를 갖고 현재 위치가 몇번 째 카드 스택에 속하는지 인덱스 반환.
-    private func selectCurrentIndexOfCardStack(pointX: CGFloat) -> Int {
+    private func currentIndex(pointX: CGFloat) -> Int {
         let dummyViewFrame = self.frame
         let distributionWidth = dummyViewFrame.width / 7
         return Int(pointX / distributionWidth)
@@ -113,21 +113,21 @@ extension CardStackDummyView: CardStackMovableView {
 extension CardStackDummyView {
     @objc func cardViewDidDoubleTap(_ sender: UITapGestureRecognizer) {
         let tappedLocation = sender.location(in: self)
-        let indexTapped = selectCurrentIndexOfCardStack(pointX: tappedLocation.x)
+        let indexTapped = currentIndex(pointX: tappedLocation.x)
         guard let tappedView = sender.view as? UIImageView else { return }
         delegate?.moveToCardDummyView (
             self, tappedView: tappedView,
-            cardStackIdx: indexTapped
+            startIndex: indexTapped
         )
         delegate?.moveToCardStackDummyView (
             self, tappedView: tappedView,
-            cardStackIdx: indexTapped
+            startIndex: indexTapped
         )
     }
 
 }
 
 protocol CardStackDummyViewDelegate: NSObjectProtocol {
-    func moveToCardDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, cardStackIdx: Int)
-    func moveToCardStackDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, cardStackIdx: Int)
+    func moveToCardDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, startIndex: Int)
+    func moveToCardStackDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, startIndex: Int)
 }

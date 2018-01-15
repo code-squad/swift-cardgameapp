@@ -20,13 +20,13 @@ struct StartModel: StartInfo {
     var index: Int
 }
 
-protocol EndInfo {
+protocol TargetInfo {
     var view: CardStackMovableView { get }
     var viewModel: CardStackMovableModel { get }
     var index: Int { get }
 }
 
-struct EndModel: EndInfo {
+struct TargetModel: TargetInfo {
     var view: CardStackMovableView
     var viewModel: CardStackMovableModel
     var index: Int
