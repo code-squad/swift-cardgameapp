@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class CardStackDummyView: UIStackView {
+class CardStackDummyView: UIStackView {
 
     weak var delegate: CardStackDummyViewDelegate?
 
@@ -25,38 +25,26 @@ final class CardStackDummyView: UIStackView {
     }
 
     func setCardStackDummyView(_ cardStacks: [CardStack]) {
-        let cardStackViews = makeCardStackViews(cardStacks)
-        addCardStackViews(cardStackViews)
+        addCardStackViews(cardStacks)
     }
 
-    private func makeCardStackViews(_ cardStacks: [CardStack]) -> [CardStackView] {
-        var embededViews = [CardStackView]()
-        cardStacks.forEach {
-            let lastIndex = $0.count - 1
-            guard let width = subviews.first?.frame.width else { return }
-            let frame = CGRect(x: 0, y: 0, width: width, height: self.frame.height)
-            let cardStackView = CardStackView(frame: frame)
-            let action = Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:)))
-            cardStackView.setCardStackImageView($0)
-            cardStackView.addDoubleTapGestureAllSubViews(action: action)
-            cardStackView.validUserInterationOnly(on: lastIndex)
-            embededViews.append(cardStackView)
-        }
-        return embededViews
-    }
-
-    private func addCardStackViews(_ cardStackViews: [CardStackView]) {
+    private func addCardStackViews(_ cardStacks: [CardStack]) {
         var i = 0
         subviews.forEach {
-            $0.addSubview(cardStackViews[i])
+            let cardStack = cardStacks[i]
+            guard let stackview = $0 as? CardStackView else { return }
+            let action = Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:)))
+            stackview.setCardStackImageView(cardStack)
+            stackview.addDoubleTapGestureAllSubViews(action: action)
+            stackview.validUserInterationOnlyLastCard()
             i += 1
         }
     }
 
     func removeCardStackDummyView() {
         subviews.forEach {
-            let subview = $0.subviews.first
-            subview?.removeFromSuperview()
+            guard let stackview = $0 as? CardStackView else { return }
+            stackview.removeAllCardViews()
         }
     }
 
@@ -67,14 +55,12 @@ final class CardStackDummyView: UIStackView {
     }
 
     func moveY(from startIndex: Int, to targetIndex: Int) -> CGFloat {
-        let startSubview = subviews[startIndex].subviews.first
-        let targetSubview = subviews[targetIndex].subviews.first
-        guard let startCardStackview = startSubview as? CardStackView,
-            let targetCardStackview = targetSubview as? CardStackView else {
+        guard let startCardStackview = subviews[startIndex] as? CardStackView,
+            let targetCardStackview = subviews[targetIndex] as? CardStackView else {
             return CGFloat(0)
         }
-        let willMove = targetCardStackview.topConstantOfLastCard() + 30
-        return willMove - startCardStackview.topConstantOfLastCard()
+        let nextY = targetCardStackview.topConstantOfLastCard() + 30
+        return nextY - startCardStackview.topConstantOfLastCard()
     }
 
     func movePoint(from startIndex: Int, to targetIndex: Int) -> CGPoint {
@@ -95,17 +81,13 @@ final class CardStackDummyView: UIStackView {
 extension CardStackDummyView: CardStackMovableView {
     func pop(index: Int, previousCard: Card?) {
         guard let card = previousCard else { return }
-        let subview = subviews[index].subviews.first
-        let cardStackview = subview as? CardStackView
+        let cardStackview = subviews[index] as? CardStackView
         cardStackview?.popCardStackView(previousCard: card)
-        self.layoutSubviews()
     }
 
     func push(index: Int, cardView: UIView) {
-        let subview = subviews[index].subviews.first
-        let cardStackview = subview as? CardStackView
+        let cardStackview = subviews[index] as? CardStackView
         cardStackview?.pushCardStackView(cardView: cardView)
-        self.layoutSubviews()
     }
 }
 

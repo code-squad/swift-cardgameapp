@@ -11,6 +11,7 @@ import UIKit
 class CardStackView: UIView {
 
     let constant = CGFloat(30)
+    let emptyTag = 999
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,7 +33,7 @@ extension CardStackView {
     func setCardStackImageView(_ cardStack: CardStack) {
         let cardImageViews = makeCardImageViews(cardStack)
         cardImageViews.forEach {
-            let cardIndex = CGFloat(subviews.count)
+            let cardIndex = CGFloat(subviews.count-1)
             self.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.topAnchor.constraint(equalTo: self.topAnchor, constant: cardIndex*constant).isActive = true
@@ -48,7 +49,10 @@ extension CardStackView {
     }
 
     func removeAllCardViews() {
-        subviews.forEach { $0.removeFromSuperview() }
+        subviews.forEach {
+            if $0.tag == emptyTag { return }
+            $0.removeFromSuperview()
+        }
     }
 
     func popCardStackView(previousCard: Card) {
@@ -60,7 +64,7 @@ extension CardStackView {
         subviews.last?.isUserInteractionEnabled = false
         self.addSubview(cardView)
         cardView.translatesAutoresizingMaskIntoConstraints = false
-        cardView.topAnchor.constraint(equalTo: self.topAnchor, constant: (subviews.count-1).cgfloat*constant).isActive = true
+        cardView.topAnchor.constraint(equalTo: self.topAnchor, constant: (subviews.count-2).cgfloat*constant).isActive = true
         cardView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         cardView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         cardView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
@@ -70,6 +74,7 @@ extension CardStackView {
 
     func addDoubleTapGestureAllSubViews(action: Action) {
         subviews.forEach {
+            if $0.tag == emptyTag { return }
             let tapRecognizer = UITapGestureRecognizer(target: action.target, action: action.selector)
             tapRecognizer.numberOfTapsRequired = 2
             $0.addGestureRecognizer(tapRecognizer)
@@ -77,9 +82,9 @@ extension CardStackView {
         }
     }
 
-    func validUserInterationOnly(on index: Int) {
+    func validUserInterationOnlyLastCard() {
         subviews.forEach { $0.isUserInteractionEnabled = false }
-        subviews[index].isUserInteractionEnabled = true
+        subviews.last?.isUserInteractionEnabled = true
     }
 
     // 카드 이미지 뷰를 만드는 함수 (마지막 카드만 카드 앞면.)
@@ -106,6 +111,7 @@ extension CardStackView {
     private func setEmptyView() {
         let emptyView = UIView().makeEmptyView()
         self.addSubview(emptyView)
+        emptyView.tag = emptyTag
         emptyView.translatesAutoresizingMaskIntoConstraints = false
         emptyView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         emptyView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
