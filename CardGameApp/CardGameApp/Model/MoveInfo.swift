@@ -8,25 +8,13 @@
 
 import UIKit
 
-protocol StartInfo {
-    var view: CardStackMovableView { get }
-    var viewModel: CardStackMovableModel { get }
-    var index: Int { get }
-}
-
-struct StartModel: StartInfo {
+struct StartInfo {
     var view: CardStackMovableView
     var viewModel: CardStackMovableModel
     var index: Int
 }
 
-protocol TargetInfo {
-    var view: CardStackMovableView { get }
-    var viewModel: CardStackMovableModel { get }
-    var index: Int { get }
-}
-
-struct TargetModel: TargetInfo {
+struct TargetInfo {
     var view: CardStackMovableView
     var viewModel: CardStackMovableModel
     var index: Int

@@ -146,8 +146,8 @@ extension ViewController: CardStackDummyViewDelegate {
                 tappedView.frame.origin.y += moveOrigin.y
         },
             completion: { _ in
-                let start = StartModel(view: cardStackDummyView, viewModel: self.stackDummyVM, index: startIndex)
-                let target = TargetModel(view: cardStackDummyView, viewModel: self.stackDummyVM, index: targetIndex)
+                let start = StartInfo(view: cardStackDummyView, viewModel: self.stackDummyVM, index: startIndex)
+                let target = TargetInfo(view: cardStackDummyView, viewModel: self.stackDummyVM, index: targetIndex)
                 self.move(start: start, target: target, tappedView: tappedView)}
         )
     }
@@ -167,8 +167,8 @@ extension ViewController: CardStackDummyViewDelegate {
                 tappedView.frame.origin.x += topViewPos.x
                 tappedView.frame.origin.y = -(constant + Size.cardHeight) },
             completion: { _ in
-                let start = StartModel(view: cardStackDummyView, viewModel: self.stackDummyVM, index: startIndex)
-                let target = TargetModel(view: self.cardDummyView, viewModel: self.cardDummyVM, index: targetIndex)
+                let start = StartInfo(view: cardStackDummyView, viewModel: self.stackDummyVM, index: startIndex)
+                let target = TargetInfo(view: self.cardDummyView, viewModel: self.cardDummyVM, index: targetIndex)
                 self.move(start: start, target: target, tappedView: tappedView)
         })
     }
