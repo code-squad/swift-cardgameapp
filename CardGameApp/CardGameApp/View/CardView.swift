@@ -15,5 +15,7 @@ class CardView: UIImageView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.layer.borderWidth = 1
+        self.layer.borderColor = UIColor.white.cgColor
     }
 }

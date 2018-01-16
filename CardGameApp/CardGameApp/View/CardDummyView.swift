@@ -16,18 +16,10 @@ class CardDummyView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        initCardDummy()
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-    }
-
-    func initCardDummy() {
-        self.subviews.forEach {
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.white.cgColor
-        }
     }
 
     func position(index: Int) -> CGPoint {

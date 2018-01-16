@@ -23,19 +23,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z9S-y3-dlr" customClass="CardDummyView" customModule="CardGameApp" customModuleProvider="target">
                                 <rect key="frame" x="3" y="23" width="209" height="66.5"/>
                                 <subviews>
-                                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="3Ho-XI-pH6">
+                                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="3Ho-XI-pH6" customClass="CardView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="66.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="G5q-8i-y8H">
+                                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="G5q-8i-y8H" customClass="CardView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="53" y="0.0" width="50.5" height="66.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="9Ys-pj-QXy">
+                                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="9Ys-pj-QXy" customClass="CardView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="106.5" y="0.0" width="50" height="66.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="s0e-wf-et1">
+                                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="s0e-wf-et1" customClass="CardView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="159.5" y="0.0" width="50" height="66.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
