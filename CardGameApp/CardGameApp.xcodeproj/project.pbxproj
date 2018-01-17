@@ -31,6 +31,7 @@
 		C9996FD42008BCB9002EDB13 /* CardDummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FD32008BCB9002EDB13 /* CardDummyView.swift */; };
 		C9996FD62008C97E002EDB13 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FD52008C97E002EDB13 /* CardView.swift */; };
 		C9996FD82008CB01002EDB13 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FD72008CB01002EDB13 /* CardStackView.swift */; };
+		C9D6C80F200F6340003E06EE /* EmptyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C80E200F6340003E06EE /* EmptyCardView.swift */; };
 		C9EB73821FF387D400CDBB1E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73811FF387D400CDBB1E /* Error.swift */; };
 		C9EB73841FF4BAFC00CDBB1E /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */; };
 		C9EB73C31FF4CF2A00CDBB1E /* CardStackDummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73C21FF4CF2A00CDBB1E /* CardStackDummyView.swift */; };
@@ -75,6 +76,7 @@
 		C9996FD32008BCB9002EDB13 /* CardDummyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDummyView.swift; sourceTree = "<group>"; };
 		C9996FD52008C97E002EDB13 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		C9996FD72008CB01002EDB13 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
+		C9D6C80E200F6340003E06EE /* EmptyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCardView.swift; sourceTree = "<group>"; };
 		C9EB73811FF387D400CDBB1E /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		C9EB73C21FF4CF2A00CDBB1E /* CardStackDummyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackDummyView.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				C9EB73C21FF4CF2A00CDBB1E /* CardStackDummyView.swift */,
 				C9996FD32008BCB9002EDB13 /* CardDummyView.swift */,
 				C9996FD52008C97E002EDB13 /* CardView.swift */,
+				C9D6C80E200F6340003E06EE /* EmptyCardView.swift */,
 				C9996FD72008CB01002EDB13 /* CardStackView.swift */,
 				C98BE65D200D116D004A18B9 /* CardStackMovableView.swift */,
 			);
@@ -448,6 +451,7 @@
 				C9996FD42008BCB9002EDB13 /* CardDummyView.swift in Sources */,
 				C98BE660200D11DB004A18B9 /* MoveInfo.swift in Sources */,
 				C9EB73841FF4BAFC00CDBB1E /* CardStack.swift in Sources */,
+				C9D6C80F200F6340003E06EE /* EmptyCardView.swift in Sources */,
 				C982F6E31FEECE8200B2AC34 /* CardDeck.swift in Sources */,
 				C9996FB22007655D002EDB13 /* CardStackDummyViewModel.swift in Sources */,
 				C9EB73821FF387D400CDBB1E /* Error.swift in Sources */,

@@ -78,4 +78,3 @@ extension CardStackDummyViewModel: CardStackMovableModel {
         )
     }
 }
-

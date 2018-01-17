@@ -17,7 +17,7 @@ class CardDummyViewModel {
 
     private func makeCardDummy() -> [CardStack] {
         let cardStacks = [CardStack?](repeating: nil, count: 4)
-        return cardStacks.map { _ in return CardStack() }
+        return cardStacks.map { _ in CardStack() }
     }
 
     // Top View로 이동 시, 카드가 이동할 Top View 인덱스를 반환
