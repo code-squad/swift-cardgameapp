@@ -33,6 +33,7 @@
 		C9996FD82008CB01002EDB13 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FD72008CB01002EDB13 /* CardStackView.swift */; };
 		C9D6C80F200F6340003E06EE /* EmptyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C80E200F6340003E06EE /* EmptyCardView.swift */; };
 		C9D6C811200F6971003E06EE /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C810200F6971003E06EE /* Size.swift */; };
+		C9D6C814200FBD68003E06EE /* ViewController+Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C813200FBD68003E06EE /* ViewController+Move.swift */; };
 		C9EB73821FF387D400CDBB1E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73811FF387D400CDBB1E /* Error.swift */; };
 		C9EB73841FF4BAFC00CDBB1E /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */; };
 		C9EB73C31FF4CF2A00CDBB1E /* CardStackDummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73C21FF4CF2A00CDBB1E /* CardStackDummyView.swift */; };
@@ -79,6 +80,7 @@
 		C9996FD72008CB01002EDB13 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		C9D6C80E200F6340003E06EE /* EmptyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCardView.swift; sourceTree = "<group>"; };
 		C9D6C810200F6971003E06EE /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		C9D6C813200FBD68003E06EE /* ViewController+Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Move.swift"; sourceTree = "<group>"; };
 		C9EB73811FF387D400CDBB1E /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		C9EB73C21FF4CF2A00CDBB1E /* CardStackDummyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackDummyView.swift; sourceTree = "<group>"; };
@@ -151,12 +153,12 @@
 		C982F6B71FEBB15000B2AC34 /* CardGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				C9D6C812200FBCB7003E06EE /* Controller */,
 				C9996FB020076549002EDB13 /* ViewModel */,
 				C9EB73C41FF5D6B500CDBB1E /* Extension */,
 				C9EB73C11FF4CF0200CDBB1E /* View */,
 				C982F6D91FED008200B2AC34 /* Model */,
 				C982F6B81FEBB15000B2AC34 /* AppDelegate.swift */,
-				C982F6BA1FEBB15000B2AC34 /* ViewController.swift */,
 				C982F6BC1FEBB15000B2AC34 /* Main.storyboard */,
 				C982F6BF1FEBB15000B2AC34 /* Assets.xcassets */,
 				C982F6C11FEBB15000B2AC34 /* LaunchScreen.storyboard */,
@@ -199,6 +201,15 @@
 				C98BE65B200D112A004A18B9 /* CardStackMovableModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C9D6C812200FBCB7003E06EE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C982F6BA1FEBB15000B2AC34 /* ViewController.swift */,
+				C9D6C813200FBD68003E06EE /* ViewController+Move.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		C9EB73C11FF4CF0200CDBB1E /* View */ = {
@@ -445,6 +456,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9996FD82008CB01002EDB13 /* CardStackView.swift in Sources */,
+				C9D6C814200FBD68003E06EE /* ViewController+Move.swift in Sources */,
 				C98BE65C200D112A004A18B9 /* CardStackMovableModel.swift in Sources */,
 				C98BE65A200B55BF004A18B9 /* CardDummyViewModel.swift in Sources */,
 				C9EB73C31FF4CF2A00CDBB1E /* CardStackDummyView.swift in Sources */,
