@@ -16,8 +16,8 @@ class ViewController: UIViewController {
     @IBOutlet var backCardView: UIImageView!
     @IBOutlet var cardStackDummyView: CardStackDummyView!
 
-    var stackDummyVM = CardStackDummyViewModel()
-    var cardDummyVM = CardDummyViewModel()
+    @objc var stackDummyVM = CardStackDummyViewModel()
+    @objc var cardDummyVM = CardDummyViewModel()
     var remainBackCards = [Card]() {
         willSet {
             changeRemainBackCardView(cards: newValue)

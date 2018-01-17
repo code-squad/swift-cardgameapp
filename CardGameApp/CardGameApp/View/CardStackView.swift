@@ -90,7 +90,9 @@ extension CardStackView {
     // 카드 이미지 뷰를 만드는 함수 (마지막 카드만 카드 앞면.)
     private func makeCardImageViews(_ cardStack: CardStack) -> [UIImageView] {
         var imageViews = [UIImageView]()
-        var stack = cardStack
+        guard let stack = cardStack.copy() as? CardStack else {
+            return []
+        }
         let count = stack.count
         while true {
             guard let card = stack.pop() else { break }

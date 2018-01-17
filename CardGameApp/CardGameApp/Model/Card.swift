@@ -50,6 +50,7 @@ class Card {
 }
 // MARK: Public Methods
 extension Card {
+
     var description: String {
         return "\(suit.rawValue)\(rank.value)"
     }

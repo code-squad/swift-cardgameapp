@@ -8,13 +8,14 @@
 
 import UIKit
 
-class CardStackDummyViewModel {
+class CardStackDummyViewModel: NSObject {
     private var cardDeck = CardDeck()
     private(set) var cardStacks = [CardStack]()
     var remainCards: [Card] {
         return cardDeck.cards
     }
-    init() {
+    override init() {
+        super.init()
         cardStacks = makeCardStack()
     }
 
