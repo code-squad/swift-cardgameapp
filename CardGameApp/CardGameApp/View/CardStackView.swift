@@ -35,12 +35,7 @@ extension CardStackView {
         cardImageViews.forEach {
             let cardIndex = CGFloat(subviews.count-1)
             self.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.topAnchor.constraint(equalTo: self.topAnchor, constant: cardIndex*constant).isActive = true
-            $0.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-            $0.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-            $0.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-            $0.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.27).isActive = true
+            $0.fitLayout(with: self, topConstant: cardIndex*constant)
         }
     }
 
@@ -61,15 +56,11 @@ extension CardStackView {
         ( self.subviews.last as? UIImageView)?.image = card.makeImage()
     }
 
-    func pushCardStackView(cardView: UIView) {
+    func pushCardStackView(cardView: CardView) {
         subviews.last?.isUserInteractionEnabled = false
         self.addSubview(cardView)
-        cardView.translatesAutoresizingMaskIntoConstraints = false
-        cardView.topAnchor.constraint(equalTo: self.topAnchor, constant: (subviews.count-2).cgfloat*constant).isActive = true
-        cardView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        cardView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        cardView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        cardView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1.27).isActive = true
+        let topConstant = (subviews.count-2).cgfloat*constant
+        cardView.fitLayout(with: self, topConstant: topConstant)
         subviews.last?.isUserInteractionEnabled = true
     }
 
@@ -89,13 +80,13 @@ extension CardStackView {
     }
 
     // 카드 이미지 뷰를 만드는 함수 (마지막 카드만 카드 앞면.)
-    private func makeCardImageViews(_ cardStack: CardStack) -> [UIImageView] {
-        var imageViews = [UIImageView]()
+    private func makeCardImageViews(_ cardStack: CardStack) -> [CardView] {
+        var imageViews = [CardView]()
         var stack = cardStack
         let count = stack.count
         while true {
             guard let card = stack.pop() else { break }
-            let imageView = UIImageView()
+            let imageView = CardView()
             if stack.count == count - 1 {
                 imageView.image = card.makeImage()
             } else { imageView.image = card.makeBackImage() }

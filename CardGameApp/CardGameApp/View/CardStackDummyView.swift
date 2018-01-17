@@ -84,7 +84,7 @@ extension CardStackDummyView: CardStackMovableView {
         cardStackview?.popCardStackView(previousCard: previousCard)
     }
 
-    func push(index: Int, cardView: UIView) {
+    func push(index: Int, cardView: CardView) {
         let cardStackview = subviews[index] as? CardStackView
         cardStackview?.pushCardStackView(cardView: cardView)
     }

@@ -8,14 +8,14 @@
 
 import UIKit
 
-class CardDummyView: UIView {
+class CardDummyView: UIStackView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init(coder: NSCoder) {
+        super.init(coder: coder)
     }
 
     override func layoutSubviews() {
@@ -40,13 +40,9 @@ extension CardDummyView: CardStackMovableView {
         // Not yet
     }
 
-    func push(index: Int, cardView: UIView) {
+    func push(index: Int, cardView: CardView) {
         subviews[index].addSubview(cardView)
-        cardView.translatesAutoresizingMaskIntoConstraints = false
-        cardView.topAnchor.constraint(equalTo: subviews[index].topAnchor).isActive = true
-        cardView.leadingAnchor.constraint(equalTo: subviews[index].leadingAnchor).isActive = true
-        cardView.trailingAnchor.constraint(equalTo: subviews[index].trailingAnchor).isActive = true
-        cardView.bottomAnchor.constraint(equalTo: subviews[index].bottomAnchor).isActive = true
+        cardView.fitLayout(with: subviews[index])
         cardView.isUserInteractionEnabled = false
     }
 }

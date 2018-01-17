@@ -29,14 +29,6 @@ class ViewController: UIViewController {
         }
     }
 
-    struct Size {
-        static let constant: CGFloat = 3
-        static let cardStackCount: Int = 7
-        static var cardWidth: CGFloat = 0
-        static var cardHeight: CGFloat = 0
-        static let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
-    }
-
     struct Image {
         static let refreshImage = UIImage(named: "cardgameapp-refresh-app")!
         static let backImage = UIImage(named: "card-back")!
@@ -94,7 +86,9 @@ class ViewController: UIViewController {
                 return
         }
         let view = makeView(sender)
-        view.push(index: index, cardView: UIImageView(image: card.makeImage()))
+        let cardView = CardView()
+        cardView.image = card.makeImage()
+        view.push(index: index, cardView: cardView)
     }
 }
 
@@ -139,16 +133,10 @@ extension ViewController {
             guard let lastCard = cards.last else {
                 return
             }
-            showCardView.addSubview(UIImageView(image: lastCard.makeImage()))
-            guard let subview = showCardView.subviews.last else { return }
-
-            subview.translatesAutoresizingMaskIntoConstraints = false
-            subview.topAnchor.constraint(equalTo: showCardView.topAnchor).isActive = true
-            subview.leadingAnchor.constraint(equalTo: showCardView.leadingAnchor).isActive = true
-            subview.trailingAnchor.constraint(equalTo: showCardView.trailingAnchor).isActive = true
-            subview.widthAnchor.constraint(equalTo: showCardView.widthAnchor).isActive = true
-            subview.heightAnchor.constraint(equalTo: subview.widthAnchor, multiplier: 1.27).isActive = true
-
+            let cardView = CardView()
+            cardView.image = lastCard.makeImage()
+            showCardView.addSubview(cardView)
+            cardView.fitLayout(with: showCardView)
         }
     }
 
