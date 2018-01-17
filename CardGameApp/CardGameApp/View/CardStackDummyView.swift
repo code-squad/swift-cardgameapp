@@ -80,9 +80,8 @@ class CardStackDummyView: UIStackView {
 
 extension CardStackDummyView: CardStackMovableView {
     func pop(index: Int, previousCard: Card?) {
-        guard let card = previousCard else { return }
         let cardStackview = subviews[index] as? CardStackView
-        cardStackview?.popCardStackView(previousCard: card)
+        cardStackview?.popCardStackView(previousCard: previousCard)
     }
 
     func push(index: Int, cardView: UIView) {

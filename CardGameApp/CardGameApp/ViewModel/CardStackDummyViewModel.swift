@@ -8,14 +8,13 @@
 
 import UIKit
 
-class CardStackDummyViewModel: NSObject {
+class CardStackDummyViewModel {
     private var cardDeck = CardDeck()
     private(set) var cardStacks = [CardStack]()
     var remainCards: [Card] {
         return cardDeck.cards
     }
-    override init() {
-        super.init()
+    init() {
         cardStacks = makeCardStack()
     }
 
@@ -60,10 +59,23 @@ extension CardStackDummyViewModel: CardStackMovableModel {
     }
 
     @discardableResult func pop(index: Int) -> Card? {
-        return cardStacks[index].pop()
+        let pop = cardStacks[index].pop()
+        let top = cardStacks[index].top
+        NotificationCenter.default.post(
+            name: .didPopCardNotification,
+            object: self,
+            userInfo: ["card": top, "index": index]
+        )
+        return pop
     }
 
     func push(index: Int, card: Card) {
         cardStacks[index].push(card: card)
+        NotificationCenter.default.post(
+            name: .didPushCardNotification,
+            object: self,
+            userInfo: ["card": card, "index": index]
+        )
     }
 }
+

@@ -8,15 +8,10 @@
 
 import Foundation
 
-class CardStack: NSObject, NSCopying {
-    var cards = [Card]()
+struct CardStack {
+    private var cards = [Card]()
 
-    override init() {
-        super.init()
-    }
-    required init(_ cardStack: CardStack) {
-        cards = cardStack.cards
-    }
+    init() { }
     init(cards: [Card]) {
         self.cards = cards
     }
@@ -33,19 +28,14 @@ class CardStack: NSObject, NSCopying {
         return cards.last
     }
 
-    func push(card: Card) {
+    mutating func push(card: Card) {
         cards.append(card)
     }
 
-    @discardableResult func pop() -> Card? {
+    @discardableResult mutating func pop() -> Card? {
         guard let card = cards.popLast() else {
             return nil
         }
         return card
     }
-
-    func copy(with zone: NSZone? = nil) -> Any {
-        return type(of: self).init(self)
-    }
-
 }

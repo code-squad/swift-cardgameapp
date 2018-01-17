@@ -16,8 +16,8 @@ class ViewController: UIViewController {
     @IBOutlet var backCardView: UIImageView!
     @IBOutlet var cardStackDummyView: CardStackDummyView!
 
-    @objc var stackDummyVM = CardStackDummyViewModel()
-    @objc var cardDummyVM = CardDummyViewModel()
+    var stackDummyVM = CardStackDummyViewModel()
+    var cardDummyVM = CardDummyViewModel()
     var remainBackCards = [Card]() {
         willSet {
             changeRemainBackCardView(cards: newValue)
@@ -49,6 +49,18 @@ class ViewController: UIViewController {
         initProperties()
         initViews()
         initBackGroundImage()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.popView(_:)),
+            name: .didPopCardNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.pushView(_:)),
+            name: .didPushCardNotification,
+            object: nil
+        )
     }
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
@@ -61,6 +73,28 @@ class ViewController: UIViewController {
             cardStackDummyView.removeCardStackDummyView()
             cardStackDummyView.setCardStackDummyView(stackDummyVM.cardStacks)
         }
+    }
+
+    @objc func popView(_ noti: Notification) {
+        guard let sender = noti.object as? CardStackMovableModel,
+            let userInfo = noti.userInfo,
+            let index = userInfo["index"] as? Int else {
+                return
+        }
+        let card = userInfo["card"] as? Card
+        let view = makeView(sender)
+        view.pop(index: index, previousCard: card)
+    }
+
+    @objc func pushView(_ noti: Notification) {
+        guard let sender = noti.object as? CardStackMovableModel,
+            let userInfo = noti.userInfo,
+            let card = userInfo["card"] as? Card,
+            let index = userInfo["index"] as? Int else {
+                return
+        }
+        let view = makeView(sender)
+        view.push(index: index, cardView: UIImageView(image: card.makeImage()))
     }
 }
 
@@ -118,18 +152,24 @@ extension ViewController {
         }
     }
 
+    func makeView(_ sender: CardStackMovableModel) -> CardStackMovableView {
+        var view: CardStackMovableView!
+        switch sender {
+        case is CardStackDummyViewModel: view = cardStackDummyView
+        case is CardDummyViewModel: view = cardDummyView
+        default: break
+        }
+        return view
+    }
 }
 
 // MARK: CardStackDummyViewDelegate
 
 extension ViewController: CardStackDummyViewDelegate {
     fileprivate func move(start: StartInfo, target: TargetInfo, tappedView: UIView) {
+        tappedView.removeFromSuperview()
         let selectedCard = start.viewModel.pop(index: start.index)!
         target.viewModel.push(index: target.index, card: selectedCard)
-        let topCard = start.viewModel.top(index: start.index)
-        tappedView.removeFromSuperview()
-        start.view.pop(index: start.index, previousCard: topCard)
-        target.view.push(index: target.index, cardView: tappedView)
     }
 
     func moveToCardStackDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, startIndex: Int) {
@@ -146,8 +186,8 @@ extension ViewController: CardStackDummyViewDelegate {
                 tappedView.frame.origin.y += moveOrigin.y
         },
             completion: { _ in
-                let start = StartInfo(view: cardStackDummyView, viewModel: self.stackDummyVM, index: startIndex)
-                let target = TargetInfo(view: cardStackDummyView, viewModel: self.stackDummyVM, index: targetIndex)
+                let start = StartInfo(viewModel: self.stackDummyVM, index: startIndex)
+                let target = TargetInfo(viewModel: self.stackDummyVM, index: targetIndex)
                 self.move(start: start, target: target, tappedView: tappedView)}
         )
     }
@@ -167,8 +207,8 @@ extension ViewController: CardStackDummyViewDelegate {
                 tappedView.frame.origin.x += topViewPos.x
                 tappedView.frame.origin.y = -(constant + Size.cardHeight) },
             completion: { _ in
-                let start = StartInfo(view: cardStackDummyView, viewModel: self.stackDummyVM, index: startIndex)
-                let target = TargetInfo(view: self.cardDummyView, viewModel: self.cardDummyVM, index: targetIndex)
+                let start = StartInfo(viewModel: self.stackDummyVM, index: startIndex)
+                let target = TargetInfo(viewModel: self.cardDummyVM, index: targetIndex)
                 self.move(start: start, target: target, tappedView: tappedView)
         })
     }
