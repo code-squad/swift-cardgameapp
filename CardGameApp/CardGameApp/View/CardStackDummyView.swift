@@ -12,6 +12,11 @@ class CardStackDummyView: UIStackView {
 
     weak var delegate: CardStackDummyViewDelegate?
 
+    struct DragInfo {
+        static var changes = [UIView]()
+        static var originals = [CGPoint]()
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -33,9 +38,9 @@ class CardStackDummyView: UIStackView {
         subviews.forEach {
             let cardStack = cardStacks[i]
             guard let stackview = $0 as? CardStackView else { return }
-            let action = Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:)))
             stackview.setCardStackImageView(cardStack)
-            stackview.addDoubleTapGestureAllSubViews(action: action)
+            stackview.addDoubleTapGestureAllSubViews(action: Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:))))
+            stackview.addPanGesture(action: Action(target: self, selector: #selector(self.drag(_:))))
             stackview.validUserInterationOnlyLastCard()
             i += 1
         }
@@ -77,10 +82,10 @@ class CardStackDummyView: UIStackView {
         return Int(pointX / distributionWidth)
     }
 
-    func isLastCard(of index: Int, originY: CGFloat) -> Bool {
-        let cardStackView = subviews[index] as? CardStackView
+    func topConstantOfLastCard(in cardStackView: UIView) -> CGFloat {
+        let cardStackView = cardStackView as? CardStackView
         let lastCardOriginY = cardStackView?.topConstantOfLastCard() ?? 0
-        return originY == lastCardOriginY
+        return lastCardOriginY
     }
 }
 
@@ -93,8 +98,11 @@ extension CardStackDummyView: CardStackMovableView {
     func push(index: Int, cardView: CardView) {
         let cardStackview = subviews[index] as? CardStackView
         cardStackview?.pushCardStackView(cardView: cardView)
-        let action = Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:)))
-        cardView.addTapGesture(action: action, numberOfTapsRequired: 2)
+        cardView.addTapGesture(
+            action: Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:))),
+            numberOfTapsRequired: 2
+        )
+        cardView.addPanGesture(action: Action(target: self, selector: #selector(self.drag(_:))))
     }
 }
 
@@ -104,7 +112,7 @@ extension CardStackDummyView {
         let tappedLocation = sender.location(in: self)
         let indexTapped = currentIndex(pointX: tappedLocation.x)
         guard let tappedView = sender.view as? CardView,
-            isLastCard(of: indexTapped, originY: tappedView.frame.origin.y) == true else {
+            topConstantOfLastCard(in: subviews[indexTapped]) == tappedView.frame.origin.y else {
                 return
         }
         delegate?.moveToCardDummyView (
@@ -115,6 +123,45 @@ extension CardStackDummyView {
             self, tappedView: tappedView,
             startIndex: indexTapped
         )
+    }
+
+    @objc func drag(_ gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            guard let view = gesture.view as? CardView else { return }
+            guard let stackView = view.superview as? CardStackView else { return }
+            DragInfo.changes = stackView.belowViews(with: view)
+            DragInfo.changes.forEach { DragInfo.originals.append($0.center) }
+        case .changed:
+            DragInfo.changes.forEach {
+                let translation = gesture.translation(in: self)
+                $0.center = CGPoint(
+                    x: $0.center.x + translation.x,
+                    y: $0.center.y + translation.y)
+
+            }
+            gesture.setTranslation(CGPoint.zero, in: self)
+        case .ended:
+            if gesture.state == .ended {
+                var i = 0
+                DragInfo.changes.forEach {
+                    $0.center.x = DragInfo.originals[i].x
+                    $0.center.y = DragInfo.originals[i].y
+                    i += 1
+                }
+            }
+            DragInfo.originals.removeAll()
+        default: break
+        }
+    }
+}
+
+extension CardStackDummyView: UIGestureRecognizerDelegate {
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
+        ) -> Bool {
+        return true
     }
 }
 

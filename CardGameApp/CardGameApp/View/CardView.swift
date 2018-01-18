@@ -38,6 +38,11 @@ extension CardView {
         self.isUserInteractionEnabled = true
     }
 
+    func addPanGesture(action: Action) {
+        let gesture = UIPanGestureRecognizer(target: action.target, action: action.selector)
+        self.addGestureRecognizer(gesture)
+    }
+
     func setAutolayout() {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -66,5 +71,4 @@ extension CardView {
     func height(equal: NSLayoutDimension, multiplier: CGFloat = 0) {
         self.heightAnchor.constraint(equalTo: equal, multiplier: multiplier).isActive = true
     }
-
 }

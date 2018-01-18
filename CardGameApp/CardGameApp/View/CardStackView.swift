@@ -43,6 +43,10 @@ extension CardStackView {
         return subviews.last?.frame.origin.y ?? 0
     }
 
+    func belowViews(with view: CardView) -> [UIView] {
+        return subviews.filter { $0.tag != emptyTag && $0.frame.origin.y >= view.frame.origin.y }
+    }
+
     func removeAllCardViews() {
         subviews.forEach {
             if $0.tag == emptyTag { return }
@@ -65,8 +69,15 @@ extension CardStackView {
 
     func addDoubleTapGestureAllSubViews(action: Action) {
         subviews.forEach {
-            let cardView = $0 as? CardView
-            cardView?.addTapGesture(action: action, numberOfTapsRequired: 2)
+            guard let cardView = $0 as? CardView else { return }
+            cardView.addTapGesture(action: action, numberOfTapsRequired: 2)
+        }
+    }
+
+    func addPanGesture(action: Action) {
+        subviews.forEach {
+            guard let cardView = $0 as? CardView else {return}
+            cardView.addPanGesture(action: action)
         }
     }
 
@@ -107,5 +118,4 @@ extension CardStackView {
         emptyView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         emptyView.heightAnchor.constraint(equalTo: emptyView.widthAnchor, multiplier: 1.27).isActive = true
     }
-
 }
