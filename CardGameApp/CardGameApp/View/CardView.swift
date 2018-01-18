@@ -31,6 +31,13 @@ extension CardView {
         self.height(equal: view.widthAnchor, multiplier: 1.27)
     }
 
+    func addTapGesture(action: Action, numberOfTapsRequired: Int) {
+        let tapRecognizer = UITapGestureRecognizer(target: action.target, action: action.selector)
+        tapRecognizer.numberOfTapsRequired = 2
+        self.addGestureRecognizer(tapRecognizer)
+        self.isUserInteractionEnabled = true
+    }
+
     func setAutolayout() {
         self.translatesAutoresizingMaskIntoConstraints = false
     }

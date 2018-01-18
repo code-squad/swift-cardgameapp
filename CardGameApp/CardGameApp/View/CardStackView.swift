@@ -57,7 +57,6 @@ extension CardStackView {
     }
 
     func pushCardStackView(cardView: CardView) {
-        subviews.last?.isUserInteractionEnabled = false
         self.addSubview(cardView)
         let topConstant = (subviews.count-2).cgfloat*constant
         cardView.fitLayout(with: self, topConstant: topConstant)
@@ -66,11 +65,8 @@ extension CardStackView {
 
     func addDoubleTapGestureAllSubViews(action: Action) {
         subviews.forEach {
-            if $0.tag == emptyTag { return }
-            let tapRecognizer = UITapGestureRecognizer(target: action.target, action: action.selector)
-            tapRecognizer.numberOfTapsRequired = 2
-            $0.addGestureRecognizer(tapRecognizer)
-            $0.isUserInteractionEnabled = true
+            let cardView = $0 as? CardView
+            cardView?.addTapGesture(action: action, numberOfTapsRequired: 2)
         }
     }
 

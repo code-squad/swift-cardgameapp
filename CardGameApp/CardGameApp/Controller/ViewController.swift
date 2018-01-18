@@ -115,7 +115,6 @@ extension ViewController {
             cardView.fitLayout(with: showCardView)
         }
     }
-
 }
 
 // MARK: Notification

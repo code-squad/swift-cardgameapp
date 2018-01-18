@@ -76,6 +76,12 @@ class CardStackDummyView: UIStackView {
         let distributionWidth = dummyViewFrame.width / 7
         return Int(pointX / distributionWidth)
     }
+
+    func isLastCard(of index: Int, originY: CGFloat) -> Bool {
+        let cardStackView = subviews[index] as? CardStackView
+        let lastCardOriginY = cardStackView?.topConstantOfLastCard() ?? 0
+        return originY == lastCardOriginY
+    }
 }
 
 extension CardStackDummyView: CardStackMovableView {
@@ -87,6 +93,8 @@ extension CardStackDummyView: CardStackMovableView {
     func push(index: Int, cardView: CardView) {
         let cardStackview = subviews[index] as? CardStackView
         cardStackview?.pushCardStackView(cardView: cardView)
+        let action = Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:)))
+        cardView.addTapGesture(action: action, numberOfTapsRequired: 2)
     }
 }
 
@@ -95,7 +103,10 @@ extension CardStackDummyView {
     @objc func cardViewDidDoubleTap(_ sender: UITapGestureRecognizer) {
         let tappedLocation = sender.location(in: self)
         let indexTapped = currentIndex(pointX: tappedLocation.x)
-        guard let tappedView = sender.view as? UIImageView else { return }
+        guard let tappedView = sender.view as? CardView,
+            isLastCard(of: indexTapped, originY: tappedView.frame.origin.y) == true else {
+                return
+        }
         delegate?.moveToCardDummyView (
             self, tappedView: tappedView,
             startIndex: indexTapped
@@ -105,7 +116,6 @@ extension CardStackDummyView {
             startIndex: indexTapped
         )
     }
-
 }
 
 protocol CardStackDummyViewDelegate: NSObjectProtocol {
