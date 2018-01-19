@@ -58,23 +58,32 @@ extension CardStackDummyViewModel: CardStackMovableModel {
         return cardStacks[index].top
     }
 
-    @discardableResult func pop(index: Int) -> Card? {
-        let pop = cardStacks[index].pop()
+    func lastShowCards(index: Int, count: Int) -> [Card]? {
+        return cardStacks[index].lastCards(count: count)
+    }
+
+    @discardableResult func pop(index: Int, count: Int) -> [Card] {
+        var pops = [Card]()
+        for _ in 0..<count {
+            guard let pop = cardStacks[index].pop() else { break }
+            pops.append(pop)
+        }
         let top = cardStacks[index].top
         NotificationCenter.default.post(
             name: .didPopCardNotification,
             object: self,
             userInfo: ["card": top, "index": index]
         )
-        return pop
+        return pops
     }
 
-    func push(index: Int, card: Card) {
-        cardStacks[index].push(card: card)
+    func push(index: Int, cards: [Card]) {
+        let newCards = cards.reversed()
+        newCards.forEach { cardStacks[index].push(card: $0) }
         NotificationCenter.default.post(
             name: .didPushCardNotification,
             object: self,
-            userInfo: ["card": card, "index": index]
+            userInfo: ["card": cards, "index": index]
         )
     }
 }

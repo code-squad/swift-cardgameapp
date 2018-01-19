@@ -43,6 +43,19 @@ extension CardStackView {
         return subviews.last?.frame.origin.y ?? 0
     }
 
+    func index(of view: CardView) -> Int {
+        return subviews.index(of: view) ?? subviews.endIndex
+    }
+
+    func targetY(translateY: CGFloat, targetIndex: Int) -> Bool {
+        guard let lastCard = subviews.last as? CardView else { return false }
+        let positionY = lastCard.frame.origin.y
+        if translateY >= positionY && translateY <= positionY + Size.cardHeight {
+            return true
+        }
+        return false
+    }
+
     func belowViews(with view: CardView) -> [UIView] {
         return subviews.filter { $0.tag != emptyTag && $0.frame.origin.y >= view.frame.origin.y }
     }

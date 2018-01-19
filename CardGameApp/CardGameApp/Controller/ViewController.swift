@@ -133,14 +133,18 @@ extension ViewController {
     @objc func pushView(_ noti: Notification) {
         guard let sender = noti.object as? CardStackMovableModel,
             let userInfo = noti.userInfo,
-            let card = userInfo["card"] as? Card,
+            let cards = userInfo["card"] as? [Card],
             let index = userInfo["index"] as? Int else {
                 return
         }
         let view = makeView(sender)
-        let cardView = CardView()
-        cardView.image = card.makeImage()
-        view.push(index: index, cardView: cardView)
+        var cardViews = [CardView]()
+        cards.forEach {
+            let cardView = CardView()
+            cardView.image = $0.makeImage()
+            cardViews.append(cardView)
+        }
+        view.push(index: index, cardViews: cardViews)
     }
 
     private func makeView(_ sender: CardStackMovableModel) -> CardStackMovableView {

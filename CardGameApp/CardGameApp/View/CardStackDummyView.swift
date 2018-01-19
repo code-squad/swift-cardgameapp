@@ -11,10 +11,10 @@ import UIKit
 class CardStackDummyView: UIStackView {
 
     weak var delegate: CardStackDummyViewDelegate?
-
-    struct DragInfo {
-        static var changes = [UIView]()
-        static var originals = [CGPoint]()
+    var dragInfo: DragInfo!
+    enum Direction {
+        case cardDummy
+        case cardStackDummy
     }
 
     override init(frame: CGRect) {
@@ -87,6 +87,11 @@ class CardStackDummyView: UIStackView {
         let lastCardOriginY = cardStackView?.topConstantOfLastCard() ?? 0
         return lastCardOriginY
     }
+
+    func targetY(translateY: CGFloat, targetIndex: Int) -> Bool {
+        guard let cardStackView = subviews[targetIndex] as? CardStackView else {return false}
+        return cardStackView.targetY(translateY: translateY, targetIndex: targetIndex)
+    }
 }
 
 extension CardStackDummyView: CardStackMovableView {
@@ -95,14 +100,17 @@ extension CardStackDummyView: CardStackMovableView {
         cardStackview?.popCardStackView(previousCard: previousCard)
     }
 
-    func push(index: Int, cardView: CardView) {
+    func push(index: Int, cardViews: [CardView]) {
         let cardStackview = subviews[index] as? CardStackView
-        cardStackview?.pushCardStackView(cardView: cardView)
-        cardView.addTapGesture(
-            action: Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:))),
-            numberOfTapsRequired: 2
-        )
-        cardView.addPanGesture(action: Action(target: self, selector: #selector(self.drag(_:))))
+        cardViews.forEach {
+            cardStackview?.pushCardStackView(cardView: $0)
+            $0.addTapGesture(
+                action: Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:))),
+                numberOfTapsRequired: 2
+            )
+            $0.addPanGesture(action: Action(target: self, selector: #selector(self.drag(_:))))
+        }
+
     }
 }
 
@@ -112,45 +120,63 @@ extension CardStackDummyView {
         let tappedLocation = sender.location(in: self)
         let indexTapped = currentIndex(pointX: tappedLocation.x)
         guard let tappedView = sender.view as? CardView,
-            topConstantOfLastCard(in: subviews[indexTapped]) == tappedView.frame.origin.y else {
+            topConstantOfLastCard(in: subviews[indexTapped]) == tappedView.frame.origin.y,
+            let delegate = self.delegate else {
                 return
         }
-        delegate?.moveToCardDummyView (
-            self, tappedView: tappedView,
-            startIndex: indexTapped
-        )
-        delegate?.moveToCardStackDummyView (
-            self, tappedView: tappedView,
-            startIndex: indexTapped
-        )
+        guard let moveXY = delegate.pointOfCardDummyView(startIndex: indexTapped) else { return }
+        UIView.animate(
+            withDuration: 0.5,
+            animations: {
+                tappedView.frame.origin.x += moveXY.x
+                tappedView.frame.origin.y += moveXY.y
+
+        },
+            completion: { _ in
+                delegate.moveCardViews(tappedView: tappedView, startIndex: indexTapped)
+        })
     }
 
     @objc func drag(_ gesture: UIPanGestureRecognizer) {
         switch gesture.state {
         case .began:
+            dragInfo = DragInfo()
+            let tappedLocation = gesture.location(in: self)
+            dragInfo.startStackIndex = currentIndex(pointX: tappedLocation.x)
             guard let view = gesture.view as? CardView else { return }
             guard let stackView = view.superview as? CardStackView else { return }
-            DragInfo.changes = stackView.belowViews(with: view)
-            DragInfo.changes.forEach { DragInfo.originals.append($0.center) }
+            dragInfo.changes = stackView.belowViews(with: view)
+            //self.bringSubview(toFront: stackView)
+            dragInfo.changes.forEach {
+                dragInfo.originals.append($0.center)
+            }
         case .changed:
-            DragInfo.changes.forEach {
+            dragInfo.changes.forEach {
                 let translation = gesture.translation(in: self)
                 $0.center = CGPoint(
                     x: $0.center.x + translation.x,
                     y: $0.center.y + translation.y)
-
             }
             gesture.setTranslation(CGPoint.zero, in: self)
         case .ended:
-            if gesture.state == .ended {
-                var i = 0
-                DragInfo.changes.forEach {
-                    $0.center.x = DragInfo.originals[i].x
-                    $0.center.y = DragInfo.originals[i].y
-                    i += 1
-                }
+            let targetLocation = gesture.location(in: self)
+            guard let view = gesture.view as? CardView else { return }
+            dragInfo.targetStackIndex = currentIndex(pointX: targetLocation.x)
+            if targetY(translateY: view.frame.origin.y, targetIndex: dragInfo.targetStackIndex) {
+                delegate?.moveToCardStackDummyView(
+                    tappedView: dragInfo.changes,
+                    startIndex: dragInfo.startStackIndex,
+                    targetIndex: dragInfo.targetStackIndex
+                )
             }
-            DragInfo.originals.removeAll()
+            var i = 0
+            dragInfo.changes.forEach {
+                $0.center.x = dragInfo.originals[i].x
+                $0.center.y = dragInfo.originals[i].y
+                i += 1
+            }
+
+            dragInfo = nil
         default: break
         }
     }
@@ -166,6 +192,7 @@ extension CardStackDummyView: UIGestureRecognizerDelegate {
 }
 
 protocol CardStackDummyViewDelegate: NSObjectProtocol {
-    func moveToCardDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, startIndex: Int)
-    func moveToCardStackDummyView(_ cardStackDummyView: CardStackDummyView, tappedView: UIView, startIndex: Int)
+    func moveCardViews(tappedView: UIView, startIndex: Int)
+    func moveToCardStackDummyView(tappedView: [UIView], startIndex: Int, targetIndex: Int)
+    func pointOfCardDummyView(startIndex: Int) -> CGPoint?
 }

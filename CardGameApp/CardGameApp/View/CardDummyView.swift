@@ -40,9 +40,11 @@ extension CardDummyView: CardStackMovableView {
         // Not yet
     }
 
-    func push(index: Int, cardView: CardView) {
-        subviews[index].addSubview(cardView)
-        cardView.fitLayout(with: subviews[index])
-        cardView.isUserInteractionEnabled = false
+    func push(index: Int, cardViews: [CardView]) {
+        cardViews.forEach {
+            subviews[index].addSubview($0)
+            $0.fitLayout(with: subviews[index])
+            $0.isUserInteractionEnabled = false
+        }
     }
 }

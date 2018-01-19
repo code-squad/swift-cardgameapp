@@ -10,5 +10,5 @@ import UIKit
 
 protocol CardStackMovableView {
     func pop(index: Int, previousCard: Card?)
-    func push(index: Int, cardView: CardView)
+    func push(index: Int, cardViews: [CardView])
 }

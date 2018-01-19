@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CardStackMovableModel {
+    @discardableResult func pop(index: Int, count: Int) -> [Card]
+    func push(index: Int, cards: [Card])
     func top(index: Int) -> Card?
-    func pop(index: Int) -> Card?
-    func push(index: Int, card: Card)
 }

@@ -38,4 +38,11 @@ struct CardStack {
         }
         return card
     }
+
+    func lastCards(count: Int) -> [Card]? {
+        guard count <= cards.count else { return nil }
+        let index = cards.index(cards.endIndex, offsetBy: -count)
+        let sliceCards = self.cards[index..<cards.endIndex]
+        return Array(sliceCards)
+    }
 }
