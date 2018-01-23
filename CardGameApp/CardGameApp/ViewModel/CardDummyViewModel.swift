@@ -24,6 +24,12 @@ class CardDummyViewModel {
         cardDummy.removeAll()
         cardDummy = makeCardDummy()
     }
+
+    func isFullDeck() -> Bool {
+        var total = 0
+        cardDummy.forEach { total += $0.count }
+        return total == 53
+    }
 }
 
 extension CardDummyViewModel: MovableViewModel {

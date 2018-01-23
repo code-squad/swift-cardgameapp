@@ -167,6 +167,18 @@ extension ViewController {
         default: break }
         return view
     }
+
+    private func showAlert(title: String = "Game Clear!", message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction: UIAlertAction = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: { _ in
+                alert.dismiss(animated: true, completion: nil)
+        })
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
 }
 
 // MARK: Events

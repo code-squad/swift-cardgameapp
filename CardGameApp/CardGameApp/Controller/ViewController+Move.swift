@@ -78,6 +78,4 @@ extension ViewController {
             self.move(start: start, target: target, tappedView: tappedView, cards: cards)
         }
     }
-
-
 }
