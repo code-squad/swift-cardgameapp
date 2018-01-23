@@ -20,24 +20,13 @@ class CardDummyViewModel {
         return cardStacks.map { _ in CardStack() }
     }
 
-    // Top View로 이동 시, 카드가 이동할 Top View 인덱스를 반환
-    func targetIndex(card: Card) -> Int? {
-        for index in 0..<cardDummy.count {
-            let top = cardDummy[index].top
-            if card.isSameSuitAndNextRank(with: top) {
-                return index
-            }
-        }
-        return nil
-    }
-
     func reset() {
         cardDummy.removeAll()
         cardDummy = makeCardDummy()
     }
 }
 
-extension CardDummyViewModel: CardStackMovableModel {
+extension CardDummyViewModel: MovableViewModel {
     func top(index: Int) -> Card? {
         return cardDummy[index].top
     }
@@ -65,6 +54,17 @@ extension CardDummyViewModel: CardStackMovableModel {
             object: self,
             userInfo: ["card": cards, "index": index]
         )
+    }
+
+    // Top View로 이동 시, 카드가 이동할 Top View 인덱스를 반환
+    func targetIndex(card: Card) -> Int? {
+        for index in 0..<cardDummy.count {
+            let top = cardDummy[index].top
+            if card.isSameSuitAndNextRank(with: top) {
+                return index
+            }
+        }
+        return nil
     }
 
 }

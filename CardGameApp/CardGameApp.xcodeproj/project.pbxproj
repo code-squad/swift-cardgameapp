@@ -34,6 +34,8 @@
 		C9D6C80F200F6340003E06EE /* EmptyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C80E200F6340003E06EE /* EmptyCardView.swift */; };
 		C9D6C811200F6971003E06EE /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C810200F6971003E06EE /* Size.swift */; };
 		C9D6C814200FBD68003E06EE /* ViewController+Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C813200FBD68003E06EE /* ViewController+Move.swift */; };
+		C9D6C816201512FC003E06EE /* ShowCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C815201512FB003E06EE /* ShowCardView.swift */; };
+		C9D6C8182015172C003E06EE /* ShowCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C8172015172C003E06EE /* ShowCardViewModel.swift */; };
 		C9EB73821FF387D400CDBB1E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73811FF387D400CDBB1E /* Error.swift */; };
 		C9EB73841FF4BAFC00CDBB1E /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */; };
 		C9EB73C31FF4CF2A00CDBB1E /* CardStackDummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73C21FF4CF2A00CDBB1E /* CardStackDummyView.swift */; };
@@ -81,6 +83,8 @@
 		C9D6C80E200F6340003E06EE /* EmptyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCardView.swift; sourceTree = "<group>"; };
 		C9D6C810200F6971003E06EE /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		C9D6C813200FBD68003E06EE /* ViewController+Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Move.swift"; sourceTree = "<group>"; };
+		C9D6C815201512FB003E06EE /* ShowCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardView.swift; sourceTree = "<group>"; };
+		C9D6C8172015172C003E06EE /* ShowCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardViewModel.swift; sourceTree = "<group>"; };
 		C9EB73811FF387D400CDBB1E /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		C9EB73C21FF4CF2A00CDBB1E /* CardStackDummyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackDummyView.swift; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 				C9996FB12007655D002EDB13 /* CardStackDummyViewModel.swift */,
 				C98BE659200B55BF004A18B9 /* CardDummyViewModel.swift */,
 				C98BE65B200D112A004A18B9 /* CardStackMovableModel.swift */,
+				C9D6C8172015172C003E06EE /* ShowCardViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 				C9D6C80E200F6340003E06EE /* EmptyCardView.swift */,
 				C9996FD72008CB01002EDB13 /* CardStackView.swift */,
 				C98BE65D200D116D004A18B9 /* CardStackMovableView.swift */,
+				C9D6C815201512FB003E06EE /* ShowCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -463,6 +469,7 @@
 				C9996FAF20075568002EDB13 /* Action.swift in Sources */,
 				C982F6E11FEEBE5C00B2AC34 /* Card.swift in Sources */,
 				C98BE65E200D116D004A18B9 /* CardStackMovableView.swift in Sources */,
+				C9D6C816201512FC003E06EE /* ShowCardView.swift in Sources */,
 				C9996FD42008BCB9002EDB13 /* CardDummyView.swift in Sources */,
 				C98BE660200D11DB004A18B9 /* MoveInfo.swift in Sources */,
 				C9EB73841FF4BAFC00CDBB1E /* CardStack.swift in Sources */,
@@ -471,6 +478,7 @@
 				C982F6E31FEECE8200B2AC34 /* CardDeck.swift in Sources */,
 				C9996FB22007655D002EDB13 /* CardStackDummyViewModel.swift in Sources */,
 				C9EB73821FF387D400CDBB1E /* Error.swift in Sources */,
+				C9D6C8182015172C003E06EE /* ShowCardViewModel.swift in Sources */,
 				C9EB73C61FF5D74700CDBB1E /* UIViewExtension.swift in Sources */,
 				C9996FAD2006616C002EDB13 /* ViewController.swift in Sources */,
 				C9996FD62008C97E002EDB13 /* CardView.swift in Sources */,

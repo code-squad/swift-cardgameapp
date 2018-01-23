@@ -15,3 +15,8 @@ struct Size {
     static var cardHeight: CGFloat = 0
     static let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
 }
+
+struct Position {
+    var stackIndex: Int
+    var cardIndex: Int
+}

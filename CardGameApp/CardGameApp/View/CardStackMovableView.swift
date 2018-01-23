@@ -8,7 +8,11 @@
 
 import UIKit
 
-protocol CardStackMovableView {
+protocol MovableView {
     func pop(index: Int, previousCard: Card?)
     func push(index: Int, cardViews: [CardView])
+
+    func position(pos: CGPoint) -> Position?
+    func selectedView(pos: Position) -> CardView?
+    func coordinate(index: Int) -> CGPoint?
 }

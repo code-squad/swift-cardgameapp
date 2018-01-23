@@ -8,8 +8,9 @@
 
 import UIKit
 
-protocol CardStackMovableModel {
+protocol MovableViewModel {
     @discardableResult func pop(index: Int, count: Int) -> [Card]
     func push(index: Int, cards: [Card])
     func top(index: Int) -> Card?
+    func targetIndex(card: Card) -> Int?
 }

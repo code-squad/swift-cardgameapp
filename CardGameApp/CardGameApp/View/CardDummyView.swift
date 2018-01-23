@@ -35,7 +35,18 @@ class CardDummyView: UIStackView {
     }
 }
 
-extension CardDummyView: CardStackMovableView {
+extension CardDummyView: MovableView {
+    func position(pos: CGPoint) -> Position? {
+        return nil
+    }
+
+    func selectedView(pos: Position) -> CardView? {
+        return nil
+    }
+
+    func coordinate(index: Int) -> CGPoint? {
+        return CGPoint(x: 3*(index.cgfloat+1) + Size.cardWidth*index.cgfloat, y: Size.statusBarHeight)
+    }
     func pop(index: Int, previousCard: Card?) {
         // Not yet
     }

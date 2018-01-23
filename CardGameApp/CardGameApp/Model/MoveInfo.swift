@@ -9,13 +9,13 @@
 import UIKit
 
 struct StartInfo {
-    var viewModel: CardStackMovableModel
+    var viewModel: MovableViewModel
     var index: Int
     var count: Int
 }
 
 struct TargetInfo {
-    var viewModel: CardStackMovableModel
+    var viewModel: MovableViewModel
     var index: Int
 }
 

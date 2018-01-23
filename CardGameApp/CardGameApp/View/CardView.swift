@@ -9,6 +9,7 @@
 import UIKit
 
 class CardView: UIImageView {
+
     convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: Size.cardWidth, height: Size.cardHeight))
     }
@@ -29,18 +30,6 @@ extension CardView {
         self.trailing(equal: view.trailingAnchor)
         self.width(equal: view.widthAnchor)
         self.height(equal: view.widthAnchor, multiplier: 1.27)
-    }
-
-    func addTapGesture(action: Action, numberOfTapsRequired: Int) {
-        let tapRecognizer = UITapGestureRecognizer(target: action.target, action: action.selector)
-        tapRecognizer.numberOfTapsRequired = 2
-        self.addGestureRecognizer(tapRecognizer)
-        self.isUserInteractionEnabled = true
-    }
-
-    func addPanGesture(action: Action) {
-        let gesture = UIPanGestureRecognizer(target: action.target, action: action.selector)
-        self.addGestureRecognizer(gesture)
     }
 
     func setAutolayout() {

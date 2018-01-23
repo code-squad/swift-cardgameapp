@@ -39,6 +39,19 @@ extension CardStackView {
         }
     }
 
+    func cardIndex(stackIndex: Int, pos: CGPoint) -> Int? {
+        guard let lastCard = subviews.last else { return nil }
+        let topConstant = Size.statusBarHeight + Size.cardHeight + 7.5
+        let minY = topConstant + lastCard.frame.origin.y
+        let maxY = minY + Size.cardHeight
+        if pos.y >= minY && pos.y <= maxY { return subviews.count - 2 }
+        return nil
+    }
+
+    func lastCard() -> CardView? {
+        return subviews.last as? CardView
+    }
+
     func topConstantOfLastCard() -> CGFloat {
         return subviews.last?.frame.origin.y ?? 0
     }
@@ -80,25 +93,6 @@ extension CardStackView {
         subviews.last?.isUserInteractionEnabled = true
     }
 
-    func addDoubleTapGestureAllSubViews(action: Action) {
-        subviews.forEach {
-            guard let cardView = $0 as? CardView else { return }
-            cardView.addTapGesture(action: action, numberOfTapsRequired: 2)
-        }
-    }
-
-    func addPanGesture(action: Action) {
-        subviews.forEach {
-            guard let cardView = $0 as? CardView else {return}
-            cardView.addPanGesture(action: action)
-        }
-    }
-
-    func validUserInterationOnlyLastCard() {
-        subviews.forEach { $0.isUserInteractionEnabled = false }
-        subviews.last?.isUserInteractionEnabled = true
-    }
-
     // 카드 이미지 뷰를 만드는 함수 (마지막 카드만 카드 앞면.)
     private func makeCardImageViews(_ cardStack: CardStack) -> [CardView] {
         var imageViews = [CardView]()
@@ -106,11 +100,11 @@ extension CardStackView {
         let count = stack.count
         while true {
             guard let card = stack.pop() else { break }
-            let imageView = CardView()
+            let cardView = CardView()
             if stack.count == count - 1 {
-                imageView.image = card.makeImage()
-            } else { imageView.image = card.makeBackImage() }
-            imageViews.insert(imageView, at: 0)
+                cardView.image = card.makeImage()
+            } else { cardView.image = card.makeBackImage() }
+            imageViews.insert(cardView, at: 0)
         }
         return imageViews
     }
