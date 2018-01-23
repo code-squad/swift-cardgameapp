@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet var showCardView: ShowCardView!
     @IBOutlet var backCardView: UIImageView!
     @IBOutlet var cardStackDummyView: CardStackDummyView!
-
+    var dragInfo: DragInfo!
     var stackDummyVM = CardStackDummyViewModel()
     var cardDummyVM = CardDummyViewModel()
     var showCardVM = ShowCardViewModel()
@@ -23,12 +23,6 @@ class ViewController: UIViewController {
         willSet {
             changeRemainBackCardView(cards: newValue)
         }
-    }
-
-    struct Image {
-        static let refreshImage = UIImage(named: "cardgameapp-refresh-app")!
-        static let backImage = UIImage(named: "card-back")!
-        static let bgImage = UIImage(named: "bg_pattern")!
     }
 
     override func viewDidLoad() {
@@ -89,8 +83,11 @@ extension ViewController {
         cardStackDummyView.setCardStackDummyView(stackDummyVM.cardStacks)
         cardStackDummyView.addDoubleTapGesture(
             action: Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:))))
+        cardStackDummyView.addPangesture(
+            action: Action(target: self, selector: #selector(self.drag(_:))))
         showCardView.addDoubleTapGesture(
             action: Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:))))
+        showCardView.addPangesture(action: Action(target: self, selector: #selector(self.drag(_:))))
         initBackCardView()
     }
 
@@ -194,6 +191,7 @@ extension ViewController {
         let tappedLocation = sender.location(in: self.view)
         guard let tappedView = sender.view as? MovableView else { return }
         guard let currentPos = tappedView.position(pos: tappedLocation) else { return }
+        guard tappedView.isLast(pos: currentPos) == true else { return }
         guard let move = originOfTargetView(view: tappedView, startIndex: currentPos.stackIndex) else {return}
         guard let cardView = tappedView.selectedView(pos: currentPos) else { return }
         UIView.animate(
@@ -206,6 +204,43 @@ extension ViewController {
             completion: { _ in
                 self.moveCardViews(view: tappedView, tappedView: cardView, startIndex: currentPos.stackIndex)
         })
+    }
+
+    @objc func drag(_ gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            dragInfo = DragInfo()
+            let tappedLocation = gesture.location(in: self.view)
+            guard let tappedView = gesture.view as? MovableView,
+                let startPos = tappedView.position(pos: tappedLocation),
+                let belowViews = tappedView.belowViews(pos: startPos) else { return }
+            dragInfo.startPos = startPos
+            dragInfo.changes = belowViews
+            //self.bringSubview(toFront: stackView)
+            dragInfo.changes.forEach {
+                dragInfo.originals.append($0.center)
+            }
+        case .changed:
+            dragInfo.changes.forEach {
+                let translation = gesture.translation(in: self.view)
+                $0.center = CGPoint(
+                    x: $0.center.x + translation.x,
+                    y: $0.center.y + translation.y)
+            }
+            gesture.setTranslation(CGPoint.zero, in: self.view)
+        case .ended:
+            let targetLocation = gesture.location(in: self.view)
+            guard let targetView = gesture.view as? MovableView else { return }
+            dragInfo.targetPos = targetView.position(pos: targetLocation)
+            var i = 0
+            dragInfo.changes.forEach {
+                $0.center.x = dragInfo.originals[i].x
+                $0.center.y = dragInfo.originals[i].y
+                i += 1
+            }
+            dragInfo = nil
+        default: break
+        }
     }
 
     func makeVM(view: MovableView) -> MovableViewModel? {

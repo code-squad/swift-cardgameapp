@@ -9,10 +9,8 @@
 import UIKit
 
 class CardStackView: UIView {
-
     let constant = CGFloat(30)
     let emptyTag = 999
-
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -39,17 +37,37 @@ extension CardStackView {
         }
     }
 
-    func cardIndex(stackIndex: Int, pos: CGPoint) -> Int? {
-        guard let lastCard = subviews.last else { return nil }
+    func cardIndex(pos: CGPoint) -> Int? {
         let topConstant = Size.statusBarHeight + Size.cardHeight + 7.5
-        let minY = topConstant + lastCard.frame.origin.y
-        let maxY = minY + Size.cardHeight
-        if pos.y >= minY && pos.y <= maxY { return subviews.count - 2 }
+        let topPos =  pos.y - topConstant
+        for i in 0..<subviews.count-1 where isBelongTo(index: i, length: 30, pointY: topPos) {
+            return i
+        }
+        let last = subviews.count - 1
+        if isBelongTo(index: last, length: Size.cardHeight, pointY: topPos) { return last }
         return nil
+    }
+
+    func selectedCardView(index: Int) -> CardView? {
+        return subviews[index] as? CardView
+    }
+
+    func isBelongTo(index: Int, length: CGFloat, pointY: CGFloat) -> Bool {
+        guard let cardView = subviews[index] as? CardView,
+            cardView.tag != emptyTag else { return false }
+        let minY = subviews[index].frame.origin.y
+        let maxY = subviews[index].frame.origin.y + length
+        if pointY >= minY && pointY <= maxY && cardView.isFlipped {return true}
+        return false
     }
 
     func lastCard() -> CardView? {
         return subviews.last as? CardView
+    }
+
+    func isLastCard(index: Int) -> Bool {
+        let lastIndex = subviews.count - 1
+        return lastIndex == index
     }
 
     func topConstantOfLastCard() -> CGFloat {
@@ -69,8 +87,10 @@ extension CardStackView {
         return false
     }
 
-    func belowViews(with view: CardView) -> [UIView] {
-        return subviews.filter { $0.tag != emptyTag && $0.frame.origin.y >= view.frame.origin.y }
+    func belowViews(index: Int) -> [UIView] {
+        guard let cardView = subviews[index] as? CardView else { return []}
+        return subviews.filter {
+            $0.tag != emptyTag && $0.frame.origin.y >= cardView.frame.origin.y }
     }
 
     func removeAllCardViews() {
@@ -81,16 +101,14 @@ extension CardStackView {
     }
 
     func popCardStackView(previousCard: Card?) {
-        subviews.last?.isUserInteractionEnabled = true
         guard let card = previousCard else { return }
         ( self.subviews.last as? UIImageView)?.image = card.makeImage()
     }
 
     func pushCardStackView(cardView: CardView) {
         self.addSubview(cardView)
-        let topConstant = (subviews.count-2).cgfloat*constant
+        let topConstant = (subviews.count-2).cgfloat * constant
         cardView.fitLayout(with: self, topConstant: topConstant)
-        subviews.last?.isUserInteractionEnabled = true
     }
 
     // 카드 이미지 뷰를 만드는 함수 (마지막 카드만 카드 앞면.)
@@ -113,8 +131,9 @@ extension CardStackView {
 // MARK: Layout
 extension CardStackView {
 
-    // 빈 카드 카드 스택 뷰 배치
-    private func setEmptyView() {
+    func removeEmptyView() { subviews.last?.removeFromSuperview() }
+
+    func setEmptyView() {
         let emptyView = UIView().makeEmptyView()
         self.addSubview(emptyView)
         emptyView.tag = emptyTag

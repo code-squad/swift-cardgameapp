@@ -39,11 +39,6 @@ extension ShowCardViewModel: MovableViewModel {
     }
     func pop(index: Int = 0, count: Int = 1) -> [Card] {
         guard let pop = remainShowCards.pop() else {return []}
-//        NotificationCenter.default.post(
-//            name: .didPopShowCardNotification,
-//            object: self,
-//            userInfo: ["card": pop]
-//        )
         return [pop]
     }
 

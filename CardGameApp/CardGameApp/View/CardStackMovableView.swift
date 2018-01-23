@@ -15,4 +15,8 @@ protocol MovableView {
     func position(pos: CGPoint) -> Position?
     func selectedView(pos: Position) -> CardView?
     func coordinate(index: Int) -> CGPoint?
+    func targetCoordinate(index: Int) -> CGPoint?
+
+    func belowViews(pos: Position) -> [UIView]?
+    func isLast(pos: Position) -> Bool
 }

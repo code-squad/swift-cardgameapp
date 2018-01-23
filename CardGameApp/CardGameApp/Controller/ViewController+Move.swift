@@ -26,21 +26,17 @@ extension ViewController {
         target.viewModel.push(index: target.index, cards: cards)
     }
 
-
     func originOfTargetView(view: MovableView, startIndex: Int) -> CGPoint? {
         guard let vm = makeVM(view: view) else { return nil }
         guard let selectedCard = vm.top(index: startIndex) else { return nil }
         guard let startPos = view.coordinate(index: startIndex) else {return nil}
         var targetPos: CGPoint?
         if let targetIndex = cardDummyVM.targetIndex(card: selectedCard) {
-            targetPos = cardDummyView.coordinate(index: targetIndex)
+            targetPos = cardDummyView.targetCoordinate(index: targetIndex)
         } else if let targetIndex = stackDummyVM.targetIndex(card: selectedCard) {
-            targetPos = cardStackDummyView.coordinate(index: targetIndex)
-            targetPos?.y += 30
+            targetPos = cardStackDummyView.targetCoordinate(index: targetIndex)
         }
-        guard let target = targetPos else {
-            return nil
-        }
+        guard let target = targetPos else { return nil }
         let x = target.x - startPos.x
         let y = target.y - startPos.y
         return CGPoint(x: x, y: y)

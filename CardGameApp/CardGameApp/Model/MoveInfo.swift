@@ -25,16 +25,8 @@ struct MoveInfo {
 }
 
 struct DragInfo {
-    var changes: [UIView]
-    var originals: [CGPoint]
-    var startStackIndex: Int
-    var targetStackIndex: Int
-
-    init() {
-        changes = [UIView]()
-        originals = [CGPoint]()
-        startStackIndex = -1
-        targetStackIndex = -1
-    }
-
+    var changes = [UIView]()
+    var originals = [CGPoint]()
+    var startPos: Position?
+    var targetPos: Position?
 }

@@ -21,12 +21,27 @@ class ShowCardView: UIView {
         self.isUserInteractionEnabled = true
     }
 
+    func addPangesture(action: Action) {
+        let panRecognizer = UIPanGestureRecognizer(
+            target: action.target, action: action.selector)
+        self.addGestureRecognizer(panRecognizer)
+        self.isUserInteractionEnabled = true
+    }
+
     func removeAll() {
         subviews.forEach { $0.removeFromSuperview() }
     }
 }
 
 extension ShowCardView: MovableView {
+    func targetCoordinate(index: Int) -> CGPoint? {
+        return nil
+    }
+
+    func isLast(pos: Position) -> Bool {
+        return true
+    }
+
     func pop(index: Int = 0, previousCard: Card? = nil) {
         subviews.last?.removeFromSuperview()
     }
@@ -47,6 +62,11 @@ extension ShowCardView: MovableView {
             addSubview($0)
             $0.fitLayout(with: self)
         }
+    }
+
+    func belowViews(pos: Position) -> [UIView]? {
+        guard let cardView = subviews.last else {return nil}
+        return [cardView]
     }
 
 }

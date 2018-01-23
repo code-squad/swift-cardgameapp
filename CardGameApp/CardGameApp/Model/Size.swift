@@ -20,3 +20,9 @@ struct Position {
     var stackIndex: Int
     var cardIndex: Int
 }
+
+struct Image {
+    static let refreshImage = UIImage(named: "cardgameapp-refresh-app")!
+    static let backImage = UIImage(named: "card-back")!
+    static let bgImage = UIImage(named: "bg_pattern")!
+}

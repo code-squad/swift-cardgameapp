@@ -27,13 +27,13 @@ class CardStackDummyView: UIStackView {
         let distributionWidth = dummyViewFrame.width / 7
         let stackIndex = Int(pos.x / distributionWidth)
         guard let cardStackView = subviews[stackIndex] as? CardStackView,
-            let cardIndex = cardStackView.cardIndex(stackIndex: stackIndex, pos: pos) else { return nil }
+            let cardIndex = cardStackView.cardIndex(pos: pos) else { return nil }
         return Position(stackIndex: stackIndex, cardIndex: cardIndex)
     }
 
     func selectedView(pos: Position) -> CardView? {
         let stackView = subviews[pos.stackIndex] as? CardStackView
-        return stackView?.lastCard()
+        return stackView?.selectedCardView(index: pos.cardIndex)
     }
 
     func addDoubleTapGesture(action: Action) {
@@ -41,6 +41,13 @@ class CardStackDummyView: UIStackView {
             target: action.target, action: action.selector)
         tapRecognizer.numberOfTapsRequired = 2
         self.addGestureRecognizer(tapRecognizer)
+        self.isUserInteractionEnabled = true
+    }
+
+    func addPangesture(action: Action) {
+        let panRecognizer = UIPanGestureRecognizer(
+            target: action.target, action: action.selector)
+        self.addGestureRecognizer(panRecognizer)
         self.isUserInteractionEnabled = true
     }
 
@@ -108,6 +115,15 @@ class CardStackDummyView: UIStackView {
 }
 
 extension CardStackDummyView: MovableView {
+    func isLast(pos: Position) -> Bool {
+        guard let cardStackView = subviews[pos.stackIndex] as? CardStackView else {return false}
+        return cardStackView.isLastCard(index: pos.cardIndex)
+    }
+
+    func belowViews(pos: Position) -> [UIView]? {
+        guard let cardStackView = subviews[pos.stackIndex] as? CardStackView else {return nil}
+        return cardStackView.belowViews(index: pos.cardIndex)
+    }
 
     func pop(index: Int, previousCard: Card?) {
         let cardStackview = subviews[index] as? CardStackView
@@ -123,9 +139,25 @@ extension CardStackDummyView: MovableView {
 
     func coordinate(index: Int) -> CGPoint? {
         let x = 3*(index.cgfloat+1) + Size.cardWidth*index.cgfloat
-        guard let carStackView = subviews[index] as? CardStackView else {return nil}
-        guard let lastCardView = carStackView.lastCard() else {return nil}
-        let y = Size.statusBarHeight + Size.cardHeight + 7.5 + lastCardView.frame.origin.y
+        var y = Size.statusBarHeight + Size.cardHeight + 7.5
+        let carStackView = subviews[index] as? CardStackView
+        guard let lastCardView = carStackView?.lastCard() else {
+            return CGPoint(x: x, y: y)
+        }
+        y += lastCardView.frame.origin.y
         return CGPoint(x: x, y: y)
     }
+
+    func targetCoordinate(index: Int) -> CGPoint? {
+        let x = 3*(index.cgfloat+1) + Size.cardWidth*index.cgfloat
+        var y = Size.statusBarHeight + Size.cardHeight + 7.5
+        let carStackView = subviews[index] as? CardStackView
+        guard let lastCardView = carStackView?.lastCard() else {
+            return CGPoint(x: x, y: y)
+        }
+        y += lastCardView.frame.origin.y
+        return CGPoint(x: x, y: y + 30)
+
+    }
+
 }

@@ -36,6 +36,18 @@ class CardDummyView: UIStackView {
 }
 
 extension CardDummyView: MovableView {
+    func targetCoordinate(index: Int) -> CGPoint? {
+        return coordinate(index: index)
+    }
+
+    func isLast(pos: Position) -> Bool {
+        return true
+    }
+
+    func belowViews(pos: Position) -> [UIView]? {
+        return nil
+    }
+
     func position(pos: CGPoint) -> Position? {
         return nil
     }
