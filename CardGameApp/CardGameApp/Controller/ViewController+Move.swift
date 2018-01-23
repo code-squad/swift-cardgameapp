@@ -9,6 +9,13 @@
 import UIKit
 
 extension ViewController {
+
+    fileprivate func move(start: StartInfo, target: TargetInfo, tappedView: UIView) {
+        tappedView.removeFromSuperview()
+        let selectedCard = start.viewModel.pop(index: start.index, count: start.count)
+        target.viewModel.push(index: target.index, cards: selectedCard)
+    }
+
     fileprivate func move(start: StartInfo, target: TargetInfo, tappedView: [UIView], cards: [Card]) {
         tappedView.forEach { $0.removeFromSuperview() }
         start.viewModel.pop(index: start.index, count: tappedView.count)
@@ -55,7 +62,7 @@ extension ViewController {
         }
     }
 
-    func moveToCardStackDummyView(startView: MovableView, tappedView: [UIView], startIndex: Int, targetPoint: CGPoint) {
+    func dragCardViews(startView: MovableView, tappedView: [UIView], startIndex: Int, targetPoint: CGPoint) {
         guard let startVM = startVM(view: startView) else { return }
         guard let cards = startVM.lastShowCards(index: startIndex, count: tappedView.count),
             let firstCard = cards.first else { return }
@@ -72,10 +79,5 @@ extension ViewController {
         }
     }
 
-    fileprivate func move(start: StartInfo, target: TargetInfo, tappedView: UIView) {
-        tappedView.removeFromSuperview()
-        let selectedCard = start.viewModel.pop(index: start.index, count: start.count)
-        target.viewModel.push(index: target.index, cards: selectedCard)
-    }
 
 }

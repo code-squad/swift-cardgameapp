@@ -217,7 +217,7 @@ extension ViewController {
             let targetLocation = gesture.location(in: self.view)
             guard let startView = dragInfo.startView,
                 let startIndex = dragInfo.startPos?.stackIndex else { return }
-            moveToCardStackDummyView(
+            dragCardViews(
                 startView: startView, tappedView: dragInfo.changes,
                 startIndex: startIndex,
                 targetPoint: targetLocation
