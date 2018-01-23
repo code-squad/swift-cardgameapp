@@ -27,6 +27,10 @@ class CardDummyViewModel {
 }
 
 extension CardDummyViewModel: MovableViewModel {
+    func lastShowCards(index: Int, count: Int) -> [Card]? {
+        return cardDummy[index].lastCards(count: 1)
+    }
+
     func top(index: Int) -> Card? {
         return cardDummy[index].top
     }

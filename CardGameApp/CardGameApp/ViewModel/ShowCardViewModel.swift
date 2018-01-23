@@ -34,6 +34,10 @@ class ShowCardViewModel {
 }
 
 extension ShowCardViewModel: MovableViewModel {
+    func lastShowCards(index: Int = 0, count: Int) -> [Card]? {
+        return remainShowCards.lastCards(count: count)
+    }
+
     func targetIndex(card: Card) -> Int? {
         return 0
     }
@@ -58,7 +62,6 @@ extension ShowCardViewModel: MovableViewModel {
 }
 
 extension Notification.Name {
-    static let didPopShowCardNotification = Notification.Name(rawValue: "didPopShowCard")
     static let didPushShowCardNotification = Notification.Name(rawValue: "didPushShowCard")
     static let removeAllShowCardNotification = Notification.Name(rawValue: "removeAllShowCard")
 }

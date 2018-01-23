@@ -11,6 +11,9 @@ import UIKit
 class CardStackView: UIView {
     let constant = CGFloat(30)
     let emptyTag = 999
+    var lastCard: UIView {
+        return subviews.last!
+    }
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -38,9 +41,10 @@ extension CardStackView {
     }
 
     func cardIndex(pos: CGPoint) -> Int? {
-        let topConstant = Size.statusBarHeight + Size.cardHeight + 7.5
-        let topPos =  pos.y - topConstant
-        for i in 0..<subviews.count-1 where isBelongTo(index: i, length: 30, pointY: topPos) {
+        let topConstant = Size.statusBarHeight + Size.cardHeight + Size.topConstantOfCardStack
+        let topPos = pos.y - topConstant
+        let length = Size.topConstantOfCardInCardStack
+        for i in 0..<subviews.count-1 where isBelongTo(index: i, length: length, pointY: topPos) {
             return i
         }
         let last = subviews.count - 1
@@ -61,30 +65,9 @@ extension CardStackView {
         return false
     }
 
-    func lastCard() -> CardView? {
-        return subviews.last as? CardView
-    }
-
     func isLastCard(index: Int) -> Bool {
         let lastIndex = subviews.count - 1
         return lastIndex == index
-    }
-
-    func topConstantOfLastCard() -> CGFloat {
-        return subviews.last?.frame.origin.y ?? 0
-    }
-
-    func index(of view: CardView) -> Int {
-        return subviews.index(of: view) ?? subviews.endIndex
-    }
-
-    func targetY(translateY: CGFloat, targetIndex: Int) -> Bool {
-        guard let lastCard = subviews.last as? CardView else { return false }
-        let positionY = lastCard.frame.origin.y
-        if translateY >= positionY && translateY <= positionY + Size.cardHeight {
-            return true
-        }
-        return false
     }
 
     func belowViews(index: Int) -> [UIView] {
@@ -130,18 +113,12 @@ extension CardStackView {
 
 // MARK: Layout
 extension CardStackView {
-
-    func removeEmptyView() { subviews.last?.removeFromSuperview() }
-
     func setEmptyView() {
-        let emptyView = UIView().makeEmptyView()
+        let emptyView = EmptyCardView()
         self.addSubview(emptyView)
+        emptyView.layer.borderWidth = 1
+        emptyView.layer.borderColor = UIColor.white.cgColor
         emptyView.tag = emptyTag
-        emptyView.translatesAutoresizingMaskIntoConstraints = false
-        emptyView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        emptyView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        emptyView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        emptyView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        emptyView.heightAnchor.constraint(equalTo: emptyView.widthAnchor, multiplier: 1.27).isActive = true
+        emptyView.fitLayout(with: self)
     }
 }

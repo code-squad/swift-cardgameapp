@@ -11,6 +11,9 @@ import UIKit
 struct Size {
     static let constant: CGFloat = 3
     static let cardStackCount: Int = 7
+    static let spacing: CGFloat = 3
+    static let topConstantOfCardStack: CGFloat = 7.5
+    static let topConstantOfCardInCardStack: CGFloat = 30
     static var cardWidth: CGFloat = 0
     static var cardHeight: CGFloat = 0
     static let statusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height

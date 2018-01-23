@@ -22,40 +22,7 @@ class CardStackDummyView: UIStackView {
         super.layoutSubviews()
     }
 
-    func position(pos: CGPoint) -> Position? {
-        let dummyViewFrame = self.frame
-        let distributionWidth = dummyViewFrame.width / 7
-        let stackIndex = Int(pos.x / distributionWidth)
-        guard let cardStackView = subviews[stackIndex] as? CardStackView,
-            let cardIndex = cardStackView.cardIndex(pos: pos) else { return nil }
-        return Position(stackIndex: stackIndex, cardIndex: cardIndex)
-    }
-
-    func selectedView(pos: Position) -> CardView? {
-        let stackView = subviews[pos.stackIndex] as? CardStackView
-        return stackView?.selectedCardView(index: pos.cardIndex)
-    }
-
-    func addDoubleTapGesture(action: Action) {
-        let tapRecognizer = UITapGestureRecognizer(
-            target: action.target, action: action.selector)
-        tapRecognizer.numberOfTapsRequired = 2
-        self.addGestureRecognizer(tapRecognizer)
-        self.isUserInteractionEnabled = true
-    }
-
-    func addPangesture(action: Action) {
-        let panRecognizer = UIPanGestureRecognizer(
-            target: action.target, action: action.selector)
-        self.addGestureRecognizer(panRecognizer)
-        self.isUserInteractionEnabled = true
-    }
-
     func setCardStackDummyView(_ cardStacks: [CardStack]) {
-        addCardStackViews(cardStacks)
-    }
-
-    private func addCardStackViews(_ cardStacks: [CardStack]) {
         var i = 0
         subviews.forEach {
             let cardStack = cardStacks[i]
@@ -72,57 +39,49 @@ class CardStackDummyView: UIStackView {
         }
     }
 
-    // get view position
-
-    // x좌표를 갖고 현재 위치가 몇번 째 카드 스택에 속하는지 인덱스 반환.
-    func currentIndex(pointX: CGFloat) -> Int {
-        let dummyViewFrame = self.frame
-        let distributionWidth = dummyViewFrame.width / 7
-        return Int(pointX / distributionWidth)
+    func addDoubleTapGesture(action: Action) {
+        let tapRecognizer = UITapGestureRecognizer(
+            target: action.target, action: action.selector)
+        tapRecognizer.numberOfTapsRequired = 2
+        self.addGestureRecognizer(tapRecognizer)
+        self.isUserInteractionEnabled = true
     }
 
-    func moveX(from startIndex: Int, to targetIndex: Int) -> CGFloat {
-        let startX = subviews[startIndex].frame.origin.x
-        let targetX = subviews[targetIndex].frame.origin.x
-        return targetX - startX
-    }
-
-    func moveY(from startIndex: Int, to targetIndex: Int) -> CGFloat {
-        guard let startCardStackview = subviews[startIndex] as? CardStackView,
-            let targetCardStackview = subviews[targetIndex] as? CardStackView else {
-            return CGFloat(0)
-        }
-        let nextY = targetCardStackview.topConstantOfLastCard() + 30
-        return nextY - startCardStackview.topConstantOfLastCard()
-    }
-
-    func movePoint(from startIndex: Int, to targetIndex: Int) -> CGPoint {
-        let x = moveX(from: startIndex, to: targetIndex)
-        let y = moveY(from: startIndex, to: targetIndex)
-        return CGPoint(x: x, y: y)
-    }
-
-    func topConstantOfLastCard(in index: Int) -> CGFloat {
-        let cardStackView = subviews[index] as? CardStackView
-        let lastCardOriginY = cardStackView?.topConstantOfLastCard() ?? 0
-        return lastCardOriginY
-    }
-
-    func targetY(translateY: CGFloat, targetIndex: Int) -> Bool {
-        guard let cardStackView = subviews[targetIndex] as? CardStackView else {return false}
-        return cardStackView.targetY(translateY: translateY, targetIndex: targetIndex)
+    func addPangesture(action: Action) {
+        let panRecognizer = UIPanGestureRecognizer(
+            target: action.target, action: action.selector)
+        self.addGestureRecognizer(panRecognizer)
+        self.isUserInteractionEnabled = true
     }
 }
 
 extension CardStackDummyView: MovableView {
-    func isLast(pos: Position) -> Bool {
-        guard let cardStackView = subviews[pos.stackIndex] as? CardStackView else {return false}
-        return cardStackView.isLastCard(index: pos.cardIndex)
+    // 점이 속한 뷰의 스택 인덱스, 카드 인덱스 반환
+    func position(_ point: CGPoint) -> Position? {
+        let dummyViewFrame = self.frame
+        let distributionWidth = dummyViewFrame.width / Size.cardStackCount.cgfloat
+        let stackIndex = Int(point.x / distributionWidth)
+        guard let cardStackView = subviews[stackIndex] as? CardStackView,
+            let cardIndex = cardStackView.cardIndex(pos: point) else { return nil }
+        return Position(stackIndex: stackIndex, cardIndex: cardIndex)
     }
 
-    func belowViews(pos: Position) -> [UIView]? {
-        guard let cardStackView = subviews[pos.stackIndex] as? CardStackView else {return nil}
-        return cardStackView.belowViews(index: pos.cardIndex)
+    // 특정 스택 인덱스, 카드 인덱스에 해당되는 카드 뷰 반환
+    func selectedView(_ position: Position) -> CardView? {
+        let stackView = subviews[position.stackIndex] as? CardStackView
+        return stackView?.selectedCardView(index: position.cardIndex)
+    }
+
+    // 특정 스택 인덱스, 카드 인덱스에 해당되는 카드 뷰가 마지막 뷰인지 여부 반환
+    func isLast(_ position: Position) -> Bool {
+        guard let cardStackView = subviews[position.stackIndex] as? CardStackView else {return false}
+        return cardStackView.isLastCard(index: position.cardIndex)
+    }
+
+    // 특정 스택 인덱스, 카드 인덱스를 비롯한 아래에 위치한 카드 뷰 배열 반환
+    func belowViews(_ position: Position) -> [UIView] {
+        guard let cardStackView = subviews[position.stackIndex] as? CardStackView else { return [] }
+        return cardStackView.belowViews(index: position.cardIndex)
     }
 
     func pop(index: Int, previousCard: Card?) {
@@ -137,27 +96,27 @@ extension CardStackDummyView: MovableView {
         cardViews.forEach { cardStackview.pushCardStackView(cardView: $0) }
     }
 
-    func coordinate(index: Int) -> CGPoint? {
-        let x = 3*(index.cgfloat+1) + Size.cardWidth*index.cgfloat
-        var y = Size.statusBarHeight + Size.cardHeight + 7.5
+    // 해당 카드 인덱스의 마지막 카드 뷰 Origin 좌표
+    func coordinate(index: Int) -> CGPoint {
+        let x = Size.spacing*(index.cgfloat+1) + Size.cardWidth*index.cgfloat
+        var y = Size.statusBarHeight + Size.cardHeight + Size.topConstantOfCardStack
         let carStackView = subviews[index] as? CardStackView
-        guard let lastCardView = carStackView?.lastCard() else {
+        guard let lastCardView = carStackView?.lastCard as? CardView else {
             return CGPoint(x: x, y: y)
         }
         y += lastCardView.frame.origin.y
         return CGPoint(x: x, y: y)
     }
 
-    func targetCoordinate(index: Int) -> CGPoint? {
-        let x = 3*(index.cgfloat+1) + Size.cardWidth*index.cgfloat
-        var y = Size.statusBarHeight + Size.cardHeight + 7.5
+    // 해당 카드 인덱스의 마지막 카드 뷰 다음에 위치할 카드 뷰의 Origin 좌표
+    func targetCoordinate(index: Int) -> CGPoint {
+        var point = coordinate(index: index)
         let carStackView = subviews[index] as? CardStackView
-        guard let lastCardView = carStackView?.lastCard() else {
-            return CGPoint(x: x, y: y)
+        guard carStackView?.lastCard is CardView else {
+            return point
         }
-        y += lastCardView.frame.origin.y
-        return CGPoint(x: x, y: y + 30)
-
+        point.y += Size.topConstantOfCardInCardStack
+        return point
     }
 
 }

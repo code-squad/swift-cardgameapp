@@ -9,20 +9,13 @@
 import UIKit
 
 class CardView: UIImageView {
-    private var state: State {
-        switch image {
-        case Image.backImage?: return .back
-        default: return .show
-        }
-    }
+
     var isFlipped: Bool {
-        if state == .show { return true }
-        return false
+        switch image {
+        case Image.backImage?: return false
+        default: return true }
     }
-    enum State {
-        case show
-        case back
-    }
+
     convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: Size.cardWidth, height: Size.cardHeight))
     }

@@ -13,4 +13,5 @@ protocol MovableViewModel {
     func push(index: Int, cards: [Card])
     func top(index: Int) -> Card?
     func targetIndex(card: Card) -> Int?
+    func lastShowCards(index: Int, count: Int) -> [Card]?
 }

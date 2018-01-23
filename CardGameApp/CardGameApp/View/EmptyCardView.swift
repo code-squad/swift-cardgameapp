@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EmptyCardView: UIView {
+class EmptyCardView: CardView {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

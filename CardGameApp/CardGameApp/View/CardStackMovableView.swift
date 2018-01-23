@@ -12,11 +12,11 @@ protocol MovableView {
     func pop(index: Int, previousCard: Card?)
     func push(index: Int, cardViews: [CardView])
 
-    func position(pos: CGPoint) -> Position?
-    func selectedView(pos: Position) -> CardView?
-    func coordinate(index: Int) -> CGPoint?
-    func targetCoordinate(index: Int) -> CGPoint?
+    func position(_ point: CGPoint) -> Position?
+    func selectedView(_ position: Position) -> CardView?
+    func coordinate(index: Int) -> CGPoint
+    func targetCoordinate(index: Int) -> CGPoint
 
-    func belowViews(pos: Position) -> [UIView]?
-    func isLast(pos: Position) -> Bool
+    func belowViews(_ position: Position) -> [UIView]
+    func isLast(_ position: Position) -> Bool
 }

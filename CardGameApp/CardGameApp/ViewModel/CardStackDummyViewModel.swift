@@ -67,8 +67,7 @@ extension CardStackDummyViewModel: MovableViewModel {
     }
 
     func push(index: Int, cards: [Card]) {
-        let newCards = cards.reversed()
-        newCards.forEach { cardStacks[index].push(card: $0) }
+        cards.forEach { cardStacks[index].push(card: $0) }
         NotificationCenter.default.post(
             name: .didPushCardNotification,
             object: self,

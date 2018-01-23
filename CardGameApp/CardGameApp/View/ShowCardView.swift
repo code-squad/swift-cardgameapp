@@ -34,11 +34,12 @@ class ShowCardView: UIView {
 }
 
 extension ShowCardView: MovableView {
-    func targetCoordinate(index: Int) -> CGPoint? {
-        return nil
+
+    func targetCoordinate(index: Int) -> CGPoint {
+        return CGPoint.zero
     }
 
-    func isLast(pos: Position) -> Bool {
+    func isLast(_ position: Position) -> Bool {
         return true
     }
 
@@ -46,17 +47,18 @@ extension ShowCardView: MovableView {
         subviews.last?.removeFromSuperview()
     }
 
-    func position(pos: CGPoint) -> Position? {
+    func position(_ point: CGPoint) -> Position? {
         guard subviews.last is CardView else {return nil}
         return Position(stackIndex: 0, cardIndex: 0)
     }
 
-    func selectedView(pos: Position) -> CardView? {
+    func selectedView(_ position: Position) -> CardView? {
         return subviews.last as? CardView
     }
-    func coordinate(index: Int) -> CGPoint? {
+    func coordinate(index: Int) -> CGPoint {
         return self.frame.origin
     }
+
     func push(index: Int = 0, cardViews: [CardView]) {
         cardViews.forEach {
             addSubview($0)
@@ -64,8 +66,8 @@ extension ShowCardView: MovableView {
         }
     }
 
-    func belowViews(pos: Position) -> [UIView]? {
-        guard let cardView = subviews.last else {return nil}
+    func belowViews(_ position: Position) -> [UIView] {
+        guard let cardView = subviews.last else { return [] }
         return [cardView]
     }
 
