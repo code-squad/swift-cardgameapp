@@ -19,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="GWl-Jv-Kdf" customClass="CardDummyView" customModule="CardGameApp" customModuleProvider="target">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="GWl-Jv-Kdf" customClass="FoundationPilesView" customModule="CardGameApp" customModuleProvider="target">
                                 <rect key="frame" x="3" y="20" width="209.5" height="63.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZhL-K2-I0z" customClass="EmptyCardView" customModule="CardGameApp" customModuleProvider="target">
@@ -43,48 +43,48 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="jIU-P4-hls" customClass="CardStackDummyView" customModule="CardGameApp" customModuleProvider="target">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="jIU-P4-hls" customClass="TableauPilesView" customModule="CardGameApp" customModuleProvider="target">
                                 <rect key="frame" x="3" y="91" width="369" height="576"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1N-lF-j1g" customClass="CardStackView" customModule="CardGameApp" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q1N-lF-j1g" customClass="TableauView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="576"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1k6-iG-qh1" customClass="CardStackView" customModule="CardGameApp" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1k6-iG-qh1" customClass="TableauView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="53" y="0.0" width="50.5" height="576"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sc3-aC-U3d" customClass="CardStackView" customModule="CardGameApp" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sc3-aC-U3d" customClass="TableauView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="106.5" y="0.0" width="50" height="576"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5s3-ba-IMB" customClass="CardStackView" customModule="CardGameApp" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5s3-ba-IMB" customClass="TableauView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="159.5" y="0.0" width="50" height="576"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aP8-g9-Fns" customClass="CardStackView" customModule="CardGameApp" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aP8-g9-Fns" customClass="TableauView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="212.5" y="0.0" width="50" height="576"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vBo-kA-FbL" customClass="CardStackView" customModule="CardGameApp" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vBo-kA-FbL" customClass="TableauView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="265.5" y="0.0" width="50.5" height="576"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DTV-is-lkV" customClass="CardStackView" customModule="CardGameApp" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DTV-is-lkV" customClass="TableauView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="319" y="0.0" width="50" height="576"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LNd-Bh-3Lq" customClass="ShowCardView" customModule="CardGameApp" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LNd-Bh-3Lq" customClass="WasteView" customModule="CardGameApp" customModuleProvider="target">
                                 <rect key="frame" x="238" y="20" width="50" height="63.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="LNd-Bh-3Lq" secondAttribute="height" multiplier="1:1.27" id="y9F-fR-SpJ"/>
                                 </constraints>
                             </view>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ghi-hx-KIJ">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ghi-hx-KIJ" customClass="StockView" customModule="CardGameApp" customModuleProvider="target">
                                 <rect key="frame" x="321.5" y="20" width="50.5" height="63.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ghi-hx-KIJ" secondAttribute="height" multiplier="1:1.27" id="Idy-fY-N1z"/>
@@ -111,10 +111,10 @@
                         <viewLayoutGuide key="safeArea" id="6Nh-a6-VQj"/>
                     </view>
                     <connections>
-                        <outlet property="backCardView" destination="ghi-hx-KIJ" id="Kye-fv-sB0"/>
-                        <outlet property="cardDummyView" destination="GWl-Jv-Kdf" id="cXd-4n-a1e"/>
-                        <outlet property="cardStackDummyView" destination="jIU-P4-hls" id="a89-nf-N1C"/>
-                        <outlet property="showCardView" destination="LNd-Bh-3Lq" id="tyY-tR-nTP"/>
+                        <outlet property="foundationPilesView" destination="GWl-Jv-Kdf" id="NVA-rh-82e"/>
+                        <outlet property="stockView" destination="ghi-hx-KIJ" id="vTT-Ln-nQG"/>
+                        <outlet property="tableauPilesView" destination="jIU-P4-hls" id="Ntl-4P-xaa"/>
+                        <outlet property="wasteView" destination="LNd-Bh-3Lq" id="KQa-ap-WGr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kMV-SJ-7UR" sceneMemberID="firstResponder"/>

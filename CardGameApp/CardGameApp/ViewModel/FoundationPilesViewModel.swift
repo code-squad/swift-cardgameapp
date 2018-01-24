@@ -1,5 +1,5 @@
 //
-//  CardDummyViewModel.swift
+//  FoundationPilesViewModel.swift
 //  CardGameApp
 //
 //  Created by yangpc on 2018. 1. 14..
@@ -8,46 +8,46 @@
 
 import UIKit
 
-class CardDummyViewModel {
-    private var cardDummy = [CardStack]()
+class FoundationPilesViewModel {
+    private var foundationPiles = [CardStack]()
 
     init() {
-        cardDummy = makeCardDummy()
+        foundationPiles = makefoundationPiles()
     }
 
-    private func makeCardDummy() -> [CardStack] {
+    private func makefoundationPiles() -> [CardStack] {
         let cardStacks = [CardStack?](repeating: nil, count: 4)
         return cardStacks.map { _ in CardStack() }
     }
 
     func reset() {
-        cardDummy.removeAll()
-        cardDummy = makeCardDummy()
+        foundationPiles.removeAll()
+        foundationPiles = makefoundationPiles()
     }
 
     func isFullDeck() -> Bool {
         var total = 0
-        cardDummy.forEach { total += $0.count }
+        foundationPiles.forEach { total += $0.count }
         return total == 53
     }
 }
 
-extension CardDummyViewModel: MovableViewModel {
-    func lastShowCards(index: Int, count: Int) -> [Card]? {
-        return cardDummy[index].lastCards(count: 1)
+extension FoundationPilesViewModel: MovableViewModel {
+    func faceUpCards(index: Int, count: Int) -> [Card]? {
+        return foundationPiles[index].lastCards(count: 1)
     }
 
     func top(index: Int) -> Card? {
-        return cardDummy[index].top
+        return foundationPiles[index].top
     }
 
     @discardableResult func pop(index: Int, count: Int) -> [Card] {
         var pops = [Card]()
         for _ in 0..<count {
-            guard let pop = cardDummy[index].pop() else { break }
+            guard let pop = foundationPiles[index].pop() else { break }
             pops.append(pop)
         }
-        let top = cardDummy[index].top
+        let top = foundationPiles[index].top
         NotificationCenter.default.post(
             name: .didPopCardNotification,
             object: self,
@@ -58,7 +58,7 @@ extension CardDummyViewModel: MovableViewModel {
 
     func push(index: Int, cards: [Card]) {
         let newCards = cards.reversed()
-        newCards.forEach { cardDummy[index].push(card: $0) }
+        newCards.forEach { foundationPiles[index].push(card: $0) }
         NotificationCenter.default.post(
             name: .didPushCardNotification,
             object: self,
@@ -68,8 +68,8 @@ extension CardDummyViewModel: MovableViewModel {
 
     // Top View로 이동 시, 카드가 이동할 Top View 인덱스를 반환
     func targetIndex(card: Card) -> Int? {
-        for index in 0..<cardDummy.count {
-            let top = cardDummy[index].top
+        for index in 0..<foundationPiles.count {
+            let top = foundationPiles[index].top
             if card.isSameSuitAndNextRank(with: top) {
                 return index
             }

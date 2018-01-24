@@ -1,5 +1,5 @@
 //
-//  CardStackView.swift
+//  TableauView.swift
 //  CardGameApp
 //
 //  Created by yangpc on 2018. 1. 12..
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardStackView: UIView {
+class TableauView: UIView {
     let constant = CGFloat(30)
     let emptyTag = 999
     var lastCard: UIView {
@@ -29,9 +29,9 @@ class CardStackView: UIView {
 }
 
 // MARK: Make ImageView
-extension CardStackView {
+extension TableauView {
     // 카드 스택 이미지 뷰를 처음 생성한다.
-    func setCardStackImageView(_ cardStack: CardStack) {
+    func setTableaImageView(_ cardStack: CardStack) {
         let cardImageViews = makeCardImageViews(cardStack)
         cardImageViews.forEach {
             let cardIndex = CGFloat(subviews.count-1)
@@ -61,7 +61,7 @@ extension CardStackView {
             cardView.tag != emptyTag else { return false }
         let minY = subviews[index].frame.origin.y
         let maxY = subviews[index].frame.origin.y + length
-        if pointY >= minY && pointY <= maxY && cardView.isFlipped {return true}
+        if pointY >= minY && pointY <= maxY && cardView.isFaceUp {return true}
         return false
     }
 
@@ -112,7 +112,7 @@ extension CardStackView {
 }
 
 // MARK: Layout
-extension CardStackView {
+extension TableauView {
     func setEmptyView() {
         let emptyView = EmptyCardView()
         self.addSubview(emptyView)

@@ -10,7 +10,7 @@ import UIKit
 
 class CardView: UIImageView {
 
-    var isFlipped: Bool {
+    var isFaceUp: Bool {
         switch image {
         case Image.backImage?: return false
         default: return true }

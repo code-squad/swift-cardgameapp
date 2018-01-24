@@ -1,5 +1,5 @@
 //
-//  ShowCardViewModel.swift
+//  WasteViewModel.swift
 //  CardGameApp
 //
 //  Created by yangpc on 2018. 1. 22..
@@ -8,24 +8,24 @@
 
 import UIKit
 
-class ShowCardViewModel {
-    private var remainShowCards: CardStack
+class WasteViewModel {
+    private var wasteCards: CardStack
 
     init() {
-        remainShowCards = CardStack()
+        wasteCards = CardStack()
     }
 
     func allCards() -> [Card] {
         var cards = [Card]()
         while true {
-            guard let pop = remainShowCards.pop() else { break }
+            guard let pop = wasteCards.pop() else { break }
             cards.append(pop)
         }
         return cards
     }
 
     func removeAll() {
-        remainShowCards = CardStack()
+        wasteCards = CardStack()
         NotificationCenter.default.post(
             name: .removeAllShowCardNotification,
             object: self
@@ -33,21 +33,21 @@ class ShowCardViewModel {
     }
 }
 
-extension ShowCardViewModel: MovableViewModel {
-    func lastShowCards(index: Int = 0, count: Int) -> [Card]? {
-        return remainShowCards.lastCards(count: count)
+extension WasteViewModel: MovableViewModel {
+    func faceUpCards(index: Int = 0, count: Int) -> [Card]? {
+        return wasteCards.lastCards(count: count)
     }
 
     func targetIndex(card: Card) -> Int? {
         return 0
     }
     func pop(index: Int = 0, count: Int = 1) -> [Card] {
-        guard let pop = remainShowCards.pop() else {return []}
+        guard let pop = wasteCards.pop() else {return []}
         return [pop]
     }
 
     func push(index: Int = 0, cards: [Card]) {
-        cards.forEach { remainShowCards.push(card: $0)}
+        cards.forEach { wasteCards.push(card: $0)}
         NotificationCenter.default.post(
             name: .didPushShowCardNotification,
             object: self,
@@ -56,7 +56,7 @@ extension ShowCardViewModel: MovableViewModel {
     }
 
     func top(index: Int = 0) -> Card? {
-        return remainShowCards.top
+        return wasteCards.top
     }
 
 }

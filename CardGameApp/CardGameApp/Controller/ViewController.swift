@@ -11,16 +11,16 @@ import UIKit
 class ViewController: UIViewController {
     // MARK: Properties
 
-    @IBOutlet var cardDummyView: CardDummyView!
-    @IBOutlet var showCardView: ShowCardView!
-    @IBOutlet var backCardView: UIImageView!
-    @IBOutlet var cardStackDummyView: CardStackDummyView!
+    @IBOutlet var foundationPilesView: FoundationPilesView!
+    @IBOutlet var tableauPilesView: TableauPilesView!
+    @IBOutlet var wasteView: WasteView!
+    @IBOutlet var stockView: StockView!
     var dragInfo: DragInfo!
 
-    var stackDummyVM = CardStackDummyViewModel()
-    var cardDummyVM = CardDummyViewModel()
-    var showCardVM = ShowCardViewModel()
-    var remainBackCards = [Card]() {
+    var tableauPilesVM = TableauPilesViewModel()
+    var foundationPilesVM = FoundationPilesViewModel()
+    var wasteVM = WasteViewModel()
+    var stockCards = [Card]() {
         willSet {
             changeRemainBackCardView(cards: newValue)
         }
@@ -62,13 +62,13 @@ class ViewController: UIViewController {
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            stackDummyVM.reset()
-            cardDummyVM.reset()
-            remainBackCards = stackDummyVM.remainCards
-            showCardVM.removeAll()
-            cardDummyView.removeAllCardDummy()
-            cardStackDummyView.removeCardStackDummyView()
-            cardStackDummyView.setCardStackDummyView(stackDummyVM.cardStacks)
+            tableauPilesVM.reset()
+            foundationPilesVM.reset()
+            stockCards = tableauPilesVM.stockCards
+            wasteVM.removeAll()
+            foundationPilesView.removeAllCardDummy()
+            tableauPilesView.removeTableauPilesView()
+            tableauPilesView.setTableauPilesView(tableauPilesVM.cardStacks)
         }
     }
 }
@@ -77,18 +77,18 @@ extension ViewController {
     private func initProperties() {
         Size.cardWidth = (self.view.frame.width - Size.constant * 8) / CGFloat(Size.cardStackCount)
         Size.cardHeight = Size.cardWidth * 1.27
-        remainBackCards = stackDummyVM.remainCards
+        stockCards = tableauPilesVM.stockCards
     }
 
     private func initViews() {
-        cardStackDummyView.setCardStackDummyView(stackDummyVM.cardStacks)
-        cardStackDummyView.addDoubleTapGesture(
+        tableauPilesView.setTableauPilesView(tableauPilesVM.cardStacks)
+        tableauPilesView.addDoubleTapGesture(
             action: Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:))))
-        cardStackDummyView.addPangesture(
+        tableauPilesView.addPangesture(
             action: Action(target: self, selector: #selector(self.drag(_:))))
-        showCardView.addDoubleTapGesture(
+        wasteView.addDoubleTapGesture(
             action: Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:))))
-        showCardView.addPangesture(action: Action(target: self, selector: #selector(self.drag(_:))))
+        wasteView.addPangesture(action: Action(target: self, selector: #selector(self.drag(_:))))
         initBackCardView()
     }
 
@@ -99,23 +99,23 @@ extension ViewController {
     }
 
     fileprivate func initBackCardView() {
-        backCardView.image = Image.backImage
+        stockView.image = Image.backImage
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.remainCardsViewDidTap(_:)))
         tapRecognizer.numberOfTapsRequired = 1
-        backCardView.addGestureRecognizer(tapRecognizer)
+        stockView.addGestureRecognizer(tapRecognizer)
     }
 
     // Change Views
     private func changeRemainBackCardView(cards: [Card]) {
         if cards.isEmpty {
-            backCardView.image = Image.refreshImage
+            stockView.image = Image.refreshImage
         } else {
-            backCardView.image = Image.backImage
+            stockView.image = Image.backImage
         }
     }
 
     @objc func removeAllShowCardView() {
-        showCardView.removeAll()
+        wasteView.removeAll()
     }
 
     @objc func pushShowCardView(_ noti: Notification) {
@@ -125,7 +125,7 @@ extension ViewController {
         }
         let carView = CardView()
         carView.image = card.makeImage()
-        showCardView.push(cardViews: [carView])
+        wasteView.push(cardViews: [carView])
     }
 }
 
@@ -162,8 +162,8 @@ extension ViewController {
     private func makeView(_ sender: MovableViewModel) -> MovableView {
         var view: MovableView!
         switch sender {
-        case is CardStackDummyViewModel: view = cardStackDummyView
-        case is CardDummyViewModel: view = cardDummyView
+        case is TableauPilesViewModel: view = tableauPilesView
+        case is FoundationPilesViewModel: view = foundationPilesView
         default: break }
         return view
     }
@@ -190,12 +190,12 @@ extension ViewController {
         }
         switch cardImage {
         case Image.refreshImage:
-            remainBackCards.append(contentsOf: showCardVM.allCards())
-            showCardVM.removeAll()
+            stockCards.append(contentsOf: wasteVM.allCards())
+            wasteVM.removeAll()
         case Image.backImage:
             // 카드를 꺼낸다.
-            let card = remainBackCards.removeLast()
-            showCardVM.push(cards: [card])
+            let card = stockCards.removeLast()
+            wasteVM.push(cards: [card])
         default: break
         }
     }

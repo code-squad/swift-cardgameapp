@@ -1,5 +1,5 @@
 //
-//  CardStackDummyViewModel.swift
+//  TableauPilesViewModel.swift
 //  CardGameApp
 //
 //  Created by yangpc on 2018. 1. 11..
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class CardStackDummyViewModel {
+class TableauPilesViewModel {
     private var cardDeck = CardDeck()
     private(set) var cardStacks = [CardStack]()
-    var remainCards: [Card] {
+    var stockCards: [Card] {
         return cardDeck.cards
     }
     init() {
@@ -42,12 +42,12 @@ class CardStackDummyViewModel {
     }
 }
 
-extension CardStackDummyViewModel: MovableViewModel {
+extension TableauPilesViewModel: MovableViewModel {
     func top(index: Int) -> Card? {
         return cardStacks[index].top
     }
 
-    func lastShowCards(index: Int, count: Int) -> [Card]? {
+    func faceUpCards(index: Int, count: Int) -> [Card]? {
         return cardStacks[index].lastCards(count: count)
     }
 

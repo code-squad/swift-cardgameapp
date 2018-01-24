@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0CEC9AEE637B8522E78C8C5F /* Pods_CardGameApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0CC476E2D004C3C4B92CB00 /* Pods_CardGameApp.framework */; };
 		5D8043338A429A7E9962E733 /* Pods_CardGameAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A065591CA17870D2DA2F2A /* Pods_CardGameAppTests.framework */; };
-		C973A9FE2001E92C00D71FA1 /* CardStackDummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73C21FF4CF2A00CDBB1E /* CardStackDummyView.swift */; };
+		C973A9FE2001E92C00D71FA1 /* TableauPilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73C21FF4CF2A00CDBB1E /* TableauPilesView.swift */; };
 		C973AA002001EA8300D71FA1 /* CardStackViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C973A9FF2001EA8300D71FA1 /* CardStackViewTest.swift */; };
 		C982F6B91FEBB15000B2AC34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6B81FEBB15000B2AC34 /* AppDelegate.swift */; };
 		C982F6BE1FEBB15000B2AC34 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C982F6BC1FEBB15000B2AC34 /* Main.storyboard */; };
@@ -21,24 +21,25 @@
 		C982F6E11FEEBE5C00B2AC34 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6E01FEEBE5C00B2AC34 /* Card.swift */; };
 		C982F6E31FEECE8200B2AC34 /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6E21FEECE8200B2AC34 /* CardDeck.swift */; };
 		C982F6E51FF143C200B2AC34 /* CardDeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6E41FF143C200B2AC34 /* CardDeckTest.swift */; };
-		C98BE65A200B55BF004A18B9 /* CardDummyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE659200B55BF004A18B9 /* CardDummyViewModel.swift */; };
+		C98BE65A200B55BF004A18B9 /* FoundationPilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE659200B55BF004A18B9 /* FoundationPilesViewModel.swift */; };
 		C98BE65C200D112A004A18B9 /* CardStackMovableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE65B200D112A004A18B9 /* CardStackMovableModel.swift */; };
 		C98BE65E200D116D004A18B9 /* CardStackMovableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE65D200D116D004A18B9 /* CardStackMovableView.swift */; };
 		C98BE660200D11DB004A18B9 /* MoveInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE65F200D11DB004A18B9 /* MoveInfo.swift */; };
 		C9996FAD2006616C002EDB13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6BA1FEBB15000B2AC34 /* ViewController.swift */; };
 		C9996FAF20075568002EDB13 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FAE20075567002EDB13 /* Action.swift */; };
-		C9996FB22007655D002EDB13 /* CardStackDummyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FB12007655D002EDB13 /* CardStackDummyViewModel.swift */; };
-		C9996FD42008BCB9002EDB13 /* CardDummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FD32008BCB9002EDB13 /* CardDummyView.swift */; };
+		C9996FB22007655D002EDB13 /* TableauPilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FB12007655D002EDB13 /* TableauPilesViewModel.swift */; };
+		C9996FD42008BCB9002EDB13 /* FoundationPilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FD32008BCB9002EDB13 /* FoundationPilesView.swift */; };
 		C9996FD62008C97E002EDB13 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FD52008C97E002EDB13 /* CardView.swift */; };
-		C9996FD82008CB01002EDB13 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FD72008CB01002EDB13 /* CardStackView.swift */; };
+		C9996FD82008CB01002EDB13 /* TableauView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FD72008CB01002EDB13 /* TableauView.swift */; };
 		C9D6C80F200F6340003E06EE /* EmptyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C80E200F6340003E06EE /* EmptyCardView.swift */; };
 		C9D6C811200F6971003E06EE /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C810200F6971003E06EE /* Size.swift */; };
 		C9D6C814200FBD68003E06EE /* ViewController+Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C813200FBD68003E06EE /* ViewController+Move.swift */; };
-		C9D6C816201512FC003E06EE /* ShowCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C815201512FB003E06EE /* ShowCardView.swift */; };
-		C9D6C8182015172C003E06EE /* ShowCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C8172015172C003E06EE /* ShowCardViewModel.swift */; };
+		C9D6C816201512FC003E06EE /* WasteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C815201512FB003E06EE /* WasteView.swift */; };
+		C9D6C8182015172C003E06EE /* WasteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C8172015172C003E06EE /* WasteViewModel.swift */; };
+		C9D6C81A20186CD9003E06EE /* StockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C81920186CD9003E06EE /* StockView.swift */; };
 		C9EB73821FF387D400CDBB1E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73811FF387D400CDBB1E /* Error.swift */; };
 		C9EB73841FF4BAFC00CDBB1E /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */; };
-		C9EB73C31FF4CF2A00CDBB1E /* CardStackDummyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73C21FF4CF2A00CDBB1E /* CardStackDummyView.swift */; };
+		C9EB73C31FF4CF2A00CDBB1E /* TableauPilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73C21FF4CF2A00CDBB1E /* TableauPilesView.swift */; };
 		C9EB73C61FF5D74700CDBB1E /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73C51FF5D74700CDBB1E /* UIViewExtension.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,23 +72,24 @@
 		C982F6E01FEEBE5C00B2AC34 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		C982F6E21FEECE8200B2AC34 /* CardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
 		C982F6E41FF143C200B2AC34 /* CardDeckTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckTest.swift; sourceTree = "<group>"; };
-		C98BE659200B55BF004A18B9 /* CardDummyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDummyViewModel.swift; sourceTree = "<group>"; };
+		C98BE659200B55BF004A18B9 /* FoundationPilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPilesViewModel.swift; sourceTree = "<group>"; };
 		C98BE65B200D112A004A18B9 /* CardStackMovableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackMovableModel.swift; sourceTree = "<group>"; };
 		C98BE65D200D116D004A18B9 /* CardStackMovableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackMovableView.swift; sourceTree = "<group>"; };
 		C98BE65F200D11DB004A18B9 /* MoveInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveInfo.swift; sourceTree = "<group>"; };
 		C9996FAE20075567002EDB13 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
-		C9996FB12007655D002EDB13 /* CardStackDummyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackDummyViewModel.swift; sourceTree = "<group>"; };
-		C9996FD32008BCB9002EDB13 /* CardDummyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDummyView.swift; sourceTree = "<group>"; };
+		C9996FB12007655D002EDB13 /* TableauPilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPilesViewModel.swift; sourceTree = "<group>"; };
+		C9996FD32008BCB9002EDB13 /* FoundationPilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPilesView.swift; sourceTree = "<group>"; };
 		C9996FD52008C97E002EDB13 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		C9996FD72008CB01002EDB13 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
+		C9996FD72008CB01002EDB13 /* TableauView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauView.swift; sourceTree = "<group>"; };
 		C9D6C80E200F6340003E06EE /* EmptyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCardView.swift; sourceTree = "<group>"; };
 		C9D6C810200F6971003E06EE /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		C9D6C813200FBD68003E06EE /* ViewController+Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Move.swift"; sourceTree = "<group>"; };
-		C9D6C815201512FB003E06EE /* ShowCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardView.swift; sourceTree = "<group>"; };
-		C9D6C8172015172C003E06EE /* ShowCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCardViewModel.swift; sourceTree = "<group>"; };
+		C9D6C815201512FB003E06EE /* WasteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasteView.swift; sourceTree = "<group>"; };
+		C9D6C8172015172C003E06EE /* WasteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasteViewModel.swift; sourceTree = "<group>"; };
+		C9D6C81920186CD9003E06EE /* StockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockView.swift; sourceTree = "<group>"; };
 		C9EB73811FF387D400CDBB1E /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
-		C9EB73C21FF4CF2A00CDBB1E /* CardStackDummyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackDummyView.swift; sourceTree = "<group>"; };
+		C9EB73C21FF4CF2A00CDBB1E /* TableauPilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPilesView.swift; sourceTree = "<group>"; };
 		C9EB73C51FF5D74700CDBB1E /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		CE1D9B377DF587A0FB4CDA90 /* Pods-CardGameAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		F2188B0007DB4D2FE0A6C1CF /* Pods-CardGameApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameApp/Pods-CardGameApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -200,10 +202,10 @@
 		C9996FB020076549002EDB13 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				C9996FB12007655D002EDB13 /* CardStackDummyViewModel.swift */,
-				C98BE659200B55BF004A18B9 /* CardDummyViewModel.swift */,
+				C9996FB12007655D002EDB13 /* TableauPilesViewModel.swift */,
+				C98BE659200B55BF004A18B9 /* FoundationPilesViewModel.swift */,
+				C9D6C8172015172C003E06EE /* WasteViewModel.swift */,
 				C98BE65B200D112A004A18B9 /* CardStackMovableModel.swift */,
-				C9D6C8172015172C003E06EE /* ShowCardViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -220,13 +222,14 @@
 		C9EB73C11FF4CF0200CDBB1E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C9EB73C21FF4CF2A00CDBB1E /* CardStackDummyView.swift */,
-				C9996FD32008BCB9002EDB13 /* CardDummyView.swift */,
+				C9EB73C21FF4CF2A00CDBB1E /* TableauPilesView.swift */,
+				C9996FD32008BCB9002EDB13 /* FoundationPilesView.swift */,
 				C9996FD52008C97E002EDB13 /* CardView.swift */,
 				C9D6C80E200F6340003E06EE /* EmptyCardView.swift */,
-				C9996FD72008CB01002EDB13 /* CardStackView.swift */,
+				C9996FD72008CB01002EDB13 /* TableauView.swift */,
+				C9D6C815201512FB003E06EE /* WasteView.swift */,
+				C9D6C81920186CD9003E06EE /* StockView.swift */,
 				C98BE65D200D116D004A18B9 /* CardStackMovableView.swift */,
-				C9D6C815201512FB003E06EE /* ShowCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -461,24 +464,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9996FD82008CB01002EDB13 /* CardStackView.swift in Sources */,
+				C9996FD82008CB01002EDB13 /* TableauView.swift in Sources */,
 				C9D6C814200FBD68003E06EE /* ViewController+Move.swift in Sources */,
 				C98BE65C200D112A004A18B9 /* CardStackMovableModel.swift in Sources */,
-				C98BE65A200B55BF004A18B9 /* CardDummyViewModel.swift in Sources */,
-				C9EB73C31FF4CF2A00CDBB1E /* CardStackDummyView.swift in Sources */,
+				C98BE65A200B55BF004A18B9 /* FoundationPilesViewModel.swift in Sources */,
+				C9EB73C31FF4CF2A00CDBB1E /* TableauPilesView.swift in Sources */,
 				C9996FAF20075568002EDB13 /* Action.swift in Sources */,
 				C982F6E11FEEBE5C00B2AC34 /* Card.swift in Sources */,
 				C98BE65E200D116D004A18B9 /* CardStackMovableView.swift in Sources */,
-				C9D6C816201512FC003E06EE /* ShowCardView.swift in Sources */,
-				C9996FD42008BCB9002EDB13 /* CardDummyView.swift in Sources */,
+				C9D6C816201512FC003E06EE /* WasteView.swift in Sources */,
+				C9D6C81A20186CD9003E06EE /* StockView.swift in Sources */,
+				C9996FD42008BCB9002EDB13 /* FoundationPilesView.swift in Sources */,
 				C98BE660200D11DB004A18B9 /* MoveInfo.swift in Sources */,
 				C9EB73841FF4BAFC00CDBB1E /* CardStack.swift in Sources */,
 				C9D6C811200F6971003E06EE /* Size.swift in Sources */,
 				C9D6C80F200F6340003E06EE /* EmptyCardView.swift in Sources */,
 				C982F6E31FEECE8200B2AC34 /* CardDeck.swift in Sources */,
-				C9996FB22007655D002EDB13 /* CardStackDummyViewModel.swift in Sources */,
+				C9996FB22007655D002EDB13 /* TableauPilesViewModel.swift in Sources */,
 				C9EB73821FF387D400CDBB1E /* Error.swift in Sources */,
-				C9D6C8182015172C003E06EE /* ShowCardViewModel.swift in Sources */,
+				C9D6C8182015172C003E06EE /* WasteViewModel.swift in Sources */,
 				C9EB73C61FF5D74700CDBB1E /* UIViewExtension.swift in Sources */,
 				C9996FAD2006616C002EDB13 /* ViewController.swift in Sources */,
 				C9996FD62008C97E002EDB13 /* CardView.swift in Sources */,
@@ -490,7 +494,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C973A9FE2001E92C00D71FA1 /* CardStackDummyView.swift in Sources */,
+				C973A9FE2001E92C00D71FA1 /* TableauPilesView.swift in Sources */,
 				C982F6DB1FED01D000B2AC34 /* CardClassTest.swift in Sources */,
 				C982F6D81FECD2EB00B2AC34 /* ViewController.swift in Sources */,
 				C973AA002001EA8300D71FA1 /* CardStackViewTest.swift in Sources */,

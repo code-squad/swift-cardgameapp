@@ -1,5 +1,5 @@
 //
-//  ShowCardView.swift
+//  WasteView.swift
 //  CardGameApp
 //
 //  Created by yangpc on 2018. 1. 22..
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShowCardView: UIView {
+class WasteView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -33,7 +33,7 @@ class ShowCardView: UIView {
     }
 }
 
-extension ShowCardView: MovableView {
+extension WasteView: MovableView {
 
     func targetCoordinate(index: Int) -> CGPoint {
         return CGPoint.zero

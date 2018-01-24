@@ -1,5 +1,5 @@
 //
-//  CardDummyView.swift
+//  FoundationPilesView.swift
 //  CardGameApp
 //
 //  Created by yangpc on 2018. 1. 12..
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardDummyView: UIStackView {
+class FoundationPilesView: UIStackView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +31,7 @@ class CardDummyView: UIStackView {
     }
 }
 
-extension CardDummyView: MovableView {
+extension FoundationPilesView: MovableView {
     func targetCoordinate(index: Int) -> CGPoint {
         return coordinate(index: index)
     }
