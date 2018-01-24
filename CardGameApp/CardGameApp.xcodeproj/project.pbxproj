@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0CEC9AEE637B8522E78C8C5F /* Pods_CardGameApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0CC476E2D004C3C4B92CB00 /* Pods_CardGameApp.framework */; };
 		5D8043338A429A7E9962E733 /* Pods_CardGameAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A065591CA17870D2DA2F2A /* Pods_CardGameAppTests.framework */; };
+		C964398F20188CA80079F7C0 /* DragInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C964398E20188CA80079F7C0 /* DragInfo.swift */; };
 		C973A9FE2001E92C00D71FA1 /* TableauPilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73C21FF4CF2A00CDBB1E /* TableauPilesView.swift */; };
 		C973AA002001EA8300D71FA1 /* CardStackViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C973A9FF2001EA8300D71FA1 /* CardStackViewTest.swift */; };
 		C982F6B91FEBB15000B2AC34 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6B81FEBB15000B2AC34 /* AppDelegate.swift */; };
@@ -58,6 +59,7 @@
 		18A065591CA17870D2DA2F2A /* Pods_CardGameAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardGameAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FE23E4DD324163A38FF0EB7 /* Pods-CardGameAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C0CC476E2D004C3C4B92CB00 /* Pods_CardGameApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardGameApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C964398E20188CA80079F7C0 /* DragInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragInfo.swift; sourceTree = "<group>"; };
 		C973A9FF2001EA8300D71FA1 /* CardStackViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewTest.swift; sourceTree = "<group>"; };
 		C982F6B51FEBB15000B2AC34 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C982F6B81FEBB15000B2AC34 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				C9996FAE20075567002EDB13 /* Action.swift */,
 				C98BE65F200D11DB004A18B9 /* MoveInfo.swift */,
 				C9D6C810200F6971003E06EE /* Size.swift */,
+				C964398E20188CA80079F7C0 /* DragInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				C9EB73821FF387D400CDBB1E /* Error.swift in Sources */,
 				C9D6C8182015172C003E06EE /* WasteViewModel.swift in Sources */,
 				C9EB73C61FF5D74700CDBB1E /* UIViewExtension.swift in Sources */,
+				C964398F20188CA80079F7C0 /* DragInfo.swift in Sources */,
 				C9996FAD2006616C002EDB13 /* ViewController.swift in Sources */,
 				C9996FD62008C97E002EDB13 /* CardView.swift in Sources */,
 				C982F6B91FEBB15000B2AC34 /* AppDelegate.swift in Sources */,

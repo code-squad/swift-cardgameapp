@@ -220,9 +220,10 @@ extension ViewController {
     @objc func drag(_ gesture: UIPanGestureRecognizer) {
         switch gesture.state {
         case .began:
-            setDragInfo(gesture)
+            dragInfo = DragInfo(view: self.view)
+            dragInfo.setDragInfo(gesture)
         case .changed:
-            dragViews(gesture)
+            dragInfo.dragViews(gesture)
         case .ended:
             let targetLocation = gesture.location(in: self.view)
             guard let startView = dragInfo.startView,
@@ -232,42 +233,9 @@ extension ViewController {
                 startIndex: startIndex,
                 targetPoint: targetLocation
             )
-            backToStartState()
+            dragInfo.backToStartState()
+            dragInfo = nil
         default: break
         }
-    }
-
-    fileprivate func backToStartState() {
-        var i = 0
-        dragInfo.changes.forEach {
-            $0.center.x = dragInfo.originals[i].x
-            $0.center.y = dragInfo.originals[i].y
-            i += 1
-        }
-        dragInfo = nil
-    }
-
-    func setDragInfo(_ gesture: UIPanGestureRecognizer) {
-        dragInfo = DragInfo()
-        let tappedLocation = gesture.location(in: self.view)
-        guard let tappedView = gesture.view as? MovableView,
-            let startPos = tappedView.position(tappedLocation) else { return }
-        let belowViews = tappedView.belowViews(startPos)
-        dragInfo.startView = tappedView
-        dragInfo.startPos = startPos
-        dragInfo.changes = belowViews
-        dragInfo.changes.forEach {
-            dragInfo.originals.append($0.center)
-        }
-    }
-
-    fileprivate func dragViews(_ gesture: UIPanGestureRecognizer) {
-        dragInfo.changes.forEach {
-            let translation = gesture.translation(in: self.view)
-            $0.center = CGPoint(
-                x: $0.center.x + translation.x,
-                y: $0.center.y + translation.y)
-        }
-        gesture.setTranslation(CGPoint.zero, in: self.view)
     }
 }

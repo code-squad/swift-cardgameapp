@@ -23,11 +23,3 @@ struct MoveInfo {
     var startIndex: Int
     var targetIndex: Int
 }
-
-struct DragInfo {
-    var changes = [UIView]()
-    var originals = [CGPoint]()
-    var startView: MovableView?
-    var startPos: Position?
-    var targetPos: Position?
-}
