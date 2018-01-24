@@ -37,6 +37,7 @@
 		C9D6C816201512FC003E06EE /* WasteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C815201512FB003E06EE /* WasteView.swift */; };
 		C9D6C8182015172C003E06EE /* WasteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C8172015172C003E06EE /* WasteViewModel.swift */; };
 		C9D6C81A20186CD9003E06EE /* StockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C81920186CD9003E06EE /* StockView.swift */; };
+		C9D6C81C20187C58003E06EE /* StockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D6C81B20187C58003E06EE /* StockViewModel.swift */; };
 		C9EB73821FF387D400CDBB1E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73811FF387D400CDBB1E /* Error.swift */; };
 		C9EB73841FF4BAFC00CDBB1E /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */; };
 		C9EB73C31FF4CF2A00CDBB1E /* TableauPilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB73C21FF4CF2A00CDBB1E /* TableauPilesView.swift */; };
@@ -87,6 +88,7 @@
 		C9D6C815201512FB003E06EE /* WasteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasteView.swift; sourceTree = "<group>"; };
 		C9D6C8172015172C003E06EE /* WasteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasteViewModel.swift; sourceTree = "<group>"; };
 		C9D6C81920186CD9003E06EE /* StockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockView.swift; sourceTree = "<group>"; };
+		C9D6C81B20187C58003E06EE /* StockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewModel.swift; sourceTree = "<group>"; };
 		C9EB73811FF387D400CDBB1E /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		C9EB73831FF4BAFC00CDBB1E /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		C9EB73C21FF4CF2A00CDBB1E /* TableauPilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPilesView.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				C9996FB12007655D002EDB13 /* TableauPilesViewModel.swift */,
 				C98BE659200B55BF004A18B9 /* FoundationPilesViewModel.swift */,
 				C9D6C8172015172C003E06EE /* WasteViewModel.swift */,
+				C9D6C81B20187C58003E06EE /* StockViewModel.swift */,
 				C98BE65B200D112A004A18B9 /* CardStackMovableModel.swift */,
 			);
 			path = ViewModel;
@@ -479,6 +482,7 @@
 				C9EB73841FF4BAFC00CDBB1E /* CardStack.swift in Sources */,
 				C9D6C811200F6971003E06EE /* Size.swift in Sources */,
 				C9D6C80F200F6340003E06EE /* EmptyCardView.swift in Sources */,
+				C9D6C81C20187C58003E06EE /* StockViewModel.swift in Sources */,
 				C982F6E31FEECE8200B2AC34 /* CardDeck.swift in Sources */,
 				C9996FB22007655D002EDB13 /* TableauPilesViewModel.swift in Sources */,
 				C9EB73821FF387D400CDBB1E /* Error.swift in Sources */,

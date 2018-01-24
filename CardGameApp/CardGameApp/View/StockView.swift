@@ -12,5 +12,12 @@ class StockView: UIImageView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.image = Image.backImage
+    }
+
+    func addTapGesture(action: Action) {
+        let tapRecognizer = UITapGestureRecognizer(target: action.target, action: action.selector)
+        tapRecognizer.numberOfTapsRequired = 1
+        self.addGestureRecognizer(tapRecognizer)
     }
 }

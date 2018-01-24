@@ -20,11 +20,7 @@ class ViewController: UIViewController {
     var tableauPilesVM = TableauPilesViewModel()
     var foundationPilesVM = FoundationPilesViewModel()
     var wasteVM = WasteViewModel()
-    var stockCards = [Card]() {
-        willSet {
-            changeRemainBackCardView(cards: newValue)
-        }
-    }
+    var stockVM: StockViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,13 +54,20 @@ class ViewController: UIViewController {
             object: nil
         )
 
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.changeStockView(_:)),
+            name    : .didChangeStockCardNotification,
+            object  : nil
+        )
+
     }
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             tableauPilesVM.reset()
             foundationPilesVM.reset()
-            stockCards = tableauPilesVM.stockCards
+            stockVM = StockViewModel(tableauPilesVM.stockCards)
             wasteVM.removeAll()
             foundationPilesView.removeAllCardDummy()
             tableauPilesView.removeTableauPilesView()
@@ -77,7 +80,7 @@ extension ViewController {
     private func initProperties() {
         Size.cardWidth = (self.view.frame.width - Size.constant * 8) / CGFloat(Size.cardStackCount)
         Size.cardHeight = Size.cardWidth * 1.27
-        stockCards = tableauPilesVM.stockCards
+        stockVM = StockViewModel(tableauPilesVM.stockCards)
     }
 
     private func initViews() {
@@ -86,32 +89,17 @@ extension ViewController {
             action: Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:))))
         tableauPilesView.addPangesture(
             action: Action(target: self, selector: #selector(self.drag(_:))))
+        stockView.addTapGesture(
+            action: Action(target: self, selector: #selector(self.stockViewDidTap(_:))))
         wasteView.addDoubleTapGesture(
             action: Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:))))
         wasteView.addPangesture(action: Action(target: self, selector: #selector(self.drag(_:))))
-        initBackCardView()
     }
 
     // Initialize Views
 
     private func initBackGroundImage() {
         view.backgroundColor = UIColor.init(patternImage: Image.bgImage)
-    }
-
-    fileprivate func initBackCardView() {
-        stockView.image = Image.backImage
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.remainCardsViewDidTap(_:)))
-        tapRecognizer.numberOfTapsRequired = 1
-        stockView.addGestureRecognizer(tapRecognizer)
-    }
-
-    // Change Views
-    private func changeRemainBackCardView(cards: [Card]) {
-        if cards.isEmpty {
-            stockView.image = Image.refreshImage
-        } else {
-            stockView.image = Image.backImage
-        }
     }
 
     @objc func removeAllShowCardView() {
@@ -126,6 +114,16 @@ extension ViewController {
         let carView = CardView()
         carView.image = card.makeImage()
         wasteView.push(cardViews: [carView])
+    }
+
+    @objc func changeStockView(_ noti: Notification) {
+        guard let userInfo = noti.userInfo,
+            let stockCards = userInfo["cards"] as? [Card] else {
+                return
+        }
+        if stockCards.isEmpty {
+            stockView.image = Image.refreshImage
+        } else { stockView.image = Image.backImage }
     }
 }
 
@@ -183,18 +181,18 @@ extension ViewController {
 
 // MARK: Events
 extension ViewController {
-    @objc func remainCardsViewDidTap(_ recognizer: UITapGestureRecognizer) {
+    @objc func stockViewDidTap(_ recognizer: UITapGestureRecognizer) {
         guard let imageView = recognizer.view as? UIImageView,
             let cardImage = imageView.image else {
                 return
         }
         switch cardImage {
         case Image.refreshImage:
-            stockCards.append(contentsOf: wasteVM.allCards())
+            stockVM.refresh(with: wasteVM.allCards())
             wasteVM.removeAll()
         case Image.backImage:
             // 카드를 꺼낸다.
-            let card = stockCards.removeLast()
+            let card = stockVM.pop()
             wasteVM.push(cards: [card])
         default: break
         }
