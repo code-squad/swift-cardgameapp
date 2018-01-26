@@ -27,7 +27,7 @@ class WasteViewModel {
     func removeAll() {
         wasteCards = CardStack()
         NotificationCenter.default.post(
-            name: .removeAllShowCardNotification,
+            name: .removeAllWasteCardNotification,
             object: self
         )
     }
@@ -46,12 +46,12 @@ extension WasteViewModel: MovableViewModel {
         return [pop]
     }
 
-    func push(index: Int = 0, cards: [Card]) {
+    func push(index: Int, cards: [Card]) {
         cards.forEach { wasteCards.push(card: $0)}
         NotificationCenter.default.post(
-            name: .didPushShowCardNotification,
+            name: .didPushWasteCardNotification,
             object: self,
-            userInfo: ["card": cards[0]]
+            userInfo: ["card": cards[index]]
         )
     }
 
@@ -62,6 +62,6 @@ extension WasteViewModel: MovableViewModel {
 }
 
 extension Notification.Name {
-    static let didPushShowCardNotification = Notification.Name(rawValue: "didPushShowCard")
-    static let removeAllShowCardNotification = Notification.Name(rawValue: "removeAllShowCard")
+    static let didPushWasteCardNotification = Notification.Name(rawValue: "didPushShowCard")
+    static let removeAllWasteCardNotification = Notification.Name(rawValue: "removeAllShowCard")
 }

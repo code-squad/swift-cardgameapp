@@ -12,7 +12,7 @@ struct DragInfo {
     var baseView: UIView!
     var changes = [UIView]()
     var originals = [CGPoint]()
-    var startView: MovableView?
+    var startView: MovableStartView?
     var startPos: Position?
     var targetPos: Position?
 
@@ -22,7 +22,7 @@ struct DragInfo {
 
     mutating func setDragInfo(_ gesture: UIPanGestureRecognizer) {
         let tappedLocation = gesture.location(in: self.baseView)
-        guard let tappedView = gesture.view as? MovableView,
+        guard let tappedView = gesture.view as? MovableStartView,
             let startPos = tappedView.position(tappedLocation) else { return }
         let belowViews = tappedView.belowViews(startPos)
         self.startView = tappedView

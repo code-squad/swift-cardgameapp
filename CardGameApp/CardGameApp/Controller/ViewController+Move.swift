@@ -22,18 +22,12 @@ extension ViewController {
         target.viewModel.push(index: target.index, cards: cards)
     }
 
-    func startVM(view: MovableView) -> MovableViewModel? {
-        switch view {
-        case is WasteView:
-            return wasteVM
-        case is TableauPilesView:
-            return tableauPilesVM
-        default: return nil
-        }
+    func bindStartViewToVM(from view: MovableStartView) -> MovableViewModel {
+        if view is WasteView { return wasteVM } else { return tableauPilesVM }
     }
 
-    func originOfTargetView(view: MovableView, startIndex: Int) -> CGPoint? {
-        guard let vm = startVM(view: view) else { return nil }
+    func originOfTargetView(view: MovableStartView, startIndex: Int) -> CGPoint? {
+        let vm = bindStartViewToVM(from: view)
         guard let selectedCard = vm.top(index: startIndex) else { return nil }
         let startPos = view.coordinate(index: startIndex)
         var targetPos: CGPoint?
@@ -48,8 +42,8 @@ extension ViewController {
         return CGPoint(x: x, y: y)
     }
 
-    func moveCardViews(view: MovableView, tappedView: UIView, startIndex: Int) {
-        guard let vm = startVM(view: view) else { return }
+    func moveCardViews(view: MovableStartView, tappedView: UIView, startIndex: Int) {
+        let vm = bindStartViewToVM(from: view)
         guard let selectedCard = vm.top(index: startIndex) else { return }
         if let targetIndex = foundationPilesVM.targetIndex(card: selectedCard) {
             let start = StartInfo(viewModel: vm, index: startIndex, count: 1)
@@ -62,8 +56,8 @@ extension ViewController {
         }
     }
 
-    func dragCardViews(startView: MovableView, tappedView: [UIView], startIndex: Int, targetPoint: CGPoint) {
-        guard let startVM = startVM(view: startView) else { return }
+    func dragCardViews(startView: MovableStartView, tappedView: [UIView], startIndex: Int, targetPoint: CGPoint) {
+        let startVM = bindStartViewToVM(from: startView)
         guard let cards = startVM.faceUpCards(index: startIndex, count: tappedView.count),
             let firstCard = cards.first else { return }
         if let targetPos = foundationPilesView.position(targetPoint),

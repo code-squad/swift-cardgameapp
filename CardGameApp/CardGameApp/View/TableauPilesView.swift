@@ -53,9 +53,15 @@ class TableauPilesView: UIStackView {
         self.addGestureRecognizer(panRecognizer)
         self.isUserInteractionEnabled = true
     }
+
+    func pop(index: Int, previousCard: Card?) {
+        let tableauView = subviews[index] as? TableauView
+        tableauView?.popCardStackView(previousCard: previousCard)
+    }
+
 }
 
-extension TableauPilesView: MovableView {
+extension TableauPilesView: MovableStartView {
     // 점이 속한 뷰의 스택 인덱스, 카드 인덱스 반환
     func position(_ point: CGPoint) -> Position? {
         let tableauPilesViewFrame = self.frame
@@ -66,34 +72,22 @@ extension TableauPilesView: MovableView {
         return Position(stackIndex: tableauIndex, cardIndex: cardIndex)
     }
 
-    // 특정 스택 인덱스, 카드 인덱스에 해당되는 카드 뷰 반환
-    func selectedView(_ position: Position) -> CardView? {
-        let tableauView = subviews[position.stackIndex] as? TableauView
-        return tableauView?.selectedCardView(index: position.cardIndex)
-    }
-
     // 특정 스택 인덱스, 카드 인덱스에 해당되는 카드 뷰가 마지막 뷰인지 여부 반환
     func isLast(_ position: Position) -> Bool {
         guard let tableauView = subviews[position.stackIndex] as? TableauView else {return false}
         return tableauView.isLastCard(index: position.cardIndex)
     }
 
+    // 특정 스택 인덱스, 카드 인덱스에 해당되는 카드 뷰 반환
+    func selectedView(_ position: Position) -> CardView? {
+        let tableauView = subviews[position.stackIndex] as? TableauView
+        return tableauView?.selectedCardView(index: position.cardIndex)
+    }
+
     // 특정 스택 인덱스, 카드 인덱스를 비롯한 아래에 위치한 카드 뷰 배열 반환
     func belowViews(_ position: Position) -> [UIView] {
         guard let tableauView = subviews[position.stackIndex] as? TableauView else { return [] }
         return tableauView.belowViews(index: position.cardIndex)
-    }
-
-    func pop(index: Int, previousCard: Card?) {
-        let tableauView = subviews[index] as? TableauView
-        tableauView?.popCardStackView(previousCard: previousCard)
-    }
-
-    func push(index: Int, cardViews: [CardView]) {
-        guard let tableauView = subviews[index] as? TableauView else {
-            return
-        }
-        cardViews.forEach { tableauView.pushCardStackView(cardView: $0) }
     }
 
     // 해당 카드 인덱스의 마지막 카드 뷰 Origin 좌표
@@ -106,6 +100,16 @@ extension TableauPilesView: MovableView {
         }
         y += lastCardView.frame.origin.y
         return CGPoint(x: x, y: y)
+    }
+}
+
+extension TableauPilesView: MovableTargetView {
+
+    func push(index: Int, cardViews: [CardView]) {
+        guard let tableauView = subviews[index] as? TableauView else {
+            return
+        }
+        cardViews.forEach { tableauView.pushCardStackView(cardView: $0) }
     }
 
     // 해당 카드 인덱스의 마지막 카드 뷰 다음에 위치할 카드 뷰의 Origin 좌표

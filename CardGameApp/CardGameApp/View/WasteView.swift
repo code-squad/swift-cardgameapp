@@ -31,39 +31,26 @@ class WasteView: UIView {
     func removeAll() {
         subviews.forEach { $0.removeFromSuperview() }
     }
+
+    func push(cardView: CardView) {
+        addSubview(cardView)
+        cardView.fitLayout(with: self)
+
+    }
 }
 
-extension WasteView: MovableView {
-
-    func targetCoordinate(index: Int) -> CGPoint {
-        return CGPoint.zero
+extension WasteView: MovableStartView {
+    func position(_ point: CGPoint) -> Position? {
+        guard subviews.last is CardView else {return nil}
+        return Position(stackIndex: 0, cardIndex: 0)
     }
 
     func isLast(_ position: Position) -> Bool {
         return true
     }
 
-    func pop(index: Int = 0, previousCard: Card? = nil) {
-        subviews.last?.removeFromSuperview()
-    }
-
-    func position(_ point: CGPoint) -> Position? {
-        guard subviews.last is CardView else {return nil}
-        return Position(stackIndex: 0, cardIndex: 0)
-    }
-
     func selectedView(_ position: Position) -> CardView? {
         return subviews.last as? CardView
-    }
-    func coordinate(index: Int) -> CGPoint {
-        return self.frame.origin
-    }
-
-    func push(index: Int = 0, cardViews: [CardView]) {
-        cardViews.forEach {
-            addSubview($0)
-            $0.fitLayout(with: self)
-        }
     }
 
     func belowViews(_ position: Position) -> [UIView] {
@@ -71,4 +58,7 @@ extension WasteView: MovableView {
         return [cardView]
     }
 
+    func coordinate(index: Int) -> CGPoint {
+        return self.frame.origin
+    }
 }

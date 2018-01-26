@@ -1,5 +1,5 @@
 //
-//  CardStackMovableModel.swift
+//  MovableViewModel.swift
 //  CardGameApp
 //
 //  Created by yangpc on 2018. 1. 16..

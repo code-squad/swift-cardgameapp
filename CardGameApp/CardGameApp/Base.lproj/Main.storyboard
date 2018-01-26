@@ -114,7 +114,7 @@
                         <outlet property="foundationPilesView" destination="GWl-Jv-Kdf" id="NVA-rh-82e"/>
                         <outlet property="stockView" destination="ghi-hx-KIJ" id="vTT-Ln-nQG"/>
                         <outlet property="tableauPilesView" destination="jIU-P4-hls" id="Ntl-4P-xaa"/>
-                        <outlet property="wasteView" destination="LNd-Bh-3Lq" id="KQa-ap-WGr"/>
+                        <outlet property="wasteView" destination="LNd-Bh-3Lq" id="Ktm-mo-via"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kMV-SJ-7UR" sceneMemberID="firstResponder"/>

@@ -23,8 +23,8 @@
 		C982F6E31FEECE8200B2AC34 /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6E21FEECE8200B2AC34 /* CardDeck.swift */; };
 		C982F6E51FF143C200B2AC34 /* CardDeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6E41FF143C200B2AC34 /* CardDeckTest.swift */; };
 		C98BE65A200B55BF004A18B9 /* FoundationPilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE659200B55BF004A18B9 /* FoundationPilesViewModel.swift */; };
-		C98BE65C200D112A004A18B9 /* CardStackMovableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE65B200D112A004A18B9 /* CardStackMovableModel.swift */; };
-		C98BE65E200D116D004A18B9 /* CardStackMovableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE65D200D116D004A18B9 /* CardStackMovableView.swift */; };
+		C98BE65C200D112A004A18B9 /* MovableViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE65B200D112A004A18B9 /* MovableViewModelProtocol.swift */; };
+		C98BE65E200D116D004A18B9 /* MovableViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE65D200D116D004A18B9 /* MovableViewProtocol.swift */; };
 		C98BE660200D11DB004A18B9 /* MoveInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98BE65F200D11DB004A18B9 /* MoveInfo.swift */; };
 		C9996FAD2006616C002EDB13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C982F6BA1FEBB15000B2AC34 /* ViewController.swift */; };
 		C9996FAF20075568002EDB13 /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9996FAE20075567002EDB13 /* Action.swift */; };
@@ -76,8 +76,8 @@
 		C982F6E21FEECE8200B2AC34 /* CardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
 		C982F6E41FF143C200B2AC34 /* CardDeckTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckTest.swift; sourceTree = "<group>"; };
 		C98BE659200B55BF004A18B9 /* FoundationPilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPilesViewModel.swift; sourceTree = "<group>"; };
-		C98BE65B200D112A004A18B9 /* CardStackMovableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackMovableModel.swift; sourceTree = "<group>"; };
-		C98BE65D200D116D004A18B9 /* CardStackMovableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackMovableView.swift; sourceTree = "<group>"; };
+		C98BE65B200D112A004A18B9 /* MovableViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableViewModelProtocol.swift; sourceTree = "<group>"; };
+		C98BE65D200D116D004A18B9 /* MovableViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableViewProtocol.swift; sourceTree = "<group>"; };
 		C98BE65F200D11DB004A18B9 /* MoveInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveInfo.swift; sourceTree = "<group>"; };
 		C9996FAE20075567002EDB13 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		C9996FB12007655D002EDB13 /* TableauPilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPilesViewModel.swift; sourceTree = "<group>"; };
@@ -211,7 +211,7 @@
 				C98BE659200B55BF004A18B9 /* FoundationPilesViewModel.swift */,
 				C9D6C8172015172C003E06EE /* WasteViewModel.swift */,
 				C9D6C81B20187C58003E06EE /* StockViewModel.swift */,
-				C98BE65B200D112A004A18B9 /* CardStackMovableModel.swift */,
+				C98BE65B200D112A004A18B9 /* MovableViewModelProtocol.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -235,7 +235,7 @@
 				C9996FD72008CB01002EDB13 /* TableauView.swift */,
 				C9D6C815201512FB003E06EE /* WasteView.swift */,
 				C9D6C81920186CD9003E06EE /* StockView.swift */,
-				C98BE65D200D116D004A18B9 /* CardStackMovableView.swift */,
+				C98BE65D200D116D004A18B9 /* MovableViewProtocol.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -472,12 +472,12 @@
 			files = (
 				C9996FD82008CB01002EDB13 /* TableauView.swift in Sources */,
 				C9D6C814200FBD68003E06EE /* ViewController+Move.swift in Sources */,
-				C98BE65C200D112A004A18B9 /* CardStackMovableModel.swift in Sources */,
+				C98BE65C200D112A004A18B9 /* MovableViewModelProtocol.swift in Sources */,
 				C98BE65A200B55BF004A18B9 /* FoundationPilesViewModel.swift in Sources */,
 				C9EB73C31FF4CF2A00CDBB1E /* TableauPilesView.swift in Sources */,
 				C9996FAF20075568002EDB13 /* Action.swift in Sources */,
 				C982F6E11FEEBE5C00B2AC34 /* Card.swift in Sources */,
-				C98BE65E200D116D004A18B9 /* CardStackMovableView.swift in Sources */,
+				C98BE65E200D116D004A18B9 /* MovableViewProtocol.swift in Sources */,
 				C9D6C816201512FC003E06EE /* WasteView.swift in Sources */,
 				C9D6C81A20186CD9003E06EE /* StockView.swift in Sources */,
 				C9996FD42008BCB9002EDB13 /* FoundationPilesView.swift in Sources */,

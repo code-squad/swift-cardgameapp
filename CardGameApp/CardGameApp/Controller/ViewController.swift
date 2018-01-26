@@ -42,15 +42,8 @@ class ViewController: UIViewController {
 
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(self.pushShowCardView(_:)),
-            name: .didPushShowCardNotification,
-            object: nil
-        )
-
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(self.removeAllShowCardView),
-            name: .removeAllShowCardNotification,
+            selector: #selector(self.removeAllWasteView),
+            name: .removeAllWasteCardNotification,
             object: nil
         )
 
@@ -61,6 +54,12 @@ class ViewController: UIViewController {
             object  : nil
         )
 
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.pushWasteView(_:)),
+            name    : .didPushWasteCardNotification,
+            object  : nil
+        )
     }
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
@@ -84,36 +83,43 @@ extension ViewController {
     }
 
     private func initViews() {
+        let doubleTapAction = Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:)))
+        let dragAction = Action(target: self, selector: #selector(self.drag(_:)))
         tableauPilesView.setTableauPilesView(tableauPilesVM.cardStacks)
-        tableauPilesView.addDoubleTapGesture(
-            action: Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:))))
-        tableauPilesView.addPangesture(
-            action: Action(target: self, selector: #selector(self.drag(_:))))
+        tableauPilesView.addDoubleTapGesture(action: doubleTapAction)
+        tableauPilesView.addPangesture(action: dragAction)
         stockView.addTapGesture(
             action: Action(target: self, selector: #selector(self.stockViewDidTap(_:))))
-        wasteView.addDoubleTapGesture(
-            action: Action(target: self, selector: #selector(self.cardViewDidDoubleTap(_:))))
-        wasteView.addPangesture(action: Action(target: self, selector: #selector(self.drag(_:))))
+        wasteView.addDoubleTapGesture(action: doubleTapAction)
+        wasteView.addPangesture(action: dragAction)
     }
-
-    // Initialize Views
 
     private func initBackGroundImage() {
         view.backgroundColor = UIColor.init(patternImage: Image.bgImage)
     }
 
-    @objc func removeAllShowCardView() {
+    func makeCardViews(cards: [Card]) -> [CardView] {
+        var cardViews = [CardView]()
+        cards.forEach {
+            let cardView = CardView()
+            cardView.image = $0.makeImage()
+            cardViews.append(cardView)
+        }
+        return cardViews
+    }
+
+    @objc func removeAllWasteView() {
         wasteView.removeAll()
     }
 
-    @objc func pushShowCardView(_ noti: Notification) {
+    @objc func pushWasteView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
             let card = userInfo["card"] as? Card else {
                 return
         }
         let carView = CardView()
         carView.image = card.makeImage()
-        wasteView.push(cardViews: [carView])
+        wasteView.push(cardView: carView)
     }
 
     @objc func changeStockView(_ noti: Notification) {
@@ -130,40 +136,28 @@ extension ViewController {
 // MARK: Notification
 extension ViewController {
     @objc func popView(_ noti: Notification) {
-        guard let sender = noti.object as? MovableViewModel,
-            let userInfo = noti.userInfo,
+        guard let userInfo = noti.userInfo,
             let index = userInfo["index"] as? Int else {
                 return
         }
         let card = userInfo["card"] as? Card
-        let view = makeView(sender)
-        view.pop(index: index, previousCard: card)
+        if noti.object is TableauPilesViewModel {
+            tableauPilesView.pop(index: index, previousCard: card)
+        }
     }
 
     @objc func pushView(_ noti: Notification) {
-        guard let sender = noti.object as? MovableViewModel,
-            let userInfo = noti.userInfo,
+        guard let userInfo = noti.userInfo,
             let cards = userInfo["card"] as? [Card],
             let index = userInfo["index"] as? Int else {
                 return
         }
-        let view = makeView(sender)
-        var cardViews = [CardView]()
-        cards.forEach {
-            let cardView = CardView()
-            cardView.image = $0.makeImage()
-            cardViews.append(cardView)
+        let cardViews = makeCardViews(cards: cards)
+        if noti.object is TableauPilesViewModel {
+            tableauPilesView.push(index: index, cardViews: cardViews)
+        } else {
+            foundationPilesView.push(index: index, cardViews: cardViews)
         }
-        view.push(index: index, cardViews: cardViews)
-    }
-
-    private func makeView(_ sender: MovableViewModel) -> MovableView {
-        var view: MovableView!
-        switch sender {
-        case is TableauPilesViewModel: view = tableauPilesView
-        case is FoundationPilesViewModel: view = foundationPilesView
-        default: break }
-        return view
     }
 
     private func showAlert(title: String = "Game Clear!", message: String) {
@@ -193,14 +187,14 @@ extension ViewController {
         case Image.backImage:
             // 카드를 꺼낸다.
             let card = stockVM.pop()
-            wasteVM.push(cards: [card])
+            wasteVM.push(index: 0, cards: [card])
         default: break
         }
     }
 
     @objc func cardViewDidDoubleTap(_ sender: UITapGestureRecognizer) {
         let tappedLocation = sender.location(in: self.view)
-        guard let startView = sender.view as? MovableView else { return }
+        guard let startView = sender.view as? MovableStartView else { return }
         guard let currentPos = startView.position(tappedLocation) else { return }
         guard startView.isLast(currentPos) == true else { return }
         guard let move = originOfTargetView(view: startView, startIndex: currentPos.stackIndex) else {return}
