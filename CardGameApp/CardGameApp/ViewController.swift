@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     private var foundationViews: [UIImageView] = []
-    private var sevenPileViews: [UIImageView] = []
+    private var sevenPileViews: [[UIImageView]] = []
     var cardWidth: CGFloat!
     var cardMargin: CGFloat!
     var cardRatio: CGFloat!
@@ -99,16 +99,21 @@ class ViewController: UIViewController {
 
     private func drawSevenPiles() {
         for i in 0..<7 {
-            sevenPileViews.append(getCardPile(index: i))
-            self.view.addSubview(sevenPileViews[i])
+            sevenPileViews.append([])
+            for j in 0...i {
+                sevenPileViews[i].append(getCardPile(xIndex: i, yIndex: j))
+                self.view.addSubview(sevenPileViews[i][j])
+            }
         }
     }
 
-    private func getCardPile(index: Int) -> UIImageView {
-        let cardPileTopMargin = CGFloat(100)
-        let imageView = UIImageView(frame: getCardLocation(index: index, topMargin: cardPileTopMargin))
+    private func getCardPile(xIndex: Int, yIndex: Int) -> UIImageView {
+        let cardPileTopMargin = CGFloat(100) + (CGFloat(15) * CGFloat(yIndex))
+        let imageView = UIImageView(frame: getCardLocation(index: xIndex, topMargin: cardPileTopMargin))
         let card = dealerAction.removeOne()
-        card?.turnUpSideDown()
+        if xIndex == yIndex {
+            card?.turnUpSideDown()
+        }
         let image = UIImage(named: card?.image ?? "card-back")
         imageView.contentMode = .scaleAspectFit
         imageView.image = image
