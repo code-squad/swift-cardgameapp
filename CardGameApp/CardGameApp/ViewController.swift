@@ -9,7 +9,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-    private var card = CardView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +24,9 @@ class ViewController: UIViewController {
     
     private func makeCards(index: Int) {
         let screenWidth = UIScreen.main.fixedCoordinateSpace.bounds.width
-        let cardView = self.card.makeCardView(screenWidth: screenWidth, index: index)
-        self.view.addSubview(cardView)
+        let card = UIImageView(image: UIImage(named: "card_back"))
+        card.makeCardView(screenWidth: screenWidth, index: index)
+        self.view.addSubview(card)
     }
     
     private func makeBackGround() {
