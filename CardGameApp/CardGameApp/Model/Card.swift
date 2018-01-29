@@ -65,7 +65,10 @@ class Card: CustomStringConvertible {
     }
 
     var image: String {
-        return "\(suit.value)\(rank.value)"
+        if isUpSide() {
+            return "\(suit.value)\(rank.value)"
+        }
+        return "card-back"
     }
 
     func isUpSide() -> Bool {
