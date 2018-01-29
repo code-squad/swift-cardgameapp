@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardView: UIView {
+class CardView: UIImageView {
     func makeCardView(screenWidth: CGFloat, index: Int) -> UIImageView {
         let marginRatio: CGFloat = 70
         let cardsNumber: CGFloat = 7
