@@ -22,7 +22,6 @@ class Card: Equatable {
     
     private (set) var suit: Suit
     private (set) var rank: Rank
-    private (set) var face: Bool
     // 열거형 자료형은 같은 개념의 자료들을 묶어 놓을때 사용합니다.
     // 그리고 Suit로 선언된 변수에 .rawValue를 사용하면 직접 값에 접근할 수 있어서 카드의 값을 구할때 사용하면 좋을 것 같습니다.
     enum Suit: String {
@@ -53,7 +52,6 @@ class Card: Equatable {
     init(suit: Int, rank: Int) {
         self.suit = Card.Suit.allValues[suit]
         self.rank = Card.Rank.allValues[rank]
-        self.face = false
     }
     
     func isOnePairRank(at index: Int) -> Bool {
@@ -64,8 +62,12 @@ class Card: Equatable {
         return suit.hashValue + 1
     }
     
-    func getImageCard() -> UIImageView {
+    func getUpsideCard() -> UIImageView {
         return UIImageView(image: UIImage(named: self.suit.rawValue + self.rank.rawValue))
+    }
+    
+    func getBacksideCard() -> UIImageView {
+        return UIImageView(image: UIImage(named: "card_back"))
     }
 }
 

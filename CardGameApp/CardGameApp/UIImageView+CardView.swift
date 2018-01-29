@@ -16,5 +16,9 @@ extension UIImageView {
         let margin = (screenWidth - (cardWidth * cardsNumber)) / (cardsNumber + 1)
         let xCoordinate = ((cardWidth + margin) * CGFloat(index)) + margin        
         self.frame = CGRect(x: xCoordinate, y: yCoordinate, width: cardWidth, height: (screenWidth / cardsNumber) * 1.27)
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = 5
+        self.layer.masksToBounds = true
+        self.layer.borderColor = UIColor.white.cgColor
     }
 }

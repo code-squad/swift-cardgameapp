@@ -47,6 +47,10 @@ struct Deck {
     mutating func makeStack(numberOfCards: Int) throws -> [Card] {
         return try cards.pop(range: numberOfCards)
     }
+    
+    func getRestDeck() -> [Card] {
+        return cards
+    }
 }
 
 extension Array {
