@@ -252,4 +252,15 @@ class CardTests: XCTestCase {
         XCTAssertEqual(clubsKing.image, "cK")
     }
 
+    func testIsUpSide() {
+        let diamondsAce: Card = Card.init(suit: .diamonds, rank: .ace)
+        XCTAssertFalse(diamondsAce.isUpSide())
+    }
+
+    func testTurnUpSideDown() {
+        let diamondsAce: Card = Card.init(suit: .diamonds, rank: .ace)
+        XCTAssertFalse(diamondsAce.isUpSide())
+        diamondsAce.turnUpSideDown()
+        XCTAssertTrue(diamondsAce.isUpSide())
+    }
 }

@@ -10,6 +10,7 @@ import Foundation
 
 class Card: CustomStringConvertible {
     let suit: Suit, rank: Rank
+    private var upSide: Bool = false
 
     enum Suit: String {
         case spades = "♠️"
@@ -65,6 +66,14 @@ class Card: CustomStringConvertible {
 
     var image: String {
         return "\(suit.value)\(rank.value)"
+    }
+
+    func isUpSide() -> Bool {
+        return upSide
+    }
+
+    func turnUpSideDown() {
+        upSide = !upSide
     }
 
 }
