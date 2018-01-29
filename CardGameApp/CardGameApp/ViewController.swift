@@ -30,6 +30,15 @@ class ViewController: UIViewController {
         drawSevenPiles()
     }
 
+    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
+        super.motionBegan(motion, with: event)
+        if motion == .motionShake {
+            dealerAction.reset()
+            dealerAction.shuffle()
+            drawSevenPiles()
+        }
+    }
+
     private func drawBackground() {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
     }
