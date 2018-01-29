@@ -16,6 +16,19 @@ class Card: CustomStringConvertible {
         case hearts = "♥️"
         case diamonds = "♦️"
         case clubs = "♣️"
+
+        var value: String {
+            switch self {
+            case .clubs:
+                return "c"
+            case .diamonds:
+                return "d"
+            case .hearts:
+                return "h"
+            case .spades:
+                return "s"
+            }
+        }
     }
 
     enum Rank: Int {
@@ -48,6 +61,10 @@ class Card: CustomStringConvertible {
 
     var description: String {
         return "\(suit.rawValue)\(rank.value)"
+    }
+
+    var image: String {
+        return "\(suit.value)\(rank.value)"
     }
 
 }

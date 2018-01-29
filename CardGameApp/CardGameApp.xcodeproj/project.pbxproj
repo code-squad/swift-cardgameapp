@@ -19,6 +19,9 @@
 		8EC0F967201EBDAF00CEBBD4 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F960201EBDAF00CEBBD4 /* Card.swift */; };
 		8EC0F96A201EC10300CEBBD4 /* CardDeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F968201EC10300CEBBD4 /* CardDeckTest.swift */; };
 		8EC0F96B201EC10300CEBBD4 /* CardTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F969201EC10300CEBBD4 /* CardTest.swift */; };
+		8EC0F96C201EE60F00CEBBD4 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F960201EBDAF00CEBBD4 /* Card.swift */; };
+		8EC0F96D201EE61300CEBBD4 /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F95C201EBDAF00CEBBD4 /* CardDeck.swift */; };
+		8EC0F96E201EE61600CEBBD4 /* DealerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F95D201EBDAF00CEBBD4 /* DealerAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -295,8 +298,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EC0F96A201EC10300CEBBD4 /* CardDeckTest.swift in Sources */,
+				8EC0F96D201EE61300CEBBD4 /* CardDeck.swift in Sources */,
+				8EC0F96E201EE61600CEBBD4 /* DealerAction.swift in Sources */,
 				8EC0F96B201EC10300CEBBD4 /* CardTest.swift in Sources */,
 				8EC0F93D201AD09300CEBBD4 /* DealerActionTest.swift in Sources */,
+				8EC0F96C201EE60F00CEBBD4 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
