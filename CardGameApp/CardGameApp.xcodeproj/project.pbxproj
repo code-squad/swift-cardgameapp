@@ -12,8 +12,13 @@
 		8EC0F92D201AD09300CEBBD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EC0F92B201AD09300CEBBD4 /* Main.storyboard */; };
 		8EC0F92F201AD09300CEBBD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EC0F92E201AD09300CEBBD4 /* Assets.xcassets */; };
 		8EC0F932201AD09300CEBBD4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EC0F930201AD09300CEBBD4 /* LaunchScreen.storyboard */; };
-		8EC0F93D201AD09300CEBBD4 /* CardGameAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F93C201AD09300CEBBD4 /* CardGameAppTests.swift */; };
+		8EC0F93D201AD09300CEBBD4 /* DealerActionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F93C201AD09300CEBBD4 /* DealerActionTest.swift */; };
 		8EC0F948201AD09300CEBBD4 /* CardGameAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F947201AD09300CEBBD4 /* CardGameAppUITests.swift */; };
+		8EC0F963201EBDAF00CEBBD4 /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F95C201EBDAF00CEBBD4 /* CardDeck.swift */; };
+		8EC0F964201EBDAF00CEBBD4 /* DealerAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F95D201EBDAF00CEBBD4 /* DealerAction.swift */; };
+		8EC0F967201EBDAF00CEBBD4 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F960201EBDAF00CEBBD4 /* Card.swift */; };
+		8EC0F96A201EC10300CEBBD4 /* CardDeckTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F968201EC10300CEBBD4 /* CardDeckTest.swift */; };
+		8EC0F96B201EC10300CEBBD4 /* CardTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F969201EC10300CEBBD4 /* CardTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,11 +47,16 @@
 		8EC0F931201AD09300CEBBD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8EC0F933201AD09300CEBBD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EC0F938201AD09300CEBBD4 /* CardGameAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardGameAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8EC0F93C201AD09300CEBBD4 /* CardGameAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameAppTests.swift; sourceTree = "<group>"; };
+		8EC0F93C201AD09300CEBBD4 /* DealerActionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealerActionTest.swift; sourceTree = "<group>"; };
 		8EC0F93E201AD09300CEBBD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EC0F943201AD09300CEBBD4 /* CardGameAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardGameAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EC0F947201AD09300CEBBD4 /* CardGameAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameAppUITests.swift; sourceTree = "<group>"; };
 		8EC0F949201AD09300CEBBD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EC0F95C201EBDAF00CEBBD4 /* CardDeck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
+		8EC0F95D201EBDAF00CEBBD4 /* DealerAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DealerAction.swift; sourceTree = "<group>"; };
+		8EC0F960201EBDAF00CEBBD4 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		8EC0F968201EC10300CEBBD4 /* CardDeckTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDeckTest.swift; sourceTree = "<group>"; };
+		8EC0F969201EC10300CEBBD4 /* CardTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +107,7 @@
 		8EC0F926201AD09300CEBBD4 /* CardGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				8EC0F959201EBD6B00CEBBD4 /* Model */,
 				8EC0F927201AD09300CEBBD4 /* AppDelegate.swift */,
 				8EC0F929201AD09300CEBBD4 /* ViewController.swift */,
 				8EC0F92B201AD09300CEBBD4 /* Main.storyboard */,
@@ -110,7 +121,9 @@
 		8EC0F93B201AD09300CEBBD4 /* CardGameAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				8EC0F93C201AD09300CEBBD4 /* CardGameAppTests.swift */,
+				8EC0F968201EC10300CEBBD4 /* CardDeckTest.swift */,
+				8EC0F969201EC10300CEBBD4 /* CardTest.swift */,
+				8EC0F93C201AD09300CEBBD4 /* DealerActionTest.swift */,
 				8EC0F93E201AD09300CEBBD4 /* Info.plist */,
 			);
 			path = CardGameAppTests;
@@ -123,6 +136,16 @@
 				8EC0F949201AD09300CEBBD4 /* Info.plist */,
 			);
 			path = CardGameAppUITests;
+			sourceTree = "<group>";
+		};
+		8EC0F959201EBD6B00CEBBD4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8EC0F960201EBDAF00CEBBD4 /* Card.swift */,
+				8EC0F95C201EBDAF00CEBBD4 /* CardDeck.swift */,
+				8EC0F95D201EBDAF00CEBBD4 /* DealerAction.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +282,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EC0F967201EBDAF00CEBBD4 /* Card.swift in Sources */,
+				8EC0F963201EBDAF00CEBBD4 /* CardDeck.swift in Sources */,
+				8EC0F964201EBDAF00CEBBD4 /* DealerAction.swift in Sources */,
 				8EC0F92A201AD09300CEBBD4 /* ViewController.swift in Sources */,
 				8EC0F928201AD09300CEBBD4 /* AppDelegate.swift in Sources */,
 			);
@@ -268,7 +294,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8EC0F93D201AD09300CEBBD4 /* CardGameAppTests.swift in Sources */,
+				8EC0F96A201EC10300CEBBD4 /* CardDeckTest.swift in Sources */,
+				8EC0F96B201EC10300CEBBD4 /* CardTest.swift in Sources */,
+				8EC0F93D201AD09300CEBBD4 /* DealerActionTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
