@@ -10,7 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
     private var foundationViews: [UIImageView] = []
-    private var cardDeckView: UIImageView!
     private var sevenPileViews: [UIImageView] = []
     var cardWidth: CGFloat!
     var cardMargin: CGFloat!
@@ -19,17 +18,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        cardWidth = UIScreen.main.bounds.width / 7
-        cardMargin = cardWidth / 30
-        cardRatio = CGFloat(1.27)
-        dealerAction = DealerAction()
-        dealerAction.shuffle()
-        drawBackground()
-        drawFoundations()
-        drawDeck()
-        drawSevenPiles()
+        setCardGame()
+        drawCardGame()
     }
 
+    // shake event
     override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
         super.motionBegan(motion, with: event)
         if motion == .motionShake {
@@ -39,8 +32,38 @@ class ViewController: UIViewController {
         }
     }
 
+    // set card game
+    private func setCardGame() {
+        setCardSize()
+        setCardDeck()
+    }
+
+    private func setCardSize() {
+        cardWidth = UIScreen.main.bounds.width / 7
+        cardMargin = cardWidth / 30
+        cardRatio = CGFloat(1.27)
+    }
+
+    private func setCardDeck() {
+        dealerAction = DealerAction()
+        dealerAction.shuffle()
+    }
+
+    // draw card game
+    private func drawCardGame() {
+        drawBackground()
+        drawFoundations()
+        drawCardDeck()
+        drawSevenPiles()
+    }
+
     private func drawBackground() {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
+    }
+
+    private func getCardLocation(index: Int, topMargin: CGFloat) -> CGRect {
+        return CGRect(origin: CGPoint(x: cardWidth * CGFloat(index) + cardMargin, y: topMargin),
+                      size: CGSize(width: cardWidth - 1.5 * cardMargin, height: cardWidth * cardRatio))
     }
 
     private func drawFoundations() {
@@ -51,12 +74,9 @@ class ViewController: UIViewController {
     }
 
     private func getFoundation(index: Int) -> UIImageView {
-        let statusBarMagin = CGFloat(20)
+        let topMargin = CGFloat(20)
         let borderLayer = CALayer()
-        let borderFrame = CGRect(origin: CGPoint(x: cardWidth * CGFloat(index) + cardMargin,
-                                                 y: statusBarMagin),
-                                 size: CGSize(width: cardWidth - 1.5 * cardMargin,
-                                              height: cardWidth * cardRatio))
+        let borderFrame = getCardLocation(index: index, topMargin: topMargin)
         borderLayer.backgroundColor = UIColor.clear.cgColor
         borderLayer.frame = borderFrame
         borderLayer.cornerRadius = 5.0
@@ -67,12 +87,10 @@ class ViewController: UIViewController {
         return imageView
     }
 
-    private func drawDeck() {
-        let statusBarMagin = CGFloat(20)
-        let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: cardWidth * CGFloat(6) + cardMargin,
-                                                                  y: statusBarMagin),
-                                                  size: CGSize(width: cardWidth - 1.5 * cardMargin,
-                                                               height: cardWidth * cardRatio)))
+    private func drawCardDeck() {
+        let index = 6 // CardDeck을 최우측 상단에 위치시키기 위한 인덱스
+        let topMargin = CGFloat(20)
+        let imageView = UIImageView(frame: getCardLocation(index: index, topMargin: topMargin))
         let image = UIImage(named: "card-back")
         imageView.contentMode = .scaleAspectFit
         imageView.image = image
@@ -87,11 +105,8 @@ class ViewController: UIViewController {
     }
 
     private func getCardPile(index: Int) -> UIImageView {
-        let pileTopMargin = CGFloat(100)
-        let imageView = UIImageView(frame: CGRect(origin: CGPoint(x: cardWidth * CGFloat(index) + cardMargin,
-                                                                  y: pileTopMargin),
-                                                  size: CGSize(width: cardWidth - 1.5 * cardMargin,
-                                                               height: cardWidth * cardRatio)))
+        let cardPileTopMargin = CGFloat(100)
+        let imageView = UIImageView(frame: getCardLocation(index: index, topMargin: cardPileTopMargin))
         let card = dealerAction.removeOne()
         card?.turnUpSideDown()
         let image = UIImage(named: card?.image ?? "card-back")
