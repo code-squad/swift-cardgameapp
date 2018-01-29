@@ -9,12 +9,12 @@
 import UIKit
 
 extension UIImageView {
-    func makeCardView(screenWidth: CGFloat, index: Int) {
+    func makeCardView(screenWidth: CGFloat, index: Int, yCoordinate: CGFloat) {
         let marginRatio: CGFloat = 70
         let cardsNumber: CGFloat = 7
         let cardWidth = (screenWidth / cardsNumber) - (screenWidth / marginRatio)
         let margin = (screenWidth - (cardWidth * cardsNumber)) / (cardsNumber + 1)
         let xCoordinate = ((cardWidth + margin) * CGFloat(index)) + margin        
-        self.frame = CGRect(x: xCoordinate, y: 32, width: cardWidth, height: (screenWidth / cardsNumber) * 1.27)
+        self.frame = CGRect(x: xCoordinate, y: yCoordinate, width: cardWidth, height: (screenWidth / cardsNumber) * 1.27)
     }
 }

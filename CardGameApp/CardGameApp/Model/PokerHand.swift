@@ -101,15 +101,14 @@ struct PokerHand {
             point += Int(hightCard.rank.rawValue)!
         }
         
-        for suitIndex in 0..<Card.Suit.allValues.count {
-            if Card.Suit.allValues[suitIndex] == hightCard.suit {
+        for suitIndex in 0..<Card.Suit.allValues.count where Card.Suit.allValues[suitIndex] == hightCard.suit {
                 point += suitIndex + 1
-            }
         }
+        
         return point
     }
     
-    private func separateHighHand(table: [Int], cards stack:[Card]) -> (PokerRank, Int)? {
+    private func separateHighHand(table: [Int], cards stack: [Card]) -> (PokerRank, Int)? {
         let flush = calculateFlushType(of: stack)
         let Straight = calculateStraight(of: table)
         if (flush.hand != PokerRank.noHands) && (Straight == PokerRank.straight) {
@@ -117,16 +116,16 @@ struct PokerHand {
         } else if (flush.hand != PokerRank.noHands) && (Straight == PokerRank.royalStraight) {
             return (PokerRank.royalStraightFlush, 0)
         }
-        if (flush.hand != PokerRank.noHands && Straight == PokerRank.noHands) {
+        if flush.hand != PokerRank.noHands && Straight == PokerRank.noHands {
             return (PokerRank.flush, PokerRank.straightFlush.rawValue + flush.point)
         }
-        if (flush.hand == PokerRank.noHands && Straight != PokerRank.noHands) {
+        if flush.hand == PokerRank.noHands && Straight != PokerRank.noHands {
             return (Straight, 0) // Straigth Or Royal Straight
         }
         return nil
     }
     
-    private func selectPokerHand(table pointTable: [Int], cards stack:[Card]) -> (PokerRank, Int) {
+    private func selectPokerHand(table pointTable: [Int], cards stack: [Card]) -> (PokerRank, Int) {
         let resultScore = separateRowHand(table: pointTable, cards: stack)
 
         switch resultScore.hand {
@@ -176,7 +175,7 @@ struct PokerHand {
     }
     
     private func countSuit(_ stack: [Card]) -> [Int] {
-        var countOfSuit = [0,0,0,0]
+        var countOfSuit = [0, 0, 0, 0]
         for card in stack {
             switch card.suit {
             case .spades:

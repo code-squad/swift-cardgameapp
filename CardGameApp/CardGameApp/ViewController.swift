@@ -9,24 +9,28 @@
 import UIKit
 
 class ViewController: UIViewController {
+    private var deck: Deck!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         makeBackGround()
-        for index in 0..<7 {
-            makeCards(index: index)
-        }
+        self.deck = Deck()
+        self.deck.shuffle()
+        makeCards()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    private func makeCards(index: Int) {
+    private func makeCards() {
         let screenWidth = UIScreen.main.fixedCoordinateSpace.bounds.width
-        let card = UIImageView(image: UIImage(named: "card_back"))
-        card.makeCardView(screenWidth: screenWidth, index: index)
-        self.view.addSubview(card)
+        guard let stack = try? self.deck.makeStack(numberOfCards: 7) else { return }
+        for index in 0..<stack.count {
+            let card = stack[index].getImageCard()
+            card.makeCardView(screenWidth: screenWidth, index: index, yCoordinate: 100)
+            self.view.addSubview(card)
+        }
     }
     
     private func makeBackGround() {
