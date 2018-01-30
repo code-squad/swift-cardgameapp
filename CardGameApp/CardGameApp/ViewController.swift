@@ -35,20 +35,22 @@ class ViewController: UIViewController {
     
     private func makeRestDeck() {
         guard let restOfcardCover = deck.getRestDeck().last else { return }
+        let lastColumn = 6
         if !restOfcardCover.isUpside() {
             let backSide = UIImageView(image: UIImage(named: "card_back"))
-            backSide.makeCardView(index: 6, yCoordinate: 20)
+            backSide.makeCardView(index: lastColumn, yCoordinate: UIApplication.shared.statusBarFrame.height)
             self.view.addSubview(backSide)
         }
     }
     
     private func makeOpenCards() {
         guard let stack = try? self.deck.makeStack(numberOfCards: 7) else { return }
+        let playCardYPoint = CGFloat(80)
         for index in 0..<stack.count {
             let card = stack[index]
             card.flipCard()
             let cardView = UIImageView(image: UIImage(named: card.getCardName()))
-            cardView.makeCardView(index: index, yCoordinate: 100)
+            cardView.makeCardView(index: index, yCoordinate: UIApplication.shared.statusBarFrame.height + playCardYPoint)
             self.view.addSubview(cardView)
         }
     }
