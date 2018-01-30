@@ -2,6 +2,7 @@
 
 ## iPhone 프로젝트 설정
 - 시뮬레이터: iPhone 8
+- Deployment Info > Status Bar Style: Light
 
 ### 레벨2 프로젝트 코드 복사
 - **기존 코드**들은 대부분 **Model 역할**을 담당
