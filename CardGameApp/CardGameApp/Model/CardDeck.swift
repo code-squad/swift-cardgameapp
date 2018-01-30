@@ -47,6 +47,7 @@ struct CardDeck {
 
     // reset current card deck as new full card deck
     mutating func reset() {
+        for card in fullCardDeck where card.isUpSide() { card.turnUpSideDown() }
         cardDeck = fullCardDeck
     }
 

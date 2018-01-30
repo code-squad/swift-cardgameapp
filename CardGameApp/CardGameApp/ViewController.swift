@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setCardGame()
-        drawCardGame()
+        configureCardGame()
     }
 
     // shake event
@@ -34,11 +34,14 @@ class ViewController: UIViewController {
             dealerAction.shuffle()
             cardDeckView.image = backImage
             openedCardDeckView.image = nil
-            foundationViews = []
+            removeSevenPileViews()
             sevenPileViews = []
-            configureFoundations()
             spreadSevenPiles()
         }
+    }
+
+    private func removeSevenPileViews() {
+        sevenPileViews.forEach { pileViews in pileViews.forEach { pileView in pileView.removeFromSuperview() } }
     }
 
     // set card game
@@ -59,7 +62,7 @@ class ViewController: UIViewController {
     }
 
     // draw card game
-    private func drawCardGame() {
+    private func configureCardGame() {
         configureBackground()
         configureFoundations()
         configureOpenedCardDeck()
