@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8EA1AADC202011EB00D256EA /* Figure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1AADB202011EB00D256EA /* Figure.swift */; };
+		8EA1AADD202011EB00D256EA /* Figure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1AADB202011EB00D256EA /* Figure.swift */; };
 		8EC0F928201AD09300CEBBD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F927201AD09300CEBBD4 /* AppDelegate.swift */; };
 		8EC0F92A201AD09300CEBBD4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F929201AD09300CEBBD4 /* ViewController.swift */; };
 		8EC0F92D201AD09300CEBBD4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EC0F92B201AD09300CEBBD4 /* Main.storyboard */; };
@@ -42,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8EA1AADB202011EB00D256EA /* Figure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Figure.swift; sourceTree = "<group>"; };
 		8EC0F924201AD09300CEBBD4 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EC0F927201AD09300CEBBD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8EC0F929201AD09300CEBBD4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8EA1AADA2020110300D256EA /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				8EA1AADB202011EB00D256EA /* Figure.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		8EC0F91B201AD09300CEBBD4 = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +121,7 @@
 		8EC0F926201AD09300CEBBD4 /* CardGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				8EA1AADA2020110300D256EA /* Utility */,
 				8EC0F959201EBD6B00CEBBD4 /* Model */,
 				8EC0F927201AD09300CEBBD4 /* AppDelegate.swift */,
 				8EC0F929201AD09300CEBBD4 /* ViewController.swift */,
@@ -290,6 +302,7 @@
 				8EC0F964201EBDAF00CEBBD4 /* DealerAction.swift in Sources */,
 				8EC0F92A201AD09300CEBBD4 /* ViewController.swift in Sources */,
 				8EC0F928201AD09300CEBBD4 /* AppDelegate.swift in Sources */,
+				8EA1AADC202011EB00D256EA /* Figure.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +312,7 @@
 			files = (
 				8EC0F96A201EC10300CEBBD4 /* CardDeckTest.swift in Sources */,
 				8EC0F96D201EE61300CEBBD4 /* CardDeck.swift in Sources */,
+				8EA1AADD202011EB00D256EA /* Figure.swift in Sources */,
 				8EC0F96E201EE61600CEBBD4 /* DealerAction.swift in Sources */,
 				8EC0F96B201EC10300CEBBD4 /* CardTest.swift in Sources */,
 				8EC0F93D201AD09300CEBBD4 /* DealerActionTest.swift in Sources */,

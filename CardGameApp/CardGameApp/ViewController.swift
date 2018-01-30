@@ -17,8 +17,8 @@ class ViewController: UIViewController {
     private var cardMargin: CGFloat!
     private var cardRatio: CGFloat!
     private var dealerAction: DealerAction!
-    private let backImage = UIImage(named: "card-back")
-    private let refreshImage = UIImage(named: "cardgameapp-refresh-app")
+    private let backImage = UIImage(named: Figure.Image.back.value)
+    private let refreshImage = UIImage(named: Figure.Image.refresh.value)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +43,9 @@ class ViewController: UIViewController {
     }
 
     private func setCardSize() {
-        cardWidth = UIScreen.main.bounds.width / 7
-        cardMargin = cardWidth / 30
-        cardRatio = CGFloat(1.27)
+        cardWidth = UIScreen.main.bounds.width / Figure.Size.countInRow.value
+        cardMargin = cardWidth / Figure.Size.yGap.value
+        cardRatio = Figure.Size.ratio.value
     }
 
     private func setCardDeck() {
@@ -63,29 +63,30 @@ class ViewController: UIViewController {
     }
 
     private func configureBackground() {
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: Figure.Image.background.value)!)
     }
 
     private func getCardLocation(index: Int, topMargin: CGFloat) -> CGRect {
-        return CGRect(origin: CGPoint(x: cardWidth * CGFloat(index) + cardMargin, y: topMargin),
-                      size: CGSize(width: cardWidth - 1.5 * cardMargin, height: cardWidth * cardRatio))
+        return CGRect(origin: CGPoint(x: cardWidth * CGFloat(index) + cardMargin,
+                                      y: topMargin),
+                      size: CGSize(width: cardWidth - Figure.Size.xGap.value * cardMargin,
+                                   height: cardWidth * cardRatio))
     }
 
     private func configureFoundations() {
-        for i in 0..<4 {
+        for i in 0..<Figure.Count.foundations.value {
             foundationViews.append(getFoundation(index: i))
             self.view.addSubview(foundationViews[i])
         }
     }
 
     private func getFoundation(index: Int) -> UIImageView {
-        let topMargin = CGFloat(20)
         let borderLayer = CALayer()
-        let borderFrame = getCardLocation(index: index, topMargin: topMargin)
+        let borderFrame = getCardLocation(index: index, topMargin: Figure.YPosition.topMargin.value)
         borderLayer.backgroundColor = UIColor.clear.cgColor
         borderLayer.frame = borderFrame
-        borderLayer.cornerRadius = 5.0
-        borderLayer.borderWidth = 1.0
+        borderLayer.cornerRadius = Figure.Layer.cornerRadius.value
+        borderLayer.borderWidth = Figure.Layer.borderWidth.value
         borderLayer.borderColor = UIColor.white.cgColor
         let imageView = UIImageView()
         imageView.layer.addSublayer(borderLayer)
@@ -93,22 +94,20 @@ class ViewController: UIViewController {
     }
 
     private func configureCardDeck() {
-        let index = 6 // CardDeck을 최우측 상단에 위치시키기 위한 인덱스
-        let topMargin = CGFloat(20)
-        cardDeckView = UIImageView(frame: getCardLocation(index: index, topMargin: topMargin))
+        cardDeckView = UIImageView(frame: getCardLocation(index: Figure.XPosition.cardDeck.value,
+                                                          topMargin: Figure.YPosition.topMargin.value))
         cardDeckView.contentMode = .scaleAspectFit
         cardDeckView.image = backImage
         let gesture = UITapGestureRecognizer.init(target: self, action: #selector(tapCardDeck))
-        gesture.numberOfTapsRequired = 1
+        gesture.numberOfTapsRequired = Figure.Gesture.numberOfTapsRequired.value
         cardDeckView.addGestureRecognizer(gesture)
         cardDeckView.isUserInteractionEnabled = true
         self.view.addSubview(cardDeckView)
     }
 
     private func configureOpenedCardDeck() {
-        let index = 5
-        let topMargin = CGFloat(20)
-        openedCardDeckView = UIImageView(frame: getCardLocation(index: index, topMargin: topMargin))
+        openedCardDeckView = UIImageView(frame: getCardLocation(index: Figure.XPosition.openedCardDeck.value,
+                                                                topMargin: Figure.YPosition.topMargin.value))
         openedCardDeckView.contentMode = .scaleAspectFit
         self.view.addSubview(openedCardDeckView)
     }
@@ -135,7 +134,7 @@ class ViewController: UIViewController {
     }
 
     private func spreadSevenPiles() {
-        for xIndex in 0..<7 {
+        for xIndex in 0..<Figure.Count.cardPiles.value {
             sevenPileViews.append([])
             spreadAPile(xIndex: xIndex)
         }
@@ -149,13 +148,13 @@ class ViewController: UIViewController {
     }
 
     private func getACardImageViewForAPile(xIndex: Int, yIndex: Int) -> UIImageView {
-        let cardPileTopMargin = CGFloat(100) + (CGFloat(15) * CGFloat(yIndex))
+        let cardPileTopMargin = Figure.YPosition.cardPileTopMargin.value + (Figure.YPosition.betweenCards.value * CGFloat(yIndex))
         let imageView = UIImageView(frame: getCardLocation(index: xIndex, topMargin: cardPileTopMargin))
         let card = dealerAction.removeOne()
         if xIndex == yIndex {
             card?.turnUpSideDown()
         }
-        let image = UIImage(named: card?.image ?? "card-back")
+        let image = UIImage(named: card?.image ?? Figure.Image.back.value)
         imageView.contentMode = .scaleAspectFit
         imageView.image = image
         return imageView
