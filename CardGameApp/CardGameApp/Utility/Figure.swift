@@ -6,7 +6,7 @@
 //  Copyright © 2018년 ChocOZerO. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 struct Figure {
     enum YPosition {
@@ -14,14 +14,14 @@ struct Figure {
         case cardPileTopMargin
         case betweenCards
 
-        var value: CGFloat {
+        var value: Int {
             switch self {
             case .topMargin:
-                return CGFloat(20)
+                return 20
             case .cardPileTopMargin:
-                return CGFloat(100)
+                return 100
             case .betweenCards:
-                return CGFloat(15)
+                return 15
             }
         }
     }
@@ -46,16 +46,16 @@ struct Figure {
         case yGap
         case xGap
 
-        var value: CGFloat {
+        var value: Double {
             switch self {
             case .ratio:
-                return CGFloat(1.27)
+                return 1.27
             case .countInRow:
-                return CGFloat(7)
+                return 7
             case .yGap:
-                return CGFloat(30)
+                return 30
             case .xGap:
-                return CGFloat(1.5)
+                return 1.5
             }
         }
     }
@@ -95,12 +95,12 @@ struct Figure {
         case borderWidth
         case cornerRadius
 
-        var value: CGFloat {
+        var value: Double {
             switch self {
             case .borderWidth:
-                return CGFloat(1.0)
+                return 1.0
             case .cornerRadius:
-                return CGFloat(5.0)
+                return 5.0
             }
         }
     }

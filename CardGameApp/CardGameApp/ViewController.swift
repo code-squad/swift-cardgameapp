@@ -32,7 +32,11 @@ class ViewController: UIViewController {
         if motion == .motionShake {
             dealerAction.reset()
             dealerAction.shuffle()
+            cardDeckView.image = backImage
+            openedCardDeckView.image = nil
+            foundationViews = []
             sevenPileViews = []
+            configureFoundations()
             spreadSevenPiles()
         }
     }
@@ -44,9 +48,9 @@ class ViewController: UIViewController {
     }
 
     private func setCardSize() {
-        cardWidth = UIScreen.main.bounds.width / Figure.Size.countInRow.value
-        cardMargin = cardWidth / Figure.Size.yGap.value
-        cardRatio = Figure.Size.ratio.value
+        cardWidth = UIScreen.main.bounds.width / CGFloat(Figure.Size.countInRow.value)
+        cardMargin = cardWidth / CGFloat(Figure.Size.yGap.value)
+        cardRatio = CGFloat(Figure.Size.ratio.value)
     }
 
     private func setCardDeck() {
@@ -70,7 +74,7 @@ class ViewController: UIViewController {
     private func getCardLocation(index: Int, topMargin: CGFloat) -> CGRect {
         return CGRect(origin: CGPoint(x: cardWidth * CGFloat(index) + cardMargin,
                                       y: topMargin),
-                      size: CGSize(width: cardWidth - Figure.Size.xGap.value * cardMargin,
+                      size: CGSize(width: cardWidth - CGFloat(Figure.Size.xGap.value) * cardMargin,
                                    height: cardWidth * cardRatio))
     }
 
@@ -83,11 +87,11 @@ class ViewController: UIViewController {
 
     private func getFoundation(index: Int) -> UIImageView {
         let borderLayer = CALayer()
-        let borderFrame = getCardLocation(index: index, topMargin: Figure.YPosition.topMargin.value)
+        let borderFrame = getCardLocation(index: index, topMargin: CGFloat(Figure.YPosition.topMargin.value))
         borderLayer.backgroundColor = UIColor.clear.cgColor
         borderLayer.frame = borderFrame
-        borderLayer.cornerRadius = Figure.Layer.cornerRadius.value
-        borderLayer.borderWidth = Figure.Layer.borderWidth.value
+        borderLayer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
+        borderLayer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
         borderLayer.borderColor = UIColor.white.cgColor
         let imageView = UIImageView()
         imageView.layer.addSublayer(borderLayer)
@@ -96,7 +100,7 @@ class ViewController: UIViewController {
 
     private func configureCardDeck() {
         cardDeckView = UIImageView(frame: getCardLocation(index: Figure.XPosition.cardDeck.value,
-                                                          topMargin: Figure.YPosition.topMargin.value))
+                                                          topMargin: CGFloat(Figure.YPosition.topMargin.value)))
         cardDeckView.contentMode = .scaleAspectFit
         cardDeckView.image = backImage
         let gesture = UITapGestureRecognizer.init(target: self, action: #selector(tapCardDeck))
@@ -108,7 +112,7 @@ class ViewController: UIViewController {
 
     private func configureOpenedCardDeck() {
         openedCardDeckView = UIImageView(frame: getCardLocation(index: Figure.XPosition.openedCardDeck.value,
-                                                                topMargin: Figure.YPosition.topMargin.value))
+                                                                topMargin: CGFloat(Figure.YPosition.topMargin.value)))
         openedCardDeckView.contentMode = .scaleAspectFit
         self.view.addSubview(openedCardDeckView)
     }
@@ -149,7 +153,8 @@ class ViewController: UIViewController {
     }
 
     private func getACardImageViewForAPile(xIndex: Int, yIndex: Int) -> UIImageView {
-        let cardPileTopMargin = Figure.YPosition.cardPileTopMargin.value + (Figure.YPosition.betweenCards.value * CGFloat(yIndex))
+        let cardPileTopMargin = CGFloat(Figure.YPosition.cardPileTopMargin.value)
+                                + (CGFloat(Figure.YPosition.betweenCards.value) * CGFloat(yIndex))
         let imageView = UIImageView(frame: getCardLocation(index: xIndex, topMargin: cardPileTopMargin))
         let card = dealerAction.removeOne()
         if xIndex == yIndex {
