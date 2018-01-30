@@ -10,6 +10,7 @@ import Foundation
 
 struct DealerAction {
     fileprivate var cardDeck: CardDeck
+    private var openedCardDeck: CardPack = []
 
     init() {
         cardDeck = CardDeck()
@@ -41,6 +42,19 @@ struct DealerAction {
 
     mutating func getCardPacks(packCount: Int) -> Array<CardPack> {
         return cardDeck.getCardPacks(packCount: packCount)
+    }
+
+    mutating func open() -> Card? {
+        guard let card = cardDeck.removeOne() else {
+            if openedCardDeck.count != 0 {
+                cardDeck.load(cardPack: openedCardDeck)
+                openedCardDeck = []
+            }
+            return nil
+        }
+        card.turnUpSideDown()
+        openedCardDeck.append(card)
+        return card
     }
 
 }

@@ -11,10 +11,14 @@ import UIKit
 class ViewController: UIViewController {
     private var foundationViews: [UIImageView] = []
     private var sevenPileViews: [[UIImageView]] = []
+    private var cardDeckView: UIImageView!
+    private var openedCardDeckView: UIImageView!
     var cardWidth: CGFloat!
     var cardMargin: CGFloat!
     var cardRatio: CGFloat!
     var dealerAction: DealerAction!
+    let backImage = UIImage(named: "card-back")
+    let refreshImage = UIImage(named: "cardgameapp-refresh-app")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +57,8 @@ class ViewController: UIViewController {
     private func drawCardGame() {
         drawBackground()
         drawFoundations()
-        drawCardDeck()
+        configureOpenedCardDeck()
+        configureCardDeck()
         drawSevenPiles()
     }
 
@@ -87,14 +92,39 @@ class ViewController: UIViewController {
         return imageView
     }
 
-    private func drawCardDeck() {
+    private func configureCardDeck() {
         let index = 6 // CardDeck을 최우측 상단에 위치시키기 위한 인덱스
         let topMargin = CGFloat(20)
-        let imageView = UIImageView(frame: getCardLocation(index: index, topMargin: topMargin))
-        let image = UIImage(named: "card-back")
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = image
-        self.view.addSubview(imageView)
+        cardDeckView = UIImageView(frame: getCardLocation(index: index, topMargin: topMargin))
+        cardDeckView.contentMode = .scaleAspectFit
+        cardDeckView.image = backImage
+        let gesture = UITapGestureRecognizer.init(target: self, action: #selector(tapCardDeck))
+        gesture.numberOfTapsRequired = 1
+        cardDeckView.addGestureRecognizer(gesture)
+        cardDeckView.isUserInteractionEnabled = true
+        self.view.addSubview(cardDeckView)
+    }
+
+    private func configureOpenedCardDeck() {
+        let index = 5
+        let topMargin = CGFloat(20)
+        openedCardDeckView = UIImageView(frame: getCardLocation(index: index, topMargin: topMargin))
+        openedCardDeckView.contentMode = .scaleAspectFit
+        self.view.addSubview(openedCardDeckView)
+    }
+
+    @objc private func tapCardDeck() {
+        let card = dealerAction.open()
+        if card != nil {
+            openedCardDeckView.image = UIImage(named: (card?.image)!)
+        } else {
+            openedCardDeckView.image = nil
+        }
+        if dealerAction.isRemain() {
+            cardDeckView.image = backImage
+        } else {
+            cardDeckView.image = refreshImage
+        }
     }
 
     private func drawSevenPiles() {

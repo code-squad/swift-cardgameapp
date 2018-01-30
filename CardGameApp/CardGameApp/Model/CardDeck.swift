@@ -83,4 +83,11 @@ struct CardDeck {
         return cardPacks
     }
 
+    mutating func load(cardPack: CardPack) {
+        for card in cardPack.reversed() {
+            card.turnUpSideDown()
+            cardDeck.append(card)
+        }
+    }
+
 }
