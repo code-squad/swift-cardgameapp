@@ -37,19 +37,9 @@ struct PokerHand {
     
     private func sortStackOfPlayer(_ stack: [Card]) -> (PokerRank, Int) {
         var pointTable = Array(repeating: 0, count: 14)
-        for i in 0..<stack.count {
-            let value = stack[i].rank.rawValue
-            if value == "A" {
-                pointTable[1] += 1
-            } else if value == "J" {
-                pointTable[11] += 1
-            } else if value == "Q" {
-                pointTable[12] += 1
-            } else if value == "K" {
-                pointTable[13] += 1
-            } else {
-                pointTable[Int(value)!] += 1
-            }
+        for card in stack {
+            let index = card.registRankIndex()
+            pointTable[index] += 1
         }
         return selectPokerHand(table: pointTable, cards: stack)
     }
@@ -86,26 +76,8 @@ struct PokerHand {
     
     private func calculateHighCard(_ stack: [Card]) -> Int {
         let sortedCard = stack.sorted(by: <)
-        var point = 0
         let hightCard = sortedCard[sortedCard.index(before: sortedCard.endIndex)]
-        switch hightCard.rank {
-        case .one:
-            point += 1
-        case .eleven:
-            point += 11
-        case .twelve:
-            point += 12
-        case .thirteen:
-            point += 13
-        default:
-            point += Int(hightCard.rank.rawValue)!
-        }
-        
-        for suitIndex in 0..<Card.Suit.allValues.count where Card.Suit.allValues[suitIndex] == hightCard.suit {
-                point += suitIndex + 1
-        }
-        
-        return point
+        return hightCard.scoreHightCard()
     }
     
     private func separateHighHand(table: [Int], cards stack: [Card]) -> (PokerRank, Int)? {
@@ -177,16 +149,7 @@ struct PokerHand {
     private func countSuit(_ stack: [Card]) -> [Int] {
         var countOfSuit = [0, 0, 0, 0]
         for card in stack {
-            switch card.suit {
-            case .spades:
-                countOfSuit[3] += 1
-            case .diamonds:
-                countOfSuit[2] += 1
-            case .hearts:
-                countOfSuit[1] += 1
-            case .clubs:
-                countOfSuit[0] += 1
-            }
+            countOfSuit[card.registSuitIndex()] += 1
         }
         return countOfSuit
     }

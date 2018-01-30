@@ -9,7 +9,8 @@
 import UIKit
 
 extension UIImageView {
-    func makeCardView(screenWidth: CGFloat, index: Int, yCoordinate: CGFloat) {
+    func makeCardView(index: Int, yCoordinate: CGFloat) {
+        let screenWidth = UIScreen.main.fixedCoordinateSpace.bounds.width
         let marginRatio: CGFloat = 70
         let cardsNumber: CGFloat = 7
         let cardWidth = (screenWidth / cardsNumber) - (screenWidth / marginRatio)

@@ -10,7 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
     private var deck: Deck!
-    private var screenWidth = UIScreen.main.fixedCoordinateSpace.bounds.width
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +28,7 @@ class ViewController: UIViewController {
     private func makeEmptyCard() {
         for index in 0..<4 {
             let emptyCard = UIImageView()
-            emptyCard.makeCardView(screenWidth: screenWidth, index: index, yCoordinate: 20)
+            emptyCard.makeCardView(index: index, yCoordinate: 20)
             self.view.addSubview(emptyCard)
         }
     }
@@ -38,7 +37,7 @@ class ViewController: UIViewController {
         guard let restOfcardCover = deck.getRestDeck().last else { return }
         if !restOfcardCover.isUpside() {
             let backSide = UIImageView(image: UIImage(named: "card_back"))
-            backSide.makeCardView(screenWidth: screenWidth, index: 6, yCoordinate: 20)
+            backSide.makeCardView(index: 6, yCoordinate: 20)
             self.view.addSubview(backSide)
         }
     }
@@ -48,8 +47,8 @@ class ViewController: UIViewController {
         for index in 0..<stack.count {
             let card = stack[index]
             card.flipCard()
-            let cardView = UIImageView(image: UIImage(named: card.getCard()))
-            cardView.makeCardView(screenWidth: screenWidth, index: index, yCoordinate: 100)
+            let cardView = UIImageView(image: UIImage(named: card.getCardName()))
+            cardView.makeCardView(index: index, yCoordinate: 100)
             self.view.addSubview(cardView)
         }
     }

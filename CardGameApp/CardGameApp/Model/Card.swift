@@ -19,8 +19,8 @@ class Card: Equatable {
         return Int(Card.Rank.allValues.index(of: lhsRank)!) < Int(Card.Rank.allValues.index(of: rhsRank)!)
     }
     
-    private (set) var suit: Suit
-    private (set) var rank: Rank
+    private var suit: Suit
+    private var rank: Rank
     private var face: Bool
     // 열거형 자료형은 같은 개념의 자료들을 묶어 놓을때 사용합니다.
     // 그리고 Suit로 선언된 변수에 .rawValue를 사용하면 직접 값에 접근할 수 있어서 카드의 값을 구할때 사용하면 좋을 것 같습니다.
@@ -63,7 +63,7 @@ class Card: Equatable {
         return suit.hashValue + 1
     }
     
-    func getCard() -> String {
+    func getCardName() -> String {
         return self.suit.rawValue + self.rank.rawValue
     }
     
@@ -73,6 +73,31 @@ class Card: Equatable {
     
     func flipCard() {
         self.face = !self.face
+    }
+    
+    func scoreHightCard() -> Int {
+        var point = 0
+        if let indexOfRank = Rank.allValues.index(of: self.rank) {
+            point += indexOfRank + 1
+        } else {
+            point += Int(self.rank.rawValue)!
+        }
+        
+        for suitIndex in 0..<Card.Suit.allValues.count where Card.Suit.allValues[suitIndex] == self.suit {
+            point += suitIndex + 1
+        }
+        
+        return point
+    }
+    
+    func registRankIndex() -> Int {
+        guard let indexOfRank = Rank.allValues.index(of: self.rank) else { return 0 }
+        return indexOfRank + 1
+    }
+    
+    func registSuitIndex() -> Int {
+        guard let indexOfSuit = Suit.allValues.index(of: self.suit) else { return 0 }
+        return indexOfSuit
     }
 }
 
