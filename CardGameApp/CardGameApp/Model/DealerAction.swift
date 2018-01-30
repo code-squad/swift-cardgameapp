@@ -46,15 +46,19 @@ struct DealerAction {
 
     mutating func open() -> Card? {
         guard let card = cardDeck.removeOne() else {
-            if openedCardDeck.count != 0 {
-                cardDeck.load(cardPack: openedCardDeck)
-                openedCardDeck = []
-            }
+            load()
             return nil
         }
         card.turnUpSideDown()
         openedCardDeck.append(card)
         return card
+    }
+
+    mutating private func load() {
+        if openedCardDeck.count != 0 {
+            cardDeck.load(cardPack: openedCardDeck)
+            openedCardDeck = []
+        }
     }
 
 }

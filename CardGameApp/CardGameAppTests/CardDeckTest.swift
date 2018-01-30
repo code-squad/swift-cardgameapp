@@ -63,4 +63,25 @@ class CardDeckTest: XCTestCase {
         XCTAssertEqual(cardDeck2.getCardPacks(packCount: 3)[1][0].description, "♦️A")
     }
 
+    func testLoad() {
+        let diamondsAce: Card = Card.init(suit: .diamonds, rank: .ace)
+        let heartsAce: Card = Card.init(suit: .hearts, rank: .ace)
+        let spadesAce: Card = Card.init(suit: .spades, rank: .ace)
+        let clubsAce: Card = Card.init(suit: .clubs, rank: .ace)
+        var cardPack: CardPack = []
+        cardPack.append(diamondsAce)
+        cardPack.append(heartsAce)
+        cardPack.append(spadesAce)
+        cardPack.append(clubsAce)
+
+        cardDeck = CardDeck()
+        for _ in 0..<cardDeck.count() {
+            let _ = cardDeck.removeOne()
+        }
+        XCTAssertEqual(cardDeck.count(), 0)
+        cardDeck.load(cardPack: cardPack)
+        XCTAssertEqual(cardDeck.count(), 4)
+        XCTAssertEqual(cardDeck[0].description, "♣️A")
+    }
+
 }

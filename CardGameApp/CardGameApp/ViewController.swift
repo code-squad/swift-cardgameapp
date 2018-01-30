@@ -13,12 +13,12 @@ class ViewController: UIViewController {
     private var sevenPileViews: [[UIImageView]] = []
     private var cardDeckView: UIImageView!
     private var openedCardDeckView: UIImageView!
-    var cardWidth: CGFloat!
-    var cardMargin: CGFloat!
-    var cardRatio: CGFloat!
-    var dealerAction: DealerAction!
-    let backImage = UIImage(named: "card-back")
-    let refreshImage = UIImage(named: "cardgameapp-refresh-app")
+    private var cardWidth: CGFloat!
+    private var cardMargin: CGFloat!
+    private var cardRatio: CGFloat!
+    private var dealerAction: DealerAction!
+    private let backImage = UIImage(named: "card-back")
+    private let refreshImage = UIImage(named: "cardgameapp-refresh-app")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         if motion == .motionShake {
             dealerAction.reset()
             dealerAction.shuffle()
-            drawSevenPiles()
+            spreadSevenPiles()
         }
     }
 
@@ -55,14 +55,14 @@ class ViewController: UIViewController {
 
     // draw card game
     private func drawCardGame() {
-        drawBackground()
-        drawFoundations()
+        configureBackground()
+        configureFoundations()
         configureOpenedCardDeck()
         configureCardDeck()
-        drawSevenPiles()
+        spreadSevenPiles()
     }
 
-    private func drawBackground() {
+    private func configureBackground() {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
     }
 
@@ -71,7 +71,7 @@ class ViewController: UIViewController {
                       size: CGSize(width: cardWidth - 1.5 * cardMargin, height: cardWidth * cardRatio))
     }
 
-    private func drawFoundations() {
+    private func configureFoundations() {
         for i in 0..<4 {
             foundationViews.append(getFoundation(index: i))
             self.view.addSubview(foundationViews[i])
@@ -114,30 +114,41 @@ class ViewController: UIViewController {
     }
 
     @objc private func tapCardDeck() {
-        let card = dealerAction.open()
-        if card != nil {
-            openedCardDeckView.image = UIImage(named: (card?.image)!)
-        } else {
+        selectOpenedCardDeckViewImage()
+        selectCardDeckViewImage()
+    }
+
+    private func selectOpenedCardDeckViewImage() {
+        guard let card = dealerAction.open() else {
             openedCardDeckView.image = nil
+            return
         }
-        if dealerAction.isRemain() {
-            cardDeckView.image = backImage
-        } else {
+        openedCardDeckView.image = UIImage(named: card.image)
+    }
+
+    private func selectCardDeckViewImage() {
+        guard dealerAction.isRemain() else {
             cardDeckView.image = refreshImage
+            return
         }
+        cardDeckView.image = backImage
     }
 
-    private func drawSevenPiles() {
-        for i in 0..<7 {
+    private func spreadSevenPiles() {
+        for xIndex in 0..<7 {
             sevenPileViews.append([])
-            for j in 0...i {
-                sevenPileViews[i].append(getCardPile(xIndex: i, yIndex: j))
-                self.view.addSubview(sevenPileViews[i][j])
-            }
+            spreadAPile(xIndex: xIndex)
         }
     }
 
-    private func getCardPile(xIndex: Int, yIndex: Int) -> UIImageView {
+    private func spreadAPile(xIndex: Int) {
+        for yIndex in 0...xIndex {
+            sevenPileViews[xIndex].append(getACardImageViewForAPile(xIndex: xIndex, yIndex: yIndex))
+            self.view.addSubview(sevenPileViews[xIndex][yIndex])
+        }
+    }
+
+    private func getACardImageViewForAPile(xIndex: Int, yIndex: Int) -> UIImageView {
         let cardPileTopMargin = CGFloat(100) + (CGFloat(15) * CGFloat(yIndex))
         let imageView = UIImageView(frame: getCardLocation(index: xIndex, topMargin: cardPileTopMargin))
         let card = dealerAction.removeOne()

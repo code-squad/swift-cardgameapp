@@ -59,5 +59,10 @@ class DealerActionTest: XCTestCase {
         let cardPacks = dealerAction.getCardPacks(packCount: 3)
         XCTAssertEqual(cardPacks.description, "[[♣️A], [♦️A, ♥️A], [♠️A, ♣️K, ♦️K]]")
     }
+
+    func testOpen() {
+        var dealerAction = DealerAction()
+        XCTAssertEqual(dealerAction.open()?.description, "♣️A")
+    }
     
 }
