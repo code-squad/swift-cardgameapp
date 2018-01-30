@@ -32,6 +32,7 @@ class ViewController: UIViewController {
         if motion == .motionShake {
             dealerAction.reset()
             dealerAction.shuffle()
+            sevenPileViews = []
             spreadSevenPiles()
         }
     }
