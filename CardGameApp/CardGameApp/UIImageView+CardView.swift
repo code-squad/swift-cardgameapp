@@ -17,6 +17,10 @@ extension UIImageView {
         self.layer.borderColor = UIColor.white.cgColor
     }
     
+    func makeCardView(index: CGFloat) {
+        self.makeCardView(index: index, yPoint: UIApplication.shared.statusBarFrame.height)
+    }
+    
     func makeCardView(index: CGFloat, yPoint: CGFloat) {
         let xPoint = ((self.cardSize().width + self.marginBetweenCard()) * CGFloat(index)) + self.marginBetweenCard()
         self.makeBasicView()
@@ -39,7 +43,7 @@ extension UIImageView {
         return margin
     }
     
-    func makeRefreshButton() {
+    func refreshButton() {
         guard let image = UIImage(named: "cardgameapp-refresh-app") else { return }
         let screenWidth = UIScreen.main.fixedCoordinateSpace.bounds.width
         let yPoint = UIApplication.shared.statusBarFrame.height
