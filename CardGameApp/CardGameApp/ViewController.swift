@@ -10,49 +10,84 @@ import UIKit
 
 class ViewController: UIViewController {
     private var deck: Deck!
-
+    private var gameTable: Table!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         makeBackGround()
         self.deck = Deck()
-        self.deck.shuffle()
-        makeOpenCards()
-        makeEmptyCard()
-        makeRestDeck()
+        self.gameTable = Table(with: self.deck)
+        makeTableOpenCards()
+        makeFoundation()
+        makeDeck()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    private func makeEmptyCard() {
+    private func makeFoundation() {
         for index in 0..<4 {
-            let emptyCard = UIImageView()
-            emptyCard.makeCardView(index: index, yCoordinate: 20)
-            self.view.addSubview(emptyCard)
+            let cardPlace = UIImageView()
+            cardPlace.makeCardView(index: CGFloat(index), yPoint: UIApplication.shared.statusBarFrame.height)
+            self.view.addSubview(cardPlace)
         }
     }
     
-    private func makeRestDeck() {
+    private func makeDeck() {
         guard let restOfcardCover = deck.getRestDeck().last else { return }
         let lastColumn = 6
         if !restOfcardCover.isUpside() {
             let backSide = UIImageView(image: UIImage(named: "card_back"))
-            backSide.makeCardView(index: lastColumn, yCoordinate: UIApplication.shared.statusBarFrame.height)
+            backSide.makeCardView(index: CGFloat(lastColumn), yPoint: UIApplication.shared.statusBarFrame.height)
+            let gesture = UITapGestureRecognizer(target: self,
+                                                 action: #selector (popCard(_:)))
+            backSide.addGestureRecognizer(gesture)
+            backSide.isUserInteractionEnabled = true
             self.view.addSubview(backSide)
         }
     }
     
-    private func makeOpenCards() {
-        guard let stack = try? self.deck.makeStack(numberOfCards: 7) else { return }
-        let playCardYPoint = CGFloat(80)
-        for index in 0..<stack.count {
-            let card = stack[index]
-            card.flipCard()
-            let cardView = UIImageView(image: UIImage(named: card.getCardName()))
-            cardView.makeCardView(index: index, yCoordinate: UIApplication.shared.statusBarFrame.height + playCardYPoint)
-            self.view.addSubview(cardView)
+    @objc private func popCard(_ touch: UITapGestureRecognizer) {
+        if touch.state == .ended {
+            if let oneCard = deck.popCard() {
+                oneCard.flipCard()
+                let cardView = UIImageView(image: UIImage(named: oneCard.getCardName()))
+                cardView.makeCardView(index: 4.5, yPoint: UIApplication.shared.statusBarFrame.height)
+                self.view.addSubview(cardView)
+            } else if deck.isEmptyDeck() {
+                let button = UIImageView(image: UIImage(named: "cardgameapp-refresh-app"))
+                button.makeRefreshButton()
+                self.view.addSubview(button)
+            }
         }
+    }
+    
+    private func makeTableOpenCards() {
+        self.deck = try? self.gameTable.dealTheCardOfGameTable()
+        let tableStacks = makeColumnView()
+        var column = 0
+        for cardView in tableStacks {
+            for index in 0..<cardView.count {
+                cardView[index].makeStackView(column: column, cardsRow: index)
+                self.view.addSubview(cardView[index])
+            }
+            column += 1
+        }
+    }
+    
+    private func makeColumnView() -> [[UIImageView]] {
+        var cardStackView = [[UIImageView]]()
+        var cardView = UIImageView()
+        for cards in gameTable.cardStacksOfTable {
+            var stacks = [UIImageView]()
+            for card in cards {
+                if card.isUpside() {
+                    cardView = UIImageView(image: UIImage(named: card.getCardName()))
+                } else {
+                    cardView = UIImageView(image: UIImage(named: "card_back"))
+                }
+                stacks.append(cardView)
+            }
+            cardStackView.append(stacks)
+        }
+        return cardStackView
     }
     
     private func makeBackGround() {
@@ -63,7 +98,9 @@ class ViewController: UIViewController {
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         super.motionEnded(motion, with: event)
         if motion == .motionShake {
-            makeOpenCards()
+            self.deck = Deck()
+            self.gameTable = Table(with: self.deck)
+            makeTableOpenCards()
         }
     }
 }

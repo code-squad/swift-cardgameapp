@@ -8,17 +8,7 @@
 
 import Foundation
 
-class Card: Equatable {
-    static func == (lhs: Card, rhs: Card) -> Bool {
-        return (lhs.suit == rhs.suit) && (lhs.rank == rhs.rank)
-    }
-    
-    static func < (lhs: Card, rhs: Card) -> Bool {
-        let lhsRank = lhs.rank
-        let rhsRank = rhs.rank
-        return Int(Card.Rank.allValues.index(of: lhsRank)!) < Int(Card.Rank.allValues.index(of: rhsRank)!)
-    }
-    
+class Card {
     private var suit: Suit
     private var rank: Rank
     private var face: Bool
@@ -105,4 +95,17 @@ extension Card: CustomStringConvertible {
     var description: String {
         return suit.rawValue + rank.rawValue
     }
+}
+
+extension Card: Equatable {
+    static func == (lhs: Card, rhs: Card) -> Bool {
+        return (lhs.suit == rhs.suit) && (lhs.rank == rhs.rank)
+    }
+    
+    static func < (lhs: Card, rhs: Card) -> Bool {
+        let lhsRank = lhs.rank
+        let rhsRank = rhs.rank
+        return Int(Card.Rank.allValues.index(of: lhsRank)!) < Int(Card.Rank.allValues.index(of: rhsRank)!)
+    }
+
 }

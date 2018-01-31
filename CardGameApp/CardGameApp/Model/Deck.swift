@@ -29,7 +29,7 @@ struct Deck {
         return newDeck
     }
     
-    mutating func removeOne() -> Card? {
+    mutating func popCard() -> Card? {
         return self.cards.popLast()
     }
     
@@ -50,6 +50,10 @@ struct Deck {
     
     func getRestDeck() -> [Card] {
         return cards
+    }
+    
+    func isEmptyDeck() -> Bool {
+        return cards.isEmpty
     }
 }
 
