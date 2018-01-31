@@ -24,17 +24,14 @@ class Card {
 }
 
 extension Card {
-    func showCard() -> (shape: Shape, number: Number)? {
-        var facedUpCard: (Shape, Number)?
-        if self.isFaceUp {
-            facedUpCard = (self.shape, self.number)
-        } else {
-            facedUpCard = nil
+    func showCard() -> UIImage? {
+        if isFaceUp {
+            return frontImage
         }
-        return facedUpCard
+        return nil
     }
 
-    // 숨겨져있는 카드를 보이도록 뒤집음.
+    // 카드 앞뒷면 뒤집음
     func turnOver() {
         if !isFaceUp {
             self.isFaceUp = true
