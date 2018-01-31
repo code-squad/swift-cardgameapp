@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 // Card = Rank + Suit
 class Card {
@@ -22,6 +23,10 @@ class Card {
 }
 
 extension Card {
+    func image() -> UIImage {
+        return UIImage(imageLiteralResourceName: self.description)
+    }
+
     func showCard() -> (shape: Shape, number: Number)? {
         var facedUpCard: (Shape, Number)?
         if self.isFaceUp {
@@ -38,6 +43,7 @@ extension Card {
             self.isFaceUp = true
         }
     }
+
 }
 
 // 카드 한 장 출력 포맷. 모양+숫자 형태.
