@@ -9,7 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
-    private var foundationViews: [UIImageView] = []
+    private var foundationsView: FoundationsView!
+    private var foundationsVM: FoundationsViewModel!
     private var sevenPileViews: [[UIImageView]] = []
     private var cardDeckView: UIImageView!
     private var openedCardDeckView: UIImageView!
@@ -22,6 +23,8 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        foundationsView = FoundationsView()
+        foundationsVM = FoundationsViewModel()
         setCardGame()
         configureCardGame()
     }
@@ -83,9 +86,11 @@ class ViewController: UIViewController {
 
     private func configureFoundations() {
         for i in 0..<Figure.Count.foundations.value {
-            foundationViews.append(getFoundation(index: i))
-            self.view.addSubview(foundationViews[i])
+            foundationsView.addSubview(getFoundation(index: i))
+//            foundationViews.append(getFoundation(index: i))
+//            self.view.addSubview(foundationViews[i])
         }
+        self.view.addSubview(foundationsView)
     }
 
     private func getFoundation(index: Int) -> UIImageView {
@@ -131,6 +136,7 @@ class ViewController: UIViewController {
             return
         }
         openedCardDeckView.image = UIImage(named: card.image)
+        foundationsVM.push(card: card)
     }
 
     private func selectCardDeckViewImage() {
