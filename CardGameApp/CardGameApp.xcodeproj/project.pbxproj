@@ -127,15 +127,15 @@
 		EEBF591F202191CC00093436 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				EEBF5920202191CC00093436 /* Dealer.swift */,
+				EEBF5927202191CC00093436 /* StudPokerGame.swift */,
+				EEBF5925202191CC00093436 /* Deck.swift */,
 				EEBF5921202191CC00093436 /* PokerHands.swift */,
+				EEBF5920202191CC00093436 /* Dealer.swift */,
+				EEBF5928202191CC00093436 /* Player.swift */,
 				EEBF5922202191CC00093436 /* CardStack.swift */,
 				EEBF5923202191CC00093436 /* Card.swift */,
 				EEBF5924202191CC00093436 /* Number.swift */,
-				EEBF5925202191CC00093436 /* Deck.swift */,
 				EEBF5926202191CC00093436 /* Shape.swift */,
-				EEBF5927202191CC00093436 /* StudPokerGame.swift */,
-				EEBF5928202191CC00093436 /* Player.swift */,
 			);
 			path = Game;
 			sourceTree = "<group>";
