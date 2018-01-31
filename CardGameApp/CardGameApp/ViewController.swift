@@ -17,6 +17,10 @@ class ViewController: UIViewController {
         makeBackGround()
         self.deck = Deck()
         self.gameTable = Table(with: self.deck)
+        makeGameTable()
+    }
+    
+    func makeGameTable() {
         makeTableOpenCards()
         makeFoundation()
         makeDeck()
@@ -40,6 +44,7 @@ class ViewController: UIViewController {
                                                  action: #selector (popCard(_:)))
             backSide.addGestureRecognizer(gesture)
             backSide.isUserInteractionEnabled = true
+            backSide.tag = 1
             self.view.addSubview(backSide)
         }
     }
@@ -54,6 +59,9 @@ class ViewController: UIViewController {
             } else if deck.isEmptyDeck() {
                 let button = UIImageView(image: UIImage(named: "cardgameapp-refresh-app"))
                 button.makeRefreshButton()
+                if let deckCoverView = self.view.viewWithTag(1) {
+                    deckCoverView.removeFromSuperview()
+                }
                 self.view.addSubview(button)
             }
         }
@@ -100,7 +108,8 @@ class ViewController: UIViewController {
         if motion == .motionShake {
             self.deck = Deck()
             self.gameTable = Table(with: self.deck)
-            makeTableOpenCards()
+            self.view.subviews.forEach { $0.removeFromSuperview() }
+            makeGameTable()
         }
     }
 }

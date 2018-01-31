@@ -12,6 +12,8 @@ extension UIImageView {
     func makeStackView(column: Int, cardsRow: Int) {
         let playCardYPoint = CGFloat(80)
         self.makeCardView(index: CGFloat(column),
-                          yPoint: playCardYPoint + UIApplication.shared.statusBarFrame.height + CGFloat(cardsRow) * 20)
+                          yPoint: playCardYPoint
+                            + UIApplication.shared.statusBarFrame.height
+                            + CGFloat(cardsRow) * 20)
     }
 }
