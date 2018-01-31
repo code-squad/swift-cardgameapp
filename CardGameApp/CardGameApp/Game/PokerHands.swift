@@ -30,7 +30,7 @@ class PokerHands {
     private func makeFrequecyTables() {
         for card in self.sortedCards {
             // 특정 카드의 숫자, 모양.
-            guard let currCard = card.showCard() else { return }
+            guard let currCard = card.showCardInfo() else { return }
             self.numberFrequencies.updateTable(forKey: currCard.number)
             self.shapeFrequencies.updateTable(forKey: currCard.shape)
         }
