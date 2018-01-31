@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		404A85A520219394008D2FA1 /* UIImageView+CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404A85A420219394008D2FA1 /* UIImageView+CardStack.swift */; };
 		407D850D201EC0DB00071EDB /* UIImageView+CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407D850C201EC0DB00071EDB /* UIImageView+CardView.swift */; };
-		407D851A201EE4C200071EDB /* CardGameInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407D8510201EE4C100071EDB /* CardGameInfo.swift */; };
 		407D851B201EE4C200071EDB /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407D8511201EE4C100071EDB /* Table.swift */; };
 		407D851E201EE4C200071EDB /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407D8514201EE4C100071EDB /* Deck.swift */; };
 		407D851F201EE4C200071EDB /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407D8515201EE4C100071EDB /* Card.swift */; };
@@ -42,8 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		404A85A420219394008D2FA1 /* UIImageView+CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+CardStack.swift"; sourceTree = "<group>"; };
 		407D850C201EC0DB00071EDB /* UIImageView+CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+CardView.swift"; sourceTree = "<group>"; };
-		407D8510201EE4C100071EDB /* CardGameInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardGameInfo.swift; sourceTree = "<group>"; };
 		407D8511201EE4C100071EDB /* Table.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
 		407D8514201EE4C100071EDB /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		407D8515201EE4C100071EDB /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -95,7 +95,6 @@
 			children = (
 				407D85232020034600071EDB /* PokerHand.swift */,
 				407D8515201EE4C100071EDB /* Card.swift */,
-				407D8510201EE4C100071EDB /* CardGameInfo.swift */,
 				407D8514201EE4C100071EDB /* Deck.swift */,
 				407D8516201EE4C200071EDB /* ErrorCode.swift */,
 				407D8511201EE4C100071EDB /* Table.swift */,
@@ -130,6 +129,7 @@
 				40A136D6201ACFD700756974 /* AppDelegate.swift */,
 				40A136D8201ACFD700756974 /* ViewController.swift */,
 				407D850C201EC0DB00071EDB /* UIImageView+CardView.swift */,
+				404A85A420219394008D2FA1 /* UIImageView+CardStack.swift */,
 				40A136DA201ACFD700756974 /* Main.storyboard */,
 				40A136DD201ACFD700756974 /* Assets.xcassets */,
 				40A136DF201ACFD700756974 /* LaunchScreen.storyboard */,
@@ -309,11 +309,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				407D851E201EE4C200071EDB /* Deck.swift in Sources */,
+				404A85A520219394008D2FA1 /* UIImageView+CardStack.swift in Sources */,
 				407D851B201EE4C200071EDB /* Table.swift in Sources */,
 				407D85242020034600071EDB /* PokerHand.swift in Sources */,
 				40A136D9201ACFD700756974 /* ViewController.swift in Sources */,
 				407D850D201EC0DB00071EDB /* UIImageView+CardView.swift in Sources */,
-				407D851A201EE4C200071EDB /* CardGameInfo.swift in Sources */,
 				407D8520201EE4C200071EDB /* ErrorCode.swift in Sources */,
 				407D851F201EE4C200071EDB /* Card.swift in Sources */,
 				40A136D7201ACFD700756974 /* AppDelegate.swift in Sources */,
@@ -484,6 +484,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				INFOPLIST_FILE = CardGameApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Napster.CardGameApp;
@@ -498,6 +499,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				INFOPLIST_FILE = CardGameApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Napster.CardGameApp;
