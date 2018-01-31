@@ -14,6 +14,7 @@ class Card {
     private let shape: Shape
     private let number: Number
     private var isFaceUp: Bool
+    private lazy var frontImage = UIImage(imageLiteralResourceName: self.description)
     init(_ shape: Shape, _ number: Number) {
         self.shape = shape
         self.number = number
@@ -23,10 +24,6 @@ class Card {
 }
 
 extension Card {
-    func image() -> UIImage {
-        return UIImage(imageLiteralResourceName: self.description)
-    }
-
     func showCard() -> (shape: Shape, number: Number)? {
         var facedUpCard: (Shape, Number)?
         if self.isFaceUp {
