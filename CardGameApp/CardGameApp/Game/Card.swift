@@ -13,30 +13,14 @@ import UIKit
 class Card {
     private let shape: Shape
     private let number: Number
-    private var isFaceUp: Bool
     init(_ shape: Shape, _ number: Number) {
         self.shape = shape
         self.number = number
-        self.isFaceUp = false
     }
 
-}
-
-extension Card {
-    func showCardInfo() -> (shape: Shape, number: Number)? {
-        if isFaceUp {
-            return (self.shape, self.number)
-        }
-        return nil
+    func cardInfo() -> (shape: Shape, number: Number)? {
+        return (self.shape, self.number)
     }
-
-    // 카드 앞뒷면 뒤집음
-    func turnOver() {
-        if !isFaceUp {
-            self.isFaceUp = true
-        }
-    }
-
 }
 
 // 카드 한 장 출력 포맷. 모양+숫자 형태.
