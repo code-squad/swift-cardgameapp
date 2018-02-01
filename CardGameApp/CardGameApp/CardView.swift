@@ -8,41 +8,49 @@
 
 import UIKit
 
-class CardView: UIView {
-    private let cardInfo: Card
-
-    func layCards() {
-        guard let superview = superview else { return }
-        var cardPosition = CGPoint(x: superview.layoutMargins.left, y: superview.layoutMargins.top)
-        while cardPosition.x+cardSize.width <= superview.frame.maxX-superview.layoutMargins.right {
-            let cardView = generateCard(cardPosition)
-            superview.addSubview(cardView)
-            cardPosition = CGPoint(x: cardView.frame.maxX+cardMargins,
-                                   y: superview.layoutMargins.top)
+class CardView: UIImageView {
+    var frontImage: UIImage?
+    private var backImage: UIImage = UIImage(imageLiteralResourceName: "card-back")
+    private var sidePadding: CGFloat = 4
+    private var isFaceUp: Bool = false
+    var isVacant: Bool = false {
+        didSet {
+            if isVacant {
+                self.image = frontImage
+                self.isOpaque = true
+            }
         }
     }
 
-    private var numberOfCards: CGFloat = 7
-
-    private var cardMargins: CGFloat {
-        guard let superview = superview else { return 0 }
-        let widthWithoutSafeArea = superview.frame.size.width-superview.layoutMargins.left-superview.layoutMargins.right
-        return (widthWithoutSafeArea-cardSize.width*numberOfCards)/numberOfCards
+    // 카드 앞뒷면 뒤집음
+    func turnOver(_ faceToBeUp: Bool) {
+        if faceToBeUp {
+            image = self.frontImage
+            isFaceUp = true
+        } else {
+            image = self.backImage
+            isFaceUp = false
+        }
     }
 
-    private var cardSize: CGSize {
-        guard let superview = superview else { return CGSize() }
-        let width = superview.frame.size.width/numberOfCards-7
-        let height = width*1.27
-        return CGSize(width: width, height: height)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.frame.origin = CGPoint(x: frame.origin.x+sidePadding, y: frame.origin.y)
+        self.frame.size = CGSize(width: frame.size.width-sidePadding, height: frame.size.height)
+        self.image = backImage
     }
 
-    private func generateCard(_ origin: CGPoint) -> UIImageView {
-        let cardImage = UIImage(imageLiteralResourceName: "card-back")
-        let cardImageView = UIImageView(image: cardImage)
-        cardImageView.frame.origin = origin
-        cardImageView.frame.size = cardSize
-        return cardImageView
+    override var frame: CGRect {
+        didSet {
+            self.layer.cornerRadius = 5
+            self.layer.borderColor = UIColor.lightGray.cgColor
+            self.layer.borderWidth = 2
+            self.clipsToBounds = true
+        }
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 
 }
