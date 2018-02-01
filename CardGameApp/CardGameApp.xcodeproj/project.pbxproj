@@ -13,8 +13,8 @@
 		EE22EDE6202044320084F399 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE22EDE4202044320084F399 /* Main.storyboard */; };
 		EE22EDE8202044320084F399 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE22EDE7202044320084F399 /* Assets.xcassets */; };
 		EE22EDEB202044320084F399 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE22EDE9202044320084F399 /* LaunchScreen.storyboard */; };
-		EEBF5929202191CC00093436 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF591C202191CC00093436 /* Extensions.swift */; };
-		EEBF592A202191CC00093436 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF591D202191CC00093436 /* Protocols.swift */; };
+		EEBF5929202191CC00093436 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF591C202191CC00093436 /* ArrayExtension.swift */; };
+		EEBF592A202191CC00093436 /* EnumCollectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF591D202191CC00093436 /* EnumCollectionProtocol.swift */; };
 		EEBF592B202191CC00093436 /* CustomIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF591E202191CC00093436 /* CustomIterator.swift */; };
 		EEBF592C202191CC00093436 /* Dealer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5920202191CC00093436 /* Dealer.swift */; };
 		EEBF592D202191CC00093436 /* PokerHands.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5921202191CC00093436 /* PokerHands.swift */; };
@@ -25,6 +25,13 @@
 		EEBF5932202191CC00093436 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5926202191CC00093436 /* Shape.swift */; };
 		EEBF5933202191CC00093436 /* StudPokerGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5927202191CC00093436 /* StudPokerGame.swift */; };
 		EEBF5934202191CC00093436 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5928202191CC00093436 /* Player.swift */; };
+		EEBF59362021995700093436 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF59352021995700093436 /* CardView.swift */; };
+		EEBF59392021A10500093436 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF59382021A10500093436 /* DictionaryExtension.swift */; };
+		EEBF593C2021A13700093436 /* EnumCollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF593B2021A13700093436 /* EnumCollectionExtension.swift */; };
+		EEBF593E2021A16600093436 /* StackProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF593D2021A16600093436 /* StackProtocol.swift */; };
+		EEBF59402021A19300093436 /* PokerScoreableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF593F2021A19300093436 /* PokerScoreableProtocol.swift */; };
+		EEBF59422021A1B000093436 /* CardGamePlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF59412021A1B000093436 /* CardGamePlayerProtocol.swift */; };
+		EEBF59442021A1C200093436 /* ComparableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF59432021A1C200093436 /* ComparableProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +45,8 @@
 		EE22EDE7202044320084F399 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE22EDEA202044320084F399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE22EDEC202044320084F399 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EEBF591C202191CC00093436 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		EEBF591D202191CC00093436 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		EEBF591C202191CC00093436 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		EEBF591D202191CC00093436 /* EnumCollectionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumCollectionProtocol.swift; sourceTree = "<group>"; };
 		EEBF591E202191CC00093436 /* CustomIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomIterator.swift; sourceTree = "<group>"; };
 		EEBF5920202191CC00093436 /* Dealer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dealer.swift; sourceTree = "<group>"; };
 		EEBF5921202191CC00093436 /* PokerHands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokerHands.swift; sourceTree = "<group>"; };
@@ -50,6 +57,13 @@
 		EEBF5926202191CC00093436 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		EEBF5927202191CC00093436 /* StudPokerGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudPokerGame.swift; sourceTree = "<group>"; };
 		EEBF5928202191CC00093436 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		EEBF59352021995700093436 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		EEBF59382021A10500093436 /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
+		EEBF593B2021A13700093436 /* EnumCollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumCollectionExtension.swift; sourceTree = "<group>"; };
+		EEBF593D2021A16600093436 /* StackProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackProtocol.swift; sourceTree = "<group>"; };
+		EEBF593F2021A19300093436 /* PokerScoreableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokerScoreableProtocol.swift; sourceTree = "<group>"; };
+		EEBF59412021A1B000093436 /* CardGamePlayerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGamePlayerProtocol.swift; sourceTree = "<group>"; };
+		EEBF59432021A1C200093436 /* ComparableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparableProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +118,7 @@
 			children = (
 				EE22EDE0202044320084F399 /* AppDelegate.swift */,
 				EE22EDE2202044320084F399 /* ViewController.swift */,
+				EEBF59352021995700093436 /* CardView.swift */,
 				EEBF591F202191CC00093436 /* Game */,
 				EEBF591B202191CC00093436 /* Utilities */,
 				EE22EDE4202044320084F399 /* Main.storyboard */,
@@ -117,8 +132,8 @@
 		EEBF591B202191CC00093436 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				EEBF591C202191CC00093436 /* Extensions.swift */,
-				EEBF591D202191CC00093436 /* Protocols.swift */,
+				EEBF59372021A0DD00093436 /* Extensions */,
+				EEBF593A2021A11000093436 /* Protocols */,
 				EEBF591E202191CC00093436 /* CustomIterator.swift */,
 			);
 			path = Utilities;
@@ -138,6 +153,28 @@
 				EEBF5926202191CC00093436 /* Shape.swift */,
 			);
 			path = Game;
+			sourceTree = "<group>";
+		};
+		EEBF59372021A0DD00093436 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EEBF591C202191CC00093436 /* ArrayExtension.swift */,
+				EEBF59382021A10500093436 /* DictionaryExtension.swift */,
+				EEBF593B2021A13700093436 /* EnumCollectionExtension.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		EEBF593A2021A11000093436 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				EEBF591D202191CC00093436 /* EnumCollectionProtocol.swift */,
+				EEBF593D2021A16600093436 /* StackProtocol.swift */,
+				EEBF593F2021A19300093436 /* PokerScoreableProtocol.swift */,
+				EEBF59412021A1B000093436 /* CardGamePlayerProtocol.swift */,
+				EEBF59432021A1C200093436 /* ComparableProtocol.swift */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,18 +317,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEBF593C2021A13700093436 /* EnumCollectionExtension.swift in Sources */,
 				EEBF5930202191CC00093436 /* Number.swift in Sources */,
 				EE22EDE3202044320084F399 /* ViewController.swift in Sources */,
 				EEBF592F202191CC00093436 /* Card.swift in Sources */,
 				EEBF592B202191CC00093436 /* CustomIterator.swift in Sources */,
+				EEBF59362021995700093436 /* CardView.swift in Sources */,
 				EEBF5934202191CC00093436 /* Player.swift in Sources */,
 				EEBF592E202191CC00093436 /* CardStack.swift in Sources */,
+				EEBF59392021A10500093436 /* DictionaryExtension.swift in Sources */,
+				EEBF59442021A1C200093436 /* ComparableProtocol.swift in Sources */,
 				EEBF592C202191CC00093436 /* Dealer.swift in Sources */,
-				EEBF5929202191CC00093436 /* Extensions.swift in Sources */,
+				EEBF593E2021A16600093436 /* StackProtocol.swift in Sources */,
+				EEBF5929202191CC00093436 /* ArrayExtension.swift in Sources */,
+				EEBF59422021A1B000093436 /* CardGamePlayerProtocol.swift in Sources */,
+				EEBF59402021A19300093436 /* PokerScoreableProtocol.swift in Sources */,
 				EEBF5933202191CC00093436 /* StudPokerGame.swift in Sources */,
 				EEBF5932202191CC00093436 /* Shape.swift in Sources */,
 				EE22EDE1202044320084F399 /* AppDelegate.swift in Sources */,
-				EEBF592A202191CC00093436 /* Protocols.swift in Sources */,
+				EEBF592A202191CC00093436 /* EnumCollectionProtocol.swift in Sources */,
 				EEBF5931202191CC00093436 /* Deck.swift in Sources */,
 				EEBF592D202191CC00093436 /* PokerHands.swift in Sources */,
 			);
