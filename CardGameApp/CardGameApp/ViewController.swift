@@ -10,38 +10,139 @@ import UIKit
 
 class ViewController: UIViewController {
     private var deck: Deck?
+    private var dealedPosition: CGPoint?
+    private var vacantPosition: CGPoint?
+    private var sparePosition: CGPoint?
+    private var revealedSparePosition: CGPoint?
+    private let maxStud = 7
+    private let horizontalStackSpacing: CGFloat = 4
+    private var vacantStackView: UIStackView? {
+        didSet {
+            guard let vacantStackView = vacantStackView else { return }
+            view.addSubview(vacantStackView)
+        }
+    }
+    private var dealedStackView: UIStackView? {
+        didSet {
+            guard let dealedStackView = dealedStackView else { return }
+            view.addSubview(dealedStackView)
+        }
+    }
+    private var spareStackView: CardViewStack? {
+        didSet {
+            guard let spareStackView = spareStackView else { return }
+            view.addSubview(spareStackView)
+        }
+    }
+    private var revealedStackView: CardViewStack? {
+        didSet {
+            guard let revealedStackView = revealedStackView else { return }
+            view.addSubview(revealedStackView)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        // 배경 패턴 그림
+        drawBackground()
+        // 위치 지정
+        vacantPosition = CGPoint(x: view.layoutMargins.left, y: view.layoutMargins.top)
+        dealedPosition = CGPoint(x: view.layoutMargins.left, y: view.layoutMargins.top+cardSize.height+15)
+        sparePosition = CGPoint(x: view.frame.width-(view.layoutMargins.right+cardSize.width)+horizontalStackSpacing,
+                                y: view.layoutMargins.top)
+        revealedSparePosition = CGPoint(x: sparePosition!.x-cardSize.width-horizontalStackSpacing,
+                                        y: view.layoutMargins.top)
         initGameBoard()
     }
 
     private func initGameBoard() {
-        drawBackground()
-        reset()
-        vacantPosition = CGPoint(x: view.layoutMargins.left, y: view.layoutMargins.top)
-        sparePosition = CGPoint(x: view.frame.width-(view.layoutMargins.right+cardSize.width),
-                                y: view.layoutMargins.top)
-        dealedPosition = CGPoint(x: view.layoutMargins.left, y: view.layoutMargins.top+cardSize.height+15)
-        drawVacantSpaces(4, on: vacantPosition)
-        lay(cards: deck?.drawMany(selectedCount: 1), on: sparePosition, false)
-        lay(cards: deck?.drawMany(selectedCount: 7), on: dealedPosition, true)
+        // 덱 생성 및 셔플
+        resetDeck()
+        // 배치
+        dealedStackView = dealedStackView(on: dealedPosition)
+        vacantStackView = vacantStackView(of: 4, on: vacantPosition)
+        let spareCardViews = makeCardViews(from: deck?.remnants(), lastCardFaceToBeUp: false)
+        let size = CGSize(width: cardSize.width-horizontalStackSpacing, height: cardSize.height)
+        revealedStackView = CardViewStack([], CGRect(origin: revealedSparePosition!, size: size))
+        spareStackView = SpareCardViewStack(spareCardViews,
+                                            CGRect(origin: sparePosition!, size: size),
+                                            revealedStackView: revealedStackView)
     }
 
-    private func reset() {
-        deck = Deck()
-        deck?.shuffle()
-    }
-
-    private var vacantPosition: CGPoint?
-    private var sparePosition: CGPoint?
-    private var dealedPosition: CGPoint?
-
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            reset()
-            lay(cards: deck?.drawMany(selectedCount: 1), on: sparePosition, false)
-            lay(cards: deck?.drawMany(selectedCount: 7), on: dealedPosition, true)
+    private func dealedStackView(on position: CGPoint?) -> UIStackView? {
+        guard let position = position else { return nil }
+        let cardInfos = dealedCardInfos()
+        let verticalStackViews = makeCardViewStacks(using: cardInfos)
+        let horizontalStackView = UIStackView(frame: CGRect(origin: position,
+                                                            size: CGSize(width: view.frame.width,
+                                                                         height: view.frame.height-position.y)))
+        for stack in verticalStackViews {
+            horizontalStackView.addArrangedSubview(stack)
         }
+        horizontalStackView.configureStackSetting(axis: .horizontal,
+                                                  distribution: .fillEqually,
+                                                  spacing: horizontalStackSpacing)
+        return horizontalStackView
+    }
+
+    private func makeCardViewStacks(using cardStacks: [CardStack?]) -> [CardViewStack] {
+        var cardViewStacks: [CardViewStack] = []
+        cardStacks.forEach { cardInfos in
+            let cardViews = makeCardViews(from: cardInfos, lastCardFaceToBeUp: true)
+            let cardViewStack = CardViewStack(cardViews, .zero)
+            cardViewStack.configureStackSetting(axis: .vertical,
+                                                distribution: .fill,
+                                                spacing: -cardSize.height*0.7)
+            // 스택뷰 높이 - ((가려진 카드 높이) x (총 카드개수-1개) + 마지막 카드높이)
+            let bottomMargin =
+                (view.frame.height-dealedPosition!.y)-(CGFloat(cardViews.count-1)*cardSize.height*0.3+cardSize.height)
+            cardViewStack.setBottomLayoutMargins(bottomMargin)
+            cardViewStacks.append(cardViewStack)
+        }
+        return cardViewStacks
+    }
+
+    private func dealedCardInfos() -> [CardStack?] {
+        var verticalCardStacks: [CardStack?] = []
+        for numberOfCards in 0..<maxStud {
+            let cardStack = deck?.drawMany(selectedCount: numberOfCards+1)
+            verticalCardStacks.append(cardStack)
+        }
+        return verticalCardStacks
+    }
+
+    private func makeCardViews(from cardInfos: CardStack?, lastCardFaceToBeUp: Bool) -> [CardView] {
+        var cardViews: [CardView] = []
+        cardInfos?.forEach({ (cardInfo) in
+            let newCardView = makeCardView(cardInfo)
+            cardViews.append(newCardView)
+        })
+        cardViews.last?.turnOver(lastCardFaceToBeUp)
+        return cardViews
+    }
+
+    private func makeCardView(_ cardInfo: Card) -> CardView {
+        let frontImage = UIImage(imageLiteralResourceName: cardInfo.description)
+        let backImage = UIImage(imageLiteralResourceName: "card-back")
+        let newCardView = CardView(frame: .zero, frontImage: frontImage, backImage: backImage)
+        newCardView.setSizeConstraint(to: self.cardSize)
+        return newCardView
+    }
+
+    private func vacantStackView(of count: Int, on position: CGPoint?) -> UIStackView? {
+        guard let position = position else { return nil }
+        let vacantStack = UIStackView(frame: CGRect(origin: position,
+                                                    size: CGSize(width: view.frame.width-cardSize.width*3,
+                                                                 height: cardSize.height)))
+        vacantStack.configureStackSetting(axis: .horizontal,
+                                          distribution: .fillEqually,
+                                          spacing: horizontalStackSpacing)
+        for _ in 0..<count {
+            let vacantView = CardView(frame: .zero, frontImage: nil, backImage: nil)
+            vacantView.setSizeConstraint(to: self.cardSize)
+            vacantStack.addArrangedSubview(vacantView)
+        }
+        return vacantStack
     }
 
     private func drawBackground() {
@@ -53,42 +154,22 @@ class ViewController: UIViewController {
                                           right: 0)
     }
 
-    private func lay(cards: CardStack?, on position: CGPoint?, _ faceToBeUp: Bool) {
-        guard var position = position else { return }
-        cards?.forEach { card in
-            let cardView = makeCardView(card, position, faceToBeUp)
-            view.addSubview(cardView)
-            position = CGPoint(x: cardView.frame.maxX, y: position.y)
-        }
-    }
-
-    private func drawVacantSpaces(_ count: Int, on position: CGPoint?) {
-        guard var position = position else { return }
-        for _ in 0..<count {
-            let vacantSpace = makeVacantSpace(position)
-            view.addSubview(vacantSpace)
-            position = CGPoint(x: vacantSpace.frame.maxX, y: position.y)
-        }
-    }
-
-    private func makeCardView(_ cardInfo: Card, _ origin: CGPoint, _ faceToBeUp: Bool) -> CardView {
-        let newCardView = CardView(frame: CGRect(origin: origin, size: cardSize))
-        newCardView.frontImage = UIImage(imageLiteralResourceName: cardInfo.description)
-        faceToBeUp ? newCardView.turnOver(true) : newCardView.turnOver(false)
-        return newCardView
-    }
-
-    private func makeVacantSpace(_ origin: CGPoint) -> CardView {
-        let vacantSpace = CardView(frame: CGRect(origin: origin, size: cardSize))
-        vacantSpace.isVacant = true
-        return vacantSpace
-    }
-
-    private var cardSize: CGSize {
+    var cardSize: CGSize {
         guard let view = view else { return CGSize() }
         let width = view.frame.size.width/7
         let height = width*1.27
         return CGSize(width: width, height: height)
+    }
+
+    private func resetDeck() {
+        deck = Deck()
+        deck?.shuffle()
+    }
+
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            initGameBoard()
+        }
     }
 
 }

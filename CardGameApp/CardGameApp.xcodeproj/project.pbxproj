@@ -13,6 +13,9 @@
 		EE22EDE6202044320084F399 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE22EDE4202044320084F399 /* Main.storyboard */; };
 		EE22EDE8202044320084F399 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE22EDE7202044320084F399 /* Assets.xcassets */; };
 		EE22EDEB202044320084F399 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE22EDE9202044320084F399 /* LaunchScreen.storyboard */; };
+		EE2B46022025BF1500B5C078 /* SpareCardViewStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2B46012025BF1500B5C078 /* SpareCardViewStack.swift */; };
+		EE4ABE3C20241E8A00764D8D /* CardViewStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4ABE3B20241E8A00764D8D /* CardViewStack.swift */; };
+		EE4ABE3E2024686D00764D8D /* UIStackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4ABE3D2024686D00764D8D /* UIStackViewExtension.swift */; };
 		EEBF5929202191CC00093436 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF591C202191CC00093436 /* ArrayExtension.swift */; };
 		EEBF592A202191CC00093436 /* EnumCollectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF591D202191CC00093436 /* EnumCollectionProtocol.swift */; };
 		EEBF592B202191CC00093436 /* CustomIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF591E202191CC00093436 /* CustomIterator.swift */; };
@@ -45,6 +48,9 @@
 		EE22EDE7202044320084F399 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE22EDEA202044320084F399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE22EDEC202044320084F399 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE2B46012025BF1500B5C078 /* SpareCardViewStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpareCardViewStack.swift; sourceTree = "<group>"; };
+		EE4ABE3B20241E8A00764D8D /* CardViewStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewStack.swift; sourceTree = "<group>"; };
+		EE4ABE3D2024686D00764D8D /* UIStackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackViewExtension.swift; sourceTree = "<group>"; };
 		EEBF591C202191CC00093436 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		EEBF591D202191CC00093436 /* EnumCollectionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumCollectionProtocol.swift; sourceTree = "<group>"; };
 		EEBF591E202191CC00093436 /* CustomIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomIterator.swift; sourceTree = "<group>"; };
@@ -118,6 +124,8 @@
 			children = (
 				EE22EDE0202044320084F399 /* AppDelegate.swift */,
 				EE22EDE2202044320084F399 /* ViewController.swift */,
+				EE4ABE3B20241E8A00764D8D /* CardViewStack.swift */,
+				EE2B46012025BF1500B5C078 /* SpareCardViewStack.swift */,
 				EEBF59352021995700093436 /* CardView.swift */,
 				EEBF591F202191CC00093436 /* Game */,
 				EEBF591B202191CC00093436 /* Utilities */,
@@ -143,11 +151,11 @@
 			isa = PBXGroup;
 			children = (
 				EEBF5927202191CC00093436 /* StudPokerGame.swift */,
-				EEBF5925202191CC00093436 /* Deck.swift */,
-				EEBF5921202191CC00093436 /* PokerHands.swift */,
 				EEBF5920202191CC00093436 /* Dealer.swift */,
-				EEBF5928202191CC00093436 /* Player.swift */,
+				EEBF5921202191CC00093436 /* PokerHands.swift */,
+				EEBF5925202191CC00093436 /* Deck.swift */,
 				EEBF5922202191CC00093436 /* CardStack.swift */,
+				EEBF5928202191CC00093436 /* Player.swift */,
 				EEBF5923202191CC00093436 /* Card.swift */,
 				EEBF5924202191CC00093436 /* Number.swift */,
 				EEBF5926202191CC00093436 /* Shape.swift */,
@@ -161,6 +169,7 @@
 				EEBF591C202191CC00093436 /* ArrayExtension.swift */,
 				EEBF59382021A10500093436 /* DictionaryExtension.swift */,
 				EEBF593B2021A13700093436 /* EnumCollectionExtension.swift */,
+				EE4ABE3D2024686D00764D8D /* UIStackViewExtension.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -318,11 +327,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEBF593C2021A13700093436 /* EnumCollectionExtension.swift in Sources */,
+				EE2B46022025BF1500B5C078 /* SpareCardViewStack.swift in Sources */,
+				EE4ABE3E2024686D00764D8D /* UIStackViewExtension.swift in Sources */,
 				EEBF5930202191CC00093436 /* Number.swift in Sources */,
 				EE22EDE3202044320084F399 /* ViewController.swift in Sources */,
 				EEBF592F202191CC00093436 /* Card.swift in Sources */,
 				EEBF592B202191CC00093436 /* CustomIterator.swift in Sources */,
 				EEBF59362021995700093436 /* CardView.swift in Sources */,
+				EE4ABE3C20241E8A00764D8D /* CardViewStack.swift in Sources */,
 				EEBF5934202191CC00093436 /* Player.swift in Sources */,
 				EEBF592E202191CC00093436 /* CardStack.swift in Sources */,
 				EEBF59392021A10500093436 /* DictionaryExtension.swift in Sources */,
