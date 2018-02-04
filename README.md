@@ -83,3 +83,15 @@ private func initGameBoard() {
 2017-02-01 (작업시간: 2일)
 
 <br/>
+
+## 카드스택으로 표시
+<img src="img/3_screenshot1.png" width="33%"></img/><img src="img/3_screenshot2.png" width="33%"></img/><img src="img/3_screenshot3.png" width="33%"></img/>
+
+### 
+
+### 학습 내용
+>- **[UIStackView 코드로 사용하기]()**
+
+2017-02-03 (작업시간: 2일)
+
+<br/>
