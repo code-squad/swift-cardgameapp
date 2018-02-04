@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     private var dealedPosition: CGPoint?
     private var vacantPosition: CGPoint?
     private var sparePosition: CGPoint?
-    private var revealedSparePosition: CGPoint?
+    private var revealedPosition: CGPoint?
     private let maxStud = 7
     private let horizontalStackSpacing: CGFloat = 4
     private var vacantStackView: UIStackView? {
@@ -28,7 +28,7 @@ class ViewController: UIViewController {
             view.addSubview(dealedStackView)
         }
     }
-    private var spareStackView: CardViewStack? {
+    private var spareStackView: SpareCardViewStack? {
         didSet {
             guard let spareStackView = spareStackView else { return }
             view.addSubview(spareStackView)
@@ -40,6 +40,12 @@ class ViewController: UIViewController {
             view.addSubview(revealedStackView)
         }
     }
+    var cardSize: CGSize {
+        guard let view = view else { return CGSize() }
+        let width = view.frame.size.width/7
+        let height = width*1.27
+        return CGSize(width: width, height: height)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +56,7 @@ class ViewController: UIViewController {
         dealedPosition = CGPoint(x: view.layoutMargins.left, y: view.layoutMargins.top+cardSize.height+15)
         sparePosition = CGPoint(x: view.frame.width-(view.layoutMargins.right+cardSize.width)+horizontalStackSpacing,
                                 y: view.layoutMargins.top)
-        revealedSparePosition = CGPoint(x: sparePosition!.x-cardSize.width-horizontalStackSpacing,
+        revealedPosition = CGPoint(x: sparePosition!.x-cardSize.width-horizontalStackSpacing,
                                         y: view.layoutMargins.top)
         initGameBoard()
     }
@@ -61,12 +67,37 @@ class ViewController: UIViewController {
         // 배치
         dealedStackView = dealedStackView(on: dealedPosition)
         vacantStackView = vacantStackView(of: 4, on: vacantPosition)
+        addSpareStackView(sparePosition!, revealedPosition!)
+    }
+
+    private func addSpareStackView(_ sparePosition: CGPoint?, _ revealPosition: CGPoint?) {
         let spareCardViews = makeCardViews(from: deck?.remnants(), lastCardFaceToBeUp: false)
         let size = CGSize(width: cardSize.width-horizontalStackSpacing, height: cardSize.height)
-        revealedStackView = CardViewStack([], CGRect(origin: revealedSparePosition!, size: size))
+        revealedStackView = CardViewStack([], CGRect(origin: revealPosition!, size: size))
         spareStackView = SpareCardViewStack(spareCardViews,
                                             CGRect(origin: sparePosition!, size: size),
                                             revealedStackView: revealedStackView)
+    }
+
+    private func resetDeck() {
+        deck = Deck()
+        deck?.shuffle()
+    }
+
+    private func resetGameBoard() {
+        // 덱 생성 및 셔플
+        resetDeck()
+        // 배치
+        dealedStackView = dealedStackView(on: dealedPosition)
+        vacantStackView = vacantStackView(of: 4, on: vacantPosition)
+        spareStackView?.reset()
+    }
+
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+//            initGameBoard()
+            resetGameBoard()
+        }
     }
 
     private func dealedStackView(on position: CGPoint?) -> UIStackView? {
@@ -152,24 +183,6 @@ class ViewController: UIViewController {
                                           left: 0,
                                           bottom: 5,
                                           right: 0)
-    }
-
-    var cardSize: CGSize {
-        guard let view = view else { return CGSize() }
-        let width = view.frame.size.width/7
-        let height = width*1.27
-        return CGSize(width: width, height: height)
-    }
-
-    private func resetDeck() {
-        deck = Deck()
-        deck?.shuffle()
-    }
-
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-        if motion == .motionShake {
-            initGameBoard()
-        }
     }
 
 }
