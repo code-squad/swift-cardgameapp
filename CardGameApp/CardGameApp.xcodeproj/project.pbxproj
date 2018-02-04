@@ -124,11 +124,9 @@
 			children = (
 				EE22EDE0202044320084F399 /* AppDelegate.swift */,
 				EE22EDE2202044320084F399 /* ViewController.swift */,
-				EE4ABE3B20241E8A00764D8D /* CardViewStack.swift */,
-				EE2B46012025BF1500B5C078 /* SpareCardViewStack.swift */,
-				EEBF59352021995700093436 /* CardView.swift */,
-				EEBF591F202191CC00093436 /* Game */,
-				EEBF591B202191CC00093436 /* Utilities */,
+				EE2B46052026EFE400B5C078 /* View */,
+				EEBF591F202191CC00093436 /* Model */,
+				EEBF591B202191CC00093436 /* Helpers */,
 				EE22EDE4202044320084F399 /* Main.storyboard */,
 				EE22EDE7202044320084F399 /* Assets.xcassets */,
 				EE22EDE9202044320084F399 /* LaunchScreen.storyboard */,
@@ -137,17 +135,27 @@
 			path = CardGameApp;
 			sourceTree = "<group>";
 		};
-		EEBF591B202191CC00093436 /* Utilities */ = {
+		EE2B46052026EFE400B5C078 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EE4ABE3B20241E8A00764D8D /* CardViewStack.swift */,
+				EE2B46012025BF1500B5C078 /* SpareCardViewStack.swift */,
+				EEBF59352021995700093436 /* CardView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EEBF591B202191CC00093436 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 				EEBF59372021A0DD00093436 /* Extensions */,
 				EEBF593A2021A11000093436 /* Protocols */,
 				EEBF591E202191CC00093436 /* CustomIterator.swift */,
 			);
-			path = Utilities;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
-		EEBF591F202191CC00093436 /* Game */ = {
+		EEBF591F202191CC00093436 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				EEBF5927202191CC00093436 /* StudPokerGame.swift */,
@@ -160,7 +168,7 @@
 				EEBF5924202191CC00093436 /* Number.swift */,
 				EEBF5926202191CC00093436 /* Shape.swift */,
 			);
-			path = Game;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		EEBF59372021A0DD00093436 /* Extensions */ = {
