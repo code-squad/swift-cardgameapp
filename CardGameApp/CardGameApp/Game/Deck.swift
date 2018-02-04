@@ -26,6 +26,10 @@ class Deck {
         return removedCards
     }
 
+    func remnants() -> CardStack {
+        return self.cards
+    }
+
 }
 
 // 덱도 카드스택의 일종.
