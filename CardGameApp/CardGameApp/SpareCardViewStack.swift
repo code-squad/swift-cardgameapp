@@ -45,13 +45,17 @@ class SpareCardViewStack: CardViewStack {
             revealedStackView?.addArrangedSubview(lastCard)
             self.removeArrangedSubview(lastCard)
         } else if touches.first?.view == refreshImageView {
-            guard let subviews = revealedStackView?.arrangedSubviews,
-                let subCardViews = subviews as? [CardView] else { return }
-            for revealedCardView in subCardViews.reversed() {
-                revealedCardView.turnOver(false)
-                self.addArrangedSubview(revealedCardView)
-                revealedStackView?.removeArrangedSubview(revealedCardView)
-            }
+            reset()
+        }
+    }
+
+    func reset() {
+        guard let subviews = revealedStackView?.arrangedSubviews,
+            let subCardViews = subviews as? [CardView] else { return }
+        for revealedCardView in subCardViews.reversed() {
+            revealedCardView.turnOver(false)
+            self.addArrangedSubview(revealedCardView)
+            revealedStackView?.removeArrangedSubview(revealedCardView)
         }
     }
 
