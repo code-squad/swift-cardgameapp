@@ -13,7 +13,7 @@
 		EE22EDE6202044320084F399 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE22EDE4202044320084F399 /* Main.storyboard */; };
 		EE22EDE8202044320084F399 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE22EDE7202044320084F399 /* Assets.xcassets */; };
 		EE22EDEB202044320084F399 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE22EDE9202044320084F399 /* LaunchScreen.storyboard */; };
-		EE2B46022025BF1500B5C078 /* SpareCardViewStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2B46012025BF1500B5C078 /* SpareCardViewStack.swift */; };
+		EE2B46022025BF1500B5C078 /* SpareCardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2B46012025BF1500B5C078 /* SpareCardStackView.swift */; };
 		EE4ABE3C20241E8A00764D8D /* CardViewStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4ABE3B20241E8A00764D8D /* CardViewStack.swift */; };
 		EE4ABE3E2024686D00764D8D /* UIStackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4ABE3D2024686D00764D8D /* UIStackViewExtension.swift */; };
 		EEBF5929202191CC00093436 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF591C202191CC00093436 /* ArrayExtension.swift */; };
@@ -48,7 +48,7 @@
 		EE22EDE7202044320084F399 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE22EDEA202044320084F399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE22EDEC202044320084F399 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EE2B46012025BF1500B5C078 /* SpareCardViewStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpareCardViewStack.swift; sourceTree = "<group>"; };
+		EE2B46012025BF1500B5C078 /* SpareCardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpareCardStackView.swift; sourceTree = "<group>"; };
 		EE4ABE3B20241E8A00764D8D /* CardViewStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewStack.swift; sourceTree = "<group>"; };
 		EE4ABE3D2024686D00764D8D /* UIStackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackViewExtension.swift; sourceTree = "<group>"; };
 		EEBF591C202191CC00093436 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				EE4ABE3B20241E8A00764D8D /* CardViewStack.swift */,
-				EE2B46012025BF1500B5C078 /* SpareCardViewStack.swift */,
+				EE2B46012025BF1500B5C078 /* SpareCardStackView.swift */,
 				EEBF59352021995700093436 /* CardView.swift */,
 			);
 			path = View;
@@ -335,7 +335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEBF593C2021A13700093436 /* EnumCollectionExtension.swift in Sources */,
-				EE2B46022025BF1500B5C078 /* SpareCardViewStack.swift in Sources */,
+				EE2B46022025BF1500B5C078 /* SpareCardStackView.swift in Sources */,
 				EE4ABE3E2024686D00764D8D /* UIStackViewExtension.swift in Sources */,
 				EEBF5930202191CC00093436 /* Number.swift in Sources */,
 				EE22EDE3202044320084F399 /* ViewController.swift in Sources */,

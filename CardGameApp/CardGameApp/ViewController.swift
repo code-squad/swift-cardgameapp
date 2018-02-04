@@ -28,7 +28,7 @@ class ViewController: UIViewController {
             view.addSubview(dealedStackView)
         }
     }
-    private var spareStackView: SpareCardViewStack? {
+    private var spareStackView: SpareCardStackView? {
         didSet {
             guard let spareStackView = spareStackView else { return }
             view.addSubview(spareStackView)
@@ -74,7 +74,7 @@ class ViewController: UIViewController {
         let spareCardViews = makeCardViews(from: deck?.remnants(), lastCardFaceToBeUp: false)
         let size = CGSize(width: cardSize.width-horizontalStackSpacing, height: cardSize.height)
         revealedStackView = CardViewStack([], CGRect(origin: revealPosition!, size: size))
-        spareStackView = SpareCardViewStack(spareCardViews,
+        spareStackView = SpareCardStackView(spareCardViews,
                                             CGRect(origin: sparePosition!, size: size),
                                             revealedStackView: revealedStackView)
     }

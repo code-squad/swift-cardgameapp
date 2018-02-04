@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpareCardViewStack: CardViewStack {
+class SpareCardStackView: CardViewStack {
     private var refreshImageView: UIImageView?
     private weak var revealedStackView: CardViewStack?
 
