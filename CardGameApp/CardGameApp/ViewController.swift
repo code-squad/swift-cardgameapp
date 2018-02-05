@@ -63,7 +63,7 @@ class ViewController: UIViewController {
         vacantPosition = CGPoint(x: view.layoutMargins.left, y: view.layoutMargins.top)
         dealedPosition = CGPoint(x: view.layoutMargins.left, y: view.layoutMargins.top+cardSize.height+15)
         let spareX = view.frame.width -
-                        (view.layoutMargins.right+cardSize.width+Constants.GameBoard.horizontalStackSpacing)
+                        (view.layoutMargins.right+cardSize.width)+Constants.GameBoard.horizontalStackSpacing
         sparePosition = CGPoint(x: spareX, y: view.layoutMargins.top)
         revealedPosition = CGPoint(x: sparePosition!.x-cardSize.width-Constants.GameBoard.horizontalStackSpacing,
                                         y: view.layoutMargins.top)
