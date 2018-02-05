@@ -9,32 +9,25 @@
 import UIKit
 
 class CardViewStack: UIStackView {
-    required init(coder: NSCoder) {
-        super.init(coder: coder)
+    var dataSource: CardViewStackDataSource?
+    var subCardviews: [CardView]? {
+        return self.arrangedSubviews as? [CardView]
     }
-
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-
-    convenience init(_ cardViews: [CardView], _ frame: CGRect) {
+    convenience init(frame: CGRect, cardViews: [CardView]) {
         self.init(frame: frame)
+        setupCardViews(cardViews)
+    }
+
+    func setupCardViews(_ cardViews: [CardView]) {
         cardViews.forEach { (cardView) in
             self.addArrangedSubview(cardView)
         }
-    }
-
-    func setBottomLayoutMargins(_ bottomMargin: CGFloat) {
-        // 이 설정을 해줘야 layoutMargins가 적용된다.
-        self.isLayoutMarginsRelativeArrangement = true
-        self.layoutMargins = UIEdgeInsets(top: 0,
-                                          left: 0,
-                                          bottom: bottomMargin,
-                                          right: 0)
-    }
-
-    var lastCard: CardView? {
-        return self.arrangedSubviews.last as? CardView
     }
 
 }
