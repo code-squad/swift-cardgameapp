@@ -79,7 +79,7 @@ extension CardStack: CustomStringConvertible {
     var description: String {
         var result = "["
         for card in self.cards {
-            result += card.description + ", "
+            result += card.frontImageName + ", "
         }
         result.removeLast()
         result.removeLast()
