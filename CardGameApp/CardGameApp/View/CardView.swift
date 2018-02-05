@@ -12,29 +12,36 @@ class CardView: UIImageView {
     private var frontImage: UIImage?
     private var backImage: UIImage?
     private var isFaceUp: Bool = false
-
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.layer.cornerRadius = 5
-        self.clipsToBounds = true
-        self.layer.borderColor = UIColor.white.cgColor
-        self.layer.borderWidth = 2
+        self.layer.cornerRadius = Constants.CardView.cornerRadius
+        self.clipsToBounds = Constants.CardView.clipsToBounds
+        self.layer.borderColor = Constants.CardView.borderColor
+        self.layer.borderWidth = Constants.CardView.borderWidth
     }
-
-    convenience init(frame: CGRect, frontImage: UIImage?, backImage: UIImage?) {
-        self.init(frame: frame)
-        self.frontImage = frontImage
-        self.backImage = backImage
-        self.image = backImage
+    convenience init(sizeOf cardSize: CGSize) {
+        self.init(frame: .zero)
+        self.widthAnchor.constraint(equalToConstant: cardSize.width).isActive = true
+        self.heightAnchor.constraint(equalToConstant: cardSize.height).isActive = true
     }
 
 }
 
 extension CardView {
+    func setImage(cardInfo: Card?) {
+        if let cardInfo = cardInfo {
+            self.frontImage = UIImage(imageLiteralResourceName: cardInfo.frontImageName)
+            self.backImage = UIImage(imageLiteralResourceName: cardInfo.backImageName)
+        } else {
+            self.frontImage = nil
+            self.backImage = nil
+        }
+        self.image = backImage
+    }
+
     // 카드 앞뒷면 뒤집음
     func turnOver(_ faceToBeUp: Bool) {
         if faceToBeUp {
@@ -44,16 +51,6 @@ extension CardView {
             image = self.backImage
             isFaceUp = false
         }
-    }
-
-    func setSizeConstraint(to size: CGSize) {
-        let widthConstraint = NSLayoutConstraint(item: self, attribute: .width,
-                                                 relatedBy: .equal, toItem: nil, attribute: .notAnAttribute,
-                                                 multiplier: 1.0, constant: size.width)
-        let heightConstraint = NSLayoutConstraint(item: self, attribute: .height,
-                                                  relatedBy: .equal, toItem: nil, attribute: .notAnAttribute,
-                                                  multiplier: 1.0, constant: size.height)
-        NSLayoutConstraint.activate([widthConstraint, heightConstraint])
     }
 
 }
