@@ -75,16 +75,17 @@ extension CardStack: PokerScoreable {
 }
 
 // 스택 내의 모든 카드 출력 포맷. [ 카드, 카드, 카드, 카드, 카드 ] 형태.
-extension CardStack: CustomStringConvertible {
-    var description: String {
-        var result = "["
-        for card in self.cards {
-            result += card.frontImageName + ", "
-        }
-        result.removeLast()
-        result.removeLast()
-        result += "]"
-        return result
-    }
+//extension CardStack: CustomStringConvertible {
+//    var description: String {
+//        var result = "["
+//        for card in self.cards {
+//            result += card.frontImageName + ", "
+//        }
+//        result.removeLast()
+//        result.removeLast()
+//        result += "]"
+//        return result
+//    }
+//
+//}
 
-}
