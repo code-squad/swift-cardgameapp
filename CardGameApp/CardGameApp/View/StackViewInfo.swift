@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct StackViewInfo {
+protocol StackViewInfo {
     private(set) var axis: UILayoutConstraintAxis
     private(set) var distribution: UIStackViewDistribution
     private(set) var spacing: CGFloat

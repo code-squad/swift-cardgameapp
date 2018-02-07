@@ -8,11 +8,17 @@
 
 import Foundation
 
-class Deck {
+class Deck: Sequence {
     // 덱에 있는 카드들. (52장)
     private var cards: CardStack!
+    let start: Int = 0
+
     init() {
         self.reset()
+    }
+
+    func makeIterator() -> ClassIteratorOf<Card> {
+        return ClassIteratorOf(self.cards.sortCards())
     }
 
     // 여러 장의 카드를 스택으로 반환.
