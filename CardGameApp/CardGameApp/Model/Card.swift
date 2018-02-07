@@ -18,7 +18,7 @@ class Card {
         self.number = number
     }
 
-    func cardInfo() -> (shape: Shape, number: Number)? {
+    var info: (shape: Shape, number: Number) {
         return (self.shape, self.number)
     }
 }
