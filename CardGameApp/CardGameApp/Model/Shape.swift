@@ -11,10 +11,10 @@ import Foundation
 // Shape : Spades > Hearts > Diamonds > Clubs
 // 선택이유 : 카드의 모양과 숫자는 선택지가 정해져 있으므로 enum 선택.
 enum Shape: String, EnumCollection {
-    case spades = "s"
-    case hearts = "h"
-    case diamonds = "d"
-    case clubs = "c"
+    case spades = "♠️"
+    case hearts = "♥️"
+    case diamonds = "♦️"
+    case clubs = "♣️"
 }
 
 // 모양 출력 포맷. enum의 원시값 형태.
