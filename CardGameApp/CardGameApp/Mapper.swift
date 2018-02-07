@@ -9,7 +9,7 @@
 import Foundation
 
 class Mapper {
-    static func mapFrontImageName(of card: Card) -> String? {
+    static func mapFrontImageName(of card: Card) -> String {
         return Mapper.shapeName(of: card.info.shape) + Mapper.numberName(of: card.info.number)
     }
 
