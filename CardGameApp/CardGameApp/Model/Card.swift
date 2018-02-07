@@ -24,14 +24,11 @@ class Card {
 }
 
 // 카드 한 장 출력 포맷. 모양+숫자 형태.
-extension Card {
-    var frontImageName: String {
+extension Card: CustomStringConvertible {
+    var description: String {
         return self.shape.description + self.number.description
     }
 
-    var backImageName: String {
-        return Constants.ImageName.cardBack
-    }
 }
 
 // 카드를 비교할 경우, 카드의 숫자를 비교. (Shape과 Number의 캡슐화를 위함.)
