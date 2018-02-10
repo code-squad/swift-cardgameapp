@@ -79,8 +79,9 @@ extension StudPokerGame {
     private func gatherTopCards() -> [(Player, Card)] {
         var topCards: [(Player, Card)] = []
         for player in players {
+            guard let playerTopCard = player.topCard else { break }
             // 카드를 분배받은 각 플레이어들의 랭크 저장하여 반환.
-            topCards.append((player, player.topCard))
+            topCards.append((player, playerTopCard))
         }
         return topCards
     }

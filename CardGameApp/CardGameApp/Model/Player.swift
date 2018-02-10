@@ -55,7 +55,7 @@ class Player: CardGamePlayer {
     }
 
     // 플레이어가 가진 탑카드.
-    var topCard: Card {
+    var topCard: Card? {
         return self.cardStack.getTopCard()
     }
 
