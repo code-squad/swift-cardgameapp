@@ -16,10 +16,12 @@ extension UIImageView {
     }
 
     // 카드 테두리 설정
-    func setDefaultCardBorderStyle() {
+    func setDefaultCardBorderStyle(showBorder: Bool) {
         self.layer.cornerRadius = DeckViewModel.CardPresentable.cornerRadius
         self.clipsToBounds = DeckViewModel.CardPresentable.clipToBounds
-        self.layer.borderColor = DeckViewModel.CardPresentable.borderColor
-        self.layer.borderWidth = DeckViewModel.CardPresentable.borderWidth
+        if showBorder {
+            self.layer.borderColor = DeckViewModel.CardPresentable.borderColor
+            self.layer.borderWidth = DeckViewModel.CardPresentable.borderWidth
+        }
     }
 }

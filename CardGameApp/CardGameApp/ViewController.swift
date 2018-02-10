@@ -24,7 +24,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let size = CGSize(width: cardSize.width-Constants.horizontalStackSpacing, height: cardSize.height)
         let imageView = UIImageView(frame: CGRect(origin: position.spareCardsPosition, size: size))
         imageView.setCardSizeTo(cardSize)
-        imageView.setDefaultCardBorderStyle()
+        imageView.setDefaultCardBorderStyle(showBorder: false)
         if let topCardViewModelOnSpareDummy = deckViewModel.spareCardDummy.topCardViewModel(false) {
             // 뷰에 데이터 설정
             imageView.image = topCardViewModelOnSpareDummy.image
@@ -47,7 +47,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let size = CGSize(width: cardSize.width-Constants.horizontalStackSpacing, height: cardSize.height)
         let imageView = UIImageView(frame: CGRect(origin: position.revealedCardsPosition, size: size))
         imageView.setCardSizeTo(cardSize)
-        imageView.setDefaultCardBorderStyle()
+        imageView.setDefaultCardBorderStyle(showBorder: true)
         return imageView
     }()
 
@@ -59,7 +59,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             let imageView = UIImageView()
             imageView.frame.size = cardSize
             imageView.setCardSizeTo(cardSize)
-            imageView.setDefaultCardBorderStyle()
+            imageView.setDefaultCardBorderStyle(showBorder: true)
             stackView.addArrangedSubview(imageView)
         }
         stackView.axis = .horizontal
@@ -77,7 +77,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             let imageViews = currentFetchedCardDummy.existCardViewModels(true).map { viewModel -> UIImageView in
                 let imageView = UIImageView(image: viewModel.image)
                 imageView.setCardSizeTo(cardSize)
-                imageView.setDefaultCardBorderStyle()
+                imageView.setDefaultCardBorderStyle(showBorder: false)
                 return imageView
             }
             stack.addArrangedSubviews(view: imageViews)
@@ -103,21 +103,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         stackContainer.distribution = .fillEqually
         stackContainer.spacing = Constants.horizontalStackSpacing
         return stackContainer
-    }()
-
-    private lazy var vacantCardStackView: UIStackView = { [unowned self] in
-        let size = CGSize(width: view.frame.width-cardSize.width*3, height: cardSize.height)
-        let vacantCardStackView = UIStackView(frame: CGRect(origin: position.arrangedCardsPosition, size: size))
-        for _ in 0..<DeckViewModel.InitialGameSettings.vacantSpaceCount {
-            let imageView = UIImageView()
-            imageView.setCardSizeTo(cardSize)
-            imageView.setDefaultCardBorderStyle()
-            vacantCardStackView.addArrangedSubview(imageView)
-        }
-        vacantCardStackView.axis = .horizontal
-        vacantCardStackView.distribution = .fillEqually
-        vacantCardStackView.spacing = Constants.horizontalStackSpacing
-        return vacantCardStackView
     }()
 
     override func viewDidLoad() {
@@ -192,6 +177,9 @@ extension ViewController {
             if let currCard = $0.last {
                 let cardViewModel = CardViewModel(card: currCard, isFaceUp: false)
                 self.spareCardView.image = cardViewModel.image
+            } else {
+                self.spareCardView.image =
+                    UIImage(imageLiteralResourceName: DeckViewModel.InitialGameSettings.refresh)
             }
         }
     }
