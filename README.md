@@ -357,10 +357,10 @@ deckViewModel.spareCardDummy.cards.bindAndFire { [unowned self] in
 
 ### 학습 내용
 >- **[lazy 프로퍼티에 대해서](http://baked-corn.tistory.com/45)**
->- **[좋은 아키텍처와 디자인 패턴들 개요]()**
->- **[MVVM에 대해서]()**
->- **[프로토콜 지향 MVVM]()**
->- **[RxSwift와 MVVM]()**
+>- **[좋은 아키텍처와 디자인 패턴들 개요](https://github.com/undervineg/swift-cardgameapp/blob/card-step4/md/design_patterns.md)**
+>- **[MVVM에 대해서](https://github.com/undervineg/swift-cardgameapp/blob/card-step4/md/MVVM.md)**
+>- **[프로토콜 지향 MVVM](https://github.com/undervineg/swift-cardgameapp/blob/card-step4/md/ViewModel_and_Protocol.md)**
+>- **[RxSwift와 MVVM](https://github.com/undervineg/swift-cardgameapp/blob/card-step4/md/RxSwift_and_MVVM.md)**
 
 2017-02-11 (작업시간: 3일, 리팩토링: 일주일..ㅋㅋ)
 
