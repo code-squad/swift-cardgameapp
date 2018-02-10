@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Mapper {
     static func mapFrontImageName(of card: Card) -> String {
@@ -14,7 +15,7 @@ class Mapper {
     }
 
     private static func numberName(of number: Number) -> String {
-        return String(number.rawValue)
+        return String(number.description)
     }
 
     private static func shapeName(of shape: Shape) -> String {
@@ -27,4 +28,5 @@ class Mapper {
         }
         return shapeName
     }
+
 }
