@@ -9,22 +9,22 @@
 import UIKit
 
 extension UIStackView {
-    func setupStacks(innerStacks: [UIStackView]) {
-        innerStacks.forEach { (innerStack) in
-            self.addArrangedSubview(innerStack)
-        }
+    func configureSettings(with values: StackPresentable?) {
+        guard let values = values else { return }
+        self.axis = values.axis
+        self.distribution = values.distribution
+        self.spacing = values.spacing
+        self.setBottomMargin(values.bottomMargin)
     }
 
-    func stackSettings(_ stackInfo: StackViewInfo?) {
-        guard let stackInfo = stackInfo else { return }
-        self.axis = stackInfo.axis
-        self.distribution = stackInfo.distribution
-        self.spacing = stackInfo.spacing
-        self.setBottomMargin(stackInfo.bottomMargin)
-    }
-
-    private func setBottomMargin(_ bottomMargin: CGFloat) {
+    func setBottomMargin(_ bottomMargin: CGFloat) {
         self.isLayoutMarginsRelativeArrangement = true
         self.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: bottomMargin, right: 0)
+    }
+
+    func addArrangedSubviews(view: [UIView]) {
+        view.forEach {
+            self.addArrangedSubview($0)
+        }
     }
 }
