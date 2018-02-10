@@ -38,7 +38,7 @@ struct Dealer {
 
     // 덱에서 카드를 stud 개수만큼 뽑음.
     private func drawCards(numberOf count: StudPokerGame.Stud.RawValue) throws -> CardStack {
-        guard let newCardStack = self.deck.drawMany(selectedCount: count) else { throw StudPokerGame.Error.lackOfCards }
+        guard let newCardStack = self.deck.fetch(count) else { throw StudPokerGame.Error.lackOfCards }
         return newCardStack
     }
 

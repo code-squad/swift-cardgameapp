@@ -22,17 +22,17 @@ class Deck: Sequence {
     }
 
     // 여러 장의 카드를 스택으로 반환.
-    func drawMany(selectedCount: Int) -> CardStack? {
-        guard self.cards.count - selectedCount > 0 else { return nil }
+    func fetch(_ count: Int) -> CardStack? {
+        guard self.cards.count - count > 0 else { return nil }
         let removedCards = CardStack()
-        for _ in 0..<selectedCount {
+        for _ in 0..<count {
             guard let popedCard = self.cards.pop() else { break }
             removedCards.push(card: popedCard)
         }
         return removedCards
     }
 
-    func remnants() -> CardStack {
+    func remnants() -> CardStack? {
         return self.cards
     }
 
