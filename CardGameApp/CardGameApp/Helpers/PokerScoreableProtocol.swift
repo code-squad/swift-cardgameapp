@@ -14,5 +14,5 @@ protocol PokerScoreable {
 
     func sortCards() -> [Card]
 
-    func getTopCard() -> Card
+    func getTopCard() -> Card?
 }
