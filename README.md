@@ -217,9 +217,151 @@ struct Constants {
 }
 ```
 
-### 학습 내용
->- **[lazy 프로퍼티](http://baked-corn.tistory.com/45)**
+### 리팩토링 (2nd) - MVVM 구조로 변경
+#### 바뀌어야 할 것들
+- 기존 커스텀 뷰를 모두 제거하고 UIImageView와 UIStackView 사용하기
+    - UIImageView는 ViewModel 정보에 따라 self.image만 바꿔가면서 앞뒷면 바꾸면 된다. 뷰가 데이터를 저장할 필요는 없음.
+- ViewController는 특정 시점에 어느 뷰모델 데이터를 어느 뷰에 올릴 지 결정해주고 실행한다. (즉, 초기화 시점 / 뷰에 발생한 사용자 인터랙션 시점 / 사용자 인터랙션으로 모델이 바꼈을 때 다른 뷰에 뿌려줄 시점)
 
-2017-02-04 (작업시간: 3일)
+#### 효율적으로 만드는 법..?
+1. Vacant, Revealed, Spare 뷰는 UIImageView를 각각 4, 1, 1개 배치하고, (Vacant의 경우 스택 내 4개 수평으로)
+2. 뷰모델의 데이터에 따라서 해당 데이터를 가지고 UIImageView의 self.image만 바꿔주면 될 듯 하다. 즉 모든 건 뷰모델에 달려있는 것!
+3. Dealed 뷰는, 동적으로 UIImageView를 붙이고 떼면 어떨까?
+4. 즉, 초기화 시(Initial Dealed count) 표시하거나 카드를 옮길 때 UIImageView를 만든 후, Dealed 스택 상태를 체크한 후 self.image에 뷰모델의 앞/뒷면 중 하나를 넣어서 보내는 것.
+5. 생각해보니, 카드사이즈나 위치 데이터는 view를 기준으로 계산하기 때문에 viewController에서 해줘야 하지만, 초기화 시 스택별로 몇 개의 카드를 나눠줘야 하는지 등의 데이터는 뷰모델에서 해줘야 한다.
+
+
+#### 리얼 요구사항 정리
+##### 뷰컨트롤러+뷰
+* 바탕 그리기 (배경 정보에 대한 뷰모델도 따로 뺄 수 있다.)
+* 각 뷰 배치
+    * Revealed, Spare 뷰: UIImageView를 1개씩 배치
+    * Arranged 뷰: UIImageView를 UIStack에 4개 수평으로 배치
+    * Fetched 뷰: UIStack 내 동적으로 UIImageView 배치
+        * 초기화 시: 뷰모델에서 initialize() 후 저장돼있는 fetched 뷰모델의 데이터를 가져와서 UIImageView 생성해서 해당되는 스택에 addArrangedSubview()하기
+* 이벤트 발생 시 -> 뷰모델 업데이트 -> 다른 뷰 업데이트
+    * spare 이미지뷰 이벤트 ( 1번 탭 )
+        * Deck 뷰모델: spare 카드모델에서 topcard를 제거, revealed 카드모델에 해당 카드를 붙임
+        * (카드모델들은 Observable 타입으로 설정돼 있기 때문에 업데이트 시 컨트롤러에게 전달됨)
+        * 바인딩된 뷰: spare 이미지뷰에서 spare 뷰모델의 다음 topCard를 표시, revealed 이미지뷰에서 revealed 뷰모델의 다음 topCard 표시
+* 정리: 
+    * Spare 이미지뷰: 
+        * 제스처 인식기(탭1) 설치: 뷰모델의 updateSpareTopCard() 메소드 호출
+        * Deck뷰모델 바인딩: Deck 내 spare topcard 모델뷰를 받아서 self.image 재설정
+    * Revealed 이미지뷰:
+        * Deack뷰모델 바인딩: Deck 내 revealed topcard 모델뷰를 받아서 self.image 재설정
+    * (Deck 뷰모델)
+        * updateSpareTopCard(): spare 카드모델에서 topcard 제거. revealed 카드모델에 해당 카드 추가.
+        * spare 카드모델, revealed 카드모델은 Observable 타입으로, 변경될 시 바인딩된 뷰에 알려짐.
+
+##### 뷰모델+모델
+1. DeckViewModel
+    * fetched 스택 개수 (=7개)
+        * 각 fetched 스택별 초기 카드 개수 (1~7개)
+    * arranged 스택 공간 개수 (=4개)
+    * 모델(Deck) 조작 - 뒤섞기, 카드 빼오기, 빼온 카드스택의 탑카드
+        * 뺀 카드(fetched) / 남은 카드(spare) / 뒤집은 카드(revealed) / 정리한 카드(arranged) 들을 빼온 그대로(모델의 Stack 형태) 저장 및 관리 (스택형태로 관리하기 위함)
+        * 뺀 카드 / 남은 카드 저장 동기화
+        * 이렇게 정리된 카드 스택에서, 뷰에 필요한 카드를 컨트롤러에 전달할 때 CardViewModel 형태로 전달
+        * initialize() : fetched 스택별 초기 카드 개수별로 draw해서 저장
+
+2. CardViewModel
+    * injection: Card 모델
+    * 카드의 가로, 세로 비율 (=1:1.27)
+    * 카드 앞/뒷면 이미지 이름 (Card 모델 정보, Mapper 함수 이용)
+
+3. 이벤트, 바인딩 처리
+    * 이벤트 발생 시 호출 메소드 구현
+        * updateSpareTopCard(): spare 이미지뷰 탭 시
+            * spare 카드모델에서 topcard 제거. revealed 카드모델에 해당 카드 추가
+        * updateAll(): shake 이벤트 발생 시
+            * 카드를 모두 spare로 모은다. (Observable로 설정해두었으므로, 뷰는 자동으로 작동됨)
+            * shuffle()
+    * 바인딩 대상 Observable타입으로 설정
+        * 카드모델들 모두. 변경 발생 시 바로 뷰에 다시 뿌려지도록.
+        * 카드뷰모델: isFrontFaceUp을 Observable로.
+            * Deck 뷰모델에서 카드가 놓인 스택 위치나 상태에 따라 turnOver() 하는데, 이 때마다 변경되는 isFrontFaceUp에 따라 뷰에 반영되어야 한다.
+
+
+#### Deck 뷰모델 추가
+- Deck 모델을 사용하여 Spare(여유카드), Revealed(뒤집은여유카드), Arranged(빈카드), Fetched(뽑은카드) 영역별 카드스택 생성 및 카드를 옮겨서 모델을 조작하는 클래스
+
+```swift
+class DeckViewModel {
+	 // 모델(데이터)
+    private var deck: Deck {
+        didSet {
+            // deck에 변화가 생기면 deck에 남은 카드들을 다시 spare에 업데이트한다.
+            guard let remnants = deck.remnants() else { return }
+            spareCardDummy.cards.value = remnants.cards.value
+        }
+    }
+	
+	 // 뽑은 카드스택
+    private(set) var fetchedCardDummys: [CardStack]
+    // 남은 카드스택
+    private(set) var spareCardDummy: CardStack
+    // 남은 카드 중 뒤집은 카드스택 (처음엔 비어있음)
+    private(set) var revealedCardDummy: CardStack
+    // 정리될 카드스택 (처음엔 비어있음)
+    private(set) var arrangedCardDummys: [CardStack]
+    ...
+}    
+```
+
+#### Observable 클래스 추가
+- 원시타입의 랩핑 클래스로, Observable 타입으로 랩핑 시 변화를 감지할 수 있다.
+- bind() 메소드: 클로저를 인자로 받음. 이 클로저에 변화된 자신의 프로퍼티를 전달하여 일종의 delegate(위임) 수행. 클로저가 정의된 클래스에서는 변화된 데이터를 이용하여 로직 수행.
+
+```swift
+class Observable<ObservingType> {
+    typealias Listener = (ObservingType) -> Void
+    private var listener: Listener?
+    // value가 변경될 때마다 클로저를 수행한다.
+    var value: ObservingType {
+        didSet {
+            listener?(value)
+        }
+    }
+
+    required init(_ value: ObservingType) {
+        self.value = value
+    }
+    
+	 // 클로저와 value를 연결하는 함수. 전달받은 클로저를 저장하여 value 변경 시마다 사용.
+    func bind(_ listener: Listener?) {
+        self.listener = listener
+		 listener?(self.value)
+    }
+}
+```
+
+- 뷰컨트롤러에서 뷰모델 생성 직후(didSet) 바인딩함.
+- 단, 프로퍼티 옵저버가 원시타입의 변화만 감지할 수 있기 때문에 모델 CardStack의 내부 프로퍼티인 [Card]를 Observable 타입으로 랩핑하여 뷰컨트롤러에서 바인딩하도록 작성함.
+
+```swift
+// Spare 카드더미의 상태가 변경될 때마다 이미지뷰 정보 변경
+deckViewModel.spareCardDummy.cards.bindAndFire { [unowned self] in
+    if let currCard = $0.last {
+        let cardViewModel = CardViewModel(card: currCard, isFaceUp: false)
+        self.spareCardView.image = cardViewModel.image
+    } else {
+        self.spareCardView.image =
+            UIImage(imageLiteralResourceName: DeckViewModel.InitialGameSettings.refresh)
+    }
+}
+```
+
+#### 참고: 제스처 인식기 사용 시, 다음을 꼭 설정해줘야 작동한다.
+`myView.isUserInteractionEnabled = true`
+
+### 학습 내용
+>- **[lazy 프로퍼티에 대해서](http://baked-corn.tistory.com/45)**
+>- **[좋은 아키텍처와 디자인 패턴들 개요]()**
+>- **[MVVM에 대해서]()**
+>- **[프로토콜 지향 MVVM]()**
+>- **[RxSwift와 MVVM]()**
+
+2017-02-11 (작업시간: 3일, 리팩토링: 일주일..ㅋㅋ)
 
 <br/>
