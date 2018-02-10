@@ -10,48 +10,47 @@ import Foundation
 
 // 특정 개수의 카드 뭉치 클래스.
 class CardStack: Sequence {
-    private var cards: [Card]
+    private(set) var cards: Observable<[Card]>
     let start: Int
     init() {
-        self.cards = []
+        self.cards = Observable([])
         self.start = 0
     }
 
     // 내부 카드들에 접근 가능.
     func makeIterator() -> ClassIteratorOf<Card> {
-        return ClassIteratorOf(self.cards)
+        return ClassIteratorOf(self.cards.value)
     }
 }
 
 extension CardStack: CardGameStack {
     var count: Int {
-        return self.cards.count
+        return self.cards.value.count
     }
     var isEmpty: Bool {
-        return self.cards.isEmpty
+        return self.cards.value.isEmpty
     }
 
     func push(card: Card) {
-        self.cards.append(card)
+        self.cards.value.append(card)
     }
 
     func pop() -> Card? {
-        return self.cards.popLast()
+        return self.cards.value.popLast()
     }
 
     func peek() -> Card? {
-        return self.cards.last
+        return self.cards.value.last
     }
 
     func shuffle() {
-        guard let shuffledCards = self.cards.shuffle() else { return }
-        self.cards = shuffledCards
+        guard let shuffledCards = self.cards.value.shuffle() else { return }
+        self.cards = Observable(shuffledCards)
     }
 
     func reset() {
-        self.cards = []
+        self.cards = Observable([])
     }
-
 }
 
 extension CardStack: PokerScoreable {
@@ -68,8 +67,8 @@ extension CardStack: PokerScoreable {
     }
 
     // 정렬된 카드 배열에서 가장 높은 카드 반환.
-    func getTopCard() -> Card {
-        return self.sortCards().last!
+    func getTopCard() -> Card? {
+        return self.sortCards().last
     }
 
 }
@@ -88,4 +87,3 @@ extension CardStack: PokerScoreable {
 //    }
 //
 //}
-
