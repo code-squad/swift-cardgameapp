@@ -72,8 +72,16 @@ class DeckViewModel {
 
     // spare 카드뷰 탭 시 호출됨.
     func updateSpareTopCard() {
-        guard let topCardOnSpare = spareCardDummy.pop() else { return }
-        revealedCardDummy.push(card: topCardOnSpare)
+        if let topCardOnSpare = spareCardDummy.pop() {
+            revealedCardDummy.push(card: topCardOnSpare)
+        } else {
+            restoreSpareDummy()
+        }
+    }
+
+    private func restoreSpareDummy() {
+        spareCardDummy.cards.value = revealedCardDummy.cards.value.reversed()
+        revealedCardDummy.cards.value = []
     }
 
 }
