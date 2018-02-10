@@ -9,45 +9,25 @@
 import Foundation
 import UIKit
 
-class CardViewModel {
+/* 카드의 앞/뒤 이미지, 현재 보여질 이미지, 뒤집기와 같은 카드뷰모델 정보 관리 */
+class CardViewModel: CardViewModelType {
     private let card: Card
-    private let frontImageName: String
-    private let backImageName: String
-    private var isFrontFaceUp: Bool
-//    private(set) var size: CGSize
-//    private var stackLaidOn: Observable<CardStackViewModel>
+    private let frontImage: UIImage
+    private let backImage: UIImage
+    private var isFaceUp: Bool
 
-    init(card: Card, isFrontFaceUp: Bool=false) {
-        //sizeOf size: CGSize, onStack stackLaidOn: Observable<CardStackViewModel>) {
+    init(card: Card, isFaceUp: Bool=false) {
         self.card = card
-        self.frontImageName = Mapper.mapFrontImageName(of: card)
-        self.backImageName = Constants.ImageName.cardBack
-        self.isFrontFaceUp = isFrontFaceUp
-//        self.size = size
-//        self.stackLaidOn = stackLaidOn
+        self.frontImage = UIImage(imageLiteralResourceName: Mapper.mapFrontImageName(of: card))
+        self.backImage = UIImage(imageLiteralResourceName: "card-back")
+        self.isFaceUp = isFaceUp
+    }
+
+    var image: UIImage {
+        return isFaceUp ? frontImage : backImage
     }
 
     func turnOver(toFrontFace frontFaceToBeUp: Bool) {
-        self.isFrontFaceUp = frontFaceToBeUp
+        self.isFaceUp = frontFaceToBeUp
     }
 }
-
-//extension CardViewModel: CardPresentable {
-//    var cornerRadius: CGFloat {
-//        return Constants.CardView.cornerRadius
-//    }
-//
-//    var clipToBounds: Bool {
-//        return Constants.CardView.clipsToBounds
-//    }
-//
-//    var borderColor: CGColor {
-//        return Constants.CardView.borderColor
-//    }
-//
-//    var borderWidth: CGFloat {
-//        return Constants.CardView.borderWidth
-//    }
-//
-//}
-

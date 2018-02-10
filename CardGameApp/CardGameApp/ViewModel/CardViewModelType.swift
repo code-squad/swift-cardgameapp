@@ -1,5 +1,5 @@
 //
-//  CardViewModelProtocol.swift
+//  CardViewModelType.swift
 //  CardGameApp
 //
 //  Created by 심 승민 on 2018. 2. 8..
@@ -7,9 +7,9 @@
 //
 
 import Foundation
+import UIKit
 
-protocol CardViewModelProtocol {
-    var frontImage: String { get }
-    var backImage: String { get }
-    func turnOver(toFrontFace frontFaceToBeUp: Observable<Bool>)
+protocol CardViewModelType {
+    var image: UIImage { get }
+    func turnOver(toFrontFace frontFaceToBeUp: Bool)
 }
