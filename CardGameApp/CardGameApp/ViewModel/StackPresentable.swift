@@ -1,5 +1,5 @@
 //
-//  StackConfigurable.swift
+//  StackPresentable.swift
 //  CardGameApp
 //
 //  Created by 심 승민 on 2018. 2. 7..
