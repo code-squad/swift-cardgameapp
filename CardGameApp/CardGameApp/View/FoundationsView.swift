@@ -8,6 +8,19 @@
 
 import UIKit
 
-class FoundationsView: UIImageView {
-    
+class FoundationsView: UIView {
+    var images: [String?] = [] {
+        didSet {
+            for i in 0..<images.count {
+                guard let cardImage = images[i] else {
+                    (self.subviews[i] as! UIImageView).image = nil
+                    return
+                }
+                print(cardImage)
+                (self.subviews[i] as! UIImageView).image = UIImage(named: cardImage)
+            }
+            setNeedsDisplay()
+        }
+    }
+
 }

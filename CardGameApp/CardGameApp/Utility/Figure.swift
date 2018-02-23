@@ -105,14 +105,7 @@ struct Figure {
         }
     }
 
-    enum Gesture {
-        case numberOfTapsRequired
-
-        var value: Int {
-            switch self {
-            case .numberOfTapsRequired:
-                return 1
-            }
-        }
+    enum TapGesture: Int {
+        case once = 1, double
     }
 }

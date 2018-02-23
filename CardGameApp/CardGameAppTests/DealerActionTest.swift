@@ -14,7 +14,7 @@ class DealerActionTest: XCTestCase {
 
     override func setUp() {
         super.setUp()
-         baseDealerAction = DealerAction()
+        baseDealerAction = DealerAction()
     }
     
     override func tearDown() {
@@ -51,18 +51,18 @@ class DealerActionTest: XCTestCase {
     func testRemoveOne() {
         var dealerAction = DealerAction()
         let card = dealerAction.removeOne()
-        XCTAssertEqual(card?.description, "♣️A")
+        XCTAssertEqual(card?.description, "♣️K")
     }
 
     func testGetCardPacks() {
         var dealerAction = DealerAction()
         let cardPacks = dealerAction.getCardPacks(packCount: 3)
-        XCTAssertEqual(cardPacks.description, "[[♣️A], [♦️A, ♥️A], [♠️A, ♣️K, ♦️K]]")
+        XCTAssertEqual(cardPacks.description, "[[♣️K], [♦️K, ♥️K], [♠️K, ♣️Q, ♦️Q]]")
     }
 
     func testOpen() {
         var dealerAction = DealerAction()
-        XCTAssertEqual(dealerAction.open()?.description, "♣️A")
+        XCTAssertEqual(dealerAction.open()?.description, "♣️K")
     }
     
 }

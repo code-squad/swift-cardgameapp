@@ -30,13 +30,22 @@ class Card: CustomStringConvertible {
                 return "s"
             }
         }
+
+        var isRed: Bool {
+            switch self {
+            case .spades, .clubs:
+                return false
+            case .hearts, .diamonds:
+                return true
+            }
+        }
     }
 
     enum Rank: Int {
-        case two = 2, three, four, five, six, seven, eight, nine, ten
-        case jack, queen, king, ace
+        case ace = 1, two, three, four, five, six, seven, eight, nine, ten
+        case jack, queen, king
 
-        static let allRawValues = Rank.two.rawValue...Rank.ace.rawValue
+        static let allRawValues = Rank.ace.rawValue...Rank.king.rawValue
         static let allCases = Array(allRawValues.map { Rank(rawValue: $0)! })
 
         var value: String {
@@ -89,7 +98,6 @@ extension Card: Comparable {
         }
         return false
     }
-
 
     static func < (lhs: Card, rhs: Card) -> Bool {
         if lhs.rank == rhs.rank {

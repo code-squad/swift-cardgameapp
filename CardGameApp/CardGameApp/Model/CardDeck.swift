@@ -85,10 +85,22 @@ struct CardDeck {
     }
 
     mutating func load(cardPack: CardPack) {
-        for card in cardPack.reversed() {
+        for card in cardPack {
             card.turnUpSideDown()
             cardDeck.append(card)
         }
+    }
+
+}
+
+extension CardDeck: Equatable {
+
+    static func ==(lhs: CardDeck, rhs: CardDeck) -> Bool {
+        guard lhs.count() == rhs.count() else { return false }
+        for i in 0..<lhs.count() where lhs.cardDeck[i] != rhs.cardDeck[i] {
+            return false
+        }
+        return true
     }
 
 }

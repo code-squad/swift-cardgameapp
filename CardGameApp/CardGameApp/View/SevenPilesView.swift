@@ -8,6 +8,6 @@
 
 import UIKit
 
-class CardPilesView: UIImageView {
+class SevenPilesView: UIView {
 
 }

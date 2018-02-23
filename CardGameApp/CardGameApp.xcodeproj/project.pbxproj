@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8E92B07E202162A500846B04 /* CardPilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E92B07D202162A500846B04 /* CardPilesViewModel.swift */; };
-		8E92B07F202162A500846B04 /* CardPilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E92B07D202162A500846B04 /* CardPilesViewModel.swift */; };
+		8E01F6D02021A13E00D6C982 /* OpenedCardDeckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01F6CF2021A13E00D6C982 /* OpenedCardDeckViewModel.swift */; };
+		8E01F6D12021A13E00D6C982 /* OpenedCardDeckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E01F6CF2021A13E00D6C982 /* OpenedCardDeckViewModel.swift */; };
+		8E1B5494203FE87E002002AD /* NotificationUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B5493203FE87E002002AD /* NotificationUtility.swift */; };
+		8E1B54982040138B002002AD /* Keyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B54972040138B002002AD /* Keyword.swift */; };
+		8E92B07E202162A500846B04 /* SevenPilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E92B07D202162A500846B04 /* SevenPilesViewModel.swift */; };
+		8E92B07F202162A500846B04 /* SevenPilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E92B07D202162A500846B04 /* SevenPilesViewModel.swift */; };
 		8E92B0812021643100846B04 /* PilesVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E92B0802021643100846B04 /* PilesVMProtocol.swift */; };
 		8E92B0822021643100846B04 /* PilesVMProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E92B0802021643100846B04 /* PilesVMProtocol.swift */; };
 		8EA1AADC202011EB00D256EA /* Figure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1AADB202011EB00D256EA /* Figure.swift */; };
 		8EA1AADD202011EB00D256EA /* Figure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1AADB202011EB00D256EA /* Figure.swift */; };
 		8EA534A2202061BA001B70FF /* FoundationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA534A1202061BA001B70FF /* FoundationsView.swift */; };
-		8EA534A520206211001B70FF /* CardPilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA534A420206211001B70FF /* CardPilesView.swift */; };
+		8EA534A520206211001B70FF /* SevenPilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA534A420206211001B70FF /* SevenPilesView.swift */; };
 		8EA534AB20206A2A001B70FF /* FoundationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA534AA20206A2A001B70FF /* FoundationsViewModel.swift */; };
 		8EA534AC20206A2A001B70FF /* FoundationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA534AA20206A2A001B70FF /* FoundationsViewModel.swift */; };
 		8EC0F928201AD09300CEBBD4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC0F927201AD09300CEBBD4 /* AppDelegate.swift */; };
@@ -52,11 +56,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8E92B07D202162A500846B04 /* CardPilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPilesViewModel.swift; sourceTree = "<group>"; };
+		8E01F6CF2021A13E00D6C982 /* OpenedCardDeckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenedCardDeckViewModel.swift; sourceTree = "<group>"; };
+		8E1B5493203FE87E002002AD /* NotificationUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationUtility.swift; sourceTree = "<group>"; };
+		8E1B54972040138B002002AD /* Keyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyword.swift; sourceTree = "<group>"; };
+		8E92B07D202162A500846B04 /* SevenPilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SevenPilesViewModel.swift; sourceTree = "<group>"; };
 		8E92B0802021643100846B04 /* PilesVMProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilesVMProtocol.swift; sourceTree = "<group>"; };
 		8EA1AADB202011EB00D256EA /* Figure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Figure.swift; sourceTree = "<group>"; };
 		8EA534A1202061BA001B70FF /* FoundationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationsView.swift; sourceTree = "<group>"; };
-		8EA534A420206211001B70FF /* CardPilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPilesView.swift; sourceTree = "<group>"; };
+		8EA534A420206211001B70FF /* SevenPilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SevenPilesView.swift; sourceTree = "<group>"; };
 		8EA534AA20206A2A001B70FF /* FoundationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationsViewModel.swift; sourceTree = "<group>"; };
 		8EC0F924201AD09300CEBBD4 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EC0F927201AD09300CEBBD4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -107,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				8EA1AADB202011EB00D256EA /* Figure.swift */,
+				8E1B5493203FE87E002002AD /* NotificationUtility.swift */,
+				8E1B54972040138B002002AD /* Keyword.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -115,7 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				8EA534A1202061BA001B70FF /* FoundationsView.swift */,
-				8EA534A420206211001B70FF /* CardPilesView.swift */,
+				8EA534A420206211001B70FF /* SevenPilesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -124,8 +133,9 @@
 			isa = PBXGroup;
 			children = (
 				8EA534AA20206A2A001B70FF /* FoundationsViewModel.swift */,
-				8E92B07D202162A500846B04 /* CardPilesViewModel.swift */,
+				8E92B07D202162A500846B04 /* SevenPilesViewModel.swift */,
 				8E92B0802021643100846B04 /* PilesVMProtocol.swift */,
+				8E01F6CF2021A13E00D6C982 /* OpenedCardDeckViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -334,10 +344,13 @@
 				8EC0F967201EBDAF00CEBBD4 /* Card.swift in Sources */,
 				8EA534A2202061BA001B70FF /* FoundationsView.swift in Sources */,
 				8EC0F963201EBDAF00CEBBD4 /* CardDeck.swift in Sources */,
+				8E01F6D02021A13E00D6C982 /* OpenedCardDeckViewModel.swift in Sources */,
+				8E1B5494203FE87E002002AD /* NotificationUtility.swift in Sources */,
 				8EC0F964201EBDAF00CEBBD4 /* DealerAction.swift in Sources */,
-				8E92B07E202162A500846B04 /* CardPilesViewModel.swift in Sources */,
+				8E92B07E202162A500846B04 /* SevenPilesViewModel.swift in Sources */,
+				8E1B54982040138B002002AD /* Keyword.swift in Sources */,
 				8E92B0812021643100846B04 /* PilesVMProtocol.swift in Sources */,
-				8EA534A520206211001B70FF /* CardPilesView.swift in Sources */,
+				8EA534A520206211001B70FF /* SevenPilesView.swift in Sources */,
 				8EC0F92A201AD09300CEBBD4 /* ViewController.swift in Sources */,
 				8EC0F928201AD09300CEBBD4 /* AppDelegate.swift in Sources */,
 				8EA534AB20206A2A001B70FF /* FoundationsViewModel.swift in Sources */,
@@ -349,13 +362,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E01F6D12021A13E00D6C982 /* OpenedCardDeckViewModel.swift in Sources */,
 				8EC0F96A201EC10300CEBBD4 /* CardDeckTest.swift in Sources */,
 				8EC0F96D201EE61300CEBBD4 /* CardDeck.swift in Sources */,
 				8E92B0822021643100846B04 /* PilesVMProtocol.swift in Sources */,
 				8EA1AADD202011EB00D256EA /* Figure.swift in Sources */,
 				8EC0F96E201EE61600CEBBD4 /* DealerAction.swift in Sources */,
 				8EC0F96B201EC10300CEBBD4 /* CardTest.swift in Sources */,
-				8E92B07F202162A500846B04 /* CardPilesViewModel.swift in Sources */,
+				8E92B07F202162A500846B04 /* SevenPilesViewModel.swift in Sources */,
 				8EC0F93D201AD09300CEBBD4 /* DealerActionTest.swift in Sources */,
 				8EC0F96C201EE60F00CEBBD4 /* Card.swift in Sources */,
 				8EA534AC20206A2A001B70FF /* FoundationsViewModel.swift in Sources */,

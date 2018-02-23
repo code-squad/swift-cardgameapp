@@ -9,6 +9,5 @@
 import Foundation
 
 protocol PilesVMProtocol {
-    func push(card: Card)
     func reset()
 }
