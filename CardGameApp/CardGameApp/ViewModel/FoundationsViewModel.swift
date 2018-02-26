@@ -46,7 +46,7 @@ class FoundationsViewModel: PilesVMProtocol {
         }
         for cardPack in foundations {
             guard cardPack.last?.suit == card.suit else { continue }
-            guard (cardPack.last?.rank.rawValue)! == card.rank.rawValue - 1 else {
+            if (cardPack.last?.rank.rawValue)! == card.rank.rawValue - 1 {
                 return true
             }
         }
