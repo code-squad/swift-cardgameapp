@@ -9,5 +9,17 @@
 import UIKit
 
 class SevenPilesView: UIView {
+    private var sevenPiles = [CardPileView]() {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
 
+    func push(card: CardView, xIndex: Int) {
+        sevenPiles[xIndex].addSubview(card)
+    }
+
+    func pop(xIndex: Int) {
+        sevenPiles[xIndex].pop()
+    }
 }

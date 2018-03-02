@@ -9,7 +9,11 @@
 import Foundation
 
 class SevenPilesViewModel: PilesVMProtocol {
-    private var sevenPiles: [CardPack] = [CardPack]()
+    private var sevenPiles: [CardPack] = [CardPack]() {
+        didSet {
+            NotificationCenter.default.post(name: .sevenPiles, object: self, userInfo: nil)
+        }
+    }
 
     init() {
         for _ in 0..<Figure.Count.cardPiles.value {
