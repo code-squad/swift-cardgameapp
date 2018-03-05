@@ -8,18 +8,57 @@
 
 import UIKit
 
-class SevenPilesView: UIView {
-    private var sevenPiles = [CardPileView]() {
+class SevenPilesView: UIStackView {
+    var images: [[String]] = [] {
         didSet {
+            print("testtt")
+            for i in images.indices {
+                (subviews[i] as? CardPileView)?.images = images[i]
+            }
             setNeedsDisplay()
+            setNeedsLayout()
         }
     }
 
-    func push(card: CardView, xIndex: Int) {
-        sevenPiles[xIndex].addSubview(card)
+    private var cardPileWidth: CGFloat!
+    private var cardPileHeight: CGFloat {
+        return cardPileWidth * CGFloat(Figure.Size.ratio.value)
+    }
+    private var marginBetweenCards = CGFloat(Figure.Size.xGap.value)
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setCardPileSize()
+        configureFoundations()
     }
 
-    func pop(xIndex: Int) {
-        sevenPiles[xIndex].pop()
+    required init(coder: NSCoder) {
+        super.init(coder: coder)
+        setCardPileSize()
+        configureFoundations()
+    }
+
+    private func setCardPileSize() {
+        cardPileWidth = bounds.size.width / CGFloat(Figure.Count.cardPiles.value) - marginBetweenCards
+    }
+
+    private func configureFoundations() {
+        for i in 0..<Figure.Count.cardPiles.value {
+            addSubview(getCardPile(index: i))
+        }
+        spacing = UIStackView.spacingUseDefault
+        distribution = .fillEqually
+    }
+
+    private func getCardPile(index: Int) -> UIView {
+        let cardPileFrame = CGRect(x: bounds.origin.x + marginBetweenCards + ((cardPileWidth + marginBetweenCards) * CGFloat(index)),
+                                    y: bounds.origin.y,
+                                    width: cardPileWidth,
+                                    height: cardPileHeight)
+        let cardPileView = CardPileView(frame: cardPileFrame)
+        cardPileView.layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
+        cardPileView.layer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
+        cardPileView.layer.borderColor = UIColor.white.cgColor
+        return cardPileView
     }
 }

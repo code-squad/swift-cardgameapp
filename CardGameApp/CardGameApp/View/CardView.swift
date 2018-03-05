@@ -12,17 +12,21 @@ class CardView: UIImageView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setCardFigure()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.white.cgColor
+        setCardFigure()
     }
 
-    override var image: UIImage? {
-        get { return self.image }
-        set { self.image = newValue }
+    func setCardFigure() {
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.white.cgColor
+    }
+
+    func setImage(name: String) {
+        image = UIImage(named: name)
     }
 
 }

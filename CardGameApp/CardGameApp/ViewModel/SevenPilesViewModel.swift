@@ -11,7 +11,16 @@ import Foundation
 class SevenPilesViewModel: PilesVMProtocol {
     private var sevenPiles: [CardPack] = [CardPack]() {
         didSet {
-            NotificationCenter.default.post(name: .sevenPiles, object: self, userInfo: nil)
+            var cardImages: [[String]] = []
+            for xIndex in sevenPiles.indices {
+                cardImages.append([])
+                for yIndex in sevenPiles[xIndex].indices {
+                    cardImages[xIndex].append(sevenPiles[xIndex][yIndex].image)
+                }
+            }
+            NotificationCenter.default.post(name: .sevenPiles,
+                                            object: self, userInfo: [Keyword.sevenPilesImages.value: cardImages])
+            print("SevenPilesVM : \(cardImages)")
         }
     }
 

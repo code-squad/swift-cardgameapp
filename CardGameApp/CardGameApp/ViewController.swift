@@ -25,21 +25,25 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        foundationsView = FoundationsView()
-        foundationsVM = FoundationsViewModel()
-        sevenPilesView = SevenPilesView()
-        sevenPilesVM = SevenPilesViewModel()
-        openedCardDeckVM = OpenedCardDeckViewModel()
-        setCardGame()
-        configureCardGame()
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(changeFoundation(notification:)),
+                                               selector: #selector(pushToFoundations(notification:)),
                                                name: .foundation,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(changeOpenedCardDeck),
                                                name: .openedCardDeck,
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(changeSevenPiles(notification:)),
+                                               name: .sevenPiles,
+                                               object: nil)
+        foundationsView = FoundationsView(frame: CGRect(x: 0.0, y: CGFloat(Figure.YPosition.topMargin.value), width: UIScreen.main.bounds.width / CGFloat(Figure.Count.cardPiles.value) * CGFloat(Figure.Count.foundations.value), height: UIScreen.main.bounds.width / CGFloat(Figure.Count.cardPiles.value) * CGFloat(Figure.Size.ratio.value)))
+        foundationsVM = FoundationsViewModel()
+        sevenPilesView = SevenPilesView(frame: CGRect(x: 0.0, y: CGFloat(Figure.YPosition.cardPileTopMargin.value), width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        sevenPilesVM = SevenPilesViewModel()
+        openedCardDeckVM = OpenedCardDeckViewModel()
+        setCardGame()
+        configureCardGame()
     }
 
     // shake event
@@ -98,22 +102,25 @@ class ViewController: UIViewController {
     }
 
     private func configureFoundations() {
-        for i in 0..<Figure.Count.foundations.value {
-            foundationsView.addSubview(getFoundation(index: i))
-        }
-        self.view.addSubview(foundationsView)
+        view.addSubview(foundationsView)
     }
+//    private func configureFoundations() {
+//        for i in 0..<Figure.Count.foundations.value {
+//            foundationsView.addSubview(getFoundation(index: i))
+//        }
+//        self.view.addSubview(foundationsView)
+//    }
+//
+//    private func getFoundation(index: Int) -> UIImageView {
+//        let borderFrame = getCardLocation(index: index, topMargin: CGFloat(Figure.YPosition.topMargin.value))
+//        let imageView = UIImageView(frame: borderFrame)
+//        imageView.layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
+//        imageView.layer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
+//        imageView.layer.borderColor = UIColor.white.cgColor
+//        return imageView
+//    }
 
-    private func getFoundation(index: Int) -> UIImageView {
-        let borderFrame = getCardLocation(index: index, topMargin: CGFloat(Figure.YPosition.topMargin.value))
-        let imageView = UIImageView(frame: borderFrame)
-        imageView.layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
-        imageView.layer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
-        imageView.layer.borderColor = UIColor.white.cgColor
-        return imageView
-    }
-
-    @objc private func changeFoundation(notification: Notification) {
+    @objc private func pushToFoundations(notification: Notification) {
         guard let userInfo = notification.userInfo as? [String: [String?]] else { return }
         guard let foundationImages = userInfo[Keyword.foundationImages.value] else { return }
         foundationsView.images = foundationImages
@@ -184,34 +191,76 @@ class ViewController: UIViewController {
 
     private func spreadSevenPiles() {
         for xIndex in 0..<Figure.Count.cardPiles.value {
-
-//            sevenPilesView.append([])
             spreadAPile(xIndex: xIndex)
         }
+        view.addSubview(sevenPilesView)
     }
 
     private func spreadAPile(xIndex: Int) {
         for yIndex in 0...xIndex {
-            sevenPilesView.addSubview(getACardImageViewForAPile(xIndex: xIndex, yIndex: yIndex))
-//            sevenPileViews[xIndex].append(getACardImageViewForAPile(xIndex: xIndex, yIndex: yIndex))
-//            self.view.addSubview(sevenPileViews[xIndex][yIndex])
+            getACardImageViewForAPile(xIndex: xIndex, yIndex: yIndex)
         }
-        self.view.addSubview(sevenPilesView)
     }
 
-    private func getACardImageViewForAPile(xIndex: Int, yIndex: Int) -> UIImageView {
-        let cardPileTopMargin = CGFloat(Figure.YPosition.cardPileTopMargin.value)
-                                + (CGFloat(Figure.YPosition.betweenCards.value) * CGFloat(yIndex))
-        let imageView = UIImageView(frame: getCardLocation(index: xIndex, topMargin: cardPileTopMargin))
-        let card = dealerAction.removeOne()
-        if xIndex == yIndex {
-            card?.turnUpSideDown()
-        }
-        let image = UIImage(named: card?.image ?? Figure.Image.back.value)
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = image
-        sevenPilesVM.setCardPiles(card: card!, xIndex: xIndex)
-        return imageView
+    private func getACardImageViewForAPile(xIndex: Int, yIndex: Int) {
+        guard let card = dealerAction.removeOne() else { return }
+        if xIndex == yIndex { card.turnUpSideDown() }
+        sevenPilesVM.setCardPiles(card: card, xIndex: xIndex)
+    }
+
+    @objc private func changeSevenPiles(notification: Notification) {
+        print("test")
+        guard let userInfo = notification.userInfo as? [String: [[String]]] else { return }
+        guard let sevenPilesImages = userInfo[Keyword.sevenPilesImages.value] else { return }
+        sevenPilesView.images = sevenPilesImages
+        print(sevenPilesImages)
+    }
+
+//    private func spreadSevenPiles() {
+//        for xIndex in 0..<Figure.Count.cardPiles.value {
+//
+////            sevenPilesView.append([])
+//            spreadAPile(xIndex: xIndex)
+//        }
+//    }
+
+//    private func spreadAPile(xIndex: Int) {
+//        for yIndex in 0...xIndex {
+//            sevenPilesView.addSubview(getACardImageViewForAPile(xIndex: xIndex, yIndex: yIndex))
+////            sevenPileViews[xIndex].append(getACardImageViewForAPile(xIndex: xIndex, yIndex: yIndex))
+////            self.view.addSubview(sevenPileViews[xIndex][yIndex])
+//        }
+//
+////        let doubleTap = UITapGestureRecognizer.init(target: self, action: #selector(doubleTapACardOnPiles))
+////        doubleTap.numberOfTapsRequired = Figure.TapGesture.double.rawValue
+////        sevenPilesView.addGestureRecognizer(doubleTap)
+////        sevenPilesView.isUserInteractionEnabled = true
+//
+//        self.view.addSubview(sevenPilesView)
+//    }
+//
+//    private func getACardImageViewForAPile(xIndex: Int, yIndex: Int) -> UIImageView {
+//        let cardPileTopMargin = CGFloat(Figure.YPosition.cardPileTopMargin.value)
+//                                + (CGFloat(Figure.YPosition.betweenCards.value) * CGFloat(yIndex))
+//        let imageView = UIImageView(frame: getCardLocation(index: xIndex, topMargin: cardPileTopMargin))
+//        let card = dealerAction.removeOne()
+//        if xIndex == yIndex {
+//            card?.turnUpSideDown()
+//        }
+//        let image = UIImage(named: card?.image ?? Figure.Image.back.value)
+//        imageView.contentMode = .scaleAspectFit
+//        imageView.image = image
+//        sevenPilesVM.setCardPiles(card: card!, xIndex: xIndex)
+//        let doubleTap = UITapGestureRecognizer.init(target: self, action: #selector(doubleTapACardOnPiles))
+//        doubleTap.numberOfTapsRequired = Figure.TapGesture.double.rawValue
+//        imageView.addGestureRecognizer(doubleTap)
+//        imageView.isUserInteractionEnabled = true
+//        return imageView
+//    }
+
+    @objc private func doubleTapACardOnPiles() {
+        print("S")
+//        print(sender)
     }
 
     override func didReceiveMemoryWarning() {
