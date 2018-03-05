@@ -155,11 +155,15 @@ class ViewController: UIViewController {
     @objc private func doubleTapOpenedCardDeck() {
         guard let card = openedCardDeckVM.pop() else { return }
         guard foundationsVM.push(card: card) else {
-            let _ = openedCardDeckVM.push(card: card)
-            print("fail")
+            guard sevenPilesVM.newPlace(of: card) else {
+                let _ = openedCardDeckVM.push(card: card)
+                print("fail")
+                return
+            }
+            print("new place on sevenPiles success")
             return
         }
-        print("success")
+        print("foundation success")
     }
 
     private func selectOpenedCardDeckViewImage() {
@@ -209,11 +213,15 @@ class ViewController: UIViewController {
         let poppedCardInformation = sevenPilesVM.pop(name: doubleTappedCard)
         guard let poppedCard = poppedCardInformation.card else { return }
         guard foundationsVM.push(card: poppedCard) else {
-            sevenPilesVM.pushBack(card: poppedCardInformation.card!, xIndex: poppedCardInformation.xIndex!)
-            print("fail")
+            guard sevenPilesVM.newPlace(of: poppedCard) else {
+                sevenPilesVM.pushBack(card: poppedCardInformation.card!, xIndex: poppedCardInformation.xIndex!)
+                print("fail")
+                return
+            }
+            print("new place on sevenPiles success")
             return
         }
-        print("success")
+        print("foundation success")
     }
 //    private func spreadSevenPiles() {
 //        for xIndex in 0..<Figure.Count.cardPiles.value {

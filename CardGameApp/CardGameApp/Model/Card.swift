@@ -117,3 +117,22 @@ extension Card: Comparable {
     }
 
 }
+
+
+extension Card {
+    func isKing() -> Bool {
+        return self.rank.value == Card.Rank.king.value
+    }
+
+    func isAttachable(with another: Card) -> Bool {
+        return isOneRankDown(from: another) && isDifferentColor(with: another)
+    }
+
+    private func isOneRankDown(from another: Card) -> Bool {
+        return self.rank.rawValue == another.rank.rawValue - 1
+    }
+
+    private func isDifferentColor(with another: Card) -> Bool {
+        return self.suit.isRed != another.suit.isRed
+    }
+}

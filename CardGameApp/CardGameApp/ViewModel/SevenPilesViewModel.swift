@@ -62,5 +62,18 @@ class SevenPilesViewModel: PilesVMProtocol {
     func pushBack(card: Card, xIndex: Int) {
         sevenPiles[xIndex].append(card)
     }
+
+    func newPlace(of card: Card) -> Bool {
+        for i in sevenPiles.indices {
+            if sevenPiles[i].count == 0, card.isKing() {
+                sevenPiles[i].append(card)
+                return true
+            } else if card.isAttachable(with: sevenPiles[i].last!) {
+                sevenPiles[i].append(card)
+                return true
+            }
+        }
+        return false
+    }
     
 }
