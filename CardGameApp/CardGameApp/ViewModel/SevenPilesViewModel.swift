@@ -20,7 +20,6 @@ class SevenPilesViewModel: PilesVMProtocol {
             }
             NotificationCenter.default.post(name: .sevenPiles,
                                             object: self, userInfo: [Keyword.sevenPilesImages.value: cardImages])
-            print("SevenPilesVM : \(cardImages)")
         }
     }
 
@@ -32,18 +31,6 @@ class SevenPilesViewModel: PilesVMProtocol {
 
     func setCardPiles(card: Card, xIndex: Int) {
         sevenPiles[xIndex].append(card)
-    }
-
-    func push(card: Card, xIndex: Int) -> Bool {
-        guard validatePush(card: card, xIndex: xIndex) else {
-            return false
-        }
-        sevenPiles[xIndex].append(card)
-        return true
-    }
-
-    func pop(xIndex: Int) -> Card? {
-        return sevenPiles[xIndex].removeLast()
     }
 
     func reset() {
@@ -59,6 +46,21 @@ class SevenPilesViewModel: PilesVMProtocol {
             return false
         }
         return true
+    }
+
+    func pop(name: String) -> (card: Card?, xIndex: Int?) {
+        var cardInformation: (card: Card?, xIndex: Int?) = (card: nil, xIndex: nil)
+        for xIndex in sevenPiles.indices {
+            if let image = sevenPiles[xIndex].last?.image, image == name {
+                cardInformation.card = sevenPiles[xIndex].removeLast()
+                cardInformation.xIndex = xIndex
+            }
+        }
+        return cardInformation
+    }
+
+    func pushBack(card: Card, xIndex: Int) {
+        sevenPiles[xIndex].append(card)
     }
     
 }

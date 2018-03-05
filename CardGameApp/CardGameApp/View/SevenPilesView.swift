@@ -11,7 +11,6 @@ import UIKit
 class SevenPilesView: UIStackView {
     var images: [[String]] = [] {
         didSet {
-            print("testtt")
             for i in images.indices {
                 (subviews[i] as? CardPileView)?.images = images[i]
             }
@@ -54,11 +53,8 @@ class SevenPilesView: UIStackView {
         let cardPileFrame = CGRect(x: bounds.origin.x + marginBetweenCards + ((cardPileWidth + marginBetweenCards) * CGFloat(index)),
                                     y: bounds.origin.y,
                                     width: cardPileWidth,
-                                    height: cardPileHeight)
+                                    height: bounds.size.height)
         let cardPileView = CardPileView(frame: cardPileFrame)
-        cardPileView.layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
-        cardPileView.layer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
-        cardPileView.layer.borderColor = UIColor.white.cgColor
         return cardPileView
     }
 }

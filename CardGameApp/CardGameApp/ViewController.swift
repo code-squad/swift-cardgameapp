@@ -37,6 +37,10 @@ class ViewController: UIViewController {
                                                selector: #selector(changeSevenPiles(notification:)),
                                                name: .sevenPiles,
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(doubleTapOnSevenPiles(notification:)),
+                                               name: .doubleTapped,
+                                               object: nil)
         foundationsView = FoundationsView(frame: CGRect(x: 0.0, y: CGFloat(Figure.YPosition.topMargin.value), width: UIScreen.main.bounds.width / CGFloat(Figure.Count.cardPiles.value) * CGFloat(Figure.Count.foundations.value), height: UIScreen.main.bounds.width / CGFloat(Figure.Count.cardPiles.value) * CGFloat(Figure.Size.ratio.value)))
         foundationsVM = FoundationsViewModel()
         sevenPilesView = SevenPilesView(frame: CGRect(x: 0.0, y: CGFloat(Figure.YPosition.cardPileTopMargin.value), width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
@@ -104,21 +108,6 @@ class ViewController: UIViewController {
     private func configureFoundations() {
         view.addSubview(foundationsView)
     }
-//    private func configureFoundations() {
-//        for i in 0..<Figure.Count.foundations.value {
-//            foundationsView.addSubview(getFoundation(index: i))
-//        }
-//        self.view.addSubview(foundationsView)
-//    }
-//
-//    private func getFoundation(index: Int) -> UIImageView {
-//        let borderFrame = getCardLocation(index: index, topMargin: CGFloat(Figure.YPosition.topMargin.value))
-//        let imageView = UIImageView(frame: borderFrame)
-//        imageView.layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
-//        imageView.layer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
-//        imageView.layer.borderColor = UIColor.white.cgColor
-//        return imageView
-//    }
 
     @objc private func pushToFoundations(notification: Notification) {
         guard let userInfo = notification.userInfo as? [String: [String?]] else { return }
@@ -209,13 +198,23 @@ class ViewController: UIViewController {
     }
 
     @objc private func changeSevenPiles(notification: Notification) {
-        print("test")
         guard let userInfo = notification.userInfo as? [String: [[String]]] else { return }
         guard let sevenPilesImages = userInfo[Keyword.sevenPilesImages.value] else { return }
         sevenPilesView.images = sevenPilesImages
-        print(sevenPilesImages)
     }
 
+    @objc private func doubleTapOnSevenPiles(notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String: String] else { return }
+        guard let doubleTappedCard = userInfo[Keyword.doubleTapped.value] else { return }
+        let poppedCardInformation = sevenPilesVM.pop(name: doubleTappedCard)
+        guard let poppedCard = poppedCardInformation.card else { return }
+        guard foundationsVM.push(card: poppedCard) else {
+            sevenPilesVM.pushBack(card: poppedCardInformation.card!, xIndex: poppedCardInformation.xIndex!)
+            print("fail")
+            return
+        }
+        print("success")
+    }
 //    private func spreadSevenPiles() {
 //        for xIndex in 0..<Figure.Count.cardPiles.value {
 //

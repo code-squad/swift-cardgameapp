@@ -23,10 +23,18 @@ class CardView: UIImageView {
     func setCardFigure() {
         layer.borderWidth = 1
         layer.borderColor = UIColor.white.cgColor
+        let doubleTap = UITapGestureRecognizer.init(target: self, action: #selector(doubleTapCard(recognizer:)))
+        doubleTap.numberOfTapsRequired = Figure.TapGesture.double.rawValue
+        addGestureRecognizer(doubleTap)
+    }
+
+    @objc private func doubleTapCard(recognizer: UITapGestureRecognizer) {
+        NotificationCenter.default.post(name: .doubleTapped, object: self, userInfo: [Keyword.doubleTapped.value:recognizer.view?.accessibilityIdentifier ?? Figure.Image.back.value])
     }
 
     func setImage(name: String) {
         image = UIImage(named: name)
+        accessibilityIdentifier = name
     }
 
 }

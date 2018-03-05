@@ -12,4 +12,5 @@ extension Notification.Name {
     static let openedCardDeck = Notification.Name("openedCardDeck")
     static let foundation = Notification.Name("foundation")
     static let sevenPiles = Notification.Name("sevenPiles")
+    static let doubleTapped = Notification.Name("doubleTapped")
 }
