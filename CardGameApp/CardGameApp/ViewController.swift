@@ -11,12 +11,14 @@ import UIKit
 class ViewController: UIViewController {
     private var deck: Deck!
     private var gameTable: Table!
+    private var eventController: CardEventController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         makeBackGround()
         self.deck = Deck()
         self.gameTable = Table(with: self.deck)
+        self.eventController = CardEventController(self.deck, viewController: self)
         makeGameTable()
     }
     
@@ -84,8 +86,8 @@ class ViewController: UIViewController {
         if !restOfcardCover.isUpside() {
             let backSide = UIImageView(image: UIImage(named: "card_back"))
             backSide.makeCardView(index: CGFloat(lastColumn))
-            let gesture = UITapGestureRecognizer(target: self,
-                                                 action: #selector (popCard(_:)))
+            let gesture = UITapGestureRecognizer(target: eventController,
+                                                 action: #selector (eventController.popCard(_:)))
             backSide.addGestureRecognizer(gesture)
             backSide.isUserInteractionEnabled = true
             backSide.tag = 1
@@ -93,27 +95,6 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc private func popCard(_ touch: UITapGestureRecognizer) {
-        if touch.state == .ended {
-            if let oneCard = deck.popCard() {
-                oneCard.flipCard()
-                let cardView = UIImageView(image: UIImage(named: oneCard.getCardName()))
-                cardView.makeCardView(index: 4.5)
-                self.view.addSubview(cardView)
-            } else if deck.isEmptyDeck() {
-               makeRefreshButtonView()
-            }
-        }
-    }
-    
-    private func makeRefreshButtonView() {
-        let button = UIImageView(image: UIImage(named: "cardgameapp-refresh-app"))
-        button.refreshButton()
-        if let deckCoverView = self.view.viewWithTag(1) {
-            deckCoverView.removeFromSuperview()
-        }
-        self.view.addSubview(button)
-    }
 }
 
 extension ViewController {

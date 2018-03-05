@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Deck {
+struct Deck: CardGameInfo {
     private var cards: [Card]
     
     init() {

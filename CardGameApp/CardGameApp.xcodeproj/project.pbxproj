@@ -22,6 +22,7 @@
 		40A136E1201ACFD700756974 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40A136DF201ACFD700756974 /* LaunchScreen.storyboard */; };
 		40A136EC201ACFD800756974 /* CardGameAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A136EB201ACFD800756974 /* CardGameAppTests.swift */; };
 		40A136F7201ACFD800756974 /* CardGameAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A136F6201ACFD800756974 /* CardGameAppUITests.swift */; };
+		40C45535204D07320060F609 /* CardEventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40C45534204D07320060F609 /* CardEventController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		40A136F2201ACFD800756974 /* CardGameAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardGameAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A136F6201ACFD800756974 /* CardGameAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameAppUITests.swift; sourceTree = "<group>"; };
 		40A136F8201ACFD800756974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40C45534204D07320060F609 /* CardEventController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEventController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 				407D850E201EE48E00071EDB /* Model */,
 				40A136D6201ACFD700756974 /* AppDelegate.swift */,
 				40A136D8201ACFD700756974 /* ViewController.swift */,
+				40C45534204D07320060F609 /* CardEventController.swift */,
 				407D850C201EC0DB00071EDB /* UIImageView+CardView.swift */,
 				404A85A420219394008D2FA1 /* UIImageView+CardStack.swift */,
 				40A136DA201ACFD700756974 /* Main.storyboard */,
@@ -308,6 +311,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40C45535204D07320060F609 /* CardEventController.swift in Sources */,
 				407D851E201EE4C200071EDB /* Deck.swift in Sources */,
 				404A85A520219394008D2FA1 /* UIImageView+CardStack.swift in Sources */,
 				407D851B201EE4C200071EDB /* Table.swift in Sources */,
