@@ -18,7 +18,7 @@ class ViewController: UIViewController {
         makeBackGround()
         self.deck = Deck()
         self.gameTable = Table(with: self.deck)
-        self.eventController = CardEventController(self.deck, viewController: self)
+        self.eventController = CardEventController(deck: self.deck, viewController: self)
         makeGameTable()
     }
     
@@ -48,10 +48,18 @@ class ViewController: UIViewController {
         for cardView in tableStacks {
             for index in 0..<cardView.count {
                 cardView[index].makeStackView(column: column, cardsRow: index)
+                let gesture = UITapGestureRecognizer(target: eventController,
+                                                     action: #selector (eventController.moveFoundation(_:)))
+                cardView[index].addGestureRecognizer(gesture)
+                cardView[index].isUserInteractionEnabled = true
                 self.view.addSubview(cardView[index])
             }
             column += 1
         }
+    }
+    
+    private func makeDoubleTapGesture() {
+        
     }
     
     private func makeColumnView() -> [[UIImageView]] {
@@ -65,7 +73,7 @@ class ViewController: UIViewController {
     private func makeCardStacks(cards: [Card]) -> [UIImageView] {
         var stacks = [UIImageView]()
         for card in cards {
-            stacks.append(choiceCardFace(with: card) )
+            stacks.append(choiceCardFace(with: card))
         }
         return stacks
     }
@@ -94,7 +102,7 @@ class ViewController: UIViewController {
             self.view.addSubview(backSide)
         }
     }
-    
+ 
 }
 
 extension ViewController {

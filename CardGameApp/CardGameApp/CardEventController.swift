@@ -17,7 +17,7 @@ class CardEventController {
     private var deck: CardGameInfo
     private var mainViewController: UIViewController
     
-    init(_ deck: CardGameInfo, viewController: UIViewController) {
+    init(deck: CardGameInfo, viewController: UIViewController) {
         self.deck = deck
         self.mainViewController = viewController
     }
@@ -35,6 +35,13 @@ class CardEventController {
         }
     }
     
+    @objc func moveFoundation(_ touch: UITapGestureRecognizer) {
+        touch.numberOfTapsRequired = 2
+        if touch.state == .ended {
+            print("Double Tap!")
+        }
+    }
+    
     private func makeRefreshButtonView() {
         let button = UIImageView(image: UIImage(named: "cardgameapp-refresh-app"))
         button.refreshButton()
@@ -43,5 +50,4 @@ class CardEventController {
         }
         mainViewController.view.addSubview(button)
     }
-    
 }
