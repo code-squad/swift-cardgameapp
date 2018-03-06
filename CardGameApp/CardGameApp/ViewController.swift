@@ -41,9 +41,15 @@ class ViewController: UIViewController {
                                                selector: #selector(doubleTapOnSevenPiles(notification:)),
                                                name: .doubleTapped,
                                                object: nil)
-        foundationsView = FoundationsView(frame: CGRect(x: 0.0, y: CGFloat(Figure.YPosition.topMargin.value), width: UIScreen.main.bounds.width / CGFloat(Figure.Count.cardPiles.value) * CGFloat(Figure.Count.foundations.value), height: UIScreen.main.bounds.width / CGFloat(Figure.Count.cardPiles.value) * CGFloat(Figure.Size.ratio.value)))
+        foundationsView = FoundationsView(frame: CGRect(x: UIScreen.main.bounds.origin.x,
+                                                        y: CGFloat(Figure.YPosition.topMargin.value),
+                                                        width: UIScreen.main.bounds.width / CGFloat(Figure.Count.cardPiles.value) * CGFloat(Figure.Count.foundations.value),
+                                                        height: UIScreen.main.bounds.width / CGFloat(Figure.Count.cardPiles.value) * CGFloat(Figure.Size.ratio.value)))
         foundationsVM = FoundationsViewModel()
-        sevenPilesView = SevenPilesView(frame: CGRect(x: 0.0, y: CGFloat(Figure.YPosition.cardPileTopMargin.value), width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        sevenPilesView = SevenPilesView(frame: CGRect(x: UIScreen.main.bounds.origin.x,
+                                                      y: CGFloat(Figure.YPosition.cardPileTopMargin.value),
+                                                      width: UIScreen.main.bounds.width,
+                                                      height: UIScreen.main.bounds.height))
         sevenPilesVM = SevenPilesViewModel()
         openedCardDeckVM = OpenedCardDeckViewModel()
         setCardGame()
@@ -54,19 +60,18 @@ class ViewController: UIViewController {
     override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
         super.motionBegan(motion, with: event)
         if motion == .motionShake {
+            foundationsVM.reset()
+            foundationsView.reset()
+
+            openedCardDeckVM.reset()
             dealerAction.reset()
             dealerAction.shuffle()
             cardDeckView.image = backImage
-            openedCardDeckView.image = nil
-//            removeSevenPileViews()
-//            sevenPilesView = []
+
+            sevenPilesVM.reset()
             spreadSevenPiles()
         }
     }
-
-//    private func removeSevenPileViews() {
-//        sevenPilesView.forEach { pileViews in pileViews.forEach { pileView in pileView.removeFromSuperview() } }
-//    }
 
     // set card game
     private func setCardGame() {
@@ -95,7 +100,7 @@ class ViewController: UIViewController {
     }
 
     private func configureBackground() {
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: Figure.Image.background.value)!)
+        view.backgroundColor = UIColor(patternImage: UIImage(named: Figure.Image.background.value)!)
     }
 
     private func getCardLocation(index: Int, topMargin: CGFloat) -> CGRect {
@@ -124,7 +129,7 @@ class ViewController: UIViewController {
         tap.numberOfTapsRequired = Figure.TapGesture.once.rawValue
         cardDeckView.addGestureRecognizer(tap)
         cardDeckView.isUserInteractionEnabled = true
-        self.view.addSubview(cardDeckView)
+        view.addSubview(cardDeckView)
     }
 
     private func configureOpenedCardDeck() {
@@ -135,8 +140,7 @@ class ViewController: UIViewController {
         doubleTap.numberOfTapsRequired = Figure.TapGesture.double.rawValue
         openedCardDeckView.addGestureRecognizer(doubleTap)
         openedCardDeckView.isUserInteractionEnabled = true
-
-        self.view.addSubview(openedCardDeckView)
+        view.addSubview(openedCardDeckView)
     }
 
     @objc private func changeOpenedCardDeck() {
@@ -175,18 +179,13 @@ class ViewController: UIViewController {
     }
 
     private func selectCardDeckViewImage() {
-        guard dealerAction.isRemain() else {
-            cardDeckView.image = refreshImage
-            return
-        }
-        cardDeckView.image = backImage
+        cardDeckView.image = dealerAction.isRemain() ? backImage : refreshImage
     }
 
     private func spreadSevenPiles() {
         for xIndex in 0..<Figure.Count.cardPiles.value {
             spreadAPile(xIndex: xIndex)
         }
-        sevenPilesVM.isDoneSetting = true
         view.addSubview(sevenPilesView)
     }
 

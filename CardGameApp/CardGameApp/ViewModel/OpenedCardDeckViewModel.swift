@@ -40,7 +40,7 @@ class OpenedCardDeckViewModel: PilesVMProtocol {
     }
 
     func reset() {
-
+        openedCardDeck = []
     }
 
 }

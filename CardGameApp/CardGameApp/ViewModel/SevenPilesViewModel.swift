@@ -9,7 +9,7 @@
 import Foundation
 
 class SevenPilesViewModel: PilesVMProtocol {
-    var isDoneSetting = false
+    private var isDoneSetting: Bool
     private var sevenPiles: [CardPack] = [CardPack]() {
         didSet {
             if isDoneSetting { checkUpsideForLastCard() }
@@ -26,17 +26,25 @@ class SevenPilesViewModel: PilesVMProtocol {
     }
 
     init() {
+        isDoneSetting = false
+        setSevenPiles()
+    }
+
+    private func setSevenPiles() {
         for _ in 0..<Figure.Count.cardPiles.value {
             sevenPiles.append([])
         }
     }
 
     func setCardPiles(card: Card, xIndex: Int) {
+        isDoneSetting = false
         sevenPiles[xIndex].append(card)
+        isDoneSetting = true
     }
 
     func reset() {
-        
+        sevenPiles = []
+        setSevenPiles()
     }
 
     private func validatePush(card: Card, xIndex: Int) -> Bool {

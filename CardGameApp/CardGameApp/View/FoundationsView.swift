@@ -63,4 +63,8 @@ class FoundationsView: UIStackView {
         imageView.layer.borderColor = UIColor.white.cgColor
         return imageView
     }
+
+    func reset() {
+        subviews.forEach { ($0 as! UIImageView).image = nil }
+    }
 }

@@ -54,6 +54,6 @@ class FoundationsViewModel: PilesVMProtocol {
     }
 
     func reset() {
-        
+        foundations = []
     }
 }
