@@ -38,7 +38,7 @@ class CardEventController {
     @objc func moveFoundation(_ touch: UITapGestureRecognizer) {
         touch.numberOfTapsRequired = 2
         if touch.state == .ended {
-            print("Double Tap!")
+            
         }
     }
     

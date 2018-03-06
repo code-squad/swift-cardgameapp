@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     private var deck: Deck!
     private var gameTable: Table!
     private var eventController: CardEventController!
+    private var foundationView: FoundationView!
+    private var stackView: CardStackView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,73 +21,29 @@ class ViewController: UIViewController {
         self.deck = Deck()
         self.gameTable = Table(with: self.deck)
         self.eventController = CardEventController(deck: self.deck, viewController: self)
+        self.foundationView = FoundationView(frame: CGRect(x: 0,
+                                                           y: UIApplication.shared.statusBarFrame.height,
+                                                           width: (self.view.cardSize().width + self.view.marginBetweenCard()) * 4,
+                                                           height: self.view.cardSize().height))
+        self.stackView = CardStackView(frame: CGRect(x: 0,
+                                                     y: 80 + UIApplication.shared.statusBarFrame.height,
+                                                     width: UIScreen.main.bounds.size.width,
+                                                     height: UIScreen.main.bounds.size.height - UIApplication.shared.statusBarFrame.height - 80))
         makeGameTable()
     }
     
     func makeGameTable() {
-        makeTableColumnCards()
-        makeFoundation()
+        self.deck = try? self.gameTable.dealTheCardOfGameTable()
         makeDeck()
+        foundationView.makeFoundation()
+        stackView.makeStackBackView()
+        self.view.addSubview(foundationView)
+        self.view.addSubview(stackView)
     }
     
     private func makeBackGround() {
         guard let tableBackground = UIImage(named: "cg_background") else { return }
         self.view.backgroundColor = UIColor(patternImage: tableBackground)
-    }
-    
-    private func makeFoundation() {
-        for column in 0..<4 {
-            let cardPlace = UIImageView()
-            cardPlace.makeCardView(index: CGFloat(column))
-            self.view.addSubview(cardPlace)
-        }
-    }
-    
-    private func makeTableColumnCards() {
-        self.deck = try? self.gameTable.dealTheCardOfGameTable()
-        let tableStacks = makeColumnView()
-        var column = 0
-        for cardView in tableStacks {
-            for index in 0..<cardView.count {
-                cardView[index].makeStackView(column: column, cardsRow: index)
-                let gesture = UITapGestureRecognizer(target: eventController,
-                                                     action: #selector (eventController.moveFoundation(_:)))
-                cardView[index].addGestureRecognizer(gesture)
-                cardView[index].isUserInteractionEnabled = true
-                self.view.addSubview(cardView[index])
-            }
-            column += 1
-        }
-    }
-    
-    private func makeDoubleTapGesture() {
-        
-    }
-    
-    private func makeColumnView() -> [[UIImageView]] {
-        var cardStackView = [[UIImageView]]()
-        for cards in gameTable.cardStacksOfTable {
-            cardStackView.append(makeCardStacks(cards: cards))
-        }
-        return cardStackView
-    }
-    
-    private func makeCardStacks(cards: [Card]) -> [UIImageView] {
-        var stacks = [UIImageView]()
-        for card in cards {
-            stacks.append(choiceCardFace(with: card))
-        }
-        return stacks
-    }
-    
-    private func choiceCardFace(with card: Card) -> UIImageView {
-        var cardView = UIImageView()
-        if card.isUpside() {
-            cardView = UIImageView(image: UIImage(named: card.getCardName()))
-        } else {
-            cardView = UIImageView(image: UIImage(named: "card_back"))
-        }
-        return cardView
     }
     
     private func makeDeck() {

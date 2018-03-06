@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIImageView {
+extension UIView {
     func makeBasicView() {
         self.bounds = CGRect(origin: CGPoint.zero, size: self.cardSize())
         self.layer.borderWidth = 1

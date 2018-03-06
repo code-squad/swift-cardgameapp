@@ -8,12 +8,20 @@
 
 import UIKit
 
-extension UIImageView {
+extension UIView {
     func makeStackView(column: Int, cardsRow: Int) {
         let playCardYPoint = CGFloat(80)
         self.makeCardView(index: CGFloat(column),
                           yPoint: playCardYPoint
                             + UIApplication.shared.statusBarFrame.height
                             + CGFloat(cardsRow) * 20)
+    }
+    
+    func makeStackView(column: Int) {
+        let xPoint = ((self.cardSize().width + self.marginBetweenCard()) * CGFloat(column)) + self.marginBetweenCard()
+        
+        self.frame = CGRect(x: xPoint, y: 0,
+                             width: self.cardSize().width,
+                             height: UIScreen.main.bounds.size.height - UIApplication.shared.statusBarFrame.height - 80)
     }
 }
