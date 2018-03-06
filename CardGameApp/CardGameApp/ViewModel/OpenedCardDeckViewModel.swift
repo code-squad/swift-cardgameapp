@@ -19,6 +19,10 @@ class OpenedCardDeckViewModel: PilesVMProtocol {
         return openedCardDeck.last?.image
     }
 
+    var willMoveImage: String? {
+        return openedCardDeck.count > 1 ? openedCardDeck[openedCardDeck.count-2].image : nil
+    }
+
     func push(card: Card) {
         openedCardDeck.append(card)
     }
@@ -41,6 +45,10 @@ class OpenedCardDeckViewModel: PilesVMProtocol {
 
     func reset() {
         openedCardDeck = []
+    }
+
+    func getLastCard() -> Card? {
+        return openedCardDeck.last
     }
 
 }

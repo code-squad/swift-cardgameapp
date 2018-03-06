@@ -53,6 +53,20 @@ class FoundationsViewModel: PilesVMProtocol {
         return false
     }
 
+    func getTargetPosition(card: Card) -> Int? {
+        var targetPosition: Int?
+        if card.rank == Card.Rank.ace {
+            return foundations.count
+        }
+        for i in foundations.indices {
+            guard foundations[i].last?.suit == card.suit else { continue }
+            if (foundations[i].last?.rank.rawValue)! == card.rank.rawValue - 1 {
+                targetPosition = i
+            }
+        }
+        return targetPosition
+    }
+
     func reset() {
         foundations = []
     }
