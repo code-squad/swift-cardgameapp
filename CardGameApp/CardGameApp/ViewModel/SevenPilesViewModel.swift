@@ -9,8 +9,10 @@
 import Foundation
 
 class SevenPilesViewModel: PilesVMProtocol {
+    var isDoneSetting = false
     private var sevenPiles: [CardPack] = [CardPack]() {
         didSet {
+            if isDoneSetting { checkUpsideForLastCard() }
             var cardImages: [[String]] = []
             for xIndex in sevenPiles.indices {
                 cardImages.append([])
@@ -74,6 +76,14 @@ class SevenPilesViewModel: PilesVMProtocol {
             }
         }
         return false
+    }
+
+    private func checkUpsideForLastCard() {
+        sevenPiles.forEach { cardPile in
+            if cardPile.last?.isUpSide() == false {
+                cardPile.last?.turnUpSideDown()
+            }
+        }
     }
     
 }

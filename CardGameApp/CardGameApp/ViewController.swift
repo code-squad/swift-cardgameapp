@@ -186,6 +186,7 @@ class ViewController: UIViewController {
         for xIndex in 0..<Figure.Count.cardPiles.value {
             spreadAPile(xIndex: xIndex)
         }
+        sevenPilesVM.isDoneSetting = true
         view.addSubview(sevenPilesView)
     }
 
@@ -208,9 +209,9 @@ class ViewController: UIViewController {
     }
 
     @objc private func doubleTapOnSevenPiles(notification: Notification) {
-        guard let userInfo = notification.userInfo as? [String: String] else { return }
-        guard let doubleTappedCard = userInfo[Keyword.doubleTapped.value] else { return }
-        let poppedCardInformation = sevenPilesVM.pop(name: doubleTappedCard)
+        guard let userInfo = notification.userInfo as? [String: Any] else { return }
+        guard let doubleTappedCardView = userInfo[Keyword.doubleTapped.value] as? CardView else { return }
+        let poppedCardInformation = sevenPilesVM.pop(name: doubleTappedCardView.accessibilityIdentifier ?? "")
         guard let poppedCard = poppedCardInformation.card else { return }
         guard foundationsVM.push(card: poppedCard) else {
             guard sevenPilesVM.newPlace(of: poppedCard) else {
@@ -222,52 +223,6 @@ class ViewController: UIViewController {
             return
         }
         print("foundation success")
-    }
-//    private func spreadSevenPiles() {
-//        for xIndex in 0..<Figure.Count.cardPiles.value {
-//
-////            sevenPilesView.append([])
-//            spreadAPile(xIndex: xIndex)
-//        }
-//    }
-
-//    private func spreadAPile(xIndex: Int) {
-//        for yIndex in 0...xIndex {
-//            sevenPilesView.addSubview(getACardImageViewForAPile(xIndex: xIndex, yIndex: yIndex))
-////            sevenPileViews[xIndex].append(getACardImageViewForAPile(xIndex: xIndex, yIndex: yIndex))
-////            self.view.addSubview(sevenPileViews[xIndex][yIndex])
-//        }
-//
-////        let doubleTap = UITapGestureRecognizer.init(target: self, action: #selector(doubleTapACardOnPiles))
-////        doubleTap.numberOfTapsRequired = Figure.TapGesture.double.rawValue
-////        sevenPilesView.addGestureRecognizer(doubleTap)
-////        sevenPilesView.isUserInteractionEnabled = true
-//
-//        self.view.addSubview(sevenPilesView)
-//    }
-//
-//    private func getACardImageViewForAPile(xIndex: Int, yIndex: Int) -> UIImageView {
-//        let cardPileTopMargin = CGFloat(Figure.YPosition.cardPileTopMargin.value)
-//                                + (CGFloat(Figure.YPosition.betweenCards.value) * CGFloat(yIndex))
-//        let imageView = UIImageView(frame: getCardLocation(index: xIndex, topMargin: cardPileTopMargin))
-//        let card = dealerAction.removeOne()
-//        if xIndex == yIndex {
-//            card?.turnUpSideDown()
-//        }
-//        let image = UIImage(named: card?.image ?? Figure.Image.back.value)
-//        imageView.contentMode = .scaleAspectFit
-//        imageView.image = image
-//        sevenPilesVM.setCardPiles(card: card!, xIndex: xIndex)
-//        let doubleTap = UITapGestureRecognizer.init(target: self, action: #selector(doubleTapACardOnPiles))
-//        doubleTap.numberOfTapsRequired = Figure.TapGesture.double.rawValue
-//        imageView.addGestureRecognizer(doubleTap)
-//        imageView.isUserInteractionEnabled = true
-//        return imageView
-//    }
-
-    @objc private func doubleTapACardOnPiles() {
-        print("S")
-//        print(sender)
     }
 
     override func didReceiveMemoryWarning() {
