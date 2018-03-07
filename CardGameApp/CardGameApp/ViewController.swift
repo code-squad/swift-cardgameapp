@@ -271,7 +271,7 @@ class ViewController: UIViewController {
     @objc private func doubleTapOnSevenPiles(notification: Notification) {
         guard let userInfo = notification.userInfo as? [String: Any] else { return }
         guard let doubleTappedCardView = userInfo[Keyword.doubleTapped.value] as? CardView else { return }
-        if let targetPositionOnFoundation = foundationsVM.getTargetPosition(card: sevenPilesVM.getLastCard(name: doubleTappedCardView.accessibilityIdentifier!).card!) {
+        if let targetPositionOnFoundation = foundationsVM.getTargetPosition(card: sevenPilesVM.getLastCardInformation(name: doubleTappedCardView.accessibilityIdentifier!).card!) {
             let globalPoint = doubleTappedCardView.superview?.convert(doubleTappedCardView.frame.origin, to: nil)
             UIViewPropertyAnimator.runningPropertyAnimator(
                 withDuration: 1.0,

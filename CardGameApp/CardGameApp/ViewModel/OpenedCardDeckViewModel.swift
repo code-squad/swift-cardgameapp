@@ -8,7 +8,7 @@
 
 import Foundation
 
-class OpenedCardDeckViewModel: PilesVMProtocol {
+class OpenedCardDeckViewModel {
     private var openedCardDeck: CardPack = [] {
         didSet {
             NotificationCenter.default.post(name: .openedCardDeck, object: self, userInfo: nil)

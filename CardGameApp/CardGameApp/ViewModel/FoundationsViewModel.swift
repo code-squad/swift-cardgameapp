@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FoundationsViewModel: PilesVMProtocol {
+class FoundationsViewModel {
     private var foundations: [CardPack] = [CardPack]() {
         didSet {
             var cardImages: [String?] = []
@@ -28,8 +28,8 @@ class FoundationsViewModel: PilesVMProtocol {
             foundations.append(CardPack())
             foundations[0].append(card)
         } else {
-            for i in 0..<foundations.count where foundations[i].last?.suit == card.suit {
-                foundations[i].append(card)
+            for index in 0..<foundations.count where foundations[index].last?.suit == card.suit {
+                foundations[index].append(card)
                 flag = true
             }
             if !flag {
@@ -58,10 +58,10 @@ class FoundationsViewModel: PilesVMProtocol {
         if card.rank == Card.Rank.ace {
             return foundations.count
         }
-        for i in foundations.indices {
-            guard foundations[i].last?.suit == card.suit else { continue }
-            if (foundations[i].last?.rank.rawValue)! == card.rank.rawValue - 1 {
-                targetPosition = i
+        for index in foundations.indices {
+            guard foundations[index].last?.suit == card.suit else { continue }
+            if (foundations[index].last?.rank.rawValue)! == card.rank.rawValue - 1 {
+                targetPosition = index
             }
         }
         return targetPosition

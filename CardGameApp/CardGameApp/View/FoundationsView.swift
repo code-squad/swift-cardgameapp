@@ -17,12 +17,12 @@ class FoundationsView: UIStackView {
 
     var images: [String?] = [] {
         didSet {
-            for i in images.indices {
-                guard let cardImage = images[i] else {
-                    (subviews[i] as! UIImageView).image = nil
+            for index in images.indices {
+                guard let cardImage = images[index] else {
+                    (subviews[index] as! UIImageView).image = nil
                     continue
                 }
-                (subviews[i] as! UIImageView).image = UIImage(named: cardImage)
+                (subviews[index] as! UIImageView).image = UIImage(named: cardImage)
             }
             setNeedsDisplay()
         }
@@ -45,8 +45,8 @@ class FoundationsView: UIStackView {
     }
 
     private func configureFoundations() {
-        for i in 0..<Figure.Count.foundations.value {
-            addSubview(getFoundation(index: i))
+        for index in 0..<Figure.Count.foundations.value {
+            addSubview(getFoundation(index: index))
         }
         spacing = UIStackView.spacingUseDefault
         distribution = .fillEqually

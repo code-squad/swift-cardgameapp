@@ -11,20 +11,20 @@ import UIKit
 class CardPileView: UIView {
     var images: [String] = [] {
         didSet {
-            for i in stride(from: subviews.count-1, through: 0, by: -1) {
-                subviews[i].removeFromSuperview()
+            for index in stride(from: subviews.count-1, through: 0, by: -1) {
+                subviews[index].removeFromSuperview()
             }
-            if images.count == 0 {
+            if images.isEmpty {
                 let emptyCardView = CardView(frame: getCardFrame(yIndex: images.count))
                 emptyCardView.layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
                 emptyCardView.layer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
                 emptyCardView.layer.borderColor = UIColor.white.cgColor
                 addSubview(emptyCardView)
             }
-            for i in images.indices {
-                let cardView = CardView(frame: getCardFrame(yIndex: i))
-                cardView.setImage(name: images[i])
-                if images[i] != Figure.Image.back.value {
+            for index in images.indices {
+                let cardView = CardView(frame: getCardFrame(yIndex: index))
+                cardView.setImage(name: images[index])
+                if images[index] != Figure.Image.back.value {
                     cardView.isUserInteractionEnabled = true
                 }
                 addSubview(cardView)

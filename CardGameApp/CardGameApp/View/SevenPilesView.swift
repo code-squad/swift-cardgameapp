@@ -11,8 +11,8 @@ import UIKit
 class SevenPilesView: UIStackView {
     var images: [[String]] = [] {
         didSet {
-            for i in images.indices {
-                (subviews[i] as? CardPileView)?.images = images[i]
+            for index in images.indices {
+                (subviews[index] as? CardPileView)?.images = images[index]
             }
             setNeedsDisplay()
             setNeedsLayout()
@@ -42,8 +42,8 @@ class SevenPilesView: UIStackView {
     }
 
     private func configureFoundations() {
-        for i in 0..<Figure.Count.cardPiles.value {
-            addSubview(getCardPile(index: i))
+        for index in 0..<Figure.Count.cardPiles.value {
+            addSubview(getCardPile(index: index))
         }
         spacing = UIStackView.spacingUseDefault
         distribution = .fillEqually

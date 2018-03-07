@@ -11,8 +11,8 @@ import UIKit
 class OpenedCardDeckView: UIView {
     var images: [String] = [] {
         didSet {
-            for i in stride(from: subviews.count-1, through: 0, by: -1) {
-                subviews[i].removeFromSuperview()
+            for index in stride(from: subviews.count-1, through: 0, by: -1) {
+                subviews[index].removeFromSuperview()
             }
             if images.count == 0 {
                 let emptyCardView = CardView(frame: getCardFrame())
@@ -21,13 +21,13 @@ class OpenedCardDeckView: UIView {
                 emptyCardView.layer.borderColor = UIColor.white.cgColor
                 addSubview(emptyCardView)
             }
-            for i in images.indices {
+            for index in images.indices {
                 let cardView = CardView(frame: getCardFrame())
-                cardView.setImage(name: images[i])
-                if images[i] != Figure.Image.back.value {
+                cardView.setImage(name: images[index])
+                if images[index] != Figure.Image.back.value {
                     cardView.isUserInteractionEnabled = true
                 }
-                cardView.accessibilityIdentifier = images[i]
+                cardView.accessibilityIdentifier = images[index]
                 addSubview(cardView)
             }
             setNeedsDisplay()
