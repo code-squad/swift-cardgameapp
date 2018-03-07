@@ -10,7 +10,7 @@ import UIKit
 
 class CardView: UIImageView {
 
-    override init(frame: CGRect) {
+    private override init(frame: CGRect) {
         super.init(frame: frame)
         setCardFigure()
     }
@@ -20,9 +20,37 @@ class CardView: UIImageView {
         setCardFigure()
     }
 
-    func setCardFigure() {
-        layer.borderWidth = 1
+    private func setCardFigure() {
+        layer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
         layer.borderColor = UIColor.white.cgColor
+    }
+
+    private func setEmptyCardFigure() {
+        layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
+    }
+
+    static func makeEmptyCardView(frame: CGRect) -> CardView {
+        let emptyCard = CardView(frame: frame)
+        emptyCard.setEmptyCardFigure()
+        return emptyCard
+    }
+
+    static func makeNewCardView(frame: CGRect, imageName: String) -> CardView {
+        let newCard = CardView(frame: frame)
+        newCard.setImage(name: imageName)
+        newCard.addDoubleTapEvent()
+        return newCard
+    }
+
+    private func setImage(name: String) {
+        image = UIImage(named: name)
+        accessibilityIdentifier = name
+        if name != Figure.Image.back.value {
+            isUserInteractionEnabled = true
+        }
+    }
+
+    private func addDoubleTapEvent() {
         let doubleTap = UITapGestureRecognizer.init(target: self, action: #selector(doubleTapCard(recognizer:)))
         doubleTap.numberOfTapsRequired = Figure.TapGesture.double.rawValue
         addGestureRecognizer(doubleTap)
@@ -30,11 +58,6 @@ class CardView: UIImageView {
 
     @objc private func doubleTapCard(recognizer: UITapGestureRecognizer) {
         NotificationCenter.default.post(name: .doubleTapped, object: self, userInfo: [Keyword.doubleTapped.value:recognizer.view as Any])
-    }
-
-    func setImage(name: String) {
-        image = UIImage(named: name)
-        accessibilityIdentifier = name
     }
 
 }
