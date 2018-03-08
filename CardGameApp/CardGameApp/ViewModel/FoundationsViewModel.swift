@@ -42,7 +42,7 @@ class FoundationsViewModel {
         return false
     }
 
-    func getTargetPosition(card: Card) -> Int? {
+    func getTargetPosition(of card: Card) -> Int? {
         var targetPosition: Int?
         if card.rank == Card.Rank.ace {
             return foundations.count

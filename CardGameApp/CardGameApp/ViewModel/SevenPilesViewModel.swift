@@ -8,8 +8,8 @@
 
 import Foundation
 
-typealias CardInformation = (card: Card?, xIndex: Int?, yIndex: Int?)
-typealias TargetPosition = (xIndex: Int?, yIndex: Int?)
+typealias CardPosition = (xIndex: Int?, yIndex: Int?)
+typealias CardInformation = (card: Card?, position: CardPosition)
 
 class SevenPilesViewModel {
     private var sevenPiles: SevenPiles = SevenPiles() {
@@ -28,20 +28,20 @@ class SevenPilesViewModel {
         sevenPiles.reset()
     }
 
-    func pop(name: String) -> CardInformation {
-        return sevenPiles.pop(name: name)
+    func pop(position: CardPosition) -> Card? {
+        return sevenPiles.pop(position: position)
     }
 
-    func getLastCardInformation(name: String) -> CardInformation {
-        return sevenPiles.getLastCardInformation(name: name)
+    func getDoubleTappedCardInformation(name: String) -> CardInformation {
+        return sevenPiles.getDoubleTappedCardInformation(name: name)
     }
 
-    func getTargetPosition(name: String) -> TargetPosition {
+    func getTargetPosition(name: String) -> CardPosition {
         return sevenPiles.getTargetPosition(name: name)
     }
 
-    func getNewPosition(of card: Card) -> TargetPosition {
-        return sevenPiles.getNewPosition(of: card)
+    func getTargetPosition(of card: Card) -> CardPosition {
+        return sevenPiles.getTargetPosition(of: card)
     }
 
 

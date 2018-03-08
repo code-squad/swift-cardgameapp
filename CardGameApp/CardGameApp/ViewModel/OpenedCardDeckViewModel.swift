@@ -47,7 +47,7 @@ class OpenedCardDeckViewModel {
         openedCardDeck = []
     }
 
-    func getLastCard() -> Card? {
+    func getLastCardInformation() -> Card? {
         return openedCardDeck.last
     }
 
