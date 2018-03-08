@@ -9,7 +9,7 @@
 import UIKit
 
 class SevenPilesView: UIStackView {
-    var images: [[String]] = [] {
+    var images: CardImages = [] {
         didSet {
             for index in images.indices {
                 (subviews[index] as? CardPileView)?.images = images[index]

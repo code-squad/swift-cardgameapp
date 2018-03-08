@@ -12,139 +12,45 @@ typealias CardInformation = (card: Card?, xIndex: Int?, yIndex: Int?)
 typealias TargetPosition = (xIndex: Int?, yIndex: Int?)
 
 class SevenPilesViewModel {
-    private var isDoneSetting: Bool
-    private var sevenPiles: [CardPack] = [CardPack]() {
+    private var sevenPiles: SevenPiles = SevenPiles() {
         didSet {
-            if isDoneSetting { checkUpsideForLastCard() }
-            var cardImages: [[String]] = []
-            for xIndex in sevenPiles.indices {
-                cardImages.append([])
-                for yIndex in sevenPiles[xIndex].indices {
-                    cardImages[xIndex].append(sevenPiles[xIndex][yIndex].image)
-                }
-            }
+            let cardImages = sevenPiles.getImages()
             NotificationCenter.default.post(name: .sevenPiles,
                                             object: self, userInfo: [Keyword.sevenPilesImages.value: cardImages])
         }
     }
 
-    init() {
-        isDoneSetting = false
-        setSevenPiles()
-    }
-
-    private func setSevenPiles() {
-        for _ in 0..<Figure.Count.cardPiles.value {
-            sevenPiles.append([])
-        }
-    }
-
-    func setCardPiles(card: Card, xIndex: Int) {
-        isDoneSetting = false
-        sevenPiles[xIndex].append(card)
-        isDoneSetting = true
+    func setCardPiles(sevenPiles: [CardPack]) {
+        self.sevenPiles.setSevenPiles(with: sevenPiles)
     }
 
     func reset() {
-        sevenPiles = []
-        setSevenPiles()
-    }
-
-    private func validatePush(card: Card, xIndex: Int) -> Bool {
-        guard sevenPiles[xIndex].count == 0, card.rank == Card.Rank.king else {
-            return false
-        }
-        guard sevenPiles[xIndex].last?.suit.isRed != card.suit.isRed,
-            sevenPiles[xIndex].last?.rank.rawValue == card.rank.rawValue + 1 else {
-            return false
-        }
-        return true
+        sevenPiles.reset()
     }
 
     func pop(name: String) -> CardInformation {
-        var cardInformation: CardInformation
-        for xIndex in sevenPiles.indices {
-            if let image = sevenPiles[xIndex].last?.image, image == name {
-                cardInformation.xIndex = xIndex
-                cardInformation.yIndex = sevenPiles[xIndex].count-1
-                cardInformation.card = sevenPiles[xIndex].removeLast()
-            }
-        }
-        return cardInformation
+        return sevenPiles.pop(name: name)
     }
 
     func getLastCardInformation(name: String) -> CardInformation {
-        var cardInformation: CardInformation
-        for xIndex in sevenPiles.indices {
-            if let image = sevenPiles[xIndex].last?.image, image == name {
-                cardInformation.xIndex = xIndex
-                cardInformation.yIndex = sevenPiles[xIndex].count-1
-                cardInformation.card = sevenPiles[xIndex].last
-            }
-        }
-        return cardInformation
+        return sevenPiles.getLastCardInformation(name: name)
     }
 
     func getTargetPosition(name: String) -> TargetPosition {
-        var targetPosition: TargetPosition = (xIndex: nil, yIndex: nil)
-        for xIndex in sevenPiles.indices {
-            if let image = sevenPiles[xIndex].last?.image, image == name {
-                guard let cardWillBeMoved = sevenPiles[xIndex].last else { break }
-                targetPosition = getNewPosition(of: cardWillBeMoved)
-            }
-        }
-        return targetPosition
+        return sevenPiles.getTargetPosition(name: name)
     }
 
     func getNewPosition(of card: Card) -> TargetPosition {
-        var targetPosition: TargetPosition
-        for index in sevenPiles.indices {
-            if sevenPiles[index].count == 0 {
-                if card.isKing() {
-                    targetPosition.xIndex = index
-                    targetPosition.yIndex = 0
-                    return targetPosition
-                }
-            } else {
-                if card.isAttachable(with: sevenPiles[index].last!) {
-                    targetPosition.xIndex = index
-                    targetPosition.yIndex = sevenPiles[index].count
-                    return targetPosition
-                }
-            }
-        }
-        return targetPosition
+        return sevenPiles.getNewPosition(of: card)
     }
+
 
     func pushBack(cardInformation: CardInformation) {
-        if let card = cardInformation.card, let xIndex = cardInformation.xIndex {
-            sevenPiles[xIndex].append(card)
-        }
+        sevenPiles.pushBack(cardInformation: cardInformation)
     }
 
-    func newPlace(of card: Card) -> Bool {
-        for index in sevenPiles.indices {
-            if sevenPiles[index].count == 0 {
-                if card.isKing() {
-                    sevenPiles[index].append(card)
-                    return true
-                }
-            } else {
-                if card.isAttachable(with: sevenPiles[index].last!) {
-                    sevenPiles[index].append(card)
-                    return true
-                }
-            }
-        }
-        return false
-    }
-
-    private func checkUpsideForLastCard() {
-        sevenPiles.forEach { cardPile in
-            if cardPile.last?.isUpSide() == false {
-                cardPile.last?.turnUpSideDown()
-            }
-        }
+    func setNewPlace(of card: Card) -> Bool {
+        return sevenPiles.setNewPlace(of: card)
     }
     
 }

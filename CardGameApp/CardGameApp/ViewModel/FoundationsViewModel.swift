@@ -20,23 +20,12 @@ class FoundationsViewModel {
     }
 
     func push(card: Card) -> Bool {
-        var flag = false
-        guard validatePush(card: card) else {
-            return false
+        if !validatePush(card: card) { return false }
+        for index in foundations.indices where foundations[index].last?.suit == card.suit {
+            foundations[index].append(card)
+            return true
         }
-        if foundations.count == 0 {
-            foundations.append(CardPack())
-            foundations[0].append(card)
-        } else {
-            for index in 0..<foundations.count where foundations[index].last?.suit == card.suit {
-                foundations[index].append(card)
-                flag = true
-            }
-            if !flag {
-                foundations.append(CardPack())
-                foundations[foundations.count-1].append(card)
-            }
-        }
+        foundations.append([card])
         return true
     }
 

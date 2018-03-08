@@ -15,18 +15,11 @@ class CardPileView: UIView {
                 subviews[index].removeFromSuperview()
             }
             if images.isEmpty {
-                let emptyCardView = CardView(frame: getCardFrame(yIndex: images.count))
-                emptyCardView.layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
-                emptyCardView.layer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
-                emptyCardView.layer.borderColor = UIColor.white.cgColor
+                let emptyCardView = CardView.makeEmptyCardView(frame: getCardFrame(yIndex: images.count))
                 addSubview(emptyCardView)
             }
             for index in images.indices {
-                let cardView = CardView(frame: getCardFrame(yIndex: index))
-                cardView.setImage(name: images[index])
-                if images[index] != Figure.Image.back.value {
-                    cardView.isUserInteractionEnabled = true
-                }
+                let cardView = CardView.makeNewCardView(frame: getCardFrame(yIndex: index), imageName: images[index])
                 addSubview(cardView)
             }
             setNeedsDisplay()
