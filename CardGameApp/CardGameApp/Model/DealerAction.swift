@@ -39,7 +39,7 @@ struct DealerAction {
         return cardDeck.removeOne()
     }
 
-    mutating func getCardPacks(packCount: Int) -> Array<CardPack> {
+    mutating func getCardPacks(packCount: Int) -> [CardPack] {
         return cardDeck.getCardPacks(packCount: packCount)
     }
 
@@ -61,7 +61,7 @@ struct DealerAction {
 
 extension DealerAction: Equatable {
 
-    static func ==(lhs: DealerAction, rhs: DealerAction) -> Bool {
+    static func == (lhs: DealerAction, rhs: DealerAction) -> Bool {
         guard lhs.count() == rhs.count() else { return false }
         guard lhs.cardDeck == rhs.cardDeck else { return false }
         return true

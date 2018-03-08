@@ -44,7 +44,6 @@ class SevenPilesViewModel {
         return sevenPiles.getTargetPosition(of: card)
     }
 
-
     func pushBack(cardInformation: CardInformation) {
         sevenPiles.pushBack(cardInformation: cardInformation)
     }
@@ -52,5 +51,5 @@ class SevenPilesViewModel {
     func setNewPlace(of card: Card) -> Bool {
         return sevenPiles.setNewPlace(of: card)
     }
-    
+
 }

@@ -153,25 +153,11 @@ class ViewController: UIViewController {
         openedCardDeckView.accessibilityIdentifier = cardImage
     }
 
-    private func willMoveOpenedCard() {
-        guard let cardImage = openedCardDeckVM.willMoveImage else {
-            openedCardDeckView.image = nil
-            return
-        }
-        openedCardDeckView.image = UIImage(named: cardImage)
-    }
-
     @objc private func tapCardDeck() {
         cardDeckView.isUserInteractionEnabled = false
         selectOpenedCardDeckViewImage()
         selectCardDeckViewImage()
         cardDeckView.isUserInteractionEnabled = true
-    }
-
-    private func makeOpenedCardViewForAnimation() -> CardView {
-        return CardView.makeNewCardView(frame: getCardLocation(index: Figure.XPosition.openedCardDeck.value,
-                                                               topMargin: CGFloat(Figure.YPosition.topMargin.value)),
-                                        imageName: openedCardDeckView.accessibilityIdentifier ?? "")
     }
 
     @objc private func doubleTapOpenedCardDeck() {
@@ -185,9 +171,25 @@ class ViewController: UIViewController {
         }
     }
 
+    private func makeCardViewForAnimation(xIndex: Int, topMargin: Int, imageName: String) -> CardView {
+        return CardView.makeNewCardView(frame: getCardLocation(index: xIndex,
+                                                               topMargin: CGFloat(topMargin)),
+                                        imageName: imageName)
+    }
+
+    private func willMoveOpenedCard() {
+        guard let cardImage = openedCardDeckVM.willMoveImage else {
+            openedCardDeckView.image = nil
+            return
+        }
+        openedCardDeckView.image = UIImage(named: cardImage)
+    }
+
     private func animateOpenedCardView(xIndex: Int, yIndex: Int, toFoundation: Bool) {
         view.isUserInteractionEnabled = false
-        let newCardView = makeOpenedCardViewForAnimation()
+        let newCardView = makeCardViewForAnimation(xIndex: Figure.XPosition.openedCardDeck.value,
+                                                   topMargin: Figure.YPosition.topMargin.value,
+                                                   imageName: openedCardDeckView.accessibilityIdentifier ?? "")
         view.addSubview(newCardView)
         willMoveOpenedCard()
         let globalPoint = openedCardDeckView.superview?.convert(openedCardDeckView.frame.origin, to: nil)
@@ -196,14 +198,19 @@ class ViewController: UIViewController {
             delay: 0.0,
             options: [.curveLinear],
             animations: {
-                newCardView.frame.origin.x -= ((globalPoint?.x)! - ((self.cardWidth * CGFloat(xIndex)) + CGFloat(Figure.Size.xGap.value)))
+                let dx = (self.cardWidth * CGFloat(xIndex)) + CGFloat(Figure.Size.xGap.value)
+                newCardView.frame.origin.x -= (globalPoint?.x)! - dx
+                var dy: CGFloat = 0.0
                 if toFoundation {
-                    newCardView.frame.origin.y -= ((globalPoint?.y)! -  CGFloat(Figure.YPosition.topMargin.value))
+                    dy = CGFloat(Figure.YPosition.topMargin.value)
+
                 } else {
-                    newCardView.frame.origin.y -= ((globalPoint?.y)!) -  (CGFloat(Figure.YPosition.cardPileTopMargin.value) + (CGFloat(Figure.YPosition.betweenCards.value) * CGFloat(yIndex)))
+                    dy = CGFloat(Figure.YPosition.cardPileTopMargin.value +
+                            (Figure.YPosition.betweenCards.value * yIndex))
                 }
+                newCardView.frame.origin.y -= (globalPoint?.y)! -  dy
             },
-            completion: { finished in
+            completion: { _ in
                 guard let poppedCard = self.openedCardDeckVM.pop() else { return }
                 if toFoundation {
                     guard self.foundationsVM.push(card: poppedCard) else { return }
@@ -242,41 +249,63 @@ class ViewController: UIViewController {
     @objc private func doubleTapOnSevenPiles(notification: Notification) {
         guard let userInfo = notification.userInfo as? [String: Any] else { return }
         guard let doubleTappedCardView = userInfo[Keyword.doubleTapped.value] as? CardView else { return }
-        let doubleTappedCardInformation = sevenPilesVM.getDoubleTappedCardInformation(name: doubleTappedCardView.accessibilityIdentifier!)
+        let imageName = doubleTappedCardView.accessibilityIdentifier ?? ""
+        let doubleTappedCardInformation = sevenPilesVM.getDoubleTappedCardInformation(name: imageName)
         if let targetPositionOnFoundation = foundationsVM.getTargetPosition(of: doubleTappedCardInformation.card!) {
-            animateCardViewFromSevenPiles(cardView: doubleTappedCardView, xIndex: targetPositionOnFoundation, yIndex: 0, toFoundation: true)
+            animateCardViewFromSevenPiles(cardView: doubleTappedCardView,
+                                          xIndex: targetPositionOnFoundation, yIndex: 0, toFoundation: true)
         } else {
-            let targetPositionOnSevenPiles = sevenPilesVM.getTargetPosition(name: doubleTappedCardView.accessibilityIdentifier ?? "")
+            let targetPositionOnSevenPiles = sevenPilesVM.getTargetPosition(name: imageName)
             if let xIndex = targetPositionOnSevenPiles.xIndex, let yIndex = targetPositionOnSevenPiles.yIndex {
-                animateCardViewFromSevenPiles(cardView: doubleTappedCardView, xIndex: xIndex, yIndex: yIndex, toFoundation: false)
+                animateCardViewFromSevenPiles(cardView: doubleTappedCardView,
+                                              xIndex: xIndex, yIndex: yIndex, toFoundation: false)
             }
         }
     }
 
+    private func willMoveFromSevenCardPiles(cardView: CardView) {
+        cardView.image = nil
+        cardView.layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
+    }
+
     private func animateCardViewFromSevenPiles(cardView: CardView, xIndex: Int, yIndex: Int, toFoundation: Bool) {
-        let doubleTappedCardInformation = sevenPilesVM.getDoubleTappedCardInformation(name: cardView.accessibilityIdentifier!)
+        let doubleTappedCardInformation = sevenPilesVM.getDoubleTappedCardInformation(
+            name: cardView.accessibilityIdentifier!)
         view.isUserInteractionEnabled = false
+        let newCardView = makeCardViewForAnimation(xIndex: doubleTappedCardInformation.position.xIndex!,
+                                                   topMargin: Figure.YPosition.cardPileTopMargin.value +
+                                                            (Figure.YPosition.betweenCards.value
+                                                                * doubleTappedCardInformation.position.yIndex!),
+                                                   imageName: cardView.accessibilityIdentifier!)
+        view.addSubview(newCardView)
+        willMoveFromSevenCardPiles(cardView: cardView)
         let globalPoint = cardView.superview?.convert(cardView.frame.origin, to: nil)
         UIViewPropertyAnimator.runningPropertyAnimator(
             withDuration: 1.0,
             delay: 0.0,
             options: [.curveLinear],
             animations: {
-                cardView.frame.origin.x -= ((globalPoint?.x)! - ((self.cardWidth * CGFloat(xIndex)) + CGFloat(Figure.Size.xGap.value)))
+                let dx = (self.cardWidth * CGFloat(xIndex)) + CGFloat(Figure.Size.xGap.value)
+                var dy: CGFloat = 0.0
+                newCardView.frame.origin.x -= (globalPoint?.x)! - dx
                 if toFoundation {
-                    cardView.frame.origin.y -= ((globalPoint?.y)! -  CGFloat(Figure.YPosition.topMargin.value))
+                    dy = CGFloat(Figure.YPosition.topMargin.value)
                 } else {
-                    cardView.frame.origin.y -= ((globalPoint?.y)!) -  (CGFloat(Figure.YPosition.cardPileTopMargin.value) + (CGFloat(Figure.YPosition.betweenCards.value) * CGFloat(yIndex)))
+                    dy = CGFloat(Figure.YPosition.cardPileTopMargin.value +
+                                    (Figure.YPosition.betweenCards.value * yIndex))
                 }
+                newCardView.frame.origin.y -= (globalPoint?.y)! - dy
             },
-            completion: { finished in
-                guard let poppedCard = self.sevenPilesVM.pop(position: doubleTappedCardInformation.position) else { return }
-                if toFoundation {
-                    guard self.foundationsVM.push(card: poppedCard) else { return }
-                } else {
-                    guard self.sevenPilesVM.setNewPlace(of: poppedCard) else { return }
+            completion: { _ in
+                if let poppedCard = self.sevenPilesVM.pop(position: doubleTappedCardInformation.position) {
+                    if toFoundation {
+                        guard self.foundationsVM.push(card: poppedCard) else { return }
+                    } else {
+                        guard self.sevenPilesVM.setNewPlace(of: poppedCard) else { return }
+                    }
+                    newCardView.removeFromSuperview()
+                    self.view.isUserInteractionEnabled = true
                 }
-                self.view.isUserInteractionEnabled = true
             }
         )
     }
@@ -287,4 +316,3 @@ class ViewController: UIViewController {
     }
 
 }
-

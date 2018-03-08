@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias CardPack = Array<Card>
+typealias CardPack = [Card]
 
 struct CardDeck {
     private var fullCardDeck: CardPack = []
@@ -76,8 +76,8 @@ struct CardDeck {
     }
 
     // return packs of cards as many as player wants
-    mutating func getCardPacks(packCount: Int) -> Array<CardPack> {
-        var cardPacks: Array<CardPack> = []
+    mutating func getCardPacks(packCount: Int) -> [CardPack] {
+        var cardPacks: [CardPack] = []
         for i in 1...packCount {
             cardPacks.append(getCardPack(count: i))
         }
@@ -95,7 +95,7 @@ struct CardDeck {
 
 extension CardDeck: Equatable {
 
-    static func ==(lhs: CardDeck, rhs: CardDeck) -> Bool {
+    static func == (lhs: CardDeck, rhs: CardDeck) -> Bool {
         guard lhs.count() == rhs.count() else { return false }
         for i in 0..<lhs.count() where lhs.cardDeck[i] != rhs.cardDeck[i] {
             return false

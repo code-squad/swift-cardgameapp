@@ -57,7 +57,9 @@ class CardView: UIImageView {
     }
 
     @objc private func doubleTapCard(recognizer: UITapGestureRecognizer) {
-        NotificationCenter.default.post(name: .doubleTapped, object: self, userInfo: [Keyword.doubleTapped.value:recognizer.view!])
+        NotificationCenter.default.post(name: .doubleTapped,
+                                        object: self,
+                                        userInfo: [Keyword.doubleTapped.value: recognizer.view!])
     }
 
 }

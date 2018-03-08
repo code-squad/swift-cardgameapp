@@ -18,11 +18,9 @@ class FoundationsView: UIStackView {
     var images: [String?] = [] {
         didSet {
             for index in images.indices {
-                guard let cardImage = images[index] else {
-                    (subviews[index] as! UIImageView).image = nil
-                    continue
+                if let targetView = subviews[index] as? UIImageView {
+                    targetView.image = UIImage(named: images[index] ?? "")
                 }
-                (subviews[index] as! UIImageView).image = UIImage(named: cardImage)
             }
             setNeedsDisplay()
         }
@@ -53,10 +51,8 @@ class FoundationsView: UIStackView {
     }
 
     private func getFoundation(index: Int) -> UIImageView {
-        let cardFrame = CGRect.init(x: bounds.origin.x + marginBetweenCards + ((cardWidth + marginBetweenCards) * CGFloat(index)),
-                                    y: bounds.origin.y,
-                                    width: cardWidth,
-                                    height: cardHeight)
+        let frameX = bounds.origin.x + marginBetweenCards + ((cardWidth + marginBetweenCards) * CGFloat(index))
+        let cardFrame = CGRect(x: frameX, y: bounds.origin.y, width: cardWidth, height: cardHeight)
         let imageView = UIImageView(frame: cardFrame)
         imageView.layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
         imageView.layer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
@@ -65,6 +61,10 @@ class FoundationsView: UIStackView {
     }
 
     func reset() {
-        subviews.forEach { ($0 as! UIImageView).image = nil }
+        subviews.forEach {
+            if let subview = $0 as? UIImageView {
+                subview.image = nil
+            }
+        }
     }
 }

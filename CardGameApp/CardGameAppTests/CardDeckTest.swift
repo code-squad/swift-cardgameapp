@@ -76,7 +76,7 @@ class CardDeckTest: XCTestCase {
 
         cardDeck = CardDeck()
         for _ in 0..<cardDeck.count() {
-            let _ = cardDeck.removeOne()
+            _ = cardDeck.removeOne()
         }
         XCTAssertEqual(cardDeck.count(), 0)
         cardDeck.load(cardPack: cardPack)

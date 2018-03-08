@@ -50,10 +50,11 @@ class SevenPilesView: UIStackView {
     }
 
     private func getCardPile(index: Int) -> UIView {
-        let cardPileFrame = CGRect(x: bounds.origin.x + marginBetweenCards + ((cardPileWidth + marginBetweenCards) * CGFloat(index)),
-                                    y: bounds.origin.y,
-                                    width: cardPileWidth,
-                                    height: bounds.size.height)
+        let frameX = bounds.origin.x + marginBetweenCards + ((cardPileWidth + marginBetweenCards) * CGFloat(index))
+        let cardPileFrame = CGRect(x: frameX,
+                                   y: bounds.origin.y,
+                                   width: cardPileWidth,
+                                   height: bounds.size.height)
         let cardPileView = CardPileView(frame: cardPileFrame)
         return cardPileView
     }

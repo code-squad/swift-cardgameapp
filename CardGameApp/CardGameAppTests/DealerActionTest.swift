@@ -16,12 +16,12 @@ class DealerActionTest: XCTestCase {
         super.setUp()
         baseDealerAction = DealerAction()
     }
-    
+
     override func tearDown() {
         baseDealerAction = nil
         super.tearDown()
     }
-    
+
     func testIsRemain() {
         let dealerAction = DealerAction()
         XCTAssert(dealerAction.isRemain())
@@ -64,5 +64,5 @@ class DealerActionTest: XCTestCase {
         var dealerAction = DealerAction()
         XCTAssertEqual(dealerAction.open()?.description, "♣️K")
     }
-    
+
 }

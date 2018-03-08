@@ -92,7 +92,7 @@ class Card: CustomStringConvertible {
 
 extension Card: Comparable {
 
-    static func ==(lhs: Card, rhs: Card) -> Bool {
+    static func == (lhs: Card, rhs: Card) -> Bool {
         if lhs.description == rhs.description {
             return true
         }
@@ -117,7 +117,6 @@ extension Card: Comparable {
     }
 
 }
-
 
 extension Card {
     func isKing() -> Bool {
