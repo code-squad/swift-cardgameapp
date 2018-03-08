@@ -9,12 +9,8 @@
 import UIKit
 
 extension UIView {
-    func makeStackView(column: Int, cardsRow: Int) {
-        let playCardYPoint = CGFloat(80)
-        self.makeCardView(index: CGFloat(column),
-                          yPoint: playCardYPoint
-                            + UIApplication.shared.statusBarFrame.height
-                            + CGFloat(cardsRow) * 20)
+    func makeStackView(cardsRow: Int) {
+        self.makeCardView(yPoint: CGFloat(cardsRow) * 20)
     }
     
     func makeStackView(column: Int) {

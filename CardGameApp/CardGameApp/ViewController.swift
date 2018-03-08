@@ -39,6 +39,7 @@ class ViewController: UIViewController {
         stackView.makeStackBackView()
         self.view.addSubview(foundationView)
         self.view.addSubview(stackView)
+        makeTableColumnCards()
     }
     
     private func makeBackGround() {
@@ -60,7 +61,45 @@ class ViewController: UIViewController {
             self.view.addSubview(backSide)
         }
     }
- 
+    
+    private func makeTableColumnCards() {
+        let tableStacks = makeColumnView()
+        var column = 0
+        for cardView in tableStacks {
+            for index in 0..<cardView.count {
+                cardView[index].makeStackView(cardsRow: index)
+                stackView.subviews[column].addSubview(cardView[index])
+            }
+            column += 1
+        }
+    }
+    
+    private func makeColumnView() -> [[UIImageView]] {
+        var cardStackView = [[UIImageView]]()
+        for cards in gameTable.cardStacksOfTable {
+            cardStackView.append(makeCardStacks(cards: cards))
+        }
+        return cardStackView
+    }
+    
+    private func makeCardStacks(cards: [Card]) -> [UIImageView] {
+        var stacks = [UIImageView]()
+        for card in cards {
+            stacks.append(choiceCardFace(with: card) )
+        }
+        return stacks
+    }
+    
+    private func choiceCardFace(with card: Card) -> UIImageView {
+        var cardView = UIImageView()
+        if card.isUpside() {
+            cardView = UIImageView(image: UIImage(named: card.getCardName()))
+        } else {
+            cardView = UIImageView(image: UIImage(named: "card_back"))
+        }
+        return cardView
+    }
+    
 }
 
 extension ViewController {

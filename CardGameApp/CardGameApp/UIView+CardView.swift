@@ -27,6 +27,11 @@ extension UIView {
         self.frame.origin = CGPoint(x: xPoint, y: yPoint)
     }
     
+    func makeCardView(yPoint: CGFloat) {
+        self.makeBasicView()
+        self.frame.origin = CGPoint(x: 0, y: yPoint)
+    }
+    
     func cardSize() -> CGSize {
         let screenWidth = UIScreen.main.fixedCoordinateSpace.bounds.width
         let marginRatio: CGFloat = 70
