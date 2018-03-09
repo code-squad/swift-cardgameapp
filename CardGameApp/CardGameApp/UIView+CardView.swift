@@ -9,6 +9,10 @@
 import UIKit
 
 extension UIView {
+    func getCard() -> String {
+        return self.description
+    }
+    
     func makeBasicView() {
         self.bounds = CGRect(origin: CGPoint.zero, size: self.cardSize())
         self.layer.borderWidth = 1
