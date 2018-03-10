@@ -9,41 +9,45 @@
 import UIKit
 
 class OpenedCardDeckView: UIView {
-    var images: [String] = [] {
+
+    var cardImages: CardImages = [] {
         didSet {
-            for index in stride(from: subviews.count-1, through: 0, by: -1) {
-                subviews[index].removeFromSuperview()
-            }
-            if images.isEmpty {
-                let emptyCardView = CardView.makeEmptyCardView(frame: getCardFrame())
-                addSubview(emptyCardView)
-            }
-            for index in images.indices {
-                let cardView = CardView.makeNewCardView(frame: getCardFrame(),
-                                                        imageName: images[index])
-                addSubview(cardView)
+            if let openedCardDeck = subviews[0] as? CardStackView {
+                openedCardDeck.images = cardImages
             }
             setNeedsDisplay()
+            setNeedsLayout()
         }
     }
 
-    func addNewCard(image: String) {
-        images.append(image)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureOpenedCardDeck()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configureOpenedCardDeck()
+    }
+
+    private func configureOpenedCardDeck() {
+        let openedCardDeck = CardStackView(frame: getCardFrame())
+        openedCardDeck.layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
+        openedCardDeck.layer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
+        openedCardDeck.layer.borderColor = UIColor.white.cgColor
+        openedCardDeck.setStackStyle(to: .stack)
+        addSubview(openedCardDeck)
     }
 
     private func getCardFrame() -> CGRect {
         return CGRect(x: bounds.origin.x,
                       y: bounds.origin.y,
                       width: bounds.size.width,
-                      height: bounds.size.width * CGFloat(Figure.Size.ratio.value))
+                      height: bounds.size.height)
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    func reset() {
+        cardImages = []
     }
 
 }

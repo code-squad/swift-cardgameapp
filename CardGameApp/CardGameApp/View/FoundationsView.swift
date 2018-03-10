@@ -15,14 +15,15 @@ class FoundationsView: UIStackView {
     }
     private var marginBetweenCards = CGFloat(Figure.Size.xGap.value)
 
-    var images: [String?] = [] {
+    var imagesPack: [CardImages] = [] {
         didSet {
-            for index in images.indices {
-                if let targetView = subviews[index] as? UIImageView {
-                    targetView.image = UIImage(named: images[index] ?? "")
+            for index in imagesPack.indices {
+                if let foundation = subviews[index] as? CardStackView {
+                    foundation.images = imagesPack[index]
                 }
             }
             setNeedsDisplay()
+            setNeedsLayout()
         }
     }
 
@@ -44,27 +45,26 @@ class FoundationsView: UIStackView {
 
     private func configureFoundations() {
         for index in 0..<Figure.Count.foundations.value {
-            addSubview(getFoundation(index: index))
+            addSubview(configureFoundation(index: index))
         }
         spacing = UIStackView.spacingUseDefault
         distribution = .fillEqually
     }
 
-    private func getFoundation(index: Int) -> UIImageView {
-        let frameX = bounds.origin.x + marginBetweenCards + ((cardWidth + marginBetweenCards) * CGFloat(index))
+    private func configureFoundation(index: Int) -> CardStackView {
+        let frameX = marginBetweenCards + ((cardWidth + marginBetweenCards) * CGFloat(index))
         let cardFrame = CGRect(x: frameX, y: bounds.origin.y, width: cardWidth, height: cardHeight)
-        let imageView = UIImageView(frame: cardFrame)
-        imageView.layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
-        imageView.layer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
-        imageView.layer.borderColor = UIColor.white.cgColor
-        return imageView
+        let foundation = CardStackView(frame: cardFrame)
+        foundation.layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
+        foundation.layer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
+        foundation.layer.borderColor = UIColor.white.cgColor
+        foundation.setStackStyle(to: .stack)
+        return foundation
     }
 
     func reset() {
-        subviews.forEach {
-            if let subview = $0 as? UIImageView {
-                subview.image = nil
-            }
+        for index in imagesPack.indices {
+            imagesPack[index] = []
         }
     }
 }

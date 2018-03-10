@@ -118,20 +118,29 @@ extension Card: Comparable {
 
 }
 
+// MARK: For CardGameApp
 extension Card {
     func isKing() -> Bool {
         return self.rank.value == Card.Rank.king.value
     }
 
-    func isAttachable(with another: Card) -> Bool {
-        return isOneRankDown(from: another) && isDifferentColor(with: another)
+    func isAce() -> Bool {
+        return self.rank.value == Card.Rank.ace.value
     }
 
-    private func isOneRankDown(from another: Card) -> Bool {
+    func isOneRankDown(from another: Card) -> Bool {
         return self.rank.rawValue == another.rank.rawValue - 1
     }
 
-    private func isDifferentColor(with another: Card) -> Bool {
+    func isDifferentColor(with another: Card) -> Bool {
         return self.suit.isRed != another.suit.isRed
+    }
+
+    func isOneRankUp(from another: Card) -> Bool {
+        return self.rank.rawValue == another.rank.rawValue + 1
+    }
+
+    func isSameSuit(with another: Card) -> Bool {
+        return self.suit == another.suit
     }
 }

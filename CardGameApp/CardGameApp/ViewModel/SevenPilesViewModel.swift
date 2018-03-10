@@ -8,48 +8,61 @@
 
 import Foundation
 
-typealias CardPosition = (xIndex: Int?, yIndex: Int?)
-typealias CardInformation = (card: Card?, position: CardPosition)
-
-class SevenPilesViewModel {
-    private var sevenPiles: SevenPiles = SevenPiles() {
+class SevenPilesViewModel: CardStacksProtocol {
+    private var cardStacks: [CardStack] = [CardStack]() {
         didSet {
-            let cardImages = sevenPiles.getImages()
+            var cardImagesPack: [CardImages] = []
+            cardStacks.forEach { cardImagesPack.append($0.getImagesAll()) }
             NotificationCenter.default.post(name: .sevenPiles,
-                                            object: self, userInfo: [Keyword.sevenPilesImages.value: cardImages])
+                                            object: self,
+                                            userInfo: [Keyword.sevenPilesImages.value: cardImagesPack])
         }
     }
 
-    func setCardPiles(sevenPiles: [CardPack]) {
-        self.sevenPiles.setSevenPiles(with: sevenPiles)
+    init() {
+        cardStacks = []
+    }
+
+    func spreadCardPiles(sevenPiles: [CardPack]) {
+        for index in sevenPiles.indices {
+            cardStacks.append(CardStack(cardPack: sevenPiles[index]))
+        }
+    }
+
+    func push(card: Card) {
+        let targetPosition = availablePosition(of: card)
+        if let xIndex = targetPosition.xIndex {
+            cardStacks[xIndex].push(card: card)
+        }
+    }
+
+    func pop(index: Int) -> Card? {
+        return cardStacks[index].pop()
+    }
+
+    func availablePosition(of card: Card) -> CardIndexes {
+        var availablePosition: CardIndexes = (xIndex: nil, yIndex: nil)
+        for xIndex in cardStacks.indices {
+            if cardStacks[xIndex].isAttachable(card: card) {
+                availablePosition.xIndex = xIndex
+                availablePosition.yIndex = cardStacks[xIndex].index(of: card)
+            }
+        }
+        return availablePosition
+    }
+
+    func getSelectedCardPosition(of card: Card) -> CardIndexes {
+        var selectedCardPosition: CardIndexes = (xIndex: nil, yIndex: nil)
+        for xIndex in cardStacks.indices {
+            let yIndex = cardStacks[xIndex].index(of: card)
+            selectedCardPosition.xIndex = xIndex
+            selectedCardPosition.yIndex = yIndex
+        }
+        return selectedCardPosition
     }
 
     func reset() {
-        sevenPiles.reset()
-    }
-
-    func pop(position: CardPosition) -> Card? {
-        return sevenPiles.pop(position: position)
-    }
-
-    func getDoubleTappedCardInformation(name: String) -> CardInformation {
-        return sevenPiles.getDoubleTappedCardInformation(name: name)
-    }
-
-    func getTargetPosition(name: String) -> CardPosition {
-        return sevenPiles.getTargetPosition(name: name)
-    }
-
-    func getTargetPosition(of card: Card) -> CardPosition {
-        return sevenPiles.getTargetPosition(of: card)
-    }
-
-    func pushBack(cardInformation: CardInformation) {
-        sevenPiles.pushBack(cardInformation: cardInformation)
-    }
-
-    func setNewPlace(of card: Card) -> Bool {
-        return sevenPiles.setNewPlace(of: card)
+        cardStacks = []
     }
 
 }

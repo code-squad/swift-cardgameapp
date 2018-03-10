@@ -9,53 +9,56 @@
 import UIKit
 
 class SevenPilesView: UIStackView {
-    var images: CardImages = [] {
+    private var cardPileWidth: CGFloat!
+    private var marginBetweenCards = CGFloat(Figure.Size.xGap.value)
+
+    var imagesPack: [CardImages] = [] {
         didSet {
-            for index in images.indices {
-                (subviews[index] as? CardPileView)?.images = images[index]
+            for index in imagesPack.indices {
+                if let foundation = subviews[index] as? CardStackView {
+                    foundation.images = imagesPack[index]
+                }
             }
             setNeedsDisplay()
             setNeedsLayout()
         }
     }
 
-    private var cardPileWidth: CGFloat!
-    private var cardPileHeight: CGFloat {
-        return cardPileWidth * CGFloat(Figure.Size.ratio.value)
-    }
-    private var marginBetweenCards = CGFloat(Figure.Size.xGap.value)
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         setCardPileSize()
-        configureFoundations()
+        configureSevenPiles()
     }
 
     required init(coder: NSCoder) {
         super.init(coder: coder)
         setCardPileSize()
-        configureFoundations()
+        configureSevenPiles()
     }
 
     private func setCardPileSize() {
         cardPileWidth = bounds.size.width / CGFloat(Figure.Count.cardPiles.value) - marginBetweenCards
     }
 
-    private func configureFoundations() {
+    private func configureSevenPiles() {
         for index in 0..<Figure.Count.cardPiles.value {
-            addSubview(getCardPile(index: index))
+            addSubview(configureCardPile(index: index))
         }
         spacing = UIStackView.spacingUseDefault
         distribution = .fillEqually
     }
 
-    private func getCardPile(index: Int) -> UIView {
-        let frameX = bounds.origin.x + marginBetweenCards + ((cardPileWidth + marginBetweenCards) * CGFloat(index))
-        let cardPileFrame = CGRect(x: frameX,
-                                   y: bounds.origin.y,
-                                   width: cardPileWidth,
-                                   height: bounds.size.height)
-        let cardPileView = CardPileView(frame: cardPileFrame)
-        return cardPileView
+    private func configureCardPile(index: Int) -> CardStackView {
+        let frameX = marginBetweenCards + ((cardPileWidth + marginBetweenCards) * CGFloat(index))
+        let cardFrame = CGRect(x: frameX, y: bounds.origin.y, width: cardPileWidth, height: bounds.size.height)
+        let cardPile = CardStackView(frame: cardFrame)
+        cardPile.setStackStyle(to: .attach)
+        return cardPile
+    }
+
+    func reset() {
+        for index in imagesPack.indices {
+            imagesPack[index] = []
+        }
     }
 }

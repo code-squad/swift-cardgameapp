@@ -10,14 +10,18 @@ import Foundation
 
 enum Keyword {
     case foundationImages
+    case openedCardImages
     case sevenPilesImages
     case doubleTapped
+    case tappedCardDeck
 
     var value: String {
         switch self {
         case .foundationImages: return "foundationImages"
         case .sevenPilesImages: return "sevenPilesImages"
+        case .openedCardImages: return "openedCardImages"
         case .doubleTapped: return "doubleTapped"
+        case .tappedCardDeck: return "tappedCardDeck"
         }
     }
 }

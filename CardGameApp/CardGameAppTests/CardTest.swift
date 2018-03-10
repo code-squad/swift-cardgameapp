@@ -11,6 +11,62 @@ import XCTest
 @testable import CardGameApp
 
 class CardTests: XCTestCase {
+    // spades
+    let spadesAce: Card = Card.init(suit: .spades, rank: .ace)
+    let spadesTwo: Card = Card.init(suit: .spades, rank: .two)
+    let spadesThree: Card = Card.init(suit: .spades, rank: .three)
+    let spadesFour: Card = Card.init(suit: .spades, rank: .four)
+    let spadesFive: Card = Card.init(suit: .spades, rank: .five)
+    let spadesSix: Card = Card.init(suit: .spades, rank: .six)
+    let spadesSeven: Card = Card.init(suit: .spades, rank: .seven)
+    let spadesEight: Card = Card.init(suit: .spades, rank: .eight)
+    let spadesNine: Card = Card.init(suit: .spades, rank: .nine)
+    let spadesTen: Card = Card.init(suit: .spades, rank: .ten)
+    let spadesJack: Card = Card.init(suit: .spades, rank: .jack)
+    let spadesQueen: Card = Card.init(suit: .spades, rank: .queen)
+    let spadesKing: Card = Card.init(suit: .spades, rank: .king)
+    // hearts
+    let heartsAce: Card = Card.init(suit: .hearts, rank: .ace)
+    let heartsTwo: Card = Card.init(suit: .hearts, rank: .two)
+    let heartsThree: Card = Card.init(suit: .hearts, rank: .three)
+    let heartsFour: Card = Card.init(suit: .hearts, rank: .four)
+    let heartsFive: Card = Card.init(suit: .hearts, rank: .five)
+    let heartsSix: Card = Card.init(suit: .hearts, rank: .six)
+    let heartsSeven: Card = Card.init(suit: .hearts, rank: .seven)
+    let heartsEight: Card = Card.init(suit: .hearts, rank: .eight)
+    let heartsNine: Card = Card.init(suit: .hearts, rank: .nine)
+    let heartsTen: Card = Card.init(suit: .hearts, rank: .ten)
+    let heartsJack: Card = Card.init(suit: .hearts, rank: .jack)
+    let heartsQueen: Card = Card.init(suit: .hearts, rank: .queen)
+    let heartsKing: Card = Card.init(suit: .hearts, rank: .king)
+    // diamonds
+    let diamondsAce: Card = Card.init(suit: .diamonds, rank: .ace)
+    let diamondsTwo: Card = Card.init(suit: .diamonds, rank: .two)
+    let diamondsThree: Card = Card.init(suit: .diamonds, rank: .three)
+    let diamondsFour: Card = Card.init(suit: .diamonds, rank: .four)
+    let diamondsFive: Card = Card.init(suit: .diamonds, rank: .five)
+    let diamondsSix: Card = Card.init(suit: .diamonds, rank: .six)
+    let diamondsSeven: Card = Card.init(suit: .diamonds, rank: .seven)
+    let diamondsEight: Card = Card.init(suit: .diamonds, rank: .eight)
+    let diamondsNine: Card = Card.init(suit: .diamonds, rank: .nine)
+    let diamondsTen: Card = Card.init(suit: .diamonds, rank: .ten)
+    let diamondsJack: Card = Card.init(suit: .diamonds, rank: .jack)
+    let diamondsQueen: Card = Card.init(suit: .diamonds, rank: .queen)
+    let diamondsKing: Card = Card.init(suit: .diamonds, rank: .king)
+    // clubs
+    let clubsAce: Card = Card.init(suit: .clubs, rank: .ace)
+    let clubsTwo: Card = Card.init(suit: .clubs, rank: .two)
+    let clubsThree: Card = Card.init(suit: .clubs, rank: .three)
+    let clubsFour: Card = Card.init(suit: .clubs, rank: .four)
+    let clubsFive: Card = Card.init(suit: .clubs, rank: .five)
+    let clubsSix: Card = Card.init(suit: .clubs, rank: .six)
+    let clubsSeven: Card = Card.init(suit: .clubs, rank: .seven)
+    let clubsEight: Card = Card.init(suit: .clubs, rank: .eight)
+    let clubsNine: Card = Card.init(suit: .clubs, rank: .nine)
+    let clubsTen: Card = Card.init(suit: .clubs, rank: .ten)
+    let clubsJack: Card = Card.init(suit: .clubs, rank: .jack)
+    let clubsQueen: Card = Card.init(suit: .clubs, rank: .queen)
+    let clubsKing: Card = Card.init(suit: .clubs, rank: .king)
 
     override func setUp() {
         super.setUp()
@@ -21,19 +77,6 @@ class CardTests: XCTestCase {
     }
 
     func testDescriptionForSpades() {
-        let spadesAce: Card = Card.init(suit: .spades, rank: .ace)
-        let spadesTwo: Card = Card.init(suit: .spades, rank: .two)
-        let spadesThree: Card = Card.init(suit: .spades, rank: .three)
-        let spadesFour: Card = Card.init(suit: .spades, rank: .four)
-        let spadesFive: Card = Card.init(suit: .spades, rank: .five)
-        let spadesSix: Card = Card.init(suit: .spades, rank: .six)
-        let spadesSeven: Card = Card.init(suit: .spades, rank: .seven)
-        let spadesEight: Card = Card.init(suit: .spades, rank: .eight)
-        let spadesNine: Card = Card.init(suit: .spades, rank: .nine)
-        let spadesTen: Card = Card.init(suit: .spades, rank: .ten)
-        let spadesJack: Card = Card.init(suit: .spades, rank: .jack)
-        let spadesQueen: Card = Card.init(suit: .spades, rank: .queen)
-        let spadesKing: Card = Card.init(suit: .spades, rank: .king)
         XCTAssertEqual(spadesAce.description, "♠️A")
         XCTAssertEqual(spadesTwo.description, "♠️2")
         XCTAssertEqual(spadesThree.description, "♠️3")
@@ -50,19 +93,6 @@ class CardTests: XCTestCase {
     }
 
     func testDescriptionForHearts() {
-        let heartsAce: Card = Card.init(suit: .hearts, rank: .ace)
-        let heartsTwo: Card = Card.init(suit: .hearts, rank: .two)
-        let heartsThree: Card = Card.init(suit: .hearts, rank: .three)
-        let heartsFour: Card = Card.init(suit: .hearts, rank: .four)
-        let heartsFive: Card = Card.init(suit: .hearts, rank: .five)
-        let heartsSix: Card = Card.init(suit: .hearts, rank: .six)
-        let heartsSeven: Card = Card.init(suit: .hearts, rank: .seven)
-        let heartsEight: Card = Card.init(suit: .hearts, rank: .eight)
-        let heartsNine: Card = Card.init(suit: .hearts, rank: .nine)
-        let heartsTen: Card = Card.init(suit: .hearts, rank: .ten)
-        let heartsJack: Card = Card.init(suit: .hearts, rank: .jack)
-        let heartsQueen: Card = Card.init(suit: .hearts, rank: .queen)
-        let heartsKing: Card = Card.init(suit: .hearts, rank: .king)
         XCTAssertEqual(heartsAce.description, "♥️A")
         XCTAssertEqual(heartsTwo.description, "♥️2")
         XCTAssertEqual(heartsThree.description, "♥️3")
@@ -79,19 +109,6 @@ class CardTests: XCTestCase {
     }
 
     func testDescriptionForDiamonds() {
-        let diamondsAce: Card = Card.init(suit: .diamonds, rank: .ace)
-        let diamondsTwo: Card = Card.init(suit: .diamonds, rank: .two)
-        let diamondsThree: Card = Card.init(suit: .diamonds, rank: .three)
-        let diamondsFour: Card = Card.init(suit: .diamonds, rank: .four)
-        let diamondsFive: Card = Card.init(suit: .diamonds, rank: .five)
-        let diamondsSix: Card = Card.init(suit: .diamonds, rank: .six)
-        let diamondsSeven: Card = Card.init(suit: .diamonds, rank: .seven)
-        let diamondsEight: Card = Card.init(suit: .diamonds, rank: .eight)
-        let diamondsNine: Card = Card.init(suit: .diamonds, rank: .nine)
-        let diamondsTen: Card = Card.init(suit: .diamonds, rank: .ten)
-        let diamondsJack: Card = Card.init(suit: .diamonds, rank: .jack)
-        let diamondsQueen: Card = Card.init(suit: .diamonds, rank: .queen)
-        let diamondsKing: Card = Card.init(suit: .diamonds, rank: .king)
         XCTAssertEqual(diamondsAce.description, "♦️A")
         XCTAssertEqual(diamondsTwo.description, "♦️2")
         XCTAssertEqual(diamondsThree.description, "♦️3")
@@ -108,19 +125,6 @@ class CardTests: XCTestCase {
     }
 
     func testDescriptionForClubs() {
-        let clubsAce: Card = Card.init(suit: .clubs, rank: .ace)
-        let clubsTwo: Card = Card.init(suit: .clubs, rank: .two)
-        let clubsThree: Card = Card.init(suit: .clubs, rank: .three)
-        let clubsFour: Card = Card.init(suit: .clubs, rank: .four)
-        let clubsFive: Card = Card.init(suit: .clubs, rank: .five)
-        let clubsSix: Card = Card.init(suit: .clubs, rank: .six)
-        let clubsSeven: Card = Card.init(suit: .clubs, rank: .seven)
-        let clubsEight: Card = Card.init(suit: .clubs, rank: .eight)
-        let clubsNine: Card = Card.init(suit: .clubs, rank: .nine)
-        let clubsTen: Card = Card.init(suit: .clubs, rank: .ten)
-        let clubsJack: Card = Card.init(suit: .clubs, rank: .jack)
-        let clubsQueen: Card = Card.init(suit: .clubs, rank: .queen)
-        let clubsKing: Card = Card.init(suit: .clubs, rank: .king)
         XCTAssertEqual(clubsAce.description, "♣️A")
         XCTAssertEqual(clubsTwo.description, "♣️2")
         XCTAssertEqual(clubsThree.description, "♣️3")
@@ -136,33 +140,22 @@ class CardTests: XCTestCase {
         XCTAssertEqual(clubsKing.description, "♣️K")
     }
 
+    func testIsUpSide() {
+        let diamondsAce: Card = Card.init(suit: .diamonds, rank: .ace)
+        XCTAssertFalse(diamondsAce.isUpSide())
+    }
+
+    func testTurnUpSideDown() {
+        let diamondsAce: Card = Card.init(suit: .diamonds, rank: .ace)
+        XCTAssertFalse(diamondsAce.isUpSide())
+        diamondsAce.turnUpSideDown()
+        XCTAssertTrue(diamondsAce.isUpSide())
+    }
+}
+
+// MARK: Image Test
+extension CardTests {
     func testImageForSpades() {
-        let spadesAce: Card = Card.init(suit: .spades, rank: .ace)
-        let spadesTwo: Card = Card.init(suit: .spades, rank: .two)
-        let spadesThree: Card = Card.init(suit: .spades, rank: .three)
-        let spadesFour: Card = Card.init(suit: .spades, rank: .four)
-        let spadesFive: Card = Card.init(suit: .spades, rank: .five)
-        let spadesSix: Card = Card.init(suit: .spades, rank: .six)
-        let spadesSeven: Card = Card.init(suit: .spades, rank: .seven)
-        let spadesEight: Card = Card.init(suit: .spades, rank: .eight)
-        let spadesNine: Card = Card.init(suit: .spades, rank: .nine)
-        let spadesTen: Card = Card.init(suit: .spades, rank: .ten)
-        let spadesJack: Card = Card.init(suit: .spades, rank: .jack)
-        let spadesQueen: Card = Card.init(suit: .spades, rank: .queen)
-        let spadesKing: Card = Card.init(suit: .spades, rank: .king)
-        XCTAssertEqual(spadesAce.image, "card-back")
-        XCTAssertEqual(spadesTwo.image, "card-back")
-        XCTAssertEqual(spadesThree.image, "card-back")
-        XCTAssertEqual(spadesFour.image, "card-back")
-        XCTAssertEqual(spadesFive.image, "card-back")
-        XCTAssertEqual(spadesSix.image, "card-back")
-        XCTAssertEqual(spadesSeven.image, "card-back")
-        XCTAssertEqual(spadesEight.image, "card-back")
-        XCTAssertEqual(spadesNine.image, "card-back")
-        XCTAssertEqual(spadesTen.image, "card-back")
-        XCTAssertEqual(spadesJack.image, "card-back")
-        XCTAssertEqual(spadesQueen.image, "card-back")
-        XCTAssertEqual(spadesKing.image, "card-back")
         spadesAce.turnUpSideDown()
         spadesTwo.turnUpSideDown()
         spadesThree.turnUpSideDown()
@@ -192,32 +185,6 @@ class CardTests: XCTestCase {
     }
 
     func testImageForHearts() {
-        let heartsAce: Card = Card.init(suit: .hearts, rank: .ace)
-        let heartsTwo: Card = Card.init(suit: .hearts, rank: .two)
-        let heartsThree: Card = Card.init(suit: .hearts, rank: .three)
-        let heartsFour: Card = Card.init(suit: .hearts, rank: .four)
-        let heartsFive: Card = Card.init(suit: .hearts, rank: .five)
-        let heartsSix: Card = Card.init(suit: .hearts, rank: .six)
-        let heartsSeven: Card = Card.init(suit: .hearts, rank: .seven)
-        let heartsEight: Card = Card.init(suit: .hearts, rank: .eight)
-        let heartsNine: Card = Card.init(suit: .hearts, rank: .nine)
-        let heartsTen: Card = Card.init(suit: .hearts, rank: .ten)
-        let heartsJack: Card = Card.init(suit: .hearts, rank: .jack)
-        let heartsQueen: Card = Card.init(suit: .hearts, rank: .queen)
-        let heartsKing: Card = Card.init(suit: .hearts, rank: .king)
-        XCTAssertEqual(heartsAce.image, "card-back")
-        XCTAssertEqual(heartsTwo.image, "card-back")
-        XCTAssertEqual(heartsThree.image, "card-back")
-        XCTAssertEqual(heartsFour.image, "card-back")
-        XCTAssertEqual(heartsFive.image, "card-back")
-        XCTAssertEqual(heartsSix.image, "card-back")
-        XCTAssertEqual(heartsSeven.image, "card-back")
-        XCTAssertEqual(heartsEight.image, "card-back")
-        XCTAssertEqual(heartsNine.image, "card-back")
-        XCTAssertEqual(heartsTen.image, "card-back")
-        XCTAssertEqual(heartsJack.image, "card-back")
-        XCTAssertEqual(heartsQueen.image, "card-back")
-        XCTAssertEqual(heartsKing.image, "card-back")
         heartsAce.turnUpSideDown()
         heartsTwo.turnUpSideDown()
         heartsThree.turnUpSideDown()
@@ -247,32 +214,6 @@ class CardTests: XCTestCase {
     }
 
     func testImageForDiamonds() {
-        let diamondsAce: Card = Card.init(suit: .diamonds, rank: .ace)
-        let diamondsTwo: Card = Card.init(suit: .diamonds, rank: .two)
-        let diamondsThree: Card = Card.init(suit: .diamonds, rank: .three)
-        let diamondsFour: Card = Card.init(suit: .diamonds, rank: .four)
-        let diamondsFive: Card = Card.init(suit: .diamonds, rank: .five)
-        let diamondsSix: Card = Card.init(suit: .diamonds, rank: .six)
-        let diamondsSeven: Card = Card.init(suit: .diamonds, rank: .seven)
-        let diamondsEight: Card = Card.init(suit: .diamonds, rank: .eight)
-        let diamondsNine: Card = Card.init(suit: .diamonds, rank: .nine)
-        let diamondsTen: Card = Card.init(suit: .diamonds, rank: .ten)
-        let diamondsJack: Card = Card.init(suit: .diamonds, rank: .jack)
-        let diamondsQueen: Card = Card.init(suit: .diamonds, rank: .queen)
-        let diamondsKing: Card = Card.init(suit: .diamonds, rank: .king)
-        XCTAssertEqual(diamondsAce.image, "card-back")
-        XCTAssertEqual(diamondsTwo.image, "card-back")
-        XCTAssertEqual(diamondsThree.image, "card-back")
-        XCTAssertEqual(diamondsFour.image, "card-back")
-        XCTAssertEqual(diamondsFive.image, "card-back")
-        XCTAssertEqual(diamondsSix.image, "card-back")
-        XCTAssertEqual(diamondsSeven.image, "card-back")
-        XCTAssertEqual(diamondsEight.image, "card-back")
-        XCTAssertEqual(diamondsNine.image, "card-back")
-        XCTAssertEqual(diamondsTen.image, "card-back")
-        XCTAssertEqual(diamondsJack.image, "card-back")
-        XCTAssertEqual(diamondsQueen.image, "card-back")
-        XCTAssertEqual(diamondsKing.image, "card-back")
         diamondsAce.turnUpSideDown()
         diamondsTwo.turnUpSideDown()
         diamondsThree.turnUpSideDown()
@@ -302,32 +243,6 @@ class CardTests: XCTestCase {
     }
 
     func testImageForClubs() {
-        let clubsAce: Card = Card.init(suit: .clubs, rank: .ace)
-        let clubsTwo: Card = Card.init(suit: .clubs, rank: .two)
-        let clubsThree: Card = Card.init(suit: .clubs, rank: .three)
-        let clubsFour: Card = Card.init(suit: .clubs, rank: .four)
-        let clubsFive: Card = Card.init(suit: .clubs, rank: .five)
-        let clubsSix: Card = Card.init(suit: .clubs, rank: .six)
-        let clubsSeven: Card = Card.init(suit: .clubs, rank: .seven)
-        let clubsEight: Card = Card.init(suit: .clubs, rank: .eight)
-        let clubsNine: Card = Card.init(suit: .clubs, rank: .nine)
-        let clubsTen: Card = Card.init(suit: .clubs, rank: .ten)
-        let clubsJack: Card = Card.init(suit: .clubs, rank: .jack)
-        let clubsQueen: Card = Card.init(suit: .clubs, rank: .queen)
-        let clubsKing: Card = Card.init(suit: .clubs, rank: .king)
-        XCTAssertEqual(clubsAce.image, "card-back")
-        XCTAssertEqual(clubsTwo.image, "card-back")
-        XCTAssertEqual(clubsThree.image, "card-back")
-        XCTAssertEqual(clubsFour.image, "card-back")
-        XCTAssertEqual(clubsFive.image, "card-back")
-        XCTAssertEqual(clubsSix.image, "card-back")
-        XCTAssertEqual(clubsSeven.image, "card-back")
-        XCTAssertEqual(clubsEight.image, "card-back")
-        XCTAssertEqual(clubsNine.image, "card-back")
-        XCTAssertEqual(clubsTen.image, "card-back")
-        XCTAssertEqual(clubsJack.image, "card-back")
-        XCTAssertEqual(clubsQueen.image, "card-back")
-        XCTAssertEqual(clubsKing.image, "card-back")
         clubsAce.turnUpSideDown()
         clubsTwo.turnUpSideDown()
         clubsThree.turnUpSideDown()
@@ -355,16 +270,90 @@ class CardTests: XCTestCase {
         XCTAssertEqual(clubsQueen.image, "cQ")
         XCTAssertEqual(clubsKing.image, "cK")
     }
+}
 
-    func testIsUpSide() {
-        let diamondsAce: Card = Card.init(suit: .diamonds, rank: .ace)
-        XCTAssertFalse(diamondsAce.isUpSide())
+// MARK: For CardGame
+extension CardTests {
+    func testIsKing() {
+        XCTAssertFalse(clubsAce.isKing())
+        XCTAssertFalse(clubsTwo.isKing())
+        XCTAssertFalse(clubsThree.isKing())
+        XCTAssertFalse(clubsFour.isKing())
+        XCTAssertFalse(clubsFive.isKing())
+        XCTAssertFalse(clubsSix.isKing())
+        XCTAssertFalse(clubsSeven.isKing())
+        XCTAssertFalse(clubsEight.isKing())
+        XCTAssertFalse(clubsNine.isKing())
+        XCTAssertFalse(clubsTen.isKing())
+        XCTAssertFalse(clubsJack.isKing())
+        XCTAssertFalse(clubsQueen.isKing())
+        XCTAssertTrue(clubsKing.isKing())
+        XCTAssertTrue(spadesKing.isKing())
+        XCTAssertTrue(diamondsKing.isKing())
+        XCTAssertTrue(heartsKing.isKing())
     }
 
-    func testTurnUpSideDown() {
-        let diamondsAce: Card = Card.init(suit: .diamonds, rank: .ace)
-        XCTAssertFalse(diamondsAce.isUpSide())
-        diamondsAce.turnUpSideDown()
-        XCTAssertTrue(diamondsAce.isUpSide())
+    func testIsAce() {
+        XCTAssertTrue(clubsAce.isAce())
+        XCTAssertFalse(clubsTwo.isAce())
+        XCTAssertFalse(clubsThree.isAce())
+        XCTAssertFalse(clubsFour.isAce())
+        XCTAssertFalse(clubsFive.isAce())
+        XCTAssertFalse(clubsSix.isAce())
+        XCTAssertFalse(clubsSeven.isAce())
+        XCTAssertFalse(clubsEight.isAce())
+        XCTAssertFalse(clubsNine.isAce())
+        XCTAssertFalse(clubsTen.isAce())
+        XCTAssertFalse(clubsJack.isAce())
+        XCTAssertFalse(clubsQueen.isAce())
+        XCTAssertFalse(clubsKing.isAce())
+        XCTAssertTrue(spadesAce.isAce())
+        XCTAssertTrue(diamondsAce.isAce())
+        XCTAssertTrue(heartsAce.isAce())
     }
+
+    func testIsOneRankDown() {
+        XCTAssertTrue(clubsAce.isOneRankDown(from: clubsTwo))
+        XCTAssertTrue(clubsAce.isOneRankDown(from: spadesTwo))
+        XCTAssertTrue(clubsAce.isOneRankDown(from: heartsTwo))
+        XCTAssertTrue(clubsAce.isOneRankDown(from: diamondsTwo))
+        XCTAssertFalse(clubsThree.isOneRankDown(from: clubsTwo))
+        XCTAssertFalse(clubsSeven.isOneRankDown(from: spadesTwo))
+        XCTAssertFalse(clubsTen.isOneRankDown(from: heartsTwo))
+        XCTAssertFalse(clubsKing.isOneRankDown(from: diamondsTwo))
+    }
+
+    func testIsDifferentColor() {
+        XCTAssertFalse(clubsAce.isDifferentColor(with: clubsTwo))
+        XCTAssertFalse(clubsAce.isDifferentColor(with: spadesTwo))
+        XCTAssertTrue(clubsAce.isDifferentColor(with: heartsTwo))
+        XCTAssertTrue(clubsAce.isDifferentColor(with: diamondsTwo))
+        XCTAssertFalse(clubsThree.isDifferentColor(with: clubsTwo))
+        XCTAssertFalse(clubsSeven.isDifferentColor(with: spadesTwo))
+        XCTAssertTrue(clubsTen.isDifferentColor(with: heartsTwo))
+        XCTAssertTrue(clubsKing.isDifferentColor(with: diamondsTwo))
+    }
+
+    func testIsOneRankUp() {
+        XCTAssertFalse(clubsAce.isOneRankUp(from: clubsTwo))
+        XCTAssertFalse(clubsAce.isOneRankUp(from: spadesTwo))
+        XCTAssertFalse(clubsAce.isOneRankUp(from: heartsTwo))
+        XCTAssertFalse(clubsAce.isOneRankUp(from: diamondsTwo))
+        XCTAssertTrue(clubsThree.isOneRankUp(from: clubsTwo))
+        XCTAssertTrue(clubsSeven.isOneRankUp(from: spadesSix))
+        XCTAssertTrue(clubsTen.isOneRankUp(from: heartsNine))
+        XCTAssertTrue(clubsKing.isOneRankUp(from: diamondsQueen))
+    }
+
+    func testIsSameSuit() {
+        XCTAssertTrue(clubsAce.isSameSuit(with: clubsTwo))
+        XCTAssertFalse(clubsAce.isSameSuit(with: spadesTwo))
+        XCTAssertFalse(clubsAce.isSameSuit(with: heartsTwo))
+        XCTAssertFalse(clubsAce.isSameSuit(with: diamondsTwo))
+        XCTAssertTrue(clubsThree.isSameSuit(with: clubsTwo))
+        XCTAssertFalse(clubsSeven.isSameSuit(with: spadesTwo))
+        XCTAssertFalse(clubsTen.isSameSuit(with: heartsTwo))
+        XCTAssertFalse(clubsKing.isSameSuit(with: diamondsTwo))
+    }
+
 }

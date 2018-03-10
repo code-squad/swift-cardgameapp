@@ -8,55 +8,61 @@
 
 import Foundation
 
-class FoundationsViewModel {
-    private var foundations: [CardPack] = [CardPack]() {
+class FoundationsViewModel: CardStacksProtocol {
+    private var cardStacks: [CardStack] = [CardStack]() {
         didSet {
-            var cardImages: [String?] = []
-            foundations.forEach({cardImages.append($0.last?.image)})
+            var cardImagesPack: [CardImages] = []
+            cardStacks.forEach { cardImagesPack.append($0.getImagesAll()) }
             NotificationCenter.default.post(name: .foundation,
                                             object: self,
-                                            userInfo: [Keyword.foundationImages.value: cardImages])
+                                            userInfo: [Keyword.foundationImages.value: cardImagesPack])
         }
     }
 
-    func push(card: Card) -> Bool {
-        if !validatePush(card: card) { return false }
-        for index in foundations.indices where foundations[index].last?.suit == card.suit {
-            foundations[index].append(card)
-            return true
-        }
-        foundations.append([card])
-        return true
+    init() {
+        setNewFoundations()
     }
 
-    private func validatePush(card: Card) -> Bool {
-        if card.rank == Card.Rank.ace {
-            return true
+    func push(card: Card) {
+        let targetPosition = availablePosition(of: card)
+        if let xIndex = targetPosition.xIndex {
+            cardStacks[xIndex].push(card: card)
         }
-        for cardPack in foundations {
-            guard cardPack.last?.suit == card.suit else { continue }
-            if (cardPack.last?.rank.rawValue)! == card.rank.rawValue - 1 {
-                return true
+    }
+
+    func pop(index: Int) -> Card? {
+        return cardStacks[index].pop()
+    }
+
+    func getSelectedCardPosition(of card: Card) -> CardIndexes {
+        var selectedCardPosition: CardIndexes = (xIndex: nil, yIndex: nil)
+        for xIndex in cardStacks.indices {
+            let yIndex = cardStacks[xIndex].index(of: card)
+            selectedCardPosition.xIndex = xIndex
+            selectedCardPosition.yIndex = yIndex
+        }
+        return selectedCardPosition
+    }
+
+    func availablePosition(of card: Card) -> CardIndexes {
+        var availablePosition: CardIndexes = (xIndex: nil, yIndex: nil)
+        for xIndex in cardStacks.indices {
+            if cardStacks[xIndex].isStackable(card: card) {
+                availablePosition.xIndex = xIndex
+                availablePosition.yIndex = 0
             }
         }
-        return false
-    }
-
-    func getTargetPosition(of card: Card) -> Int? {
-        var targetPosition: Int?
-        if card.rank == Card.Rank.ace {
-            return foundations.count
-        }
-        for index in foundations.indices {
-            guard foundations[index].last?.suit == card.suit else { continue }
-            if (foundations[index].last?.rank.rawValue)! == card.rank.rawValue - 1 {
-                targetPosition = index
-            }
-        }
-        return targetPosition
+        return availablePosition
     }
 
     func reset() {
-        foundations = []
+        cardStacks = []
+        setNewFoundations()
+    }
+
+    private func setNewFoundations() {
+        for _ in 0..<Figure.Count.foundations.value {
+            cardStacks.append(CardStack(cardPack: []))
+        }
     }
 }

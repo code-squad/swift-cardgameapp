@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias CardPoint = CGPoint
+
 class CardView: UIImageView {
 
     private override init(frame: CGRect) {
@@ -29,6 +31,11 @@ class CardView: UIImageView {
         layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
     }
 
+    private func setRefreshCardFigure() {
+        layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
+        image = UIImage(named: Figure.Image.refresh.value)
+    }
+
     static func makeEmptyCardView(frame: CGRect) -> CardView {
         let emptyCard = CardView(frame: frame)
         emptyCard.setEmptyCardFigure()
@@ -42,12 +49,18 @@ class CardView: UIImageView {
         return newCard
     }
 
+    static func makeRefreshCardView(frame: CGRect) -> CardView {
+        let emptyCard = CardView(frame: frame)
+        emptyCard.setRefreshCardFigure()
+        return emptyCard
+    }
+
     private func setImage(name: String) {
         image = UIImage(named: name)
-        accessibilityIdentifier = name
         if name != Figure.Image.back.value {
             isUserInteractionEnabled = true
         }
+        contentMode = .scaleAspectFit
     }
 
     private func addDoubleTapEvent() {
@@ -60,6 +73,11 @@ class CardView: UIImageView {
         NotificationCenter.default.post(name: .doubleTapped,
                                         object: self,
                                         userInfo: [Keyword.doubleTapped.value: recognizer.view!])
+    }
+
+    func move(amount: CardPoint) {
+        frame.origin.x += amount.x
+        frame.origin.y += amount.y
     }
 
 }

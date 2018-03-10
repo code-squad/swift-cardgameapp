@@ -81,7 +81,7 @@ class CardDeckTest: XCTestCase {
         XCTAssertEqual(cardDeck.count(), 0)
         cardDeck.load(cardPack: cardPack)
         XCTAssertEqual(cardDeck.count(), 4)
-        XCTAssertEqual(cardDeck[0].description, "♣️A")
+        XCTAssertEqual(cardDeck[0].description, "♦️A")
     }
 
 }

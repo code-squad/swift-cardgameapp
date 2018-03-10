@@ -8,47 +8,56 @@
 
 import Foundation
 
-class OpenedCardDeckViewModel {
-    private var openedCardDeck: CardPack = [] {
+class OpenedCardDeckViewModel: CardStacksProtocol {
+    private var cardStack: CardStack = CardStack(cardPack: []) {
         didSet {
-            NotificationCenter.default.post(name: .openedCardDeck, object: self, userInfo: nil)
+            let cardImages: CardImages = cardStack.getImagesAll()
+            NotificationCenter.default.post(name: .openedCardDeck,
+                                            object: self,
+                                            userInfo: [Keyword.openedCardImages.value: cardImages])
         }
     }
 
-    var lastCardImage: String? {
-        return openedCardDeck.last?.image
-    }
-
-    var willMoveImage: String? {
-        return openedCardDeck.count > 1 ? openedCardDeck[openedCardDeck.count-2].image : nil
+    func pop(index: Int) -> Card? {
+        return cardStack.pop()
     }
 
     func push(card: Card) {
-        openedCardDeck.append(card)
+        cardStack.push(card: card)
     }
 
-    func pop() -> Card? {
-        return openedCardDeck.removeLast()
+    func getSelectedCardPosition(of card: Card) -> CardIndexes {
+        var selectedCardPosition: CardIndexes = (xIndex: nil, yIndex: nil)
+        selectedCardPosition.xIndex = 0
+        selectedCardPosition.yIndex = cardStack.index(of: card)
+        return selectedCardPosition
     }
 
-    func reLoad() -> CardPack {
-        var reLoadCardDeck: CardPack = []
-        while let card = openedCardDeck.popLast() {
-            reLoadCardDeck.append(card)
-        }
-        return reLoadCardDeck
-    }
-
-    func count() -> Int {
-        return openedCardDeck.count
+    func availablePosition(of card: Card) -> CardIndexes {
+        var availablePosition: CardIndexes = (xIndex: nil, yIndex: nil)
+        availablePosition.xIndex = 0
+        availablePosition.yIndex = cardStack.count
+        return availablePosition
     }
 
     func reset() {
-        openedCardDeck = []
+        cardStack.reset()
+    }
+
+    func reLoad() -> CardPack {
+        return cardStack.reLoad()
+    }
+
+    func pop() -> Card? {
+        return cardStack.pop()
+    }
+
+    func count() -> Int {
+        return cardStack.count
     }
 
     func getLastCardInformation() -> Card? {
-        return openedCardDeck.last
+        return cardStack.last
     }
 
 }
