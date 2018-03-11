@@ -40,7 +40,9 @@ class FoundationsView: UIStackView {
     }
 
     private func setCardSize() {
-        cardWidth = bounds.size.width / CGFloat(Figure.Count.foundations.value) - marginBetweenCards
+        cardWidth = bounds.size.width
+            / CGFloat(Figure.Count.foundations.value)
+            - marginBetweenCards
     }
 
     private func configureFoundations() {
@@ -53,11 +55,9 @@ class FoundationsView: UIStackView {
 
     private func configureFoundation(index: Int) -> CardStackView {
         let frameX = marginBetweenCards + ((cardWidth + marginBetweenCards) * CGFloat(index))
-        let cardFrame = CGRect(x: frameX, y: bounds.origin.y, width: cardWidth, height: cardHeight)
+        let cardFrame = CGRect(x: frameX, y: bounds.origin.y,
+                               width: cardWidth, height: cardHeight)
         let foundation = CardStackView(frame: cardFrame)
-        foundation.layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
-        foundation.layer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
-        foundation.layer.borderColor = UIColor.white.cgColor
         foundation.setStackStyle(to: .stack)
         return foundation
     }

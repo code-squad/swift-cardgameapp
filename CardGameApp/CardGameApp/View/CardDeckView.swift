@@ -30,7 +30,7 @@ class CardDeckView: UIImageView {
     }
 
     private func addTapEvent() {
-        let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapCardDeck(recognizer:)))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapCardDeck(recognizer:)))
         tap.numberOfTapsRequired = Figure.TapGesture.once.rawValue
         addGestureRecognizer(tap)
         isUserInteractionEnabled = true

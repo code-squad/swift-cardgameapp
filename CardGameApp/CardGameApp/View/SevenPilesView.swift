@@ -37,7 +37,9 @@ class SevenPilesView: UIStackView {
     }
 
     private func setCardPileSize() {
-        cardPileWidth = bounds.size.width / CGFloat(Figure.Count.cardPiles.value) - marginBetweenCards
+        cardPileWidth = bounds.size.width
+            / CGFloat(Figure.Count.cardPiles.value)
+            - marginBetweenCards
     }
 
     private func configureSevenPiles() {
@@ -50,7 +52,8 @@ class SevenPilesView: UIStackView {
 
     private func configureCardPile(index: Int) -> CardStackView {
         let frameX = marginBetweenCards + ((cardPileWidth + marginBetweenCards) * CGFloat(index))
-        let cardFrame = CGRect(x: frameX, y: bounds.origin.y, width: cardPileWidth, height: bounds.size.height)
+        let cardFrame = CGRect(x: frameX, y: bounds.origin.y,
+                               width: cardPileWidth, height: bounds.size.height)
         let cardPile = CardStackView(frame: cardFrame)
         cardPile.setStackStyle(to: .attach)
         return cardPile

@@ -21,11 +21,12 @@ class CardStackView: UIView {
             for index in stride(from: subviews.count-1, through: 0, by: -1) {
                 subviews[index].removeFromSuperview()
             }
+            setCardStack(images: images)
             if images.isEmpty {
                 addSubview(CardView.makeEmptyCardView(frame: getCardFrame()))
             }
-            setCardStack(images: images)
             setNeedsDisplay()
+            setNeedsLayout()
         }
     }
 
@@ -75,7 +76,7 @@ class CardStackView: UIView {
 
     private func attach(newCard: CardView) {
         addSubview(newCard)
-        newCard.frame.origin.y += CGFloat(Figure.YPosition.betweenCards.value)
+        newCard.frame.origin.y += CGFloat((subviews.count-1)*Figure.YPosition.betweenCards.value)
     }
 
     func reset() {

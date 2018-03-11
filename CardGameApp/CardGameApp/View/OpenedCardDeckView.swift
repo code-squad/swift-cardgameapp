@@ -32,16 +32,14 @@ class OpenedCardDeckView: UIView {
 
     private func configureOpenedCardDeck() {
         let openedCardDeck = CardStackView(frame: getCardFrame())
-        openedCardDeck.layer.cornerRadius = CGFloat(Figure.Layer.cornerRadius.value)
-        openedCardDeck.layer.borderWidth = CGFloat(Figure.Layer.borderWidth.value)
-        openedCardDeck.layer.borderColor = UIColor.white.cgColor
         openedCardDeck.setStackStyle(to: .stack)
         addSubview(openedCardDeck)
+        cardImages = []
     }
 
     private func getCardFrame() -> CGRect {
         return CGRect(x: bounds.origin.x,
-                      y: bounds.origin.y,
+                      y: bounds.origin.y + layer.borderWidth,
                       width: bounds.size.width,
                       height: bounds.size.height)
     }

@@ -40,25 +40,38 @@ class SevenPilesViewModel: CardStacksProtocol {
         return cardStacks[index].pop()
     }
 
-    func availablePosition(of card: Card) -> CardIndexes {
-        var availablePosition: CardIndexes = (xIndex: nil, yIndex: nil)
-        for xIndex in cardStacks.indices {
-            if cardStacks[xIndex].isAttachable(card: card) {
-                availablePosition.xIndex = xIndex
-                availablePosition.yIndex = cardStacks[xIndex].index(of: card)
+    func getSelectedCard(image: String) -> Card? {
+        var selectedCard: Card? = nil
+        cardStacks.forEach {
+            if let card = $0.selectedCard(image: image) {
+                selectedCard = card
             }
         }
-        return availablePosition
+        return selectedCard
     }
 
     func getSelectedCardPosition(of card: Card) -> CardIndexes {
         var selectedCardPosition: CardIndexes = (xIndex: nil, yIndex: nil)
         for xIndex in cardStacks.indices {
-            let yIndex = cardStacks[xIndex].index(of: card)
-            selectedCardPosition.xIndex = xIndex
-            selectedCardPosition.yIndex = yIndex
+            if let yIndex = cardStacks[xIndex].index(of: card) {
+                selectedCardPosition.xIndex = xIndex
+                selectedCardPosition.yIndex = yIndex
+                break
+            }
         }
         return selectedCardPosition
+    }
+
+    func availablePosition(of card: Card) -> CardIndexes {
+        var availablePosition: CardIndexes = (xIndex: nil, yIndex: nil)
+        for xIndex in cardStacks.indices {
+            if cardStacks[xIndex].isAttachable(card: card) {
+                availablePosition.xIndex = xIndex
+                availablePosition.yIndex = cardStacks[xIndex].count
+                break
+            }
+        }
+        return availablePosition
     }
 
     func reset() {

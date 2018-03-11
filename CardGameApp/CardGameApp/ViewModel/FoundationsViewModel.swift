@@ -37,9 +37,11 @@ class FoundationsViewModel: CardStacksProtocol {
     func getSelectedCardPosition(of card: Card) -> CardIndexes {
         var selectedCardPosition: CardIndexes = (xIndex: nil, yIndex: nil)
         for xIndex in cardStacks.indices {
-            let yIndex = cardStacks[xIndex].index(of: card)
-            selectedCardPosition.xIndex = xIndex
-            selectedCardPosition.yIndex = yIndex
+            if let yIndex = cardStacks[xIndex].index(of: card) {
+                selectedCardPosition.xIndex = xIndex
+                selectedCardPosition.yIndex = yIndex
+                break
+            }
         }
         return selectedCardPosition
     }
@@ -50,6 +52,7 @@ class FoundationsViewModel: CardStacksProtocol {
             if cardStacks[xIndex].isStackable(card: card) {
                 availablePosition.xIndex = xIndex
                 availablePosition.yIndex = 0
+                break
             }
         }
         return availablePosition

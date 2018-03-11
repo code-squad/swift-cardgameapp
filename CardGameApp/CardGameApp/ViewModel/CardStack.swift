@@ -24,10 +24,6 @@ struct CardStack {
         turnLastCardOn()
     }
 
-    func isEmpty() -> Bool {
-        return cardStack.isEmpty
-    }
-
     func selectedCard(image: String) -> Card? {
         var selectedCard: Card?
         for card in cardStack where card.isUpSide() && card.image == image {
@@ -81,6 +77,7 @@ extension CardStack {
     }
 
     mutating func pop() -> Card? {
+        defer { turnLastCardOn() }
         return cardStack.removeLast()
     }
 

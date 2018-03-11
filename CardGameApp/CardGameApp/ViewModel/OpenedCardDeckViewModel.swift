@@ -26,6 +26,14 @@ class OpenedCardDeckViewModel: CardStacksProtocol {
         cardStack.push(card: card)
     }
 
+    func getSelectedCard(image: String) -> Card? {
+        var selectedCard: Card? = nil
+        if let card = cardStack.selectedCard(image: image) {
+            selectedCard = card
+        }
+        return selectedCard
+    }
+
     func getSelectedCardPosition(of card: Card) -> CardIndexes {
         var selectedCardPosition: CardIndexes = (xIndex: nil, yIndex: nil)
         selectedCardPosition.xIndex = 0
