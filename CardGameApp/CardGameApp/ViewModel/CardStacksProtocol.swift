@@ -8,14 +8,14 @@
 
 import Foundation
 
-typealias CardIndexes = (xIndex: Int?, yIndex: Int?)
-typealias CardInformation = (card: Card?, indexes: CardIndexes)
+typealias CardIndexes = (xIndex: Int, yIndex: Int)
+typealias CardInformation = (card: Card, indexes: CardIndexes)
 typealias CardImages = [String]
 
 protocol CardStacksProtocol {
     func reset()
-    func push(card: Card)
+    func push(card: Card) -> Bool
     func pop(index: Int) -> Card?
-    func getSelectedCardPosition(of card: Card) -> CardIndexes
-    func availablePosition(of card: Card) -> CardIndexes
+    func getSelectedCardInformation(image: String) -> CardInformation?
+    func availablePosition(of card: Card) -> CardIndexes?
 }

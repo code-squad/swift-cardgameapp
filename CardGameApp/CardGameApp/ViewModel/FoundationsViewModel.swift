@@ -23,39 +23,48 @@ class FoundationsViewModel: CardStacksProtocol {
         setNewFoundations()
     }
 
-    func push(card: Card) {
-        let targetPosition = availablePosition(of: card)
-        if let xIndex = targetPosition.xIndex {
-            cardStacks[xIndex].push(card: card)
-        }
+    func push(card: Card) -> Bool {
+        guard let targetPosition = availablePosition(of: card) else { return false }
+        cardStacks[targetPosition.xIndex].push(card: card)
+        return true
     }
 
     func pop(index: Int) -> Card? {
         return cardStacks[index].pop()
     }
 
-    func getSelectedCardPosition(of card: Card) -> CardIndexes {
-        var selectedCardPosition: CardIndexes = (xIndex: nil, yIndex: nil)
-        for xIndex in cardStacks.indices {
-            if let yIndex = cardStacks[xIndex].index(of: card) {
-                selectedCardPosition.xIndex = xIndex
-                selectedCardPosition.yIndex = yIndex
-                break
-            }
-        }
-        return selectedCardPosition
+    func getSelectedCardInformation(image: String) -> CardInformation? {
+        guard let selectedCard = getSelectedCard(image: image) else { return nil }
+        guard let selectedCardIndexes = getSelectedCardPosition(of: selectedCard) else { return nil }
+        return (card: selectedCard, indexes: selectedCardIndexes)
     }
 
-    func availablePosition(of card: Card) -> CardIndexes {
-        var availablePosition: CardIndexes = (xIndex: nil, yIndex: nil)
-        for xIndex in cardStacks.indices {
-            if cardStacks[xIndex].isStackable(card: card) {
-                availablePosition.xIndex = xIndex
-                availablePosition.yIndex = 0
-                break
+    private func getSelectedCard(image: String) -> Card? {
+        var selectedCard: Card? = nil
+        cardStacks.forEach {
+            if let card = $0.selectedCard(image: image) {
+                selectedCard = card
             }
         }
-        return availablePosition
+        return selectedCard
+    }
+
+    private func getSelectedCardPosition(of card: Card) -> CardIndexes? {
+        for xIndex in cardStacks.indices {
+            if let yIndex = cardStacks[xIndex].index(of: card) {
+                return (xIndex: xIndex, yIndex: yIndex)
+            }
+        }
+        return nil
+    }
+
+    func availablePosition(of card: Card) -> CardIndexes? {
+        for xIndex in cardStacks.indices {
+            if cardStacks[xIndex].isStackable(card: card) {
+                return (xIndex: xIndex, yIndex: cardStacks[xIndex].count)
+            }
+        }
+        return nil
     }
 
     func reset() {

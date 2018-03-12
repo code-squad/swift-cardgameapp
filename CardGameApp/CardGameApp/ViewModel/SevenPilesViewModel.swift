@@ -29,18 +29,23 @@ class SevenPilesViewModel: CardStacksProtocol {
         }
     }
 
-    func push(card: Card) {
-        let targetPosition = availablePosition(of: card)
-        if let xIndex = targetPosition.xIndex {
-            cardStacks[xIndex].push(card: card)
-        }
+    func push(card: Card) -> Bool {
+        guard let targetPosition = availablePosition(of: card) else { return false }
+        cardStacks[targetPosition.xIndex].push(card: card)
+        return true
     }
 
     func pop(index: Int) -> Card? {
         return cardStacks[index].pop()
     }
 
-    func getSelectedCard(image: String) -> Card? {
+    func getSelectedCardInformation(image: String) -> CardInformation? {
+        guard let selectedCard = getSelectedCard(image: image) else { return nil }
+        guard let selectedCardIndexes = getSelectedCardPosition(of: selectedCard) else { return nil }
+        return (card: selectedCard, indexes: selectedCardIndexes)
+    }
+
+    private func getSelectedCard(image: String) -> Card? {
         var selectedCard: Card? = nil
         cardStacks.forEach {
             if let card = $0.selectedCard(image: image) {
@@ -50,28 +55,22 @@ class SevenPilesViewModel: CardStacksProtocol {
         return selectedCard
     }
 
-    func getSelectedCardPosition(of card: Card) -> CardIndexes {
-        var selectedCardPosition: CardIndexes = (xIndex: nil, yIndex: nil)
+    private func getSelectedCardPosition(of card: Card) -> CardIndexes? {
         for xIndex in cardStacks.indices {
             if let yIndex = cardStacks[xIndex].index(of: card) {
-                selectedCardPosition.xIndex = xIndex
-                selectedCardPosition.yIndex = yIndex
-                break
+                return (xIndex: xIndex, yIndex: yIndex)
             }
         }
-        return selectedCardPosition
+        return nil
     }
 
-    func availablePosition(of card: Card) -> CardIndexes {
-        var availablePosition: CardIndexes = (xIndex: nil, yIndex: nil)
+    func availablePosition(of card: Card) -> CardIndexes? {
         for xIndex in cardStacks.indices {
             if cardStacks[xIndex].isAttachable(card: card) {
-                availablePosition.xIndex = xIndex
-                availablePosition.yIndex = cardStacks[xIndex].count
-                break
+                return (xIndex: xIndex, yIndex: cardStacks[xIndex].count)
             }
         }
-        return availablePosition
+        return nil
     }
 
     func reset() {
