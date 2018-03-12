@@ -20,6 +20,10 @@ struct Deck: CardGameInfo {
         }
     }
     
+    init(cards: [Card]) {
+        self.cards = cards
+    }
+        
     func count() -> Int {
         return cards.count
     }
@@ -31,6 +35,10 @@ struct Deck: CardGameInfo {
     
     mutating func popCard() -> Card? {
         return self.cards.popLast()
+    }
+    
+    mutating func pushCard(_ card: Card) {
+        self.cards.append(card)
     }
     
     // Fisher-Yates Shuffle

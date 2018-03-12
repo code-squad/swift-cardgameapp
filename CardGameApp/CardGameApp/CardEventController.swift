@@ -26,7 +26,7 @@ class CardEventController {
     
     @objc func popCard(_ touch: UITapGestureRecognizer) {
         if touch.state == .ended {
-            mainViewController.openedCardDeck()
+            mainViewController.openCardDeck()
         }
     }
     

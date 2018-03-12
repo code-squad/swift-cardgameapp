@@ -35,4 +35,8 @@ class Table {
         return self.deck
     }
     
+    func popCard(column: Int) -> Card? {
+        return cardStacksOfTable[column].popLast()
+    }
+    
 }

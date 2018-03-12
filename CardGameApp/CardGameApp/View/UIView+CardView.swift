@@ -9,6 +9,12 @@
 import UIKit
 
 extension UIView {
+    func makeViewPoint(columnIndex: CGFloat, rowIndex: CGFloat) -> CGPoint {
+        let xPoint = (self.cardSize().width + self.marginBetweenCard()) * columnIndex + self.marginBetweenCard()
+        let yPoint = UIApplication.shared.statusBarFrame.height + (self.cardSize().height * rowIndex)
+        return CGPoint(x: xPoint, y: yPoint)
+    }
+    
     func getCard() -> String {
         return self.description
     }
@@ -21,19 +27,23 @@ extension UIView {
         self.layer.borderColor = UIColor.white.cgColor
     }
     
+    func makeCardView() {
+        self.makeCardView(index: 0, yPoint: 0)
+    }
+    
     func makeCardView(index: CGFloat) {
         self.makeCardView(index: index, yPoint: UIApplication.shared.statusBarFrame.height)
+    }
+    
+    func makeCardView(yPoint: CGFloat) {
+        self.makeBasicView()
+        self.frame.origin = CGPoint(x: 0, y: yPoint)
     }
     
     func makeCardView(index: CGFloat, yPoint: CGFloat) {
         let xPoint = ((self.cardSize().width + self.marginBetweenCard()) * CGFloat(index)) + self.marginBetweenCard()
         self.makeBasicView()
         self.frame.origin = CGPoint(x: xPoint, y: yPoint)
-    }
-    
-    func makeCardView(yPoint: CGFloat) {
-        self.makeBasicView()
-        self.frame.origin = CGPoint(x: 0, y: yPoint)
     }
     
     func cardSize() -> CGSize {

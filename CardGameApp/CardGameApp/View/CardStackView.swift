@@ -26,4 +26,12 @@ class CardStackView: UIView {
             self.addSubview(stackView)
         }
     }
+    
+    func removeStackViewLast(cardView: UIView) {
+        cardView.removeFromSuperview()
+    }
+    
+    func pushStackViewLast(card: UIView) {
+        self.addSubview(card)
+    }
 }
