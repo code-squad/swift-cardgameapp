@@ -186,112 +186,62 @@ extension ViewController {
         guard let userInfo = notification.userInfo as? [String: Any] else { return }
         guard let cardView = userInfo[Keyword.doubleTapped.value] as? CardView else { return }
         guard let cardStackView = cardView.superview as? CardStackView else { return }
-        if let doubleTappedCardParent = cardStackView.superview as? OpenedCardDeckView {
-            if let doubleTappedCard = openedCardDeckVM.getSelectedCard(image: cardView.storedImage) {
-                let availableOnFoundations = foundationsVM.availablePosition(of: doubleTappedCard)
-                let availableOnSevenPiles = sevenPilesVM.availablePosition(of: doubleTappedCard)
-                if let availableX = availableOnFoundations.xIndex {
-                    view.isUserInteractionEnabled = false
-                    let globalPoint = cardView.superview?.convert(cardView.frame.origin,
-                                                                  to: nil)
-                    UIViewPropertyAnimator.runningPropertyAnimator(
-                        withDuration: 1.0,
-                        delay: 0.0,
-                        options: [.curveLinear],
-                        animations: {
-                            self.view.bringSubview(toFront: doubleTappedCardParent)
-                            let dx = (self.cardWidth * CGFloat(availableX)) + CGFloat(Figure.Size.xGap.value)
-                            var dy: CGFloat = 0.0
-                            cardView.frame.origin.x -= (globalPoint?.x)! - dx
-                            dy = CGFloat(Figure.YPosition.topMargin.value)
-                            cardView.frame.origin.y -= (globalPoint?.y)! - dy
-                        },
-                        completion: { _ in
-                            self.foundationsVM.push(card: self.openedCardDeckVM.pop()!)
-                            self.view.isUserInteractionEnabled = true
-                        }
-                    )
-                } else if let availableX = availableOnSevenPiles.xIndex, let availableY = availableOnSevenPiles.yIndex {
-                    view.isUserInteractionEnabled = false
-                    let globalPoint = cardView.superview?.convert(cardView.frame.origin,
-                                                                  to: nil)
-                    UIViewPropertyAnimator.runningPropertyAnimator(
-                        withDuration: 1.0,
-                        delay: 0.0,
-                        options: [.curveLinear],
-                        animations: {
-                            self.view.bringSubview(toFront: doubleTappedCardParent)
-                            let dx = (self.cardWidth * CGFloat(availableX)) + CGFloat(Figure.Size.xGap.value)
-                            var dy: CGFloat = 0.0
-                            cardView.frame.origin.x -= (globalPoint?.x)! - dx
-                            dy = CGFloat(Figure.YPosition.cardPileTopMargin.value +
-                                    (Figure.YPosition.betweenCards.value * (availableY+1)))
-                            cardView.frame.origin.y -= (globalPoint?.y)! - dy
-                        },
-                        completion: { _ in
-                            self.sevenPilesVM.push(card: self.openedCardDeckVM.pop()!)
-                            self.view.isUserInteractionEnabled = true
-                        }
-                    )
-                }
+        guard cardView == cardStackView.subviews[cardStackView.subviews.count-1] else { return }
+        var parentView: UIStackView? = cardStackView.superview as? OpenedCardDeckView
+        var doubleTappedCard: Card?
+        var isFromOpenedCard: Bool = false
+        var isToFoundations: Bool = true
+        var originX = 0
+        if parentView != nil {
+            doubleTappedCard = openedCardDeckVM.getSelectedCard(image: cardView.storedImage)
+            isFromOpenedCard = true
+        } else {
+            parentView = cardStackView.superview as? SevenPilesView
+            if parentView != nil {
+                doubleTappedCard = sevenPilesVM.getSelectedCard(image: cardView.storedImage)
+                originX = self.sevenPilesVM.getSelectedCardPosition(of: doubleTappedCard!).xIndex!
             }
         }
-        if let doubleTappedCardParent = cardStackView.superview as? SevenPilesView {
-            if let doubleTappedCard = sevenPilesVM.getSelectedCard(image: cardView.storedImage) {
-                let availableOnFoundations = foundationsVM.availablePosition(of: doubleTappedCard)
-                let availableOnSevenPiles = sevenPilesVM.availablePosition(of: doubleTappedCard)
-                if let availableX = availableOnFoundations.xIndex {
-                    view.isUserInteractionEnabled = false
-                    let globalPoint = cardView.superview?.convert(cardView.frame.origin,
-                                                                  to: nil)
-                    UIViewPropertyAnimator.runningPropertyAnimator(
-                        withDuration: 1.0,
-                        delay: 0.0,
-                        options: [.curveLinear],
-                        animations: {
-                            self.view.bringSubview(toFront: doubleTappedCardParent)
-                            doubleTappedCardParent.bringSubview(toFront: cardStackView)
-                            let dx = (self.cardWidth * CGFloat(availableX)) + CGFloat(Figure.Size.xGap.value)
-                            var dy: CGFloat = 0.0
-                            cardView.frame.origin.x -= (globalPoint?.x)! - dx
-                            dy = CGFloat(Figure.YPosition.topMargin.value)
-                            cardView.frame.origin.y -= (globalPoint?.y)! - dy
-                        },
-                        completion: { _ in
-                            let originX = self.sevenPilesVM.getSelectedCardPosition(of: doubleTappedCard).xIndex!
-                            doubleTappedCardParent.insertSubview(cardStackView, at: originX)
-                            self.foundationsVM.push(card: self.sevenPilesVM.pop(index: originX)!)
-                            self.view.isUserInteractionEnabled = true
-                        }
-                    )
-                } else if let availableX = availableOnSevenPiles.xIndex, let availableY = availableOnSevenPiles.yIndex {
-                    view.isUserInteractionEnabled = false
-                    let globalPoint = cardView.superview?.convert(cardView.frame.origin,
-                                                                  to: nil)
-                    UIViewPropertyAnimator.runningPropertyAnimator(
-                        withDuration: 1.0,
-                        delay: 0.0,
-                        options: [.curveLinear],
-                        animations: {
-                            self.view.bringSubview(toFront: doubleTappedCardParent)
-                            doubleTappedCardParent.bringSubview(toFront: cardStackView)
-                            let dx = (self.cardWidth * CGFloat(availableX)) + CGFloat(Figure.Size.xGap.value)
-                            var dy: CGFloat = 0.0
-                            cardView.frame.origin.x -= (globalPoint?.x)! - dx
-                            dy = CGFloat(Figure.YPosition.cardPileTopMargin.value +
-                                    (Figure.YPosition.betweenCards.value * (availableY+1)))
-                            cardView.frame.origin.y -= (globalPoint?.y)! - dy
-                        },
-                        completion: { _ in
-                            let originX = self.sevenPilesVM.getSelectedCardPosition(of: doubleTappedCard).xIndex!
-                            doubleTappedCardParent.insertSubview(cardStackView, at: originX)
-                            self.sevenPilesVM.push(card: self.sevenPilesVM.pop(index: originX)!)
-                            self.view.isUserInteractionEnabled = true
-                        }
-                    )
-                }
-            }
+        guard doubleTappedCard != nil else { return }
+        var availablePosition = foundationsVM.availablePosition(of: doubleTappedCard!)
+        if availablePosition.xIndex == nil {
+            availablePosition = sevenPilesVM.availablePosition(of: doubleTappedCard!)
+            isToFoundations = false
         }
+        guard availablePosition.xIndex != nil else { return }
+        view.isUserInteractionEnabled = false
+        let globalPoint = cardView.superview?.convert(cardView.frame.origin, to: nil)
+        UIViewPropertyAnimator.runningPropertyAnimator(
+            withDuration: 1.0,
+            delay: 0.0,
+            options: [.curveLinear],
+            animations: { [weak self] in
+                self?.view.bringSubview(toFront: parentView!)
+                parentView?.bringSubview(toFront: cardStackView)
+                let dx = ((self?.cardWidth)! * CGFloat(availablePosition.xIndex!)) + CGFloat(Figure.Size.xGap.value)
+                cardView.frame.origin.x -= (globalPoint?.x)! - dx
+                var dy: CGFloat = CGFloat(Figure.YPosition.topMargin.value)
+                if !isToFoundations {
+                    dy = CGFloat(Figure.YPosition.cardPileTopMargin.value +
+                        (Figure.YPosition.betweenCards.value * (availablePosition.yIndex!)))
+                }
+                cardView.frame.origin.y -= (globalPoint?.y)! - dy
+            },
+            completion: { [weak self] _ in
+                parentView?.insertSubview(cardStackView, at: originX)
+                switch (isFromOpenedCard, isToFoundations) {
+                case (true, true):
+                    self?.foundationsVM.push(card: (self?.openedCardDeckVM.pop()!)!)
+                case (false, true):
+                    self?.foundationsVM.push(card: (self?.sevenPilesVM.pop(index: originX)!)!)
+                case (true, false):
+                    self?.sevenPilesVM.push(card: (self?.openedCardDeckVM.pop()!)!)
+                case (false, false):
+                    self?.sevenPilesVM.push(card: (self?.sevenPilesVM.pop(index: originX)!)!)
+                }
+                self?.view.isUserInteractionEnabled = true
+            }
+        )
     }
 
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OpenedCardDeckView: UIView {
+class OpenedCardDeckView: UIStackView {
 
     var cardImages: CardImages = [] {
         didSet {
@@ -25,7 +25,7 @@ class OpenedCardDeckView: UIView {
         configureOpenedCardDeck()
     }
 
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         super.init(coder: coder)
         configureOpenedCardDeck()
     }

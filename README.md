@@ -114,3 +114,5 @@
 - 애니메이션을 적용할때 실제로 animation이나 completion에 들어가는 클로저는 즉시 실행되지만 화면에서 처리되는건 duration과 delay에 영향을 받는다.
 - TapGesture에서 numberOfTapsRequired로 탭의 횟수를 지정할 수 있다.
 - 뷰의 제스처를 동작시키기 위해선 isUserInteractionEnabled 가 true 상태여야만 한다.
+- 애니메이션에서 클로져를 사용할때 self를 사용한다면 꼭 self를 캡쳐해서 사용해서 weak한 상태로 만들어줘야한다.
+  그렇지 않으면 클로져와 ViewController가 서로 순환참조를 하기 때문에 둘다 메모리에서 사라지지 못하는 현상이 생긴다.
