@@ -105,6 +105,11 @@
 ![중간 빈자리 채우기](capture/step4_07.png)
 ![Shake Gesture](capture/step4_08.png)
 
+### 피드백
+- 뷰모델이 공통으로 사용할 프로토콜은 없나?
+- 이벤트를 처리를 각 카드이미지 객체가 하는게 좋을까? ViewController가 하는게 좋을까?
+- ViewController - ViewModel 역할 분담은 어떻게 나누는게 좋을까?
+
 ---
 ## 중간에 고생했던 부분 / 기억할 부분 간단 정리
 - NotificationCenter를 설정할때 초기 설정부터 전달을 하려면 viewDidLoad에서 인스턴스가 생성되는 시점 전에 Observer를 등록해줘야 한다.
@@ -116,3 +121,21 @@
 - 뷰의 제스처를 동작시키기 위해선 isUserInteractionEnabled 가 true 상태여야만 한다.
 - 애니메이션에서 클로져를 사용할때 self를 사용한다면 꼭 self를 캡쳐해서 사용해서 weak한 상태로 만들어줘야한다.
   그렇지 않으면 클로져와 ViewController가 서로 순환참조를 하기 때문에 둘다 메모리에서 사라지지 못하는 현상이 생긴다.
+- View에서는 알아서 UI가 그려진다고 가정하고 ViewModel을 이용해 테스트를 하면 원하는대로 동작한다고 확신할 수 있어야한다.
+  따라서 ViewModel 유닛테스트를 통해 UI를 검증할 수 있도록 구현해야한다.
+  이 것이 가능하려면 ViewModel과 View가 1:1매칭이 될 수 있도록 하는 것이 실수를 줄여준다.
+- UIPanGesture와 Drag&Drop의 차이
+    - UIPanGesture : 스크린 내에서 각각의 뷰들을 드래그 할때 사용
+    - Drag&Drop: 특정 요소를 Editable한 요소로 이동시켜 포함시키는것
+    - [StackOverflow질문에 대한 답변](https://stackoverflow.com/questions/49247723/which-one-is-better-uipangesture-or-uidraginteraction-uidropinteraction)
+        - UIDragInteraction works from iOS 11.0+ & UIPanGestureRecognizer works from iOS 3.2+, so if you want to run your application in older version devices then you should use UIPanGestureRecognizer
+        - UIPanGestureRecognizer works on the whole screen & gives you the CGPoints as response of touch where UIDragInteraction works on the particular object you want to drag & drop & gives you direct the view object.
+        - UIPanGestureRecognizer can work with multiple touches & handle those where UIDragInteraction doesn't allow you to handle multiple touch.
+- Responder Chain
+    - iOS에서 이벤트 핸들링은 Responder라는 객체에 의해 다뤄진다. Responder 객체는 일반적으로 우리가 사용하는 UIView, UIViewController, 심지어 UIApplication 조차 상속하고 있다.
+    - UIKit은 이벤트가 발생했을때 Responder객체들에게 알려서 이벤트를 처리하도록 돕는데 이때 사용되는 개념이 Responder Chain이다.
+    - 아래 그림은 일반적인 Responder Chain을 설명해주고 있다.
+        - ![Responder Chain](capture/ResponderChain.png)
+        - UIKit에서 특별한 조건을 주지 않는 한 Responder Chain의 순서대로 하나씩 찾아가면서 이벤트를 처리하도록 한다고 생각하면 된다.
+    - 만약에 view에 Gesture가 설정되어 있다면 view에서 인지하기 전에 GestureRecognizer가 먼저 이벤트를 검사하고 아무것도 처리되지 않는다면 그 때 view에게 지휘권이 넘어간다.
+    - next 를 override 하면 Responder Chain순서를 변경 가능하다.
