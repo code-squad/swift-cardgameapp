@@ -8,9 +8,8 @@
 
 import UIKit
 
-class ActionController {
-    private let recognizer: UIGestureRecognizer
-    private let viewOrigin: CGPoint
+class MoveController {
+    private var viewOrigin: CGPoint?
 
     private let cardView: CardView
     private let cardStackView: CardStackView
@@ -27,16 +26,13 @@ class ActionController {
         }
     }
 
-    init?(recognizer: UIGestureRecognizer) {
-        self.recognizer = recognizer
-        guard let cardView = recognizer.view as? CardView else { return nil }
+    init?(cardView: CardView) {
+        self.cardView = cardView
         guard let cardStackView = cardView.superview as? CardStackView else { return nil }
         guard cardView == cardStackView.subviews[cardStackView.subviews.count-1] else { return nil }
         guard let parentView = cardStackView.superview as? UIStackView else { return nil }
         guard let mainView = parentView.superview else { return nil }
 
-        self.viewOrigin = cardView.frame.origin
-        self.cardView = cardView
         self.cardStackView = cardStackView
         self.parentView = parentView
         self.mainView = mainView
@@ -96,32 +92,33 @@ class ActionController {
     }
 
     private func moveCardModel(cardIndexes: CardIndexes) {
-        print(cardIndexes)
         _ = targetParentModel?.push(card: (originParentModel?.pop(index: cardIndexes.xIndex))!)
     }
 
-    func dragging() {
-//        guard let originInformation = originCardInformation() else { return }
-//        let cardInformation = originInformation.from
-//        let isFromOpenedCard = originInformation.isFromOpenedCard
-//        guard let sender = recognizer as? UIPanGestureRecognizer else { return }
-//        let translation = sender.translation(in: cardView)
-//
-//        switch recognizer.state {
-//        case .began:
-//            mainView.bringSubview(toFront: parentView)
-//            parentView.bringSubview(toFront: cardStackView)
-//        case .changed:
-//            cardView.center = CGPoint(x: cardView.center.x + translation.x, y: cardView.center.y + translation.y)
-//            sender.setTranslation(CGPoint.zero, in: mainView)
-//        case .ended:
-//            UIView.animate(withDuration: 0.5, animations: {
-//                self.cardView.frame.origin = self.viewOrigin
-//            })
-//            parentView.insertSubview(cardStackView, at: cardInformation.indexes.xIndex)
-//        default:
-//            break
-//        }
-
+    func setViewOrigin(at viewOrigin: CGPoint) {
+        self.viewOrigin = viewOrigin
     }
+
+    func moveBegan() {
+        mainView.bringSubview(toFront: parentView)
+        parentView.bringSubview(toFront: cardStackView)
+    }
+
+    func moveChanged(with recognizer: UIPanGestureRecognizer) {
+        let translation = recognizer.translation(in: cardView)
+        cardView.center = CGPoint(x: cardView.center.x + translation.x, y: cardView.center.y + translation.y)
+        recognizer.setTranslation(CGPoint.zero, in: mainView)
+    }
+
+    func moveBackToOrigin() {
+        let globalPoint = cardStackView.convert(cardView.frame.origin, to: nil)
+        guard let cardInformation = originParentModel?.getSelectedCardInformation(image: cardView.storedImage)
+            else { return }
+        UIView.animate(withDuration: 0.5, animations: {
+            self.cardView.frame.origin.x -= globalPoint.x - (self.viewOrigin?.x ?? 0.0)
+            self.cardView.frame.origin.y -= globalPoint.y - (self.viewOrigin?.y ?? 0.0)
+        })
+        parentView.insertSubview(cardStackView, at: cardInformation.indexes.xIndex)
+    }
+
 }

@@ -23,6 +23,8 @@ class ViewController: UIViewController {
 
     private var dealerAction: DealerAction!
 
+    private var moveController: MoveController?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(
@@ -213,8 +215,10 @@ extension ViewController {
     @objc private func doubleTapped(notification: Notification) {
         guard let userInfo = notification.userInfo as? [String: Any] else { return }
         guard let recognizer = userInfo[Keyword.doubleTapped.value] as? UITapGestureRecognizer else { return }
-        guard let action = ActionController(recognizer: recognizer) else { return }
-        action.doubleTap()
+        guard let cardView = recognizer.view as? CardView else { return }
+        moveController = MoveController(cardView: cardView)
+        moveController?.doubleTap()
+
     }
 }
 
@@ -223,7 +227,19 @@ extension ViewController {
     @objc func dragging(notification: Notification) {
         guard let userInfo = notification.userInfo as? [String: Any] else { return }
         guard let recognizer = userInfo[Keyword.drag.value] as? UIPanGestureRecognizer else { return }
-        guard let action = ActionController(recognizer: recognizer) else { return }
-        action.dragging()
+        guard let cardView = recognizer.view as? CardView else { return }
+
+        switch recognizer.state {
+        case .began:
+            moveController = MoveController(cardView: cardView)
+            moveController?.setViewOrigin(at: (cardView.superview?.convert(cardView.frame.origin, to: nil))!)
+            moveController?.moveBegan()
+        case .changed:
+            moveController?.moveChanged(with: recognizer)
+        case .ended:
+            moveController?.moveBackToOrigin()
+        default:
+            break
+        }
     }
 }
