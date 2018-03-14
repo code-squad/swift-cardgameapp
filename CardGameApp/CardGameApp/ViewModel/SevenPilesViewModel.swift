@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SevenPilesViewModel: CardStacksProtocol {
+class SevenPilesViewModel: CardStacksProtocol, Receivable, Sendable {
     private var cardStacks: [CardStack] = [CardStack]() {
         didSet {
             var cardImagesPack: [CardImages] = []

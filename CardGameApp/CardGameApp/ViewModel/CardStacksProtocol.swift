@@ -14,8 +14,14 @@ typealias CardImages = [String]
 
 protocol CardStacksProtocol {
     func reset()
-    func push(card: Card) -> Bool
-    func pop(index: Int) -> Card?
-    func getSelectedCardInformation(image: String) -> CardInformation?
+}
+
+protocol Receivable {
     func availablePosition(of card: Card) -> CardIndexes?
+    func push(card: Card) -> Bool
+}
+
+protocol Sendable {
+    func getSelectedCardInformation(image: String) -> CardInformation?
+    func pop(index: Int) -> Card?
 }

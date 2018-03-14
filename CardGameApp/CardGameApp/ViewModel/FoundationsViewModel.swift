@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FoundationsViewModel: CardStacksProtocol {
+class FoundationsViewModel: CardStacksProtocol, Receivable {
     private var cardStacks: [CardStack] = [CardStack]() {
         didSet {
             var cardImagesPack: [CardImages] = []
@@ -27,35 +27,6 @@ class FoundationsViewModel: CardStacksProtocol {
         guard let targetPosition = availablePosition(of: card) else { return false }
         cardStacks[targetPosition.xIndex].push(card: card)
         return true
-    }
-
-    func pop(index: Int) -> Card? {
-        return cardStacks[index].pop()
-    }
-
-    func getSelectedCardInformation(image: String) -> CardInformation? {
-        guard let selectedCard = getSelectedCard(image: image) else { return nil }
-        guard let selectedCardIndexes = getSelectedCardPosition(of: selectedCard) else { return nil }
-        return (card: selectedCard, indexes: selectedCardIndexes)
-    }
-
-    private func getSelectedCard(image: String) -> Card? {
-        var selectedCard: Card? = nil
-        cardStacks.forEach {
-            if let card = $0.selectedCard(image: image) {
-                selectedCard = card
-            }
-        }
-        return selectedCard
-    }
-
-    private func getSelectedCardPosition(of card: Card) -> CardIndexes? {
-        for xIndex in cardStacks.indices {
-            if let yIndex = cardStacks[xIndex].index(of: card) {
-                return (xIndex: xIndex, yIndex: yIndex)
-            }
-        }
-        return nil
     }
 
     func availablePosition(of card: Card) -> CardIndexes? {

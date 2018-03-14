@@ -8,7 +8,7 @@
 
 import Foundation
 
-class OpenedCardDeckViewModel: CardStacksProtocol {
+class OpenedCardDeckViewModel: CardStacksProtocol, Sendable {
 
     private var cardStack: CardStack = CardStack(cardPack: []) {
         didSet {
