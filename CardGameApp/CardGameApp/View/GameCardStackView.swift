@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardStackView: UIView {
+class GameCardStackView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

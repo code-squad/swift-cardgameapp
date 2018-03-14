@@ -15,15 +15,15 @@ class OpenDeck {
         self.openDeck = Deck(cards: [Card]())
     }
     
-    deinit {
-        print("delete openDeck...")
-    }
-    
     func appendCard(_ card: Card) {
         self.openDeck.pushCard(card)
     }
     
-    func popCard() -> Card? {
-        return openDeck.popCard()
+    func popCard() {
+        guard let _ = openDeck.popCard() else { return }
+    }
+    
+    func lastCard() -> Card? {
+        return openDeck.lastCard()
     }
 }

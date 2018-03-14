@@ -11,6 +11,7 @@ import Foundation
 class Card {
     private var suit: Suit
     private var rank: Rank
+    private var color: Int = 0
     private var face: Bool
     // 열거형 자료형은 같은 개념의 자료들을 묶어 놓을때 사용합니다.
     // 그리고 Suit로 선언된 변수에 .rawValue를 사용하면 직접 값에 접근할 수 있어서 카드의 값을 구할때 사용하면 좋을 것 같습니다.
@@ -43,6 +44,11 @@ class Card {
         self.suit = Card.Suit.allValues[suit]
         self.rank = Card.Rank.allValues[rank]
         self.face = false
+        if self.suit == .clubs || self.suit == .spades {
+            self.color = 0
+        } else {
+            self.color = 1
+        }
     }
     
     func isOnePairRank(at index: Int) -> Bool {
@@ -57,12 +63,43 @@ class Card {
         return self.suit.rawValue + self.rank.rawValue
     }
     
+    func isValid(_ card: Card) -> Bool {
+       return self.color != card.color
+    }
+    
+    func isSameSuit(_ card: Card) -> Bool {
+        if self.suit == card.suit {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func isContinuousCardRank(_ card: Card) -> Bool {
+        if self.rank.hashValue + 1 == card.rank.hashValue {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func isAceCard() -> Bool {
+        return self.rank == Rank.one
+    }
+    
+    func isKingCard() -> Bool {
+        return self.rank == Rank.thirteen
+    }
+    
     func isUpside() -> Bool {
         return self.face
     }
     
     func flipCard() {
         self.face = !self.face
+        NotificationCenter.default.post(name: .flipCard,
+                                        object: self,
+                                        userInfo: [Notification.Name.flipCard: self])
     }
     
     func scoreHightCard() -> Int {

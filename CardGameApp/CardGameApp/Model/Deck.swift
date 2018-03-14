@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct Deck: CardGameInfo {
-    private var cards: [Card]
+struct Deck {
+    private (set) var cards: [Card]
     
     init() {
         self.cards = [Card]()
@@ -33,6 +33,10 @@ struct Deck: CardGameInfo {
         return newDeck
     }
     
+    func lastCard() -> Card? {
+        return self.cards.last
+    }
+    
     mutating func popCard() -> Card? {
         return self.cards.popLast()
     }
@@ -52,8 +56,8 @@ struct Deck: CardGameInfo {
         self.cards = suffledCards
     }
     
-    mutating func makeStack(numberOfCards: Int) throws -> [Card] {
-        return try cards.pop(range: numberOfCards)
+    mutating func makeStack(numberOfCards: Int) throws -> Deck {
+        return Deck(cards: try cards.pop(range: numberOfCards))
     }
     
     func getRestDeck() -> [Card] {
@@ -63,6 +67,17 @@ struct Deck: CardGameInfo {
     func isEmptyDeck() -> Bool {
         return cards.isEmpty
     }
+    
+    func isSameGroup(_ card: Card) -> Bool {
+        for cardSuit in cards {
+            if cardSuit.getCalculatedSuit() == card.getCalculatedSuit() {
+                return true
+            }
+        }
+        return false
+    }
+    
+    
 }
 
 extension Array {
