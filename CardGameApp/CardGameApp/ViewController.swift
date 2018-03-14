@@ -105,10 +105,11 @@ class ViewController: UIViewController {
         let foundationsViewHeight = UIScreen.main.bounds.width
                                     / CGFloat(Figure.Count.cardPiles.value)
                                     * CGFloat(Figure.Size.ratio.value)
-        foundationsView = FoundationsView(frame: CGRect(x: UIScreen.main.bounds.origin.x,
-                                                        y: CGFloat(Figure.YPosition.topMargin.value),
-                                                        width: foundationsViewWidth,
-                                                        height: foundationsViewHeight))
+        let foundationsViewFrame = CGRect(x: UIScreen.main.bounds.origin.x,
+                                          y: CGFloat(Figure.YPosition.topMargin.value),
+                                          width: foundationsViewWidth,
+                                          height: foundationsViewHeight)
+        foundationsView = FoundationsView(frame: foundationsViewFrame)
         foundationsVM = FoundationsViewModel.sharedInstance()
         view.addSubview(foundationsView)
     }
@@ -129,10 +130,11 @@ class ViewController: UIViewController {
     }
 
     private func spreadSevenPiles() {
-        sevenPilesView = SevenPilesView(frame: CGRect(x: UIScreen.main.bounds.origin.x,
-                                                      y: CGFloat(Figure.YPosition.cardPileTopMargin.value),
-                                                      width: UIScreen.main.bounds.width,
-                                                      height: UIScreen.main.bounds.height))
+        let sevenPilesViewFrame = CGRect(x: UIScreen.main.bounds.origin.x,
+                                         y: CGFloat(Figure.YPosition.cardPileTopMargin.value),
+                                         width: UIScreen.main.bounds.width,
+                                         height: UIScreen.main.bounds.height)
+        sevenPilesView = SevenPilesView(frame: sevenPilesViewFrame)
         sevenPilesVM = SevenPilesViewModel.sharedInstance()
         sevenPilesVM.spreadCardPiles(sevenPiles: dealerAction.getCardPacks(packCount: Figure.Count.cardPiles.value))
         view.addSubview(sevenPilesView)
@@ -198,12 +200,10 @@ extension ViewController {
         if motion == .motionShake {
             foundationsVM.reset()
             foundationsView.reset()
-
             openedCardDeckVM.reset()
             dealerAction.reset()
             dealerAction.shuffle()
             cardDeckView.image = cardDeckView.backImage
-
             sevenPilesVM.reset()
             spreadSevenPiles()
         }
@@ -218,7 +218,6 @@ extension ViewController {
         guard let cardView = recognizer.view as? CardView else { return }
         moveController = MoveController(cardView: cardView)
         moveController?.doubleTap()
-
     }
 }
 

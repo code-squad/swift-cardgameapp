@@ -16,6 +16,9 @@ class MoveController {
     private let parentView: UIStackView
     private let mainView: UIView
 
+    private var cardInformation: CardInformation?
+    private var cardPackForDragging: [CardView]
+
     private var originParentModel: Sendable?
     private var isToFoundations: Bool = true
     private var targetParentModel: Receivable? {
@@ -29,15 +32,16 @@ class MoveController {
     init?(cardView: CardView) {
         self.cardView = cardView
         guard let cardStackView = cardView.superview as? CardStackView else { return nil }
-        guard cardView == cardStackView.subviews[cardStackView.subviews.count-1] else { return nil }
         guard let parentView = cardStackView.superview as? UIStackView else { return nil }
         guard let mainView = parentView.superview else { return nil }
 
         self.cardStackView = cardStackView
         self.parentView = parentView
         self.mainView = mainView
-
+        self.cardPackForDragging = []
         self.originParentModel = getOriginParentModel()
+        self.cardInformation = getCardInformation()
+        setCardPackForDragging()
     }
 
     private func getOriginParentModel() -> Sendable? {
@@ -50,16 +54,27 @@ class MoveController {
         }
     }
 
+    private func getCardInformation() -> CardInformation? {
+        return originParentModel?.getSelectedCardInformation(image: cardView.storedImage)
+    }
+
+    private func setCardPackForDragging() {
+        for index in (cardInformation?.indexes.yIndex)!..<cardStackView.subviews.count {
+            guard let card = cardStackView.subviews[index] as? CardView else { continue }
+            self.cardPackForDragging.append(card)
+        }
+    }
+
     private func getTargetParentModel(card: Card) -> Receivable? {
         return Target.getParent(of: card)
     }
 
     func doubleTap() {
-        guard let cardInformation = originParentModel?.getSelectedCardInformation(image: cardView.storedImage)
-            else { return }
-        self.targetParentModel = getTargetParentModel(card: cardInformation.card)
-        guard let target =
-            targetParentModel?.availablePosition(of: cardInformation.card) else { return }
+        // check it is the last card of a card stack
+        guard cardView == cardStackView.subviews[cardStackView.subviews.count-1] else { return }
+        guard cardInformation != nil else { return }
+        self.targetParentModel = getTargetParentModel(card: cardInformation!.card)
+        guard let target = targetParentModel?.availablePosition(of: cardInformation!.card) else { return }
         mainView.isUserInteractionEnabled = false
         UIViewPropertyAnimator.runningPropertyAnimator(
             withDuration: 1.0,
@@ -71,8 +86,8 @@ class MoveController {
                 self.moveCardView(to: target)
             },
             completion: { _ in
-                self.parentView.insertSubview(self.cardStackView, at: cardInformation.indexes.xIndex)
-                self.moveCardModel(cardIndexes: cardInformation.indexes)
+                self.parentView.insertSubview(self.cardStackView, at: self.cardInformation!.indexes.xIndex)
+                self.moveCardModel(cardIndexes: self.cardInformation!.indexes)
                 self.mainView.isUserInteractionEnabled = true
             }
         )
@@ -106,19 +121,34 @@ class MoveController {
 
     func moveChanged(with recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: cardView)
-        cardView.center = CGPoint(x: cardView.center.x + translation.x, y: cardView.center.y + translation.y)
+        for targetView in cardPackForDragging {
+            moveChanged(targetView: targetView, with: translation)
+        }
         recognizer.setTranslation(CGPoint.zero, in: mainView)
+    }
+
+    private func moveChanged(targetView: CardView, with translation: CGPoint) {
+        targetView.center = CGPoint(x: targetView.center.x + translation.x, y: targetView.center.y + translation.y)
     }
 
     func moveBackToOrigin() {
         let globalPoint = cardStackView.convert(cardView.frame.origin, to: nil)
-        guard let cardInformation = originParentModel?.getSelectedCardInformation(image: cardView.storedImage)
-            else { return }
-        UIView.animate(withDuration: 0.5, animations: {
-            self.cardView.frame.origin.x -= globalPoint.x - (self.viewOrigin?.x ?? 0.0)
-            self.cardView.frame.origin.y -= globalPoint.y - (self.viewOrigin?.y ?? 0.0)
-        })
-        parentView.insertSubview(cardStackView, at: cardInformation.indexes.xIndex)
+        self.mainView.isUserInteractionEnabled = false
+        for index in cardPackForDragging.indices {
+            UIViewPropertyAnimator.runningPropertyAnimator(
+                withDuration: 0.5,
+                delay: 0.0,
+                options: [.curveLinear],
+                animations: {
+                    self.cardPackForDragging[index].frame.origin.x -= globalPoint.x - (self.viewOrigin!.x)
+                    self.cardPackForDragging[index].frame.origin.y -= globalPoint.y - (self.viewOrigin!.y)
+                },
+                completion: { _ in
+                    self.parentView.insertSubview(self.cardStackView, at: (self.cardInformation?.indexes.xIndex)!)
+                    self.mainView.isUserInteractionEnabled = true
+                }
+            )
+        }
     }
 
 }
