@@ -9,6 +9,19 @@
 import Foundation
 
 class SevenPilesViewModel: CardStacksProtocol, Receivable, Sendable {
+    private static var instance: SevenPilesViewModel?
+
+    static func sharedInstance() -> SevenPilesViewModel {
+        if instance == nil {
+            instance = SevenPilesViewModel()
+        }
+        return instance!
+    }
+
+    private init() {
+        cardStacks = []
+    }
+
     private var cardStacks: [CardStack] = [CardStack]() {
         didSet {
             var cardImagesPack: [CardImages] = []
@@ -17,10 +30,6 @@ class SevenPilesViewModel: CardStacksProtocol, Receivable, Sendable {
                                             object: self,
                                             userInfo: [Keyword.sevenPilesImages.value: cardImagesPack])
         }
-    }
-
-    init() {
-        cardStacks = []
     }
 
     func spreadCardPiles(sevenPiles: [CardPack]) {

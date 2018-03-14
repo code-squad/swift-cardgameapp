@@ -9,6 +9,19 @@
 import Foundation
 
 class FoundationsViewModel: CardStacksProtocol, Receivable {
+    private static var instance: FoundationsViewModel?
+
+    static func sharedInstance() -> FoundationsViewModel {
+        if instance == nil {
+            instance = FoundationsViewModel()
+        }
+        return instance!
+    }
+
+    private init() {
+        setNewFoundations()
+    }
+
     private var cardStacks: [CardStack] = [CardStack]() {
         didSet {
             var cardImagesPack: [CardImages] = []
@@ -17,10 +30,6 @@ class FoundationsViewModel: CardStacksProtocol, Receivable {
                                             object: self,
                                             userInfo: [Keyword.foundationImages.value: cardImagesPack])
         }
-    }
-
-    init() {
-        setNewFoundations()
     }
 
     func push(card: Card) -> Bool {

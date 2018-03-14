@@ -9,8 +9,20 @@
 import Foundation
 
 class OpenedCardDeckViewModel: CardStacksProtocol, Sendable {
+    private static var instance: OpenedCardDeckViewModel?
 
-    private var cardStack: CardStack = CardStack(cardPack: []) {
+    static func sharedInstance() -> OpenedCardDeckViewModel {
+        if instance == nil {
+            instance = OpenedCardDeckViewModel()
+        }
+        return instance!
+    }
+
+    private init() {
+        cardStack = CardStack(cardPack: [])
+    }
+
+    private var cardStack: CardStack {
         didSet {
             let cardImages: CardImages = cardStack.getImagesAll()
             NotificationCenter.default.post(name: .openedCardDeck,
@@ -20,6 +32,7 @@ class OpenedCardDeckViewModel: CardStacksProtocol, Sendable {
     }
 
     func pop(index: Int) -> Card? {
+        guard index == 0 else { return nil }
         return cardStack.pop()
     }
 
@@ -59,10 +72,6 @@ class OpenedCardDeckViewModel: CardStacksProtocol, Sendable {
 
     func reLoad() -> CardPack {
         return cardStack.reLoad()
-    }
-
-    func pop() -> Card? {
-        return cardStack.pop()
     }
 
     func count() -> Int {
