@@ -42,6 +42,7 @@ class CardView: UIImageView {
         let newCard = CardView(frame: frame)
         newCard.setImage(name: imageName)
         newCard.addDoubleTapEvent()
+        newCard.addDragEvent()
         return newCard
     }
 
@@ -55,15 +56,32 @@ class CardView: UIImageView {
     }
 
     private func addDoubleTapEvent() {
-        let doubleTap = UITapGestureRecognizer.init(target: self, action: #selector(doubleTapCard(recognizer:)))
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(doubleTapCard(recognizer:)))
         doubleTap.numberOfTapsRequired = Figure.TapGesture.double.rawValue
         addGestureRecognizer(doubleTap)
     }
 
     @objc private func doubleTapCard(recognizer: UITapGestureRecognizer) {
-        NotificationCenter.default.post(name: .doubleTapped,
-                                        object: self,
-                                        userInfo: [Keyword.doubleTapped.value: recognizer.view!])
+        NotificationCenter.default.post(
+            name: .doubleTapped,
+            object: self,
+            userInfo: [Keyword.doubleTapped.value: recognizer]
+        )
+    }
+
+    private func addDragEvent() {
+        let drag = UIPanGestureRecognizer(target: self, action: #selector(dragCard(recognizer:)))
+        drag.minimumNumberOfTouches = 1
+        drag.maximumNumberOfTouches = 1
+        addGestureRecognizer(drag)
+    }
+
+    @objc private func dragCard(recognizer: UIPanGestureRecognizer) {
+        NotificationCenter.default.post(
+            name: .drag,
+            object: self,
+            userInfo: [Keyword.drag.value: recognizer]
+        )
     }
 
 }

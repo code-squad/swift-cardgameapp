@@ -14,6 +14,7 @@ enum Keyword {
     case sevenPilesImages
     case doubleTapped
     case tappedCardDeck
+    case drag
 
     var value: String {
         switch self {
@@ -22,6 +23,7 @@ enum Keyword {
         case .openedCardImages: return "openedCardImages"
         case .doubleTapped: return "doubleTapped"
         case .tappedCardDeck: return "tappedCardDeck"
+        case .drag: return "drag"
         }
     }
 }

@@ -21,6 +21,7 @@
 		8E8457562052227C0064512F /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8457542052227C0064512F /* CardStack.swift */; };
 		8E92B07E202162A500846B04 /* SevenPilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E92B07D202162A500846B04 /* SevenPilesViewModel.swift */; };
 		8E92B07F202162A500846B04 /* SevenPilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E92B07D202162A500846B04 /* SevenPilesViewModel.swift */; };
+		8E9619CD2057C28500EAA347 /* MoveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9619CC2057C28500EAA347 /* MoveController.swift */; };
 		8EA1AADC202011EB00D256EA /* Figure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1AADB202011EB00D256EA /* Figure.swift */; };
 		8EA1AADD202011EB00D256EA /* Figure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1AADB202011EB00D256EA /* Figure.swift */; };
 		8EA534A2202061BA001B70FF /* FoundationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA534A1202061BA001B70FF /* FoundationsView.swift */; };
@@ -47,6 +48,8 @@
 		8EC927B52052585E003810EA /* CardStacksProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC927B42052585E003810EA /* CardStacksProtocol.swift */; };
 		8EC927B62052585E003810EA /* CardStacksProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC927B42052585E003810EA /* CardStacksProtocol.swift */; };
 		8EC927C020543590003810EA /* CardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC927BF20543590003810EA /* CardDeckView.swift */; };
+		8EDD9EAA20590A7500C5238B /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDD9EA920590A7500C5238B /* Target.swift */; };
+		8EDD9EAB20590A7500C5238B /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDD9EA920590A7500C5238B /* Target.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +79,7 @@
 		8E84575220521E590064512F /* CardStackTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackTest.swift; sourceTree = "<group>"; };
 		8E8457542052227C0064512F /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		8E92B07D202162A500846B04 /* SevenPilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SevenPilesViewModel.swift; sourceTree = "<group>"; };
+		8E9619CC2057C28500EAA347 /* MoveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveController.swift; sourceTree = "<group>"; };
 		8EA1AADB202011EB00D256EA /* Figure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Figure.swift; sourceTree = "<group>"; };
 		8EA534A1202061BA001B70FF /* FoundationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationsView.swift; sourceTree = "<group>"; };
 		8EA534A420206211001B70FF /* SevenPilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SevenPilesView.swift; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 		8EC0F969201EC10300CEBBD4 /* CardTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTest.swift; sourceTree = "<group>"; };
 		8EC927B42052585E003810EA /* CardStacksProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStacksProtocol.swift; sourceTree = "<group>"; };
 		8EC927BF20543590003810EA /* CardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckView.swift; sourceTree = "<group>"; };
+		8EDD9EA920590A7500C5238B /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +163,7 @@
 				8E92B07D202162A500846B04 /* SevenPilesViewModel.swift */,
 				8E8457542052227C0064512F /* CardStack.swift */,
 				8EC927B42052585E003810EA /* CardStacksProtocol.swift */,
+				8EDD9EA920590A7500C5238B /* Target.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -190,6 +196,7 @@
 				8EA1AADA2020110300D256EA /* Utility */,
 				8EC0F959201EBD6B00CEBBD4 /* Model */,
 				8EC0F927201AD09300CEBBD4 /* AppDelegate.swift */,
+				8E9619CC2057C28500EAA347 /* MoveController.swift */,
 				8EC0F929201AD09300CEBBD4 /* ViewController.swift */,
 				8EC0F92B201AD09300CEBBD4 /* Main.storyboard */,
 				8EC0F92E201AD09300CEBBD4 /* Assets.xcassets */,
@@ -390,12 +397,14 @@
 				8E01F6D02021A13E00D6C982 /* OpenedCardDeckViewModel.swift in Sources */,
 				8E1B5494203FE87E002002AD /* NotificationUtility.swift in Sources */,
 				8EC0F964201EBDAF00CEBBD4 /* DealerAction.swift in Sources */,
+				8EDD9EAA20590A7500C5238B /* Target.swift in Sources */,
 				8E92B07E202162A500846B04 /* SevenPilesViewModel.swift in Sources */,
 				8E8457552052227C0064512F /* CardStack.swift in Sources */,
 				8E1B54982040138B002002AD /* Keyword.swift in Sources */,
 				8EA534A520206211001B70FF /* SevenPilesView.swift in Sources */,
 				8EC0F92A201AD09300CEBBD4 /* ViewController.swift in Sources */,
 				8EC0F928201AD09300CEBBD4 /* AppDelegate.swift in Sources */,
+				8E9619CD2057C28500EAA347 /* MoveController.swift in Sources */,
 				8E6F7414204EC08300EE792B /* OpenedCardDeckView.swift in Sources */,
 				8EA534AB20206A2A001B70FF /* FoundationsViewModel.swift in Sources */,
 				8E1B54F62048F4B3002002AD /* CardView.swift in Sources */,
@@ -419,6 +428,7 @@
 				8E1B54F42048F3B6002002AD /* CardStackView.swift in Sources */,
 				8EC927B320522FD4003810EA /* NotificationUtility.swift in Sources */,
 				8EC927B62052585E003810EA /* CardStacksProtocol.swift in Sources */,
+				8EDD9EAB20590A7500C5238B /* Target.swift in Sources */,
 				8EC0F96C201EE60F00CEBBD4 /* Card.swift in Sources */,
 				8E84575320521E590064512F /* CardStackTest.swift in Sources */,
 				8EC927B220522FD0003810EA /* Keyword.swift in Sources */,
