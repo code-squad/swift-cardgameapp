@@ -57,4 +57,15 @@ class FoundationsViewModel: CardStacksProtocol, Receivable {
             cardStacks.append(CardStack(cardPack: []))
         }
     }
+
+    func availablePositionsForDragging(of card: Card) -> [CardIndexes] {
+        var availablePositions: [CardIndexes] = []
+        for xIndex in cardStacks.indices {
+            if cardStacks[xIndex].isStackable(card: card) {
+                let cardIndexes: CardIndexes = (xIndex: xIndex, yIndex: cardStacks[xIndex].count)
+                availablePositions.append(cardIndexes)
+            }
+        }
+        return availablePositions
+    }
 }

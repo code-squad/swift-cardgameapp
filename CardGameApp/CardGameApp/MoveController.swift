@@ -21,10 +21,14 @@ class MoveController {
 
     private var originParentModel: Sendable?
     private var isToFoundations: Bool = true
+    private var dropableInformations: [DropableInformation]?
+    private var attachableInformations: [(targetParentView: UIStackView, cardIndexes: [CardIndexes])] = []
     private var targetParentModel: Receivable? {
         didSet {
             if targetParentModel is SevenPilesViewModel {
                 isToFoundations = false
+            } else {
+                isToFoundations = true
             }
         }
     }
@@ -87,7 +91,7 @@ class MoveController {
             },
             completion: { _ in
                 self.parentView.insertSubview(self.cardStackView, at: self.cardInformation!.indexes.xIndex)
-                self.moveCardModel(cardIndexes: self.cardInformation!.indexes)
+                self.moveCardModel(from: self.cardInformation!.indexes)
                 self.mainView.isUserInteractionEnabled = true
             }
         )
@@ -106,7 +110,7 @@ class MoveController {
         cardView.frame.origin.y -= globalPoint.y - dy
     }
 
-    private func moveCardModel(cardIndexes: CardIndexes) {
+    private func moveCardModel(from cardIndexes: CardIndexes) {
         _ = targetParentModel?.push(card: (originParentModel?.pop(index: cardIndexes.xIndex))!)
     }
 
@@ -114,24 +118,74 @@ class MoveController {
         self.viewOrigin = viewOrigin
     }
 
-    func moveBegan() {
+    func dragBegan() {
         mainView.bringSubview(toFront: parentView)
         parentView.bringSubview(toFront: cardStackView)
+        guard cardInformation != nil else { return }
+        dropableInformations = Target.availableInformations(of: cardInformation!.card)
+        guard dropableInformations != nil, dropableInformations!.count > 0 else { return }
+        for dropableInformation in dropableInformations! {
+            if dropableInformation.targetParent is FoundationsViewModel {
+                guard let targetParentView = mainView.subviews[0] as? UIStackView else { continue }
+                attachableInformations.append((targetParentView: targetParentView,
+                                               cardIndexes: dropableInformation.availableIndexes))
+            } else {
+                guard let targetParentView = mainView.subviews[3] as? UIStackView else { continue }
+                attachableInformations.append((targetParentView: targetParentView,
+                                               cardIndexes: dropableInformation.availableIndexes))
+            }
+        }
     }
 
-    func moveChanged(with recognizer: UIPanGestureRecognizer) {
+    func dragChanged(with recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: cardView)
         for targetView in cardPackForDragging {
-            moveChanged(targetView: targetView, with: translation)
+            dragChanged(targetView: targetView, with: translation)
         }
         recognizer.setTranslation(CGPoint.zero, in: mainView)
     }
 
-    private func moveChanged(targetView: CardView, with translation: CGPoint) {
-        targetView.center = CGPoint(x: targetView.center.x + translation.x, y: targetView.center.y + translation.y)
+    private func dragChanged(targetView: CardView, with translation: CGPoint) {
+        targetView.center = CGPoint(x: targetView.center.x + translation.x,
+                                    y: targetView.center.y + translation.y)
     }
 
-    func moveBackToOrigin() {
+    func dragEnded(with recognizer: UIPanGestureRecognizer) {
+        let loc = recognizer.location(in: mainView)
+        for attachableInformation in attachableInformations {
+            if attachableInformation.targetParentView is FoundationsView {
+                for cardIndex in attachableInformation.cardIndexes {
+                    let rectX = cardView.frame.width * CGFloat(cardIndex.xIndex)
+                    let rectY = CGFloat(Figure.YPosition.topMargin.value)
+                    let targetRect = CGRect(origin: CGPoint(x: rectX, y: rectY),
+                                            size: cardView.frame.size)
+                    if targetRect.contains(loc) {
+                        targetParentModel = FoundationsViewModel.sharedInstance()
+                        parentView.insertSubview(cardStackView, at: cardInformation!.indexes.xIndex)
+                        moveCardModel(from: cardInformation!.indexes)
+                        return
+                    }
+                }
+            } else {
+                for cardIndex in attachableInformation.cardIndexes {
+                    let rectX = cardView.frame.width * CGFloat(cardIndex.xIndex)
+                    let rectY = CGFloat(Figure.YPosition.cardPileTopMargin.value
+                                + Figure.YPosition.betweenCards.value * cardIndex.yIndex)
+                    let targetRect = CGRect(origin: CGPoint(x: rectX, y: rectY),
+                                            size: cardView.frame.size)
+                    if targetRect.contains(loc) {
+                        targetParentModel = SevenPilesViewModel.sharedInstance()
+                        parentView.insertSubview(cardStackView, at: cardInformation!.indexes.xIndex)
+                        moveCardModel(from: cardInformation!.indexes)
+                        return
+                    }
+                }
+            }
+        }
+        moveBackToOrigin()
+    }
+
+    private func moveBackToOrigin() {
         let globalPoint = cardStackView.convert(cardView.frame.origin, to: nil)
         self.mainView.isUserInteractionEnabled = false
         for index in cardPackForDragging.indices {
@@ -144,7 +198,8 @@ class MoveController {
                     self.cardPackForDragging[index].frame.origin.y -= globalPoint.y - (self.viewOrigin!.y)
                 },
                 completion: { _ in
-                    self.parentView.insertSubview(self.cardStackView, at: (self.cardInformation?.indexes.xIndex)!)
+                    self.parentView.insertSubview(self.cardStackView,
+                                                  at: (self.cardInformation?.indexes.xIndex)!)
                     self.mainView.isUserInteractionEnabled = true
                 }
             )

@@ -8,6 +8,7 @@
 
 import Foundation
 
+typealias DropableInformation = (targetParent: Receivable, availableIndexes: [CardIndexes])
 struct Target {
     static private let targetParents = [FoundationsViewModel.sharedInstance(),
                           SevenPilesViewModel.sharedInstance()] as [Receivable]
@@ -16,5 +17,15 @@ struct Target {
             return target
         }
         return nil
+    }
+
+    static func availableInformations(of card: Card) -> [DropableInformation] {
+        var dropableInformations: [DropableInformation] = []
+        for target in targetParents {
+            let dropableInformation = (targetParent: target,
+                                       availableIndexes: target.availablePositionsForDragging(of: card))
+            dropableInformations.append(dropableInformation)
+        }
+        return dropableInformations
     }
 }

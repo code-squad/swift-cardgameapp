@@ -86,4 +86,15 @@ class SevenPilesViewModel: CardStacksProtocol, Receivable, Sendable {
         cardStacks = []
     }
 
+    func availablePositionsForDragging(of card: Card) -> [CardIndexes] {
+        var availablePositions: [CardIndexes] = []
+        for xIndex in cardStacks.indices {
+            if cardStacks[xIndex].isAttachable(card: card) {
+                let cardIndexes: CardIndexes = (xIndex: xIndex, yIndex: cardStacks[xIndex].count)
+                availablePositions.append(cardIndexes)
+            }
+        }
+        return availablePositions
+    }
+
 }

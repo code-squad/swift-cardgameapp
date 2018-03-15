@@ -232,11 +232,11 @@ extension ViewController {
         case .began:
             moveController = MoveController(cardView: cardView)
             moveController?.setViewOrigin(at: (cardView.superview?.convert(cardView.frame.origin, to: nil))!)
-            moveController?.moveBegan()
+            moveController?.dragBegan()
         case .changed:
-            moveController?.moveChanged(with: recognizer)
+            moveController?.dragChanged(with: recognizer)
         case .ended:
-            moveController?.moveBackToOrigin()
+            moveController?.dragEnded(with: recognizer)
         default:
             break
         }
