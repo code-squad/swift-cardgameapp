@@ -77,7 +77,6 @@ struct Deck {
         return false
     }
     
-    
 }
 
 extension Array {

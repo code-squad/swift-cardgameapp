@@ -27,14 +27,14 @@ class ViewController: UIViewController {
         self.gameCardStack = GameCardStack(with: self.deck)
         self.foundationDeck = FoundationDeck()
         self.eventController = EventController(viewController: self)
-        
-        self.foundationView = FoundationView(frame: CGRect(x: 0,
+        self.foundationView = FoundationView(frame: CGRect(x: CGFloat(ScreenPoint.startXPoint),
                                                            y: UIApplication.shared.statusBarFrame.height,
                                                            width: (self.view.cardSize().width + self.view.marginBetweenCard()) * 4,
                                                            height: self.view.cardSize().height))
-        self.openDeckView = OpenDeckView(frame: CGRect(origin: self.view.makeViewPoint(columnIndex: 4.5, rowIndex: 0),
+        self.openDeckView = OpenDeckView(frame: CGRect(origin: self.view.makeViewPoint(columnIndex: CGFloat(ScreenPoint.openCardXPoint),
+                                                                                       rowIndex: CGFloat(ScreenPoint.startYPoint)),
                                                        size: self.view.cardSize()))
-        self.gameCardStackView = GameCardStackView(frame: CGRect(x: 0,
+        self.gameCardStackView = GameCardStackView(frame: CGRect(x: CGFloat(ScreenPoint.startXPoint),
                                                                  y: self.view.cardSize().height
                                                                     + self.view.marginBetweenCard()
                                                                     + UIApplication.shared.statusBarFrame.height,
@@ -46,6 +46,12 @@ class ViewController: UIViewController {
         makeGameTable()
         NotificationCenter.default.addObserver(self, selector: #selector(playGameCardStack(notification:)), name: .playingGameCardStack, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(playOpenDeck(notification:)), name: .playingOpenDeck, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(openCardDeck(notification:)), name: .openCard, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(popOpenCard(notification:)), name: .popOpenCard, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(pushFoundationView(notification:)), name: .pushFoundation, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(popCardGameStackView(notification:)), name: .popCardGameStack, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(pushCardGameStackView(notification:)), name: .pushCardGameStack, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(flipCardView(notification:)), name: .flipCard, object: nil)
     }
     
     private func makeGameTable() {
@@ -131,15 +137,15 @@ class ViewController: UIViewController {
     }
     // Game Table View Setting::END
     
-    // Open Deck View Setting:: STRAT
-    func openCardDeck() {
+    // Open Deck View Setting::STRAT
+    @objc private func openCardDeck(notification: Notification) {
         if let oneCard = deck.popCard() {
             oneCard.flipCard()
             let cardView = UIImageView(image: UIImage(named: oneCard.getCardName()))
             cardView.makeCardView()
             addDoubleTapGestureOpen(view: cardView)
             self.openDeckView.addSubview(cardView)
-            openDeck.appendCard(oneCard)
+            openDeck.pushCard(oneCard)
         } else if deck.isEmptyDeck() {
             makeRefreshButtonView()
         }
@@ -161,13 +167,16 @@ class ViewController: UIViewController {
         view.isUserInteractionEnabled = true
         gesture.numberOfTapsRequired = 2
     }
+    // Open Deck View Setting::END
     
-    // Open Deck View Setting:: END
-    
+    // Play Game Model::START
     @objc private func playGameCardStack(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         guard let point = userInfo[Notification.Name.cardLocation] as? CGPoint else { return }
         let pickedCard = gameCardStack.cardStacksOfTable[Int(point.x)].cards[Int(point.y)]
+        guard pickedCard.isUpside() else { return }
+        guard let lastCard = gameCardStack.cardStacksOfTable[Int(point.x)].lastCard() else { return }
+        guard pickedCard == lastCard else { return }
         
         if pickedCard.isAceCard() && foundationDeck.pushAce(pickedCard) {
             gameCardStack.popCard(xPoint: Int(point.x))
@@ -196,58 +205,57 @@ class ViewController: UIViewController {
             openDeck.popCard()
         }
     }
-
-//    @objc func flipLastStackCard(notification: Notification) {
-//        guard let userInfo = notification.userInfo else { return }
-//        guard let flipCard = userInfo[Notification.Name.flipCard] else { return }
-//        guard let card = flipCard as? Card else { return }
-//
-//        let flipFaceCard = choiceCardFace(with: card)
-//        flipFaceCard.makeCardView()
-//        addDoubleTapGestureStack(view: flipFaceCard)
-//    }
-//
-//    @objc func pushFoundationViewFromOpenDeck(notification: Notification) {
-//        guard let userInfo = notification.userInfo else { return }
-//        guard let xPoint = userInfo[Notification.Name.pushCardFoundationFromOpenDeck] as? Int else { return }
-//        guard let movableCard = openDeckView.subviews.last else { return }
-//        movableCard.frame.origin = CGPoint.zero
-//        foundationView.subviews[xPoint].addSubview(movableCard)
-//    }
-//
-//    @objc func pushFoundationViewFromStackDeck(notification: Notification) {
-//        guard let userInfo = notification.userInfo else { return }
-//        guard let index = userInfo[Notification.Name.pushFoundationViewFromStackDeck] as? Int else { return }
-//        guard let card = userInfo[Notification.Name.cardName] as? Card else { return }
-//        let newCard = UIImageView(image: UIImage(named: card.getCardName()))
-//        newCard.makeCardView()
-//        newCard.frame.origin = CGPoint.zero
-//        foundationView.subviews[index].addSubview(newCard)
-//    }
-//
-//    @objc func popTableView(notification: Notification) {
-//        guard let userInfo = notification.userInfo else { return }
-//        guard let xPoint = userInfo[Notification.Name.popGameCardStack] as? Int else { return }
-//
-//        guard let lastView = gameCardStackView.subviews[xPoint].subviews.last else { return }
-//        if let lastCard = gameCardStack.cardStacksOfTable[xPoint].lastCard() {
-//            lastView.removeFromSuperview()
-//            lastCard.flipCard()
-//            let flipCard = UIImageView(image: UIImage(named: lastCard.getCardName()))
-//            flipCard.makeCardView()
-//            flipCard.frame.origin = CGPoint.zero
-//            flipCard.makeStackView(cardsRow: gameCardStack.cardStacksOfTable[xPoint].endIndex - 1)
-//            guard let beforeFlipCard = gameCardStackView.subviews[xPoint].subviews.last else { return }
-//            beforeFlipCard.removeFromSuperview()
-//            gameCardStackView.subviews[xPoint].addSubview(flipCard)
-//        } else {
-//            lastView.removeFromSuperview()
-//            let emptyView = UIImageView()
-//            emptyView.makeCardView()
-//            emptyView.frame.origin = CGPoint.zero
-//            gameCardStackView.subviews[xPoint].addSubview(emptyView)
-//        }
-//    }
+    // Play Game Model::END
+    
+    @objc private func popOpenCard(notification: Notification) {
+        guard let lastView = openDeckView.subviews.last else { return }
+        lastView.removeFromSuperview()
+    }
+    
+    @objc private func pushFoundationView(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let foundationIndex = userInfo[Notification.Name.cardLocation] as? Int else { return }
+        guard let cardName = userInfo[Notification.Name.cardName] as? String else { return }
+        
+        let newCard = UIImageView(image: UIImage(named: cardName))
+        newCard.makeCardView()
+        newCard.makeZeroOrigin()
+        foundationView.subviews[foundationIndex].addSubview(newCard)
+    }
+    
+    @objc private func pushCardGameStackView(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let index = userInfo[Notification.Name.cardLocation] as? Int else { return }
+        guard let cardName = userInfo[Notification.Name.cardName] as? String else { return }
+        	
+        let yPoint = gameCardStack.cardStacksOfTable[index].cards.endIndex - 1
+        let newCard = UIImageView(image: UIImage(named: cardName))
+        newCard.makeStackView(cardsRow: yPoint)
+        newCard.frame.origin.x = 0
+        gameCardStackView.subviews[index].addSubview(newCard)
+    }
+    
+    @objc private func popCardGameStackView(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let index = userInfo[Notification.Name.cardLocation] as? Int else { return }
+        guard let lastView = gameCardStackView.subviews[index].subviews.last else { return }
+        lastView.removeFromSuperview()
+    }
+    
+    @objc private func flipCardView(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let index = userInfo[Notification.Name.cardLocation] as? Int else { return }
+        guard let cardName = userInfo[Notification.Name.cardName] as? String else { return }
+        guard let lastView = gameCardStackView.subviews[index].subviews.last else { return }
+        lastView.removeFromSuperview()
+        
+        let yPoint = gameCardStack.cardStacksOfTable[index].cards.endIndex - 1
+        let newCard = UIImageView(image: UIImage(named: cardName))
+        newCard.makeStackView(cardsRow: yPoint)
+        newCard.frame.origin.x = 0
+        gameCardStackView.subviews[index].addSubview(newCard)
+        
+    }
 }
 
 extension ViewController {

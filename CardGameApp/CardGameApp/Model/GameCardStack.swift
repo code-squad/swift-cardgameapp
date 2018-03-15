@@ -30,28 +30,38 @@ class GameCardStack {
     }
     
     func popCard(xPoint: Int) {
-        guard let _ = self.cardStacksOfTable[xPoint].popCard() else { return }
+        guard self.cardStacksOfTable[xPoint].popCard() != nil else { return }
+        NotificationCenter.default.post(name: .popCardGameStack, object: self, userInfo: [Notification.Name.cardLocation: xPoint])
+        guard let lastCard = self.cardStacksOfTable[xPoint].lastCard() else { return }
+        lastCard.flipCard()
+        NotificationCenter.default.post(name: .flipCard, object: self, userInfo: [Notification.Name.cardLocation: xPoint,
+                                                                                  Notification.Name.cardName: lastCard.getCardName()])
     }
     
     private func calculateEmptyPlace() -> Int? {
-        return self.cardStacksOfTable.index(where: { $0.isEmptyDeck() } )
+        return self.cardStacksOfTable.index(where: { $0.isEmptyDeck() })
     }
     
     func pushKing(_ card: Card) -> Bool {
         guard let emptyIndex = calculateEmptyPlace() else { return false }
         self.cardStacksOfTable[emptyIndex].pushCard(card)
+        NotificationCenter.default.post(name: .pushCardGameStack, object: self, userInfo: [Notification.Name.cardLocation: emptyIndex,
+                                                                                           Notification.Name.cardName: card.getCardName()])
         return true
     }
     
     func pushCard(card: Card, index: Int) {
         self.cardStacksOfTable[index].pushCard(card)
+        NotificationCenter.default.post(name: .pushCardGameStack, object: self, userInfo: [Notification.Name.cardLocation: index,
+                                                                                           Notification.Name.cardName: card.getCardName()])
     }
     
     func calculateValidRule(_ card: Card) -> Int? {
         for index in 0..<cardStacksOfTable.count {
-            guard let lastCard = cardStacksOfTable[index].lastCard() else { return nil}
-            if lastCard.isValid(card) && lastCard.isContinuousCardRank(card) {
-                return index
+            if let lastCard = cardStacksOfTable[index].lastCard() {
+                if lastCard.isValid(card) && lastCard.isContinuousCardRankStack(card) {
+                    return index
+                }
             }
         }
         return nil
@@ -60,6 +70,5 @@ class GameCardStack {
     func choicePlace(with card: Card) -> Int? {
         return calculateValidRule(card)
     }
-    
     
 }

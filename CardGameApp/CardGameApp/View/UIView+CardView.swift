@@ -31,6 +31,10 @@ extension UIView {
         self.makeCardView(index: 0, yPoint: 0)
     }
     
+    func makeZeroOrigin() {
+        self.frame.origin = CGPoint.zero
+    }
+    
     func makeCardView(index: CGFloat) {
         self.makeCardView(index: index, yPoint: UIApplication.shared.statusBarFrame.height)
     }

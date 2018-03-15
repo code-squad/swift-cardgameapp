@@ -9,5 +9,8 @@
 import Foundation
 
 struct ScreenPoint {
-   static let lastXpoint = 6
+    static let lastXpoint = 6
+    static let openCardXPoint = 4.5
+    static let startYPoint = 0
+    static let startXPoint = 0
 }

@@ -12,7 +12,7 @@ class FoundationDeck {
     private var foundationDeck = Array.init(repeating: Deck(cards: [Card]()), count: 4)
     
     private func calculateEmptyPlace() -> Int? {
-        return foundationDeck.index(where: { $0.isEmptyDeck() } )
+        return foundationDeck.index(where: { $0.isEmptyDeck() })
     }
     
     private func calculateSameGroup(_ card: Card) -> Int? {
@@ -27,7 +27,7 @@ class FoundationDeck {
     func isContinuousCard(_ card: Card) -> Bool {
         for index in 0..<foundationDeck.count {
             guard let baseCard = foundationDeck[index].lastCard() else { return false }
-            if baseCard.isSameSuit(card) && baseCard.isContinuousCardRank(card) {
+            if baseCard.isSameSuit(card) && baseCard.isContinuousCardRankFoundation(card) {
                 return true
             }
         }
@@ -37,12 +37,16 @@ class FoundationDeck {
     func pushAce(_ card: Card) -> Bool {
         guard let emptyIndex = calculateEmptyPlace() else { return false }
         foundationDeck[emptyIndex].pushCard(card)
+        NotificationCenter.default.post(name: .pushFoundation, object: self, userInfo: [Notification.Name.cardLocation: emptyIndex,
+                                                                                        Notification.Name.cardName: card.getCardName()])
         return true
     }
     
     func pushCard(_ card: Card) {
         guard let sameGroupIndex = calculateSameGroup(card) else { return }
         foundationDeck[sameGroupIndex].pushCard(card)
+        NotificationCenter.default.post(name: .pushFoundation, object: self, userInfo: [Notification.Name.cardLocation: sameGroupIndex,
+                                                                                        Notification.Name.cardName: card.getCardName()])
     }
 }
 

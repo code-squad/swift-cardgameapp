@@ -15,12 +15,13 @@ class OpenDeck {
         self.openDeck = Deck(cards: [Card]())
     }
     
-    func appendCard(_ card: Card) {
+    func pushCard(_ card: Card) {
         self.openDeck.pushCard(card)
     }
     
     func popCard() {
-        guard let _ = openDeck.popCard() else { return }
+        guard openDeck.popCard() != nil else { return }
+        NotificationCenter.default.post(name: .popOpenCard, object: self)
     }
     
     func lastCard() -> Card? {

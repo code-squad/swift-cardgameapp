@@ -75,7 +75,15 @@ class Card {
         }
     }
     
-    func isContinuousCardRank(_ card: Card) -> Bool {
+    func isContinuousCardRankStack(_ card: Card) -> Bool {
+        if self.rank.hashValue - 1 == card.rank.hashValue {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func isContinuousCardRankFoundation(_ card: Card) -> Bool {
         if self.rank.hashValue + 1 == card.rank.hashValue {
             return true
         } else {
