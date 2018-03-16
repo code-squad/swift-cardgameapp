@@ -17,6 +17,7 @@ class OpenDeck {
     
     func pushCard(_ card: Card) {
         self.openDeck.pushCard(card)
+        NotificationCenter.default.post(name: .pushOpenCard, object: self, userInfo: [Notification.Name.cardName: card])
     }
     
     func popCard() {

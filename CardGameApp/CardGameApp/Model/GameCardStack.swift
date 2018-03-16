@@ -42,11 +42,15 @@ class GameCardStack {
         return self.cardStacksOfTable.index(where: { $0.isEmptyDeck() })
     }
     
-    func pushKing(_ card: Card) -> Bool {
-        guard let emptyIndex = calculateEmptyPlace() else { return false }
+    func pushKing(_ card: Card) {
+        guard let emptyIndex = calculateEmptyPlace() else { return }
         self.cardStacksOfTable[emptyIndex].pushCard(card)
         NotificationCenter.default.post(name: .pushCardGameStack, object: self, userInfo: [Notification.Name.cardLocation: emptyIndex,
                                                                                            Notification.Name.cardName: card.getCardName()])
+    }
+    
+    func isEmptyPlace() -> Bool {
+        guard calculateEmptyPlace() != nil else { return false }
         return true
     }
     

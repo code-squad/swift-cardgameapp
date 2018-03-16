@@ -17,7 +17,8 @@ class EventController {
     
     @objc func popCard(_ touch: UITapGestureRecognizer) {
         if touch.state == .ended {
-            NotificationCenter.default.post(name: .openCard, object: self)
+            guard let touchedView = touch.view else { return }
+            NotificationCenter.default.post(name: .openCard, object: self, userInfo: [Notification.Name.openCard: touchedView])
         }
     }
     

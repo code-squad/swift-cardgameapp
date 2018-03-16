@@ -34,12 +34,11 @@ class FoundationDeck {
         return false
     }
     
-    func pushAce(_ card: Card) -> Bool {
-        guard let emptyIndex = calculateEmptyPlace() else { return false }
+    func pushAce(_ card: Card) {
+        guard let emptyIndex = calculateEmptyPlace() else { return }
         foundationDeck[emptyIndex].pushCard(card)
         NotificationCenter.default.post(name: .pushFoundation, object: self, userInfo: [Notification.Name.cardLocation: emptyIndex,
                                                                                         Notification.Name.cardName: card.getCardName()])
-        return true
     }
     
     func pushCard(_ card: Card) {
