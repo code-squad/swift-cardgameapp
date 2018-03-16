@@ -38,14 +38,19 @@ class SevenPilesViewModel: CardStacksProtocol, Receivable, Sendable {
         }
     }
 
-    func push(card: Card) -> Bool {
-        guard let targetPosition = availablePosition(of: card) else { return false }
-        cardStacks[targetPosition.xIndex].push(card: card)
+    func push(cards: [Card]) -> Bool {
+        guard let targetPosition = availablePosition(of: cards[0]) else { return false }
+        cardStacks[targetPosition.xIndex].push(cards: cards)
         return true
     }
 
-    func pop(index: Int) -> Card? {
-        return cardStacks[index].pop()
+    func push(cards: [Card], indexes: CardIndexes) -> Bool {
+        cardStacks[indexes.xIndex].push(cards: cards)
+        return true
+    }
+
+    func pop(indexes: CardIndexes) -> [Card] {
+        return cardStacks[indexes.xIndex].pop(index: indexes.yIndex)
     }
 
     func getSelectedCardInformation(image: String) -> CardInformation? {

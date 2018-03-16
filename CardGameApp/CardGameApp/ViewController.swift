@@ -185,7 +185,7 @@ extension ViewController {
             dealerAction.reLoad(cardPack: openedCardDeckVM.reLoad())
             return
         }
-        _ = openedCardDeckVM.push(card: card)
+        _ = openedCardDeckVM.push(cards: [card])
     }
 
     private func selectCardDeckViewImage() {
@@ -236,7 +236,7 @@ extension ViewController {
         case .changed:
             moveController?.dragChanged(with: recognizer)
         case .ended:
-            moveController?.dragEnded(with: recognizer)
+            moveController?.dragEnded(at: recognizer.location(in: view))
         default:
             break
         }

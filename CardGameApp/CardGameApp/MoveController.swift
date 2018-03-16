@@ -8,21 +8,23 @@
 
 import UIKit
 
+typealias AttachableInformation = (targetParentView: UIStackView, cardIndexes: [CardIndexes])
 class MoveController {
+    // view's original frame origin when it is dragging
     private var viewOrigin: CGPoint?
-
+    // views
     private let cardView: CardView
     private let cardStackView: CardStackView
     private let parentView: UIStackView
     private let mainView: UIView
-
+    // dragged cards information
     private var cardInformation: CardInformation?
     private var cardPackForDragging: [CardView]
-
     private var originParentModel: Sendable?
+    // target information
     private var isToFoundations: Bool = true
     private var dropableInformations: [DropableInformation]?
-    private var attachableInformations: [(targetParentView: UIStackView, cardIndexes: [CardIndexes])] = []
+    private var attachableInformations: [AttachableInformation] = []
     private var targetParentModel: Receivable? {
         didSet {
             if targetParentModel is SevenPilesViewModel {
@@ -48,6 +50,10 @@ class MoveController {
         setCardPackForDragging()
     }
 
+    func setViewOrigin(at viewOrigin: CGPoint) {
+        self.viewOrigin = viewOrigin
+    }
+
     private func getOriginParentModel() -> Sendable? {
         if (parentView as? OpenedCardDeckView) != nil {
             return OpenedCardDeckViewModel.sharedInstance()
@@ -62,6 +68,10 @@ class MoveController {
         return originParentModel?.getSelectedCardInformation(image: cardView.storedImage)
     }
 
+    private func getTargetParentModel(card: Card) -> Receivable? {
+        return Target.getParent(of: card)
+    }
+
     private func setCardPackForDragging() {
         for index in (cardInformation?.indexes.yIndex)!..<cardStackView.subviews.count {
             guard let card = cardStackView.subviews[index] as? CardView else { continue }
@@ -69,10 +79,13 @@ class MoveController {
         }
     }
 
-    private func getTargetParentModel(card: Card) -> Receivable? {
-        return Target.getParent(of: card)
+    private func moveCardModel(from cardIndexes: CardIndexes, to target: CardIndexes) {
+        _ = targetParentModel?.push(cards: (originParentModel?.pop(indexes: cardIndexes))!, indexes: target)
     }
+}
 
+// MARK: Double Tap
+extension MoveController {
     func doubleTap() {
         // check it is the last card of a card stack
         guard cardView == cardStackView.subviews[cardStackView.subviews.count-1] else { return }
@@ -91,7 +104,7 @@ class MoveController {
             },
             completion: { _ in
                 self.parentView.insertSubview(self.cardStackView, at: self.cardInformation!.indexes.xIndex)
-                self.moveCardModel(from: self.cardInformation!.indexes)
+                self.moveCardModel(from: self.cardInformation!.indexes, to: target)
                 self.mainView.isUserInteractionEnabled = true
             }
         )
@@ -109,15 +122,11 @@ class MoveController {
         }
         cardView.frame.origin.y -= globalPoint.y - dy
     }
+}
 
-    private func moveCardModel(from cardIndexes: CardIndexes) {
-        _ = targetParentModel?.push(card: (originParentModel?.pop(index: cardIndexes.xIndex))!)
-    }
-
-    func setViewOrigin(at viewOrigin: CGPoint) {
-        self.viewOrigin = viewOrigin
-    }
-
+// MARK: Drag & Drop
+extension MoveController {
+    // state : .began
     func dragBegan() {
         mainView.bringSubview(toFront: parentView)
         parentView.bringSubview(toFront: cardStackView)
@@ -125,18 +134,21 @@ class MoveController {
         dropableInformations = Target.availableInformations(of: cardInformation!.card)
         guard dropableInformations != nil, dropableInformations!.count > 0 else { return }
         for dropableInformation in dropableInformations! {
-            if dropableInformation.targetParent is FoundationsViewModel {
-                guard let targetParentView = mainView.subviews[0] as? UIStackView else { continue }
-                attachableInformations.append((targetParentView: targetParentView,
-                                               cardIndexes: dropableInformation.availableIndexes))
-            } else {
-                guard let targetParentView = mainView.subviews[3] as? UIStackView else { continue }
-                attachableInformations.append((targetParentView: targetParentView,
-                                               cardIndexes: dropableInformation.availableIndexes))
-            }
+            addAttachableInformation(with: dropableInformation)
         }
     }
+    private func addAttachableInformation(with dropableInformation: DropableInformation) {
+        guard let targetParentView = getTargetParentView(of: dropableInformation.targetParent) else { return }
+        attachableInformations.append((targetParentView: targetParentView,
+                                       cardIndexes: dropableInformation.availableIndexes))
+    }
+    private func getTargetParentView(of targetParentModel: Receivable) -> UIStackView? {
+        guard let foundationsView = mainView.subviews[0] as? UIStackView else { return nil }
+        guard let sevenPilesView = mainView.subviews[3] as? UIStackView else { return nil }
+        return targetParentModel is FoundationsView ? foundationsView : sevenPilesView
+    }
 
+    // state : .changed
     func dragChanged(with recognizer: UIPanGestureRecognizer) {
         let translation = recognizer.translation(in: cardView)
         for targetView in cardPackForDragging {
@@ -144,47 +156,57 @@ class MoveController {
         }
         recognizer.setTranslation(CGPoint.zero, in: mainView)
     }
-
     private func dragChanged(targetView: CardView, with translation: CGPoint) {
         targetView.center = CGPoint(x: targetView.center.x + translation.x,
                                     y: targetView.center.y + translation.y)
     }
 
-    func dragEnded(with recognizer: UIPanGestureRecognizer) {
-        let loc = recognizer.location(in: mainView)
+    // state : .ended
+    func dragEnded(at fingerLocation: CGPoint) {
+        if !dragged(at: fingerLocation) { moveBackToOrigin() }
+    }
+    private func dragged(at fingerLocation: CGPoint) -> Bool {
         for attachableInformation in attachableInformations {
-            if attachableInformation.targetParentView is FoundationsView {
-                for cardIndex in attachableInformation.cardIndexes {
-                    let rectX = cardView.frame.width * CGFloat(cardIndex.xIndex)
-                    let rectY = CGFloat(Figure.YPosition.topMargin.value)
-                    let targetRect = CGRect(origin: CGPoint(x: rectX, y: rectY),
-                                            size: cardView.frame.size)
-                    if targetRect.contains(loc) {
-                        targetParentModel = FoundationsViewModel.sharedInstance()
-                        parentView.insertSubview(cardStackView, at: cardInformation!.indexes.xIndex)
-                        moveCardModel(from: cardInformation!.indexes)
-                        return
-                    }
-                }
-            } else {
-                for cardIndex in attachableInformation.cardIndexes {
-                    let rectX = cardView.frame.width * CGFloat(cardIndex.xIndex)
-                    let rectY = CGFloat(Figure.YPosition.cardPileTopMargin.value
-                                + Figure.YPosition.betweenCards.value * cardIndex.yIndex)
-                    let targetRect = CGRect(origin: CGPoint(x: rectX, y: rectY),
-                                            size: cardView.frame.size)
-                    if targetRect.contains(loc) {
-                        targetParentModel = SevenPilesViewModel.sharedInstance()
-                        parentView.insertSubview(cardStackView, at: cardInformation!.indexes.xIndex)
-                        moveCardModel(from: cardInformation!.indexes)
-                        return
-                    }
-                }
+            setTargetParent(parentView: attachableInformation.targetParentView)
+            if dropCards(on: attachableInformation, at: fingerLocation) { return true }
+        }
+        return false
+    }
+    private func setTargetParent(parentView: UIStackView) {
+        parentView is FoundationsView ? setTargetToFoundations() : setTargetToSevenPiles()
+    }
+    private func setTargetToFoundations() {
+        targetParentModel = FoundationsViewModel.sharedInstance()
+        isToFoundations = true
+    }
+    private func setTargetToSevenPiles() {
+        targetParentModel = SevenPilesViewModel.sharedInstance()
+        isToFoundations = false
+    }
+    private func dropCards(on attachableInformation: AttachableInformation, at fingerLocation: CGPoint) -> Bool {
+        for cardIndexes in attachableInformation.cardIndexes {
+            let targetRect = getTargetRect(of: cardIndexes)
+            if targetRect.contains(fingerLocation) {
+                moveWithDragging(to: cardIndexes)
+                return true
             }
         }
-        moveBackToOrigin()
+        return false
     }
-
+    private func getTargetRect(of cardIndexes: CardIndexes) -> CGRect {
+        let rectX = cardView.frame.width * CGFloat(cardIndexes.xIndex)
+        let rectY = getRectOriginY(cardIndexes: cardIndexes)
+        return CGRect(origin: CGPoint(x: rectX, y: rectY), size: cardView.frame.size)
+    }
+    private func getRectOriginY(cardIndexes: CardIndexes) -> CGFloat {
+        return isToFoundations ? CGFloat(Figure.YPosition.topMargin.value)
+                               : CGFloat(Figure.YPosition.cardPileTopMargin.value +
+                                         Figure.YPosition.betweenCards.value * cardIndexes.yIndex)
+    }
+    private func moveWithDragging(to cardIndexes: CardIndexes) {
+        parentView.insertSubview(cardStackView, at: cardInformation!.indexes.xIndex)
+        moveCardModel(from: cardInformation!.indexes, to: cardIndexes)
+    }
     private func moveBackToOrigin() {
         let globalPoint = cardStackView.convert(cardView.frame.origin, to: nil)
         self.mainView.isUserInteractionEnabled = false
@@ -205,5 +227,4 @@ class MoveController {
             )
         }
     }
-
 }

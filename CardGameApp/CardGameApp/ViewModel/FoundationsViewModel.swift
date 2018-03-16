@@ -32,9 +32,17 @@ class FoundationsViewModel: CardStacksProtocol, Receivable {
         }
     }
 
-    func push(card: Card) -> Bool {
-        guard let targetPosition = availablePosition(of: card) else { return false }
-        cardStacks[targetPosition.xIndex].push(card: card)
+    func push(cards: [Card]) -> Bool {
+        guard cards.count == 1 else { return false }
+        guard let targetPosition = availablePosition(of: cards[0]) else { return false }
+        cardStacks[targetPosition.xIndex].push(cards: cards)
+        return true
+    }
+
+    func push(cards: [Card], indexes: CardIndexes) -> Bool {
+        guard cards.count == 1 else { return false }
+        guard indexes.xIndex < cardStacks.count else { return false }
+        cardStacks[indexes.xIndex].push(cards: cards)
         return true
     }
 

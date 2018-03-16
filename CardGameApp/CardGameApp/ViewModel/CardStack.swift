@@ -56,7 +56,6 @@ struct CardStack {
 
 // MARK: Mutating
 extension CardStack {
-
     mutating func reset() {
         cardStack = []
     }
@@ -71,8 +70,8 @@ extension CardStack {
         return cardsForReLoad
     }
 
-    mutating func push(card: Card) {
-        cardStack.append(card)
+    mutating func push(cards: [Card]) {
+        cardStack.append(contentsOf: cards)
         turnLastCardOn()
     }
 
@@ -81,11 +80,18 @@ extension CardStack {
         return cardStack.removeLast()
     }
 
+    mutating func pop(index: Int) -> [Card] {
+        defer { turnLastCardOn() }
+        var poppedCards: [Card] = []
+        for _ in index..<cardStack.count {
+            poppedCards.append(cardStack.removeLast())
+        }
+        return poppedCards.reversed()
+    }
 }
 
 // MARK: New Card available
 extension CardStack {
-
     func isAttachable(card: Card) -> Bool {
         if cardStack.isEmpty, card.isKing() {
             return true
@@ -109,5 +115,4 @@ extension CardStack {
         }
         return false
     }
-
 }

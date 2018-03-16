@@ -31,13 +31,14 @@ class OpenedCardDeckViewModel: CardStacksProtocol, Sendable {
         }
     }
 
-    func pop(index: Int) -> Card? {
-        guard index == 0 else { return nil }
-        return cardStack.pop()
+    func pop(indexes: CardIndexes) -> [Card] {
+        guard indexes.xIndex == 0 else { return [] }
+        guard let card = cardStack.pop() else { return [] }
+        return [card]
     }
 
-    func push(card: Card) -> Bool {
-        cardStack.push(card: card)
+    func push(cards: [Card]) -> Bool {
+        cardStack.push(cards: cards)
         return true
     }
 
