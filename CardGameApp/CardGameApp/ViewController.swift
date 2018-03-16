@@ -9,24 +9,33 @@
 import UIKit
 
 class ViewController: UIViewController {
+    // Foundations
     private var foundationsView: FoundationsView!
     private var foundationsVM: FoundationsViewModel!
+    // OpenedCardDeck
     private var openedCardDeckView: OpenedCardDeckView!
-    private var cardDeckView: CardDeckView!
     private var openedCardDeckVM: OpenedCardDeckViewModel!
+    // dealer
+    private var cardDeckView: CardDeckView!
+    private var dealerAction: DealerAction!
+    // SevenPiles
     private var sevenPilesView: SevenPilesView!
     private var sevenPilesVM: SevenPilesViewModel!
-
+    // card information
     private var cardWidth: CGFloat!
     private var cardMargin: CGFloat!
     private var cardRatio: CGFloat!
-
-    private var dealerAction: DealerAction!
-
+    // move controller for gusture reactions
     private var moveController: MoveController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNotifications()
+        setCardGame()
+        configureCardGame()
+    }
+
+    private func setNotifications() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(pushToFoundations(notification:)),
@@ -57,22 +66,18 @@ class ViewController: UIViewController {
             selector: #selector(dragging(notification:)),
             name: .drag,
             object: nil)
-        setCardGame()
-        configureCardGame()
     }
 
-    // set card game
+    // set Cards
     private func setCardGame() {
         setCardSize()
         setCardDeck()
     }
-
     private func setCardSize() {
         cardWidth = UIScreen.main.bounds.width / CGFloat(Figure.Size.countInRow.value)
         cardMargin = cardWidth / CGFloat(Figure.Size.yGap.value)
         cardRatio = CGFloat(Figure.Size.ratio.value)
     }
-
     private func setCardDeck() {
         dealerAction = DealerAction()
         dealerAction.shuffle()
@@ -86,18 +91,15 @@ class ViewController: UIViewController {
         configureCardDeck()
         spreadSevenPiles()
     }
-
     private func configureBackground() {
         view.backgroundColor = UIColor(patternImage: UIImage(named: Figure.Image.background.value)!)
     }
-
     private func getCardLocation(index: Int, topMargin: CGFloat) -> CGRect {
         return CGRect(origin: CGPoint(x: cardWidth * CGFloat(index) + cardMargin,
                                       y: topMargin),
                       size: CGSize(width: cardWidth - CGFloat(Figure.Size.xGap.value) * cardMargin,
                                    height: cardWidth * cardRatio))
     }
-
     private func configureFoundations() {
         let foundationsViewWidth = UIScreen.main.bounds.width
                                     / CGFloat(Figure.Count.cardPiles.value)
@@ -113,14 +115,12 @@ class ViewController: UIViewController {
         foundationsVM = FoundationsViewModel.sharedInstance()
         view.addSubview(foundationsView)
     }
-
     private func configureCardDeck() {
         let cardDeckFrame = getCardLocation(index: Figure.XPosition.cardDeck.value,
                                             topMargin: CGFloat(Figure.YPosition.topMargin.value))
         cardDeckView = CardDeckView(frame: cardDeckFrame)
         view.addSubview(cardDeckView)
     }
-
     private func configureOpenedCardDeck() {
         let openedCardDeckFrame = getCardLocation(index: Figure.XPosition.openedCardDeck.value,
                                                   topMargin: CGFloat(Figure.YPosition.topMargin.value))
@@ -128,7 +128,6 @@ class ViewController: UIViewController {
         openedCardDeckVM = OpenedCardDeckViewModel.sharedInstance()
         view.addSubview(openedCardDeckView)
     }
-
     private func spreadSevenPiles() {
         let sevenPilesViewFrame = CGRect(x: UIScreen.main.bounds.origin.x,
                                          y: CGFloat(Figure.YPosition.cardPileTopMargin.value),
@@ -168,7 +167,7 @@ extension ViewController {
     }
 }
 
-// MARK: Tab Gesture
+// MARK: Tab On CardDeck Gesture
 extension ViewController {
     @objc func tappedCardDeck(notification: Notification) {
         guard let userInfo = notification.userInfo as? [String: Any] else { return }
@@ -179,7 +178,6 @@ extension ViewController {
             view.isUserInteractionEnabled = true
         }
     }
-
     private func selectOpenedCardDeckViewImage() {
         guard let card = dealerAction.open() else {
             dealerAction.reLoad(cardPack: openedCardDeckVM.reLoad())
@@ -187,7 +185,6 @@ extension ViewController {
         }
         _ = openedCardDeckVM.push(cards: [card])
     }
-
     private func selectCardDeckViewImage() {
         cardDeckView.image = dealerAction.isRemain() ? cardDeckView.backImage : cardDeckView.refreshImage
     }
@@ -201,10 +198,12 @@ extension ViewController {
             foundationsVM.reset()
             foundationsView.reset()
             openedCardDeckVM.reset()
+            openedCardDeckView.reset()
             dealerAction.reset()
             dealerAction.shuffle()
             cardDeckView.image = cardDeckView.backImage
             sevenPilesVM.reset()
+            sevenPilesView.reset()
             spreadSevenPiles()
         }
     }

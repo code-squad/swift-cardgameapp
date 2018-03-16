@@ -63,5 +63,9 @@ class SevenPilesView: UIStackView {
         for index in imagesPack.indices {
             imagesPack[index] = []
         }
+        for index in stride(from: subviews.count-1, through: 0, by: -1) {
+            subviews[index].removeFromSuperview()
+        }
+        removeFromSuperview()
     }
 }
