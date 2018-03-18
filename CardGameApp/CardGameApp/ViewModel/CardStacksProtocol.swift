@@ -18,9 +18,8 @@ protocol CardStacksProtocol {
 
 protocol Receivable {
     func availablePosition(of card: Card) -> CardIndexes?
-    func push(cards: [Card]) -> Bool
-    func push(cards: [Card], indexes: CardIndexes) -> Bool
     func availablePositionsForDragging(of card: Card) -> [CardIndexes]
+    func push(cards: [Card], indexes: CardIndexes) -> Bool
 }
 
 protocol Sendable {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FoundationsViewModel: CardStacksProtocol, Receivable {
+class FoundationsViewModel {
     private static var instance: FoundationsViewModel?
 
     static func sharedInstance() -> FoundationsViewModel {
@@ -32,20 +32,24 @@ class FoundationsViewModel: CardStacksProtocol, Receivable {
         }
     }
 
-    func push(cards: [Card]) -> Bool {
-        guard cards.count == 1 else { return false }
-        guard let targetPosition = availablePosition(of: cards[0]) else { return false }
-        cardStacks[targetPosition.xIndex].push(cards: cards)
-        return true
+    private func setNewFoundations() {
+        for _ in 0..<Figure.Count.foundations.value {
+            cardStacks.append(CardStack(cardPack: []))
+        }
     }
 
-    func push(cards: [Card], indexes: CardIndexes) -> Bool {
-        guard cards.count == 1 else { return false }
-        guard indexes.xIndex < cardStacks.count else { return false }
-        cardStacks[indexes.xIndex].push(cards: cards)
-        return true
-    }
+}
 
+// MARK: CardStacksProtocol
+extension FoundationsViewModel: CardStacksProtocol {
+    func reset() {
+        cardStacks = []
+        setNewFoundations()
+    }
+}
+
+// MARK: Receivable
+extension FoundationsViewModel: Receivable {
     func availablePosition(of card: Card) -> CardIndexes? {
         for xIndex in cardStacks.indices {
             if cardStacks[xIndex].isStackable(card: card) {
@@ -53,17 +57,6 @@ class FoundationsViewModel: CardStacksProtocol, Receivable {
             }
         }
         return nil
-    }
-
-    func reset() {
-        cardStacks = []
-        setNewFoundations()
-    }
-
-    private func setNewFoundations() {
-        for _ in 0..<Figure.Count.foundations.value {
-            cardStacks.append(CardStack(cardPack: []))
-        }
     }
 
     func availablePositionsForDragging(of card: Card) -> [CardIndexes] {
@@ -75,5 +68,12 @@ class FoundationsViewModel: CardStacksProtocol, Receivable {
             }
         }
         return availablePositions
+    }
+
+    func push(cards: [Card], indexes: CardIndexes) -> Bool {
+        guard cards.count == 1 else { return false }
+        guard indexes.xIndex < cardStacks.count else { return false }
+        cardStacks[indexes.xIndex].push(cards: cards)
+        return true
     }
 }

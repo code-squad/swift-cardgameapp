@@ -8,7 +8,7 @@
 
 import Foundation
 
-class SevenPilesViewModel: CardStacksProtocol, Receivable, Sendable {
+class SevenPilesViewModel {
     private static var instance: SevenPilesViewModel?
 
     static func sharedInstance() -> SevenPilesViewModel {
@@ -26,9 +26,10 @@ class SevenPilesViewModel: CardStacksProtocol, Receivable, Sendable {
         didSet {
             var cardImagesPack: [CardImages] = []
             cardStacks.forEach { cardImagesPack.append($0.getImagesAll()) }
-            NotificationCenter.default.post(name: .sevenPiles,
-                                            object: self,
-                                            userInfo: [Keyword.sevenPilesImages.value: cardImagesPack])
+            NotificationCenter.default.post(
+                name: .sevenPiles,
+                object: self,
+                userInfo: [Keyword.sevenPilesImages.value: cardImagesPack])
         }
     }
 
@@ -38,27 +39,22 @@ class SevenPilesViewModel: CardStacksProtocol, Receivable, Sendable {
         }
     }
 
-    func push(cards: [Card]) -> Bool {
-        guard let targetPosition = availablePosition(of: cards[0]) else { return false }
-        cardStacks[targetPosition.xIndex].push(cards: cards)
-        return true
-    }
+}
 
-    func push(cards: [Card], indexes: CardIndexes) -> Bool {
-        cardStacks[indexes.xIndex].push(cards: cards)
-        return true
+// MARK: CardStacksProtocol
+extension SevenPilesViewModel: CardStacksProtocol {
+    func reset() {
+        cardStacks = []
     }
+}
 
-    func pop(indexes: CardIndexes) -> [Card] {
-        return cardStacks[indexes.xIndex].pop(index: indexes.yIndex)
-    }
-
+// MARK: Sendable
+extension SevenPilesViewModel: Sendable {
     func getSelectedCardInformation(image: String) -> CardInformation? {
         guard let selectedCard = getSelectedCard(image: image) else { return nil }
         guard let selectedCardIndexes = getSelectedCardPosition(of: selectedCard) else { return nil }
         return (card: selectedCard, indexes: selectedCardIndexes)
     }
-
     private func getSelectedCard(image: String) -> Card? {
         var selectedCard: Card? = nil
         cardStacks.forEach {
@@ -68,7 +64,6 @@ class SevenPilesViewModel: CardStacksProtocol, Receivable, Sendable {
         }
         return selectedCard
     }
-
     private func getSelectedCardPosition(of card: Card) -> CardIndexes? {
         for xIndex in cardStacks.indices {
             if let yIndex = cardStacks[xIndex].index(of: card) {
@@ -78,6 +73,13 @@ class SevenPilesViewModel: CardStacksProtocol, Receivable, Sendable {
         return nil
     }
 
+    func pop(indexes: CardIndexes) -> [Card] {
+        return cardStacks[indexes.xIndex].pop(index: indexes.yIndex)
+    }
+}
+
+// MARK: Receivable
+extension SevenPilesViewModel: Receivable {
     func availablePosition(of card: Card) -> CardIndexes? {
         for xIndex in cardStacks.indices {
             if cardStacks[xIndex].isAttachable(card: card) {
@@ -85,10 +87,6 @@ class SevenPilesViewModel: CardStacksProtocol, Receivable, Sendable {
             }
         }
         return nil
-    }
-
-    func reset() {
-        cardStacks = []
     }
 
     func availablePositionsForDragging(of card: Card) -> [CardIndexes] {
@@ -102,4 +100,8 @@ class SevenPilesViewModel: CardStacksProtocol, Receivable, Sendable {
         return availablePositions
     }
 
+    func push(cards: [Card], indexes: CardIndexes) -> Bool {
+        cardStacks[indexes.xIndex].push(cards: cards)
+        return true
+    }
 }

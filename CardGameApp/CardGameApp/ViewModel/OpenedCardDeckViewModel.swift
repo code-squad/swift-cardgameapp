@@ -8,7 +8,7 @@
 
 import Foundation
 
-class OpenedCardDeckViewModel: CardStacksProtocol, Sendable {
+class OpenedCardDeckViewModel {
     private static var instance: OpenedCardDeckViewModel?
 
     static func sharedInstance() -> OpenedCardDeckViewModel {
@@ -31,23 +31,31 @@ class OpenedCardDeckViewModel: CardStacksProtocol, Sendable {
         }
     }
 
-    func pop(indexes: CardIndexes) -> [Card] {
-        guard indexes.xIndex == 0 else { return [] }
-        guard let card = cardStack.pop() else { return [] }
-        return [card]
-    }
-
-    func push(cards: [Card]) -> Bool {
-        cardStack.push(cards: cards)
+    func push(card: Card) -> Bool {
+        cardStack.push(cards: [card])
         return true
     }
 
+    func reLoad() -> CardPack {
+        return cardStack.reLoad()
+    }
+
+}
+
+// MARK: CardStacksProtocol
+extension OpenedCardDeckViewModel: CardStacksProtocol {
+    func reset() {
+        cardStack.reset()
+    }
+}
+
+// MARK: Sendable
+extension OpenedCardDeckViewModel: Sendable {
     func getSelectedCardInformation(image: String) -> CardInformation? {
         guard let selectedCard = getSelectedCard(image: image) else { return nil }
         guard let selectedCardIndexes = getSelectedCardPosition(of: selectedCard) else { return nil }
         return (card: selectedCard, indexes: selectedCardIndexes)
     }
-
     private func getSelectedCard(image: String) -> Card? {
         var selectedCard: Card? = nil
         if let card = cardStack.selectedCard(image: image) {
@@ -55,7 +63,6 @@ class OpenedCardDeckViewModel: CardStacksProtocol, Sendable {
         }
         return selectedCard
     }
-
     private func getSelectedCardPosition(of card: Card) -> CardIndexes? {
         if let yIndex = cardStack.index(of: card) {
             return (xIndex: 0, yIndex: yIndex)
@@ -63,24 +70,9 @@ class OpenedCardDeckViewModel: CardStacksProtocol, Sendable {
         return nil
     }
 
-    func availablePosition(of card: Card) -> CardIndexes? {
-        return (xIndex: 0, yIndex: cardStack.count)
+    func pop(indexes: CardIndexes) -> [Card] {
+        guard indexes.xIndex == 0 else { return [] }
+        guard let card = cardStack.pop() else { return [] }
+        return [card]
     }
-
-    func reset() {
-        cardStack.reset()
-    }
-
-    func reLoad() -> CardPack {
-        return cardStack.reLoad()
-    }
-
-    func count() -> Int {
-        return cardStack.count
-    }
-
-    func getLastCardInformation() -> Card? {
-        return cardStack.last
-    }
-
 }

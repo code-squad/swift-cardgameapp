@@ -183,7 +183,7 @@ extension ViewController {
             dealerAction.reLoad(cardPack: openedCardDeckVM.reLoad())
             return
         }
-        _ = openedCardDeckVM.push(cards: [card])
+        _ = openedCardDeckVM.push(card: card)
     }
     private func selectCardDeckViewImage() {
         cardDeckView.image = dealerAction.isRemain() ? cardDeckView.backImage : cardDeckView.refreshImage
@@ -226,7 +226,6 @@ extension ViewController {
         guard let userInfo = notification.userInfo as? [String: Any] else { return }
         guard let recognizer = userInfo[Keyword.drag.value] as? UIPanGestureRecognizer else { return }
         guard let cardView = recognizer.view as? CardView else { return }
-
         switch recognizer.state {
         case .began:
             moveController = MoveController(cardView: cardView)

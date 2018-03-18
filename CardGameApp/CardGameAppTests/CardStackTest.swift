@@ -30,31 +30,26 @@ class CardStackTest: XCTestCase {
         super.tearDown()
     }
 
-    func testIsEmpty() {
-        cardStack = CardStack(cardPack: [])
-        XCTAssert(cardStack.isEmpty())
-    }
-
     func testReset() {
         let cardPack = [spadesAce, heartsFour, diamondsFive, clubsEight]
         cardStack = CardStack(cardPack: cardPack)
-        XCTAssert(!cardStack.isEmpty())
+        XCTAssertEqual(cardStack.count, 4)
         cardStack.reset()
-        XCTAssert(cardStack.isEmpty())
+        XCTAssertEqual(cardStack.count, 0)
     }
 
     func testPush() {
         cardStack = CardStack(cardPack: [])
-        XCTAssert(cardStack.isEmpty())
-        cardStack.push(card: heartsFour)
-        XCTAssert(!cardStack.isEmpty())
+        XCTAssertEqual(cardStack.count, 0)
+        cardStack.push(cards: [heartsFour])
+        XCTAssertEqual(cardStack.count, 1)
     }
 
     func testPop() {
         cardStack = CardStack(cardPack: [diamondsFive])
-        XCTAssert(!cardStack.isEmpty())
+        XCTAssertEqual(cardStack.count, 1)
         XCTAssertEqual(diamondsFive, cardStack.pop())
-        XCTAssert(cardStack.isEmpty())
+        XCTAssertEqual(cardStack.count, 0)
     }
 
     func testSelectedCard() {
