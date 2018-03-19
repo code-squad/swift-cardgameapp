@@ -15,4 +15,5 @@ extension Notification.Name {
     static let doubleTapped = Notification.Name("doubleTapped")
     static let tappedCardDeck = Notification.Name("tappedCardDeck")
     static let drag = Notification.Name("drag")
+    static let success = Notification.Name("success")
 }

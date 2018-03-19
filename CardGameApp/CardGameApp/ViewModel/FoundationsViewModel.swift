@@ -38,6 +38,13 @@ class FoundationsViewModel {
         }
     }
 
+    func isSuccess() -> Bool {
+        for cardStack in cardStacks where !(cardStack.count == 13 && (cardStack.last?.isKing())!) {
+            return false
+        }
+        return true
+    }
+
 }
 
 // MARK: CardStacksProtocol

@@ -51,6 +51,7 @@ class FoundationsView: UIStackView {
         }
         spacing = UIStackView.spacingUseDefault
         distribution = .fillEqually
+        isUserInteractionEnabled = false
     }
 
     private func configureFoundation(index: Int) -> CardStackView {

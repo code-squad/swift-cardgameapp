@@ -66,6 +66,11 @@ class ViewController: UIViewController {
             selector: #selector(dragging(notification:)),
             name: .drag,
             object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(showSuccess),
+            name: .success,
+            object: nil)
     }
 
     // set Cards
@@ -137,6 +142,19 @@ class ViewController: UIViewController {
         sevenPilesVM = SevenPilesViewModel.sharedInstance()
         sevenPilesVM.spreadCardPiles(sevenPiles: dealerAction.getCardPacks(packCount: Figure.Count.cardPiles.value))
         view.addSubview(sevenPilesView)
+    }
+
+    @objc private func showSuccess() {
+        let alert = UIAlertController(title: "Game Success", message: "Congratulations!!!", preferredStyle: .alert)
+        let okAction = UIAlertAction(
+            title: "OK",
+            style: .default,
+            handler: { _ in
+                alert.dismiss(animated: true, completion: nil)
+            }
+        )
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {

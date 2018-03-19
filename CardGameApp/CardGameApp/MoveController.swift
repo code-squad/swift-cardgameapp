@@ -82,6 +82,13 @@ class MoveController {
     private func moveCardModel(from cardIndexes: CardIndexes, to target: CardIndexes) {
         _ = targetParentModel?.push(cards: (originParentModel?.pop(indexes: cardIndexes))!, indexes: target)
     }
+
+    private func checkFinished() {
+        if let targetModel = targetParentModel as? FoundationsViewModel, targetModel.isSuccess() {
+            NotificationCenter.default.post(name: .success, object: self, userInfo: nil)
+        }
+    }
+
 }
 
 // MARK: Double Tap
@@ -105,6 +112,7 @@ extension MoveController {
             completion: { _ in
                 self.parentView.insertSubview(self.cardStackView, at: self.cardInformation!.indexes.xIndex)
                 self.moveCardModel(from: self.cardInformation!.indexes, to: target)
+                self.checkFinished()
                 self.mainView.isUserInteractionEnabled = true
             }
         )
@@ -163,7 +171,11 @@ extension MoveController {
 
     // state : .ended
     func dragEnded(at fingerLocation: CGPoint) {
-        if !dragged(at: fingerLocation) { moveBackToOrigin() }
+        if dragged(at: fingerLocation) {
+            checkFinished()
+        } else {
+            moveBackToOrigin()
+        }
     }
     private func dragged(at fingerLocation: CGPoint) -> Bool {
         for attachableInformation in attachableInformations {
