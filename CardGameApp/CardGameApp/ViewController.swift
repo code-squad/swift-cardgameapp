@@ -137,9 +137,22 @@ class ViewController: UIViewController {
     
     // Play Game Model::START
     @objc private func openCardDeck(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let fromPoint = userInfo[Notification.Name.cardLocation] as? CGRect else { return }
         if let oneCard = deck.popCard() {
             oneCard.flipCard()
-            openDeck.pushCard(card: oneCard, index: 0)
+            let cardView = moveableCardView(oneCard)
+            cardView.frame = fromPoint
+            self.view.addSubview(cardView)
+            UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2,
+                                                           delay: 0.0,
+                                                           options: [.curveLinear],
+                                                           animations: { [weak self = self] in
+                                                            guard let targetFrame = self?.openDeckView.frame else { return }
+                                                            cardView.frame = targetFrame },
+                                                           completion: { [weak self = self] _ in
+                                                            cardView.removeFromSuperview()
+                                                            self?.openDeck.pushCard(card: oneCard, index: 0) })
         } else if deck.isEmptyDeck() {
             let button = UIImageView(image: UIImage(named: "cardgameapp-refresh-app"))
             button.refreshButton()
@@ -147,7 +160,7 @@ class ViewController: UIViewController {
             self.view.addSubview(button)
         }
     }
-
+    
     private func checkCardGameModel(_ originView: UIView) -> CardGameMoveAble? {
         switch originView.tag {
         case SubViewTag.foundationView.rawValue:

@@ -52,9 +52,3 @@ class FoundationDeck: CardGameMoveAble {
         return foundationDeck[xIndex].lastCard()
     }
 }
-
-/*
- NotificationCenter.default.post(name: .cardName,
- object: self,
- userInfo: [Notification.Name.pushCardFoundationFromOpenDeck: index])
- */
