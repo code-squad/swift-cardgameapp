@@ -12,12 +12,13 @@ class FoundationView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.tag = SubViewTag.foundationView.rawValue
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
 }
 
 extension FoundationView {

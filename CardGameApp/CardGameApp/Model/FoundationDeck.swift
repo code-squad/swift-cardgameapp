@@ -8,14 +8,18 @@
 
 import Foundation
 
-class FoundationDeck {
+class FoundationDeck: CardGameMoveAble {
     private var foundationDeck = Array.init(repeating: Deck(cards: [Card]()), count: 4)
     
-    private func calculateEmptyPlace() -> Int? {
+    func pickCard(xIndex: Int, yIndex: Int) -> Card {
+        return foundationDeck[xIndex].cards[yIndex]
+    }
+    
+    func calculateEmptyPlace() -> Int? {
         return foundationDeck.index(where: { $0.isEmptyDeck() })
     }
     
-    private func calculateSameGroup(_ card: Card) -> Int? {
+    func calculateSameGroup(_ card: Card) -> Int? {
         for index in 0..<foundationDeck.count {
             if foundationDeck[index].isSameGroup(card) {
                 return index
@@ -34,18 +38,18 @@ class FoundationDeck {
         return false
     }
     
-    func pushAce(_ card: Card) {
-        guard let emptyIndex = calculateEmptyPlace() else { return }
-        foundationDeck[emptyIndex].pushCard(card)
-        NotificationCenter.default.post(name: .pushFoundation, object: self, userInfo: [Notification.Name.cardLocation: emptyIndex,
+    func pushCard(card: Card, index: Int) {
+        foundationDeck[index].pushCard(card)
+        NotificationCenter.default.post(name: .pushFoundation, object: self, userInfo: [Notification.Name.cardLocation: index,
                                                                                         Notification.Name.cardName: card.getCardName()])
     }
     
-    func pushCard(_ card: Card) {
-        guard let sameGroupIndex = calculateSameGroup(card) else { return }
-        foundationDeck[sameGroupIndex].pushCard(card)
-        NotificationCenter.default.post(name: .pushFoundation, object: self, userInfo: [Notification.Name.cardLocation: sameGroupIndex,
-                                                                                        Notification.Name.cardName: card.getCardName()])
+    func popCard(xPoint: Int) {
+        _ = foundationDeck[xPoint].popCard()
+    }
+    
+    func lastCard(xIndex: Int) -> Card? {
+        return foundationDeck[xIndex].lastCard()
     }
 }
 

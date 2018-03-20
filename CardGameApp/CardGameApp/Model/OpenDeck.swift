@@ -8,24 +8,28 @@
 
 import Foundation
 
-class OpenDeck {
+class OpenDeck: CardGameMoveAble {
+
     private var openDeck: Deck
     
     init() {
         self.openDeck = Deck(cards: [Card]())
     }
     
-    func pushCard(_ card: Card) {
+    func pickCard(xIndex: Int, yIndex: Int) -> Card {
+        return openDeck.cards[openDeck.cards.endIndex - 1]
+    }
+    
+    func pushCard(card: Card, index: Int) {
         self.openDeck.pushCard(card)
         NotificationCenter.default.post(name: .pushOpenCard, object: self, userInfo: [Notification.Name.cardName: card])
     }
     
-    func popCard() {
+    func popCard(xPoint: Int) {
         guard openDeck.popCard() != nil else { return }
-        NotificationCenter.default.post(name: .popOpenCard, object: self)
     }
     
-    func lastCard() -> Card? {
+    func lastCard(xIndex: Int) -> Card? {
         return openDeck.lastCard()
     }
 }

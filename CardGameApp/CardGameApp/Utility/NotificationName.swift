@@ -14,7 +14,6 @@ extension Notification.Name {
     static var openCard = Notification.Name("openCard")
     static var cardLocation = Notification.Name("cardLocation")
     
-    static var popCardGameStack = Notification.Name("popCardGameStack")
     static var pushCardGameStack = Notification.Name("pushCardGameStack")
     
     static var pushFoundation = Notification.Name("pushCardFoundation")
@@ -24,4 +23,7 @@ extension Notification.Name {
     
     static var flipCard = Notification.Name("flipCard")
     static var cardName = Notification.Name("cardName")
+    static var touchedView = Notification.Name("touchedView")
+    static var subView = Notification.Name("subView")
+    static var fromGlobalPoint = Notification.Name("fromGlobalPoint")
 }

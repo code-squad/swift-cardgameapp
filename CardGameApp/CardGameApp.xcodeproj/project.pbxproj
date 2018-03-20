@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4001406C2058DB0600015C0F /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4001406B2058DB0600015C0F /* EventController.swift */; };
 		4001406E2058DFA400015C0F /* ScreenPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4001406D2058DFA400015C0F /* ScreenPoint.swift */; };
+		403A6CF2205F67E700FCFBD5 /* CardGameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403A6CF1205F67E700FCFBD5 /* CardGameProtocol.swift */; };
 		40438EC520524B84001C505F /* FoundationDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40438EC420524B84001C505F /* FoundationDeck.swift */; };
 		40438EC7205613DF001C505F /* OpenDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40438EC6205613DF001C505F /* OpenDeck.swift */; };
 		40438ECA20562A8B001C505F /* OpenDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40438EC920562A8B001C505F /* OpenDeckView.swift */; };
@@ -20,6 +21,8 @@
 		407D8520201EE4C200071EDB /* ErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407D8516201EE4C200071EDB /* ErrorCode.swift */; };
 		407D85242020034600071EDB /* PokerHand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407D85232020034600071EDB /* PokerHand.swift */; };
 		407D852620200B8C00071EDB /* PokerHandUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407D852520200B8B00071EDB /* PokerHandUnitTest.swift */; };
+		407E2E1F205FAB26007F6109 /* SubViewTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E2E1E205FAB26007F6109 /* SubViewTag.swift */; };
+		407E2E23205FC605007F6109 /* CardGameViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407E2E22205FC605007F6109 /* CardGameViewProtocol.swift */; };
 		40A136D7201ACFD700756974 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A136D6201ACFD700756974 /* AppDelegate.swift */; };
 		40A136D9201ACFD700756974 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A136D8201ACFD700756974 /* ViewController.swift */; };
 		40A136DC201ACFD700756974 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40A136DA201ACFD700756974 /* Main.storyboard */; };
@@ -52,6 +55,7 @@
 /* Begin PBXFileReference section */
 		4001406B2058DB0600015C0F /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		4001406D2058DFA400015C0F /* ScreenPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenPoint.swift; sourceTree = "<group>"; };
+		403A6CF1205F67E700FCFBD5 /* CardGameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameProtocol.swift; sourceTree = "<group>"; };
 		40438EC420524B84001C505F /* FoundationDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationDeck.swift; sourceTree = "<group>"; };
 		40438EC6205613DF001C505F /* OpenDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDeck.swift; sourceTree = "<group>"; };
 		40438EC920562A8B001C505F /* OpenDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDeckView.swift; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 		407D8516201EE4C200071EDB /* ErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorCode.swift; sourceTree = "<group>"; };
 		407D85232020034600071EDB /* PokerHand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokerHand.swift; sourceTree = "<group>"; };
 		407D852520200B8B00071EDB /* PokerHandUnitTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokerHandUnitTest.swift; sourceTree = "<group>"; };
+		407E2E1E205FAB26007F6109 /* SubViewTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewTag.swift; sourceTree = "<group>"; };
+		407E2E22205FC605007F6109 /* CardGameViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameViewProtocol.swift; sourceTree = "<group>"; };
 		40A136D3201ACFD700756974 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40A136D6201ACFD700756974 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40A136D8201ACFD700756974 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -114,6 +120,7 @@
 				40C45538204D34240060F609 /* GameCardStackView.swift */,
 				40C4553C204E30850060F609 /* FoundationView.swift */,
 				40438EC920562A8B001C505F /* OpenDeckView.swift */,
+				407E2E22205FC605007F6109 /* CardGameViewProtocol.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -128,6 +135,7 @@
 				407D8511201EE4C100071EDB /* GameCardStack.swift */,
 				40438EC420524B84001C505F /* FoundationDeck.swift */,
 				40438EC6205613DF001C505F /* OpenDeck.swift */,
+				403A6CF1205F67E700FCFBD5 /* CardGameProtocol.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -193,6 +201,7 @@
 			children = (
 				40C455452051044B0060F609 /* NotificationName.swift */,
 				4001406D2058DFA400015C0F /* ScreenPoint.swift */,
+				407E2E1E205FAB26007F6109 /* SubViewTag.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -355,13 +364,16 @@
 				40C455462051044B0060F609 /* NotificationName.swift in Sources */,
 				4001406C2058DB0600015C0F /* EventController.swift in Sources */,
 				404A85A520219394008D2FA1 /* UIView+CardStack.swift in Sources */,
+				403A6CF2205F67E700FCFBD5 /* CardGameProtocol.swift in Sources */,
 				407D851B201EE4C200071EDB /* GameCardStack.swift in Sources */,
 				407D85242020034600071EDB /* PokerHand.swift in Sources */,
+				407E2E1F205FAB26007F6109 /* SubViewTag.swift in Sources */,
 				40A136D9201ACFD700756974 /* ViewController.swift in Sources */,
 				40C45539204D34240060F609 /* GameCardStackView.swift in Sources */,
 				40438EC520524B84001C505F /* FoundationDeck.swift in Sources */,
 				407D850D201EC0DB00071EDB /* UIView+CardView.swift in Sources */,
 				407D8520201EE4C200071EDB /* ErrorCode.swift in Sources */,
+				407E2E23205FC605007F6109 /* CardGameViewProtocol.swift in Sources */,
 				407D851F201EE4C200071EDB /* Card.swift in Sources */,
 				40438EC7205613DF001C505F /* OpenDeck.swift in Sources */,
 				40A136D7201ACFD700756974 /* AppDelegate.swift in Sources */,

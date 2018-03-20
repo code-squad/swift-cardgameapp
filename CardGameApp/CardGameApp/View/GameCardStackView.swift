@@ -8,10 +8,11 @@
 
 import UIKit
 
-class GameCardStackView: UIView {
+class GameCardStackView: UIView, CardGameView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.tag = SubViewTag.gameCardStackView.rawValue
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -27,8 +28,9 @@ class GameCardStackView: UIView {
         }
     }
     
-    func removeStackViewLast(cardView: UIView) {
-        cardView.removeFromSuperview()
+    func removeStackViewLast(index: Int) {
+        guard let lastView = self.subviews[index].subviews.last else { return }
+        lastView.removeFromSuperview()
     }
     
     func pushStackViewLast(card: UIView) {
