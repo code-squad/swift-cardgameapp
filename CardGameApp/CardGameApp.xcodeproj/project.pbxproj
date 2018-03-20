@@ -18,8 +18,6 @@
 		8E1B54F62048F4B3002002AD /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B54F52048F4B3002002AD /* CardView.swift */; };
 		8E1B54F72048F4B3002002AD /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1B54F52048F4B3002002AD /* CardView.swift */; };
 		8E6C7FA6205EB8E7009CEA5F /* SevenPilesViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6C7FA5205EB8E7009CEA5F /* SevenPilesViewModelTest.swift */; };
-		8E6C7FA8205F9E2F009CEA5F /* DoubleTapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6C7FA7205F9E2F009CEA5F /* DoubleTapController.swift */; };
-		8E6C7FAA205F9E4C009CEA5F /* DragController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6C7FA9205F9E4C009CEA5F /* DragController.swift */; };
 		8E6C7FAE205FA142009CEA5F /* OriginalInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6C7FAD205FA142009CEA5F /* OriginalInformation.swift */; };
 		8E6C7FB0205FA157009CEA5F /* TargetInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6C7FAF205FA157009CEA5F /* TargetInformation.swift */; };
 		8E6F7414204EC08300EE792B /* OpenedCardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6F7413204EC08300EE792B /* OpenedCardDeckView.swift */; };
@@ -55,8 +53,6 @@
 		8EC927B52052585E003810EA /* CardStacksProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC927B42052585E003810EA /* CardStacksProtocol.swift */; };
 		8EC927B62052585E003810EA /* CardStacksProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC927B42052585E003810EA /* CardStacksProtocol.swift */; };
 		8EC927C020543590003810EA /* CardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC927BF20543590003810EA /* CardDeckView.swift */; };
-		8EDD9EAA20590A7500C5238B /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDD9EA920590A7500C5238B /* Target.swift */; };
-		8EDD9EAB20590A7500C5238B /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDD9EA920590A7500C5238B /* Target.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,8 +81,6 @@
 		8E1B54F22048F3B6002002AD /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		8E1B54F52048F4B3002002AD /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		8E6C7FA5205EB8E7009CEA5F /* SevenPilesViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SevenPilesViewModelTest.swift; sourceTree = "<group>"; };
-		8E6C7FA7205F9E2F009CEA5F /* DoubleTapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleTapController.swift; sourceTree = "<group>"; };
-		8E6C7FA9205F9E4C009CEA5F /* DragController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragController.swift; sourceTree = "<group>"; };
 		8E6C7FAD205FA142009CEA5F /* OriginalInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OriginalInformation.swift; sourceTree = "<group>"; };
 		8E6C7FAF205FA157009CEA5F /* TargetInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetInformation.swift; sourceTree = "<group>"; };
 		8E6F7413204EC08300EE792B /* OpenedCardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenedCardDeckView.swift; sourceTree = "<group>"; };
@@ -118,7 +112,6 @@
 		8EC0F969201EC10300CEBBD4 /* CardTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTest.swift; sourceTree = "<group>"; };
 		8EC927B42052585E003810EA /* CardStacksProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStacksProtocol.swift; sourceTree = "<group>"; };
 		8EC927BF20543590003810EA /* CardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckView.swift; sourceTree = "<group>"; };
-		8EDD9EA920590A7500C5238B /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,7 +170,6 @@
 				8E92B07D202162A500846B04 /* SevenPilesViewModel.swift */,
 				8E8457542052227C0064512F /* CardStack.swift */,
 				8EC927B42052585E003810EA /* CardStacksProtocol.swift */,
-				8EDD9EA920590A7500C5238B /* Target.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -212,8 +204,6 @@
 				8EC0F927201AD09300CEBBD4 /* AppDelegate.swift */,
 				8EC0F929201AD09300CEBBD4 /* ViewController.swift */,
 				8E9619CC2057C28500EAA347 /* MoveController.swift */,
-				8E6C7FA7205F9E2F009CEA5F /* DoubleTapController.swift */,
-				8E6C7FA9205F9E4C009CEA5F /* DragController.swift */,
 				8E6C7FAD205FA142009CEA5F /* OriginalInformation.swift */,
 				8E6C7FAF205FA157009CEA5F /* TargetInformation.swift */,
 				8EC0F92B201AD09300CEBBD4 /* Main.storyboard */,
@@ -409,7 +399,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E6C7FA8205F9E2F009CEA5F /* DoubleTapController.swift in Sources */,
 				8E1B54F32048F3B6002002AD /* CardStackView.swift in Sources */,
 				8E6C7FAE205FA142009CEA5F /* OriginalInformation.swift in Sources */,
 				8EC927C020543590003810EA /* CardDeckView.swift in Sources */,
@@ -420,7 +409,6 @@
 				8E01F6D02021A13E00D6C982 /* OpenedCardDeckViewModel.swift in Sources */,
 				8E1B5494203FE87E002002AD /* NotificationUtility.swift in Sources */,
 				8EC0F964201EBDAF00CEBBD4 /* DealerAction.swift in Sources */,
-				8EDD9EAA20590A7500C5238B /* Target.swift in Sources */,
 				8E92B07E202162A500846B04 /* SevenPilesViewModel.swift in Sources */,
 				8E8457552052227C0064512F /* CardStack.swift in Sources */,
 				8E1B54982040138B002002AD /* Keyword.swift in Sources */,
@@ -433,7 +421,6 @@
 				8EA534AB20206A2A001B70FF /* FoundationsViewModel.swift in Sources */,
 				8E1B54F62048F4B3002002AD /* CardView.swift in Sources */,
 				8EA1AADC202011EB00D256EA /* Figure.swift in Sources */,
-				8E6C7FAA205F9E4C009CEA5F /* DragController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,7 +443,6 @@
 				8EC927B320522FD4003810EA /* NotificationUtility.swift in Sources */,
 				8E048658205A6B5E00850315 /* FoundataionsViewModelTest.swift in Sources */,
 				8EC927B62052585E003810EA /* CardStacksProtocol.swift in Sources */,
-				8EDD9EAB20590A7500C5238B /* Target.swift in Sources */,
 				8EC0F96C201EE60F00CEBBD4 /* Card.swift in Sources */,
 				8E84575320521E590064512F /* CardStackTest.swift in Sources */,
 				8EC927B220522FD0003810EA /* Keyword.swift in Sources */,
