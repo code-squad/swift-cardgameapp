@@ -26,7 +26,8 @@ class ViewController: UIViewController {
     private var cardMargin: CGFloat!
     private var cardRatio: CGFloat!
     // move controller for gusture reactions
-    private var moveController: MoveController?
+//    private var moveController: MoveController?
+    private var dragController: DragController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -233,8 +234,11 @@ extension ViewController {
         guard let userInfo = notification.userInfo as? [String: Any] else { return }
         guard let recognizer = userInfo[Keyword.doubleTapped.value] as? UITapGestureRecognizer else { return }
         guard let cardView = recognizer.view as? CardView else { return }
-        moveController = MoveController(cardView: cardView)
-        moveController?.doubleTap()
+//        moveController = MoveController(cardView: cardView)
+//        moveController?.doubleTap()
+        guard let original = OriginalInformation.init(cardView: cardView) else { return }
+        guard let double = DoubleTapController.init(original: original) else { return }
+        double.doubleTap()
     }
 }
 
@@ -246,13 +250,19 @@ extension ViewController {
         guard let cardView = recognizer.view as? CardView else { return }
         switch recognizer.state {
         case .began:
-            moveController = MoveController(cardView: cardView)
-            moveController?.setViewOrigin(at: (cardView.superview?.convert(cardView.frame.origin, to: nil))!)
-            moveController?.dragBegan()
+//            moveController = MoveController(cardView: cardView)
+//            moveController?.setViewOrigin(at: (cardView.superview?.convert(cardView.frame.origin, to: nil))!)
+//            moveController?.dragBegan()
+            guard let original = OriginalInformation.init(cardView: cardView) else { return }
+            dragController = DragController.init(original: original)
+            dragController?.setViewOrigin(at: (cardView.superview?.convert(cardView.frame.origin, to: nil))!)
+            dragController?.dragBegan()
         case .changed:
-            moveController?.dragChanged(with: recognizer)
+//            moveController?.dragChanged(with: recognizer)
+            dragController?.dragChanged(with: recognizer)
         case .ended:
-            moveController?.dragEnded(at: recognizer.location(in: view))
+//            moveController?.dragEnded(at: recognizer.location(in: view))
+            dragController?.dragEnded(at: recognizer.location(in: view))
         default:
             break
         }
