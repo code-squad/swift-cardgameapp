@@ -9,7 +9,7 @@
 import XCTest
 
 class SevenPilesViewModelTest: XCTestCase {
-    let sevenPilesVM = SevenPilesViewModel.sharedInstance()
+    var sevenPilesVM: SevenPilesViewModel!
     var dealerAction = DealerAction()
     let spadesAce = Card(suit: .spades, rank: .ace)
     let spadesTwo = Card(suit: .spades, rank: .two)
@@ -17,9 +17,12 @@ class SevenPilesViewModelTest: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        sevenPilesVM = SevenPilesViewModel.sharedInstance()
+        sevenPilesVM.spreadCardPiles(sevenPiles: dealerAction.getCardPacks(packCount: 7))
     }
 
     override func tearDown() {
+        sevenPilesVM = nil
         super.tearDown()
     }
 
@@ -32,7 +35,6 @@ class SevenPilesViewModelTest: XCTestCase {
 //    }
 
     func testGetSelectedCardInformation() {
-        sevenPilesVM.spreadCardPiles(sevenPiles: dealerAction.getCardPacks(packCount: 7))
         XCTAssertNil(sevenPilesVM.getSelectedCardInformation(image: "sA"))
         XCTAssertNotNil(sevenPilesVM.getSelectedCardInformation(image: "h10"))
         XCTAssertNotNil(sevenPilesVM.getSelectedCardInformation(image: "hK"))
@@ -45,13 +47,11 @@ class SevenPilesViewModelTest: XCTestCase {
     }
 
     func testPop() {
-        sevenPilesVM.spreadCardPiles(sevenPiles: dealerAction.getCardPacks(packCount: 7))
         XCTAssertEqual(sevenPilesVM.pop(indexes: (xIndex: 0, yIndex: 0)), [clubsKing])
         sevenPilesVM.reset()
     }
 
     func testAvailablePosition() {
-        sevenPilesVM.spreadCardPiles(sevenPiles: dealerAction.getCardPacks(packCount: 7))
         let diamondsQueen: Card = Card.init(suit: .diamonds, rank: .queen)
         XCTAssertNil(sevenPilesVM.availablePosition(of: clubsKing))
         XCTAssertNotNil(sevenPilesVM.availablePosition(of: diamondsQueen))
@@ -59,7 +59,6 @@ class SevenPilesViewModelTest: XCTestCase {
     }
 
     func testAvailablePositionsForDragging() {
-        sevenPilesVM.spreadCardPiles(sevenPiles: dealerAction.getCardPacks(packCount: 7))
         let clubsEight = Card.init(suit: .clubs, rank: .eight)
         XCTAssertEqual(sevenPilesVM.availablePositionsForDragging(of: clubsEight).count, 0)
         let heartsQueen: Card = Card.init(suit: .hearts, rank: .queen)
@@ -68,7 +67,6 @@ class SevenPilesViewModelTest: XCTestCase {
     }
 
     func testPush() {
-        sevenPilesVM.spreadCardPiles(sevenPiles: dealerAction.getCardPacks(packCount: 7))
         let heartsQueen: Card = Card.init(suit: .hearts, rank: .queen)
         XCTAssertTrue(sevenPilesVM.push(cards: [heartsQueen], indexes: (xIndex: 0, yIndex: 1)))
         sevenPilesVM.reset()

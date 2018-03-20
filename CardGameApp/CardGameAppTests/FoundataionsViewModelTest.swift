@@ -9,13 +9,15 @@
 import XCTest
 
 class FoundataionsViewModelTest: XCTestCase {
-    let foundationsVM = FoundationsViewModel.sharedInstance()
+    var foundationsVM: FoundationsViewModel!
 
     override func setUp() {
         super.setUp()
+        foundationsVM = FoundationsViewModel.sharedInstance()
     }
 
     override func tearDown() {
+        foundationsVM = nil
         super.tearDown()
     }
 
