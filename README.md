@@ -170,3 +170,7 @@
         - UIKit에서 특별한 조건을 주지 않는 한 Responder Chain의 순서대로 하나씩 찾아가면서 이벤트를 처리하도록 한다고 생각하면 된다.
     - 만약에 view에 Gesture가 설정되어 있다면 view에서 인지하기 전에 GestureRecognizer가 먼저 이벤트를 검사하고 아무것도 처리되지 않는다면 그 때 view에게 지휘권이 넘어간다.
     - next 를 override 하면 Responder Chain순서를 변경 가능하다.
+- MVC 와 MVVM
+    - MVC를 활용할때 컨트롤러의 복잡성이 증가하고 View와 Controller의 연계가 너무 강하므로 MVVM을 활용하는 경우가 꽤 많다.
+    - ViewModel을 활용하여 각 View에 표현될 모델들을 묶어서 관리함으로써 관리 포인트를 격리시킬 수 있다.
+    - 복잡성과 중복을 줄이기 위해선 결국 설계를 잘 해야한다.
