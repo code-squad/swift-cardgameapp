@@ -141,6 +141,12 @@
 ![게임 후반](capture/step5_03.png)
 ![게임 클리어 성공](capture/step5_04.png)
 
+### 클래스 다이어그램(Class Diagram)
+![클래스 다이어그램](capture/ClassDiagram.png)
+
+### 시퀀스 다이어그램(Sequence Diagram)
+![시퀀스 다이어그램](capture/SequenceDiagram.png)
+
 ---
 ## 중간에 고생했던 부분 / 기억할 부분 간단 정리
 - NotificationCenter를 설정할때 초기 설정부터 전달을 하려면 viewDidLoad에서 인스턴스가 생성되는 시점 전에 Observer를 등록해줘야 한다.
