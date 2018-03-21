@@ -9,17 +9,30 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    private var imgViewMaker : ImageViewMaker!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        imgViewMaker = ImageViewMaker(UIScreen.main.bounds.width)
+        setBackGround()
+        drawCardBack(7)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
+    
+    private func drawCardBack(_ countOfCards : Int) {
+        for xIndex in 0..<countOfCards {
+            self.view.addSubview(imgViewMaker.generateCardbackImgView(xIndex))
+        }
+    }
+    
+    private func setBackGround() {
+        guard let patternImage = UIImage(named : "bg_pattern") else { return }
+        self.view.backgroundColor = UIColor.init(patternImage : patternImage)
+    }
 
 }
 
