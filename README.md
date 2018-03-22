@@ -7,6 +7,7 @@
 ## 실행화면
 ![screemsh_step1](./img/Step1.png)
 
+
 # - Step2 (카드 UI)
 ## 요구사항
 - Card 객체에 파일명을 매치해서 해당 카드 이미지를 return 하는 메소드를 추가한다.
