@@ -6,40 +6,44 @@
 //  Copyright © 2018년 심 승민. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 /* 카드의 앞/뒤 이미지, 현재 보여질 이미지, 뒤집기와 같은 카드뷰모델 정보 관리 */
 class CardViewModel {
-    private let frontImage: UIImage
-    private let backImage: UIImage
-    private(set) var card: Card
-    private(set) var faceState: FaceState
-    private(set) var location: Location
-    private(set) var borderState: BorderState
 
-    init(card: Card, faceState: FaceState, borderState: BorderState, location: Location) {
+    let card: Card
+    private(set) var status: Observable<FaceState>
+    private(set) var location: Observable<Location>
+
+    var isUserInteractive: Bool {
+        var isUserInteractive: Bool
+        switch location.value {
+        case .waste: isUserInteractive = true
+        case .spare: isUserInteractive = false
+        case .foundation: isUserInteractive = false
+        case .tableau: isUserInteractive = (status.value == .up) ? true : false
+        }
+        return isUserInteractive
+    }
+
+    init(card: Card, status: FaceState, location: Location) {
         self.card = card
-        self.frontImage = UIImage(imageLiteralResourceName: Mapper.frontFileName(of: card))
-        self.backImage = UIImage(imageLiteralResourceName: "card-back")
-        self.faceState = faceState
-        self.location = location
-        self.borderState = borderState
+        self.status = Observable(status)
+        self.location = Observable(location)
     }
 
-    func setBorderState(to borderState: BorderState) {
-        self.borderState = borderState
+    func turnOver(to status: FaceState) {
+        self.status.value = status
     }
 
-    var image: UIImage {
-        return faceState == .up ? frontImage : backImage
+    func onCurrentFace() -> UIImage {
+        switch status.value {
+        case .up: return UIImage(imageLiteralResourceName: card.frontImageFileName)
+        case .down: return UIImage(imageLiteralResourceName: card.backImageFileName)
+        }
     }
 
-    func turnOver(toFace faceState: FaceState) {
-        self.faceState = faceState
-    }
-
-    func updateLocation(to location: Location) {
-        self.location = location
+    func move(to location: Location) {
+        self.location.value = location
     }
 }
