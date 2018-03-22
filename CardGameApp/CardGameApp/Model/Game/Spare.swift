@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+class Spare: CardStack {
+    func push(_ cards: [Card]) {
+        cards.forEach {
+            push(card: $0)
+        }
+    }
+
+    func reset(with cards: [Card]) {
+        reset()
+        push(cards)
+    }
+}
