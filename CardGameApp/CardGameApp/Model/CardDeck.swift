@@ -8,10 +8,21 @@
 
 import Foundation
 
-struct CardDeck {
+protocol BaseControl {
+    mutating func shuffle()
+    mutating func removeOne() -> Card
+    mutating func reset()
+}
+
+struct CardDeck : BaseControl {
     private var deck : [Card] = []
+    private static var instance : CardDeck = CardDeck()
     
-    init() {
+    static func shared() -> CardDeck {
+        return instance
+    }
+    
+    private init() {
         for oneSuit in Card.Suits.allCases {
             for oneRank in Card.Ranks.allCases {
                 self.deck.append(Card(oneSuit, oneRank))

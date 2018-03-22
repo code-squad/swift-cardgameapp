@@ -14,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        let viewController = window?.rootViewController as? ViewController
+        viewController?.cardDeck = CardDeck.shared() as BaseControl
         return true
     }
 

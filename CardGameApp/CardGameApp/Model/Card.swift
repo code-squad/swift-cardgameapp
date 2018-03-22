@@ -7,25 +7,35 @@
 //
 
 import Foundation
+import UIKit
+
+protocol CardController {
+    
+}
 
 class Card {
     private var suit : Suits, rank : Ranks
+    private var side : Side = .back
     
     init(_ suit : Suits  , _ rank : Ranks) {
         self.suit = suit
         self.rank = rank
     }
     
+    enum Side {
+        case front
+        case back
+    }
+    
     //하나의 범주로 묶어 사용하고, 한정된 값들이기 때문에 enum을 선택하였습니다.
     enum Suits : String, generateAllCases {
-        case spade = "♠"
-        case heart = "♥"
-        case diamond = "◆"
-        case club = "♣"
+        case spade = "s"
+        case heart = "h"
+        case diamond = "d"
+        case club = "c"
     }
     
     enum Ranks : String, generateAllCases {
-        
         case two = "2"
         case three = "3"
         case four = "4"
@@ -55,6 +65,22 @@ class Card {
     
     func isAce() -> Bool {
         return self.rank == .ace
+    }
+    
+    func changeSide() -> Card {
+        if side == .back {
+            side = .front
+            return self
+        }
+        side = .back
+        return self
+    }
+    
+    func generateCardImg() -> UIImage {
+        if self.side == .back {
+        return UIImage(named : "card-back") ?? UIImage()
+        }
+        return UIImage(named : self.suit.rawValue + self.rank.rawValue) ?? UIImage()
     }
     
 }
