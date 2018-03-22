@@ -27,22 +27,22 @@ class ViewController: UIViewController {
     }
     
     private func drawBaseImgViews() {
-        for index in 0..<4 {
-            self.view.addSubview(imgViewMaker.generateCardImgView(index, .top, UIImage(), true))
+        for indexOfOneCard in 0..<Key.count.foundations.rawValue {
+            self.view.addSubview(imgViewMaker.generateCardImgView(indexOfOneCard, .top, UIImage(), true))
         }
         let oneCard = cardDeck.removeOne()
         self.view.addSubview(imgViewMaker.generateCardImgView(6, .top, oneCard.generateCardImg(), false))
     }
     
     private func drawBottomCardBack() {
-        for index in 0..<7 {
+        for indexOfOneCard in 0..<Key.count.baseCards.rawValue {
             let oneCard = cardDeck.removeOne().changeSide()
-            self.view.addSubview(imgViewMaker.generateCardImgView(index, .bottom, oneCard.generateCardImg(), false))
+            self.view.addSubview(imgViewMaker.generateCardImgView(indexOfOneCard, .bottom, oneCard.generateCardImg(), false))
         }
     }
     
     private func setBackGround() {
-        guard let patternImage = UIImage(named : "bg_pattern") else { return }
+        guard let patternImage = UIImage(named : Key.Img.background.rawValue ) else { return }
         self.view.backgroundColor = UIColor.init(patternImage : patternImage)
     }
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0434FD382063A208000C8FB5 /* Keyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0434FD372063A208000C8FB5 /* Keyword.swift */; };
 		048B884E2061FD70002BF2B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B884D2061FD70002BF2B7 /* AppDelegate.swift */; };
 		048B88502061FD70002BF2B7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B884F2061FD70002BF2B7 /* ViewController.swift */; };
 		048B88532061FD70002BF2B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 048B88512061FD70002BF2B7 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0434FD372063A208000C8FB5 /* Keyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyword.swift; sourceTree = "<group>"; };
 		048B884A2061FD70002BF2B7 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048B884D2061FD70002BF2B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		048B884F2061FD70002BF2B7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				048B886120623997002BF2B7 /* Model */,
 				048B884D2061FD70002BF2B7 /* AppDelegate.swift */,
 				048B885F206214E0002BF2B7 /* ImageViewMaker.swift */,
+				0434FD372063A208000C8FB5 /* Keyword.swift */,
 				048B884F2061FD70002BF2B7 /* ViewController.swift */,
 				048B88512061FD70002BF2B7 /* Main.storyboard */,
 				048B88542061FD70002BF2B7 /* Assets.xcassets */,
@@ -154,6 +157,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				048B8860206214E0002BF2B7 /* ImageViewMaker.swift in Sources */,
+				0434FD382063A208000C8FB5 /* Keyword.swift in Sources */,
 				048B8865206239CC002BF2B7 /* CardDeck.swift in Sources */,
 				048B8863206239B3002BF2B7 /* Card.swift in Sources */,
 				048B88502061FD70002BF2B7 /* ViewController.swift in Sources */,
