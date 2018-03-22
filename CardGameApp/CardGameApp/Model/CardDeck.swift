@@ -50,18 +50,6 @@ struct CardDeck : BaseControl {
         self.deck = CardDeck().deck
     }
     
-    mutating func generateStacks(_ gameInfo : GameInfo) -> [[Card]] {
-        var stacksOfCards : [[Card]] = []
-        for _ in 0...gameInfo.userPlayers {
-            stacksOfCards.append(generateOneStack(numberOfStack: gameInfo.userCards))
-        }
-        return stacksOfCards
-    }
-    
-    func isPossibleGame(_ gameInfo : GameInfo) -> Bool {
-        return self.count() > gameInfo.userCards * (gameInfo.userPlayers + 1)
-    }
-    
     private mutating func generateOneStack(numberOfStack : Int) -> [Card] {
         var oneStack : [Card] = []
         for _ in 1...numberOfStack {
