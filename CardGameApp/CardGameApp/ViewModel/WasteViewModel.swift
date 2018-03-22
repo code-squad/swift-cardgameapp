@@ -8,59 +8,26 @@
 
 import Foundation
 
-class WasteViewModel {//: ContainsCardStack {
-    private(set) var cardDummy: CardStack
-    private(set) var cardViewModels: CollectionObservable<[CardViewModel]>
-    private let faceState: FaceState = .up
-    private let borderState: BorderState = .hide
+class WasteViewModel: CardStackPresentable {
+
+    private(set) var cardViewModels: [CardViewModel]
+
+    init(_ waste: CardStack) {
+        let cardViewModels = waste.cards.collection.map { CardViewModel(card: $0, status: .up, location: .waste) }
+        self.cardViewModels = cardViewModels
+    }
 
     init() {
-        self.cardDummy = CardStack()
-        self.cardViewModels = CollectionObservable([])
+        self.cardViewModels = []
     }
 
-    init(cardDummy: CardStack) {
-        self.cardDummy = cardDummy
-        self.cardViewModels = CollectionObservable([])
-        updateCardViewModels()
-    }
-
-    private func updateCardViewModels() {
-        self.cardViewModels.collection = self.cardDummy.flatMap {
-            $0.convertToCardViewModel(faceState, borderState: borderState, on: .waste)
-        }
-    }
-
-    func isEmpty() -> Bool {
-        return self.cardDummy.count <= 0
-    }
-
-    func reversed() -> CardStack {
-        return CardStack(self.cardDummy.reversed())
-    }
-
-    func setCardDummy(_ cardDummy: CardStack) {
-        self.cardDummy = cardDummy
-        updateCardViewModels()
-    }
-
-    func push(_ card: Card?) {
+    func append(_ card: Card?) {
         guard let card = card else { return }
-        cardDummy.push(card: card)
-        updateCardViewModels()
+        cardViewModels.append(CardViewModel(card: card, status: .up, location: .waste))
     }
 
-    func pop() -> Card? {
-        _ = cardViewModels.collection.popLast()
-        return cardDummy.pop()
+    func remove() {
+        cardViewModels.removeLast()
     }
 
-    var frontCard: Card? {
-        return cardDummy.peek()
-    }
-
-    func reset() {
-        cardDummy.reset()
-        cardViewModels.collection = []
-    }
 }

@@ -9,102 +9,87 @@
 import Foundation
 
 class GameViewModel {
-    private var deck: Deck {
-        didSet {
-            putCardsOnSpare()
-        }
-    }
-    private(set) var spare: SpareViewModel
-    private(set) var waste: WasteViewModel
-    private(set) var foundation: [FoundationViewModel]
-    private(set) var tableau: [TableauViewModel]
+
+    private(set) var game: Game
+    private(set) var cardViewModels: [CardViewModel]
+    private(set) var spareViewModel: CardStackPresentable
+    private(set) var wasteViewModel: CardStackPresentable
+    private(set) var foundationViewModels: [CardStackPresentable]
+    private(set) var tableauViewModels: [CardStackPresentable]
 
     init() {
-        self.deck = Deck()
-        self.spare = SpareViewModel()
-        self.waste = WasteViewModel()
-        self.foundation = (0..<Settings.foundationCount).map { FoundationViewModel(spaceNumber: $0) }
-        self.tableau = (0..<Settings.maxStud).map { TableauViewModel(stackNumber: $0) }
-        self.initialize()
+        game = Game()
+        cardViewModels = []
+        spareViewModel = SpareViewModel()
+        wasteViewModel = WasteViewModel()
+        foundationViewModels = []
+        tableauViewModels = []
     }
+
+    // MARK: - Update Models
 
     func initialize() {
-        deck.reset()
-        spare.reset()
-        waste.reset()
-        foundation.forEach { $0.reset() }
-        tableau.forEach { $0.reset() }
-        deck.shuffle()
-        putCardsOnTableau()
-        putCardsOnSpare()
+        game.new()
+        initializeViewModels()
+        bindModels()
     }
 
-    private func putCardsOnTableau() {
-        for (count, tableau) in tableau.enumerated() {
-            guard let fetchedCards = deck.fetch(count+1) else { break }
-            tableau.setCardDummy(fetchedCards)
+    func moveToWaste(_ cardViewModel: CardViewModel) {
+        game.move(cardsFrom: cardViewModel.card, from: .spare, to: .waste)
+    }
+
+    func refreshWaste() {
+        game.refreshWaste()
+    }
+
+    func suitableLocation(for cardViewModel: CardViewModel) -> Location? {
+        if case Location.spare = cardViewModel.location.value {
+            return .waste
         }
-    }
-
-    private func putCardsOnSpare() {
-        guard let remnants = deck.remnants() else { return }
-        spare.setCardDummy(remnants)
-    }
-
-    // spare 카드뷰 탭 시 호출됨.
-    func updateSpare() {
-        if let card = spare.pop() {
-            waste.push(card)
-        } else {
-            restore()
-        }
-    }
-
-    private func restore() {
-        spare.setCardDummy(waste.reversed())
-        waste.reset()
-    }
-
-    func canMoveToLocation(_ card: Card) -> Location? {
-        var endLocation: Location?
-        for (index, space) in foundation.enumerated() where space.canPush(card) {
-            endLocation = Location.foundation(index)
-            break
-        }
-        for (index, stack) in tableau.enumerated() where stack.canPush(card) {
-            endLocation = Location.tableau(index)
-            break
-        }
-        return endLocation
-    }
-
-    typealias AfterMove = () -> Void
-
-    func moveFrontCard(from fromLocation: Location, to toLocation: Location, completeHandler: @escaping AfterMove) {
-        var movingCard: Card?
-        switch fromLocation {
-        case .spare: break
-        case .waste: movingCard = waste.pop()
-        case .foundation(let spaceNumber):
-            if case let SpaceState.exist(card) = foundation[spaceNumber].spaceState {
-                movingCard = card.value
+        guard let suitableLocation = game.suitableLocation(cardViewModel.card) else { return nil }
+        // 만약 목적지의 마지막 카드가 뒤집힌 카드라면 전달하지 않는다.
+        if case let Location.tableau(index) = suitableLocation {
+            if let lastCard = tableauViewModels[index].cardViewModels.last, lastCard.status.value == .down {
+                return nil
             }
-        case .tableau(let stackNumber):
-            movingCard = tableau[stackNumber].pop()
         }
+        return suitableLocation
+    }
 
-        switch toLocation {
-        case .spare: break
-        case .waste: waste.push(movingCard)
-        case .foundation(let spaceNumber): foundation[spaceNumber].push(movingCard)
-        case .tableau(let stackNumber):
-            tableau[stackNumber].push(movingCard)
+    func move(cardViewModel: CardViewModel, from startLocation: Location, to endLocation: Location) {
+        game.move(cardsFrom: cardViewModel.card, from: startLocation, to: endLocation)
+    }
+
+    // MARK: - Private Methods
+
+    private func initializeViewModels() {
+        spareViewModel = SpareViewModel(game.spare)
+        wasteViewModel = WasteViewModel(game.waste)
+        foundationViewModels = game.foundations.enumerated().map {
+            FoundationViewModel($0.element, stackNumber: $0.offset)
+        }
+        tableauViewModels = game.tableaus.enumerated().map {
+            TableauViewModel($0.element, stackNumber: $0.offset)
         }
     }
 
-    struct Settings {
-        static var maxStud: Int = 7
-        static var foundationCount: Int = 4
-        static var refresh: String = "cardgameapp-refresh-app"
+    private func bindModels() {
+        for (model, viewModel) in zip(game.foundations, foundationViewModels) {
+            model.cards.bind {
+                model.isAdded ? viewModel.append($0) : viewModel.remove()
+            }
+        }
+        game.spare.cards.bind { [unowned self] in
+            self.game.spare.isAdded ? self.spareViewModel.append($0) : self.spareViewModel.remove()
+        }
+        game.waste.cards.bind { [unowned self] in
+            self.game.waste.isAdded ? self.wasteViewModel.append($0) : self.wasteViewModel.remove()
+        }
+        for (model, viewModel) in zip(game.tableaus, tableauViewModels) {
+            model.cards.bind {
+                model.isAdded ? viewModel.append($0) : viewModel.remove()
+            }
+        }
     }
+
 }

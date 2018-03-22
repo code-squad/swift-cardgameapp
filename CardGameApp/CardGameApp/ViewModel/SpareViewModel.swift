@@ -7,59 +7,27 @@
 //
 
 import Foundation
-import UIKit
 
-class SpareViewModel {//: ContainsCardStack {
-    private(set) var cardDummy: CardStack
-    private(set) var cardViewModels: CollectionObservable<[CardViewModel]>
-    private let faceState: FaceState = .down
-    private let borderState: BorderState = .hide
+class SpareViewModel: CardStackPresentable {
+
+    private(set) var cardViewModels: [CardViewModel]
+
+    init(_ spare: CardStack) {
+        let cardViewModels = spare.cards.collection.map { CardViewModel(card: $0, status: .down, location: .spare) }
+        self.cardViewModels = cardViewModels
+    }
 
     init() {
-        self.cardDummy = CardStack()
-        self.cardViewModels = CollectionObservable([])
+        self.cardViewModels = []
     }
 
-    init(cardDummy: CardStack) {
-        self.cardDummy = cardDummy
-        self.cardViewModels = CollectionObservable([])
-        updateCardViewModels()
-    }
-
-    func isEmpty() -> Bool {
-//        return self.cardDummy.isEmpty
-        return self.cardDummy.count <= 0
-    }
-
-    private func updateCardViewModels() {
-        self.cardViewModels.collection = self.cardDummy.flatMap {
-            $0.convertToCardViewModel(faceState, borderState: borderState, on: .spare)
-        }
-    }
-
-    func setCardDummy(_ cardDummy: CardStack) {
-        self.cardDummy = cardDummy
-        updateCardViewModels()
-    }
-
-    func push(_ card: Card?) {
+    func append(_ card: Card?) {
         guard let card = card else { return }
-        cardDummy.push(card: card)
-        updateCardViewModels()
+        cardViewModels.append(CardViewModel(card: card, status: .down, location: .spare))
     }
 
-    func pop() -> Card? {
-        _ = cardViewModels.collection.popLast()
-        return cardDummy.pop()
+    func remove() {
+        cardViewModels.removeLast()
     }
 
-    var frontCard: Card? {
-        return cardDummy.peek()
-    }
-
-    func reset() {
-        cardDummy.reset()
-        // cardViewModels = CollectionObservable([]) 이렇게 쓰면 바인딩이 잡아내지 못함.
-        cardViewModels.collection = []
-    }
 }

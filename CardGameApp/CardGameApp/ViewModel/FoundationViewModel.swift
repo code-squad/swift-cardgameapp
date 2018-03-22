@@ -8,35 +8,26 @@
 
 import Foundation
 
-class FoundationViewModel {
-    private let faceState: FaceState = .up
-    private(set) var spaceState: SpaceState = .vacant
-    private let location: Location
+class FoundationViewModel: CardStackPresentable {
 
-    init(spaceNumber: Int) {
-        self.location = .foundation(spaceNumber)
+    let stackNumber: Int
+    private(set) var cardViewModels: [CardViewModel]
+
+    init(_ foundation: CardStack, stackNumber: Int) {
+        self.stackNumber = stackNumber
+        let cardViewModels = foundation.cards.collection.map {
+            CardViewModel(card: $0, status: .up, location: .foundation(stackNumber))
+        }
+        self.cardViewModels = cardViewModels
     }
 
-    func push(_ card: Card?) {
+    func append(_ card: Card?) {
         guard let card = card else { return }
-        if canPush(card) {
-            spaceState = .exist(Observable(card))
-        }
+        cardViewModels.append(CardViewModel(card: card, status: .up, location: .foundation(stackNumber)))
     }
 
-    func canPush(_ card: Card) -> Bool {
-        var canPush = Bool()
-        switch spaceState {
-        case .exist(let existCard):
-            canPush = (card.shape == existCard.value.shape)
-                && (card.number.rawValue == existCard.value.number.rawValue+1)
-        case .vacant:
-            canPush = (card.number == .ace)
-        }
-        return canPush
+    func remove() {
+        cardViewModels.removeLast()
     }
 
-    func reset() {
-        self.spaceState = .vacant
-    }
 }
