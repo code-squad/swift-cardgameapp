@@ -8,42 +8,31 @@
 
 import UIKit
 
-class MovableCardView {
-    weak var delegate: CanUpdateViewModel?
+struct MovableCardView {
     private(set) var cardView: CardView
-    private(set) var fromLocation: Location
-    private(set) var toLocation: Location
-    private(set) var startPoint: CGPoint
-    private(set) var endPoint: CGPoint
+    private(set) var startPosition: CGPoint
+    private(set) var endLocation: Location
 
-    init() {
-        self.cardView = CardView()
-        self.startPoint = CGPoint()
-        self.endPoint = CGPoint()
-        fromLocation = .spare
-        toLocation = .spare
-    }
-
-    init(cardView: CardView,
-         from fromLocation: Location, to toLocation: Location,
-         startPoint: CGPoint, endPoint: CGPoint) {
+    init(cardView: CardView, endLocation: Location) {
         self.cardView = cardView
-        self.fromLocation = fromLocation
-        self.toLocation = toLocation
-        self.startPoint = startPoint
-        self.endPoint = endPoint
+        self.startPosition = cardView.frame.origin
+        self.endLocation = endLocation
     }
 
-    func animateToMove() {
+    func animateToMove(to endPosition: CGPoint) {
         let translateTransform =
-            self.cardView.transform.translatedBy(x: endPoint.x-startPoint.x, y: endPoint.y-startPoint.y)
-        UIView.animate(withDuration: 0.5, animations: { [unowned self] in
+            self.cardView.transform.translatedBy(x: endPosition.x-startPosition.x, y: endPosition.y-startPosition.y)
+        // waste->spare 또는 spare->waste 처럼 뒤집어야 하는 경우 옵션 설정
+        var option: UIViewAnimationOptions = .curveEaseIn
+        if case Location.spare = cardView.viewModel!.location.value {
+            option = .transitionFlipFromRight
+        } else if case Location.waste = cardView.viewModel!.location.value, case Location.spare = endLocation {
+            option = .transitionFlipFromLeft
+        }
+        UIView.transition(with: cardView, duration: 0.3, options: option, animations: {
             // 현재 이동중인 카드를 맨 앞으로.
-            self.cardView.bringFront()
+            self.cardView.bringToFront()
             self.cardView.transform = translateTransform
-        }, completion: { _ in
-            // 모델 변경
-            self.delegate?.updateMovedCards(movableCardView: self)
         })
     }
 
