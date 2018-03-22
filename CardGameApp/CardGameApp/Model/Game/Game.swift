@@ -17,15 +17,14 @@ class Game {
     private(set) var foundations: Foundations
     private(set) var waste: CardStack
     private(set) var spare: Spare
-    private(set) var tableaus: [Tableau]
-    private let tableauConfig: [Int] = [1, 2, 3, 4, 5, 6, 7]
+    private(set) var tableaus: Tableaus
 
     init() {
         deck = Deck()
         foundations = Foundations()
         waste = CardStack()
         spare = Spare()
-        tableaus = (0..<7).map { _ in Tableau() }
+        tableaus = Tableaus()
     }
 
     func new() {
@@ -33,10 +32,7 @@ class Game {
         deck.shuffle()
         foundations.reset()
         waste.reset()
-        (1...7).forEach {
-            guard let fetchedCards = deck.fetch($0) else { return }
-            tableaus[$0-1].reset(with: fetchedCards)
-        }
+        tableaus.reset(from: deck)
         spare.reset(with: deck.remnants()!)
     }
 
@@ -49,8 +45,8 @@ class Game {
         if let suitableLocationInFoundation = foundations.searchSuitableLocation(for: card) {
             return suitableLocationInFoundation
         }
-        for (index, tableau) in tableaus.enumerated() where tableau.canPush(below: card) {
-            return Location.tableau(index)
+        if let suitableLocationInTableau = tableaus.searchSuitableLocation(for: card) {
+            return suitableLocationInTableau
         }
         return nil
     }
@@ -75,7 +71,7 @@ class Game {
             guard let lastCard = foundations.pop(from: index) else { break }
             movingCards.append(lastCard)
         case .tableau(let index):
-            movingCards = tableaus[index].popCards(below: card)
+            movingCards = tableaus.pop(from: index, below: card)
         }
 
         switch toLocation {
@@ -83,8 +79,8 @@ class Game {
         case .waste: waste.push(card: card)
         case .foundation(let index) where foundations.canPush(card, to: index):
             foundations.push(card, to: index)
-        case .tableau(let index) where tableaus[index].canPush(below: card):
-            tableaus[index].push(cards: movingCards.flatMap { $0 })
+        case .tableau(let index) where tableaus.canPush(card, to: index):
+            tableaus.push(movingCards, to: index)
         default: break
         }
     }

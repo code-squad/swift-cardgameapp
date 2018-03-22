@@ -40,6 +40,7 @@
 		EE9AA9DD203200F200FBF2F1 /* BorderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9AA9DC203200F200FBF2F1 /* BorderState.swift */; };
 		EE9AA9E72032183D00FBF2F1 /* CardViewActionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9AA9E62032183D00FBF2F1 /* CardViewActionDelegate.swift */; };
 		EEAA97C12063E91600A2C441 /* Foundations.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAA97C02063E91600A2C441 /* Foundations.swift */; };
+		EEAA97C32063EE6E00A2C441 /* Tableaus.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAA97C22063EE6E00A2C441 /* Tableaus.swift */; };
 		EEB70FEE203351C6004F4362 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB70FED203351C6004F4362 /* Color.swift */; };
 		EEB70FF020335282004F4362 /* MovableCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB70FEF20335282004F4362 /* MovableCardView.swift */; };
 		EEBF592E202191CC00093436 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5922202191CC00093436 /* CardStack.swift */; };
@@ -88,6 +89,7 @@
 		EE9AA9DC203200F200FBF2F1 /* BorderState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderState.swift; sourceTree = "<group>"; };
 		EE9AA9E62032183D00FBF2F1 /* CardViewActionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewActionDelegate.swift; sourceTree = "<group>"; };
 		EEAA97C02063E91600A2C441 /* Foundations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foundations.swift; sourceTree = "<group>"; };
+		EEAA97C22063EE6E00A2C441 /* Tableaus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tableaus.swift; sourceTree = "<group>"; };
 		EEB70FED203351C6004F4362 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		EEB70FEF20335282004F4362 /* MovableCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableCardView.swift; sourceTree = "<group>"; };
 		EEBF5922202191CC00093436 /* CardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				EEAA97C02063E91600A2C441 /* Foundations.swift */,
 				EE3E7D1820634D3F00232E70 /* Foundation.swift */,
 				EE3E7D1A20634D4600232E70 /* Spare.swift */,
+				EEAA97C22063EE6E00A2C441 /* Tableaus.swift */,
 				EE3E7D1C20634D5100232E70 /* Tableau.swift */,
 				EEBF5922202191CC00093436 /* CardStack.swift */,
 				EEBF5925202191CC00093436 /* Deck.swift */,
@@ -463,6 +466,7 @@
 				EEB70FF020335282004F4362 /* MovableCardView.swift in Sources */,
 				EEBF592E202191CC00093436 /* CardStack.swift in Sources */,
 				EE3E7D032063495600232E70 /* EnumCollectionProtocol.swift in Sources */,
+				EEAA97C32063EE6E00A2C441 /* Tableaus.swift in Sources */,
 				EE9AA9DD203200F200FBF2F1 /* BorderState.swift in Sources */,
 				EE04C25020319CB000A3CD3F /* FoundationViewModel.swift in Sources */,
 				EE3E7D1320634BEA00232E70 /* ArrayExtension.swift in Sources */,
