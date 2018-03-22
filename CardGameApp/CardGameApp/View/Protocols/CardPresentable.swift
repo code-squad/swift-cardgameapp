@@ -9,8 +9,6 @@
 import UIKit
 
 protocol CardPresentable {
-    func setSizeTo(_ size: CGSize)
-    func setDefaultBorderStyle(borderState: BorderState)
     var cornerRadius: CGFloat { get }
     var clipToBounds: Bool { get }
     var borderColor: CGColor { get }
