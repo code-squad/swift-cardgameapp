@@ -32,11 +32,12 @@ class Observable<ObservingType> {
     }
 }
 
-class CollectionObservable<ObservingType: Sequence> {
+class ObservableCollection<ObservingType: Sequence> {
     typealias Listener = (ObservingType.Element?) -> Void
     private var listener: Listener?
     var collection: ObservingType {
         didSet {
+            prevCount = oldValue.underestimatedCount
             // 변경된 collection의 마지막 인자를 element로 저장
             if collection.underestimatedCount > 0 {
                 self.element = collection.reversed().first
@@ -45,6 +46,7 @@ class CollectionObservable<ObservingType: Sequence> {
             }
         }
     }
+    private(set) var prevCount: Int = 0
     var element: ObservingType.Element? {
         didSet {
             listener?(element)
@@ -67,31 +69,3 @@ class CollectionObservable<ObservingType: Sequence> {
         listener?(element)
     }
 }
-
-// 스택과 같이 Sequence 타입 관찰 - 안 됨..
-//class ContainerObserving<ContainerType: Sequence> {
-//    typealias ObservingType = ContainerType.Iterator
-//    typealias Listener = (ObservingType) -> Void
-//    private var listener: Listener?
-//    var value: ObservingType {
-//        didSet {
-//            listener?(value)
-//        }
-//    }
-//    var container: ContainerType
-//
-//    required init(_ container: ContainerType) {
-//        self.container = container
-//        self.value = container.makeIterator()
-//    }
-//
-//    func bind(_ listener: ((ContainerObserving.ObservingType) -> Void)?) {
-//        self.listener = listener
-//    }
-//
-//    func bindAndFire(_ listener: ((ContainerObserving.ObservingType) -> Void)?) {
-//        self.listener = listener
-//        listener?(self.value)
-//    }
-//
-//}
