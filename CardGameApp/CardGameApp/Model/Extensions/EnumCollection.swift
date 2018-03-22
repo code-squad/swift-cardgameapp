@@ -1,14 +1,13 @@
 //
-//  EnumCollectionExtension.swift
+//  EnumCollection.swift
 //  CardGameApp
 //
-//  Created by 심 승민 on 2018. 1. 31..
+//  Created by 심 승민 on 2018. 3. 22..
 //  Copyright © 2018년 심 승민. All rights reserved.
 //
 
 import Foundation
 
-// enum 내부 값을 배열로 가져오는 확장 기능.
 // [출처](https://theswiftdev.com/2017/10/12/swift-enum-all-values/)
 extension EnumCollection {
     // 시퀀스를 배열로 캐스팅 후 반환.

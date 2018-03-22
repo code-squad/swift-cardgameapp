@@ -1,9 +1,9 @@
 //
-//  Extensions.swift
-//  CardGame
+//  ArrayExtension.swift
+//  CardGameApp
 //
-//  Created by 심 승민 on 2017. 11. 30..
-//  Copyright © 2017년 JK. All rights reserved.
+//  Created by 심 승민 on 2018. 3. 22..
+//  Copyright © 2018년 심 승민. All rights reserved.
 //
 
 import Foundation
