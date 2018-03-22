@@ -14,10 +14,10 @@ extension UIView {
     }
     
     func makeStackView(column: Int) {
-        let xPoint = ((self.cardSize().width + self.marginBetweenCard()) * CGFloat(column)) + self.marginBetweenCard()
+        let xPoint = ((UIView.cardSize().width + UIView.marginBetweenCard()) * CGFloat(column)) + UIView.marginBetweenCard()
         
         self.frame = CGRect(x: xPoint, y: 0,
-                             width: self.cardSize().width,
+                             width: UIView.cardSize().width,
                              height: UIScreen.main.bounds.size.height - UIApplication.shared.statusBarFrame.height - 80)
     }
 }

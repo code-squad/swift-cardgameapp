@@ -10,8 +10,8 @@ import UIKit
 
 extension UIView {
     func makeViewPoint(columnIndex: CGFloat, rowIndex: CGFloat) -> CGPoint {
-        let xPoint = (self.cardSize().width + self.marginBetweenCard()) * columnIndex + self.marginBetweenCard()
-        let yPoint = UIApplication.shared.statusBarFrame.height + (self.cardSize().height * rowIndex)
+        let xPoint = (UIView.cardSize().width + UIView.marginBetweenCard()) * columnIndex + UIView.marginBetweenCard()
+        let yPoint = UIApplication.shared.statusBarFrame.height + (UIView.cardSize().height * rowIndex)
         return CGPoint(x: xPoint, y: yPoint)
     }
     
@@ -20,7 +20,7 @@ extension UIView {
     }
     
     func makeBasicView() {
-        self.bounds = CGRect(origin: CGPoint.zero, size: self.cardSize())
+        self.bounds = CGRect(origin: CGPoint.zero, size: UIView.cardSize())
         self.layer.borderWidth = 1
         self.layer.cornerRadius = 5
         self.layer.masksToBounds = true
@@ -45,12 +45,12 @@ extension UIView {
     }
     
     func makeCardView(index: CGFloat, yPoint: CGFloat) {
-        let xPoint = ((self.cardSize().width + self.marginBetweenCard()) * CGFloat(index)) + self.marginBetweenCard()
+        let xPoint = ((UIView.cardSize().width + UIView.marginBetweenCard()) * CGFloat(index)) + UIView.marginBetweenCard()
         self.makeBasicView()
         self.frame.origin = CGPoint(x: xPoint, y: yPoint)
     }
     
-    func cardSize() -> CGSize {
+    class func cardSize() -> CGSize {
         let screenWidth = UIScreen.main.fixedCoordinateSpace.bounds.width
         let marginRatio: CGFloat = 70
         let cardColumns: CGFloat = 7
@@ -59,8 +59,8 @@ extension UIView {
         return CGSize(width: cardWidth, height: cardHeight)
     }
     
-    func marginBetweenCard() -> CGFloat {
-        let cardFrame = self.cardSize()
+    class func marginBetweenCard() -> CGFloat {
+        let cardFrame = UIView.cardSize()
         let screenWidth = UIScreen.main.fixedCoordinateSpace.bounds.width
         let margin = (screenWidth - (cardFrame.width * 7)) / 8
         return margin

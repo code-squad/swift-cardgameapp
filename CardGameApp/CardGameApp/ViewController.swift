@@ -29,20 +29,20 @@ class ViewController: UIViewController {
         self.eventController = EventController(self.view)
         self.foundationView = FoundationView(frame: CGRect(x: CGFloat(ScreenPoint.startXPoint),
                                                            y: UIApplication.shared.statusBarFrame.height,
-                                                           width: (self.view.cardSize().width + self.view.marginBetweenCard()) * 4,
-                                                           height: self.view.cardSize().height))
+                                                           width: (UIView.cardSize().width + UIView.marginBetweenCard()) * 4,
+                                                           height: UIView.cardSize().height))
         self.openDeckView = OpenDeckView(frame: CGRect(origin: self.view.makeViewPoint(columnIndex: CGFloat(ScreenPoint.openCardXPoint),
                                                                                        rowIndex: CGFloat(ScreenPoint.startYPoint)),
-                                                       size: self.view.cardSize()))
+                                                       size: UIView.cardSize()))
         self.gameCardStackView = GameCardStackView(frame: CGRect(x: CGFloat(ScreenPoint.startXPoint),
-                                                                 y: self.view.cardSize().height
-                                                                    + self.view.marginBetweenCard()
+                                                                 y: UIView.cardSize().height
+                                                                    + UIView.marginBetweenCard()
                                                                     + UIApplication.shared.statusBarFrame.height,
                                                                  width: UIScreen.main.bounds.size.width,
                                                                  height: UIScreen.main.bounds.size.height
                                                                     - UIApplication.shared.statusBarFrame.height
-                                                                    - (self.view.cardSize().height
-                                                                        + self.view.marginBetweenCard())))
+                                                                    - (UIView.cardSize().height
+                                                                        + UIView.marginBetweenCard())))
         makeGameTable()
         NotificationCenter.default.addObserver(self, selector: #selector(playGameCardStack(notification:)), name: .playingGameCardStack, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(openCardDeck(notification:)), name: .openCard, object: nil)
@@ -219,7 +219,7 @@ class ViewController: UIViewController {
         } else if card.isKingCard() {
             guard let emptyIndex = gameCardStack.calculateEmptyPlace() else { return nil }
             let dummyCardOrigin  = CGPoint(x: gameCardStackView.subviews[emptyIndex].frame.origin.x, y: 0)
-            let dummyCard = CGRect(origin: dummyCardOrigin, size: UIView().cardSize())
+            let dummyCard = CGRect(origin: dummyCardOrigin, size: UIView.cardSize())
             let targetGlobalPoint = gameCardStackView.convert(dummyCard, to: self.view)
             return (targetGlobalPoint, gameCardStack, emptyIndex)
         } else if foundationDeck.isContinuousCard(card) {
@@ -229,7 +229,7 @@ class ViewController: UIViewController {
         } else if let validIndex = gameCardStack.choicePlace(with: card) {
             let xPoint = gameCardStackView.subviews[validIndex.xPoint].frame.origin.x
             let dummyCardOrigin  = CGPoint(x: xPoint, y: CGFloat(validIndex.yPoint * 20 + 20))
-            let dummyCard = CGRect(origin: dummyCardOrigin, size: UIView().cardSize())
+            let dummyCard = CGRect(origin: dummyCardOrigin, size: UIView.cardSize())
             let targetGlobalPoint = gameCardStackView.convert(dummyCard, to: self.view)
             return (targetGlobalPoint, gameCardStack, validIndex.xPoint)
         }

@@ -27,9 +27,8 @@ class EventController {
             guard let touchedView = touch.view else { return }
             guard let originView = touchedView.superview?.superview else { return }
             guard let fromGlobalPoint = touchedView.superview?.convert(touchedView.frame, to: originView.superview) else { return }
-            let dummyCard = UIImageView()
             let location = touch.location(in: mainViewControllerView)
-            let xPoint = Int(location.x / (dummyCard.cardSize().width + dummyCard.marginBetweenCard()))
+            let xPoint = Int(location.x / (UIView.cardSize().width + UIView.marginBetweenCard()))
             let yPoint = Int(touchedView.frame.origin.y / 20)
             NotificationCenter.default.post(name: .playingGameCardStack,
                                             object: self,
