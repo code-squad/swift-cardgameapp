@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class Mapper {
-    static func mapFrontImageName(of card: Card) -> String {
+    static func frontFileName(of card: Card) -> String {
         return Mapper.shapeName(of: card.info.shape) + Mapper.numberName(of: card.info.number)
     }
 

@@ -7,29 +7,27 @@
 //
 
 import Foundation
-import UIKit
 
-// Card = Rank + Suit
 class Card {
-    private let shape: Shape
-    private let number: Number
+    private(set) var shape: Shape
+    private(set) var number: Number
     init(_ shape: Shape, _ number: Number) {
         self.shape = shape
         self.number = number
     }
 
+    var color: Color {
+        switch shape {
+        case .clubs, .spades: return .black
+        case .diamonds, .hearts: return .red
+        }
+    }
+
     var info: (shape: Shape, number: Number) {
         return (self.shape, self.number)
     }
-}
 
-// 카드 한 장 출력 포맷. 모양+숫자 형태.
-//extension Card: CustomStringConvertible {
-//    var description: String {
-//        return self.shape.description + self.number.description
-//    }
-//
-//}
+}
 
 // 카드를 비교할 경우, 카드의 숫자를 비교. (Shape과 Number의 캡슐화를 위함.)
 extension Card: Equatable, Comparable {
@@ -43,4 +41,10 @@ extension Card: Equatable, Comparable {
         return true
     }
 
+}
+
+extension Card {
+    func convertToCardViewModel(_ faceState: FaceState, borderState: BorderState, on location: Location) -> CardViewModel {
+        return CardViewModel(card: self, faceState: faceState, borderState: borderState, location: location)
+    }
 }

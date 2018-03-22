@@ -18,7 +18,7 @@ class Deck: Sequence {
     }
 
     func makeIterator() -> ClassIteratorOf<Card> {
-        return ClassIteratorOf(self.cards.sortCards())
+        return ClassIteratorOf(self.cards.sorted())
     }
 
     // 여러 장의 카드를 스택으로 반환.

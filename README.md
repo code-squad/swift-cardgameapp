@@ -355,6 +355,11 @@ deckViewModel.spareCardDummy.cards.bindAndFire { [unowned self] in
 #### 참고: 제스처 인식기 사용 시, 다음을 꼭 설정해줘야 작동한다.
 `myView.isUserInteractionEnabled = true`
 
+### 리팩토링 (2nd) - 구조 개선
+
+#### 뷰컨트롤러: 245줄 → 99줄
+#### zip() 메소드
+
 ### 학습 내용
 >- **[lazy 프로퍼티에 대해서](http://baked-corn.tistory.com/45)**
 >- **[좋은 아키텍처와 디자인 패턴들 개요](https://github.com/undervineg/swift-cardgameapp/blob/card-step4/md/design_patterns.md)**
