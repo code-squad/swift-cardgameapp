@@ -39,6 +39,7 @@
 		EE3E7D2120634F0600232E70 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E7D2020634F0600232E70 /* EmptyView.swift */; };
 		EE9AA9DD203200F200FBF2F1 /* BorderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9AA9DC203200F200FBF2F1 /* BorderState.swift */; };
 		EE9AA9E72032183D00FBF2F1 /* CardViewActionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9AA9E62032183D00FBF2F1 /* CardViewActionDelegate.swift */; };
+		EEAA97C12063E91600A2C441 /* Foundations.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAA97C02063E91600A2C441 /* Foundations.swift */; };
 		EEB70FEE203351C6004F4362 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB70FED203351C6004F4362 /* Color.swift */; };
 		EEB70FF020335282004F4362 /* MovableCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB70FEF20335282004F4362 /* MovableCardView.swift */; };
 		EEBF592E202191CC00093436 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5922202191CC00093436 /* CardStack.swift */; };
@@ -86,6 +87,7 @@
 		EE3E7D2020634F0600232E70 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		EE9AA9DC203200F200FBF2F1 /* BorderState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderState.swift; sourceTree = "<group>"; };
 		EE9AA9E62032183D00FBF2F1 /* CardViewActionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewActionDelegate.swift; sourceTree = "<group>"; };
+		EEAA97C02063E91600A2C441 /* Foundations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foundations.swift; sourceTree = "<group>"; };
 		EEB70FED203351C6004F4362 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		EEB70FEF20335282004F4362 /* MovableCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableCardView.swift; sourceTree = "<group>"; };
 		EEBF5922202191CC00093436 /* CardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				EE3E7D1620634D2D00232E70 /* Game.swift */,
+				EEAA97C02063E91600A2C441 /* Foundations.swift */,
 				EE3E7D1820634D3F00232E70 /* Foundation.swift */,
 				EE3E7D1A20634D4600232E70 /* Spare.swift */,
 				EE3E7D1C20634D5100232E70 /* Tableau.swift */,
@@ -441,6 +444,7 @@
 				EE04C25220319CBD00A3CD3F /* TableauViewModel.swift in Sources */,
 				EE3E7D1020634BC200232E70 /* EnumCollection.swift in Sources */,
 				EE3E7D1B20634D4600232E70 /* Spare.swift in Sources */,
+				EEAA97C12063E91600A2C441 /* Foundations.swift in Sources */,
 				EE3E7D1F20634E9B00232E70 /* CardStackPresentable.swift in Sources */,
 				EE3E7D1D20634D5100232E70 /* Tableau.swift in Sources */,
 				EEE53A6D202AEF3F0092939C /* CardViewModel.swift in Sources */,
