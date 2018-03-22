@@ -13,44 +13,40 @@
 		EE04C25020319CB000A3CD3F /* FoundationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04C24F20319CB000A3CD3F /* FoundationViewModel.swift */; };
 		EE04C25220319CBD00A3CD3F /* TableauViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04C25120319CBD00A3CD3F /* TableauViewModel.swift */; };
 		EE04C25420319D6100A3CD3F /* FaceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04C25320319D6100A3CD3F /* FaceState.swift */; };
-		EE04C25620319E1B00A3CD3F /* SpaceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04C25520319E1B00A3CD3F /* SpaceState.swift */; };
 		EE04C2582031A46D00A3CD3F /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04C2572031A46D00A3CD3F /* Location.swift */; };
 		EE04C25A2031A60400A3CD3F /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04C2592031A60400A3CD3F /* GameViewModel.swift */; };
-		EE04C2612031CEC000A3CD3F /* ContainsCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04C2602031CEC000A3CD3F /* ContainsCardViewModel.swift */; };
 		EE04C2642031D19400A3CD3F /* CardPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04C2632031D19400A3CD3F /* CardPresentable.swift */; };
 		EE04C2682031D75D00A3CD3F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04C2672031D75D00A3CD3F /* GameViewController.swift */; };
 		EE04C2702031E08400A3CD3F /* ViewConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04C26F2031E08400A3CD3F /* ViewConfig.swift */; };
 		EE04C2722031E63F00A3CD3F /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04C2712031E63F00A3CD3F /* GameView.swift */; };
-		EE04C2762031FC5B00A3CD3F /* SpareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE04C2752031FC5B00A3CD3F /* SpareView.swift */; };
 		EE19382C202CD2AD00CF62B5 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE19382B202CD2AD00CF62B5 /* Observable.swift */; };
 		EE22EDE1202044320084F399 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE22EDE0202044320084F399 /* AppDelegate.swift */; };
 		EE22EDE6202044320084F399 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE22EDE4202044320084F399 /* Main.storyboard */; };
 		EE22EDE8202044320084F399 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE22EDE7202044320084F399 /* Assets.xcassets */; };
 		EE22EDEB202044320084F399 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE22EDE9202044320084F399 /* LaunchScreen.storyboard */; };
 		EE2AEA84203030A5000D0121 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2AEA83203030A5000D0121 /* CardView.swift */; };
-		EE6082772028189400DABEC9 /* UIStackViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6082762028189400DABEC9 /* UIStackViewExtension.swift */; };
+		EE3E7D012063495600232E70 /* ComparableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E7CFE2063495600232E70 /* ComparableProtocol.swift */; };
+		EE3E7D022063495600232E70 /* StackProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E7CFF2063495600232E70 /* StackProtocol.swift */; };
+		EE3E7D032063495600232E70 /* EnumCollectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E7D002063495600232E70 /* EnumCollectionProtocol.swift */; };
+		EE3E7D0C20634AF800232E70 /* CustomIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E7D0B20634AF800232E70 /* CustomIterator.swift */; };
+		EE3E7D1020634BC200232E70 /* EnumCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E7D0F20634BC200232E70 /* EnumCollection.swift */; };
+		EE3E7D1320634BEA00232E70 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E7D1220634BEA00232E70 /* ArrayExtension.swift */; };
+		EE3E7D1720634D2D00232E70 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E7D1620634D2D00232E70 /* Game.swift */; };
+		EE3E7D1920634D3F00232E70 /* Foundation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E7D1820634D3F00232E70 /* Foundation.swift */; };
+		EE3E7D1B20634D4600232E70 /* Spare.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E7D1A20634D4600232E70 /* Spare.swift */; };
+		EE3E7D1D20634D5100232E70 /* Tableau.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E7D1C20634D5100232E70 /* Tableau.swift */; };
+		EE3E7D1F20634E9B00232E70 /* CardStackPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E7D1E20634E9B00232E70 /* CardStackPresentable.swift */; };
+		EE3E7D2120634F0600232E70 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3E7D2020634F0600232E70 /* EmptyView.swift */; };
 		EE9AA9DD203200F200FBF2F1 /* BorderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9AA9DC203200F200FBF2F1 /* BorderState.swift */; };
-		EE9AA9DF203202E000FBF2F1 /* WasteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9AA9DE203202E000FBF2F1 /* WasteView.swift */; };
-		EE9AA9E12032036300FBF2F1 /* FoundationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9AA9E02032036300FBF2F1 /* FoundationView.swift */; };
-		EE9AA9E32032059100FBF2F1 /* TableauView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9AA9E22032059100FBF2F1 /* TableauView.swift */; };
-		EE9AA9E72032183D00FBF2F1 /* CanHandleGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9AA9E62032183D00FBF2F1 /* CanHandleGesture.swift */; };
+		EE9AA9E72032183D00FBF2F1 /* CardViewActionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9AA9E62032183D00FBF2F1 /* CardViewActionDelegate.swift */; };
 		EEB70FEE203351C6004F4362 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB70FED203351C6004F4362 /* Color.swift */; };
 		EEB70FF020335282004F4362 /* MovableCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB70FEF20335282004F4362 /* MovableCardView.swift */; };
-		EEBF5929202191CC00093436 /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF591C202191CC00093436 /* ArrayExtension.swift */; };
-		EEBF592A202191CC00093436 /* EnumCollectionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF591D202191CC00093436 /* EnumCollectionProtocol.swift */; };
-		EEBF592B202191CC00093436 /* CustomIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF591E202191CC00093436 /* CustomIterator.swift */; };
 		EEBF592E202191CC00093436 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5922202191CC00093436 /* CardStack.swift */; };
 		EEBF592F202191CC00093436 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5923202191CC00093436 /* Card.swift */; };
 		EEBF5930202191CC00093436 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5924202191CC00093436 /* Number.swift */; };
 		EEBF5931202191CC00093436 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5925202191CC00093436 /* Deck.swift */; };
 		EEBF5932202191CC00093436 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5926202191CC00093436 /* Shape.swift */; };
-		EEBF59392021A10500093436 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF59382021A10500093436 /* DictionaryExtension.swift */; };
-		EEBF593C2021A13700093436 /* EnumCollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF593B2021A13700093436 /* EnumCollectionExtension.swift */; };
-		EEBF593E2021A16600093436 /* StackProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF593D2021A16600093436 /* StackProtocol.swift */; };
-		EEBF59442021A1C200093436 /* ComparableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF59432021A1C200093436 /* ComparableProtocol.swift */; };
 		EEE53A6D202AEF3F0092939C /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE53A6C202AEF3F0092939C /* CardViewModel.swift */; };
-		EEE53A71202AF0E40092939C /* StackPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE53A70202AF0E40092939C /* StackPresentable.swift */; };
-		EEE53A79202AFD780092939C /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE53A78202AFD780092939C /* Mapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,15 +58,12 @@
 		EE04C24F20319CB000A3CD3F /* FoundationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationViewModel.swift; sourceTree = "<group>"; };
 		EE04C25120319CBD00A3CD3F /* TableauViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauViewModel.swift; sourceTree = "<group>"; };
 		EE04C25320319D6100A3CD3F /* FaceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceState.swift; sourceTree = "<group>"; };
-		EE04C25520319E1B00A3CD3F /* SpaceState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceState.swift; sourceTree = "<group>"; };
 		EE04C2572031A46D00A3CD3F /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		EE04C2592031A60400A3CD3F /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
-		EE04C2602031CEC000A3CD3F /* ContainsCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainsCardViewModel.swift; sourceTree = "<group>"; };
 		EE04C2632031D19400A3CD3F /* CardPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPresentable.swift; sourceTree = "<group>"; };
 		EE04C2672031D75D00A3CD3F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		EE04C26F2031E08400A3CD3F /* ViewConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConfig.swift; sourceTree = "<group>"; };
 		EE04C2712031E63F00A3CD3F /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
-		EE04C2752031FC5B00A3CD3F /* SpareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpareView.swift; sourceTree = "<group>"; };
 		EE19382B202CD2AD00CF62B5 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		EE22EDDD202044320084F399 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE22EDE0202044320084F399 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,29 +72,28 @@
 		EE22EDEA202044320084F399 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE22EDEC202044320084F399 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE2AEA83203030A5000D0121 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		EE6082762028189400DABEC9 /* UIStackViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackViewExtension.swift; sourceTree = "<group>"; };
+		EE3E7CFE2063495600232E70 /* ComparableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComparableProtocol.swift; sourceTree = "<group>"; };
+		EE3E7CFF2063495600232E70 /* StackProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackProtocol.swift; sourceTree = "<group>"; };
+		EE3E7D002063495600232E70 /* EnumCollectionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumCollectionProtocol.swift; sourceTree = "<group>"; };
+		EE3E7D0B20634AF800232E70 /* CustomIterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIterator.swift; sourceTree = "<group>"; };
+		EE3E7D0F20634BC200232E70 /* EnumCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumCollection.swift; sourceTree = "<group>"; };
+		EE3E7D1220634BEA00232E70 /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		EE3E7D1620634D2D00232E70 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		EE3E7D1820634D3F00232E70 /* Foundation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foundation.swift; sourceTree = "<group>"; };
+		EE3E7D1A20634D4600232E70 /* Spare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spare.swift; sourceTree = "<group>"; };
+		EE3E7D1C20634D5100232E70 /* Tableau.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tableau.swift; sourceTree = "<group>"; };
+		EE3E7D1E20634E9B00232E70 /* CardStackPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackPresentable.swift; sourceTree = "<group>"; };
+		EE3E7D2020634F0600232E70 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		EE9AA9DC203200F200FBF2F1 /* BorderState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderState.swift; sourceTree = "<group>"; };
-		EE9AA9DE203202E000FBF2F1 /* WasteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasteView.swift; sourceTree = "<group>"; };
-		EE9AA9E02032036300FBF2F1 /* FoundationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationView.swift; sourceTree = "<group>"; };
-		EE9AA9E22032059100FBF2F1 /* TableauView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauView.swift; sourceTree = "<group>"; };
-		EE9AA9E62032183D00FBF2F1 /* CanHandleGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanHandleGesture.swift; sourceTree = "<group>"; };
+		EE9AA9E62032183D00FBF2F1 /* CardViewActionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewActionDelegate.swift; sourceTree = "<group>"; };
 		EEB70FED203351C6004F4362 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		EEB70FEF20335282004F4362 /* MovableCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableCardView.swift; sourceTree = "<group>"; };
-		EEBF591C202191CC00093436 /* ArrayExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
-		EEBF591D202191CC00093436 /* EnumCollectionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumCollectionProtocol.swift; sourceTree = "<group>"; };
-		EEBF591E202191CC00093436 /* CustomIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomIterator.swift; sourceTree = "<group>"; };
 		EEBF5922202191CC00093436 /* CardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		EEBF5923202191CC00093436 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		EEBF5924202191CC00093436 /* Number.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		EEBF5925202191CC00093436 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		EEBF5926202191CC00093436 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
-		EEBF59382021A10500093436 /* DictionaryExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
-		EEBF593B2021A13700093436 /* EnumCollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumCollectionExtension.swift; sourceTree = "<group>"; };
-		EEBF593D2021A16600093436 /* StackProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackProtocol.swift; sourceTree = "<group>"; };
-		EEBF59432021A1C200093436 /* ComparableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparableProtocol.swift; sourceTree = "<group>"; };
 		EEE53A6C202AEF3F0092939C /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
-		EEE53A70202AF0E40092939C /* StackPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackPresentable.swift; sourceTree = "<group>"; };
-		EEE53A78202AFD780092939C /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,11 +133,8 @@
 				EE04C2712031E63F00A3CD3F /* GameView.swift */,
 				EE04C26F2031E08400A3CD3F /* ViewConfig.swift */,
 				EEB70FEF20335282004F4362 /* MovableCardView.swift */,
+				EE3E7D2020634F0600232E70 /* EmptyView.swift */,
 				EE2AEA83203030A5000D0121 /* CardView.swift */,
-				EE04C2752031FC5B00A3CD3F /* SpareView.swift */,
-				EE9AA9DE203202E000FBF2F1 /* WasteView.swift */,
-				EE9AA9E02032036300FBF2F1 /* FoundationView.swift */,
-				EE9AA9E22032059100FBF2F1 /* TableauView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -154,8 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				EE19382B202CD2AD00CF62B5 /* Observable.swift */,
-				EEE53A70202AF0E40092939C /* StackPresentable.swift */,
-				EE04C2602031CEC000A3CD3F /* ContainsCardViewModel.swift */,
+				EE3E7D1E20634E9B00232E70 /* CardStackPresentable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -164,7 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				EE04C2632031D19400A3CD3F /* CardPresentable.swift */,
-				EE9AA9E62032183D00FBF2F1 /* CanHandleGesture.swift */,
+				EE9AA9E62032183D00FBF2F1 /* CardViewActionDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -172,7 +160,6 @@
 		EE04C2662031D31100A3CD3F /* Enums */ = {
 			isa = PBXGroup;
 			children = (
-				EE04C25520319E1B00A3CD3F /* SpaceState.swift */,
 				EE04C25320319D6100A3CD3F /* FaceState.swift */,
 				EE04C2572031A46D00A3CD3F /* Location.swift */,
 			);
@@ -213,11 +200,62 @@
 				EE04C25B2031C3D900A3CD3F /* View */,
 				EEE53A84202B4D750092939C /* ViewModel */,
 				EEBF591F202191CC00093436 /* Model */,
-				EEBF591B202191CC00093436 /* Helpers */,
+				EE3E7D0E20634B3200232E70 /* Helper */,
 				EE460618205003C500DDEAE6 /* Supporting Files */,
 				EE22EDEC202044320084F399 /* Info.plist */,
 			);
 			path = CardGameApp;
+			sourceTree = "<group>";
+		};
+		EE3E7D042063496100232E70 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				EE3E7CFE2063495600232E70 /* ComparableProtocol.swift */,
+				EE3E7D002063495600232E70 /* EnumCollectionProtocol.swift */,
+				EE3E7CFF2063495600232E70 /* StackProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		EE3E7D0E20634B3200232E70 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				EE3E7D0B20634AF800232E70 /* CustomIterator.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		EE3E7D1120634BCB00232E70 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EE3E7D0F20634BC200232E70 /* EnumCollection.swift */,
+				EE3E7D1220634BEA00232E70 /* ArrayExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		EE3E7D1420634C2D00232E70 /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				EEBF5923202191CC00093436 /* Card.swift */,
+				EEB70FED203351C6004F4362 /* Color.swift */,
+				EEBF5924202191CC00093436 /* Number.swift */,
+				EEBF5926202191CC00093436 /* Shape.swift */,
+			);
+			path = Card;
+			sourceTree = "<group>";
+		};
+		EE3E7D1520634C3B00232E70 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				EE3E7D1620634D2D00232E70 /* Game.swift */,
+				EE3E7D1820634D3F00232E70 /* Foundation.swift */,
+				EE3E7D1A20634D4600232E70 /* Spare.swift */,
+				EE3E7D1C20634D5100232E70 /* Tableau.swift */,
+				EEBF5922202191CC00093436 /* CardStack.swift */,
+				EEBF5925202191CC00093436 /* Deck.swift */,
+			);
+			path = Game;
 			sourceTree = "<group>";
 		};
 		EE460618205003C500DDEAE6 /* Supporting Files */ = {
@@ -230,49 +268,15 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		EEBF591B202191CC00093436 /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				EEE53A78202AFD780092939C /* Mapper.swift */,
-				EEBF591E202191CC00093436 /* CustomIterator.swift */,
-				EEBF59372021A0DD00093436 /* Extensions */,
-				EEBF593A2021A11000093436 /* Protocols */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
 		EEBF591F202191CC00093436 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				EEBF5926202191CC00093436 /* Shape.swift */,
-				EEBF5924202191CC00093436 /* Number.swift */,
-				EEB70FED203351C6004F4362 /* Color.swift */,
-				EEBF5923202191CC00093436 /* Card.swift */,
-				EEBF5922202191CC00093436 /* CardStack.swift */,
-				EEBF5925202191CC00093436 /* Deck.swift */,
+				EE3E7D042063496100232E70 /* Protocols */,
+				EE3E7D1120634BCB00232E70 /* Extensions */,
+				EE3E7D1520634C3B00232E70 /* Game */,
+				EE3E7D1420634C2D00232E70 /* Card */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		EEBF59372021A0DD00093436 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				EE6082762028189400DABEC9 /* UIStackViewExtension.swift */,
-				EEBF593B2021A13700093436 /* EnumCollectionExtension.swift */,
-				EEBF59382021A10500093436 /* DictionaryExtension.swift */,
-				EEBF591C202191CC00093436 /* ArrayExtension.swift */,
-			);
-			name = Extensions;
-			sourceTree = "<group>";
-		};
-		EEBF593A2021A11000093436 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				EEBF59432021A1C200093436 /* ComparableProtocol.swift */,
-				EEBF593D2021A16600093436 /* StackProtocol.swift */,
-				EEBF591D202191CC00093436 /* EnumCollectionProtocol.swift */,
-			);
-			name = Protocols;
 			sourceTree = "<group>";
 		};
 		EEE53A84202B4D750092939C /* ViewModel */ = {
@@ -280,12 +284,12 @@
 			children = (
 				EE04C2622031CF5000A3CD3F /* Protocols */,
 				EE04C2662031D31100A3CD3F /* Enums */,
-				EEE53A6C202AEF3F0092939C /* CardViewModel.swift */,
 				EE04C2592031A60400A3CD3F /* GameViewModel.swift */,
 				EE04C24B20319C9400A3CD3F /* SpareViewModel.swift */,
 				EE04C24D20319CA400A3CD3F /* WasteViewModel.swift */,
 				EE04C24F20319CB000A3CD3F /* FoundationViewModel.swift */,
 				EE04C25120319CBD00A3CD3F /* TableauViewModel.swift */,
+				EEE53A6C202AEF3F0092939C /* CardViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -432,44 +436,40 @@
 			files = (
 				EE04C25A2031A60400A3CD3F /* GameViewModel.swift in Sources */,
 				EE19382C202CD2AD00CF62B5 /* Observable.swift in Sources */,
-				EEE53A71202AF0E40092939C /* StackPresentable.swift in Sources */,
-				EEBF593C2021A13700093436 /* EnumCollectionExtension.swift in Sources */,
-				EEE53A79202AFD780092939C /* Mapper.swift in Sources */,
-				EE9AA9DF203202E000FBF2F1 /* WasteView.swift in Sources */,
-				EE9AA9E12032036300FBF2F1 /* FoundationView.swift in Sources */,
 				EEBF5930202191CC00093436 /* Number.swift in Sources */,
 				EE04C2682031D75D00A3CD3F /* GameViewController.swift in Sources */,
 				EE04C25220319CBD00A3CD3F /* TableauViewModel.swift in Sources */,
+				EE3E7D1020634BC200232E70 /* EnumCollection.swift in Sources */,
+				EE3E7D1B20634D4600232E70 /* Spare.swift in Sources */,
+				EE3E7D1F20634E9B00232E70 /* CardStackPresentable.swift in Sources */,
+				EE3E7D1D20634D5100232E70 /* Tableau.swift in Sources */,
 				EEE53A6D202AEF3F0092939C /* CardViewModel.swift in Sources */,
 				EE2AEA84203030A5000D0121 /* CardView.swift in Sources */,
 				EE04C24E20319CA400A3CD3F /* WasteViewModel.swift in Sources */,
+				EE3E7D1920634D3F00232E70 /* Foundation.swift in Sources */,
 				EE04C24C20319C9400A3CD3F /* SpareViewModel.swift in Sources */,
+				EE3E7D022063495600232E70 /* StackProtocol.swift in Sources */,
 				EEBF592F202191CC00093436 /* Card.swift in Sources */,
 				EEB70FEE203351C6004F4362 /* Color.swift in Sources */,
-				EE04C25620319E1B00A3CD3F /* SpaceState.swift in Sources */,
 				EE04C2722031E63F00A3CD3F /* GameView.swift in Sources */,
-				EEBF592B202191CC00093436 /* CustomIterator.swift in Sources */,
-				EE9AA9E72032183D00FBF2F1 /* CanHandleGesture.swift in Sources */,
+				EE9AA9E72032183D00FBF2F1 /* CardViewActionDelegate.swift in Sources */,
 				EE04C25420319D6100A3CD3F /* FaceState.swift in Sources */,
 				EE04C2642031D19400A3CD3F /* CardPresentable.swift in Sources */,
-				EE9AA9E32032059100FBF2F1 /* TableauView.swift in Sources */,
-				EE6082772028189400DABEC9 /* UIStackViewExtension.swift in Sources */,
+				EE3E7D0C20634AF800232E70 /* CustomIterator.swift in Sources */,
 				EEB70FF020335282004F4362 /* MovableCardView.swift in Sources */,
 				EEBF592E202191CC00093436 /* CardStack.swift in Sources */,
-				EEBF59392021A10500093436 /* DictionaryExtension.swift in Sources */,
-				EEBF59442021A1C200093436 /* ComparableProtocol.swift in Sources */,
-				EEBF593E2021A16600093436 /* StackProtocol.swift in Sources */,
-				EEBF5929202191CC00093436 /* ArrayExtension.swift in Sources */,
-				EE04C2612031CEC000A3CD3F /* ContainsCardViewModel.swift in Sources */,
-				EE04C2762031FC5B00A3CD3F /* SpareView.swift in Sources */,
+				EE3E7D032063495600232E70 /* EnumCollectionProtocol.swift in Sources */,
 				EE9AA9DD203200F200FBF2F1 /* BorderState.swift in Sources */,
 				EE04C25020319CB000A3CD3F /* FoundationViewModel.swift in Sources */,
+				EE3E7D1320634BEA00232E70 /* ArrayExtension.swift in Sources */,
 				EE04C2582031A46D00A3CD3F /* Location.swift in Sources */,
 				EEBF5932202191CC00093436 /* Shape.swift in Sources */,
+				EE3E7D1720634D2D00232E70 /* Game.swift in Sources */,
 				EE22EDE1202044320084F399 /* AppDelegate.swift in Sources */,
-				EEBF592A202191CC00093436 /* EnumCollectionProtocol.swift in Sources */,
+				EE3E7D2120634F0600232E70 /* EmptyView.swift in Sources */,
 				EE04C2702031E08400A3CD3F /* ViewConfig.swift in Sources */,
 				EEBF5931202191CC00093436 /* Deck.swift in Sources */,
+				EE3E7D012063495600232E70 /* ComparableProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
