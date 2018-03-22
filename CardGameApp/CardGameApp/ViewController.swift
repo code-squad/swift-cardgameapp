@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     }
     
     private func drawBaseImgViews() {
-        for indexOfOneCard in 0..<Key.count.foundations.rawValue {
+        for indexOfOneCard in 0..<Key.Card.foundations.count {
             self.view.addSubview(imgViewMaker.generateCardImgView(indexOfOneCard, .top, UIImage(), true))
         }
         let oneCard = cardDeck.removeOne()
@@ -35,14 +35,14 @@ class ViewController: UIViewController {
     }
     
     private func drawBottomCardBack() {
-        for indexOfOneCard in 0..<Key.count.baseCards.rawValue {
+        for indexOfOneCard in 0..<Key.Card.baseCards.count {
             let oneCard = cardDeck.removeOne().changeSide()
             self.view.addSubview(imgViewMaker.generateCardImgView(indexOfOneCard, .bottom, oneCard.generateCardImg(), false))
         }
     }
     
     private func setBackGround() {
-        guard let patternImage = UIImage(named : Key.Img.background.rawValue ) else { return }
+        guard let patternImage = UIImage(named : Key.Img.background.name) else { return }
         self.view.backgroundColor = UIColor.init(patternImage : patternImage)
     }
     

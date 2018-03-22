@@ -11,12 +11,31 @@ import Foundation
 struct Key {
     
     enum Img : String {
-      case background = "bg_pattern"
+        case background
+        case refresh
+        
+        var name : String {
+            switch self {
+            case .background:
+                return "bg_pattern"
+            case .refresh:
+                return "refresh"
+            }
+        }
     }
     
-    enum count : Int {
+    enum Card : Int {
         case foundations = 4
         case baseCards = 7
+        
+        var count: Int {
+            switch self {
+            case .foundations:
+                return 4
+            case .baseCards:
+                return 7
+            }
+        }
     }
     
 }
