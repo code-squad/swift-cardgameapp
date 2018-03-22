@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         self.openDeck = OpenDeck()
         self.gameCardStack = GameCardStack(with: self.deck)
         self.foundationDeck = FoundationDeck()
-        self.eventController = EventController(viewController: self)
+        self.eventController = EventController(self.view)
         self.foundationView = FoundationView(frame: CGRect(x: CGFloat(ScreenPoint.startXPoint),
                                                            y: UIApplication.shared.statusBarFrame.height,
                                                            width: (self.view.cardSize().width + self.view.marginBetweenCard()) * 4,
@@ -85,7 +85,7 @@ class ViewController: UIViewController {
             self.view.addSubview(backSide)
         }
     }
-    
+
     // Game Table View Setting::START
     private func makeGameCardStackView() {
         let tableStacks = makeColumnView()

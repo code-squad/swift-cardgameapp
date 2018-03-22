@@ -9,10 +9,10 @@
 import UIKit
 
 class EventController {
-    private var mainViewController: ViewController
+    private var mainViewControllerView: UIView
     
-    init(viewController: ViewController) {
-        self.mainViewController = viewController
+    init(_ mainView: UIView) {
+        self.mainViewControllerView = mainView
     }
     
     @objc func oneTappedCard(_ touch: UITapGestureRecognizer) {
@@ -25,10 +25,10 @@ class EventController {
     @objc func doubleTappedCard(_ touch: UITapGestureRecognizer) {
         if touch.state == .ended && touch.numberOfTapsRequired == 2 {
             guard let touchedView = touch.view else { return }
-            guard let originView = checkViewOrigin(touchedView) else { return }
+            guard let originView = touchedView.superview?.superview else { return }
             guard let fromGlobalPoint = touchedView.superview?.convert(touchedView.frame, to: originView.superview) else { return }
             let dummyCard = UIImageView()
-            let location = touch.location(in: mainViewController.view)
+            let location = touch.location(in: mainViewControllerView)
             let xPoint = Int(location.x / (dummyCard.cardSize().width + dummyCard.marginBetweenCard()))
             let yPoint = Int(touchedView.frame.origin.y / 20)
             NotificationCenter.default.post(name: .playingGameCardStack,
@@ -37,20 +37,6 @@ class EventController {
                                                        Notification.Name.touchedView: touchedView,
                                                        Notification.Name.subView: originView,
                                                        Notification.Name.fromGlobalPoint: fromGlobalPoint])
-        }
-    }
-    
-    private func checkViewOrigin(_ touchedView: UIView) -> UIView? {
-        guard let originView = touchedView.superview?.superview else { return nil }
-        switch originView.tag {
-        case SubViewTag.foundationView.rawValue:
-            return mainViewController.foundationView
-        case SubViewTag.gameCardStackView.rawValue:
-            return mainViewController.gameCardStackView
-        case SubViewTag.openDeckView.rawValue:
-            return mainViewController.openDeckView
-        default:
-            return nil
         }
     }
 }
