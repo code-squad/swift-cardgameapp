@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+protocol CardStackPresentable {
+    var cardViewModels: [CardViewModel] { get }
+
+    func append(_ card: Card?)
+
+    func remove()
+}
