@@ -11,8 +11,8 @@ import Foundation
 // Number : King(13), Queen(12), Jack(11), 10 ~ 2, Ace(1) 중 하나
 // 선택이유 : 카드의 모양과 숫자는 선택지가 정해져 있으므로 enum 선택.
 enum Number: Int, EnumCollection {
-    case two = 2, three, four, five, six, seven, eight, nine, ten
-    case jack, queen, king, ace
+    case ace = 1, two, three, four, five, six, seven, eight, nine, ten
+    case jack, queen, king
 }
 
 // 숫자 출력 포맷. jack~ace는 K~A 형태, 그 외의 케이스는 숫자 형태.
@@ -45,4 +45,10 @@ extension Number: Equatable, Comparable, ExtraComparable {
         return true
     }
 
+}
+
+extension Number {
+    var filename: String {
+        return self.description
+    }
 }

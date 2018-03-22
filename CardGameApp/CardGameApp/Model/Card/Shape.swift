@@ -37,3 +37,14 @@ extension Shape: Equatable, Comparable {
     }
 
 }
+
+extension Shape {
+    var filename: String {
+        switch self {
+        case .clubs: return "c"
+        case .diamonds: return "d"
+        case .hearts: return "h"
+        case .spades: return "s"
+        }
+    }
+}

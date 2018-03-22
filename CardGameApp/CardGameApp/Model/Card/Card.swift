@@ -44,7 +44,11 @@ extension Card: Equatable, Comparable {
 }
 
 extension Card {
-    func convertToCardViewModel(_ faceState: FaceState, borderState: BorderState, on location: Location) -> CardViewModel {
-        return CardViewModel(card: self, faceState: faceState, borderState: borderState, location: location)
+    var backImageFileName: String {
+        return "card-back"
+    }
+
+    var frontImageFileName: String {
+        return shape.filename + number.filename
     }
 }
