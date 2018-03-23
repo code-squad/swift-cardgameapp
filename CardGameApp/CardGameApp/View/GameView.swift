@@ -34,7 +34,7 @@ class GameView: UIView {
     }
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
     }
 
     // draw background and empty spaces where cards would be laid on
