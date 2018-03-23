@@ -41,7 +41,7 @@ extension GameViewController: CardViewActionDelegate {
         // 탭한 뷰의 적정 위치 찾은 후
         if let tolocation = gameViewModel.suitableLocation(for: tappedCardViewModel) {
             // 뷰 업데이트
-            let movableCardView = MovableCardView(cardView: tappedView, endLocation: tolocation)
+            let movableCardView = AnimatableCard(cardView: tappedView, endLocation: tolocation)
             gameView.move(movableCardView)
             // 뷰 업데이트 후 뷰모델 및 모델 업데이트
             tappedView.viewModel?.location.value = tolocation
@@ -54,7 +54,7 @@ extension GameViewController: CardViewActionDelegate {
             guard let cardViewModel = card.viewModel else { break }
             if case Location.waste = cardViewModel.location.value {
                 card.viewModel?.turnOver(to: .down)
-                let movableCard = MovableCardView(cardView: card, endLocation: .spare)
+                let movableCard = AnimatableCard(cardView: card, endLocation: .spare)
                 gameView.move(movableCard)
                 // 뷰 업데이트 후 뷰모델 및 모델 업데이트
                 card.viewModel?.location.value = .spare
@@ -69,7 +69,7 @@ extension GameViewController: CardViewActionDelegate {
         // 탭한 뷰의 적정 위치 찾은 후
         if let location = gameViewModel.suitableLocation(for: tappedCardViewModel) {
             // 뷰 업데이트
-            let movableCardView = MovableCardView(cardView: tappedView, endLocation: location)
+            let movableCardView = AnimatableCard(cardView: tappedView, endLocation: location)
             gameView.move(movableCardView)
             // 뷰 업데이트 후 뷰모델 및 모델 업데이트
             tappedView.viewModel?.location.value = location

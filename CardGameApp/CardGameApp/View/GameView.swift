@@ -53,7 +53,7 @@ class GameView: UIView {
         setupCards()
     }
 
-    func move(_ movableCard: MovableCardView) {
+    func move(_ movableCard: AnimatableCard) {
         let newLocation = movableCard.endLocation
         let newPosition: CGPoint
         switch newLocation {

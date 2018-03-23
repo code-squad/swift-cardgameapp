@@ -42,7 +42,7 @@
 		EEAA97C12063E91600A2C441 /* Foundations.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAA97C02063E91600A2C441 /* Foundations.swift */; };
 		EEAA97C32063EE6E00A2C441 /* Tableaus.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAA97C22063EE6E00A2C441 /* Tableaus.swift */; };
 		EEB70FEE203351C6004F4362 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB70FED203351C6004F4362 /* Color.swift */; };
-		EEB70FF020335282004F4362 /* MovableCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB70FEF20335282004F4362 /* MovableCardView.swift */; };
+		EEB70FF020335282004F4362 /* AnimatableCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB70FEF20335282004F4362 /* AnimatableCard.swift */; };
 		EEBF592E202191CC00093436 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5922202191CC00093436 /* CardStack.swift */; };
 		EEBF592F202191CC00093436 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5923202191CC00093436 /* Card.swift */; };
 		EEBF5930202191CC00093436 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5924202191CC00093436 /* Number.swift */; };
@@ -91,7 +91,7 @@
 		EEAA97C02063E91600A2C441 /* Foundations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Foundations.swift; sourceTree = "<group>"; };
 		EEAA97C22063EE6E00A2C441 /* Tableaus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tableaus.swift; sourceTree = "<group>"; };
 		EEB70FED203351C6004F4362 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		EEB70FEF20335282004F4362 /* MovableCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableCardView.swift; sourceTree = "<group>"; };
+		EEB70FEF20335282004F4362 /* AnimatableCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableCard.swift; sourceTree = "<group>"; };
 		EEBF5922202191CC00093436 /* CardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		EEBF5923202191CC00093436 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		EEBF5924202191CC00093436 /* Number.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
@@ -136,7 +136,7 @@
 				EE15896D20398926001174E2 /* Enums */,
 				EE04C2712031E63F00A3CD3F /* GameView.swift */,
 				EE04C26F2031E08400A3CD3F /* ViewConfig.swift */,
-				EEB70FEF20335282004F4362 /* MovableCardView.swift */,
+				EEB70FEF20335282004F4362 /* AnimatableCard.swift */,
 				EE3E7D2020634F0600232E70 /* EmptyView.swift */,
 				EE2AEA83203030A5000D0121 /* CardView.swift */,
 			);
@@ -463,7 +463,7 @@
 				EE04C25420319D6100A3CD3F /* FaceState.swift in Sources */,
 				EE04C2642031D19400A3CD3F /* CardPresentable.swift in Sources */,
 				EE3E7D0C20634AF800232E70 /* CustomIterator.swift in Sources */,
-				EEB70FF020335282004F4362 /* MovableCardView.swift in Sources */,
+				EEB70FF020335282004F4362 /* AnimatableCard.swift in Sources */,
 				EEBF592E202191CC00093436 /* CardStack.swift in Sources */,
 				EE3E7D032063495600232E70 /* EnumCollectionProtocol.swift in Sources */,
 				EEAA97C32063EE6E00A2C441 /* Tableaus.swift in Sources */,

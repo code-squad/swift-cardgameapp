@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct MovableCardView {
+struct AnimatableCard {
     private(set) var cardView: CardView
     private(set) var startPosition: CGPoint
     private(set) var endLocation: Location
