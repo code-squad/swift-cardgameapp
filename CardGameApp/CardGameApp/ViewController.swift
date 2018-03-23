@@ -28,17 +28,34 @@ class ViewController: UIViewController {
     
     private func drawBaseImgViews() {
         for indexOfOneCard in 0..<Key.Card.foundations.count {
-            self.view.addSubview(imgViewMaker.generateCardImgView(indexOfOneCard, .top, UIImage(), true))
+            self.view.addSubview(imgViewMaker.generateCardImgView(indexOfOneCard,
+                                                                  Key.Card.noStack.count,
+                                                                  .top,
+                                                                  UIImage(),
+                                                                  true))
         }
         let oneCard = cardDeck.removeOne()
-        self.view.addSubview(imgViewMaker.generateCardImgView(6, .top, oneCard.generateCardImg(), false))
+        self.view.addSubview(imgViewMaker.generateCardImgView(Key.Card.lastIndex.count,
+                                                              Key.Card.noStack.count,
+                                                              .top,
+                                                              oneCard.generateCardImg(),
+                                                              false))
     }
     
     private func drawBottomCardBack() {
         for indexOfOneCard in 0..<Key.Card.baseCards.count {
-            let oneCard = cardDeck.removeOne().changeSide()
-            self.view.addSubview(imgViewMaker.generateCardImgView(indexOfOneCard, .bottom, oneCard.generateCardImg(), false))
+            drawOneCardStack(indexOfOneCard)
         }
+    }
+    
+    private func drawOneCardStack(_ indexOfCard: Int) {
+        var cardImg : UIImage!
+        for stackIndex in 0..<indexOfCard {
+            cardImg = cardDeck.removeOne().generateCardImg()
+            self.view.addSubview(imgViewMaker.generateCardImgView(indexOfCard,stackIndex,.bottom,cardImg,false))
+        }
+        cardImg = cardDeck.removeOne().changeSide().generateCardImg()
+        self.view.addSubview(imgViewMaker.generateCardImgView(indexOfCard,indexOfCard,.bottom,cardImg,false))
     }
     
     private func setBackGround() {

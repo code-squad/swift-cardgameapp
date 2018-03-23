@@ -25,15 +25,17 @@ struct Key {
     }
     
     enum Card : Int {
-        case foundations = 4
-        case baseCards = 7
+        case foundations
+        case baseCards
+        case lastIndex
+        case noStack
         
         var count: Int {
             switch self {
-            case .foundations:
-                return 4
-            case .baseCards:
-                return 7
+            case .foundations: return 4
+            case .baseCards: return 7
+            case .lastIndex: return 6
+            case .noStack: return 0
             }
         }
     }

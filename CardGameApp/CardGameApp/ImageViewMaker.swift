@@ -15,6 +15,7 @@ struct ImageViewMaker {
     private let cardRatio = CGFloat(1.27)
     private let countOfCards = CGFloat(7)
     private let marginRatioValue = CGFloat(30)
+    private let stackMargin = CGFloat(20)
     
     enum Position : CGFloat {
         case top = 20
@@ -25,12 +26,13 @@ struct ImageViewMaker {
         self.screenWidth = width
     }
     
-    func generateCardImgView(_ index : Int, _ position : Position, _ cardImg : UIImage, _ isEmpty : Bool) -> UIImageView {
+    func generateCardImgView(_ index: Int, _ stackIndex : Int, _ position: Position, _ cardImg: UIImage, _ isEmpty: Bool) -> UIImageView {
         let width = screenWidth / countOfCards
         let margin = width / marginRatioValue
+        let cardSize = CGSize(width: width - margin, height: (width - margin) * cardRatio)
+        let cardOrigin = CGPoint(x: margin + CGFloat(index) * width ,y: position.rawValue + stackMargin * CGFloat(stackIndex))
         let cardbackImgView = UIImageView(image : cardImg)
-        cardbackImgView.frame = CGRect(origin: CGPoint(x: margin + CGFloat(index) * width ,y: position.rawValue) ,
-                                       size: CGSize(width: width - margin, height: (width - margin) * cardRatio))
+        cardbackImgView.frame = CGRect(origin: cardOrigin, size: cardSize)
         cardbackImgView.contentMode = .scaleAspectFit
         cardbackImgView.clipsToBounds = true
         cardbackImgView.layer.cornerRadius = 5
