@@ -26,7 +26,7 @@ class ViewController: UIViewController {
         self.openDeck = OpenDeck()
         self.gameCardStack = GameCardStack(with: self.deck)
         self.foundationDeck = FoundationDeck()
-        self.eventController = EventController(self.view)
+        self.eventController = EventController()
         self.foundationView = FoundationView(frame: CGRect(x: CGFloat(ScreenPoint.startXPoint),
                                                            y: UIApplication.shared.statusBarFrame.height,
                                                            width: (UIView.cardSize().width + UIView.marginBetweenCard()) * 4,

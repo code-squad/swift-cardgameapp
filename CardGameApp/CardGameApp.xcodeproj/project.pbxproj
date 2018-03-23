@@ -117,8 +117,8 @@
 			children = (
 				407D850C201EC0DB00071EDB /* UIView+CardView.swift */,
 				404A85A420219394008D2FA1 /* UIView+CardStack.swift */,
-				40C45538204D34240060F609 /* GameCardStackView.swift */,
 				40C4553C204E30850060F609 /* FoundationView.swift */,
+				40C45538204D34240060F609 /* GameCardStackView.swift */,
 				40438EC920562A8B001C505F /* OpenDeckView.swift */,
 				407E2E22205FC605007F6109 /* CardGameViewProtocol.swift */,
 			);

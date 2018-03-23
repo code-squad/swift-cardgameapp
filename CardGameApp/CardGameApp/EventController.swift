@@ -9,11 +9,6 @@
 import UIKit
 
 class EventController {
-    private var mainViewControllerView: UIView
-    
-    init(_ mainView: UIView) {
-        self.mainViewControllerView = mainView
-    }
     
     @objc func oneTappedCard(_ touch: UITapGestureRecognizer) {
         if touch.state == .ended {
@@ -27,7 +22,7 @@ class EventController {
             guard let touchedView = touch.view else { return }
             guard let originView = touchedView.superview?.superview else { return }
             guard let fromGlobalPoint = touchedView.superview?.convert(touchedView.frame, to: originView.superview) else { return }
-            let location = touch.location(in: mainViewControllerView)
+            let location = touch.location(in: originView)
             let xPoint = Int(location.x / (UIView.cardSize().width + UIView.marginBetweenCard()))
             let yPoint = Int(touchedView.frame.origin.y / 20)
             NotificationCenter.default.post(name: .playingGameCardStack,
