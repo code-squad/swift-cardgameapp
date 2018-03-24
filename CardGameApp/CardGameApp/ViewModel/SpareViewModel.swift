@@ -27,7 +27,7 @@ class SpareViewModel: CardStackPresentable {
     }
 
     func remove() {
-        cardViewModels.isEmpty ? nil : cardViewModels.removeLast()
+        _ = cardViewModels.isEmpty ? nil : cardViewModels.removeLast()
     }
 
 }

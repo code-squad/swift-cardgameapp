@@ -28,7 +28,7 @@ class TableauViewModel: CardStackPresentable {
     }
 
     func remove() {
-        cardViewModels.isEmpty ? nil : cardViewModels.removeLast()
+        _ = cardViewModels.isEmpty ? nil : cardViewModels.removeLast()
         cardViewModels.last?.turnOver(to: .up)
     }
 
