@@ -34,33 +34,31 @@ class SpareView: UIView, CanLayCards {
         super.init(coder: aDecoder)
     }
 
-    func setupCards(_ viewModel: CardStackPresentable) {
+    func setupCards(_ viewModel: CardStackPresentable, completion: @escaping (CardView) -> Void) {
         laidCards = []
         viewModel.cardViewModels.forEach {
-            let cardFrame = CGRect(origin: .zero, size: config.cardSize)
+            let cardFrame = CGRect(origin: frame.origin, size: config.cardSize)
             let cardView = CardView(viewModel: $0, frame: cardFrame)
             laidCards.append(cardView)
-            addSubview(cardView)
+            completion(cardView)
         }
     }
 
-    func nextCardPosition() -> CGPoint {
+    func nextCardPosition() -> CGPoint? {
         return self.frame.origin
     }
 
     func lay(card: CardView) {
         laidCards.append(card)
-//        addSubview(card)
     }
 
     func removeLastCard() {
-        laidCards.isEmpty ? nil : laidCards.removeLast()
-//        laidCards.last?.removeFromSuperview()
+        _ = laidCards.isEmpty ? nil : laidCards.removeLast()
     }
 
     func removeAllSubviews() {
-        laidCards = []
         laidCards.forEach { $0.removeFromSuperview() }
+        laidCards = []
     }
 
     private func addRefreshButton() {

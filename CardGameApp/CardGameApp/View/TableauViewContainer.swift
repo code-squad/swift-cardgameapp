@@ -9,7 +9,7 @@
 import UIKit
 
 class TableauViewContainer: UIView {
-    private(set) var tableauViews: [TableauView] = []
+    private var tableauViews: [TableauView] = []
     private var config: ViewConfig
 
     convenience init(frame: CGRect, config: ViewConfig) {
@@ -31,23 +31,24 @@ class TableauViewContainer: UIView {
     private func configureTableauViews() {
         (0..<config.tableauCount).forEach {
             let origin = CGPoint(x: CGFloat($0)*(config.cardSize.width+config.normalSpacing), y: 0)
-            let tableauView = TableauView(frame: CGRect(origin: origin,
-                                                        size: CGSize(width: config.cardSize.width, height: frame.height)),
-                                          index: $0, config: config)
+            let tableauView = TableauView(
+                frame: CGRect(origin: origin, size: CGSize(width: config.cardSize.width, height: frame.height)),
+                index: $0, config: config)
             tableauViews.append(tableauView)
             addSubview(tableauView)
         }
     }
 
-    func setupCards(_ viewModels: [CardStackPresentable]) {
+    func setupCards(_ viewModels: [CardStackPresentable], completion: @escaping (CardView) -> Void) {
         for (view, viewModel) in zip(tableauViews, viewModels) {
             view.reset()
             viewModel.cardViewModels.enumerated().forEach { (index, viewModel) in
-                let origin = CGPoint(x: 0, y: CGFloat(index) * (config.cardSize.height * 0.3))
+                let origin = CGPoint(x: view.frame.origin.x,
+                                     y: frame.origin.y+CGFloat(index)*(config.cardSize.height * 0.3))
                 let cardFrame = CGRect(origin: origin, size: config.cardSize)
                 let cardView = CardView(viewModel: viewModel, frame: cardFrame)
                 view.lay(card: cardView)
-                view.addSubview(cardView)
+                completion(cardView)
             }
         }
     }
@@ -68,7 +69,4 @@ class TableauViewContainer: UIView {
         return tableauViews[index]
     }
 
-    func nextCardPosition(of index: Int) -> CGPoint {
-        return tableauViews[index].nextCardPosition()
-    }
 }
