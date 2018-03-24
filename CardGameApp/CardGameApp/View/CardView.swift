@@ -41,6 +41,12 @@ class CardView: UIImageView {
         superview?.sendSubview(toBack: self)
     }
 
+    func move(toView: CanLayCards) {
+        let fromView = self.superview as? CanLayCards
+        fromView?.removeLastCard()
+        toView.lay(card: self)
+    }
+
 }
 
 extension CardView: CardPresentable {
@@ -87,7 +93,7 @@ extension CardView {
         }
     }
 
-    private func handleCertainView(execute: (GameView) -> Void) {
+    func handleCertainView(execute: (GameView) -> Void) {
         // GameView까지 올라가서 핸들러 작동
         var nextResponder = self.next
         while nextResponder != nil {
