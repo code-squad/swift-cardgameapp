@@ -32,6 +32,10 @@ class CardViewModel {
         self.location = Observable(location)
     }
 
+    func turnOver() {
+        self.status.value == .down ? turnOver(to: .up) : turnOver(to: .down)
+    }
+
     func turnOver(to status: FaceState) {
         self.status.value = status
     }
