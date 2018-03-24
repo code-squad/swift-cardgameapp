@@ -37,39 +37,48 @@ extension GameViewController: CardViewActionDelegate, RefreshActionDelegate {
     }
 
     func onCardViewDoubleTapped(tappedView: CardView) {
-        moveToSuitableLocation(tappedView, shouldTurnOverFace: false)
+        moveToSuitableLocation(tappedView, toLocation: nil, shouldTurnOverFace: false)
     }
 
     func onSpareViewTapped(tappedView: CardView) {
-        moveToSuitableLocation(tappedView, shouldTurnOverFace: true)
+        moveToSuitableLocation(tappedView, toLocation: nil, shouldTurnOverFace: true)
     }
 
     func onRefreshButtonTapped() {
-        for card in gameView.wasteView {
-            card.viewModel?.turnOver(to: .down)
-            let movableCard = AnimatableCard(cardView: card, endLocation: .spare)
-            gameView.move(movableCard)
-            // 뷰 업데이트 후 뷰모델 및 모델 업데이트
-            card.viewModel?.location.value = .spare
-            gameViewModel.refreshWaste()
+        for card in gameView.wasteView.reversed() {
+            moveToSuitableLocation(card, toLocation: .spare, shouldTurnOverFace: true)
         }
     }
 
     // MARK: - PRIVATE
 
-    private func moveToSuitableLocation(_ cardView: CardView, shouldTurnOverFace: Bool) {
+    private func moveToSuitableLocation(_ cardView: CardView, toLocation: Location?, shouldTurnOverFace: Bool) {
         guard let cardViewModel = cardView.viewModel else { return }
         shouldTurnOverFace ? cardViewModel.turnOver() : nil
         // 탭한 뷰의 적정 위치 찾은 후
-        if let endLocation = gameViewModel.suitableLocation(for: cardViewModel) {
-            let fromLocation = cardViewModel.location.value
+        if let suitableLocation =
+            (toLocation == nil) ? gameViewModel.suitableLocation(for: cardViewModel) : toLocation {
             // 뷰 업데이트
-            let movableCardView = AnimatableCard(cardView: cardView, endLocation: endLocation)
+            let movableCardView = AnimatableCard(cardView: cardView, endLocation: suitableLocation)
+            movableCardView.delegate = self
             gameView.move(movableCardView)
-            // 뷰 업데이트 후 뷰모델 및 모델 업데이트
-            cardView.viewModel?.location.value = endLocation
-            gameViewModel.move(cardViewModel: cardViewModel, from: fromLocation, to: endLocation)
         }
+    }
+
+}
+
+extension GameViewController: UpdateModelDelegate {
+    func refreshWaste() {
+        gameViewModel.refreshWaste()
+    }
+
+    func move(cardViewModel: CardViewModel, from startLocation: Location, to endLocation: Location) {
+        let fromLocation = cardViewModel.location.value
+        gameViewModel.move(cardViewModel: cardViewModel, from: fromLocation, to: endLocation)
+    }
+
+    func update(cardViewModel: CardViewModel, to endLocation: Location) {
+        cardViewModel.location.value = endLocation
     }
 
 }

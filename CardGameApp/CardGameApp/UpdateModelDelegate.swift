@@ -6,4 +6,12 @@
 //  Copyright © 2018년 심 승민. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+protocol UpdateModelDelegate: class {
+    func refreshWaste()
+
+    func move(cardViewModel: CardViewModel, from startLocation: Location, to endLocation: Location)
+
+    func update(cardViewModel: CardViewModel, to endLocation: Location)
+}
