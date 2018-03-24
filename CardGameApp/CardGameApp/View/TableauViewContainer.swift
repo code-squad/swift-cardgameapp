@@ -53,14 +53,6 @@ class TableauViewContainer: UIView {
         }
     }
 
-    func lay(card: CardView, on index: Int) {
-        tableauViews[index].lay(card: card)
-    }
-
-    func remove(on index: Int) {
-        tableauViews[index].removeLastCard()
-    }
-
     func removeAllCards() {
         tableauViews.forEach { $0.removeAllSubviews() }
     }

@@ -28,14 +28,6 @@ class FoundationViewContainer: UIView {
         super.init(coder: aDecoder)
     }
 
-    func lay(card: CardView, on index: Int) {
-        foundationViews[index].lay(card: card)
-    }
-
-    func remove(on index: Int) {
-        foundationViews[index].removeLastCard()
-    }
-
     func removeAllCards() {
         foundationViews.forEach { $0.removeAllSubviews() }
     }
