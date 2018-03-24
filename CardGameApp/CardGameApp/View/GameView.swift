@@ -58,12 +58,12 @@ class GameView: UIView {
 
     func move(_ movableCard: AnimatableCard) {
         let newLocation = movableCard.endLocation
-        let newPosition: CGPoint
+        let newPosition: CGPoint?
         switch newLocation {
         case .spare: newPosition = spareView.nextCardPosition()
         case .waste: newPosition = wasteView.nextCardPosition()
-        case .foundation(let index): newPosition = foundationViewContainer.nextCardPosition(of: index)
-        case .tableau(let index): newPosition = tableauViewContainer.nextCardPosition(of: index)
+        case .foundation(let index): newPosition = foundationViewContainer.at(index).nextCardPosition()
+        case .tableau(let index): newPosition = tableauViewContainer.at(index).nextCardPosition()
         }
         movableCard.animateToMove(to: newPosition)
     }
@@ -92,23 +92,25 @@ class GameView: UIView {
     }
 
     private func configureFoundationViews() {
-        foundationViewContainer = FoundationViewContainer(frame: CGRect(origin: config.foundationOrigin, size: config.cardSize),
-                                                          config: config)
+        foundationViewContainer = FoundationViewContainer(
+            frame: CGRect(origin: config.foundationOrigin, size: config.cardSize), config: config)
         addSubview(foundationViewContainer)
     }
 
     private func configureTableauViews() {
-        tableauViewContainer = TableauViewContainer(frame: CGRect(origin: config.tableauOrigin,
-                                                                  size: CGSize(width: frame.width,
-                                                                               height: frame.height-wasteView.frame.height-wasteView.frame.origin.y-config.tableauOrigin.y)),
+        tableauViewContainer = TableauViewContainer(frame: CGRect(origin: config.tableauOrigin, size: config.cardSize),
                                                     config: config)
         addSubview(tableauViewContainer)
     }
 
     // setup default cards on tableau and spare, using game model
     private func setupCards() {
-        tableauViewContainer.setupCards(game.tableauViewModels)
-        spareView.setupCards(game.spareViewModel)
+        tableauViewContainer.setupCards(game.tableauViewModels) { [unowned self] in
+            self.addSubview($0)
+        }
+        spareView.setupCards(game.spareViewModel) { [unowned self] in
+            self.addSubview($0)
+        }
     }
 
 }
