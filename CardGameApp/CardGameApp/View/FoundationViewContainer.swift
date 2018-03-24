@@ -9,7 +9,7 @@
 import UIKit
 
 class FoundationViewContainer: UIView {
-    private(set) var foundationViews: [FoundationView] = []
+    private var foundationViews: [FoundationView] = []
     private var config: ViewConfig
 
     convenience init(frame: CGRect, config: ViewConfig) {
@@ -26,10 +26,6 @@ class FoundationViewContainer: UIView {
     required init?(coder aDecoder: NSCoder) {
         config = ViewConfig(on: UIView())
         super.init(coder: aDecoder)
-    }
-
-    func nextCardPosition(of index: Int) -> CGPoint {
-        return foundationViews[index].nextCardPosition()
     }
 
     func lay(card: CardView, on index: Int) {
