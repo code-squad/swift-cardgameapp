@@ -34,10 +34,6 @@ class GameViewModel {
         bindModels()
     }
 
-    func moveToWaste(_ cardViewModel: CardViewModel) {
-        game.move(cardsFrom: cardViewModel.card, from: .spare, to: .waste)
-    }
-
     func refreshWaste() {
         game.refreshWaste()
     }
