@@ -8,15 +8,17 @@
 
 import UIKit
 
-struct AnimatableCard {
+class AnimatableCard {
     private(set) var cardView: CardView
-    private(set) var startPosition: CGPoint
+    private(set) var startPosition: CGPoint = .zero
     private(set) var endLocation: Location
 
     init(cardView: CardView, endLocation: Location) {
         self.cardView = cardView
-        self.startPosition = cardView.frame.origin
         self.endLocation = endLocation
+        cardView.handleCertainView { [unowned self] gameView in
+            self.startPosition = cardView.convert(cardView.frame.origin, to: gameView)
+        }
     }
 
     func animateToMove(to endPosition: CGPoint) {
@@ -33,6 +35,15 @@ struct AnimatableCard {
             // 현재 이동중인 카드를 맨 앞으로.
             self.cardView.bringToFront()
             self.cardView.transform = translateTransform
+        }, completion: { _ in
+            self.cardView.handleCertainView(execute: { gameView in
+                switch self.endLocation {
+                case .spare: self.cardView.move(toView: gameView.spareView)
+                case .waste: self.cardView.move(toView: gameView.wasteView)
+                case .foundation(let index): self.cardView.move(toView: gameView.foundationViewContainer.at(index))
+                case .tableau(let index): self.cardView.move(toView: gameView.tableauViewContainer.at(index))
+                }
+            })
         })
     }
 
