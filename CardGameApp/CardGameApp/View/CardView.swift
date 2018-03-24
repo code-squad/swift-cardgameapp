@@ -42,7 +42,15 @@ class CardView: UIImageView {
     }
 
     func move(toView: CanLayCards) {
-        let fromView = self.superview as? CanLayCards
+        guard let fromLocation = viewModel?.location.value,
+            let gameView = self.superview as? GameView else { return }
+        var fromView: CanLayCards?
+        switch fromLocation {
+        case .waste: fromView = gameView.wasteView
+        case .spare: fromView = gameView.spareView
+        case .foundation(let index): fromView = gameView.foundationViewContainer.at(index)
+        case .tableau(let index): fromView = gameView.tableauViewContainer.at(index)
+        }
         fromView?.removeLastCard()
         toView.lay(card: self)
     }
@@ -67,8 +75,7 @@ extension CardView: CardPresentable {
     }
 }
 
-extension CardView {
-
+extension CardView: CanFindGameView {
     private func registerTapGesture(tapCount: Int) {
         let selector = (tapCount == 1) ? #selector(handleSingleTap(sender:)) : #selector(handleDoubleTap(sender:))
         let recognizer = UITapGestureRecognizer(target: self, action: selector)
@@ -79,7 +86,7 @@ extension CardView {
 
     @objc func handleSingleTap(sender: UITapGestureRecognizer) {
         guard let currLocation = self.viewModel?.location.value, case Location.spare = currLocation else { return }
-        handleCertainView { gameView in
+        handleCertainView(from: self) { gameView in
             self.bringToFront()
             gameView.delegate?.onSpareViewTapped(tappedView: self)
         }
@@ -87,20 +94,10 @@ extension CardView {
 
     @objc func handleDoubleTap(sender: UITapGestureRecognizer) {
         guard viewModel!.isUserInteractive else { return }
-        handleCertainView { gameView in
+        handleCertainView(from: self) { gameView in
             self.bringToFront()
             gameView.delegate?.onCardViewDoubleTapped(tappedView: self)
         }
     }
 
-    func handleCertainView(execute: (GameView) -> Void) {
-        // GameView까지 올라가서 핸들러 작동
-        var nextResponder = self.next
-        while nextResponder != nil {
-            if let gameView = nextResponder as? GameView {
-                execute(gameView)
-            }
-            nextResponder = nextResponder?.next
-        }
-    }
 }
