@@ -10,6 +10,6 @@ import UIKit
 
 protocol CardViewActionDelegate: class {
     func onSpareViewTapped(tappedView: CardView)
-    func onRefreshButtonTapped()
+    
     func onCardViewDoubleTapped(tappedView: CardView)
 }
