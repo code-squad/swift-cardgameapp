@@ -6,9 +6,12 @@
 //  Copyright © 2018년 심 승민. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol CanLayCards {
     func lay(card: CardView)
+
     func removeLastCard()
+
+    func nextCardPosition() -> CGPoint?
 }

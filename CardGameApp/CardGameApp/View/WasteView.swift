@@ -8,11 +8,6 @@
 
 import UIKit
 
-protocol CanLayCards {
-    func lay(card: CardView)
-    func removeLastCard()
-}
-
 class WasteView: UIView, Sequence, CanLayCards {
     private let emptyView: EmptyView
     private var laidCards: [CardView] = []
@@ -33,22 +28,20 @@ class WasteView: UIView, Sequence, CanLayCards {
         super.init(coder: aDecoder)
     }
 
-    func nextCardPosition() -> CGPoint {
+    func nextCardPosition() -> CGPoint? {
         return self.frame.origin
     }
 
     func lay(card: CardView) {
         laidCards.append(card)
-//        addSubview(card)
     }
 
     func removeLastCard() {
-        laidCards.isEmpty ? nil : laidCards.removeLast()
-//        laidCards.last?.removeFromSuperview()
+        _ = laidCards.isEmpty ? nil : laidCards.removeLast()
     }
 
     func removeAllSubviews() {
-        laidCards = []
         laidCards.forEach { $0.removeFromSuperview() }
+        laidCards = []
     }
 }
