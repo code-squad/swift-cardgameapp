@@ -39,7 +39,7 @@ class TableauViewContainer: UIView {
         }
     }
 
-    func setupCards(_ viewModels: [CardStackPresentable], completion: @escaping (CardView) -> Void) {
+    func setupCards(_ viewModels: TableauViewModels, completion: @escaping (CardView) -> Void) {
         for (view, viewModel) in zip(tableauViews, viewModels) {
             view.reset()
             viewModel.cardViewModels.enumerated().forEach { (index, viewModel) in

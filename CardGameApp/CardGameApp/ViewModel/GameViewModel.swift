@@ -11,19 +11,17 @@ import Foundation
 class GameViewModel {
 
     private(set) var game: Game
-    private(set) var cardViewModels: [CardViewModel]
     private(set) var spareViewModel: CardStackPresentable
     private(set) var wasteViewModel: CardStackPresentable
-    private(set) var foundationViewModels: [CardStackPresentable]
-    private(set) var tableauViewModels: [CardStackPresentable]
+    private(set) var foundationViewModels: FoundationViewModels
+    private(set) var tableauViewModels: TableauViewModels
 
     init() {
         game = Game()
-        cardViewModels = []
         spareViewModel = SpareViewModel()
         wasteViewModel = WasteViewModel()
-        foundationViewModels = []
-        tableauViewModels = []
+        foundationViewModels = FoundationViewModels()
+        tableauViewModels = TableauViewModels()
     }
 
     // MARK: - Update Models
@@ -45,7 +43,7 @@ class GameViewModel {
         guard let suitableLocation = game.suitableLocation(cardViewModel.card) else { return nil }
         // 만약 목적지의 마지막 카드가 뒤집힌 카드라면 전달하지 않는다.
         if case let Location.tableau(index) = suitableLocation {
-            if let lastCard = tableauViewModels[index].cardViewModels.last, lastCard.status.value == .down {
+            if let lastCard = tableauViewModels.at(index).cardViewModels.last, lastCard.status.value == .down {
                 return nil
             }
         }
@@ -61,31 +59,19 @@ class GameViewModel {
     private func initializeViewModels() {
         spareViewModel = SpareViewModel(game.spare)
         wasteViewModel = WasteViewModel(game.waste)
-        foundationViewModels = game.foundations.enumerated().map {
-            FoundationViewModel($0.element, stackNumber: $0.offset)
-        }
-        tableauViewModels = game.tableaus.enumerated().map {
-            TableauViewModel($0.element, stackNumber: $0.offset)
-        }
+        foundationViewModels = FoundationViewModels(game.foundations)
+        tableauViewModels = TableauViewModels(game.tableaus)
     }
 
     private func bindModels() {
-        for (model, viewModel) in zip(game.foundations, foundationViewModels) {
-            model.cards.bind {
-                model.isAdded ? viewModel.append($0) : viewModel.remove()
-            }
-        }
+        foundationViewModels.bind(with: game.foundations)
         game.spare.cards.bind { [unowned self] in
             self.game.spare.isAdded ? self.spareViewModel.append($0) : self.spareViewModel.remove()
         }
         game.waste.cards.bind { [unowned self] in
             self.game.waste.isAdded ? self.wasteViewModel.append($0) : self.wasteViewModel.remove()
         }
-        for (model, viewModel) in zip(game.tableaus, tableauViewModels) {
-            model.cards.bind {
-                model.isAdded ? viewModel.append($0) : viewModel.remove()
-            }
-        }
+        tableauViewModels.bind(with: game.tableaus)
     }
 
 }

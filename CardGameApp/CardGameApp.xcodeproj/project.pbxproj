@@ -51,6 +51,8 @@
 		EEB4045F20663CE700297E8C /* CanLayCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4045E20663CE700297E8C /* CanLayCards.swift */; };
 		EEB4046120665B2300297E8C /* CanFindGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB4046020665B2300297E8C /* CanFindGameView.swift */; };
 		EEB404632066A7E000297E8C /* UpdateModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB404622066A7E000297E8C /* UpdateModelDelegate.swift */; };
+		EEB404652066C0BD00297E8C /* FoundationViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB404642066C0BD00297E8C /* FoundationViewModels.swift */; };
+		EEB404672066C41000297E8C /* TableauViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB404662066C41000297E8C /* TableauViewModels.swift */; };
 		EEB70FEE203351C6004F4362 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB70FED203351C6004F4362 /* Color.swift */; };
 		EEB70FF020335282004F4362 /* AnimatableCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB70FEF20335282004F4362 /* AnimatableCard.swift */; };
 		EEBF592E202191CC00093436 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEBF5922202191CC00093436 /* CardStack.swift */; };
@@ -110,6 +112,8 @@
 		EEB4045E20663CE700297E8C /* CanLayCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanLayCards.swift; sourceTree = "<group>"; };
 		EEB4046020665B2300297E8C /* CanFindGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanFindGameView.swift; sourceTree = "<group>"; };
 		EEB404622066A7E000297E8C /* UpdateModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateModelDelegate.swift; sourceTree = "<group>"; };
+		EEB404642066C0BD00297E8C /* FoundationViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationViewModels.swift; sourceTree = "<group>"; };
+		EEB404662066C41000297E8C /* TableauViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauViewModels.swift; sourceTree = "<group>"; };
 		EEB70FED203351C6004F4362 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		EEB70FEF20335282004F4362 /* AnimatableCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableCard.swift; sourceTree = "<group>"; };
 		EEBF5922202191CC00093436 /* CardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
@@ -323,7 +327,9 @@
 				EE04C2592031A60400A3CD3F /* GameViewModel.swift */,
 				EE04C24B20319C9400A3CD3F /* SpareViewModel.swift */,
 				EE04C24D20319CA400A3CD3F /* WasteViewModel.swift */,
+				EEB404642066C0BD00297E8C /* FoundationViewModels.swift */,
 				EE04C24F20319CB000A3CD3F /* FoundationViewModel.swift */,
+				EEB404662066C41000297E8C /* TableauViewModels.swift */,
 				EE04C25120319CBD00A3CD3F /* TableauViewModel.swift */,
 				EEE53A6C202AEF3F0092939C /* CardViewModel.swift */,
 			);
@@ -490,6 +496,7 @@
 				EEB4046120665B2300297E8C /* CanFindGameView.swift in Sources */,
 				EE04C24C20319C9400A3CD3F /* SpareViewModel.swift in Sources */,
 				EEB404632066A7E000297E8C /* UpdateModelDelegate.swift in Sources */,
+				EEB404652066C0BD00297E8C /* FoundationViewModels.swift in Sources */,
 				EE3E7D022063495600232E70 /* StackProtocol.swift in Sources */,
 				EEBF592F202191CC00093436 /* Card.swift in Sources */,
 				EEB404572064D75B00297E8C /* FoundationView.swift in Sources */,
@@ -510,6 +517,7 @@
 				EE04C2582031A46D00A3CD3F /* Location.swift in Sources */,
 				EEB404592064D76600297E8C /* TableauView.swift in Sources */,
 				EEBF5932202191CC00093436 /* Shape.swift in Sources */,
+				EEB404672066C41000297E8C /* TableauViewModels.swift in Sources */,
 				EE3E7D1720634D2D00232E70 /* Game.swift in Sources */,
 				EEB4045F20663CE700297E8C /* CanLayCards.swift in Sources */,
 				EE22EDE1202044320084F399 /* AppDelegate.swift in Sources */,
