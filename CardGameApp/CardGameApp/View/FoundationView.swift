@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FoundationView: UIView, CanLayCards {
+class FoundationView: UIView, CanLayCards, CanFindGameView {
     private var index: Int
     private let emptyView: EmptyView
     private var laidCards: [CardView] = []
@@ -33,20 +33,22 @@ class FoundationView: UIView, CanLayCards {
 
     func lay(card: CardView) {
         laidCards.append(card)
-//        addSubview(card)
     }
 
     func removeLastCard() {
-        laidCards.isEmpty ? nil : laidCards.removeLast()
-//        laidCards.last?.removeFromSuperview()
+        _ = laidCards.isEmpty ? nil : laidCards.removeLast()
     }
 
     func removeAllSubviews() {
-        laidCards = []
         laidCards.forEach { $0.removeFromSuperview() }
+        laidCards = []
     }
 
-    func nextCardPosition() -> CGPoint {
-        return self.frame.origin
+    func nextCardPosition() -> CGPoint? {
+        var basePosition: CGPoint?
+        handleCertainView(from: self) { gameView in
+            basePosition = convert(self.frame.origin, to: gameView)
+        }
+        return CGPoint(x: basePosition!.x/2, y: basePosition!.y)
     }
 }

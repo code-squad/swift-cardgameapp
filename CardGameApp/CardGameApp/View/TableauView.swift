@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TableauView: UIView, CanLayCards {
+class TableauView: UIView, CanLayCards, CanFindGameView {
     private var index: Int
     private let emptyView: EmptyView
     private var laidCards: [CardView] = []
@@ -35,12 +35,10 @@ class TableauView: UIView, CanLayCards {
 
     func lay(card: CardView) {
         laidCards.append(card)
-//        addSubview(card)
     }
 
     func removeLastCard() {
-        laidCards.isEmpty ? nil : laidCards.removeLast()
-//        laidCards.last?.removeFromSuperview()
+        _ = laidCards.isEmpty ? nil : laidCards.removeLast()
     }
 
     func reset() {
@@ -48,13 +46,15 @@ class TableauView: UIView, CanLayCards {
     }
 
     func removeAllSubviews() {
-        laidCards = []
         laidCards.forEach { $0.removeFromSuperview() }
+        laidCards = []
     }
 
-    func nextCardPosition() -> CGPoint {
-        let basePosition = self.frame.origin
-        return CGPoint(x: basePosition.x,
-                       y: basePosition.y+CGFloat(laidCards.count)*verticalSpacing)
+    func nextCardPosition() -> CGPoint? {
+        var basePosition: CGPoint?
+        handleCertainView(from: self) { gameView in
+            basePosition = convert(self.frame.origin, to: gameView)
+        }
+        return CGPoint(x: basePosition!.x/2, y: basePosition!.y+CGFloat(laidCards.count)*verticalSpacing)
     }
 }
