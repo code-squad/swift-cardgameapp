@@ -8,8 +8,6 @@
 
 import UIKit
 
-typealias Position = (from: CGRect, target: CGRect)
-
 class ViewController: UIViewController {
     private var eventController: EventController!
     private var deck: Deck!
@@ -27,23 +25,9 @@ class ViewController: UIViewController {
         self.gameCardStack = GameCardStack(with: self.deck)
         self.foundationDeck = FoundationDeck()
         self.eventController = EventController()
-        self.foundationView = FoundationView(frame: CGRect(x: CGFloat(ScreenPoint.startXPoint),
-                                                           y: UIApplication.shared.statusBarFrame.height,
-                                                           width: (UIView.cardSize().width + UIView.marginBetweenCard()) * 4,
-                                                           height: UIView.cardSize().height))
-        self.openDeckView = OpenDeckView(frame: CGRect(origin: self.view.makeViewPoint(columnIndex: CGFloat(ScreenPoint.openCardXPoint),
-                                                                                       rowIndex: CGFloat(ScreenPoint.startYPoint)),
-                                                       size: UIView.cardSize()))
-        self.gameCardStackView = GameCardStackView(frame: CGRect(x: CGFloat(ScreenPoint.startXPoint),
-                                                                 y: UIView.cardSize().height
-                                                                    + UIView.marginBetweenCard()
-                                                                    + UIApplication.shared.statusBarFrame.height,
-                                                                 width: UIScreen.main.bounds.size.width,
-                                                                 height: UIScreen.main.bounds.size.height
-                                                                    - UIApplication.shared.statusBarFrame.height
-                                                                    - (UIView.cardSize().height
-                                                                        + UIView.marginBetweenCard())))
-        makeGameTable()
+        self.foundationView = FoundationView()
+        self.openDeckView = OpenDeckView()
+        self.gameCardStackView = GameCardStackView()
         NotificationCenter.default.addObserver(self, selector: #selector(playGameCardStack(notification:)), name: .playingGameCardStack, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(openCardDeck(notification:)), name: .openCard, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(popOpenCardView(notification:)), name: .popOpenCard, object: nil)
@@ -51,6 +35,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(pushFoundationView(notification:)), name: .pushFoundation, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pushCardGameStackView(notification:)), name: .pushCardGameStack, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(flipCardView(notification:)), name: .flipCard, object: nil)
+        makeGameTable()
     }
     
     private func makeGameTable() {
@@ -75,8 +60,9 @@ class ViewController: UIViewController {
     private func makeDeckView() {
         guard let restOfcardCover = deck.getRestDeck().last else { return }
         if !restOfcardCover.isUpside() {
-            let backSide = UIImageView(image: UIImage(named: "card_back"))
-            backSide.makeCardView(index: CGFloat(ScreenPoint.lastXpoint))
+            let backSide = CardView(image: UIImage(named: "card_back"))
+            backSide.arrangeCardView(xPoint: CGFloat(ScreenPoint.lastXpoint),
+                                     yPoint: UIApplication.shared.statusBarFrame.height)
             let gesture = UITapGestureRecognizer(target: eventController,
                                                  action: #selector (eventController.oneTappedCard(_:)))
             backSide.addGestureRecognizer(gesture)
@@ -92,7 +78,7 @@ class ViewController: UIViewController {
         var column = 0
         for cardView in tableStacks {
             for index in 0..<cardView.count {
-                cardView[index].makeStackView(cardsRow: index)
+                cardView[index].arrangeCardViewInStack(yPoint: CGFloat(index))
                 gameCardStackView.subviews[column].addSubview(cardView[index])
                 addDoubleTapGesture(view: cardView[index])
             }
@@ -100,35 +86,34 @@ class ViewController: UIViewController {
         }
     }
     
-    private func makeColumnView() -> [[UIImageView]] {
-        var cardStackView = [[UIImageView]]()
+    private func makeColumnView() -> [[CardView]] {
+        var cardStackView = [[CardView]]()
         for cards in gameCardStack.cardStacksOfTable {
             cardStackView.append(makeCardStacks(deck: cards))
         }
         return cardStackView
     }
     
-    private func makeCardStacks(deck: Deck) -> [UIImageView] {
-        var stacks = [UIImageView]()
+    private func makeCardStacks(deck: Deck) -> [CardView] {
+        var stacks = [CardView]()
         for card in deck.cards {
             stacks.append(choiceCardFace(with: card))
         }
         return stacks
     }
     
-    private func choiceCardFace(with card: Card) -> UIImageView {
-        var cardView = UIImageView()
+    private func choiceCardFace(with card: Card) -> CardView {
+        var cardView = CardView()
         if card.isUpside() {
-            cardView = UIImageView(image: UIImage(named: card.getCardName()))
+            cardView = CardView(image: UIImage(named: card.getCardName()))
         } else {
-            cardView = UIImageView(image: UIImage(named: "card_back"))
+            cardView = CardView(image: UIImage(named: "card_back"))
         }
         return cardView
     }
     
-    private func addDoubleTapGesture(view: UIView) {
-        let gesture = UITapGestureRecognizer(target: eventController,
-                                             action: #selector(eventController.doubleTappedCard(_:)))
+    private func addDoubleTapGesture(view: CardView) {
+        let gesture = UITapGestureRecognizer(target: eventController, action: #selector(eventController.doubleTappedCard(_:)))
         view.addGestureRecognizer(gesture)
         view.isUserInteractionEnabled = true
         gesture.numberOfTapsRequired = 2
@@ -152,7 +137,7 @@ class ViewController: UIViewController {
                                                             cardView.frame = targetFrame },
                                                            completion: { [weak self = self] _ in
                                                             cardView.removeFromSuperview()
-                                                            self?.openDeck.pushCard(card: oneCard, index: 0) })
+                                                            self?.openDeck.pushCard(card: oneCard, index: ScreenPoint.startXPoint) })
         } else if deck.isEmptyDeck() {
             let button = UIImageView(image: UIImage(named: "cardgameapp-refresh-app"))
             button.refreshButton()
@@ -204,10 +189,8 @@ class ViewController: UIViewController {
                                                         originDeck.popCard(xPoint: Int(point.x)) })
     }
     
-    private func moveableCardView(_ pickedCard: Card) -> UIImageView {
-        let cardView = UIImageView(image: UIImage(named: pickedCard.getCardName()))
-        cardView.makeCardView()
-        cardView.makeZeroOrigin()
+    private func moveableCardView(_ pickedCard: Card) -> CardView {
+        let cardView = CardView(image: UIImage(named: pickedCard.getCardName()))
         return cardView
     }
     
@@ -219,7 +202,7 @@ class ViewController: UIViewController {
         } else if card.isKingCard() {
             guard let emptyIndex = gameCardStack.calculateEmptyPlace() else { return nil }
             let dummyCardOrigin  = CGPoint(x: gameCardStackView.subviews[emptyIndex].frame.origin.x, y: 0)
-            let dummyCard = CGRect(origin: dummyCardOrigin, size: UIView.cardSize())
+            let dummyCard = CGRect(origin: dummyCardOrigin, size: CardView.cardSize())
             let targetGlobalPoint = gameCardStackView.convert(dummyCard, to: self.view)
             return (targetGlobalPoint, gameCardStack, emptyIndex)
         } else if foundationDeck.isContinuousCard(card) {
@@ -229,14 +212,16 @@ class ViewController: UIViewController {
         } else if let validIndex = gameCardStack.choicePlace(with: card) {
             let xPoint = gameCardStackView.subviews[validIndex.xPoint].frame.origin.x
             let dummyCardOrigin  = CGPoint(x: xPoint, y: CGFloat(validIndex.yPoint * 20 + 20))
-            let dummyCard = CGRect(origin: dummyCardOrigin, size: UIView.cardSize())
+            let dummyCard = CGRect(origin: dummyCardOrigin, size: CardView.cardSize())
             let targetGlobalPoint = gameCardStackView.convert(dummyCard, to: self.view)
             return (targetGlobalPoint, gameCardStack, validIndex.xPoint)
         }
         return nil
     }
     // Play Game Model::END
-    
+}
+
+extension ViewController {
     @objc private func popOpenCardView(notification: Notification) {
         guard let lastView = openDeckView.subviews.last else { return }
         lastView.removeFromSuperview()
@@ -245,23 +230,17 @@ class ViewController: UIViewController {
     @objc private func pushOpenCardView(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         guard let cardName = userInfo[Notification.Name.cardName] as? Card else { return }
-        let cardView = UIImageView(image: UIImage(named: cardName.getCardName()))
-        cardView.makeCardView()
-        cardView.makeZeroOrigin()
-        addDoubleTapGesture(view: cardView)
-        self.openDeckView.subviews[0].addSubview(cardView)
+        let newCard = CardView(image: UIImage(named: cardName.getCardName()))
+        openDeckView.subviews[0].addSubview(newCard)
+        addDoubleTapGesture(view: newCard)
     }
-}
-
-extension ViewController {
+    
     @objc private func pushFoundationView(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         guard let foundationIndex = userInfo[Notification.Name.cardLocation] as? Int else { return }
         guard let cardName = userInfo[Notification.Name.cardName] as? String else { return }
         
-        let newCard = UIImageView(image: UIImage(named: cardName))
-        newCard.makeCardView()
-        newCard.makeZeroOrigin()
+        let newCard = CardView(image: UIImage(named: cardName))
         foundationView.subviews[foundationIndex].addSubview(newCard)
     }
     
@@ -271,9 +250,8 @@ extension ViewController {
         guard let cardName = userInfo[Notification.Name.cardName] as? String else { return }
         
         let yPoint = gameCardStack.cardStacksOfTable[xPoint].cards.endIndex - 1
-        let newCard = UIImageView(image: UIImage(named: cardName))
-        newCard.makeStackView(cardsRow: yPoint)
-        newCard.frame.origin.x = 0
+        let newCard = CardView(image: UIImage(named: cardName))
+        newCard.arrangeCardViewInStack(yPoint: CGFloat(yPoint))
         gameCardStackView.subviews[xPoint].addSubview(newCard)
         addDoubleTapGesture(view: newCard)
     }
@@ -286,9 +264,8 @@ extension ViewController {
         lastView.removeFromSuperview()
         
         let yPoint = gameCardStack.cardStacksOfTable[index].cards.endIndex - 1
-        let newCard = UIImageView(image: UIImage(named: cardName))
-        newCard.makeStackView(cardsRow: yPoint)
-        newCard.frame.origin.x = 0
+        let newCard = CardView(image: UIImage(named: cardName))
+        newCard.arrangeCardViewInStack(yPoint: CGFloat(yPoint))
         gameCardStackView.subviews[index].addSubview(newCard)
         addDoubleTapGesture(view: newCard)
     }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4001406C2058DB0600015C0F /* EventController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4001406B2058DB0600015C0F /* EventController.swift */; };
 		4001406E2058DFA400015C0F /* ScreenPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4001406D2058DFA400015C0F /* ScreenPoint.swift */; };
+		40071D8B2064E60A0059F376 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40071D8A2064E60A0059F376 /* CardView.swift */; };
 		403A6CF2205F67E700FCFBD5 /* CardGameProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 403A6CF1205F67E700FCFBD5 /* CardGameProtocol.swift */; };
 		40438EC520524B84001C505F /* FoundationDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40438EC420524B84001C505F /* FoundationDeck.swift */; };
 		40438EC7205613DF001C505F /* OpenDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40438EC6205613DF001C505F /* OpenDeck.swift */; };
@@ -55,6 +56,7 @@
 /* Begin PBXFileReference section */
 		4001406B2058DB0600015C0F /* EventController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventController.swift; sourceTree = "<group>"; };
 		4001406D2058DFA400015C0F /* ScreenPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenPoint.swift; sourceTree = "<group>"; };
+		40071D8A2064E60A0059F376 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		403A6CF1205F67E700FCFBD5 /* CardGameProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameProtocol.swift; sourceTree = "<group>"; };
 		40438EC420524B84001C505F /* FoundationDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationDeck.swift; sourceTree = "<group>"; };
 		40438EC6205613DF001C505F /* OpenDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDeck.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 		40438EC820561CE8001C505F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				40071D8A2064E60A0059F376 /* CardView.swift */,
 				407D850C201EC0DB00071EDB /* UIView+CardView.swift */,
 				404A85A420219394008D2FA1 /* UIView+CardStack.swift */,
 				40C4553C204E30850060F609 /* FoundationView.swift */,
@@ -364,6 +367,7 @@
 				40C455462051044B0060F609 /* NotificationName.swift in Sources */,
 				4001406C2058DB0600015C0F /* EventController.swift in Sources */,
 				404A85A520219394008D2FA1 /* UIView+CardStack.swift in Sources */,
+				40071D8B2064E60A0059F376 /* CardView.swift in Sources */,
 				403A6CF2205F67E700FCFBD5 /* CardGameProtocol.swift in Sources */,
 				407D851B201EE4C200071EDB /* GameCardStack.swift in Sources */,
 				407D85242020034600071EDB /* PokerHand.swift in Sources */,

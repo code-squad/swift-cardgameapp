@@ -10,8 +10,16 @@ import UIKit
 
 class GameCardStackView: UIView, CardGameView {
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: CGRect(x: CGFloat(ScreenPoint.startXPoint),
+                                 y: CardView.cardSize().height
+                                    + CardView.marginBetweenCard()
+                                    + UIApplication.shared.statusBarFrame.height,
+                                 width: UIScreen.main.bounds.size.width,
+                                 height: UIScreen.main.bounds.size.height
+                                    - UIApplication.shared.statusBarFrame.height
+                                    - (CardView.cardSize().height
+                                        + CardView.marginBetweenCard())))
         self.tag = SubViewTag.gameCardStackView.rawValue
     }
     

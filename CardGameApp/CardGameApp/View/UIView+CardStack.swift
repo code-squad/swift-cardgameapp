@@ -9,15 +9,10 @@
 import UIKit
 
 extension UIView {
-    func makeStackView(cardsRow: Int) {
-        self.makeCardView(yPoint: CGFloat(cardsRow) * 20)
-    }
-    
     func makeStackView(column: Int) {
-        let xPoint = ((UIView.cardSize().width + UIView.marginBetweenCard()) * CGFloat(column)) + UIView.marginBetweenCard()
-        
+        let xPoint = ((CardView.cardSize().width + CardView.marginBetweenCard()) * CGFloat(column)) + CardView.marginBetweenCard()
         self.frame = CGRect(x: xPoint, y: 0,
-                             width: UIView.cardSize().width,
+                             width: CardView.cardSize().width,
                              height: UIScreen.main.bounds.size.height - UIApplication.shared.statusBarFrame.height - 80)
     }
 }

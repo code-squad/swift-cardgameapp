@@ -10,8 +10,11 @@ import UIKit
 
 class FoundationView: UIView {
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init() {
+        super.init(frame: CGRect(x: CGFloat(ScreenPoint.startXPoint),
+                                 y: UIApplication.shared.statusBarFrame.height,
+                                 width: (CardView.cardSize().width + CardView.marginBetweenCard()) * ScreenPoint.foundationIndex,
+                                 height: CardView.cardSize().height))
         self.tag = SubViewTag.foundationView.rawValue
     }
     
@@ -24,8 +27,8 @@ class FoundationView: UIView {
 extension FoundationView {
     func makeFoundation() {
         for column in 0..<4 {
-            let cardPlace = UIImageView()
-            cardPlace.makeCardView(index: CGFloat(column), yPoint: 0)
+            let cardPlace = CardView()
+            cardPlace.arrangeCardView(xPoint: CGFloat(column), yPoint: CGFloat(ScreenPoint.startYPoint))
             self.addSubview(cardPlace)
         }
     }

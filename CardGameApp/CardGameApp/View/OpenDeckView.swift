@@ -9,9 +9,11 @@
 import UIKit
 
 class OpenDeckView: UIView, CardGameView {
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    
+    init() {
+        let xPoint = (CardView.cardSize().width + CardView.marginBetweenCard()) * CGFloat(ScreenPoint.openCardXPoint)
+        let yPoint = UIApplication.shared.statusBarFrame.height + (CardView.cardSize().height * CGFloat(ScreenPoint.startYPoint))
+        super.init(frame: CGRect(origin: CGPoint(x: xPoint, y: yPoint), size: CardView.cardSize()))
         self.tag = SubViewTag.openDeckView.rawValue
     }
     
@@ -25,9 +27,7 @@ class OpenDeckView: UIView, CardGameView {
     }
     
     func makeBasicSubView() {
-        let basicView = UIView()
-        basicView.makeCardView()
-        basicView.makeZeroOrigin()
+        let basicView = CardView()
         self.addSubview(basicView)
     }
 }
