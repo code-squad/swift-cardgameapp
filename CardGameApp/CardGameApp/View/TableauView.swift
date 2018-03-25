@@ -57,4 +57,16 @@ class TableauView: UIView, CanLayCards, CanFindGameView {
         }
         return CGPoint(x: basePosition!.x/2, y: basePosition!.y+CGFloat(laidCards.count)*verticalSpacing)
     }
+
+    func below(cardView: CardView) -> [CardView]? {
+        var cardsBelow: [CardView] = []
+        for candidateCard in laidCards.reversed() {
+            if candidateCard == cardView {
+                break
+            } else {
+                cardsBelow.insert(candidateCard, at: 0)
+            }
+        }
+        return cardsBelow
+    }
 }
