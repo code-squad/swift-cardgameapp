@@ -57,7 +57,7 @@ class TableauViewContainer: UIView {
         tableauViews.forEach { $0.removeAllSubviews() }
     }
 
-    func at(_ index: Int) -> CanLayCards {
+    func at(_ index: Int) -> TableauView {
         return tableauViews[index]
     }
 

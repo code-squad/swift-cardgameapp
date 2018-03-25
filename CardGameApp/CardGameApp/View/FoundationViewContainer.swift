@@ -32,7 +32,7 @@ class FoundationViewContainer: UIView {
         foundationViews.forEach { $0.removeAllSubviews() }
     }
 
-    func at(_ index: Int) -> CanLayCards {
+    func at(_ index: Int) -> FoundationView {
         return foundationViews[index]
     }
 
