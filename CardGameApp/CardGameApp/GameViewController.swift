@@ -55,14 +55,28 @@ extension GameViewController: CardViewActionDelegate, RefreshActionDelegate {
     private func moveToSuitableLocation(_ cardView: CardView, toLocation: Location?, shouldTurnOverFace: Bool) {
         guard let cardViewModel = cardView.viewModel else { return }
         shouldTurnOverFace ? cardViewModel.turnOver() : nil
+
+        let cardViewsBelow = getCardViewsBelowIfNeeded(below: cardView, on: cardViewModel.location.value)
+
         // 탭한 뷰의 적정 위치 찾은 후
         if let suitableLocation =
             (toLocation == nil) ? gameViewModel.suitableLocation(for: cardViewModel) : toLocation {
             // 뷰 업데이트
-            let movableCardView = AnimatableCard(cardView: cardView, endLocation: suitableLocation)
+            let movableCardView = MovableCardView(cardView: cardView,
+                                                  cardViewsBelow: cardViewsBelow,
+                                                  endLocation: suitableLocation)
             movableCardView.delegate = self
             gameView.move(movableCardView)
         }
+    }
+
+    private func getCardViewsBelowIfNeeded(below tappedCardView: CardView, on fromLocation: Location) -> [CardView]? {
+        var cardViewsBelow: [CardView]?
+        if case let Location.tableau(index) = fromLocation {
+            let tableauView = gameView.tableauViewContainer.at(index)
+            cardViewsBelow = tableauView.below(cardView: tappedCardView)
+        }
+        return cardViewsBelow
     }
 
 }
