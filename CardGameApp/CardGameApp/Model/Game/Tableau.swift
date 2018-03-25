@@ -40,10 +40,12 @@ class Tableau: CardStack {
 
     func popCards(below selectedCard: Card) -> [Card] {
         var cardsToMove: [Card] = []
-        while let lastCard = peek(), lastCard != selectedCard {
+        for candidateCard in self.reversed() {
             cardsToMove.insert(pop()!, at: 0)
+            if candidateCard == selectedCard {
+                break
+            }
         }
-        cardsToMove.insert(pop()!, at: 0)
         return cardsToMove
     }
 
