@@ -18,6 +18,7 @@ class CardView: UIImageView {
     
     init() {
         super.init(frame: CGRect(origin: CGPoint.zero, size: CardView.cardSize()))
+        self.isUserInteractionEnabled = true
         makeBasicView()
     }
     

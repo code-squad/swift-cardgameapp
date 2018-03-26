@@ -14,9 +14,9 @@ class ViewController: UIViewController {
     private var openDeck: OpenDeck!
     private var gameCardStack: GameCardStack!
     private var foundationDeck: FoundationDeck!
-    private (set) var openDeckView: OpenDeckView!
-    private (set) var gameCardStackView: GameCardStackView!
-    private (set) var foundationView: FoundationView!
+    private var openDeckView: OpenDeckView!
+    private var gameCardStackView: GameCardStackView!
+    private var foundationView: FoundationView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,7 +126,8 @@ class ViewController: UIViewController {
         guard let fromPoint = userInfo[Notification.Name.cardLocation] as? CGRect else { return }
         if let oneCard = deck.popCard() {
             oneCard.flipCard()
-            let cardView = moveableCardView(oneCard)
+            
+            let cardView = CardView(image: UIImage(named: oneCard.getCardName()))
             cardView.frame = fromPoint
             self.view.addSubview(cardView)
             UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2,
@@ -136,8 +137,9 @@ class ViewController: UIViewController {
                                                             guard let targetFrame = self?.openDeckView.frame else { return }
                                                             cardView.frame = targetFrame },
                                                            completion: { [weak self = self] _ in
-                                                            cardView.removeFromSuperview()
-                                                            self?.openDeck.pushCard(card: oneCard, index: ScreenPoint.startXPoint) })
+                                                                cardView.removeFromSuperview()
+                                                                self?.openDeck.pushCard(card: oneCard, index: ScreenPoint.startXPoint)
+            })
         } else if deck.isEmptyDeck() {
             let button = UIImageView(image: UIImage(named: "cardgameapp-refresh-app"))
             button.refreshButton()
@@ -172,8 +174,7 @@ class ViewController: UIViewController {
         guard pickedCard == lastCard else { return }
         guard let gameInfo = choicePlace(card: pickedCard) else { return }
         
-        let cardView = moveableCardView(pickedCard)
-        
+        let cardView = CardView(image: UIImage(named: pickedCard.getCardName()))
         self.view.addSubview(cardView)
         cardView.frame = fromPoint
         UIViewPropertyAnimator.runningPropertyAnimator(withDuration: 0.2,
@@ -189,11 +190,7 @@ class ViewController: UIViewController {
                                                         originDeck.popCard(xPoint: Int(point.x)) })
     }
     
-    private func moveableCardView(_ pickedCard: Card) -> CardView {
-        let cardView = CardView(image: UIImage(named: pickedCard.getCardName()))
-        return cardView
-    }
-    
+    //swiftlint:disable large_tuple
     private func choicePlace(card: Card) -> (targetFrame: CGRect, targetDeck: CardGameMoveAble, index: Int)? {
         if card.isAceCard() {
             guard let emptyIndex = foundationDeck.calculateEmptyPlace() else { return nil }
@@ -231,8 +228,8 @@ extension ViewController {
         guard let userInfo = notification.userInfo else { return }
         guard let cardName = userInfo[Notification.Name.cardName] as? Card else { return }
         let newCard = CardView(image: UIImage(named: cardName.getCardName()))
-        openDeckView.subviews[0].addSubview(newCard)
-        addDoubleTapGesture(view: newCard)
+        self.openDeckView.subviews[0].addSubview(newCard)
+        self.addDoubleTapGesture(view: newCard)
     }
     
     @objc private func pushFoundationView(notification: Notification) {
