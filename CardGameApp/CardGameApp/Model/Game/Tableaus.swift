@@ -46,4 +46,8 @@ class Tableaus: Sequence {
     func canPush(_ card: Card, to index: Int) -> Bool {
         return stacks[index].canPush(below: card)
     }
+
+    func at(_ index: Int) -> Tableau {
+        return stacks[index]
+    }
 }
