@@ -63,9 +63,7 @@ class MovableCardView: UIView, CanFindGameView {
         let translateTransform = self.transform.translatedBy(x: endPosition.x-startPosition.x,
                                                              y: endPosition.y-startPosition.y)
 
-        let option = properOption()
-
-        UIView.transition(with: self, duration: 0.3, options: option, animations: {
+        UIView.transition(with: self, duration: 0.3, options: .curveEaseOut, animations: {
             self.bringToFront()
             self.transform = translateTransform
             self.layoutIfNeeded()
@@ -80,17 +78,6 @@ class MovableCardView: UIView, CanFindGameView {
 
     func bringToFront() {
         superview?.bringSubview(toFront: self)
-    }
-
-    private func properOption() -> UIViewAnimationOptions {
-        // waste->spare 또는 spare->waste 처럼 뒤집어야 하는 경우 옵션 설정
-        var option: UIViewAnimationOptions = .curveEaseIn
-        if case Location.spare = cardView.viewModel!.location.value {
-            option = .transitionFlipFromRight
-        } else if case Location.waste = cardView.viewModel!.location.value, case Location.spare = endLocation {
-            option = .transitionFlipFromLeft
-        }
-        return option
     }
 
     private func updateSuperview() {
@@ -118,9 +105,6 @@ class MovableCardView: UIView, CanFindGameView {
         default:
             self.delegate?.move(cardViewModel: self.cardView.viewModel!,
                                      from: self.fromLocation, to: self.endLocation)
-            self.cardViewsBelow?.forEach { [unowned self] in
-                self.delegate?.move(cardViewModel: $0.viewModel!, from: self.fromLocation, to: self.endLocation)
-            }
         }
         // 모델 업데이트 후, 카드 뷰모델의 Location 데이터 업데이트
         self.delegate?.update(cardViewModel: self.cardView.viewModel!, to: prevEndLocation)
