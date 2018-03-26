@@ -9,7 +9,7 @@
 import Foundation
 
 struct Deck {
-    private var cards: [Card]
+    private (set) var cards: [Card]
     
     init() {
         self.cards = [Card]()
@@ -20,6 +20,10 @@ struct Deck {
         }
     }
     
+    init(cards: [Card]) {
+        self.cards = cards
+    }
+        
     func count() -> Int {
         return cards.count
     }
@@ -29,8 +33,16 @@ struct Deck {
         return newDeck
     }
     
+    func lastCard() -> Card? {
+        return self.cards.last
+    }
+    
     mutating func popCard() -> Card? {
         return self.cards.popLast()
+    }
+    
+    mutating func pushCard(_ card: Card) {
+        self.cards.append(card)
     }
     
     // Fisher-Yates Shuffle
@@ -44,8 +56,8 @@ struct Deck {
         self.cards = suffledCards
     }
     
-    mutating func makeStack(numberOfCards: Int) throws -> [Card] {
-        return try cards.pop(range: numberOfCards)
+    mutating func makeStack(numberOfCards: Int) throws -> Deck {
+        return Deck(cards: try cards.pop(range: numberOfCards))
     }
     
     func getRestDeck() -> [Card] {
@@ -54,6 +66,15 @@ struct Deck {
     
     func isEmptyDeck() -> Bool {
         return cards.isEmpty
+    }
+    
+    func isSameGroup(_ card: Card) -> Bool {
+        for cardSuit in cards {
+            if cardSuit.getCalculatedSuit() == card.getCalculatedSuit() {
+                return true
+            }
+        }
+        return false
     }
 }
 
