@@ -50,6 +50,21 @@ class GameViewModel {
         return suitableLocation
     }
 
+    func canMove(_ cardViewModel: CardViewModel, to toLocation: Location) -> Bool {
+        let fromLocation = cardViewModel.location.value
+        var canMove: Bool
+        switch fromLocation {
+        case .tableau(let index):
+            if case Location.tableau = toLocation {
+                canMove = true
+            } else {
+                canMove = game.tableaus.at(index).isBottom(cardViewModel.card)
+            }
+        default: canMove = true
+        }
+        return canMove
+    }
+
     func move(cardViewModel: CardViewModel, from startLocation: Location, to endLocation: Location) {
         game.move(cardsFrom: cardViewModel.card, from: startLocation, to: endLocation)
     }
