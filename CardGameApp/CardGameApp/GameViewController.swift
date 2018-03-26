@@ -37,24 +37,24 @@ extension GameViewController: CardViewActionDelegate, RefreshActionDelegate {
     }
 
     func onCardViewDoubleTapped(tappedView: CardView) {
-        moveToSuitableLocation(tappedView, toLocation: nil, shouldTurnOverFace: false)
+        moveToSuitableLocation(tappedView, toLocation: nil, shouldTurnOverFaceTo: .down)
     }
 
     func onSpareViewTapped(tappedView: CardView) {
-        moveToSuitableLocation(tappedView, toLocation: nil, shouldTurnOverFace: true)
+        moveToSuitableLocation(tappedView, toLocation: nil, shouldTurnOverFaceTo: .up)
     }
 
     func onRefreshButtonTapped() {
         for card in gameView.wasteView.reversed() {
-            moveToSuitableLocation(card, toLocation: .spare, shouldTurnOverFace: true)
+            moveToSuitableLocation(card, toLocation: .spare, shouldTurnOverFaceTo: .down)
         }
     }
 
     // MARK: - PRIVATE
 
-    private func moveToSuitableLocation(_ cardView: CardView, toLocation: Location?, shouldTurnOverFace: Bool) {
+    private func moveToSuitableLocation(_ cardView: CardView, toLocation: Location?, shouldTurnOverFaceTo faceState: FaceState) {
         guard let cardViewModel = cardView.viewModel else { return }
-        shouldTurnOverFace ? cardViewModel.turnOver() : nil
+        cardViewModel.turnOver(to: faceState)
 
         // 탭한 뷰의 적정 위치 찾은 후
         if let suitableLocation =
