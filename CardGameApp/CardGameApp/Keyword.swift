@@ -29,6 +29,7 @@ struct Key {
         case baseCards
         case lastIndex
         case noStack
+        case opened
         
         var count: Int {
             switch self {
@@ -36,6 +37,7 @@ struct Key {
             case .baseCards: return 7
             case .lastIndex: return 6
             case .noStack: return 0
+            case .opened: return 5
             }
         }
     }

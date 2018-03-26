@@ -12,6 +12,7 @@ protocol BaseControl {
     mutating func shuffle()
     mutating func removeOne() -> Card
     mutating func reset()
+    func isEmpty() -> Bool
 }
 
 struct CardDeck : BaseControl {
@@ -28,6 +29,10 @@ struct CardDeck : BaseControl {
                 self.deck.append(Card(oneSuit, oneRank))
             }
         }
+    }
+    
+    func isEmpty() -> Bool {
+        return self.deck.count == 0
     }
     
     func count() -> Int {
