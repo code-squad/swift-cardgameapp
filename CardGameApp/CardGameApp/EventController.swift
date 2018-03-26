@@ -21,8 +21,12 @@ class EventController {
     @objc func doubleTappedCard(_ touch: UITapGestureRecognizer) {
         if touch.state == .ended && touch.numberOfTapsRequired == 2 {
             guard let touchedView = touch.view else { return }
-            guard let originView = touchedView.superview?.superview else { return }
-            guard let fromGlobalPoint = touchedView.superview?.convert(touchedView.frame, to: originView.superview) else { return }
+            // as? CardView()
+            guard let cardView = touchedView as? CardView else { return }
+//            guard let originView = touchedView.superview?.superview else { return }
+//            guard let fromGlobalPoint = touchedView.superview?.convert(touchedView.frame, to: originView.superview) else { return }
+            guard let originView = cardView.getOriginView() else { return }
+            guard let fromGlobalPoint = cardView.convertGlobalLocation() else { return }
             let location = touch.location(in: originView)
             let xPoint = Int(location.x / (CardView.cardSize().width + CardView.marginBetweenCard()))
             let yPoint = Int(touchedView.frame.origin.y / 20)

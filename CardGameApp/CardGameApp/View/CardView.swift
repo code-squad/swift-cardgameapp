@@ -42,6 +42,19 @@ class CardView: UIImageView {
     func arrangeCardViewInStack(yPoint: CGFloat) {
         self.frame.origin = CGPoint(x: CGFloat(ScreenPoint.startXPoint), y: CGFloat(yPoint) * 20)
     }
+    
+    func getOriginView() -> UIView? {
+        guard let cardSuperView = self.superview else { return nil }
+        guard let cardOrigin = cardSuperView.superview else { return nil }
+        return cardOrigin
+    }
+    
+    func convertGlobalLocation() -> CGRect? {
+        guard let cardSuperView = self.superview else { return nil }
+        guard let basicSuperView = cardSuperView.superview else { return nil }
+        guard let mainSuperView = basicSuperView.superview else { return nil }
+        return cardSuperView.convert(self.frame, to: mainSuperView)
+    }
 }
 
 extension CardView {
