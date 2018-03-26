@@ -56,4 +56,8 @@ class Tableau: CardStack {
         return nil
     }
 
+    func isBottom(_ card: Card) -> Bool {
+        return peek() == card
+    }
+
 }
