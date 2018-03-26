@@ -56,11 +56,12 @@ extension GameViewController: CardViewActionDelegate, RefreshActionDelegate {
         guard let cardViewModel = cardView.viewModel else { return }
         shouldTurnOverFace ? cardViewModel.turnOver() : nil
 
-        let cardViewsBelow = getCardViewsBelowIfNeeded(below: cardView, on: cardViewModel.location.value)
-
         // 탭한 뷰의 적정 위치 찾은 후
         if let suitableLocation =
             (toLocation == nil) ? gameViewModel.suitableLocation(for: cardViewModel) : toLocation {
+            guard gameViewModel.canMove(cardViewModel, to: suitableLocation) else { return }
+            cardView.bringToFront()
+            let cardViewsBelow = getCardViewsBelowIfNeeded(below: cardView, toLocation: suitableLocation)
             // 뷰 업데이트
             let movableCardView = MovableCardView(cardView: cardView,
                                                   cardViewsBelow: cardViewsBelow,
@@ -70,9 +71,11 @@ extension GameViewController: CardViewActionDelegate, RefreshActionDelegate {
         }
     }
 
-    private func getCardViewsBelowIfNeeded(below tappedCardView: CardView, on fromLocation: Location) -> [CardView]? {
+    private func getCardViewsBelowIfNeeded(below tappedCardView: CardView, toLocation: Location) -> [CardView]? {
+        guard let fromLocation = tappedCardView.viewModel?.location.value else { return nil }
         var cardViewsBelow: [CardView]?
         if case let Location.tableau(index) = fromLocation {
+            guard case Location.tableau = toLocation else { return nil }
             let tableauView = gameView.tableauViewContainer.at(index)
             cardViewsBelow = tableauView.below(cardView: tappedCardView)
         }
