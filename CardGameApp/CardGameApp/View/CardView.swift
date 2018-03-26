@@ -87,7 +87,6 @@ extension CardView: CanFindGameView {
     @objc func handleSingleTap(sender: UITapGestureRecognizer) {
         guard let currLocation = self.viewModel?.location.value, case Location.spare = currLocation else { return }
         handleCertainView(from: self) { gameView in
-            self.bringToFront()
             gameView.delegate?.onSpareViewTapped(tappedView: self)
         }
     }
@@ -95,7 +94,6 @@ extension CardView: CanFindGameView {
     @objc func handleDoubleTap(sender: UITapGestureRecognizer) {
         guard viewModel!.isUserInteractive else { return }
         handleCertainView(from: self) { gameView in
-            self.bringToFront()
             gameView.delegate?.onCardViewDoubleTapped(tappedView: self)
         }
     }
