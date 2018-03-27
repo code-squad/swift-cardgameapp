@@ -7,14 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
 struct Key {
     
-    enum Img : String {
+    enum Img: String {
         case background
         case refresh
         
-        var name : String {
+        var name: String {
             switch self {
             case .background:
                 return "bg_pattern"
@@ -24,7 +25,7 @@ struct Key {
         }
     }
     
-    enum Card : Int {
+    enum Card: Int {
         case foundations
         case baseCards
         case lastIndex

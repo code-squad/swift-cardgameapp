@@ -11,40 +11,48 @@ import UIKit
 class ViewController: UIViewController {
     
     var cardDeck : BaseControl!
-    private var imgViewMaker : ImageViewMaker!
-    private var cardDeckView : UIImageView!
-    private var openedCard: UIImageView!
+    private var imgFrameMaker : ImgFrameMaker!
+    private var foundationView : FoundationView! //UIStackView
+    private var cardDeckView : CardDeckView! //UIImageView
+    private var openedCard: OpenedCardView! //UIImageView
+    private var cardStacksView: CardStacksView! //UIStackView
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imgViewMaker = ImageViewMaker(UIScreen.main.bounds.width)
+        imgFrameMaker = ImgFrameMaker(UIScreen.main.bounds.width)
         cardDeck.shuffle()
-        setBackGround()
-        setBaseCardImgViews()
-        drawCardStacks()
+        drawBackGround()
+        drawBaseCards()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    private func setBaseCardImgViews() {
+    private func drawBaseCards() {
         //FoundationView
-        for indexOfOneCard in 0..<Key.Card.foundations.count {
-            self.view.addSubview(imgViewMaker.generateCardImgView(indexOfOneCard,Key.Card.noStack.count,.top, UIImage(), true))
-        }
+        foundationView = FoundationView()
+        foundationView.setFoundation(generateFoundations())
+        self.view.addSubview(foundationView)
+        
         //CardDeckView
-        let oneCard = cardDeck.removeOne()
-        cardDeckView = imgViewMaker.generateCardImgView(Key.Card.lastIndex.count,Key.Card.noStack.count,.top, oneCard.generateCardImg(), false)
-        self.view.addSubview(cardDeckView)
-        let gesture = UITapGestureRecognizer.init(target: self, action: #selector(tapCardDeck(sender:)))
-        gesture.numberOfTapsRequired = 2
-        cardDeckView.addGestureRecognizer(gesture)
+        cardDeckView = CardDeckView(frame: imgFrameMaker.generateFrame(Key.Card.lastIndex.count, Key.Card.noStack.count, .top))
+        cardDeckView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapCardDeck(sender:))))
         cardDeckView.isUserInteractionEnabled = true
+        self.view.addSubview(cardDeckView)
+        
         //OpenedCardView
-        openedCard = imgViewMaker.generateCardImgView(Key.Card.opened.count, Key.Card.noStack.count, .top, UIImage(), false)
+        openedCard = OpenedCardView(frame: imgFrameMaker.generateFrame(Key.Card.opened.count, Key.Card.noStack.count,.top))
         self.view.addSubview(openedCard)
+        
+        //CardStacksView
+        cardStacksView = CardStacksView()
+        cardStacksView.setStacks(generateCardStacks())
+        self.view.addSubview(cardStacksView)
+        
+        guard let oneCard = drawCardDeck() else { return }
+        drawOpenedCard(oneCard)
     }
     
     @objc private func tapCardDeck(sender : UITapGestureRecognizer) {
@@ -68,23 +76,36 @@ class ViewController: UIViewController {
         openedCard.image = movedCard.generateCardImg()
     }
     
-    private func drawCardStacks() {
+    private func generateFoundations() -> [UIImageView] {
+        var foundationCards : [UIImageView] = []
+        for indexOfOneCard in 0..<Key.Card.foundations.count {
+            foundationCards.append(UIImageView(frame: imgFrameMaker.generateFrame(indexOfOneCard,Key.Card.noStack.count, .top)))
+        }
+        return foundationCards
+    }
+    
+    private func generateCardStacks() -> [[UIImageView]]{
+        var cardStacks : [[UIImageView]] = []
         for indexOfOneCard in 0..<Key.Card.baseCards.count {
-            drawOneCardStack(indexOfOneCard)
+            cardStacks.append(generateOneCardStack(indexOfOneCard))
         }
+        return cardStacks
     }
-    
-    private func drawOneCardStack(_ indexOfCard: Int) {
-        var cardImg : UIImage!
+
+    private func generateOneCardStack(_ indexOfCard: Int) -> [UIImageView] {
+        var oneCardStackView : [UIImageView] = []
         for stackIndex in 0..<indexOfCard {
-            cardImg = cardDeck.removeOne().generateCardImg()
-            self.view.addSubview(imgViewMaker.generateCardImgView(indexOfCard,stackIndex,.bottom,cardImg,false))
+            let oneCardImgView = UIImageView(frame: imgFrameMaker.generateFrame(indexOfCard,stackIndex,.bottom))
+            oneCardImgView.image = cardDeck.removeOne().generateCardImg()
+            oneCardStackView.append(oneCardImgView)
         }
-        cardImg = cardDeck.removeOne().changeSide().generateCardImg()
-        self.view.addSubview(imgViewMaker.generateCardImgView(indexOfCard,indexOfCard,.bottom,cardImg,false))
+        let oneCardImgView = UIImageView(frame: imgFrameMaker.generateFrame(indexOfCard,indexOfCard,.bottom))
+        oneCardImgView.image = cardDeck.removeOne().changeSide().generateCardImg()
+        oneCardStackView.append(oneCardImgView)
+        return oneCardStackView
     }
     
-    private func setBackGround() {
+    private func drawBackGround() {
         guard let patternImage = UIImage(named : Key.Img.background.name) else { return }
         self.view.backgroundColor = UIColor.init(patternImage : patternImage)
     }
@@ -94,8 +115,7 @@ class ViewController: UIViewController {
         if motion == .motionShake {
             cardDeck.reset()
             cardDeck.shuffle()
-            setBaseCardImgViews()
-            drawCardStacks()
+            drawBaseCards()
         }
     }
 

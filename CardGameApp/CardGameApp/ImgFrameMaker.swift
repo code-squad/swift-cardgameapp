@@ -23,20 +23,16 @@ struct ImgFrameMaker {
         case bottom = 100
     }
     
-    enum indexOfCard : Int {
-        case last = 6
-        case openedCard = 5
-    }
-    
     init(_ width : CGFloat) {
         self.screenWidth = width
     }
     
-    func generateFrame(_ indexOfCard: indexOfCard,_ stackIndex: Int, position: Position) -> CGRect {
+    func generateFrame(_ indexOfCard: Int,_ stackIndex: Int, _ position: Position) -> CGRect {
         let width = screenWidth / countOfCards
         let margin = width / marginRatioValue
         let cardSize = CGSize(width: width - margin, height: (width - margin) * cardRatio)
-        let cardOrigin = CGPoint(x: margin + CGFloat(indexOfCard.rawValue) * width ,y: position.rawValue + stackMargin * CGFloat(stackIndex))
+        let cardOrigin = CGPoint(x: margin + CGFloat(indexOfCard) * width ,y: position.rawValue + stackMargin * CGFloat(stackIndex))
         return CGRect(origin: cardOrigin, size: cardSize)
     }
+    
 }

@@ -13,9 +13,13 @@
 		048B88532061FD70002BF2B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 048B88512061FD70002BF2B7 /* Main.storyboard */; };
 		048B88552061FD70002BF2B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 048B88542061FD70002BF2B7 /* Assets.xcassets */; };
 		048B88582061FD70002BF2B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 048B88562061FD70002BF2B7 /* LaunchScreen.storyboard */; };
-		048B8860206214E0002BF2B7 /* ImageViewMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B885F206214E0002BF2B7 /* ImageViewMaker.swift */; };
 		048B8863206239B3002BF2B7 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B8862206239B3002BF2B7 /* Card.swift */; };
 		048B8865206239CC002BF2B7 /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B8864206239CC002BF2B7 /* CardDeck.swift */; };
+		0494838D2069E3E40053114E /* CardStacksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0494838C2069E3E40053114E /* CardStacksView.swift */; };
+		0497BA922068DBDB001344F8 /* FoundationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497BA912068DBDB001344F8 /* FoundationView.swift */; };
+		0497BA942068DC1C001344F8 /* CardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497BA932068DC1C001344F8 /* CardDeckView.swift */; };
+		0497BA962068DC55001344F8 /* OpenedCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497BA952068DC55001344F8 /* OpenedCardView.swift */; };
+		0497BA982068EAB0001344F8 /* ImgFrameMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497BA972068EAB0001344F8 /* ImgFrameMaker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,9 +31,13 @@
 		048B88542061FD70002BF2B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		048B88572061FD70002BF2B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		048B88592061FD70002BF2B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		048B885F206214E0002BF2B7 /* ImageViewMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewMaker.swift; sourceTree = "<group>"; };
 		048B8862206239B3002BF2B7 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		048B8864206239CC002BF2B7 /* CardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
+		0494838C2069E3E40053114E /* CardStacksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStacksView.swift; sourceTree = "<group>"; };
+		0497BA912068DBDB001344F8 /* FoundationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FoundationView.swift; path = CardGameApp/View/FoundationView.swift; sourceTree = SOURCE_ROOT; };
+		0497BA932068DC1C001344F8 /* CardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CardDeckView.swift; path = CardGameApp/View/CardDeckView.swift; sourceTree = SOURCE_ROOT; };
+		0497BA952068DC55001344F8 /* OpenedCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OpenedCardView.swift; path = CardGameApp/View/OpenedCardView.swift; sourceTree = SOURCE_ROOT; };
+		0497BA972068EAB0001344F8 /* ImgFrameMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgFrameMaker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,9 +70,10 @@
 		048B884C2061FD70002BF2B7 /* CardGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				0494838B2069D9240053114E /* View */,
 				048B886120623997002BF2B7 /* Model */,
 				048B884D2061FD70002BF2B7 /* AppDelegate.swift */,
-				048B885F206214E0002BF2B7 /* ImageViewMaker.swift */,
+				0497BA972068EAB0001344F8 /* ImgFrameMaker.swift */,
 				0434FD372063A208000C8FB5 /* Keyword.swift */,
 				048B884F2061FD70002BF2B7 /* ViewController.swift */,
 				048B88512061FD70002BF2B7 /* Main.storyboard */,
@@ -82,6 +91,17 @@
 				048B8864206239CC002BF2B7 /* CardDeck.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0494838B2069D9240053114E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0497BA912068DBDB001344F8 /* FoundationView.swift */,
+				0497BA932068DC1C001344F8 /* CardDeckView.swift */,
+				0497BA952068DC55001344F8 /* OpenedCardView.swift */,
+				0494838C2069E3E40053114E /* CardStacksView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,11 +176,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				048B8860206214E0002BF2B7 /* ImageViewMaker.swift in Sources */,
+				0497BA962068DC55001344F8 /* OpenedCardView.swift in Sources */,
+				0494838D2069E3E40053114E /* CardStacksView.swift in Sources */,
+				0497BA982068EAB0001344F8 /* ImgFrameMaker.swift in Sources */,
+				0497BA942068DC1C001344F8 /* CardDeckView.swift in Sources */,
 				0434FD382063A208000C8FB5 /* Keyword.swift in Sources */,
 				048B8865206239CC002BF2B7 /* CardDeck.swift in Sources */,
 				048B8863206239B3002BF2B7 /* Card.swift in Sources */,
 				048B88502061FD70002BF2B7 /* ViewController.swift in Sources */,
+				0497BA922068DBDB001344F8 /* FoundationView.swift in Sources */,
 				048B884E2061FD70002BF2B7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
