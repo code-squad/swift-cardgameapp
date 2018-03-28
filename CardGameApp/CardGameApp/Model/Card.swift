@@ -9,10 +9,6 @@
 import Foundation
 import UIKit
 
-protocol CardController {
-    
-}
-
 class Card {
     private var suit : Suits, rank : Ranks
     private var side : Side = .back

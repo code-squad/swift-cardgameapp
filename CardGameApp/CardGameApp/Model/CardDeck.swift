@@ -13,6 +13,7 @@ protocol BaseControl {
     mutating func removeOne() -> Card
     mutating func reset()
     func isEmpty() -> Bool
+    mutating func generateOneStack(numberOfStack : Int) -> [Card]
 }
 
 struct CardDeck : BaseControl {
@@ -55,9 +56,9 @@ struct CardDeck : BaseControl {
         self.deck = CardDeck().deck
     }
     
-    private mutating func generateOneStack(numberOfStack : Int) -> [Card] {
+    mutating func generateOneStack(numberOfStack : Int) -> [Card] {
         var oneStack : [Card] = []
-        for _ in 1...numberOfStack {
+        for _ in 0...numberOfStack {
             oneStack.append(self.removeOne())
         }
         return oneStack

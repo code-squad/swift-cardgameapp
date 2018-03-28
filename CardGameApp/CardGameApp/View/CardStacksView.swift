@@ -18,12 +18,10 @@ class CardStacksView: UIStackView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        drawStacks()
     }
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
-        drawStacks()
     }
     
     func setStacks(_ stacksViews: [[UIImageView]]) {

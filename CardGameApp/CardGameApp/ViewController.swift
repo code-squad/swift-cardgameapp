@@ -12,11 +12,14 @@ class ViewController: UIViewController {
     
     var cardDeck : BaseControl!
     private var imgFrameMaker : ImgFrameMaker!
-    private var foundationView : FoundationView! //UIStackView
-    private var cardDeckView : CardDeckView! //UIImageView
-    private var openedCard: OpenedCardView! //UIImageView
-    private var cardStacksView: CardStacksView! //UIStackView
+    private var foundationView : FoundationView!
+    private var cardDeckView : CardDeckView!
+    private var openedCard: OpenedCardView!
+    private var cardStacksView: CardStacksView!
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +33,17 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    private func drawBackGround() {
+        guard let patternImage = UIImage(named : Key.Img.background.name) else { return }
+        self.view.backgroundColor = UIColor.init(patternImage : patternImage)
+    }
+    
     private func drawBaseCards() {
+        //CardStacksView
+        cardStacksView = CardStacksView()
+        cardStacksView.setStacks(generateCardStacks())
+        self.view.addSubview(cardStacksView)
+        
         //FoundationView
         foundationView = FoundationView()
         foundationView.setFoundation(generateFoundations())
@@ -46,16 +59,16 @@ class ViewController: UIViewController {
         openedCard = OpenedCardView(frame: imgFrameMaker.generateFrame(Key.Card.opened.count, Key.Card.noStack.count,.top))
         self.view.addSubview(openedCard)
         
-        //CardStacksView
-        cardStacksView = CardStacksView()
-        cardStacksView.setStacks(generateCardStacks())
-        self.view.addSubview(cardStacksView)
-        
         guard let oneCard = drawCardDeck() else { return }
         drawOpenedCard(oneCard)
     }
     
     @objc private func tapCardDeck(sender : UITapGestureRecognizer) {
+        guard let tappedCard = drawCardDeck() else { return }
+        drawOpenedCard(tappedCard)
+    }
+    
+    @objc private func doubleTapCard(sender: UITapGestureRecognizer) {
         guard let tappedCard = drawCardDeck() else { return }
         drawOpenedCard(tappedCard)
     }
@@ -94,30 +107,33 @@ class ViewController: UIViewController {
 
     private func generateOneCardStack(_ indexOfCard: Int) -> [UIImageView] {
         var oneCardStackView : [UIImageView] = []
+        var cardStack : [Card] = cardDeck.generateOneStack(numberOfStack: indexOfCard)
         for stackIndex in 0..<indexOfCard {
             let oneCardImgView = UIImageView(frame: imgFrameMaker.generateFrame(indexOfCard,stackIndex,.bottom))
-            oneCardImgView.image = cardDeck.removeOne().generateCardImg()
+            oneCardImgView.image = cardStack[stackIndex].generateCardImg()
             oneCardStackView.append(oneCardImgView)
         }
-        let oneCardImgView = UIImageView(frame: imgFrameMaker.generateFrame(indexOfCard,indexOfCard,.bottom))
-        oneCardImgView.image = cardDeck.removeOne().changeSide().generateCardImg()
-        oneCardStackView.append(oneCardImgView)
+        let oneFrontCardImgView = UIImageView(frame: imgFrameMaker.generateFrame(indexOfCard,indexOfCard,.bottom))
+        oneFrontCardImgView.image = cardStack[indexOfCard].changeSide().generateCardImg()
+        oneCardStackView.append(oneFrontCardImgView)
         return oneCardStackView
-    }
-    
-    private func drawBackGround() {
-        guard let patternImage = UIImage(named : Key.Img.background.name) else { return }
-        self.view.backgroundColor = UIColor.init(patternImage : patternImage)
     }
     
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         super.motionEnded(motion, with: event)
         if motion == .motionShake {
+            self.view.subviews.forEach { $0.removeFromSuperview() }
             cardDeck.reset()
             cardDeck.shuffle()
             drawBaseCards()
         }
     }
 
+}
+
+extension UIImageView {
+    func getCardImgName() -> String? {
+        return self.image?.accessibilityIdentifier
+    }
 }
 
