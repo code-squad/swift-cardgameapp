@@ -13,10 +13,12 @@
 		8737C6C92071D6E200D9D65B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737C6C82071D6E200D9D65B /* AppDelegate.swift */; };
 		8737C6CB2071D6E200D9D65B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737C6CA2071D6E200D9D65B /* ViewController.swift */; };
 		8737C6CE2071D6E200D9D65B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8737C6CC2071D6E200D9D65B /* Main.storyboard */; };
-		8737C6D02071D6E300D9D65B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8737C6CF2071D6E300D9D65B /* Assets.xcassets */; };
 		8737C6D32071D6E300D9D65B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8737C6D12071D6E300D9D65B /* LaunchScreen.storyboard */; };
 		8737C6DE2071D6E300D9D65B /* CardGameAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737C6DD2071D6E300D9D65B /* CardGameAppTests.swift */; };
 		8737C6E92071D6E300D9D65B /* CardGameAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737C6E82071D6E300D9D65B /* CardGameAppUITests.swift */; };
+		87F4FED62073144A0061FE9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87F4FED52073144A0061FE9E /* Assets.xcassets */; };
+		87F4FED9207317B10061FE9E /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F4FED8207317B10061FE9E /* GameView.swift */; };
+		87F4FEDB20731C820061FE9E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F4FEDA20731C820061FE9E /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +47,6 @@
 		8737C6C82071D6E200D9D65B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8737C6CA2071D6E200D9D65B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8737C6CD2071D6E200D9D65B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8737C6CF2071D6E300D9D65B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8737C6D22071D6E300D9D65B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8737C6D42071D6E300D9D65B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8737C6D92071D6E300D9D65B /* CardGameAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardGameAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,6 +55,9 @@
 		8737C6E42071D6E300D9D65B /* CardGameAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardGameAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8737C6E82071D6E300D9D65B /* CardGameAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameAppUITests.swift; sourceTree = "<group>"; };
 		8737C6EA2071D6E300D9D65B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87F4FED52073144A0061FE9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		87F4FED8207317B10061FE9E /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		87F4FEDA20731C820061FE9E /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		9BEC4809F64DE0C05B4E030E /* Pods_CardGameAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardGameAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A63F862CD0C42692C8933B /* Pods_CardGameAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardGameAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF5E8D2D820723469BEAF324 /* Pods-CardGameAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -124,11 +128,11 @@
 		8737C6C72071D6E200D9D65B /* CardGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				87F4FED72073177B0061FE9E /* Views */,
+				87F4FED52073144A0061FE9E /* Assets.xcassets */,
+				87F4FED4207312920061FE9E /* Storyboards */,
 				8737C6C82071D6E200D9D65B /* AppDelegate.swift */,
 				8737C6CA2071D6E200D9D65B /* ViewController.swift */,
-				8737C6CC2071D6E200D9D65B /* Main.storyboard */,
-				8737C6CF2071D6E300D9D65B /* Assets.xcassets */,
-				8737C6D12071D6E300D9D65B /* LaunchScreen.storyboard */,
 				8737C6D42071D6E300D9D65B /* Info.plist */,
 			);
 			path = CardGameApp;
@@ -150,6 +154,24 @@
 				8737C6EA2071D6E300D9D65B /* Info.plist */,
 			);
 			path = CardGameAppUITests;
+			sourceTree = "<group>";
+		};
+		87F4FED4207312920061FE9E /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				8737C6CC2071D6E200D9D65B /* Main.storyboard */,
+				8737C6D12071D6E300D9D65B /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		87F4FED72073177B0061FE9E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				87F4FED8207317B10061FE9E /* GameView.swift */,
+				87F4FEDA20731C820061FE9E /* CardView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		D1FF0A95D0A5A91B6AD3A330 /* Pods */ = {
@@ -279,7 +301,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8737C6D32071D6E300D9D65B /* LaunchScreen.storyboard in Resources */,
-				8737C6D02071D6E300D9D65B /* Assets.xcassets in Resources */,
+				87F4FED62073144A0061FE9E /* Assets.xcassets in Resources */,
 				8737C6CE2071D6E200D9D65B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,6 +475,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8737C6CB2071D6E200D9D65B /* ViewController.swift in Sources */,
+				87F4FED9207317B10061FE9E /* GameView.swift in Sources */,
+				87F4FEDB20731C820061FE9E /* CardView.swift in Sources */,
 				8737C6C92071D6E200D9D65B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -630,7 +654,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T393J4TVCC;
 				INFOPLIST_FILE = CardGameApp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuaming.CardGameApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -646,7 +673,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T393J4TVCC;
 				INFOPLIST_FILE = CardGameApp/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuaming.CardGameApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -663,7 +693,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T393J4TVCC;
 				INFOPLIST_FILE = CardGameAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuaming.CardGameAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -681,7 +715,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T393J4TVCC;
 				INFOPLIST_FILE = CardGameAppTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuaming.CardGameAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -698,7 +736,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T393J4TVCC;
 				INFOPLIST_FILE = CardGameAppUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuaming.CardGameAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -715,7 +757,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T393J4TVCC;
 				INFOPLIST_FILE = CardGameAppUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuaming.CardGameAppUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
