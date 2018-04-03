@@ -24,5 +24,6 @@ class CardDeckView: UIImageView {
         contentMode = .scaleAspectFit
         clipsToBounds = true
         layer.cornerRadius = 5
+        self.image = UIImage(named: Key.Img.cardBack.name)
     }
 }

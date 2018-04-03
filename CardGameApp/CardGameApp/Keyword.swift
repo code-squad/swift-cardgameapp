@@ -14,6 +14,7 @@ struct Key {
     enum Img: String {
         case background
         case refresh
+        case cardBack
         
         var name: String {
             switch self {
@@ -21,6 +22,7 @@ struct Key {
                 return "bg_pattern"
             case .refresh:
                 return "refresh"
+            case .cardBack: return "card-back"
             }
         }
     }
@@ -43,4 +45,27 @@ struct Key {
         }
     }
     
+    enum Observer: String {
+        case tapCardDeck
+        case cardFrame
+        case doubleTapCard
+        case openedCard
+        
+        var name: String {
+            switch self {
+            case .tapCardDeck: return "tapCardDeck"
+            case .doubleTapCard: return "didDoubleTapCard"
+            case .openedCard: return "openedCard"
+            case .cardFrame: return "cardFrame"
+            }
+        }
+    }
+    
+}
+
+extension Notification.Name {
+    static let didTapCardDeck = Notification.Name(Key.Observer.tapCardDeck.name)
+    static let didDoubleTapCard = Notification.Name(Key.Observer.doubleTapCard.name)
+    static let openedCard = Notification.Name(Key.Observer.openedCard.name)
+    static let cardFrame = Notification.Name(Key.Observer.cardFrame.name)
 }

@@ -9,5 +9,10 @@
 import Foundation
 
 struct OpenedCard {
+    private var topOfOpenedCard : Card
+    
+    init(_ card : Card) {
+        self.topOfOpenedCard = card
+    }
     
 }

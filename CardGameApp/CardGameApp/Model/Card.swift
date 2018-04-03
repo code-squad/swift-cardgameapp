@@ -74,9 +74,11 @@ class Card {
     
     func generateCardImg() -> UIImage {
         if self.side == .back {
-        return UIImage(named : "card-back") ?? UIImage()
+            let backCardImg = UIImage(named : Key.Img.cardBack.name) ?? UIImage()
+        return backCardImg
         }
-        return UIImage(named : self.suit.rawValue + self.rank.rawValue) ?? UIImage()
+        let frontCardImg = UIImage(named : self.suit.rawValue + self.rank.rawValue) ?? UIImage()
+        return frontCardImg
     }
     
 }

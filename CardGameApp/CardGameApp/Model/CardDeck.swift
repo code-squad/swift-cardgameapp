@@ -49,7 +49,9 @@ struct CardDeck : BaseControl {
     }
     
     mutating func removeOne() -> Card {
-        return self.deck.removeLast()
+        let topCard = self.deck.removeLast()
+        NotificationCenter.default.post(name: .didTapCardDeck, object: self, userInfo: [Key.Observer.openedCard.name: topCard])
+        return topCard
     }
     
     mutating func reset() {
@@ -59,8 +61,9 @@ struct CardDeck : BaseControl {
     mutating func generateOneStack(numberOfStack : Int) -> [Card] {
         var oneStack : [Card] = []
         for _ in 0...numberOfStack {
-            oneStack.append(self.removeOne())
+            oneStack.append(self.deck.removeLast())
         }
+//        oneStack.append(self.deck.removeLast().changeSide())
         return oneStack
     }
     

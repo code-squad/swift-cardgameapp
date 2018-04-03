@@ -9,5 +9,10 @@
 import Foundation
 
 struct Foundation {
+    private var foundationStack : [Card]
+    
+    init(_ cards : [Card]) {
+    self.foundationStack = cards
+    }
     
 }
