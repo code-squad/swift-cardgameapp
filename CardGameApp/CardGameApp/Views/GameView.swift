@@ -18,6 +18,6 @@ class GameView: UIView {
 // MARK: - Private functions
 private extension GameView {
     func loadDefaultOptions() {
-        self.backgroundColor = UIColor(patternImage: UIImage(named: "Game")!)
+        self.backgroundColor = UIColor(patternImage: UIImage(imageLiteralResourceName: "Game"))
     }
 }
