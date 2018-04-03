@@ -21,3 +21,10 @@ private extension GameView {
         self.backgroundColor = UIColor(patternImage: UIImage(imageLiteralResourceName: "Game"))
     }
 }
+
+extension GameView {
+    static var statusHeight: CGFloat {
+        let statusBarSize = UIApplication.shared.statusBarFrame.size
+        return statusBarSize.height
+    }
+}
