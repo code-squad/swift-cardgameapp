@@ -47,16 +47,20 @@ struct Key {
     
     enum Observer: String {
         case tapCardDeck
-        case cardFrame
         case doubleTapCard
+        case doubleTapCardView
         case openedCard
+        case foundation
+        case cardStacks
         
         var name: String {
             switch self {
             case .tapCardDeck: return "tapCardDeck"
-            case .doubleTapCard: return "didDoubleTapCard"
+            case .doubleTapCard: return "doubleTapCard"
+            case .doubleTapCardView: return "doubleTapCardView"
             case .openedCard: return "openedCard"
-            case .cardFrame: return "cardFrame"
+            case .foundation: return "foundation"
+            case .cardStacks: return "cardStacks"
             }
         }
     }
@@ -67,5 +71,6 @@ extension Notification.Name {
     static let didTapCardDeck = Notification.Name(Key.Observer.tapCardDeck.name)
     static let didDoubleTapCard = Notification.Name(Key.Observer.doubleTapCard.name)
     static let openedCard = Notification.Name(Key.Observer.openedCard.name)
-    static let cardFrame = Notification.Name(Key.Observer.cardFrame.name)
+    static let foundation = Notification.Name(Key.Observer.foundation.name)
+    static let cardStacks = Notification.Name(Key.Observer.cardStacks.name)
 }

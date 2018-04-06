@@ -26,4 +26,8 @@ class CardDeckView: UIImageView {
         layer.cornerRadius = 5
         self.image = UIImage(named: Key.Img.cardBack.name)
     }
+    
+    func reset() {
+        image = UIImage(named: Key.Img.cardBack.name)
+    }
 }

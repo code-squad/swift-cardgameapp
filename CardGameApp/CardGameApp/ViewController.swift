@@ -19,11 +19,6 @@ class ViewController: UIViewController {
     private var openedCardView: OpenedCardView!
     private var cardStacksView: CardStacksView!
     
-    //View-Model
-    private var foundation: Foundation!
-    private var openedCard: OpenedCard!
-    private var cardStacks: CardStacks!
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
@@ -31,11 +26,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imgFrameMaker = ImgFrameMaker(UIScreen.main.bounds.width)
+        cardEvaluator = CardEvaluator()
         cardDeck.shuffle()
         drawBackGround()
         drawBaseCards()
         NotificationCenter.default.addObserver(self, selector: #selector(drawOpenedCard(notification:)), name: .didTapCardDeck, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(doubleTapCard(notification:)), name: .didDoubleTapCard , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(drawFoundation(notification:)), name: .foundation, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(drawCardStacks(notification:)), name: .cardStacks, object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,21 +55,20 @@ class ViewController: UIViewController {
     //Foundation
     fileprivate func makeFoundation() {
         foundationView = FoundationView()
-        let foundationCardImgViews = generateFoundations()
-        foundationView.setFoundation(foundationCardImgViews)
+        foundationView.setFoundation(generateFoundations())
         self.view.addSubview(foundationView)
     }
     
     //CardDeck
     fileprivate func makeCardDeckView() {
-        cardDeckView = CardDeckView(frame: imgFrameMaker.generateFrame(Key.Card.lastIndex.count, Key.Card.noStack.count, .top))
+        cardDeckView = CardDeckView(frame: imgFrameMaker.generateCardViewFrame(CardInfo(Key.Card.lastIndex.count, Key.Card.noStack.count, .top)))
         cardDeckView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapCardDeck(sender:))))
         cardDeckView.isUserInteractionEnabled = true
         self.view.addSubview(cardDeckView)
     }
     //OpenedCard
     fileprivate func makeOpenedCard() {
-        openedCardView = OpenedCardView(frame: imgFrameMaker.generateFrame(Key.Card.opened.count, Key.Card.noStack.count,.top))
+        openedCardView = OpenedCardView(frame: imgFrameMaker.generateCardViewFrame(CardInfo(Key.Card.opened.count, Key.Card.noStack.count,.top)))
         openedCardView.addDoubleTapGesture()
         self.view.addSubview(openedCardView)
     }
@@ -79,8 +76,12 @@ class ViewController: UIViewController {
     //CardStacks
     fileprivate func makeCardStacks() {
         cardStacksView = CardStacksView(frame: imgFrameMaker.generateCardStacksViewFrame())
-        let stackImgViews = generateCardStacks()
-        cardStacksView.setStacks(stackImgViews)
+        var baseCardStacks : [[Card]] = []
+        for index in 0..<Key.Card.baseCards.count {
+            baseCardStacks.append(cardDeck.generateOneStack(numberOfStack: index))
+        }
+        cardEvaluator.setCardStacks(baseCardStacks)
+        cardStacksView.setStacks(generateCardStacks(cardStacks: baseCardStacks))
         self.view.addSubview(cardStacksView)
     }
     
@@ -90,51 +91,93 @@ class ViewController: UIViewController {
             cardDeckView.image = refreshImg
             return
         }
-        cardDeck.removeOne()
+        if cardDeckView.image == UIImage(named: Key.Img.refresh.name) {
+            openedCardView.reset()
+            cardDeckView.reset()
+            return
+        }
+        cardDeck.openTopCard()
     }
     
-    @objc func drawOpenedCard(notification: Notification) {
+    @objc private func drawCardStacks(notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String: [[Card]]] else { return }
+        guard let cardStacks = userInfo[Key.Observer.cardStacks.name] else { return }
+        cardStacksView.setStacks(generateCardStacks(cardStacks: cardStacks))
+    }
+    
+    @objc private func drawFoundation(notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String: [Card]] else { return }
+        guard let foundationCards = userInfo[Key.Observer.foundation.name] else { return }
+        foundationView.setFoundation(generateFoundations(foundationCards))
+    }
+    
+    @objc private func drawOpenedCard(notification: Notification) {
         guard let userInfo = notification.userInfo as? [String : Card] else { return }
         guard let tappedCard = userInfo[Key.Observer.openedCard.name] else { return }
-        openedCardView.image = tappedCard.changeSide().generateCardImg()
+        var openedCard : Card = tappedCard
+        if tappedCard.isBack() {
+            openedCard = tappedCard.changeSide()
+        }
+        openedCardView.image = openedCard.generateCardImg()
+        cardEvaluator.setOpenedCard(tappedCard)
     }
     
-    @objc func doubleTapCard(notification: Notification) {
-        guard let userInfo = notification.userInfo as? [String : CGRect] else { return }
-        guard let tappedCardFrame = userInfo[Key.Observer.doubleTapCard.name] else { return }
-        imgFrameMaker.generateIndex(tappedCardFrame)
+    @objc private func doubleTapCard(notification: Notification) {
+        guard let userInfo = notification.userInfo as? [String : UIImageView] else { return }
+        guard let tappedCardView = userInfo[Key.Observer.doubleTapCardView.name] else { return }
+        let cardInfo = imgFrameMaker.generateIndex(tappedCardView)
+        guard cardEvaluator.didMoveCard(cardInfo) else { return }
+        if tappedCardView is OpenedCardView {
+            openedCardView.reset()
+        }
     }
     
-    private func generateFoundations() -> [UIImageView] {
+    private func generateFoundations(_ foundations: [Card] = []) -> [UIImageView] {
         var foundationCards : [UIImageView] = []
-        for indexOfOneCard in 0..<Key.Card.foundations.count {
-            let oneFoundation = UIImageView(frame: imgFrameMaker.generateFrame(indexOfOneCard,Key.Card.noStack.count, .top))
+        var countOfCards : Int {
+            if foundations.count > 0 {
+                return foundations.count
+            }
+            return Key.Card.foundations.count
+        }
+        for indexOfOneCard in 0..<countOfCards{
+            let oneFoundation = UIImageView(frame: imgFrameMaker.generateCardViewFrame(CardInfo(indexOfOneCard,Key.Card.noStack.count,.top)))
+            if foundations.count > 0 {
+                oneFoundation.image = foundations[indexOfOneCard].generateCardImg()
+            }
             foundationCards.append(oneFoundation)
         }
         return foundationCards
     }
     
-    private func generateCardStacks() -> [[UIImageView]]{
-        var cardStacks : [[UIImageView]] = []
+    private func generateCardStacks(cardStacks: [[Card]]) -> [[UIImageView]]{
+        var cardStacksView : [[UIImageView]] = []
         for indexOfOneCard in 0..<Key.Card.baseCards.count {
-            cardStacks.append(generateOneCardStack(indexOfOneCard))
+            cardStacksView.append(generateOneCardStack(indexOfOneCard,cardStacks[indexOfOneCard]))
         }
-        return cardStacks
+        return cardStacksView
     }
     
-    private func generateOneCardStack(_ indexOfCard: Int) -> [UIImageView] {
+    private func generateOneCardStack(_ indexOfCard: Int ,_ cardStack: [Card]) -> [UIImageView] {
         var oneCardStackView : [UIImageView] = []
-        var cardStack : [Card] = cardDeck.generateOneStack(numberOfStack: indexOfCard)
-        for stackIndex in 0..<indexOfCard {
-            let oneCardImgView = UIImageView(frame: imgFrameMaker.generateStackFrame(indexOfCard,stackIndex,.bottom))
+        var cardStack : [Card] = cardStack
+        guard cardStack.count > 0 else { return [] }
+        for stackIndex in 0..<cardStack.count - 1 {
+            let oneCardImgView = UIImageView(frame: imgFrameMaker.generateCardViewFrame(CardInfo(indexOfCard,stackIndex,.cardStacks)))
             oneCardImgView.image = cardStack[stackIndex].generateCardImg()
             oneCardStackView.append(oneCardImgView)
         }
-        let oneFrontCardImgView = UIImageView(frame: imgFrameMaker.generateStackFrame(indexOfCard,indexOfCard,.bottom))
+        let oneFrontCardImgView = UIImageView(frame: imgFrameMaker.generateCardViewFrame(CardInfo(indexOfCard,cardStack.count - 1,.cardStacks)))
         oneFrontCardImgView.addDoubleTapGesture()
-        oneFrontCardImgView.image = cardStack[indexOfCard].changeSide().generateCardImg()
+        if cardStack[cardStack.count - 1].isBack() {
+            oneFrontCardImgView.image = cardStack[cardStack.count - 1].changeSide().generateCardImg()
+            oneCardStackView.append(oneFrontCardImgView)
+            return oneCardStackView
+        }
+        oneFrontCardImgView.image = cardStack[cardStack.count - 1].generateCardImg()
         oneCardStackView.append(oneFrontCardImgView)
         return oneCardStackView
+        
     }
     
 }
@@ -146,6 +189,7 @@ extension ViewController {
         super.motionEnded(motion, with: event)
         if motion == .motionShake {
             self.view.subviews.forEach { $0.removeFromSuperview() }
+            cardEvaluator = CardEvaluator()
             cardDeck.reset()
             cardDeck.shuffle()
             drawBaseCards()
@@ -162,12 +206,12 @@ extension UIImageView {
         self.addGestureRecognizer(gesture)
         self.isUserInteractionEnabled = true
     }
-
+    
     @objc private func doubleTapCard(sender: UITapGestureRecognizer) {
-        guard let tappedFrame = sender.view?.frame else { return }
-        NotificationCenter.default.post(name: .didDoubleTapCard, object: self, userInfo: [Key.Observer.doubleTapCard.name: tappedFrame])
+        guard let tappedCard = sender.view as? UIImageView else { return }
+        NotificationCenter.default.post(name: .didDoubleTapCard, object: self, userInfo: [Key.Observer.doubleTapCardView.name: tappedCard])
     }
-
+    
 }
 
 

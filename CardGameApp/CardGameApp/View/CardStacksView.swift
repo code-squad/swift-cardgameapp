@@ -28,6 +28,7 @@ class CardStacksView: UIStackView {
         self.cardStackViews = stacksViews
         spacing = UIStackView.spacingUseDefault
         distribution = .fillEqually
+        self.subviews.forEach { $0.removeFromSuperview() }
         drawStacks()
     }
     

@@ -25,4 +25,8 @@ class OpenedCardView: UIImageView {
         clipsToBounds = true
         layer.cornerRadius = 5
     }
+    
+    func reset() {
+        image = UIImage()
+    }
 }

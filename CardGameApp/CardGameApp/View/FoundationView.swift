@@ -41,7 +41,6 @@ class FoundationView: UIStackView {
             oneFoundation.layer.borderColor = UIColor.white.cgColor
             oneFoundation.layer.borderWidth = 1
             addSubview(oneFoundation)
-            
         }
     }
     
