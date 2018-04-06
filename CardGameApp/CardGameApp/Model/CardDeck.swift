@@ -10,7 +10,7 @@ import Foundation
 
 protocol BaseControl {
     mutating func shuffle()
-    mutating func removeOne() -> Card
+    mutating func openTopCard()
     mutating func reset()
     func isEmpty() -> Bool
     mutating func generateOneStack(numberOfStack : Int) -> [Card]
@@ -18,6 +18,7 @@ protocol BaseControl {
 
 struct CardDeck : BaseControl {
     private var deck : [Card] = []
+    private var openedCardDeck: [Card] = []
     private static var instance : CardDeck = CardDeck()
     
     static func shared() -> CardDeck {
@@ -41,17 +42,16 @@ struct CardDeck : BaseControl {
     }
     
     mutating func shuffle() {
-        for _ in 0..<self.deck.count {
+        for _ in self.deck.indices {
             do {
                 self.deck.sort { (_,_) in arc4random() < arc4random() }
             }
         }
     }
     
-    mutating func removeOne() -> Card {
+    mutating func openTopCard() {
         let topCard = self.deck.removeLast()
         NotificationCenter.default.post(name: .didTapCardDeck, object: self, userInfo: [Key.Observer.openedCard.name: topCard])
-        return topCard
     }
     
     mutating func reset() {
@@ -63,7 +63,6 @@ struct CardDeck : BaseControl {
         for _ in 0...numberOfStack {
             oneStack.append(self.deck.removeLast())
         }
-//        oneStack.append(self.deck.removeLast().changeSide())
         return oneStack
     }
     

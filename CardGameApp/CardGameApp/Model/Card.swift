@@ -32,6 +32,7 @@ class Card {
     }
     
     enum Ranks : String, generateAllCases {
+        case ace = "A"
         case two = "2"
         case three = "3"
         case four = "4"
@@ -44,7 +45,6 @@ class Card {
         case eleven = "J"
         case twelve = "Q"
         case thirteen = "K"
-        case ace = "A"
     }
     
     func isSameRank(_ nextCard : Card) -> Bool {
@@ -55,12 +55,27 @@ class Card {
         return self.suit == nextCard.suit
     }
     
+    func isDifferentColor(_ nextCard: Card) -> Bool {
+        if self.suit == .club || self.suit == .spade {
+            return nextCard.suit == .diamond || nextCard.suit == .heart
+        }
+        return nextCard.suit == .club || nextCard.suit == .spade
+    }
+    
     func isNextRank(_ nextCard : Card) -> Bool {
         return self.rank.hashValue == nextCard.rank.hashValue + 1
     }
     
     func isAce() -> Bool {
         return self.rank == .ace
+    }
+    
+    func isKing() -> Bool {
+        return self.rank == .thirteen
+    }
+    
+    func isBack() -> Bool {
+        return side == .back
     }
     
     func changeSide() -> Card {
@@ -75,9 +90,9 @@ class Card {
     func generateCardImg() -> UIImage {
         if self.side == .back {
             let backCardImg = UIImage(named : Key.Img.cardBack.name) ?? UIImage()
-        return backCardImg
+            return backCardImg
         }
-        let frontCardImg = UIImage(named : self.suit.rawValue + self.rank.rawValue) ?? UIImage()
+        let frontCardImg = UIImage(named: self.suit.rawValue + self.rank.rawValue) ?? UIImage()
         return frontCardImg
     }
     
