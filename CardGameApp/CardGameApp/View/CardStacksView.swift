@@ -28,11 +28,10 @@ class CardStacksView: UIStackView {
         self.cardStackViews = stacksViews
         spacing = UIStackView.spacingUseDefault
         distribution = .fillEqually
-        self.subviews.forEach { $0.removeFromSuperview() }
-        drawStacks()
     }
     
-    private func drawStacks() {
+    func drawStacks() {
+        self.subviews.forEach { $0.removeFromSuperview() }
         for oneStack in cardStackViews {
             drawOneStack(oneStack)
         }

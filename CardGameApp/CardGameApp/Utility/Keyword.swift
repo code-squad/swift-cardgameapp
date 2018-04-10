@@ -48,7 +48,6 @@ struct Key {
     enum Observer: String {
         case tapCardDeck
         case doubleTapCard
-        case doubleTapCardView
         case openedCard
         case foundation
         case cardStacks
@@ -57,7 +56,6 @@ struct Key {
             switch self {
             case .tapCardDeck: return "tapCardDeck"
             case .doubleTapCard: return "doubleTapCard"
-            case .doubleTapCardView: return "doubleTapCardView"
             case .openedCard: return "openedCard"
             case .foundation: return "foundation"
             case .cardStacks: return "cardStacks"

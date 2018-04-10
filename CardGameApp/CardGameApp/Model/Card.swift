@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class Card {
+    
     private var suit : Suits, rank : Ranks
     private var side : Side = .back
     
@@ -23,7 +24,6 @@ class Card {
         case back
     }
     
-    //하나의 범주로 묶어 사용하고, 한정된 값들이기 때문에 enum을 선택하였습니다.
     enum Suits : String, generateAllCases {
         case spade = "s"
         case heart = "h"

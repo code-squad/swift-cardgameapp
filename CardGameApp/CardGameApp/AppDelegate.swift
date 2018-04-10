@@ -15,7 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let viewController = window?.rootViewController as? ViewController
-        viewController?.cardDeck = CardDeck.shared() as BaseControl
+        viewController?.cardDeck = CardDeck.shared() as DeckControl
+        viewController?.cardGameTable = CardGameTable() as TableControl
+        viewController?.imgFrameMaker = ImgFrameMaker(UIScreen.main.bounds.width) as FrameControl
         return true
     }
 

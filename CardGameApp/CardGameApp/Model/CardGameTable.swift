@@ -8,10 +8,25 @@
 
 import Foundation
 
-struct CardEvaluator {
-    private var foundation : [Card] = []
+protocol TableControl {
+    mutating func setOpenedCard(_ card: Card)
+    mutating func setCardStacks(_ cardStacks: [[Card]])
+    mutating func moveCard(_ cardInfo: CardInfo) -> (isTrue : Bool, doubleTappedCard : Card)
+    func getCardInfo(_ card: Card) -> CardInfo
+}
+
+struct CardGameTable : TableControl {
+    private var foundation : [Card] = [] {
+        didSet {
+            NotificationCenter.default.post(name: .foundation, object: self, userInfo: [Key.Observer.foundation.name : self.foundation])
+        }
+    }
+    private var cardStacks : [[Card]] = [] {
+        didSet {
+            NotificationCenter.default.post(name: .cardStacks, object: self, userInfo: [Key.Observer.cardStacks.name : self.cardStacks])
+        }
+    }
     private var openedCard : Card = Card(.spade, .two)
-    private var cardStacks : [[Card]] = []
     
     mutating func setOpenedCard(_ card: Card) {
         self.openedCard = card
@@ -21,17 +36,37 @@ struct CardEvaluator {
         self.cardStacks = cardStacks
     }
     
-    mutating func didMoveCard(_ cardInfo: CardInfo) -> Bool {
+}
+
+//Check Move & Hand
+extension CardGameTable {
+    
+    mutating func moveCard(_ cardInfo: CardInfo) -> (isTrue : Bool, doubleTappedCard : Card) {
         let doubleTappedCard: Card
         if cardInfo.position == .top {
             doubleTappedCard = self.openedCard
-            return checkHand(doubleTappedCard, cardInfo)
+            return (checkMove(doubleTappedCard, cardInfo), doubleTappedCard)
         }
         doubleTappedCard = self.cardStacks[cardInfo.indexOfCard][cardInfo.stackIndex]
-        return checkHand(doubleTappedCard, cardInfo)
+        return (checkMove(doubleTappedCard, cardInfo), doubleTappedCard)
     }
     
-    mutating private func checkHand(_ tappedCard: Card, _ tappedCardInfo: CardInfo) -> Bool {
+    func getCardInfo(_ card: Card) -> CardInfo {
+        var cardInfo : CardInfo!
+        for index in self.foundation.indices {
+            guard card == self.foundation[index] else { continue }
+            cardInfo = CardInfo(index, Key.Card.noStack.count, .top)
+            break
+        }
+        for index in self.cardStacks.indices {
+            guard let stackIndex = self.cardStacks[index].index(where: {$0 == card}) else { continue }
+            cardInfo = CardInfo(index, stackIndex, .cardStacks)
+            break
+        }
+        return cardInfo
+    }
+    
+    mutating private func checkMove(_ tappedCard: Card, _ tappedCardInfo: CardInfo) -> Bool {
         guard !tappedCard.isAce() else { return moveAce(tappedCard, tappedCardInfo) }
         guard !tappedCard.isKing() else { return moveKing(tappedCard, tappedCardInfo) }
         guard !moveFoundation(tappedCard, tappedCardInfo) else { return true }
@@ -43,10 +78,8 @@ struct CardEvaluator {
         for index in self.foundation.indices {
             guard self.foundation[index].isSameSuit(card) && card.isNextRank(self.foundation[index]) else { continue }
             self.foundation[index] = card
-            NotificationCenter.default.post(name: .foundation, object: self, userInfo: [Key.Observer.foundation.name:self.foundation])
             guard cardInfo.position == .cardStacks else { return true }
             self.cardStacks[cardInfo.indexOfCard].removeLast()
-            NotificationCenter.default.post(name: .cardStacks, object: self, userInfo:[Key.Observer.cardStacks.name:self.cardStacks])
             return true
         }
         return false
@@ -57,10 +90,8 @@ struct CardEvaluator {
             guard let lastCard = self.cardStacks[index].last else { return false }
             guard card.isDifferentColor(lastCard) && lastCard.isNextRank(card) else { continue }
             self.cardStacks[index].append(card)
-            NotificationCenter.default.post(name: .cardStacks, object: self, userInfo:[Key.Observer.cardStacks.name:self.cardStacks])
             guard cardInfo.position == .cardStacks else { return true }
             self.cardStacks[cardInfo.indexOfCard].removeLast()
-            NotificationCenter.default.post(name: .cardStacks, object: self, userInfo:[Key.Observer.cardStacks.name:self.cardStacks])
             return true
         }
         return false
@@ -68,10 +99,8 @@ struct CardEvaluator {
     
     mutating private func moveAce(_ card: Card, _ cardInfo: CardInfo) -> Bool {
         self.foundation.append(card)
-        NotificationCenter.default.post(name: .foundation, object: self, userInfo: [Key.Observer.foundation.name:self.foundation])
         guard cardInfo.position == .cardStacks else { return true }
         self.cardStacks[cardInfo.indexOfCard].removeLast()
-        NotificationCenter.default.post(name: .cardStacks, object: self, userInfo:[Key.Observer.cardStacks.name:self.cardStacks])
         return true
     }
     
@@ -79,13 +108,10 @@ struct CardEvaluator {
         for index in self.cardStacks.indices {
             guard self.cardStacks[index].count == 0 else { continue }
             self.cardStacks[index].append(card)
-            NotificationCenter.default.post(name: .cardStacks, object: self, userInfo:[Key.Observer.cardStacks.name:self.cardStacks])
             guard cardInfo.position == .cardStacks else { return true }
             self.cardStacks[cardInfo.indexOfCard].removeLast()
-            NotificationCenter.default.post(name: .cardStacks, object: self, userInfo:[Key.Observer.cardStacks.name:self.cardStacks])
             return true
         }
         return false
     }
-    
 }

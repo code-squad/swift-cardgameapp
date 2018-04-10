@@ -9,7 +9,13 @@
 import Foundation
 import UIKit
 
-struct ImgFrameMaker {
+protocol FrameControl {
+    func generateCardStacksViewFrame() -> CGRect
+    func generateCardViewFrame(_ cardInfo: CardInfo) -> CGRect
+    func generateIndex(_ cardView: UIImageView) -> CardInfo
+}
+
+struct ImgFrameMaker : FrameControl {
 
     private let screenWidth : CGFloat
     private let width : CGFloat
@@ -18,12 +24,12 @@ struct ImgFrameMaker {
     private let countOfCards = CGFloat(7)
     private let marginRatioValue = CGFloat(30)
     private let stackMargin = CGFloat(20)
-    private let cardStack = CGFloat(100)
+    private let cardStack = CGFloat(0)
     
     
     enum Position : CGFloat {
         case top = 20
-        case cardStacks = 0
+        case cardStacks = 100
     }
     
     init(_ screenWidth : CGFloat) {
@@ -33,7 +39,7 @@ struct ImgFrameMaker {
     }
     
     func generateCardStacksViewFrame() -> CGRect {
-        return CGRect(origin: CGPoint(x: margin, y: cardStack),
+        return CGRect(origin: CGPoint(x: cardStack, y: cardStack),
                       size: CGSize(width: self.screenWidth - margin, height: (width - margin) * countOfCards))
     }
     
@@ -49,7 +55,7 @@ struct ImgFrameMaker {
             guard cardView is OpenedCardView else { return Position.cardStacks}
             return Position.top
         }
-        let stackIndex: Int = Int(round(cardView.frame.origin.y  / stackMargin))
+        let stackIndex: Int = Int(round((cardView.frame.origin.y - ImgFrameMaker.Position.cardStacks.rawValue) / stackMargin))
         return CardInfo(indexOfCard, stackIndex, position);
     }
     

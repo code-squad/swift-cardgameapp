@@ -21,7 +21,7 @@
 		0497BA962068DC55001344F8 /* OpenedCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497BA952068DC55001344F8 /* OpenedCardView.swift */; };
 		0497BA982068EAB0001344F8 /* ImgFrameMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497BA972068EAB0001344F8 /* ImgFrameMaker.swift */; };
 		04AB99EB207348000085570C /* CardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AB99EA207348000085570C /* CardInfo.swift */; };
-		3693326C206DDC540030517D /* CardEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3693326B206DDC540030517D /* CardEvaluator.swift */; };
+		3693326C206DDC540030517D /* CardGameTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3693326B206DDC540030517D /* CardGameTable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +41,7 @@
 		0497BA952068DC55001344F8 /* OpenedCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OpenedCardView.swift; path = CardGameApp/View/OpenedCardView.swift; sourceTree = SOURCE_ROOT; };
 		0497BA972068EAB0001344F8 /* ImgFrameMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgFrameMaker.swift; sourceTree = "<group>"; };
 		04AB99EA207348000085570C /* CardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardInfo.swift; sourceTree = "<group>"; };
-		3693326B206DDC540030517D /* CardEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEvaluator.swift; sourceTree = "<group>"; };
+		3693326B206DDC540030517D /* CardGameTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameTable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,9 +76,8 @@
 			children = (
 				0494838B2069D9240053114E /* View */,
 				048B886120623997002BF2B7 /* Model */,
+				049F74FD207C832400CBDA2F /* Utility */,
 				048B884D2061FD70002BF2B7 /* AppDelegate.swift */,
-				0497BA972068EAB0001344F8 /* ImgFrameMaker.swift */,
-				0434FD372063A208000C8FB5 /* Keyword.swift */,
 				048B884F2061FD70002BF2B7 /* ViewController.swift */,
 				048B88512061FD70002BF2B7 /* Main.storyboard */,
 				048B88542061FD70002BF2B7 /* Assets.xcassets */,
@@ -93,7 +92,7 @@
 			children = (
 				048B8862206239B3002BF2B7 /* Card.swift */,
 				048B8864206239CC002BF2B7 /* CardDeck.swift */,
-				3693326B206DDC540030517D /* CardEvaluator.swift */,
+				3693326B206DDC540030517D /* CardGameTable.swift */,
 				04AB99EA207348000085570C /* CardInfo.swift */,
 			);
 			path = Model;
@@ -108,6 +107,15 @@
 				0494838C2069E3E40053114E /* CardStacksView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		049F74FD207C832400CBDA2F /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				0434FD372063A208000C8FB5 /* Keyword.swift */,
+				0497BA972068EAB0001344F8 /* ImgFrameMaker.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +145,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "권재욱";
 				TargetAttributes = {
 					048B88492061FD70002BF2B7 = {
@@ -187,7 +195,7 @@
 				0497BA982068EAB0001344F8 /* ImgFrameMaker.swift in Sources */,
 				0497BA942068DC1C001344F8 /* CardDeckView.swift in Sources */,
 				0434FD382063A208000C8FB5 /* Keyword.swift in Sources */,
-				3693326C206DDC540030517D /* CardEvaluator.swift in Sources */,
+				3693326C206DDC540030517D /* CardGameTable.swift in Sources */,
 				048B8865206239CC002BF2B7 /* CardDeck.swift in Sources */,
 				048B8863206239B3002BF2B7 /* Card.swift in Sources */,
 				04AB99EB207348000085570C /* CardInfo.swift in Sources */,
@@ -233,6 +241,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -240,6 +249,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -290,6 +300,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -297,6 +308,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

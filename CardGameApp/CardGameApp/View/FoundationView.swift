@@ -30,10 +30,9 @@ class FoundationView: UIStackView {
         self.CardImgViews = imgView
         spacing = UIStackView.spacingUseDefault
         distribution = .fillEqually
-        drawFoundation()
     }
     
-    private func drawFoundation() {
+    func drawFoundation() {
         for oneFoundation in CardImgViews {
             oneFoundation.contentMode = .scaleAspectFill
             oneFoundation.clipsToBounds = true
