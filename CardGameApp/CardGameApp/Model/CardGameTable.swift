@@ -32,8 +32,8 @@ struct CardGameTable : TableControl {
         openedCard = card
     }
     
-    mutating func setCardStacks(_ cardStacks: [[Card]]) {
-        cardStacks = cardStacks
+    mutating func setCardStacks(_ newCardStacks: [[Card]]) {
+        cardStacks = newCardStacks
     }
     
 }
@@ -67,11 +67,13 @@ extension CardGameTable {
     }
     
     mutating private func checkMove(_ tappedCard: Card, _ tappedCardInfo: CardInfo) -> Bool {
-        guard !tappedCard.isAce() else { return moveAce(tappedCard, tappedCardInfo) }
-        guard !tappedCard.isKing() else { return moveKing(tappedCard, tappedCardInfo) }
-        guard !moveFoundation(tappedCard, tappedCardInfo) else { return true }
-        guard !moveStack(tappedCard, tappedCardInfo) else { return true }
-        return false
+        switch tappedCard {
+        case _ where tappedCard.isAce() : return moveAce(tappedCard, tappedCardInfo)
+        case _ where tappedCard.isKing() : return moveKing(tappedCard, tappedCardInfo)
+        case _ where moveFoundation(tappedCard, tappedCardInfo) || moveStack(tappedCard, tappedCardInfo) : return true
+        default:
+            return false
+        }
     }
     
     mutating private func moveFoundation(_ card: Card, _ cardInfo: CardInfo) -> Bool {
