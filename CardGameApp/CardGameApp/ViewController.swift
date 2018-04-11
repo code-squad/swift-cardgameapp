@@ -31,7 +31,6 @@ class ViewController: UIViewController {
         drawBackGround()
         drawBaseCards()
         NotificationCenter.default.addObserver(self, selector: #selector(drawOpenedCard(notification:)), name: .didTapCardDeck, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(doubleTapCard(notification:)), name: .didDoubleTapCard , object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(drawFoundation(notification:)), name: .foundation, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(drawCardStacks(notification:)), name: .cardStacks, object: nil)
     }
@@ -118,6 +117,7 @@ class ViewController: UIViewController {
         guard let userInfo = notification.userInfo as? [String : Card] else { return }
         guard let tappedCard = userInfo[Key.Observer.openedCard.name] else { return }
         var openedCard : Card = tappedCard
+        openedCardView.removeFromSuperview()
         makeOpenedCardView()
         if tappedCard.isBack() {
             openedCard = tappedCard.changeSide()
@@ -134,31 +134,27 @@ class ViewController: UIViewController {
     }
     
     @objc private func doubleTapCard(sender: UITapGestureRecognizer) {
-        NotificationCenter.default.post(name: .didDoubleTapCard, object: self, userInfo: [Key.Observer.doubleTapCard.name : sender])
-    }
-    
-    @objc private func doubleTapCard(notification: Notification) {
-        guard let userInfo = notification.userInfo else { return }
-        guard let recognizer = userInfo[Key.Observer.doubleTapCard.name] as? UIGestureRecognizer else { return }
-        guard let doubleTappedCardView = recognizer.view as? UIImageView else { return }
+        guard let doubleTappedCardView = sender.view as? UIImageView else { return }
         let doubleTappedCardInfo = imgFrameMaker.generateIndex(doubleTappedCardView)
         let moveInfo = cardGameTable.moveCard(doubleTappedCardInfo)
-        if !moveInfo.isTrue {
-            cardDeck.setOpenedCardDeck(moveInfo.doubleTappedCard)
+        if !moveInfo.isTrue && doubleTappedCardView is OpenedCardView {
+            doubleTappedCardView.isUserInteractionEnabled = false
+            cardDeck.addOpenedCardDeck(moveInfo.doubleTappedCard)
             return
         }
+        guard moveInfo.isTrue else { return }
         let movedCardInfo = cardGameTable.getCardInfo(moveInfo.doubleTappedCard)
         UIView.animate(
             withDuration: 0.5,
             animations: {
                 doubleTappedCardView.layer.zPosition = 1
                 doubleTappedCardView.frame = self.imgFrameMaker.generateCardViewFrame(movedCardInfo)
-            },
+        },
             completion: { _ in
                 self.foundationView.drawFoundation()
                 self.cardStacksView.drawStacks()
                 doubleTappedCardView.removeFromSuperview()
-            })
+        })
     }
     
     private func generateFoundations(_ foundations: [Card] = []) -> [UIImageView] {
