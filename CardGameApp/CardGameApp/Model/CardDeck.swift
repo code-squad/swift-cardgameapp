@@ -14,7 +14,7 @@ protocol DeckControl {
     mutating func reset()
     func isEmpty() -> Bool
     mutating func generateOneStack(numberOfStack : Int) -> [Card]
-    mutating func setOpenedCardDeck(_ oneCard : Card)
+    mutating func addOpenedCardDeck(_ oneCard : Card)
     mutating func loadOpenedCardDeck()
 }
 
@@ -39,7 +39,7 @@ struct CardDeck : DeckControl {
         return self.deck.count == 0
     }
     
-    mutating func setOpenedCardDeck(_ oneCard : Card) {
+    mutating func addOpenedCardDeck(_ oneCard : Card) {
         self.openedCardDeck.append(oneCard)
     }
     
