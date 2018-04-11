@@ -11,7 +11,7 @@ import Foundation
 protocol TableControl {
     mutating func setOpenedCard(_ card: Card)
     mutating func setCardStacks(_ cardStacks: [[Card]])
-    mutating func moveCard(_ cardInfo: CardInfo) -> (isTrue : Bool, doubleTappedCard : Card)
+    mutating func checkMove(_ cardInfo: CardInfo) -> (isTrue : Bool, doubleTappedCard : Card)
     func getCardInfo(_ card: Card) -> CardInfo
 }
 
@@ -41,14 +41,14 @@ struct CardGameTable : TableControl {
 //Check Move & Hand
 extension CardGameTable {
     
-    mutating func moveCard(_ cardInfo: CardInfo) -> (isTrue : Bool, doubleTappedCard : Card) {
+    mutating func checkMove(_ cardInfo: CardInfo) -> (isTrue : Bool, doubleTappedCard : Card) {
         let doubleTappedCard: Card
         if cardInfo.position == .top {
             doubleTappedCard = openedCard
-            return (checkMove(doubleTappedCard, cardInfo), doubleTappedCard)
+            return (moveCard(doubleTappedCard, cardInfo), doubleTappedCard)
         }
         doubleTappedCard = cardStacks[cardInfo.indexOfCard][cardInfo.stackIndex]
-        return (checkMove(doubleTappedCard, cardInfo), doubleTappedCard)
+        return (moveCard(doubleTappedCard, cardInfo), doubleTappedCard)
     }
     
     func getCardInfo(_ card: Card) -> CardInfo {
@@ -66,17 +66,17 @@ extension CardGameTable {
         return cardInfo
     }
     
-    mutating private func checkMove(_ tappedCard: Card, _ tappedCardInfo: CardInfo) -> Bool {
+    mutating private func moveCard(_ tappedCard: Card, _ tappedCardInfo: CardInfo) -> Bool {
         switch tappedCard {
         case _ where tappedCard.isAce() : return moveAce(tappedCard, tappedCardInfo)
         case _ where tappedCard.isKing() : return moveKing(tappedCard, tappedCardInfo)
-        case _ where moveFoundation(tappedCard, tappedCardInfo) || moveStack(tappedCard, tappedCardInfo) : return true
+        case _ where moveToFoundation(tappedCard, tappedCardInfo) || moveToCardStacks(tappedCard, tappedCardInfo) : return true
         default:
             return false
         }
     }
     
-    mutating private func moveFoundation(_ card: Card, _ cardInfo: CardInfo) -> Bool {
+    mutating private func moveToFoundation(_ card: Card, _ cardInfo: CardInfo) -> Bool {
         for index in foundation.indices {
             guard foundation[index].isSameSuit(card) && card.isNextRank(foundation[index]) else { continue }
             foundation[index] = card
@@ -87,7 +87,7 @@ extension CardGameTable {
         return false
     }
     
-    mutating private func moveStack(_ card: Card, _ cardInfo: CardInfo) -> Bool {
+    mutating private func moveToCardStacks(_ card: Card, _ cardInfo: CardInfo) -> Bool {
         for index in cardStacks.indices {
             guard let lastCard = cardStacks[index].last else { return false }
             guard card.isDifferentColor(lastCard) && lastCard.isNextRank(card) else { continue }

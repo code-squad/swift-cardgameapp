@@ -136,7 +136,7 @@ class ViewController: UIViewController {
     @objc private func doubleTapCard(sender: UITapGestureRecognizer) {
         guard let doubleTappedCardView = sender.view as? UIImageView else { return }
         let doubleTappedCardInfo = imgFrameMaker.generateIndex(doubleTappedCardView)
-        let moveInfo = cardGameTable.moveCard(doubleTappedCardInfo)
+        let moveInfo = cardGameTable.checkMove(doubleTappedCardInfo)
         if !moveInfo.isTrue && doubleTappedCardView is OpenedCardView {
             doubleTappedCardView.isUserInteractionEnabled = false
             cardDeck.addOpenedCardDeck(moveInfo.doubleTappedCard)
