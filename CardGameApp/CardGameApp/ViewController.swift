@@ -10,10 +10,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    let cardDeck = CardDeck()
     let widthDivider: CGFloat = 8
     let cardHeightRatio: CGFloat = 1.27
     let blankPositionY: CGFloat = 20
     let cardPositionY: CGFloat = 100
+    let numberOfDeck = 7
+    let numberOfFoundation = 4
 
     var cardWidth: CGFloat {
         return self.view.frame.width / widthDivider
@@ -45,37 +48,44 @@ class ViewController: UIViewController {
     }
 
     private func drawCards() {
-        for i in 0...6 {
+        cardDeck.shuffle()
+        let cards = cardDeck.makeCards(numberOfDeck)
+        for i in 0..<numberOfDeck {
             let cardX = (CGFloat(i+1)*space) + (CGFloat(i) * cardWidth)
             let cardImage = CardImageView()
-            cardImage.getBackSide()
-            cardImage.frame = CGRect(origin: CGPoint(x: cardX, y: cardPositionY),size: self.cardSize)
-            print(CGPoint(x: cardX, y: cardPositionY))
+            cardImage.getFrontImage(of: cards[i])
+            cardImage.frame = CGRect(origin: CGPoint(x: cardX, y: cardPositionY), size: self.cardSize)
             self.view.addSubview(cardImage)
         }
     }
 
     private func drawFoundations() {
-        for i in 0..<4 {
+        for i in 0..<numberOfFoundation {
             let cardX = (CGFloat(i+1)*space) + (CGFloat(i) * cardWidth)
-            let foundation = UIView(frame: CGRect(origin: CGPoint(x: cardX, y: blankPositionY),
-                                             size: self.cardSize))
+            let foundation = UIView(frame: CGRect(origin: CGPoint(x: cardX, y: blankPositionY), size: self.cardSize))
             foundation.clipsToBounds = true
             foundation.layer.cornerRadius = 5.0
             foundation.layer.borderColor = UIColor.white.cgColor
             foundation.layer.borderWidth = 1.0
             self.view.addSubview(foundation)
         }
-
     }
 
     private func drawStack() {
         let upperRightCornerX = 355.78125
         let upperRightCornerY = 20.0
-        let stackImage = CardImageView(frame: CGRect(origin: CGPoint(x: upperRightCornerX, y: upperRightCornerY),
-                                                     size: self.cardSize))
+        let stackImage = CardImageView(frame: CGRect(origin: CGPoint(x: upperRightCornerX, y: upperRightCornerY), size: self.cardSize))
         stackImage.getBackSide()
         self.view.addSubview(stackImage)
+    }
+
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            view.subviews.forEach() { $0.removeFromSuperview() }
+            self.drawFoundations()
+            self.drawStack()
+            self.drawCards()
+        }
     }
 
 }
