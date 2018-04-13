@@ -19,7 +19,7 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
         return denomination.rawValue
     }
 
-    var side: Side = .back
+    var side: Side = .front
     private var suit: CardDeck.Suit
     private var denomination: CardDeck.Denomination
 
@@ -48,7 +48,7 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
         case .clover: shape = "c"
         case .spade: shape = "s"
         }
-        return "\(shape + number).png"
+        return "card_decks/\(shape + number).png"
     }
 
     init(suit: CardDeck.Suit, denomination: CardDeck.Denomination) {
