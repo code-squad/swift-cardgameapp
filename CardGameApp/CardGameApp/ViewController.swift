@@ -87,14 +87,14 @@ class ViewController: UIViewController {
     
     @objc private func tapCardDeck(sender : UITapGestureRecognizer) {
         if cardDeckView.image == UIImage(named: Key.Img.refresh.name) {
-            openedCardView.reset()
+            cardDeck.loadOpenedCardDeck()
+            self.view.subviews.filter({$0 is OpenedCardView}).forEach({$0.removeFromSuperview()})
             cardDeckView.reset()
             return
         }
         if cardDeck.isEmpty() {
-            guard let refreshImg = UIImage(named: Key.Img.refresh.name) else { return}
+            guard let refreshImg = UIImage(named: Key.Img.refresh.name) else { return }
             cardDeckView.image = refreshImg
-            cardDeck.loadOpenedCardDeck()
             return
         }
         cardDeck.openTopCard()
