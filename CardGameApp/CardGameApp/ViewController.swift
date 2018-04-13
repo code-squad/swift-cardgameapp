@@ -43,7 +43,6 @@ class ViewController: UIViewController {
         makeCardStacksView()
         makeFoundationView()
         makeCardDeckView()
-        makeOpenedCardView()
     }
     
     private func drawBackGround() {
@@ -117,7 +116,6 @@ class ViewController: UIViewController {
         guard let userInfo = notification.userInfo as? [String : Card] else { return }
         guard let tappedCard = userInfo[Key.Observer.openedCard.name] else { return }
         var openedCard : Card = tappedCard
-        openedCardView.removeFromSuperview()
         makeOpenedCardView()
         if tappedCard.isBack() {
             openedCard = tappedCard.changeSide()
@@ -138,8 +136,6 @@ class ViewController: UIViewController {
         let doubleTappedCardInfo = imgFrameMaker.generateIndex(doubleTappedCardView)
         let moveInfo = cardGameTable.checkMove(doubleTappedCardInfo)
         if !moveInfo.isTrue && doubleTappedCardView is OpenedCardView {
-            doubleTappedCardView.isUserInteractionEnabled = false
-            cardDeck.addOpenedCardDeck(moveInfo.doubleTappedCard)
             return
         }
         guard moveInfo.isTrue else { return }
@@ -154,6 +150,9 @@ class ViewController: UIViewController {
                 self.foundationView.drawFoundation()
                 self.cardStacksView.drawStacks()
                 doubleTappedCardView.removeFromSuperview()
+                guard doubleTappedCardView is OpenedCardView else { return }
+                guard let topCard = self.cardDeck.getCardFromOpenedCardDeck() else { return }
+                self.cardGameTable.setOpenedCard(topCard)
         })
     }
     

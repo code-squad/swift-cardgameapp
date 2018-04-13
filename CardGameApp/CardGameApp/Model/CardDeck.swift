@@ -16,6 +16,7 @@ protocol DeckControl {
     mutating func generateOneStack(numberOfStack : Int) -> [Card]
     mutating func addOpenedCardDeck(_ oneCard : Card)
     mutating func loadOpenedCardDeck()
+    mutating func getCardFromOpenedCardDeck() -> Card?
 }
 
 struct CardDeck : DeckControl {
@@ -53,12 +54,19 @@ struct CardDeck : DeckControl {
     
     mutating func openTopCard() {
         let topCard = self.deck.removeLast()
+        self.openedCardDeck.append(topCard)
         NotificationCenter.default.post(name: .didTapCardDeck, object: self, userInfo: [Key.Observer.openedCard.name: topCard])
     }
     
     mutating func loadOpenedCardDeck() {
         self.deck = self.openedCardDeck
         self.openedCardDeck = []
+    }
+    
+    mutating func getCardFromOpenedCardDeck() -> Card? {
+        guard openedCardDeck.count != 0 else { return nil }
+        openedCardDeck.removeLast()
+        return openedCardDeck.last
     }
     
     mutating func reset() {
