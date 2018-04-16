@@ -32,8 +32,8 @@ class CardImageView: UIImageView {
         self.image = UIImage(named: "card-back")
     }
 
-    func getFrontImage(of cardName: Card) {
-        self.image = UIImage(named: cardName.frontImage)
+    func getFrontImage(name: String) {
+        self.image = UIImage(named: name)
     }
 
 }
