@@ -33,15 +33,7 @@
 		FDD8FA21207F035500F5FD99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDD8FA27207F216B00F5FD99 /* CardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
 		FDDFB9292080472500920FB4 /* card_decks */ = {isa = PBXFileReference; lastKnownFileType = folder; path = card_decks; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		FDDFB92B2080497000920FB4 /* ScoreChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreChecker.swift; sourceTree = "<group>"; };
 		FDDFB92D2080497400920FB4 /* ResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultData.swift; sourceTree = "<group>"; };
-		FDDFB92F2080497700920FB4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		FDDFB9312080498700920FB4 /* Dealer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dealer.swift; sourceTree = "<group>"; };
-		FDDFB9322080498700920FB4 /* CardTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTable.swift; sourceTree = "<group>"; };
-=======
-		FDDFB92D2080497400920FB4 /* ResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultData.swift; sourceTree = "<group>"; };
->>>>>>> 7d488efa7063fb5a1ec04ab1a09e07ea9e7c2d3b
 		FDDFB9332080498700920FB4 /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		FDDFB9342080498700920FB4 /* EnumCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumCollection.swift; sourceTree = "<group>"; };
 		FDDFB9352080498700920FB4 /* CardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
@@ -97,17 +89,8 @@
 			children = (
 				FDDFB9352080498700920FB4 /* CardDeck.swift */,
 				FDDFB9332080498700920FB4 /* CardStack.swift */,
-<<<<<<< HEAD
-				FDDFB9322080498700920FB4 /* CardTable.swift */,
-				FDDFB9312080498700920FB4 /* Dealer.swift */,
-				FDDFB9342080498700920FB4 /* EnumCollection.swift */,
-				FDDFB92F2080497700920FB4 /* Player.swift */,
-				FDDFB92D2080497400920FB4 /* ResultData.swift */,
-				FDDFB92B2080497000920FB4 /* ScoreChecker.swift */,
-=======
 				FDDFB9342080498700920FB4 /* EnumCollection.swift */,
 				FDDFB92D2080497400920FB4 /* ResultData.swift */,
->>>>>>> 7d488efa7063fb5a1ec04ab1a09e07ea9e7c2d3b
 				FDDFB9362080498700920FB4 /* Card.swift */,
 			);
 			path = Model;
@@ -189,17 +172,8 @@
 				FDDFB92E2080497400920FB4 /* ResultData.swift in Sources */,
 				FDD8FA18207F035400F5FD99 /* ViewController.swift in Sources */,
 				FDDFB93C2080498800920FB4 /* CardDeck.swift in Sources */,
-<<<<<<< HEAD
-				FDDFB9382080498800920FB4 /* Dealer.swift in Sources */,
-				FDD8FA28207F216B00F5FD99 /* CardImageView.swift in Sources */,
-				FDDFB9392080498800920FB4 /* CardTable.swift in Sources */,
-				FDDFB92C2080497000920FB4 /* ScoreChecker.swift in Sources */,
-				FDDFB93D2080498800920FB4 /* Card.swift in Sources */,
-				FDDFB9302080497700920FB4 /* Player.swift in Sources */,
-=======
 				FDD8FA28207F216B00F5FD99 /* CardImageView.swift in Sources */,
 				FDDFB93D2080498800920FB4 /* Card.swift in Sources */,
->>>>>>> 7d488efa7063fb5a1ec04ab1a09e07ea9e7c2d3b
 				FDD8FA16207F035400F5FD99 /* AppDelegate.swift in Sources */,
 				FDDFB93B2080498800920FB4 /* EnumCollection.swift in Sources */,
 				FDDFB93A2080498800920FB4 /* CardStack.swift in Sources */,
