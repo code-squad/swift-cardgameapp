@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         for i in 0..<numberOfDeck {
             let cardX = (CGFloat(i+1)*space) + (CGFloat(i) * cardWidth)
             let cardImage = CardImageView()
-            cardImage.getFrontImage(of: cards[i])
+            cardImage.getImage(of: cards[i])
             cardImage.frame = CGRect(origin: CGPoint(x: cardX, y: cardPositionY), size: self.cardSize)
             self.view.addSubview(cardImage)
         }
