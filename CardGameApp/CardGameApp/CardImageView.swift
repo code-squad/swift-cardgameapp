@@ -14,26 +14,11 @@ class CardImageView: UIImageView {
         super.awakeFromNib()
     }
 
-    override init(frame: CGRect) { // by code
-        super.init(frame: frame)
-        self.layer.cornerRadius = 5.0
-        self.clipsToBounds = true
-    }
-
-    convenience init() {
-        self.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    func getBackSide() {
-        self.image = UIImage(named: "card-back")
-    }
-
-    func getFrontImage(name: String) {
-        self.image = UIImage(named: name)
+    func getBackImage() -> CardImageView {
+        let cardBackImage = CardImageView(image: UIImage(named: "card-back"))
+        cardBackImage.layer.cornerRadius = 5.0
+        cardBackImage.clipsToBounds = true
+        return cardBackImage
     }
 
 }
