@@ -28,12 +28,12 @@ class CardImageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func getBackSide() {
-        self.image = UIImage(named: "card-back")
+    func getImage(of card: ImageSelector) {
+        self.image = UIImage(named: "\(card.Image)")
     }
 
-    func getFrontImage(of cardName: Card) {
-        self.image = UIImage(named: cardName.frontImage)
+    func getBackSide() {
+        self.image = UIImage(named: "card-back")
     }
 
 }

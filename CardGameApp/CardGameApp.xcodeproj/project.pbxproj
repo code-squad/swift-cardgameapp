@@ -16,9 +16,6 @@
 		FDD8FA28207F216B00F5FD99 /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD8FA27207F216B00F5FD99 /* CardImageView.swift */; };
 		FDDFB92A2080472500920FB4 /* card_decks in Resources */ = {isa = PBXBuildFile; fileRef = FDDFB9292080472500920FB4 /* card_decks */; };
 		FDDFB92E2080497400920FB4 /* ResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDFB92D2080497400920FB4 /* ResultData.swift */; };
-		FDDFB9302080497700920FB4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDFB92F2080497700920FB4 /* Player.swift */; };
-		FDDFB9382080498800920FB4 /* Dealer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDFB9312080498700920FB4 /* Dealer.swift */; };
-		FDDFB9392080498800920FB4 /* CardTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDFB9322080498700920FB4 /* CardTable.swift */; };
 		FDDFB93A2080498800920FB4 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDFB9332080498700920FB4 /* CardStack.swift */; };
 		FDDFB93B2080498800920FB4 /* EnumCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDFB9342080498700920FB4 /* EnumCollection.swift */; };
 		FDDFB93C2080498800920FB4 /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDFB9352080498700920FB4 /* CardDeck.swift */; };
@@ -37,9 +34,6 @@
 		FDD8FA27207F216B00F5FD99 /* CardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
 		FDDFB9292080472500920FB4 /* card_decks */ = {isa = PBXFileReference; lastKnownFileType = folder; path = card_decks; sourceTree = "<group>"; };
 		FDDFB92D2080497400920FB4 /* ResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultData.swift; sourceTree = "<group>"; };
-		FDDFB92F2080497700920FB4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		FDDFB9312080498700920FB4 /* Dealer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dealer.swift; sourceTree = "<group>"; };
-		FDDFB9322080498700920FB4 /* CardTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTable.swift; sourceTree = "<group>"; };
 		FDDFB9332080498700920FB4 /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		FDDFB9342080498700920FB4 /* EnumCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumCollection.swift; sourceTree = "<group>"; };
 		FDDFB9352080498700920FB4 /* CardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
@@ -95,10 +89,7 @@
 			children = (
 				FDDFB9352080498700920FB4 /* CardDeck.swift */,
 				FDDFB9332080498700920FB4 /* CardStack.swift */,
-				FDDFB9322080498700920FB4 /* CardTable.swift */,
-				FDDFB9312080498700920FB4 /* Dealer.swift */,
 				FDDFB9342080498700920FB4 /* EnumCollection.swift */,
-				FDDFB92F2080497700920FB4 /* Player.swift */,
 				FDDFB92D2080497400920FB4 /* ResultData.swift */,
 				FDDFB9362080498700920FB4 /* Card.swift */,
 			);
@@ -181,11 +172,8 @@
 				FDDFB92E2080497400920FB4 /* ResultData.swift in Sources */,
 				FDD8FA18207F035400F5FD99 /* ViewController.swift in Sources */,
 				FDDFB93C2080498800920FB4 /* CardDeck.swift in Sources */,
-				FDDFB9382080498800920FB4 /* Dealer.swift in Sources */,
 				FDD8FA28207F216B00F5FD99 /* CardImageView.swift in Sources */,
-				FDDFB9392080498800920FB4 /* CardTable.swift in Sources */,
 				FDDFB93D2080498800920FB4 /* Card.swift in Sources */,
-				FDDFB9302080497700920FB4 /* Player.swift in Sources */,
 				FDD8FA16207F035400F5FD99 /* AppDelegate.swift in Sources */,
 				FDDFB93B2080498800920FB4 /* EnumCollection.swift in Sources */,
 				FDDFB93A2080498800920FB4 /* CardStack.swift in Sources */,
