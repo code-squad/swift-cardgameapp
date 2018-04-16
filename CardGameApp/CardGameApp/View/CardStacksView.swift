@@ -9,13 +9,6 @@
 import UIKit
 
 class CardStacksView: UIStackView {
-    
-    enum Status {
-        case none
-        case began
-        case moved
-        case ended
-    }
 
     private var cardStackViews = [[UIImageView]]() {
         didSet {
