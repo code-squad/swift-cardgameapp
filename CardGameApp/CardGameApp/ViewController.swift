@@ -10,8 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var cardDeck = CardDeck()
-    var cardDeckView: CardImageView!
+    private var cardDeck = CardDeck()
+    private var cardDeckView: CardImageView!
 
     let widthDivider: CGFloat = 8
     let cardHeightRatio: CGFloat = 1.27
@@ -19,20 +19,20 @@ class ViewController: UIViewController {
     let foundationPositionY: CGFloat = PositionY.upper.value
     let cardPositionY: CGFloat = PositionY.bottom.value
 
-    var cardWidth: CGFloat {
+    private var cardWidth: CGFloat {
         return self.view.frame.width / widthDivider
     }
 
-    var cardSize: CGSize {
+    private var cardSize: CGSize {
         return CGSize(width: self.cardWidth,
                       height: cardWidth * cardHeightRatio)
     }
 
-    var space: CGFloat {
+    private var spaceX: CGFloat {
         return cardWidth / widthDivider
     }
 
-    var spaceY: CGFloat = 15.0
+    private var spaceY: CGFloat = 15.0
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -69,7 +69,7 @@ class ViewController: UIViewController {
 
     private func drawFoundations() {
         for i in 0..<numberOfFoundation {
-            let cardX = (CGFloat(i+1)*space) + (CGFloat(i) * cardWidth)
+            let cardX = (CGFloat(i+1)*spaceX) + (CGFloat(i) * cardWidth)
             let foundation = UIView(frame: CGRect(origin: CGPoint(x: cardX,
                                                                   y: foundationPositionY),
                                                   size: self.cardSize))
