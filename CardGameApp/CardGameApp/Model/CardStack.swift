@@ -36,6 +36,13 @@ struct CardStack: CustomStringConvertible {
         }
     }
 
+    mutating func openLastCard() {
+        guard let lastCard = self.cards.last else { return }
+        lastCard.lastCardOpen()
+        self.cards.removeLast()
+        self.cards.append(lastCard)
+    }
+
 }
 
 

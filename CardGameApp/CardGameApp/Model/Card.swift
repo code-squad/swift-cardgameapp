@@ -86,4 +86,13 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
             self.side = .back
         }
     }
+
+    func lastCardOpen() {
+        switch self.side {
+        case .back:
+            self.side = .front
+        case .front:
+            break
+        }
+    }
 }
