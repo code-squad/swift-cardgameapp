@@ -14,10 +14,11 @@ class CardImageView: UIImageView {
         super.awakeFromNib()
     }
 
-    override init(frame: CGRect) { // by code
+    override init(frame: CGRect) {
         super.init(frame: frame)
         self.layer.cornerRadius = 5.0
         self.clipsToBounds = true
+        self.isUserInteractionEnabled = true
     }
 
     convenience init() {
@@ -34,6 +35,10 @@ class CardImageView: UIImageView {
 
     func getBackSideImage() {
         self.image = UIImage(named: "card-back")
+    }
+
+    func getRefreshImage() {
+        self.image = UIImage(named: "cardgameapp-refresh-app")
     }
 
 }
