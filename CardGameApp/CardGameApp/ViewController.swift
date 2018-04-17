@@ -11,13 +11,13 @@ import UIKit
 class ViewController: UIViewController {
 
     var cardDeck = CardDeck()
+    var cardDeckView: CardImageView!
+
     let widthDivider: CGFloat = 8
     let cardHeightRatio: CGFloat = 1.27
-    let foundationPositionY: CGFloat = 20
-    let cardPositionY: CGFloat = 100
-    let numberOfDeck = 7
     let numberOfFoundation = 4
-    var cardDeckView = CardImageView()
+    let foundationPositionY: CGFloat = PositionY.upper.value
+    let cardPositionY: CGFloat = PositionY.bottom.value
 
     var cardWidth: CGFloat {
         return self.view.frame.width / widthDivider
@@ -29,66 +29,55 @@ class ViewController: UIViewController {
     }
 
     var space: CGFloat {
-        return cardWidth / 8
+        return cardWidth / widthDivider
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
-        self.view.isUserInteractionEnabled = true
-        self.initialView()
-    }
-
-    private func initialView() {
-        self.drawStacks()
-        self.drawFoundations()
-        self.drawDeck()
-        self.setGestureToCardDeckView()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
+    var spaceY: CGFloat = 15.0
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 
-    // 카드뒷면출력
-    private func drawCards() {
-        cardDeck.shuffle()
-        let cards = cardDeck.makeCards(numberOfDeck)
-        for i in 0..<numberOfDeck {
-            let cardX = (CGFloat(i+1)*space) + (CGFloat(i) * cardWidth)
-            let cardImage = CardImageView()
-            cardImage.getImage(of: cards[i])
-            cardImage.frame = CGRect(origin: CGPoint(x: cardX, y: cardPositionY), size: self.cardSize)
-            self.view.addSubview(cardImage)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.initialView()
+    }
+
+    private func initialView() {
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
+        self.drawStacks()
+        self.defaultDeck()
+        self.drawFoundations()
+        self.setGestureToCardDeck()
+    }
+
+    // MARK: InitialView Related
+
+    private func defaultDeck() {
+        cardDeckView = CardImageView(frame: CGRect(origin: CGPoint(x: PositionX.seventh.value,
+                                                                   y: PositionY.upper.value),
+                                                   size: self.cardSize))
+        if cardDeck.count() > 0 {
+            cardDeckView.getBackSideImage()
+            self.view.addSubview(cardDeckView)
+        } else {
+            cardDeckView.getRefreshImage()
+            self.view.addSubview(cardDeckView)
         }
     }
+
 
     private func drawFoundations() {
         for i in 0..<numberOfFoundation {
             let cardX = (CGFloat(i+1)*space) + (CGFloat(i) * cardWidth)
-            let foundation = UIView(frame: CGRect(origin: CGPoint(x: cardX, y: foundationPositionY), size: self.cardSize))
+            let foundation = UIView(frame: CGRect(origin: CGPoint(x: cardX,
+                                                                  y: foundationPositionY),
+                                                  size: self.cardSize))
             foundation.clipsToBounds = true
             foundation.layer.cornerRadius = 5.0
             foundation.layer.borderColor = UIColor.white.cgColor
             foundation.layer.borderWidth = 1.0
             self.view.addSubview(foundation)
-        }
-    }
-
-    private func setGestureToCardDeckView() {
-        cardDeckView.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(deckTapped(sender:)))
-        self.cardDeckView.addGestureRecognizer(tap)
-    }
-
-    @objc func deckTapped(sender : UITapGestureRecognizer) {
-        print(self.cardDeck.description)
-        if sender.state == .ended {
-            self.drawPickedCard()
         }
     }
 
@@ -105,37 +94,55 @@ class ViewController: UIViewController {
     }
 
     private func drawStacks() {
-        let locationX: [CGFloat] = [6.46875, 64.6875, 122.90625, 181.125, 239.34375, 297.5625, 355.78125]
         let stacks = self.makeStacks()
+
         for i in 0..<7 {
             for j in 0..<stacks[i].cards.count {
-                let locationY = cardPositionY + (15 * CGFloat(j))
-                let cardInStack = CardImageView(frame: CGRect(origin: CGPoint(x: locationX[i], y: locationY), size: self.cardSize))
+                let locationY = cardPositionY + (spaceY * CGFloat(j))
+                let cardInStack = CardImageView(frame: CGRect(origin: CGPoint(x: PositionX.allValues[i].value,
+                                                                              y: locationY),
+                                                              size: self.cardSize))
                 cardInStack.getImage(of: stacks[i].cards[j])
                 self.view.addSubview(cardInStack)
             }
         }
-
     }
 
-    // 카드앞면출력
+    // MARK: Tap Gesture Related
+
+    private func setGestureToCardDeck() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(deckTapped(sender:)))
+        self.cardDeckView.addGestureRecognizer(tap)
+    }
+
+    @objc func deckTapped(sender : UITapGestureRecognizer) {
+        print(self.cardDeck.description)
+        if sender.state == .ended {
+            self.drawPickedCard()
+        }
+    }
+
     private func drawPickedCard() {
-        let upperRightCornerX = 297.5625
-        let upperRightCornerY = 20.0
-        let frontCardView = CardImageView(frame: CGRect(origin: CGPoint(x: upperRightCornerX, y: upperRightCornerY), size: self.cardSize))
-        let picked = cardDeck.removeLast()
-        picked.turnOver()
-        frontCardView.getImage(of: picked)
-        self.view.addSubview(frontCardView)
+        if cardDeck.count() > 0 {
+            self.pickCardFromDeck()
+        } else {
+            cardDeckView.getRefreshImage()
+        }
     }
 
-    private func drawDeck() {
-        let upperRightCornerX = 355.78125
-        let upperRightCornerY = 20.0
-        cardDeckView = CardImageView(frame: CGRect(origin: CGPoint(x: upperRightCornerX, y: upperRightCornerY), size: self.cardSize))
-        cardDeckView.getBackSideImage()
-        self.view.addSubview(cardDeckView)
+    private func pickCardFromDeck() {
+        let upperRightCornerX = PositionX.sixth.value
+        let upperRightCornerY = PositionY.upper.value
+        let pickedCardView = CardImageView(frame: CGRect(origin: CGPoint(x: upperRightCornerX,
+                                                                         y: upperRightCornerY),
+                                                         size: self.cardSize))
+        let pickedCard = cardDeck.removeOne()
+        pickedCard.turnOver()
+        pickedCardView.getImage(of: pickedCard)
+        self.view.addSubview(pickedCardView)
     }
+
+    // MARK: Shake motion Related
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
@@ -145,5 +152,7 @@ class ViewController: UIViewController {
         }
     }
 
+
 }
+
 

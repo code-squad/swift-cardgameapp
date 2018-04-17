@@ -14,6 +14,7 @@
 		FDD8FA1D207F035500F5FD99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FDD8FA1C207F035500F5FD99 /* Assets.xcassets */; };
 		FDD8FA20207F035500F5FD99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDD8FA1E207F035500F5FD99 /* LaunchScreen.storyboard */; };
 		FDD8FA28207F216B00F5FD99 /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD8FA27207F216B00F5FD99 /* CardImageView.swift */; };
+		FDDD33C62085EFCF000E9D0E /* CustomEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDD33C52085EFCF000E9D0E /* CustomEnum.swift */; };
 		FDDFB92A2080472500920FB4 /* card_decks in Resources */ = {isa = PBXBuildFile; fileRef = FDDFB9292080472500920FB4 /* card_decks */; };
 		FDDFB92E2080497400920FB4 /* ResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDFB92D2080497400920FB4 /* ResultData.swift */; };
 		FDDFB93A2080498800920FB4 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDFB9332080498700920FB4 /* CardStack.swift */; };
@@ -32,6 +33,7 @@
 		FDD8FA1F207F035500F5FD99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FDD8FA21207F035500F5FD99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FDD8FA27207F216B00F5FD99 /* CardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
+		FDDD33C52085EFCF000E9D0E /* CustomEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnum.swift; sourceTree = "<group>"; };
 		FDDFB9292080472500920FB4 /* card_decks */ = {isa = PBXFileReference; lastKnownFileType = folder; path = card_decks; sourceTree = "<group>"; };
 		FDDFB92D2080497400920FB4 /* ResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultData.swift; sourceTree = "<group>"; };
 		FDDFB9332080498700920FB4 /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				FDD8FA1E207F035500F5FD99 /* LaunchScreen.storyboard */,
 				FDD8FA21207F035500F5FD99 /* Info.plist */,
 				FDD8FA27207F216B00F5FD99 /* CardImageView.swift */,
+				FDDD33C52085EFCF000E9D0E /* CustomEnum.swift */,
 			);
 			path = CardGameApp;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 				FDABC82F20804F8F00AE6DE5 /* ImageSelector.swift in Sources */,
 				FDDFB92E2080497400920FB4 /* ResultData.swift in Sources */,
 				FDD8FA18207F035400F5FD99 /* ViewController.swift in Sources */,
+				FDDD33C62085EFCF000E9D0E /* CustomEnum.swift in Sources */,
 				FDDFB93C2080498800920FB4 /* CardDeck.swift in Sources */,
 				FDD8FA28207F216B00F5FD99 /* CardImageView.swift in Sources */,
 				FDDFB93D2080498800920FB4 /* Card.swift in Sources */,
