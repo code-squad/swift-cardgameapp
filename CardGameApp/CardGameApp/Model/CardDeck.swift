@@ -45,7 +45,12 @@ class CardDeck: CustomStringConvertible {
         let pickedCard = self.cards.remove(at: randomIndex)
         return pickedCard
     }
-    
+
+    func removeLast() -> Card {
+        let lastCard = self.cards.removeLast()
+        return lastCard
+    }
+
     func count() -> Int {
         return self.cards.count
     }
@@ -63,7 +68,12 @@ class CardDeck: CustomStringConvertible {
         return cards
     }
 
-    func makeStack(cards: [Card]) -> CardStack {
+    func makeStack(numberOf countOfCards: Int) -> CardStack {
+        var cards = [Card]()
+        for _ in 0..<countOfCards {
+            let picked = removeOne()
+            cards.append(picked)
+        }
         return CardStack(cards)
     }
 

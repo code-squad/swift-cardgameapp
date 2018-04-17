@@ -19,7 +19,7 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
         return denomination.rawValue
     }
 
-    var side: Side = .front
+    var side: Side = .back
     private var suit: CardDeck.Suit
     private var denomination: CardDeck.Denomination
 

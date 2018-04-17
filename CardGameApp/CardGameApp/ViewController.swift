@@ -36,7 +36,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.view.isUserInteractionEnabled = true
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
-        self.drawCards()
+        self.drawStacks()
         self.drawFoundations()
         self.drawDeck()
         self.setGestureToCardDeckView()
@@ -50,6 +50,7 @@ class ViewController: UIViewController {
         return .lightContent
     }
 
+    // 카드앞면출력
     private func drawCards() {
         cardDeck.shuffle()
         let cards = cardDeck.makeCards(numberOfDeck)
@@ -58,7 +59,6 @@ class ViewController: UIViewController {
             let cardImage = CardImageView()
             cardImage.getImage(of: cards[i])
             cardImage.frame = CGRect(origin: CGPoint(x: cardX, y: cardPositionY), size: self.cardSize)
-            print(cardImage.frame)
             self.view.addSubview(cardImage)
         }
     }
@@ -83,15 +83,44 @@ class ViewController: UIViewController {
 
     @objc func deckTapped(sender : UITapGestureRecognizer) {
         if sender.state == .ended {
-            self.drawTurnOverCard()
+            self.drawPickedCard()
         }
     }
 
-    private func drawTurnOverCard() {
+    private func makeStacks() -> [CardStack] {
+        var stacks = [CardStack]()
+        for i in 1...7 {
+            let oneStack = cardDeck.makeStack(numberOf: i)
+            stacks.append(oneStack)
+        }
+        for i in 0..<stacks.count {
+            stacks[i].sortDefaultStack()
+        }
+        return stacks
+    }
+
+    private func drawStacks() {
+        let locationX: [CGFloat] = [6.46875, 64.6875, 122.90625, 181.125, 239.34375, 297.5625, 355.78125]
+        let stacks = self.makeStacks()
+        for i in 0..<7 {
+            for j in 0..<stacks[i].cards.count {
+                let locationY = cardPositionY + (15 * CGFloat(j))
+                let cardInStack = CardImageView(frame: CGRect(origin: CGPoint(x: locationX[i], y: locationY), size: self.cardSize))
+                cardInStack.getImage(of: stacks[i].cards[j])
+                self.view.addSubview(cardInStack)
+            }
+        }
+
+    }
+
+    // 카드앞면출력
+    private func drawPickedCard() {
         let upperRightCornerX = 297.5625
         let upperRightCornerY = 20.0
         let frontCardView = CardImageView(frame: CGRect(origin: CGPoint(x: upperRightCornerX, y: upperRightCornerY), size: self.cardSize))
-        frontCardView.getImage(of: cardDeck.removeLast())
+        let picked = cardDeck.removeLast()
+        picked.turnOver()
+        frontCardView.getImage(of: picked)
         self.view.addSubview(frontCardView)
     }
 
@@ -99,7 +128,7 @@ class ViewController: UIViewController {
         let upperRightCornerX = 355.78125
         let upperRightCornerY = 20.0
         cardDeckView = CardImageView(frame: CGRect(origin: CGPoint(x: upperRightCornerX, y: upperRightCornerY), size: self.cardSize))
-        cardDeckView.getBackSide()
+        cardDeckView.getBackSideImage()
         self.view.addSubview(cardDeckView)
     }
 

@@ -8,8 +8,9 @@
 
 import Foundation
 
-struct CardStack: CustomStringConvertible {
-    private var cards = [Card]()
+struct CardStack: CustomStringConvertible{
+
+    var cards = [Card]()
     var description: String {
         return cards.description
     }
@@ -41,6 +42,23 @@ struct CardStack: CustomStringConvertible {
         lastCard.lastCardOpen()
         self.cards.removeLast()
         self.cards.append(lastCard)
+    }
+
+    func sortDefaultStack() {
+        let lastIndex = self.cards.count - 1
+        for i in 0..<self.cards.count {
+            let cardInTurn = self.cards[i]
+            if cardInTurn.side == .back {
+                guard i == lastIndex else { continue }
+                cardInTurn.lastCardOpen()
+            } else {
+                guard i == lastIndex else {
+                    cardInTurn.turnOver()
+                    continue
+                }
+                cardInTurn.lastCardOpen()
+            }
+        }
     }
 
 }
