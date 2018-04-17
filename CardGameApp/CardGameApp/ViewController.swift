@@ -116,7 +116,6 @@ class ViewController: UIViewController {
     }
 
     @objc func deckTapped(sender : UITapGestureRecognizer) {
-        print(self.cardDeck.description)
         if sender.state == .ended {
             self.drawPickedCard()
         }
