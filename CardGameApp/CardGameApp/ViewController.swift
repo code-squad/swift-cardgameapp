@@ -10,10 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let cardDeck = CardDeck()
+    var cardDeck = CardDeck()
     let widthDivider: CGFloat = 8
     let cardHeightRatio: CGFloat = 1.27
-    let blankPositionY: CGFloat = 20
+    let foundationPositionY: CGFloat = 20
     let cardPositionY: CGFloat = 100
     let numberOfDeck = 7
     let numberOfFoundation = 4
@@ -34,8 +34,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.isUserInteractionEnabled = true
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
+        self.view.isUserInteractionEnabled = true
+        self.initialView()
+    }
+
+    private func initialView() {
         self.drawStacks()
         self.drawFoundations()
         self.drawDeck()
@@ -50,7 +54,7 @@ class ViewController: UIViewController {
         return .lightContent
     }
 
-    // 카드앞면출력
+    // 카드뒷면출력
     private func drawCards() {
         cardDeck.shuffle()
         let cards = cardDeck.makeCards(numberOfDeck)
@@ -66,7 +70,7 @@ class ViewController: UIViewController {
     private func drawFoundations() {
         for i in 0..<numberOfFoundation {
             let cardX = (CGFloat(i+1)*space) + (CGFloat(i) * cardWidth)
-            let foundation = UIView(frame: CGRect(origin: CGPoint(x: cardX, y: blankPositionY), size: self.cardSize))
+            let foundation = UIView(frame: CGRect(origin: CGPoint(x: cardX, y: foundationPositionY), size: self.cardSize))
             foundation.clipsToBounds = true
             foundation.layer.cornerRadius = 5.0
             foundation.layer.borderColor = UIColor.white.cgColor
@@ -82,6 +86,7 @@ class ViewController: UIViewController {
     }
 
     @objc func deckTapped(sender : UITapGestureRecognizer) {
+        print(self.cardDeck.description)
         if sender.state == .ended {
             self.drawPickedCard()
         }
@@ -135,9 +140,8 @@ class ViewController: UIViewController {
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             view.subviews.forEach() { $0.removeFromSuperview() }
-            self.drawFoundations()
-            self.drawDeck()
-            self.drawCards()
+            cardDeck = CardDeck()
+            self.initialView()
         }
     }
 
