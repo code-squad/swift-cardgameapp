@@ -11,11 +11,17 @@ import Foundation
 protocol TableControl {
     mutating func setOpenedCard(_ card: Card)
     mutating func setCardStacks(_ cardStacks: [[Card]])
-    mutating func checkMove(_ cardInfo: CardInfo) -> (isTrue : Bool, doubleTappedCard : Card)
+    mutating func checkMove(_ cardInfo: CardInfo, gesture : CardGameTable.Gesture) -> (isTrue : Bool, doubleTappedCard : Card)
     func getCardInfo(_ card: Card) -> CardInfo
 }
 
 struct CardGameTable : TableControl {
+    
+    enum Gesture {
+        case drag
+        case doubleTap
+    }
+    
     private var foundation : [Card] = [] {
         didSet {
             NotificationCenter.default.post(name: .foundation, object: self, userInfo: [Key.Observer.foundation.name : foundation])
@@ -41,14 +47,21 @@ struct CardGameTable : TableControl {
 //Check Move & Hand
 extension CardGameTable {
     
-    mutating func checkMove(_ cardInfo: CardInfo) -> (isTrue : Bool, doubleTappedCard : Card) {
-        let doubleTappedCard: Card
+    mutating func checkMove(_ cardInfo: CardInfo, gesture : Gesture) -> (isTrue : Bool, doubleTappedCard : Card) {
+        let touchedCard: Card
         if cardInfo.position == .top {
-            doubleTappedCard = openedCard
-            return (moveCard(doubleTappedCard, cardInfo), doubleTappedCard)
+            touchedCard = openedCard
+            return (moveCard(touchedCard, cardInfo), touchedCard)
         }
-        doubleTappedCard = cardStacks[cardInfo.indexOfCard][cardInfo.stackIndex]
-        return (moveCard(doubleTappedCard, cardInfo), doubleTappedCard)
+        touchedCard = cardStacks[cardInfo.indexOfCard][cardInfo.stackIndex]
+        if gesture == .doubleTap {
+            return (moveCard(touchedCard, cardInfo), touchedCard)
+        }
+        var cardPack : [Card] = []
+        for index in cardInfo.stackIndex...cardStacks[cardInfo.indexOfCard].count - 1 {
+            cardPack.append(cardStacks[cardInfo.indexOfCard][index])
+        }
+        return (dragToCardStacks(cardPack, cardInfo), touchedCard)
     }
     
     func getCardInfo(_ card: Card) -> CardInfo {
@@ -116,4 +129,17 @@ extension CardGameTable {
         }
         return false
     }
+    
+    mutating private func dragToCardStacks(_ cardPack: [Card], _ cardInfo: CardInfo) -> Bool {
+        for index in cardStacks.indices {
+            guard let lastCard = cardStacks[index].last else { return false }
+            guard let topCardInCardPack = cardPack.first else { return false }
+            guard topCardInCardPack.isDifferentColor(lastCard) && lastCard.isNextRank(topCardInCardPack) else { continue }
+            cardStacks[index].append(contentsOf : cardPack)
+            cardStacks[cardInfo.indexOfCard].removeSubrange(cardInfo.stackIndex...cardStacks[cardInfo.indexOfCard].count - 1)
+            return true
+        }
+        return false
+    }
 }
+
