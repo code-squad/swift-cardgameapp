@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0434FD382063A208000C8FB5 /* Keyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0434FD372063A208000C8FB5 /* Keyword.swift */; };
+		043A65892085DB0100A122B0 /* DragInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043A65882085DB0100A122B0 /* DragInfo.swift */; };
 		048B884E2061FD70002BF2B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B884D2061FD70002BF2B7 /* AppDelegate.swift */; };
 		048B88502061FD70002BF2B7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048B884F2061FD70002BF2B7 /* ViewController.swift */; };
 		048B88532061FD70002BF2B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 048B88512061FD70002BF2B7 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		0434FD372063A208000C8FB5 /* Keyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyword.swift; sourceTree = "<group>"; };
+		043A65882085DB0100A122B0 /* DragInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragInfo.swift; sourceTree = "<group>"; };
 		048B884A2061FD70002BF2B7 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		048B884D2061FD70002BF2B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		048B884F2061FD70002BF2B7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				049F74FD207C832400CBDA2F /* Utility */,
 				048B884D2061FD70002BF2B7 /* AppDelegate.swift */,
 				048B884F2061FD70002BF2B7 /* ViewController.swift */,
+				043A65882085DB0100A122B0 /* DragInfo.swift */,
 				048B88512061FD70002BF2B7 /* Main.storyboard */,
 				048B88542061FD70002BF2B7 /* Assets.xcassets */,
 				048B88562061FD70002BF2B7 /* LaunchScreen.storyboard */,
@@ -201,6 +204,7 @@
 				04AB99EB207348000085570C /* CardInfo.swift in Sources */,
 				048B88502061FD70002BF2B7 /* ViewController.swift in Sources */,
 				0497BA922068DBDB001344F8 /* FoundationView.swift in Sources */,
+				043A65892085DB0100A122B0 /* DragInfo.swift in Sources */,
 				048B884E2061FD70002BF2B7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
