@@ -37,6 +37,14 @@ class CardStacksView: UIStackView {
         }
     }
     
+    func generateCardPack(_ cardInfo : CardInfo) -> [UIImageView] {
+        var draggableViews : [UIImageView] = []
+        for index in cardInfo.stackIndex..<cardStackViews[cardInfo.indexOfCard].count {
+            draggableViews.append(cardStackViews[cardInfo.indexOfCard][index])
+        }
+        return draggableViews
+    }
+    
     private func drawOneStack(_ oneStack: [UIImageView]) {
         for oneCardImg in oneStack {
                 oneCardImg.contentMode = .scaleAspectFill
