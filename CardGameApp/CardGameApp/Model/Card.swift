@@ -27,7 +27,7 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
         return self.suit.rawValue + self.denomination.description
     }
 
-    var Image: String {
+    var image: String {
         switch self.side {
         case .back: return self.backImage
         case .front: return self.frontImage
@@ -87,7 +87,7 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
         }
     }
 
-    func lastCardOpen() {
+    func openLastCard() {
         switch self.side {
         case .back:
             self.side = .front
