@@ -78,6 +78,7 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
         return self.suit
     }
 
+    
     func turnOver() {
         switch self.side {
         case .back:

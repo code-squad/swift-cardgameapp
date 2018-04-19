@@ -45,7 +45,8 @@ class ViewController: UIViewController {
 
     private func initialView() {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
-        self.drawStacks()
+        let cardStacksView = CardStacksView(stackImages: self.makeDefaultStackImages())
+        self.view.addSubview(cardStacksView)
         self.defaultDeck()
         self.drawFoundations()
         self.setGestureToCardDeck()
@@ -83,30 +84,33 @@ class ViewController: UIViewController {
 
     private func makeStacks() -> [CardStack] {
         var stacks = [CardStack]()
-        for i in 1...7 {
+        let defaultStackRange: CountableClosedRange = 1...7
+        for i in defaultStackRange {
             let oneStack = cardDeck.makeStack(numberOf: i)
             stacks.append(oneStack)
-        }
-        for i in 0..<stacks.count {
-            stacks[i].sortDefaultStack()
         }
         return stacks
     }
 
-    private func drawStacks() {
+    private func makeDefaultStackImages() -> [[CardImageView]] {
         let stacks = self.makeStacks()
-
-        for i in 0..<7 {
-            for j in 0..<stacks[i].cards.count {
+        var stackImages = [[CardImageView]]()
+        for i in 0..<stacks.count {
+            stacks[i].sortDefaultStack()
+            var oneStack = [CardImageView]()
+            for j in 0..<stacks[i].count() {
                 let locationY = cardPositionY + (spaceY * CGFloat(j))
                 let cardInStack = CardImageView(frame: CGRect(origin: CGPoint(x: PositionX.allValues[i].value,
                                                                               y: locationY),
                                                               size: self.cardSize))
-                cardInStack.getImage(of: stacks[i].cards[j])
-                self.view.addSubview(cardInStack)
+                cardInStack.getImage(of: stacks[i].getCard(at: j))
+                oneStack.append(cardInStack)
             }
+            stackImages.append(oneStack)
         }
+        return stackImages
     }
+
 
     // MARK: Tap Gesture Related
 

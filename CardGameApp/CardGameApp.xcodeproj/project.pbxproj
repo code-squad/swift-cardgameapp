@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD884CD320883F1100DD1954 /* CardStacksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD884CD220883F1100DD1954 /* CardStacksView.swift */; };
 		FDABC82F20804F8F00AE6DE5 /* ImageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC82E20804F8F00AE6DE5 /* ImageSelector.swift */; };
 		FDD8FA16207F035400F5FD99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD8FA15207F035400F5FD99 /* AppDelegate.swift */; };
 		FDD8FA18207F035400F5FD99 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD8FA17207F035400F5FD99 /* ViewController.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FD884CD220883F1100DD1954 /* CardStacksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStacksView.swift; sourceTree = "<group>"; };
 		FDABC82E20804F8F00AE6DE5 /* ImageSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelector.swift; sourceTree = "<group>"; };
 		FDD8FA12207F035400F5FD99 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDD8FA15207F035400F5FD99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				FDD8FA21207F035500F5FD99 /* Info.plist */,
 				FDD8FA27207F216B00F5FD99 /* CardImageView.swift */,
 				FDDD33C52085EFCF000E9D0E /* CustomEnum.swift */,
+				FD884CD220883F1100DD1954 /* CardStacksView.swift */,
 			);
 			path = CardGameApp;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDABC82F20804F8F00AE6DE5 /* ImageSelector.swift in Sources */,
+				FD884CD320883F1100DD1954 /* CardStacksView.swift in Sources */,
 				FDD8FA18207F035400F5FD99 /* ViewController.swift in Sources */,
 				FDDD33C62085EFCF000E9D0E /* CustomEnum.swift in Sources */,
 				FDDFB93C2080498800920FB4 /* CardDeck.swift in Sources */,
