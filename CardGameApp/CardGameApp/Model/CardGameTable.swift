@@ -13,6 +13,7 @@ protocol TableControl {
     mutating func setCardStacks(_ cardStacks: [[Card]])
     mutating func checkMove(_ cardInfo: CardInfo, gesture : CardGameTable.Gesture) -> (isTrue : Bool, doubleTappedCard : Card)
     func getCardInfo(_ card: Card) -> CardInfo
+    func isFinished() -> Bool
 }
 
 struct CardGameTable : TableControl {
@@ -40,6 +41,10 @@ struct CardGameTable : TableControl {
     
     mutating func setCardStacks(_ newCardStacks: [[Card]]) {
         cardStacks = newCardStacks
+    }
+    
+    func isFinished() -> Bool {
+        return foundation.filter({$0.isKing()}).count == 4
     }
     
 }

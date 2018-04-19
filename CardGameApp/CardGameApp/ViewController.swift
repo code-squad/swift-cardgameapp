@@ -108,6 +108,9 @@ class ViewController: UIViewController {
                 self.foundationView.drawFoundation()
                 self.cardStacksView.drawStacks()
                 doubleTappedCardView.removeFromSuperview()
+                if self.cardGameTable.isFinished() {
+                    self.displayAlert()
+                }
                 guard doubleTappedCardView is OpenedCardView else { return }
                 guard let topCard = self.cardDeck.getCardFromOpenedCardDeck() else { return }
                 self.cardGameTable.setOpenedCard(topCard)
@@ -164,6 +167,9 @@ class ViewController: UIViewController {
                                     self.foundationView.drawFoundation()
                                     self.cardStacksView.drawStacks()
                                     self.dragInfo.topCardInDraggableViews.removeFromSuperview()
+                                    if self.cardGameTable.isFinished() {
+                                        self.displayAlert()
+                                    }
                                     guard self.dragInfo.topCardInDraggableViews is OpenedCardView else { return }
                                     guard let topCard = self.cardDeck.getCardFromOpenedCardDeck() else { return }
                                     self.cardGameTable.setOpenedCard(topCard)
@@ -180,7 +186,7 @@ class ViewController: UIViewController {
     
 }
 
-// Event
+// Event & alert
 extension ViewController {
     
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
@@ -192,6 +198,12 @@ extension ViewController {
             cardDeck.shuffle()
             drawBaseCards()
         }
+    }
+    
+    func displayAlert() {
+        let alert = UIAlertController.init(title: "Congratulations!", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction.init(title: "Thanks", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
     
 }
