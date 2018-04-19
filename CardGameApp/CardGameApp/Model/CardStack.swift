@@ -10,7 +10,7 @@ import Foundation
 
 struct CardStack: CustomStringConvertible{
 
-    var cards = [Card]()
+    private var cards = [Card]()
     var description: String {
         return cards.description
     }
@@ -37,9 +37,9 @@ struct CardStack: CustomStringConvertible{
         }
     }
 
-    mutating func openLastCard() {
+    mutating func changeOpenLastCard() {
         guard let lastCard = self.cards.last else { return }
-        lastCard.lastCardOpen()
+        lastCard.openLastCard()
         self.cards.removeLast()
         self.cards.append(lastCard)
     }
@@ -50,15 +50,23 @@ struct CardStack: CustomStringConvertible{
             let cardInTurn = self.cards[i]
             if cardInTurn.side == .back {
                 guard i == lastIndex else { continue }
-                cardInTurn.lastCardOpen()
+                cardInTurn.openLastCard()
             } else {
                 guard i == lastIndex else {
                     cardInTurn.turnOver()
                     continue
                 }
-                cardInTurn.lastCardOpen()
+                cardInTurn.openLastCard()
             }
         }
+    }
+
+    func getCard(at index: Int) -> Card {
+        return self.cards[index]
+    }
+
+    func count() -> Int {
+        return self.cards.count
     }
 
 }
