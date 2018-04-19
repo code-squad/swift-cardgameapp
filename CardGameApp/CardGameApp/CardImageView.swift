@@ -30,7 +30,7 @@ class CardImageView: UIImageView {
     }
 
     func getImage(of card: ImageSelector) {
-        self.image = UIImage(named: "\(card.Image)")
+        self.image = UIImage(named: "\(card.image)")
     }
 
     func getBackSideImage() {
