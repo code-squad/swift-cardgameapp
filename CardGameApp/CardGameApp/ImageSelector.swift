@@ -11,6 +11,6 @@ import Foundation
 protocol ImageSelector {
     var frontImage: String { get }
     var backImage: String { get }
-    var Image: String { get }
+    var image: String { get }
 }
 
