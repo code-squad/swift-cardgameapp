@@ -159,7 +159,7 @@ extension CardGameTable {
     
     mutating private func dragToCardStacks(_ cardPack: [Card], _ cardInfo: CardInfo) -> Bool {
         for index in cardStacks.indices {
-            guard let lastCard = cardStacks[index].last else { return false }
+            guard let lastCard = cardStacks[index].last else { continue }
             guard let topCardInCardPack = cardPack.first else { return false }
             guard topCardInCardPack.isDifferentColor(lastCard) && lastCard.isNextRank(topCardInCardPack) else { continue }
             cardStacks[index].append(contentsOf : cardPack)

@@ -12,7 +12,7 @@ protocol DeckControl {
     mutating func shuffle()
     mutating func openTopCard()
     mutating func reset()
-    func isEmpty() -> Bool
+    func isLastCard() -> Bool
     mutating func generateOneStack(numberOfStack : Int) -> [Card]
     mutating func addOpenedCardDeck(_ oneCard : Card)
     mutating func loadOpenedCardDeck()
@@ -36,8 +36,8 @@ struct CardDeck : DeckControl {
         }
     }
     
-    func isEmpty() -> Bool {
-        return self.deck.count == 0
+    func isLastCard() -> Bool {
+        return self.deck.count == 1
     }
     
     mutating func addOpenedCardDeck(_ oneCard : Card) {
@@ -59,7 +59,7 @@ struct CardDeck : DeckControl {
     }
     
     mutating func loadOpenedCardDeck() {
-        self.deck = self.openedCardDeck
+        self.deck = self.openedCardDeck.reversed()
         self.openedCardDeck = []
     }
     
@@ -71,6 +71,7 @@ struct CardDeck : DeckControl {
     
     mutating func reset() {
         self.deck = CardDeck().deck
+        self.openedCardDeck = []
     }
     
     mutating func generateOneStack(numberOfStack : Int) -> [Card] {

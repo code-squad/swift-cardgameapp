@@ -60,10 +60,9 @@ class ViewController: UIViewController {
             cardDeckView.reset()
             return
         }
-        if cardDeck.isEmpty() {
+        if cardDeck.isLastCard() {
             guard let refreshImg = UIImage(named: Key.Img.refresh.name) else { return }
             cardDeckView.image = refreshImg
-            return
         }
         cardDeck.openTopCard()
     }
