@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FD884CD320883F1100DD1954 /* CardStacksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD884CD220883F1100DD1954 /* CardStacksView.swift */; };
-		FD884CD72088AAF300DD1954 /* CardStackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD884CD62088AAF300DD1954 /* CardStackDelegate.swift */; };
+		FD884CD72088AAF300DD1954 /* CardGameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD884CD62088AAF300DD1954 /* CardGameDelegate.swift */; };
 		FDABC82F20804F8F00AE6DE5 /* ImageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC82E20804F8F00AE6DE5 /* ImageSelector.swift */; };
 		FDD8FA16207F035400F5FD99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD8FA15207F035400F5FD99 /* AppDelegate.swift */; };
 		FDD8FA18207F035400F5FD99 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD8FA17207F035400F5FD99 /* ViewController.swift */; };
@@ -26,7 +26,7 @@
 
 /* Begin PBXFileReference section */
 		FD884CD220883F1100DD1954 /* CardStacksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStacksView.swift; sourceTree = "<group>"; };
-		FD884CD62088AAF300DD1954 /* CardStackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackDelegate.swift; sourceTree = "<group>"; };
+		FD884CD62088AAF300DD1954 /* CardGameDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameDelegate.swift; sourceTree = "<group>"; };
 		FDABC82E20804F8F00AE6DE5 /* ImageSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelector.swift; sourceTree = "<group>"; };
 		FDD8FA12207F035400F5FD99 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDD8FA15207F035400F5FD99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 				FDD8FA17207F035400F5FD99 /* ViewController.swift */,
 				FDD8FA15207F035400F5FD99 /* AppDelegate.swift */,
 				FDABC82E20804F8F00AE6DE5 /* ImageSelector.swift */,
-				FD884CD62088AAF300DD1954 /* CardStackDelegate.swift */,
+				FD884CD62088AAF300DD1954 /* CardGameDelegate.swift */,
 				FDD8FA19207F035400F5FD99 /* Main.storyboard */,
 				FDD8FA1C207F035500F5FD99 /* Assets.xcassets */,
 				FDD8FA1E207F035500F5FD99 /* LaunchScreen.storyboard */,
@@ -176,7 +176,7 @@
 			files = (
 				FDABC82F20804F8F00AE6DE5 /* ImageSelector.swift in Sources */,
 				FD884CD320883F1100DD1954 /* CardStacksView.swift in Sources */,
-				FD884CD72088AAF300DD1954 /* CardStackDelegate.swift in Sources */,
+				FD884CD72088AAF300DD1954 /* CardGameDelegate.swift in Sources */,
 				FDD8FA18207F035400F5FD99 /* ViewController.swift in Sources */,
 				FDDD33C62085EFCF000E9D0E /* CustomEnum.swift in Sources */,
 				FDDFB93C2080498800920FB4 /* CardDeck.swift in Sources */,

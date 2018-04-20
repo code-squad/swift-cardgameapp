@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    private var cardDeck: StackManageable!
+    private var cardGameManager: StackManageable!
     private var cardDeckView: CardImageView!
     private var stacksView = CardStacksView()
 
@@ -45,7 +45,7 @@ class ViewController: UIViewController {
     }
 
     private func initialView() {
-        self.cardDeck = CardStackDelegate()
+        self.cardGameManager = CardGameDelegate()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
         self.defaultStackImages()
         self.defaultDeck()
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         cardDeckView = CardImageView(frame: CGRect(origin: CGPoint(x: PositionX.seventh.value,
                                                                    y: PositionY.upper.value),
                                                    size: self.cardSize))
-        if cardDeck.countOfDeck() > 0 {
+        if cardGameManager.countOfDeck() > 0 {
             cardDeckView.getBackSideImage()
             self.view.addSubview(cardDeckView)
         } else {
@@ -85,9 +85,9 @@ class ViewController: UIViewController {
 
     private func defaultStackImages() {
         self.view.addSubview(stacksView)
-        for i in 0..<CardStackDelegate.defaultStackNumber {
+        for i in 0..<CardGameDelegate.defaultStackNumber {
             for j in 0...i {
-                let card = cardDeck.cardInturn(at: (column: i, row: j))
+                let card = cardGameManager.cardInturn(at: (column: i, row: j))
 
                 let newY = cardPositionY + (spaceY * CGFloat(j))
                 let frameForDraw = CGRect(origin: CGPoint(x: PositionX.allValues[i].value,
@@ -99,7 +99,7 @@ class ViewController: UIViewController {
     }
 
     func stackImage(at: (columnI: Int, rowJ: Int)) -> Card {
-        return cardDeck.cardInturn(at: (column: at.columnI, row: at.rowJ))
+        return cardGameManager.cardInturn(at: (column: at.columnI, row: at.rowJ))
     }
 
     // MARK: Tap Gesture Related
@@ -116,7 +116,7 @@ class ViewController: UIViewController {
     }
 
     private func drawPickedCard() {
-        if cardDeck.countOfDeck() > 0 {
+        if cardGameManager.countOfDeck() > 0 {
             self.pickCardFromDeck()
         } else {
             cardDeckView.getRefreshImage()
@@ -129,7 +129,7 @@ class ViewController: UIViewController {
         let pickedCardView = CardImageView(frame: CGRect(origin: CGPoint(x: upperRightCornerX,
                                                                          y: upperRightCornerY),
                                                          size: self.cardSize))
-        let pickedCard = cardDeck.pickACard()
+        let pickedCard = cardGameManager.pickACard()
         pickedCard.turnOver()
         pickedCardView.getImage(of: pickedCard)
         self.view.addSubview(pickedCardView)
@@ -140,7 +140,7 @@ class ViewController: UIViewController {
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             view.subviews.forEach() { $0.removeFromSuperview() }
-            cardDeck = CardStackDelegate()
+            cardGameManager = CardGameDelegate()
             self.initialView()
         }
     }

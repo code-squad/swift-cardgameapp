@@ -18,7 +18,7 @@ protocol StackManageable {
 }
 
 
-class CardStackDelegate: StackManageable {
+class CardGameDelegate: StackManageable {
     static let defaultStackRange: CountableClosedRange = 1...7
     static let defaultStackNumber: Int = 7
 
@@ -28,7 +28,7 @@ class CardStackDelegate: StackManageable {
     init() {
         cardDeck.shuffle()
         var stacks = [CardStack]()
-        for numberOfCard in CardStackDelegate.defaultStackRange {
+        for numberOfCard in CardGameDelegate.defaultStackRange {
             let oneStack = cardDeck.makeStack(numberOf: numberOfCard)
             oneStack.sortDefaultStack()
             stacks.append(oneStack)
