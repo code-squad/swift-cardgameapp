@@ -104,15 +104,7 @@ class ViewController: UIViewController {
                 doubleTappedCardView.frame = self.imgFrameMaker.generateCardViewFrame(movedCardInfo)
         },
             completion: { _ in
-                self.foundationView.drawFoundation()
-                self.cardStacksView.drawStacks()
-                doubleTappedCardView.removeFromSuperview()
-                if self.cardGameTable.isFinished() {
-                    self.displayAlert()
-                }
-                guard doubleTappedCardView is OpenedCardView else { return }
-                guard let topCard = self.cardDeck.getCardFromOpenedCardDeck() else { return }
-                self.cardGameTable.setOpenedCard(topCard)
+                self.updateCards(doubleTappedCardView)
         })
     }
     
@@ -139,7 +131,7 @@ class ViewController: UIViewController {
         guard let draggedCardView = sender.view as? UIImageView else { return }
         switch sender.state {
         case .began:
-            dragInfo = DragInfo(draggedCardView, originCardInfo: imgFrameMaker.generateIndex(draggedCardView))
+            dragInfo = DragInfo(draggedCardView, originCardInfo: imgFrameMaker.generateIndex(draggedCardView), imgFrameMaker)
             if draggedCardView is OpenedCardView {
                 dragInfo.setBelowViews([draggedCardView])
                 break
@@ -153,26 +145,11 @@ class ViewController: UIViewController {
                 let movedCardInfo = cardGameTable.getCardInfo(moveInfo.doubleTappedCard)
                 UIView.animate( withDuration: 0.5,
                                 animations: {
-                                    var count = 0
-                                    let baseStackIndex = movedCardInfo.stackIndex
-                                    self.dragInfo.cardImgPack.forEach({
-                                        $0.layer.zPosition = 1
-                                        let oneCardOfPackInfo = CardInfo(movedCardInfo.indexOfCard, baseStackIndex + count, movedCardInfo.position)
-                                        $0.frame = self.imgFrameMaker.generateCardViewFrame(oneCardOfPackInfo)
-                                        count += 1
-                                    })
+                                    self.dragInfo.moveCardImgPack(movedCardInfo)
                                 },
                                 completion: { _ in
-                                    self.foundationView.drawFoundation()
-                                    self.cardStacksView.drawStacks()
-                                    self.dragInfo.topCardInDraggableViews.removeFromSuperview()
-                                    if self.cardGameTable.isFinished() {
-                                        self.displayAlert()
-                                    }
-                                    guard self.dragInfo.topCardInDraggableViews is OpenedCardView else { return }
-                                    guard let topCard = self.cardDeck.getCardFromOpenedCardDeck() else { return }
-                                    self.cardGameTable.setOpenedCard(topCard)
-                                }
+                                    self.updateCards(self.dragInfo.topCardInDraggableViews)
+                                }        
                 )
                 return
             }
@@ -181,7 +158,17 @@ class ViewController: UIViewController {
         }
     }
     
-
+    private func updateCards(_ movedCardImgView : UIImageView) {
+        self.foundationView.drawFoundation()
+        self.cardStacksView.drawStacks()
+        movedCardImgView.removeFromSuperview()
+        if self.cardGameTable.isFinished() {
+            self.displayAlert()
+        }
+        guard movedCardImgView is OpenedCardView else { return }
+        guard let topCard = self.cardDeck.getCardFromOpenedCardDeck() else { return }
+        self.cardGameTable.setOpenedCard(topCard)
+    }
     
 }
 
@@ -210,7 +197,7 @@ extension ViewController {
 extension ViewController {
     
     //Foundation
-    fileprivate func makeFoundationView() {
+    private func makeFoundationView() {
         foundationView = FoundationView()
         foundationView.setFoundation(generateFoundations())
         foundationView.drawFoundation()
@@ -218,14 +205,14 @@ extension ViewController {
     }
     
     //CardDeck
-    fileprivate func makeCardDeckView() {
+    private func makeCardDeckView() {
         cardDeckView = CardDeckView(frame: imgFrameMaker.generateCardViewFrame(CardInfo(Key.Card.lastIndex.count, Key.Card.noStack.count, .top)))
         cardDeckView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapCardDeck(sender:))))
         cardDeckView.isUserInteractionEnabled = true
         self.view.addSubview(cardDeckView)
     }
     //OpenedCard
-    fileprivate func makeOpenedCardView() {
+    private func makeOpenedCardView() {
         openedCardView = OpenedCardView(frame: imgFrameMaker.generateCardViewFrame(CardInfo(Key.Card.opened.count, Key.Card.noStack.count,.top)))
         openedCardView.layer.zPosition = 1
         addDoubleTapGesture(openedCardView)
@@ -234,7 +221,7 @@ extension ViewController {
     }
     
     //CardStacks
-    fileprivate func makeCardStacksView() {
+    private func makeCardStacksView() {
         cardStacksView = CardStacksView(frame: imgFrameMaker.generateCardStacksViewFrame())
         var baseCardStacks : [[Card]] = []
         for index in 0..<Key.Card.baseCards.count {
