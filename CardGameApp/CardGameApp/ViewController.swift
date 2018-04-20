@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    private var cardDeck = CardDeck()
+    private var cardDeck: StackManageable!
     private var cardDeckView: CardImageView!
 
     let widthDivider: CGFloat = 8
@@ -44,9 +44,9 @@ class ViewController: UIViewController {
     }
 
     private func initialView() {
+        self.cardDeck = CardStackDelegate()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
-        let cardStacksView = CardStacksView(stackImages: self.makeDefaultStackImages())
-        self.view.addSubview(cardStacksView)
+        self.makeDefaultStackImages()
         self.defaultDeck()
         self.drawFoundations()
         self.setGestureToCardDeck()
@@ -58,7 +58,7 @@ class ViewController: UIViewController {
         cardDeckView = CardImageView(frame: CGRect(origin: CGPoint(x: PositionX.seventh.value,
                                                                    y: PositionY.upper.value),
                                                    size: self.cardSize))
-        if cardDeck.count() > 0 {
+        if cardDeck.countOfDeck() > 0 {
             cardDeckView.getBackSideImage()
             self.view.addSubview(cardDeckView)
         } else {
@@ -82,35 +82,19 @@ class ViewController: UIViewController {
         }
     }
 
-    private func makeStacks() -> [CardStack] {
-        var stacks = [CardStack]()
-        let defaultStackRange: CountableClosedRange = 1...7
-        for i in defaultStackRange {
-            let oneStack = cardDeck.makeStack(numberOf: i)
-            stacks.append(oneStack)
-        }
-        return stacks
-    }
-
-    private func makeDefaultStackImages() -> [[CardImageView]] {
-        let stacks = self.makeStacks()
-        var stackImages = [[CardImageView]]()
-        for i in 0..<stacks.count {
-            stacks[i].sortDefaultStack()
-            var oneStack = [CardImageView]()
-            for j in 0..<stacks[i].count() {
+    private func makeDefaultStackImages() {
+        for i in 0..<CardStackDelegate.defaultStackNumber {
+            for j in 0...i {
                 let locationY = cardPositionY + (spaceY * CGFloat(j))
                 let cardInStack = CardImageView(frame: CGRect(origin: CGPoint(x: PositionX.allValues[i].value,
                                                                               y: locationY),
                                                               size: self.cardSize))
-                cardInStack.getImage(of: stacks[i].getCard(at: j))
-                oneStack.append(cardInStack)
+                let card = cardDeck.cardInturn(at: (column: i, row: j))
+                cardInStack.getImage(of: card)
+                self.view.addSubview(cardInStack)
             }
-            stackImages.append(oneStack)
         }
-        return stackImages
     }
-
 
     // MARK: Tap Gesture Related
 
@@ -126,7 +110,7 @@ class ViewController: UIViewController {
     }
 
     private func drawPickedCard() {
-        if cardDeck.count() > 0 {
+        if cardDeck.countOfDeck() > 0 {
             self.pickCardFromDeck()
         } else {
             cardDeckView.getRefreshImage()
@@ -139,7 +123,7 @@ class ViewController: UIViewController {
         let pickedCardView = CardImageView(frame: CGRect(origin: CGPoint(x: upperRightCornerX,
                                                                          y: upperRightCornerY),
                                                          size: self.cardSize))
-        let pickedCard = cardDeck.removeOne()
+        let pickedCard = cardDeck.pickACard()
         pickedCard.turnOver()
         pickedCardView.getImage(of: pickedCard)
         self.view.addSubview(pickedCardView)
@@ -150,7 +134,7 @@ class ViewController: UIViewController {
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             view.subviews.forEach() { $0.removeFromSuperview() }
-            cardDeck = CardDeck()
+            cardDeck = CardStackDelegate()
             self.initialView()
         }
     }
