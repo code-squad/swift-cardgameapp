@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     private var cardDeck: StackManageable!
     private var cardDeckView: CardImageView!
+    private var stacksView = CardStacksView()
 
     let widthDivider: CGFloat = 8
     let cardHeightRatio: CGFloat = 1.27
@@ -46,7 +47,7 @@ class ViewController: UIViewController {
     private func initialView() {
         self.cardDeck = CardStackDelegate()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
-        self.makeDefaultStackImages()
+        self.defaultStackImages()
         self.defaultDeck()
         self.drawFoundations()
         self.setGestureToCardDeck()
@@ -82,18 +83,23 @@ class ViewController: UIViewController {
         }
     }
 
-    private func makeDefaultStackImages() {
+    private func defaultStackImages() {
+        self.view.addSubview(stacksView)
         for i in 0..<CardStackDelegate.defaultStackNumber {
             for j in 0...i {
-                let locationY = cardPositionY + (spaceY * CGFloat(j))
-                let cardInStack = CardImageView(frame: CGRect(origin: CGPoint(x: PositionX.allValues[i].value,
-                                                                              y: locationY),
-                                                              size: self.cardSize))
                 let card = cardDeck.cardInturn(at: (column: i, row: j))
-                cardInStack.getImage(of: card)
-                self.view.addSubview(cardInStack)
+
+                let newY = cardPositionY + (spaceY * CGFloat(j))
+                let frameForDraw = CGRect(origin: CGPoint(x: PositionX.allValues[i].value,
+                                                     y: newY),
+                                     size: self.cardSize)
+                stacksView.draw(card: card, in: frameForDraw)
             }
         }
+    }
+
+    func stackImage(at: (columnI: Int, rowJ: Int)) -> Card {
+        return cardDeck.cardInturn(at: (column: at.columnI, row: at.rowJ))
     }
 
     // MARK: Tap Gesture Related
