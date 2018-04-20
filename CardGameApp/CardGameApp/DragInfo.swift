@@ -9,14 +9,17 @@
 import UIKit
 
 struct DragInfo {
-    var topCardInDraggableViews : UIImageView!
-    var topCardInfo : CardInfo!
-    var cardImgPack : [UIImageView] = []
-    var origins : [CGPoint] = []
+    private(set) var topCardInDraggableViews : UIImageView!
+    private(set) var topCardInfo : CardInfo!
+    private(set) var imgFrameMaker : FrameControl
+    private var cardImgPack : [UIImageView] = []
+    private var origins : [CGPoint] = []
     
-    init(_ view : UIImageView, originCardInfo : CardInfo) {
+    
+    init(_ view : UIImageView, originCardInfo : CardInfo, _ frameControl : FrameControl) {
         topCardInDraggableViews = view
         topCardInfo = originCardInfo
+        imgFrameMaker = frameControl
     }
     
     mutating func setBelowViews(_ views : [UIImageView]) {
@@ -33,11 +36,14 @@ struct DragInfo {
         gesture.setTranslation(CGPoint.zero, in: topCardInDraggableViews)
     }
     
-    func moveBelowViews(_ topCardinfos : [CGRect]) {
-        var index = 0
+    func moveCardImgPack(_ topCardinfo : CardInfo) {
+        var count = 0
+        let baseStackIndex = topCardinfo.stackIndex
         cardImgPack.forEach({
-            $0.frame = topCardinfos[index]
-            index += 1
+            $0.layer.zPosition = 1
+            let oneCardOfPackInfo = CardInfo(topCardinfo.indexOfCard, baseStackIndex + count, topCardinfo.position)
+            $0.frame = self.imgFrameMaker.generateCardViewFrame(oneCardOfPackInfo)
+            count += 1
         })
     }
     
