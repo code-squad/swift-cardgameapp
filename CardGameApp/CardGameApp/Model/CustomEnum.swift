@@ -43,3 +43,15 @@ enum PositionY {
         }
     }
 }
+
+
+enum StackTable: Int {
+    case first = 1
+    case second
+    case third
+    case fourth
+    case fifth
+    case sixth
+    case seventh
+}
+
