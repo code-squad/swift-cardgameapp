@@ -10,7 +10,7 @@ import UIKit
 
 class CardStacksView: UIView {
 
-    private var stackImages: [[CardImageView]] = []
+    private var stackImages = [[CardImageView]]()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
