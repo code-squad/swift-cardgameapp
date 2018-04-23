@@ -30,15 +30,19 @@ class CardImageView: UIImageView {
     }
 
     func getImage(of card: ImageSelector) {
+        if card.image == "card-back" {
+            self.isUserInteractionEnabled = false
+        }
         self.image = UIImage(named: "\(card.image)")
     }
 
-    func getBackSideImage() {
+    func getDeckImage() {
         self.image = UIImage(named: "card-back")
     }
 
     func getRefreshImage() {
         self.image = UIImage(named: "cardgameapp-refresh-app")
     }
+
 
 }

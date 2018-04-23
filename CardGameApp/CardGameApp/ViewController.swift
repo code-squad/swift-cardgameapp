@@ -51,6 +51,7 @@ class ViewController: UIViewController {
         self.defaultDeck()
         self.drawFoundations()
         self.setGestureToCardDeck()
+        setDoubleTabToCardDeck()
     }
 
     // MARK: InitialView Related
@@ -60,7 +61,7 @@ class ViewController: UIViewController {
                                                                    y: PositionY.upper.value),
                                                    size: self.cardSize))
         if cardGameManager.countOfDeck() > 0 {
-            cardDeckView.getBackSideImage()
+            cardDeckView.getDeckImage()
             self.view.addSubview(cardDeckView)
         } else {
             cardDeckView.getRefreshImage()
@@ -134,6 +135,7 @@ class ViewController: UIViewController {
         pickedCardView.getImage(of: pickedCard)
         self.view.addSubview(pickedCardView)
     }
+
 
     // MARK: Shake motion Related
 
