@@ -19,6 +19,7 @@ class CardImageView: UIImageView {
         self.layer.cornerRadius = 5.0
         self.clipsToBounds = true
         self.isUserInteractionEnabled = true
+//        self.setDoubleTabToCardDeck()
     }
 
     convenience init() {
@@ -34,6 +35,7 @@ class CardImageView: UIImageView {
             self.isUserInteractionEnabled = false
         }
         self.image = UIImage(named: "\(card.image)")
+        self.setDoubleTabToCard()
     }
 
     func getDeckImage() {
@@ -43,6 +45,19 @@ class CardImageView: UIImageView {
     func getRefreshImage() {
         self.image = UIImage(named: "cardgameapp-refresh-app")
     }
+
+    private func setDoubleTabToCard() {
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(cardDoubleTapped(sender:)))
+        doubleTap.numberOfTapsRequired = 2
+        self.addGestureRecognizer(doubleTap)
+    }
+
+    @objc func cardDoubleTapped(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            // double tapped
+        }
+    }
+
 
 
 }
