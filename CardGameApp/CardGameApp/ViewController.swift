@@ -18,7 +18,6 @@ class ViewController: UIViewController {
     let cardHeightRatio: CGFloat = 1.27
     let numberOfFoundation = 4
     let foundationPositionY: CGFloat = PositionY.upper.value
-    let cardPositionY: CGFloat = PositionY.bottom.value
 
     private var cardWidth: CGFloat {
         return self.view.frame.width / widthDivider
@@ -31,6 +30,12 @@ class ViewController: UIViewController {
 
     private var spaceX: CGFloat {
         return cardWidth / widthDivider
+    }
+
+    private var stacksViewFrame: CGRect {
+        return CGRect(origin: CGPoint(x: 0, y: PositionY.bottom.value),
+                      size: CGSize(width: self.view.frame.width,
+                                   height: self.view.frame.height - PositionY.bottom.value))
     }
 
     private var spaceY: CGFloat = 15.0
@@ -51,7 +56,6 @@ class ViewController: UIViewController {
         self.defaultDeck()
         self.drawFoundations()
         self.setGestureToCardDeck()
-        setDoubleTabToCardDeck()
     }
 
     // MARK: InitialView Related
@@ -85,12 +89,14 @@ class ViewController: UIViewController {
     }
 
     private func defaultStackImages() {
+        self.stacksView.frame = self.stacksViewFrame
         self.view.addSubview(stacksView)
+        
         for i in 0..<CardGameDelegate.defaultStackNumber {
             for j in 0...i {
                 let card = cardGameManager.cardInturn(at: (column: i, row: j))
 
-                let newY = cardPositionY + (spaceY * CGFloat(j))
+                let newY = spaceY * CGFloat(j)
                 let frameForDraw = CGRect(origin: CGPoint(x: PositionX.allValues[i].value,
                                                      y: newY),
                                      size: self.cardSize)
@@ -136,6 +142,17 @@ class ViewController: UIViewController {
         self.view.addSubview(pickedCardView)
     }
 
+//    private func setDoubleTabToCardDeck() {
+//        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(cardDoubleTapped(sender:)))
+//        doubleTap.numberOfTapsRequired = 2
+//        self.stacksView.addGestureRecognizer(doubleTap)
+//    }
+//
+//    @objc func cardDoubleTapped(sender: UITapGestureRecognizer) {
+//        if sender.state == .ended {
+//            print("double tapped")
+//        }
+//    }
 
     // MARK: Shake motion Related
 
