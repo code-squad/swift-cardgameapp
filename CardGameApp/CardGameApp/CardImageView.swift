@@ -10,6 +10,8 @@ import UIKit
 
 class CardImageView: UIImageView {
 
+    var imageName: String!
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -19,7 +21,6 @@ class CardImageView: UIImageView {
         self.layer.cornerRadius = 5.0
         self.clipsToBounds = true
         self.isUserInteractionEnabled = true
-//        self.setDoubleTabToCardDeck()
     }
 
     convenience init() {
@@ -32,10 +33,13 @@ class CardImageView: UIImageView {
 
     func getImage(of card: ImageSelector) {
         if card.image == "card-back" {
+            self.getDeckImage()
             self.isUserInteractionEnabled = false
+        } else {
+            self.image = UIImage(named: "card_decks/\(card.image).png")
+            self.imageName = card.image
+            self.setDoubleTabToCard()
         }
-        self.image = UIImage(named: "\(card.image)")
-        self.setDoubleTabToCard()
     }
 
     func getDeckImage() {
@@ -54,10 +58,9 @@ class CardImageView: UIImageView {
 
     @objc func cardDoubleTapped(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
+            print(self.imageName!)
             // double tapped
         }
     }
-
-
 
 }

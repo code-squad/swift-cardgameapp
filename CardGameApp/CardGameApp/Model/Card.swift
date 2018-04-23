@@ -46,7 +46,7 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
         case .clover: shape = "c"
         case .spade: shape = "s"
         }
-        return "card_decks/\(shape + number).png"
+        return shape + number
     }
 
     init(suit: CardDeck.Suit, denomination: CardDeck.Denomination) {
