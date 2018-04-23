@@ -91,7 +91,7 @@ class ViewController: UIViewController {
     private func defaultStackImages() {
         self.stacksView.frame = self.stacksViewFrame
         self.view.addSubview(stacksView)
-        
+
         for i in 0..<CardGameDelegate.defaultStackNumber {
             for j in 0...i {
                 let card = cardGameManager.cardInturn(at: (column: i, row: j))
@@ -141,18 +141,6 @@ class ViewController: UIViewController {
         pickedCardView.getImage(of: pickedCard)
         self.view.addSubview(pickedCardView)
     }
-
-//    private func setDoubleTabToCardDeck() {
-//        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(cardDoubleTapped(sender:)))
-//        doubleTap.numberOfTapsRequired = 2
-//        self.stacksView.addGestureRecognizer(doubleTap)
-//    }
-//
-//    @objc func cardDoubleTapped(sender: UITapGestureRecognizer) {
-//        if sender.state == .ended {
-//            print("double tapped")
-//        }
-//    }
 
     // MARK: Shake motion Related
 
