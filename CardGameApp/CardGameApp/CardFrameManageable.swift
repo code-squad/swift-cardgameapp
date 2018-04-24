@@ -1,5 +1,5 @@
 //
-//  CardFrameCalculator.swift
+//  CardFrameManageable.swift
 //  CardGameApp
 //
 //  Created by YOUTH2 on 2018. 4. 23..
@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-protocol CardFrameCalculator {
+protocol CardFrameManageable {
     func cardFrame(x: Int, y: CGFloat) -> CGRect
     func cardOrigin() -> CGPoint
 }
 
-class CardMaker: CardFrameCalculator {
+class CardMaker: CardFrameManageable {
     var sizeOfRootView: CGSize?
 
     var spaceX: CGFloat {
