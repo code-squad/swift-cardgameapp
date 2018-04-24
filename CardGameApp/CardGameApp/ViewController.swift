@@ -10,7 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var cardMaker: CardFrameCalculator!
+    var deckManager: DeckManageable!
+    var deckView: CardDeckView!
+
+    var cardMaker: CardFrameManageable!
     private var cardGameManager: StackManageable!
     private var cardDeckView: CardImageView!
     private var stacksView = CardStacksView()
@@ -18,7 +21,7 @@ class ViewController: UIViewController {
 
     static let widthDivider: CGFloat = 8
     static let cardHeightRatio: CGFloat = 1.27
-    let numberOfFoundation = 4
+
     let foundationPositionY: CGFloat = PositionY.upper.value
 
     private var cardWidth: CGFloat {
@@ -54,47 +57,25 @@ class ViewController: UIViewController {
     private func initialView() {
         self.cardGameManager = CardGameDelegate()
         cardMaker = CardMaker(size: self.view.frame.size)
-        newFoundation()
+        self.newFoundation()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
+        deckManager = CardDeckDelegate(cardDeck: cardGameManager.getCardDeck())
+        self.newDeck()
         self.defaultStackImages()
-        self.defaultDeck()
-        self.setGestureToCardDeck()
     }
 
     // MARK: InitialView Related
 
-    private func defaultDeck() {
-        cardDeckView = CardImageView(frame: CGRect(origin: CGPoint(x: PositionX.seventh.value,
-                                                                   y: PositionY.upper.value),
-                                                   size: self.cardSize))
-        if cardGameManager.countOfDeck() > 0 {
-            cardDeckView.getDeckImage()
-            self.view.addSubview(cardDeckView)
-        } else {
-            cardDeckView.getRefreshImage()
-            self.view.addSubview(cardDeckView)
-        }
+    private func newDeck() {
+        self.deckView = CardDeckView(cardMaker: self.cardMaker, deckManager: deckManager)
+        self.view.addSubview(deckView)
+        deckView.drawDefault()
     }
 
-    func newFoundation() {
+    private func newFoundation() {
         self.foundationView = FoundationView(cardMaker: self.cardMaker)
         self.view.addSubview(foundationView)
         foundationView.drawDefault()
-    }
-
-
-    private func drawFoundations() {
-        for i in 0..<numberOfFoundation {
-            let cardX = (CGFloat(i+1)*spaceX) + (CGFloat(i) * cardWidth)
-            let foundation = UIView(frame: CGRect(origin: CGPoint(x: cardX,
-                                                                  y: foundationPositionY),
-                                                  size: self.cardSize))
-            foundation.clipsToBounds = true
-            foundation.layer.cornerRadius = 5.0
-            foundation.layer.borderColor = UIColor.white.cgColor
-            foundation.layer.borderWidth = 1.0
-            self.view.addSubview(foundation)
-        }
     }
 
     private func defaultStackImages() {
