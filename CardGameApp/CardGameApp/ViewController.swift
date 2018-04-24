@@ -10,26 +10,28 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var cardMaker: CardFrameCalculator!
     private var cardGameManager: StackManageable!
     private var cardDeckView: CardImageView!
     private var stacksView = CardStacksView()
+    private var foundationView: FoundationView!
 
-    let widthDivider: CGFloat = 8
-    let cardHeightRatio: CGFloat = 1.27
+    static let widthDivider: CGFloat = 8
+    static let cardHeightRatio: CGFloat = 1.27
     let numberOfFoundation = 4
     let foundationPositionY: CGFloat = PositionY.upper.value
 
     private var cardWidth: CGFloat {
-        return self.view.frame.width / widthDivider
+        return self.view.frame.width / ViewController.widthDivider
     }
 
     private var cardSize: CGSize {
         return CGSize(width: self.cardWidth,
-                      height: cardWidth * cardHeightRatio)
+                      height: cardWidth * ViewController.cardHeightRatio)
     }
 
     private var spaceX: CGFloat {
-        return cardWidth / widthDivider
+        return cardWidth / ViewController.widthDivider
     }
 
     private var stacksViewFrame: CGRect {
@@ -38,7 +40,7 @@ class ViewController: UIViewController {
                                    height: self.view.frame.height - PositionY.bottom.value))
     }
 
-    private var spaceY: CGFloat = 15.0
+    static let spaceY: CGFloat = 15.0
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -51,10 +53,11 @@ class ViewController: UIViewController {
 
     private func initialView() {
         self.cardGameManager = CardGameDelegate()
+        cardMaker = CardMaker(size: self.view.frame.size)
+        newFoundation()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
         self.defaultStackImages()
         self.defaultDeck()
-        self.drawFoundations()
         self.setGestureToCardDeck()
     }
 
@@ -71,6 +74,12 @@ class ViewController: UIViewController {
             cardDeckView.getRefreshImage()
             self.view.addSubview(cardDeckView)
         }
+    }
+
+    func newFoundation() {
+        self.foundationView = FoundationView(cardMaker: self.cardMaker)
+        self.view.addSubview(foundationView)
+        foundationView.drawDefault()
     }
 
 
@@ -96,7 +105,7 @@ class ViewController: UIViewController {
             for j in 0...i {
                 let card = cardGameManager.cardInturn(at: (column: i, row: j))
 
-                let newY = spaceY * CGFloat(j)
+                let newY = ViewController.spaceY * CGFloat(j)
                 let frameForDraw = CGRect(origin: CGPoint(x: PositionX.allValues[i].value,
                                                      y: newY),
                                      size: self.cardSize)
