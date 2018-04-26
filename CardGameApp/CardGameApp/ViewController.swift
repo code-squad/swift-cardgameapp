@@ -17,8 +17,6 @@ class ViewController: UIViewController {
 
     private var cardMaker: CardFrameManageable!
 
-    private var cardDeckView: CardImageView!
-
     static let widthDivider: CGFloat = 8
     static let cardHeightRatio: CGFloat = 1.27
 
@@ -77,40 +75,7 @@ class ViewController: UIViewController {
         self.view.addSubview(stackView)
         stackView.drawDefault()
     }
-
-    // MARK: Tap Gesture Related
-
-    private func setGestureToCardDeck() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(deckTapped(sender:)))
-        self.cardDeckView.addGestureRecognizer(tap)
-    }
-
-    @objc func deckTapped(sender : UITapGestureRecognizer) {
-        if sender.state == .ended {
-            self.drawPickedCard()
-        }
-    }
-
-    private func drawPickedCard() {
-        if cardGameManager.countOfDeck() > 0 {
-            self.pickCardFromDeck()
-        } else {
-            cardDeckView.getRefreshImage()
-        }
-    }
-
-    private func pickCardFromDeck() {
-        let upperRightCornerX = PositionX.sixth.value
-        let upperRightCornerY = PositionY.upper.value
-        let pickedCardView = CardImageView(frame: CGRect(origin: CGPoint(x: upperRightCornerX,
-                                                                         y: upperRightCornerY),
-                                                         size: self.cardSize))
-        let pickedCard = cardGameManager.pickACard()
-        pickedCard.turnOver()
-        pickedCardView.getImage(of: pickedCard)
-        self.view.addSubview(pickedCardView)
-    }
-
+    
     // MARK: Shake motion Related
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {

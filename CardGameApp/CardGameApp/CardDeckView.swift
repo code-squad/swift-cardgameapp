@@ -12,6 +12,7 @@ class CardDeckView: UIView {
 
     var gameManager: CardGameManageable?
     var cardMaker: CardFrameManageable?
+    var closedCardDeck = CardImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,15 +33,51 @@ class CardDeckView: UIView {
         guard let cardFrameMaker = self.cardMaker else { return }
 
         let deckButtonFrame = cardFrameMaker.cardFrame(x: 6, y: PositionY.upper.value)
-        let cardDeckView = CardImageView(frame: deckButtonFrame)
+        self.closedCardDeck = CardImageView(frame: deckButtonFrame)
+        self.setGestureToCardDeck()
 
         if cardDeck.hasEnoughCard() {
-            cardDeckView.getDeckImage()
-            addSubview(cardDeckView)
+            closedCardDeck.getDeckImage()
+            addSubview(closedCardDeck)
         } else {
-            cardDeckView.getRefreshImage()
-            addSubview(cardDeckView)
+            closedCardDeck.getRefreshImage()
+            addSubview(closedCardDeck)
         }
+    }
+
+    // MARK: Tap Gesture Related
+
+    private func setGestureToCardDeck() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(deckTapped(sender:)))
+        self.closedCardDeck.addGestureRecognizer(tap)
+    }
+
+    @objc func deckTapped(sender : UITapGestureRecognizer) {
+        if sender.state == .ended {
+            self.drawPickedCard()
+        }
+    }
+
+    private func drawPickedCard() {
+        guard let cardDeck = self.gameManager else { return }
+        if cardDeck.hasEnoughCard() {
+            self.pickCardFromDeck()
+        } else {
+            closedCardDeck.getRefreshImage()
+        }
+    }
+
+    private func pickCardFromDeck() {
+        guard let cardFrameMaker = self.cardMaker else { return }
+        guard let cardDeck = self.gameManager else { return }
+
+        let pickedCardFrame = cardFrameMaker.cardFrame(x: 5, y: PositionY.upper.value)
+
+        let pickedCardView = CardImageView(frame: pickedCardFrame)
+        let pickedCard = cardDeck.pickACard()
+        pickedCard.turnOver()
+        pickedCardView.getImage(of: pickedCard)
+        addSubview(pickedCardView)
     }
 
 }
