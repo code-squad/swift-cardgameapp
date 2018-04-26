@@ -10,13 +10,19 @@ import UIKit
 
 class CardStacksView: UIView {
 
+    var stackManager: StackManageable? // CardGameDelegate
+    var cardMaker: CardFrameManageable?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.isUserInteractionEnabled = true
     }
 
-    convenience init() {
-        self.init(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+    convenience init(stackManager: StackManageable, cardMaker: CardFrameManageable) {
+        self.init(frame: CGRect(x: 0, y: PositionY.bottom.value,
+                                width: 414, height: 736 - PositionY.bottom.value))
+        self.stackManager = stackManager
+        self.cardMaker = cardMaker
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -29,5 +35,24 @@ class CardStacksView: UIView {
         addSubview(cardImage)
     }
 
-}
+    func drawDefault() {
+        guard let stacks = self.stackManager else { return }
+        guard let cardFrameMaker = self.cardMaker else { return }
+        let countOfStacks = stacks.countOfStacks()
 
+        for i in 0..<countOfStacks {
+            for j in 0...i {
+                let card = stacks.cardInturn(at: (column: i, row: j))
+                let newY = ViewController.spaceY * CGFloat(j)
+
+                let frameForDraw = cardFrameMaker.cardFrame(x: i, y: newY)
+
+                let cardImage = CardImageView(frame: frameForDraw)
+                cardImage.getImage(of: card)
+
+                addSubview(cardImage)
+            }
+        }
+    }
+
+}
