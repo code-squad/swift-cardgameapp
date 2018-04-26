@@ -12,11 +12,11 @@ class ViewController: UIViewController {
 
     var deckManager: DeckManageable!
     var deckView: CardDeckView!
+    var stackView: CardStacksView!
+    private var cardGameManager: StackManageable!
 
     var cardMaker: CardFrameManageable!
-    private var cardGameManager: StackManageable!
     private var cardDeckView: CardImageView!
-    private var stacksView = CardStacksView()
     private var foundationView: FoundationView!
 
     static let widthDivider: CGFloat = 8
@@ -37,12 +37,6 @@ class ViewController: UIViewController {
         return cardWidth / ViewController.widthDivider
     }
 
-    private var stacksViewFrame: CGRect {
-        return CGRect(origin: CGPoint(x: 0, y: PositionY.bottom.value),
-                      size: CGSize(width: self.view.frame.width,
-                                   height: self.view.frame.height - PositionY.bottom.value))
-    }
-
     static let spaceY: CGFloat = 15.0
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -61,7 +55,7 @@ class ViewController: UIViewController {
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
         deckManager = CardDeckDelegate(cardDeck: cardGameManager.getCardDeck())
         self.newDeck()
-        self.defaultStackImages()
+        self.newStacks()
     }
 
     // MARK: InitialView Related
@@ -78,25 +72,10 @@ class ViewController: UIViewController {
         foundationView.drawDefault()
     }
 
-    private func defaultStackImages() {
-        self.stacksView.frame = self.stacksViewFrame
-        self.view.addSubview(stacksView)
-
-        for i in 0..<CardGameDelegate.defaultStackNumber {
-            for j in 0...i {
-                let card = cardGameManager.cardInturn(at: (column: i, row: j))
-
-                let newY = ViewController.spaceY * CGFloat(j)
-                let frameForDraw = CGRect(origin: CGPoint(x: PositionX.allValues[i].value,
-                                                     y: newY),
-                                     size: self.cardSize)
-                stacksView.draw(card: card, in: frameForDraw)
-            }
-        }
-    }
-
-    func stackImage(at: (columnI: Int, rowJ: Int)) -> Card {
-        return cardGameManager.cardInturn(at: (column: at.columnI, row: at.rowJ))
+    private func newStacks() {
+        self.stackView = CardStacksView(stackManager: self.cardGameManager, cardMaker: self.cardMaker)
+        self.view.addSubview(stackView)
+        stackView.drawDefault()
     }
 
     // MARK: Tap Gesture Related
