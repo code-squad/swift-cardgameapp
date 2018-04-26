@@ -10,6 +10,9 @@
 		FD884CD320883F1100DD1954 /* CardStacksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD884CD220883F1100DD1954 /* CardStacksView.swift */; };
 		FD884CD72088AAF300DD1954 /* CardGameDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD884CD62088AAF300DD1954 /* CardGameDelegate.swift */; };
 		FDABC82F20804F8F00AE6DE5 /* ImageSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDABC82E20804F8F00AE6DE5 /* ImageSelector.swift */; };
+		FDC1ACB0208F23F000A39C47 /* CardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC1ACAF208F23F000A39C47 /* CardDeckView.swift */; };
+		FDC5D438208DF2BB000A1E0C /* FoundationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC5D437208DF2BB000A1E0C /* FoundationView.swift */; };
+		FDC5D43A208E071C000A1E0C /* CardFrameManageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC5D439208E071C000A1E0C /* CardFrameManageable.swift */; };
 		FDD8FA16207F035400F5FD99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD8FA15207F035400F5FD99 /* AppDelegate.swift */; };
 		FDD8FA18207F035400F5FD99 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDD8FA17207F035400F5FD99 /* ViewController.swift */; };
 		FDD8FA1B207F035400F5FD99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FDD8FA19207F035400F5FD99 /* Main.storyboard */; };
@@ -28,6 +31,9 @@
 		FD884CD220883F1100DD1954 /* CardStacksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStacksView.swift; sourceTree = "<group>"; };
 		FD884CD62088AAF300DD1954 /* CardGameDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameDelegate.swift; sourceTree = "<group>"; };
 		FDABC82E20804F8F00AE6DE5 /* ImageSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelector.swift; sourceTree = "<group>"; };
+		FDC1ACAF208F23F000A39C47 /* CardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckView.swift; sourceTree = "<group>"; };
+		FDC5D437208DF2BB000A1E0C /* FoundationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationView.swift; sourceTree = "<group>"; };
+		FDC5D439208E071C000A1E0C /* CardFrameManageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFrameManageable.swift; sourceTree = "<group>"; };
 		FDD8FA12207F035400F5FD99 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDD8FA15207F035400F5FD99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FDD8FA17207F035400F5FD99 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +92,9 @@
 				FDD8FA21207F035500F5FD99 /* Info.plist */,
 				FDD8FA27207F216B00F5FD99 /* CardImageView.swift */,
 				FD884CD220883F1100DD1954 /* CardStacksView.swift */,
+				FDC5D437208DF2BB000A1E0C /* FoundationView.swift */,
+				FDC1ACAF208F23F000A39C47 /* CardDeckView.swift */,
+				FDC5D439208E071C000A1E0C /* CardFrameManageable.swift */,
 			);
 			path = CardGameApp;
 			sourceTree = "<group>";
@@ -175,6 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FDABC82F20804F8F00AE6DE5 /* ImageSelector.swift in Sources */,
+				FDC5D438208DF2BB000A1E0C /* FoundationView.swift in Sources */,
 				FD884CD320883F1100DD1954 /* CardStacksView.swift in Sources */,
 				FD884CD72088AAF300DD1954 /* CardGameDelegate.swift in Sources */,
 				FDD8FA18207F035400F5FD99 /* ViewController.swift in Sources */,
@@ -182,7 +192,9 @@
 				FDDFB93C2080498800920FB4 /* CardDeck.swift in Sources */,
 				FDD8FA28207F216B00F5FD99 /* CardImageView.swift in Sources */,
 				FDDFB93D2080498800920FB4 /* Card.swift in Sources */,
+				FDC5D43A208E071C000A1E0C /* CardFrameManageable.swift in Sources */,
 				FDD8FA16207F035400F5FD99 /* AppDelegate.swift in Sources */,
+				FDC1ACB0208F23F000A39C47 /* CardDeckView.swift in Sources */,
 				FDDFB93B2080498800920FB4 /* EnumCollection.swift in Sources */,
 				FDDFB93A2080498800920FB4 /* CardStack.swift in Sources */,
 			);

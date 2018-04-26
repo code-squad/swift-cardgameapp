@@ -10,14 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var deckManager: DeckManageable!
-    var deckView: CardDeckView!
-    var stackView: CardStacksView!
-    private var cardGameManager: StackManageable!
-
-    var cardMaker: CardFrameManageable!
-    private var cardDeckView: CardImageView!
+    private var deckView: CardDeckView!
+    private var stackView: CardStacksView!
     private var foundationView: FoundationView!
+    private var cardGameManager: CardGameManageable!
+
+    private var cardMaker: CardFrameManageable!
+
+    private var cardDeckView: CardImageView!
 
     static let widthDivider: CGFloat = 8
     static let cardHeightRatio: CGFloat = 1.27
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         cardMaker = CardMaker(size: self.view.frame.size)
         self.newFoundation()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
-        deckManager = CardDeckDelegate(cardDeck: cardGameManager.getCardDeck())
+
         self.newDeck()
         self.newStacks()
     }
@@ -61,7 +61,7 @@ class ViewController: UIViewController {
     // MARK: InitialView Related
 
     private func newDeck() {
-        self.deckView = CardDeckView(cardMaker: self.cardMaker, deckManager: deckManager)
+        self.deckView = CardDeckView(cardMaker: self.cardMaker, gameManager: cardGameManager)
         self.view.addSubview(deckView)
         deckView.drawDefault()
     }

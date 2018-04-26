@@ -10,7 +10,7 @@ import UIKit
 
 class CardStacksView: UIView {
 
-    var stackManager: StackManageable? // CardGameDelegate
+    var stackManager: CardGameManageable? // CardGameDelegate
     var cardMaker: CardFrameManageable?
 
     override init(frame: CGRect) {
@@ -18,7 +18,7 @@ class CardStacksView: UIView {
         self.isUserInteractionEnabled = true
     }
 
-    convenience init(stackManager: StackManageable, cardMaker: CardFrameManageable) {
+    convenience init(stackManager: CardGameManageable, cardMaker: CardFrameManageable) {
         self.init(frame: CGRect(x: 0, y: PositionY.bottom.value,
                                 width: 414, height: 736 - PositionY.bottom.value))
         self.stackManager = stackManager

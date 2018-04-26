@@ -8,15 +8,16 @@
 
 import Foundation
 
-protocol StackManageable {
+protocol CardGameManageable {
     func makeStacks(numberOfCards: Int) -> [CardStack]
     func cardInturn(at index: (column: StackTable.RawValue, row: Int)) -> ImageSelector
     func countOfDeck() -> Int
     func pickACard() -> Card
     func shuffleDeck()
     func stacks() -> [CardStack]
-    func getCardDeck() -> CardDeck
+    func currentDeck() -> CardDeck
     func countOfStacks() -> Int
+    func hasEnoughCard() -> Bool
 }
 
 protocol FoundationManageable {
@@ -26,7 +27,7 @@ protocol FoundationManageable {
     func updateFoundation()
 }
 
-class CardGameDelegate: StackManageable {
+class CardGameDelegate: CardGameManageable {
 
     static let defaultStackRange: CountableClosedRange = 1...7
     static let defaultStackNumber: Int = 7
@@ -45,7 +46,7 @@ class CardGameDelegate: StackManageable {
         self.cardStacks = stacks
     }
 
-    func getCardDeck() -> CardDeck {
+    func currentDeck() -> CardDeck {
         return self.cardDeck
     }
 
@@ -82,6 +83,14 @@ class CardGameDelegate: StackManageable {
 
     func stacks() -> [CardStack] {
         return self.cardStacks
+    }
+
+    func hasEnoughCard() -> Bool {
+        if cardDeck.count() > 0 {
+            return true
+        } else {
+            return false
+        }
     }
 
 }

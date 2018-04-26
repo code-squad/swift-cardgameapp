@@ -10,7 +10,7 @@ import UIKit
 
 class CardDeckView: UIView {
 
-    var deckManager: DeckManageable?
+    var gameManager: CardGameManageable?
     var cardMaker: CardFrameManageable?
 
     override init(frame: CGRect) {
@@ -21,20 +21,20 @@ class CardDeckView: UIView {
         super.init(coder: aDecoder)
     }
 
-    convenience init(cardMaker: CardFrameManageable, deckManager: DeckManageable) {
+    convenience init(cardMaker: CardFrameManageable, gameManager: CardGameManageable) {
         self.init(frame: CGRect(x: 0, y: 0, width: 414, height: 100))
         self.cardMaker = cardMaker
-        self.deckManager = deckManager
+        self.gameManager = gameManager
     }
 
     func drawDefault() {
-        guard let cardDeck = self.deckManager else { return }
+        guard let cardDeck = self.gameManager else { return }
         guard let cardFrameMaker = self.cardMaker else { return }
 
         let deckButtonFrame = cardFrameMaker.cardFrame(x: 6, y: PositionY.upper.value)
         let cardDeckView = CardImageView(frame: deckButtonFrame)
 
-        if cardDeck.hasRemainCard() {
+        if cardDeck.hasEnoughCard() {
             cardDeckView.getDeckImage()
             addSubview(cardDeckView)
         } else {
