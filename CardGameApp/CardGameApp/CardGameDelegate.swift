@@ -10,12 +10,13 @@ import Foundation
 
 protocol StackManageable {
     func makeStacks(numberOfCards: Int) -> [CardStack]
-    func cardInturn(at index: (column: StackTable.RawValue, row: Int)) -> Card
+    func cardInturn(at index: (column: StackTable.RawValue, row: Int)) -> ImageSelector
     func countOfDeck() -> Int
     func pickACard() -> Card
     func shuffleDeck()
-    func defaultstacks() -> [CardStack]
+    func stacks() -> [CardStack]
     func getCardDeck() -> CardDeck
+    func countOfStacks() -> Int
 }
 
 protocol FoundationManageable {
@@ -44,17 +45,6 @@ class CardGameDelegate: StackManageable {
         self.cardStacks = stacks
     }
 
-    init(numberOfCards: Int) {
-        cardDeck.shuffle()
-        var stacks = [CardStack]()
-        for _ in 0..<numberOfCards {
-            let oneStack = cardDeck.makeStack(numberOf: numberOfCards)
-            oneStack.sortDefaultStack()
-            stacks.append(oneStack)
-        }
-        self.cardStacks = stacks
-    }
-
     func getCardDeck() -> CardDeck {
         return self.cardDeck
     }
@@ -69,7 +59,11 @@ class CardGameDelegate: StackManageable {
         return stacks
     }
 
-    func cardInturn(at index: (column: Int, row: Int)) -> Card {
+    func countOfStacks() -> Int {
+        return self.cardStacks.count
+    }
+
+    func cardInturn(at index: (column: Int, row: Int)) -> ImageSelector {
         let chosenStack = self.cardStacks[index.column]
         return chosenStack.getCard(at: index.row)
     }
@@ -86,7 +80,7 @@ class CardGameDelegate: StackManageable {
         cardDeck.shuffle()
     }
 
-    func defaultstacks() -> [CardStack] {
+    func stacks() -> [CardStack] {
         return self.cardStacks
     }
 
