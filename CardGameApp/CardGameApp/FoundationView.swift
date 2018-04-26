@@ -11,7 +11,7 @@ import UIKit
 class FoundationView: UIView {
     
     var foundationManager: FoundationManageable?
-    var cardMaker: CardFrameCalculator?
+    var cardMaker: CardFrameManageable?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,8 +21,8 @@ class FoundationView: UIView {
         super.init(coder: aDecoder)
     }
 
-    convenience init(cardMaker: CardFrameCalculator) {
-        self.init(frame: CGRect(x: 0, y: 0, width: 414, height: 300))
+    convenience init(cardMaker: CardFrameManageable) {
+        self.init(frame: CGRect(x: 0, y: 0, width: 414, height: 100))
         self.cardMaker = cardMaker
     }
 
