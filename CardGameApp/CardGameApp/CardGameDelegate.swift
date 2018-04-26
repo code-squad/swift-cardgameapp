@@ -15,10 +15,18 @@ protocol StackManageable {
     func pickACard() -> Card
     func shuffleDeck()
     func defaultstacks() -> [CardStack]
+    func getCardDeck() -> CardDeck
 }
 
+protocol FoundationManageable {
+    var cardMaker: CardFrameManageable { get }
+    func makeEmptyFoundation()
+    func addCard()
+    func updateFoundation()
+}
 
 class CardGameDelegate: StackManageable {
+
     static let defaultStackRange: CountableClosedRange = 1...7
     static let defaultStackNumber: Int = 7
 
@@ -45,6 +53,10 @@ class CardGameDelegate: StackManageable {
             stacks.append(oneStack)
         }
         self.cardStacks = stacks
+    }
+
+    func getCardDeck() -> CardDeck {
+        return self.cardDeck
     }
 
     func makeStacks(numberOfCards: Int) -> [CardStack] {
