@@ -63,6 +63,7 @@ class ViewController: UIViewController {
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             view.subviews.forEach() { $0.removeFromSuperview() }
+            self.cardGameManager = CardGameDelegate.restartSharedDeck()
             self.initialView()
         }
     }

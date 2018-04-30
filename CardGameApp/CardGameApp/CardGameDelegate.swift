@@ -48,6 +48,11 @@ class CardGameDelegate: CardGameManageable {
         return sharedCardDeck
     }
 
+    class func restartSharedDeck() -> CardGameDelegate {
+        sharedCardDeck = CardGameDelegate()
+        return sharedCardDeck
+    }
+
     static let defaultStackRange: CountableClosedRange = 1...7
     static let defaultStackNumber: Int = 7
     private var cardDeck = CardDeck()
