@@ -62,11 +62,10 @@ class OneStack: UIView {
     func drawCards() {
         for i in 0..<countOfCard {
             let card = stackManager.cardInturn(at: (column: self.column, row: i))
-            let newOrigin = CGPoint(x: PositionX.allValues[i].value, y: ViewController.spaceY * CGFloat(i))
+            let newOrigin = CGPoint(x: 0, y: ViewController.spaceY * CGFloat(i))
             let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
             let cardImage = CardImageView(frame: frameForDraw)
             cardImage.getImage(of: card)
-            print(card.frontImage)
             addSubview(cardImage)
         }
     }
