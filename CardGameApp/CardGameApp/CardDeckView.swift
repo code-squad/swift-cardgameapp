@@ -10,7 +10,6 @@ import UIKit
 
 class CardDeckView: UIView {
     var gameManager: CardGameManageable = CardGameDelegate.shared()
-    var cardMaker: CardFrameManageable?
     var closedCardDeck = CardImageView()
 
     override init(frame: CGRect) {
@@ -21,17 +20,14 @@ class CardDeckView: UIView {
         super.init(coder: aDecoder)
     }
 
-    convenience init(cardMaker: CardFrameManageable) {
+    convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: 414, height: 100))
-        self.cardMaker = cardMaker
     }
 
     func drawDefault() {
-        //guard let cardDeck = self.gameManager else { return }
-        guard let cardFrameMaker = self.cardMaker else { return }
-
-        let deckButtonFrame = cardFrameMaker.cardFrame(x: 6, y: PositionY.upper.value)
-        self.closedCardDeck = CardImageView(frame: deckButtonFrame)
+        let newOrigin = CGPoint(x: PositionX.seventh.value, y: PositionY.upper.value)
+        let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
+        self.closedCardDeck = CardImageView(frame: frameForDraw)
         self.setGestureToCardDeck()
 
         if gameManager.hasEnoughCard() {
@@ -57,7 +53,6 @@ class CardDeckView: UIView {
     }
 
     private func drawPickedCard() {
-//        guard let cardDeck = self.gameManager else { return }
         if gameManager.hasEnoughCard() {
             self.pickCardFromDeck()
         } else {
@@ -66,12 +61,11 @@ class CardDeckView: UIView {
     }
 
     private func pickCardFromDeck() {
-        guard let cardFrameMaker = self.cardMaker else { return }
-//        guard let cardDeck = self.gameManager else { return }
 
-        let pickedCardFrame = cardFrameMaker.cardFrame(x: 5, y: PositionY.upper.value)
+        let newOrigin = CGPoint(x: PositionX.sixth.value, y: PositionY.upper.value)
+        let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
 
-        let pickedCardView = CardImageView(frame: pickedCardFrame)
+        let pickedCardView = CardImageView(frame: frameForDraw)
         let pickedCard = gameManager.pickACard()
         pickedCard.turnOver()
         pickedCardView.getImage(of: pickedCard)

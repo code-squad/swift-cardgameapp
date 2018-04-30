@@ -22,7 +22,6 @@ protocol CardGameManageable {
 }
 
 protocol FoundationManageable {
-    var cardMaker: CardFrameManageable { get }
     func makeEmptyFoundation()
     func addCard()
     func updateFoundation()

@@ -9,9 +9,7 @@
 import UIKit
 
 class FoundationView: UIView {
-    
     var foundationManager: FoundationManageable?
-    var cardMaker: CardFrameManageable?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,15 +19,16 @@ class FoundationView: UIView {
         super.init(coder: aDecoder)
     }
 
-    convenience init(cardMaker: CardFrameManageable) {
+    convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: 414, height: 100))
-        self.cardMaker = cardMaker
     }
 
     func drawDefault() {
         let numberOfFoundation = 4
         for i in 0..<numberOfFoundation {
-            let foundation = UIView(frame: (cardMaker?.cardFrame(x: i, y: PositionY.upper.value))!)
+            let newOrigin = CGPoint(x: PositionX.allValues[i].value, y: PositionY.upper.value)
+            let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
+            let foundation = UIView(frame: frameForDraw)
             foundation.clipsToBounds = true
             foundation.layer.cornerRadius = 5.0
             foundation.layer.borderColor = UIColor.white.cgColor

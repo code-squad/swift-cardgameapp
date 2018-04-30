@@ -15,27 +15,11 @@ class ViewController: UIViewController {
     private var stackView: CardStacksView!
     private var foundationView: FoundationView!
 
-    private var cardMaker: CardFrameManageable!
-
+    static let spaceY: CGFloat = 15.0
     static let widthDivider: CGFloat = 8
     static let cardHeightRatio: CGFloat = 1.27
-
-    let foundationPositionY: CGFloat = PositionY.upper.value
-
-    private var cardWidth: CGFloat {
-        return self.view.frame.width / ViewController.widthDivider
-    }
-
-    private var cardSize: CGSize {
-        return CGSize(width: self.cardWidth,
-                      height: cardWidth * ViewController.cardHeightRatio)
-    }
-
-    private var spaceX: CGFloat {
-        return cardWidth / ViewController.widthDivider
-    }
-
-    static let spaceY: CGFloat = 15.0
+    static let cardSize = CGSize(width: 414 / ViewController.widthDivider,
+                                 height: (414 / ViewController.widthDivider) * ViewController.cardHeightRatio)
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -47,7 +31,6 @@ class ViewController: UIViewController {
     }
 
     private func initialView() {
-        cardMaker = CardMaker(size: self.view.frame.size)
         self.newFoundation()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
 
@@ -58,19 +41,19 @@ class ViewController: UIViewController {
     // MARK: InitialView Related
 
     private func newDeck() {
-        self.deckView = CardDeckView(cardMaker: self.cardMaker)
+        self.deckView = CardDeckView()
         self.view.addSubview(deckView)
         deckView.drawDefault()
     }
 
     private func newFoundation() {
-        self.foundationView = FoundationView(cardMaker: self.cardMaker)
+        self.foundationView = FoundationView()
         self.view.addSubview(foundationView)
         foundationView.drawDefault()
     }
 
     private func newStacks() {
-        self.stackView = CardStacksView(cardMaker: self.cardMaker)
+        self.stackView = CardStacksView()
         self.view.addSubview(stackView)
         stackView.newDraw()
     }
