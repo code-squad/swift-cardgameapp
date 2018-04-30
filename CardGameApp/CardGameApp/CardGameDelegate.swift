@@ -18,6 +18,7 @@ protocol CardGameManageable {
     func currentDeck() -> CardDeck
     func countOfStacks() -> Int
     func hasEnoughCard() -> Bool
+    func countOfCards(column: Int) -> Int
 }
 
 protocol FoundationManageable {
@@ -29,13 +30,11 @@ protocol FoundationManageable {
 
 class CardGameDelegate: CardGameManageable {
 
-    static let defaultStackRange: CountableClosedRange = 1...7
-    static let defaultStackNumber: Int = 7
+    // MARK: Singleton Related
 
-    private var cardDeck = CardDeck()
-    private var cardStacks = [CardStack]()
+    private static var sharedCardDeck = CardGameDelegate()
 
-    init() {
+    private init() {
         cardDeck.shuffle()
         var stacks = [CardStack]()
         for numberOfCard in CardGameDelegate.defaultStackRange {
@@ -45,6 +44,15 @@ class CardGameDelegate: CardGameManageable {
         }
         self.cardStacks = stacks
     }
+
+    class func shared() -> CardGameDelegate {
+        return sharedCardDeck
+    }
+
+    static let defaultStackRange: CountableClosedRange = 1...7
+    static let defaultStackNumber: Int = 7
+    private var cardDeck = CardDeck()
+    private var cardStacks = [CardStack]()
 
     func currentDeck() -> CardDeck {
         return self.cardDeck
@@ -91,6 +99,10 @@ class CardGameDelegate: CardGameManageable {
         } else {
             return false
         }
+    }
+
+    func countOfCards(column: Int) -> Int {
+        return self.cardStacks[column].count()
     }
 
 }
