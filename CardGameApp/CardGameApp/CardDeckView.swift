@@ -9,8 +9,7 @@
 import UIKit
 
 class CardDeckView: UIView {
-
-    var gameManager: CardGameManageable?
+    var gameManager: CardGameManageable = CardGameDelegate.shared()
     var cardMaker: CardFrameManageable?
     var closedCardDeck = CardImageView()
 
@@ -22,21 +21,20 @@ class CardDeckView: UIView {
         super.init(coder: aDecoder)
     }
 
-    convenience init(cardMaker: CardFrameManageable, gameManager: CardGameManageable) {
+    convenience init(cardMaker: CardFrameManageable) {
         self.init(frame: CGRect(x: 0, y: 0, width: 414, height: 100))
         self.cardMaker = cardMaker
-        self.gameManager = gameManager
     }
 
     func drawDefault() {
-        guard let cardDeck = self.gameManager else { return }
+        //guard let cardDeck = self.gameManager else { return }
         guard let cardFrameMaker = self.cardMaker else { return }
 
         let deckButtonFrame = cardFrameMaker.cardFrame(x: 6, y: PositionY.upper.value)
         self.closedCardDeck = CardImageView(frame: deckButtonFrame)
         self.setGestureToCardDeck()
 
-        if cardDeck.hasEnoughCard() {
+        if gameManager.hasEnoughCard() {
             closedCardDeck.getDeckImage()
             addSubview(closedCardDeck)
         } else {
@@ -59,8 +57,8 @@ class CardDeckView: UIView {
     }
 
     private func drawPickedCard() {
-        guard let cardDeck = self.gameManager else { return }
-        if cardDeck.hasEnoughCard() {
+//        guard let cardDeck = self.gameManager else { return }
+        if gameManager.hasEnoughCard() {
             self.pickCardFromDeck()
         } else {
             closedCardDeck.getRefreshImage()
@@ -69,12 +67,12 @@ class CardDeckView: UIView {
 
     private func pickCardFromDeck() {
         guard let cardFrameMaker = self.cardMaker else { return }
-        guard let cardDeck = self.gameManager else { return }
+//        guard let cardDeck = self.gameManager else { return }
 
         let pickedCardFrame = cardFrameMaker.cardFrame(x: 5, y: PositionY.upper.value)
 
         let pickedCardView = CardImageView(frame: pickedCardFrame)
-        let pickedCard = cardDeck.pickACard()
+        let pickedCard = gameManager.pickACard()
         pickedCard.turnOver()
         pickedCardView.getImage(of: pickedCard)
         addSubview(pickedCardView)
