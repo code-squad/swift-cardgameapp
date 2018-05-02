@@ -37,10 +37,11 @@ class CardStacksView: UIView {
 
 class OneStack: UIView {
     var column: Int!
-    var stackManager: CardGameManageable = CardGameDelegate.shared()
+    var gameManager: CardGameManageable = CardGameDelegate.shared()
+    var mystackManager: StackDelegate!
 
     var countOfCard: Int {
-        return stackManager.countOfCards(column: self.column)
+        return gameManager.countOfCards(column: self.column)
     }
 
     override init(frame: CGRect) {
@@ -53,6 +54,7 @@ class OneStack: UIView {
                                 width: 414 / 7,
                                 height: 736 - PositionY.bottom.value))
         self.column = column
+        self.mystackManager = self.gameManager.stackManagers[column]
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -61,7 +63,7 @@ class OneStack: UIView {
 
     func drawCards() {
         for i in 0..<countOfCard {
-            let card = stackManager.cardInturn(at: (column: self.column, row: i))
+            let card = gameManager.cardInturn(at: (column: self.column, row: i))
             let newOrigin = CGPoint(x: 0, y: ViewController.spaceY * CGFloat(i))
             let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
             let cardImage = CardImageView(frame: frameForDraw)
