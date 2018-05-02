@@ -59,7 +59,7 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
     }
 
     static func ==(lhs: Card, rhs: Card) -> Bool {
-        return lhs.denomination == rhs.denomination
+        return lhs.suit == rhs.suit
     }
 
     func isContinuous(next: Card) -> Bool {

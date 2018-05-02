@@ -89,18 +89,25 @@ class CardDeck: CustomStringConvertible {
 
 extension CardDeck {
     
-    enum Suit: String, EnumCollection, Comparable {
+    enum Suit: String, EnumCollection, Comparable, CustomStringConvertible {
         case heart = "♥️"
         case diamond = "♦️"
         case clover = "♣️"
         case spade = "♠️"
+
+        var description: String {
+            switch self {
+            case .heart, .diamond: return "red"
+            case .clover, .spade: return "black"
+            }
+        }
 
         static func <(lhs: CardDeck.Suit, rhs: CardDeck.Suit) -> Bool {
             return lhs.hashValue < rhs.hashValue
         }
 
         static func ==(lhs: CardDeck.Suit, rhs: CardDeck.Suit) -> Bool {
-            return lhs.hashValue == rhs.hashValue
+            return lhs.description == rhs.description
         }
     }
     
