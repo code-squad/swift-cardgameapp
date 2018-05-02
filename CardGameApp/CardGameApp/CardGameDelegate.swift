@@ -9,6 +9,7 @@
 import Foundation
 
 protocol CardGameManageable {
+    var stackManagers: [StackDelegate] { get }
     func makeStacks(numberOfCards: Int) -> [CardStack]
     func cardInturn(at index: (column: StackTable.RawValue, row: Int)) -> ImageSelector
     func countOfDeck() -> Int
@@ -25,6 +26,26 @@ protocol FoundationManageable {
     func makeEmptyFoundation()
     func addCard()
     func updateFoundation()
+}
+
+protocol StacksManageable {
+
+}
+
+
+class StackDelegate {
+    private static var stackDelegates = [StackDelegate]()
+
+    private var lastCard: Card!
+    private var column: Int!
+    private var stack: CardStack!
+
+    init(oneStack: CardStack, column: Int) {
+        self.stack = oneStack
+        self.column = column
+    }
+
+
 }
 
 class CardGameDelegate: CardGameManageable {
@@ -53,10 +74,31 @@ class CardGameDelegate: CardGameManageable {
         return sharedCardDeck
     }
 
+
+    // MARK: CardGameDelegate Related
+
     static let defaultStackRange: CountableClosedRange = 1...7
     static let defaultStackNumber: Int = 7
     private var cardDeck = CardDeck()
     private var cardStacks = [CardStack]()
+
+    // StackDelegate배열을 computed property로 리턴
+    var stackManagers: [StackDelegate] {
+        var temp = [StackDelegate]()
+        for column in 0..<self.cardStacks.count {
+            temp.append(StackDelegate(oneStack: self.cardStacks[column], column: column))
+        }
+        return temp
+    }
+
+    // StackDelegate배열을 메소드로 리턴
+    func makeStackDelegates() -> [StackDelegate]{
+        var temp = [StackDelegate]()
+        for column in 0..<self.cardStacks.count {
+            temp.append(StackDelegate(oneStack: self.cardStacks[column], column: column))
+        }
+        return temp
+    }
 
     func currentDeck() -> CardDeck {
         return self.cardDeck
