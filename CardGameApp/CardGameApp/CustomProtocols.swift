@@ -1,5 +1,5 @@
 //
-//  GameProtocols.swift
+//  CustomProtocols.swift
 //  CardGameApp
 //
 //  Created by YOUTH2 on 2018. 5. 3..
@@ -7,6 +7,16 @@
 //
 
 import Foundation
+
+// MARK: CardImage Related
+
+protocol ImageSelector {
+    var frontImage: String { get }
+    var backImage: String { get }
+    var image: String { get }
+}
+
+// MARK: CardGame Related
 
 protocol CardGameManageable {
     func makeStacks(numberOfCards: Int) -> [CardStack]
