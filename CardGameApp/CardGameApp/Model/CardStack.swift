@@ -69,6 +69,18 @@ struct CardStack: CustomStringConvertible{
         return self.cards.count
     }
 
+    func last() -> Card? {
+        return self.cards.last
+    }
+
+    mutating func stackUp(newCard: Card) {
+        self.cards.append(newCard)
+    }
+
+    func isEmpty() -> Bool {
+        return (self.cards.count == 0)
+    }
 }
+
 
 

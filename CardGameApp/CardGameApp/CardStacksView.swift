@@ -29,7 +29,7 @@ class CardStacksView: UIView {
         for i in 0...6 {
             let oneStack = OneStack(column: i)
             addSubview(oneStack)
-            oneStack.drawCards()
+            oneStack.newDrawCards()
         }
     }
 
@@ -38,7 +38,11 @@ class CardStacksView: UIView {
 class OneStack: UIView {
     var column: Int!
     var gameManager: CardGameManageable = CardGameDelegate.shared()
-    var mystackManager: StackDelegate!
+    var stackManager: StackDelegate!
+
+
+    func onestack() {
+    }
 
     var countOfCard: Int {
         return gameManager.countOfCards(column: self.column)
@@ -54,16 +58,16 @@ class OneStack: UIView {
                                 width: 414 / 7,
                                 height: 736 - PositionY.bottom.value))
         self.column = column
-        self.mystackManager = self.gameManager.stackManagers[column]
+        self.stackManager = self.gameManager.getStackDelegate(of: column)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func drawCards() {
-        for i in 0..<countOfCard {
-            let card = gameManager.cardInturn(at: (column: self.column, row: i))
+    func newDrawCards() {
+        for i in 0..<stackManager.countOfCard() {
+            let card = stackManager.cardInTurn(at: i)
             let newOrigin = CGPoint(x: 0, y: ViewController.spaceY * CGFloat(i))
             let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
             let cardImage = CardImageView(frame: frameForDraw)

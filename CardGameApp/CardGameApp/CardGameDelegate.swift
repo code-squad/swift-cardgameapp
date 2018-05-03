@@ -9,34 +9,29 @@
 import Foundation
 
 protocol CardGameManageable {
-    var stackManagers: [StackDelegate] { get }
     func makeStacks(numberOfCards: Int) -> [CardStack]
-    func cardInturn(at index: (column: StackTable.RawValue, row: Int)) -> ImageSelector
     func countOfDeck() -> Int
     func pickACard() -> Card
     func shuffleDeck()
     func stacks() -> [CardStack]
     func currentDeck() -> CardDeck
-    func countOfStacks() -> Int
     func hasEnoughCard() -> Bool
     func countOfCards(column: Int) -> Int
+    func getStackDelegate(of column: Int) -> StackDelegate
 }
 
 protocol FoundationManageable {
     func makeEmptyFoundation()
-    func addCard()
+    func stackUp(newCard: Card)
     func updateFoundation()
 }
-
-protocol StacksManageable {
-
-}
-
 
 class StackDelegate {
     private static var stackDelegates = [StackDelegate]()
 
-    private var lastCard: Card!
+    private var lastCard: Card {
+        return self.stack.last()!
+    }
     private var column: Int!
     private var stack: CardStack!
 
@@ -45,6 +40,34 @@ class StackDelegate {
         self.column = column
     }
 
+    func currentLastCard() -> Card {
+        return self.lastCard
+    }
+
+    func isStackable(nextCard: Card) -> Bool {
+        // 다음에 오는 카드(더블탭된 카드)가 숫자가 연속되고 색깔이 다른지 판단
+        if nextCard < self.lastCard && nextCard != self.lastCard {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    func stackUp(newCard: Card) {
+        if self.isStackable(nextCard: newCard) {
+            self.stack.stackUp(newCard: newCard)
+        } else if self.stack.isEmpty() {
+            self.stack.stackUp(newCard: newCard)
+        }
+    }
+
+    func countOfCard() -> Int {
+        return self.stack.count()
+    }
+
+    func cardInTurn(at index: Int) -> Card {
+        return self.stack.getCard(at: index)
+    }
 
 }
 
@@ -74,6 +97,9 @@ class CardGameDelegate: CardGameManageable {
         return sharedCardDeck
     }
 
+    func getStackDelegate(of column: Int) -> StackDelegate {
+        return StackDelegate(oneStack: self.cardStacks[column], column: column)
+    }
 
     // MARK: CardGameDelegate Related
 
@@ -81,24 +107,6 @@ class CardGameDelegate: CardGameManageable {
     static let defaultStackNumber: Int = 7
     private var cardDeck = CardDeck()
     private var cardStacks = [CardStack]()
-
-    // StackDelegate배열을 computed property로 리턴
-    var stackManagers: [StackDelegate] {
-        var temp = [StackDelegate]()
-        for column in 0..<self.cardStacks.count {
-            temp.append(StackDelegate(oneStack: self.cardStacks[column], column: column))
-        }
-        return temp
-    }
-
-    // StackDelegate배열을 메소드로 리턴
-    func makeStackDelegates() -> [StackDelegate]{
-        var temp = [StackDelegate]()
-        for column in 0..<self.cardStacks.count {
-            temp.append(StackDelegate(oneStack: self.cardStacks[column], column: column))
-        }
-        return temp
-    }
 
     func currentDeck() -> CardDeck {
         return self.cardDeck
@@ -114,21 +122,15 @@ class CardGameDelegate: CardGameManageable {
         return stacks
     }
 
-    func countOfStacks() -> Int {
-        return self.cardStacks.count
-    }
-
-    func cardInturn(at index: (column: Int, row: Int)) -> ImageSelector {
-        let chosenStack = self.cardStacks[index.column]
-        return chosenStack.getCard(at: index.row)
-    }
-
     func countOfDeck() -> Int {
         return cardDeck.count()
     }
 
+    var currentOpenedCard: Card?
+
     func pickACard() -> Card {
-        return cardDeck.removeOne()
+        self.currentOpenedCard = cardDeck.removeOne()
+        return self.currentOpenedCard!
     }
 
     func shuffleDeck() {
@@ -150,6 +152,7 @@ class CardGameDelegate: CardGameManageable {
     func countOfCards(column: Int) -> Int {
         return self.cardStacks[column].count()
     }
+
 
 }
 
