@@ -23,11 +23,11 @@ protocol CardGameManageable {
     func countOfDeck() -> Int
     func pickACard() -> Card
     func shuffleDeck()
-    func stacks() -> [CardStack]
     func currentDeck() -> CardDeck
     func hasEnoughCard() -> Bool
-    func countOfCards(column: Int) -> Int
     func getStackDelegate(of column: Int) -> StackDelegate
+    func currentOpen() -> Card?
+    func hasOpenedCard() -> Bool
 }
 
 protocol FoundationManageable {

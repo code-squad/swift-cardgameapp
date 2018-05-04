@@ -22,7 +22,12 @@ class CardGameDelegate: CardGameManageable {
             oneStack.sortDefaultStack()
             stacks.append(oneStack)
         }
-        self.cardStacks = stacks
+        var stackManagers = [StackDelegate]()
+        for i in 0..<stacks.count {
+            stackManagers.append(StackDelegate(oneStack: stacks[i], column: i))
+        }
+        self.stackManagers = stackManagers
+
     }
 
     class func shared() -> CardGameDelegate {
@@ -35,7 +40,7 @@ class CardGameDelegate: CardGameManageable {
     }
 
     func getStackDelegate(of column: Int) -> StackDelegate {
-        return StackDelegate(oneStack: self.cardStacks[column], column: column)
+        return self.stackManagers[column]
     }
 
     // MARK: CardGameDelegate Related
@@ -43,7 +48,7 @@ class CardGameDelegate: CardGameManageable {
     static let defaultStackRange: CountableClosedRange = 1...7
     static let defaultStackNumber: Int = 7
     private var cardDeck = CardDeck()
-    private var cardStacks = [CardStack]()
+    private var stackManagers = [StackDelegate]()
 
     func currentDeck() -> CardDeck {
         return self.cardDeck
@@ -65,6 +70,18 @@ class CardGameDelegate: CardGameManageable {
 
     var currentOpenedCard: Card?
 
+    func currentOpen() -> Card? {
+        return self.currentOpenedCard ?? nil // 옵셔널로 하고 그리는 곳에서 판단, 혹은 옵셔널로 처리 안할거면 모델에서 카드가 있는지업는지 판단
+    }
+
+    // currentOpenedCard가 옵셔널이므로 bool로 카드 유무를 판단하는 메소드 추가
+    func hasOpenedCard() -> Bool {
+        guard self.currentOpenedCard != nil else {
+            return false
+        }
+        return true
+    }
+
     func pickACard() -> Card {
         self.currentOpenedCard = cardDeck.removeOne()
         return self.currentOpenedCard!
@@ -74,20 +91,12 @@ class CardGameDelegate: CardGameManageable {
         cardDeck.shuffle()
     }
 
-    func stacks() -> [CardStack] {
-        return self.cardStacks
-    }
-
     func hasEnoughCard() -> Bool {
         if cardDeck.count() > 0 {
             return true
         } else {
             return false
         }
-    }
-
-    func countOfCards(column: Int) -> Int {
-        return self.cardStacks[column].count()
     }
 
 

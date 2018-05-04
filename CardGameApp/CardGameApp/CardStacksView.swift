@@ -40,14 +40,6 @@ class OneStack: UIView {
     var gameManager: CardGameManageable = CardGameDelegate.shared()
     var stackManager: StackDelegate!
 
-
-    func onestack() {
-    }
-
-    var countOfCard: Int {
-        return gameManager.countOfCards(column: self.column)
-    }
-
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
