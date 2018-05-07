@@ -16,6 +16,12 @@
 		8737C6D32071D6E300D9D65B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8737C6D12071D6E300D9D65B /* LaunchScreen.storyboard */; };
 		8737C6DE2071D6E300D9D65B /* CardGameAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737C6DD2071D6E300D9D65B /* CardGameAppTests.swift */; };
 		8737C6E92071D6E300D9D65B /* CardGameAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737C6E82071D6E300D9D65B /* CardGameAppUITests.swift */; };
+		87CE7F1020A1032900975DEC /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F0F20A1032900975DEC /* Card.swift */; };
+		87CE7F1220A1033D00975DEC /* Suit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1120A1033D00975DEC /* Suit.swift */; };
+		87CE7F1420A1035D00975DEC /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1320A1035D00975DEC /* Number.swift */; };
+		87CE7F1620A1037600975DEC /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1520A1037600975DEC /* CardDeck.swift */; };
+		87CE7F1920A1039100975DEC /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1820A1039100975DEC /* Array+.swift */; };
+		87CE7F1B20A103AF00975DEC /* CardErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1A20A103AF00975DEC /* CardErrors.swift */; };
 		87F4FED62073144A0061FE9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87F4FED52073144A0061FE9E /* Assets.xcassets */; };
 		87F4FED9207317B10061FE9E /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F4FED8207317B10061FE9E /* GameView.swift */; };
 		87F4FEDB20731C820061FE9E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F4FEDA20731C820061FE9E /* CardView.swift */; };
@@ -55,6 +61,12 @@
 		8737C6E42071D6E300D9D65B /* CardGameAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardGameAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8737C6E82071D6E300D9D65B /* CardGameAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameAppUITests.swift; sourceTree = "<group>"; };
 		8737C6EA2071D6E300D9D65B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		87CE7F0F20A1032900975DEC /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		87CE7F1120A1033D00975DEC /* Suit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suit.swift; sourceTree = "<group>"; };
+		87CE7F1320A1035D00975DEC /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
+		87CE7F1520A1037600975DEC /* CardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
+		87CE7F1820A1039100975DEC /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
+		87CE7F1A20A103AF00975DEC /* CardErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardErrors.swift; sourceTree = "<group>"; };
 		87F4FED52073144A0061FE9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87F4FED8207317B10061FE9E /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		87F4FEDA20731C820061FE9E /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -128,6 +140,8 @@
 		8737C6C72071D6E200D9D65B /* CardGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				87CE7F1720A1038300975DEC /* Extensions */,
+				87CE7F0E20A1031F00975DEC /* Models */,
 				87F4FED72073177B0061FE9E /* Views */,
 				87F4FED52073144A0061FE9E /* Assets.xcassets */,
 				87F4FED4207312920061FE9E /* Storyboards */,
@@ -154,6 +168,26 @@
 				8737C6EA2071D6E300D9D65B /* Info.plist */,
 			);
 			path = CardGameAppUITests;
+			sourceTree = "<group>";
+		};
+		87CE7F0E20A1031F00975DEC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				87CE7F0F20A1032900975DEC /* Card.swift */,
+				87CE7F1120A1033D00975DEC /* Suit.swift */,
+				87CE7F1320A1035D00975DEC /* Number.swift */,
+				87CE7F1520A1037600975DEC /* CardDeck.swift */,
+				87CE7F1A20A103AF00975DEC /* CardErrors.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		87CE7F1720A1038300975DEC /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				87CE7F1820A1039100975DEC /* Array+.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		87F4FED4207312920061FE9E /* Storyboards */ = {
@@ -198,8 +232,6 @@
 				8737C6C12071D6E200D9D65B /* Sources */,
 				8737C6C22071D6E200D9D65B /* Frameworks */,
 				8737C6C32071D6E200D9D65B /* Resources */,
-				FA23576D18F98C0622E99C03 /* [CP] Embed Pods Frameworks */,
-				3087599812AF3C47CD2E7AAF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -218,8 +250,6 @@
 				8737C6D52071D6E300D9D65B /* Sources */,
 				8737C6D62071D6E300D9D65B /* Frameworks */,
 				8737C6D72071D6E300D9D65B /* Resources */,
-				1792FAFF0BA37BCCB30733CB /* [CP] Embed Pods Frameworks */,
-				2DEDA04EF799188560798C17 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -239,8 +269,6 @@
 				8737C6E02071D6E300D9D65B /* Sources */,
 				8737C6E12071D6E300D9D65B /* Frameworks */,
 				8737C6E22071D6E300D9D65B /* Resources */,
-				445CC2B9944BB82E264E93DB /* [CP] Embed Pods Frameworks */,
-				144563140C20BFC6A2FA1FAB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -341,66 +369,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		144563140C20BFC6A2FA1FAB /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CardGameAppUITests/Pods-CardGameAppUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		1792FAFF0BA37BCCB30733CB /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2DEDA04EF799188560798C17 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3087599812AF3C47CD2E7AAF /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CardGameApp/Pods-CardGameApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		412E6C4B5D1BD42B3B32D372 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -417,21 +385,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		445CC2B9944BB82E264E93DB /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CardGameAppUITests/Pods-CardGameAppUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C365A5E5D8E538BD0FD8E263 /* [CP] Check Pods Manifest.lock */ = {
@@ -452,21 +405,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FA23576D18F98C0622E99C03 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CardGameApp/Pods-CardGameApp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -475,8 +413,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8737C6CB2071D6E200D9D65B /* ViewController.swift in Sources */,
+				87CE7F1420A1035D00975DEC /* Number.swift in Sources */,
+				87CE7F1620A1037600975DEC /* CardDeck.swift in Sources */,
 				87F4FED9207317B10061FE9E /* GameView.swift in Sources */,
+				87CE7F1920A1039100975DEC /* Array+.swift in Sources */,
+				87CE7F1020A1032900975DEC /* Card.swift in Sources */,
 				87F4FEDB20731C820061FE9E /* CardView.swift in Sources */,
+				87CE7F1220A1033D00975DEC /* Suit.swift in Sources */,
+				87CE7F1B20A103AF00975DEC /* CardErrors.swift in Sources */,
 				8737C6C92071D6E200D9D65B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

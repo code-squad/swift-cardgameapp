@@ -9,22 +9,22 @@
 import UIKit
 
 class GameView: UIView {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        loadDefaultOptions()
-    }
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    loadDefaultOptions()
+  }
 }
 
 // MARK: - Private functions
 private extension GameView {
-    func loadDefaultOptions() {
-        self.backgroundColor = UIColor(patternImage: UIImage(imageLiteralResourceName: "Game"))
-    }
+  func loadDefaultOptions() {
+    self.backgroundColor = UIColor(patternImage: UIImage(imageLiteralResourceName: "Game"))
+  }
 }
 
 extension GameView {
-    static var statusHeight: CGFloat {
-        let statusBarSize = UIApplication.shared.statusBarFrame.size
-        return statusBarSize.height
-    }
+  static var statusHeight: CGFloat {
+    let statusBarSize = UIApplication.shared.statusBarFrame.size
+    return statusBarSize.height
+  }
 }
