@@ -9,7 +9,6 @@
 import Foundation
 
 class CardGameDelegate: CardGameManageable {
-
     // MARK: Singleton Related
 
     private static var sharedCardDeck = CardGameDelegate()
@@ -22,12 +21,11 @@ class CardGameDelegate: CardGameManageable {
             oneStack.sortDefaultStack()
             stacks.append(oneStack)
         }
-        var stackManagers = [StackDelegate]()
-        for i in 0..<stacks.count {
-            stackManagers.append(StackDelegate(oneStack: stacks[i], column: i))
-        }
-        self.stackManagers = stackManagers
 
+        self.stackManagers = WholeStackDelegate(stacks: stacks)
+        self.foundationManager = FoundationDelegate()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(currentOpenedCardDoubleTapped), name: .doubleTappedOpenedDeck, object: nil)
     }
 
     class func shared() -> CardGameDelegate {
@@ -40,7 +38,11 @@ class CardGameDelegate: CardGameManageable {
     }
 
     func getStackDelegate(of column: Int) -> StackDelegate {
-        return self.stackManagers[column]
+        return self.stackManagers.getStackDelegate(of: column)
+    }
+
+    func getFoundationDelegate() -> FoundationManageable {
+        return self.foundationManager
     }
 
     // MARK: CardGameDelegate Related
@@ -48,48 +50,30 @@ class CardGameDelegate: CardGameManageable {
     static let defaultStackRange: CountableClosedRange = 1...7
     static let defaultStackNumber: Int = 7
     private var cardDeck = CardDeck()
-    private var stackManagers = [StackDelegate]()
+    private var stackManagers: WholeStackDelegate!
+    private var foundationManager: FoundationManageable!
+    var openedDeck = [Card]()
 
     func currentDeck() -> CardDeck {
         return self.cardDeck
-    }
-
-    func makeStacks(numberOfCards: Int) -> [CardStack] {
-        var stacks = [CardStack]()
-        for _ in 0..<numberOfCards {
-            let oneStack = cardDeck.makeStack(numberOf: numberOfCards)
-            oneStack.sortDefaultStack()
-            stacks.append(oneStack)
-        }
-        return stacks
     }
 
     func countOfDeck() -> Int {
         return cardDeck.count()
     }
 
-    var currentOpenedCard: Card?
-
-    func currentOpen() -> Card? {
-        return self.currentOpenedCard ?? nil // 옵셔널로 하고 그리는 곳에서 판단, 혹은 옵셔널로 처리 안할거면 모델에서 카드가 있는지업는지 판단
-    }
-
-    // currentOpenedCard가 옵셔널이므로 bool로 카드 유무를 판단하는 메소드 추가
     func hasOpenedCard() -> Bool {
-        guard self.currentOpenedCard != nil else {
+        guard self.openedDeck.count == 0 else {
             return false
         }
         return true
     }
 
     func pickACard() -> Card {
-        self.currentOpenedCard = cardDeck.removeOne()
-        return self.currentOpenedCard!
+        self.openedDeck.append(cardDeck.removeOne())
+        return self.openedDeck.last!
     }
 
-    func shuffleDeck() {
-        cardDeck.shuffle()
-    }
 
     func hasEnoughCard() -> Bool {
         if cardDeck.count() > 0 {
@@ -97,6 +81,20 @@ class CardGameDelegate: CardGameManageable {
         } else {
             return false
         }
+    }
+
+    @objc func currentOpenedCardDoubleTapped() {
+        self.ruleCheck()
+    }
+
+    func ruleCheck() {
+        guard let openedCard = self.openedDeck.last else { return }
+        if openedCard.isDenominationA() {
+            self.foundationManager.stackUp(newCard: openedCard)
+        } else {
+            // check stacks
+        }
+
     }
 
 

@@ -36,6 +36,19 @@ class ViewController: UIViewController {
 
         self.newDeck()
         self.newStacks()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateFoundations), name: .foundationUpdated, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: <#T##Selector#>, name: .opendeckNeedsToBeDeleted, object: nil)
+
+    }
+
+    // MARK: ChangedView Related
+    @objc func updateFoundations() {
+        print("viewController updateFoundations")
+        self.foundationView.redraw()
+    }
+
+    @objc func popOpendeckCard() {
+        self.deckView.removeOpenedCard()
     }
 
     // MARK: InitialView Related

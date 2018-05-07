@@ -15,6 +15,8 @@ struct CardStack: CustomStringConvertible{
         return cards.description
     }
 
+    init() { } //empty stack
+
     init(_ cards: [Card]) {
         self.cards = cards
     }

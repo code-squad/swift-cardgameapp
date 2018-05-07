@@ -9,7 +9,9 @@
 import UIKit
 
 class FoundationView: UIView {
-    var foundationManager: FoundationManageable?
+    let gameManager = CardGameDelegate.shared()
+    var foundationManager: FoundationManageable!
+    let numberOfFoundation = 4
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,19 +23,44 @@ class FoundationView: UIView {
 
     convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: 414, height: 100))
+        self.foundationManager = gameManager.getFoundationDelegate()
     }
 
     func drawDefault() {
-        let numberOfFoundation = 4
         for i in 0..<numberOfFoundation {
             let newOrigin = CGPoint(x: PositionX.allValues[i].value, y: PositionY.upper.value)
             let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
-            let foundation = UIView(frame: frameForDraw)
-            foundation.clipsToBounds = true
-            foundation.layer.cornerRadius = 5.0
-            foundation.layer.borderColor = UIColor.white.cgColor
-            foundation.layer.borderWidth = 1.0
-            addSubview(foundation)
+            self.drawEmptyDock(in: frameForDraw)
+        }
+    }
+
+    private func drawEmptyDock(in frameForDraw: CGRect) {
+        let foundation = UIView(frame: frameForDraw)
+        foundation.clipsToBounds = true
+        foundation.layer.cornerRadius = 5.0
+        foundation.layer.borderColor = UIColor.white.cgColor
+        foundation.layer.borderWidth = 1.0
+        addSubview(foundation)
+    }
+
+    func redraw() {
+       print("redraw")
+        self.subviews.forEach({ $0.removeFromSuperview() })
+
+        for i in 0..<numberOfFoundation {
+            let newOrigin = CGPoint(x: PositionX.allValues[i].value, y: PositionY.upper.value)
+            let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
+
+            if foundationManager.countOfStack(of: i) == 0 {
+                self.drawEmptyDock(in: frameForDraw)
+            } else {
+                for j in 0..<foundationManager.countOfStack(of: i) {
+                    let card = foundationManager.cardInTurn(at: (column: i, row: j))
+                    let cardImage = CardImageView(frame: frameForDraw)
+                    cardImage.getImage(of: card)
+                    addSubview(cardImage)
+                }
+            }
         }
 
     }

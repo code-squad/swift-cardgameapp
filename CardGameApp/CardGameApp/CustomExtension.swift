@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+extension Notification.Name {
+    static let doubleTappedOpenedDeck = Notification.Name("doubleTappedOpenedDeck")
+    static let foundationUpdated = Notification.Name("foundationUpdated")
+    static let opendeckNeedsToBeDeleted = Notification.Name("opendeckNeedsToBeDeleted")
+}

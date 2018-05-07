@@ -11,8 +11,8 @@ import Foundation
 class StackDelegate {
     private static var stackDelegates = [StackDelegate]()
 
-    private var lastCard: Card {
-        return self.stack.last()!
+    private var lastCard: Card? {
+        return self.stack.last()
     }
     private var column: Int!
     private var stack: CardStack!
@@ -23,12 +23,12 @@ class StackDelegate {
     }
 
     func currentLastCard() -> Card {
-        return self.lastCard
+        return self.lastCard!
     }
 
     func isStackable(nextCard: Card) -> Bool {
         // 다음에 오는 카드(더블탭된 카드)가 숫자가 연속되고 색깔이 다른지 판단
-        if nextCard < self.lastCard && nextCard != self.lastCard {
+        if nextCard < self.lastCard! && nextCard != self.lastCard! {
             return true
         } else {
             return false
@@ -36,6 +36,9 @@ class StackDelegate {
     }
 
     func stackUp(newCard: Card) {
+        if newCard.side == .back {
+            newCard.turnOver()
+        }
         if self.isStackable(nextCard: newCard) {
             self.stack.stackUp(newCard: newCard)
         } else if self.stack.isEmpty() {

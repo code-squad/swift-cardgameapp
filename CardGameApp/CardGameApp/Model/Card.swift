@@ -78,6 +78,10 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
         return self.suit
     }
 
+    func isDenominationA() -> Bool {
+        return self.denomination == .ace
+    }
+
     func turnOver() {
         switch self.side {
         case .back:
