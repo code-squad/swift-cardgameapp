@@ -24,6 +24,7 @@ class CardGameDelegate: CardGameManageable {
 
         self.stackManagers = WholeStackDelegate(stacks: stacks)
         self.foundationManager = FoundationDelegate()
+        self.deckManager = DeckDelegate(deck: self.cardDeck)
 
         NotificationCenter.default.addObserver(self, selector: #selector(currentOpenedCardDoubleTapped), name: .doubleTappedOpenedDeck, object: nil)
     }
@@ -45,6 +46,10 @@ class CardGameDelegate: CardGameManageable {
         return self.foundationManager
     }
 
+    func getDeckDelegate() -> DeckDelegate {
+        return self.deckManager
+    }
+
     // MARK: CardGameDelegate Related
 
     static let defaultStackRange: CountableClosedRange = 1...7
@@ -52,36 +57,8 @@ class CardGameDelegate: CardGameManageable {
     private var cardDeck = CardDeck()
     private var stackManagers: WholeStackDelegate!
     private var foundationManager: FoundationManageable!
+    private var deckManager: DeckDelegate!
     var openedDeck = [Card]()
-
-    func currentDeck() -> CardDeck {
-        return self.cardDeck
-    }
-
-    func countOfDeck() -> Int {
-        return cardDeck.count()
-    }
-
-    func hasOpenedCard() -> Bool {
-        guard self.openedDeck.count == 0 else {
-            return false
-        }
-        return true
-    }
-
-    func pickACard() -> Card {
-        self.openedDeck.append(cardDeck.removeOne())
-        return self.openedDeck.last!
-    }
-
-
-    func hasEnoughCard() -> Bool {
-        if cardDeck.count() > 0 {
-            return true
-        } else {
-            return false
-        }
-    }
 
     @objc func currentOpenedCardDoubleTapped() {
         self.ruleCheck()

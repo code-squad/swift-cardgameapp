@@ -12,6 +12,7 @@ class CardDeckView: UIView {
     var gameManager: CardGameManageable = CardGameDelegate.shared()
     var closedCardDeck = CardImageView()
     var pickedCards = [ImageSelector]()
+    var deckManager: DeckDelegate!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,8 +31,8 @@ class CardDeckView: UIView {
         let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
         self.closedCardDeck = CardImageView(frame: frameForDraw)
         self.setGestureToCardDeck()
-
-        if gameManager.hasEnoughCard() {
+        self.deckManager = gameManager.getDeckDelegate()
+        if deckManager.hasEnoughCard() {
             closedCardDeck.getDeckImage()
             addSubview(closedCardDeck)
         } else {
@@ -54,7 +55,7 @@ class CardDeckView: UIView {
     }
 
     private func drawPickedCard() {
-        if gameManager.hasEnoughCard() {
+        if deckManager.hasEnoughCard() {
             self.pickCardFromDeck()
         } else {
             closedCardDeck.getRefreshImage()
@@ -69,7 +70,7 @@ class CardDeckView: UIView {
         let pickedCardView = CardImageView(frame: frameForDraw)
         self.setDoubleTabToCard(to: pickedCardView)
 
-        let pickedCard = gameManager.pickACard()
+        let pickedCard = deckManager.pickACard()
         pickedCard.turnOver()
         self.pickedCards.append(pickedCard)
 
@@ -87,7 +88,7 @@ class CardDeckView: UIView {
         if sender.state == .ended {
             let ddd = sender.view?.superview
 
-//            print((self.pickedCards.last! as! Card))
+            print((self.pickedCards.last! as! Card))
             NotificationCenter.default.post(name: .doubleTappedOpenedDeck, object: self)
         }
     }

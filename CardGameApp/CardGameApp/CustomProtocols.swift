@@ -19,11 +19,7 @@ protocol ImageSelector {
 // MARK: CardGame Related
 
 protocol CardGameManageable {
-    func countOfDeck() -> Int
-    func pickACard() -> Card
-    func currentDeck() -> CardDeck
-    func hasEnoughCard() -> Bool
     func getStackDelegate(of column: Int) -> StackDelegate
-    func hasOpenedCard() -> Bool
+    func getDeckDelegate() -> DeckDelegate
 }
 
