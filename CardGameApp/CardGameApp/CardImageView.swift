@@ -11,6 +11,7 @@ import UIKit
 class CardImageView: UIImageView {
 
     var imageName: String!
+    var card: ImageSelector?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,13 +33,13 @@ class CardImageView: UIImageView {
     }
 
     func getImage(of card: ImageSelector) {
+        self.card = card
         if card.image == "card-back" {
             self.getDeckImage()
             self.isUserInteractionEnabled = false
         } else {
             self.image = UIImage(named: "card_decks/\(card.image).png")
             self.imageName = card.image
-            self.setDoubleTabToCard()
         }
     }
 
@@ -48,19 +49,6 @@ class CardImageView: UIImageView {
 
     func getRefreshImage() {
         self.image = UIImage(named: "cardgameapp-refresh-app")
-    }
-
-    private func setDoubleTabToCard() {
-        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(cardDoubleTapped(sender:)))
-        doubleTap.numberOfTapsRequired = 2
-        self.addGestureRecognizer(doubleTap)
-    }
-
-    @objc func cardDoubleTapped(sender: UITapGestureRecognizer) {
-        if sender.state == .ended {
-            print(self.imageName!)
-            // double tapped
-        }
     }
 
 }
