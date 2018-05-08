@@ -39,5 +39,8 @@
 
 ##### 실행결과
 
+<img src="./images/cardgame-app-result-2-1.png" width="40%"></img>
+<img src="./images/cardgame-app-result-2-2.png" width="40%"></img>
+
 ##### 학습거리
 * [The Ultimate Guide To iPhone Resolutions](https://www.paintcodeapp.com/news/ultimate-guide-to-iphone-resolutions)
