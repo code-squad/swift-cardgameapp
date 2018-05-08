@@ -9,8 +9,8 @@
 import UIKit
 
 class ViewController: UIViewController {
-  private let cardCount: Int = 7
-  private let gap: CGFloat = 2
+  private var cardDeck: CardDeck!
+  private var boardView: BoardView!
   
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return UIStatusBarStyle.lightContent
@@ -18,26 +18,95 @@ class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    loadCards()
+    setup()
   }
 }
 
 private extension ViewController {
-  func loadCards() {
-    for index in 0..<cardCount {
-      self.view.addSubview(generateCardView(index))
+  func setup() {
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(updateCardDeck(notification:)),
+      name: Notification.Name.cardDeck,
+      object: nil
+    )
+    
+    self.cardDeck = CardDeck.share()
+    layoutWithInitializer()
+  }
+  
+  @objc func updateCardDeck(notification: Notification) {
+    if let cardDeck = notification.object as? CardDeck {
+      self.cardDeck = cardDeck
     }
   }
-  
-  func generateCardView(_ index: Int) -> CardView {
-    let xValue = index == 0 ? 0 : CGFloat(index) * (cardSize.width + gap)
-    let point = CGPoint(x: xValue, y: BoardView.statusHeight)
-    let cardFrame = CGRect(origin: point, size: cardSize)
-    return CardView(frame: cardFrame)
+}
+
+private extension ViewController {
+  func layoutWithInitializer() {
+    let headerPanel = layoutWithHeader()
+    let bodyPanel = layoutWithBody()
+    
+    self.view.addSubview(headerPanel)
+    self.view.addSubview(bodyPanel)
+    
+    headerPanel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
+    headerPanel.heightAnchor.constraint(equalToConstant: self.getStackViewHeight).isActive = true
+    headerPanel.topAnchor.constraintEqualToSystemSpacingBelow(view.safeAreaLayoutGuide.topAnchor, multiplier: 1).isActive = true
+    
+    bodyPanel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
+    bodyPanel.heightAnchor.constraint(equalToConstant: self.getStackViewHeight).isActive = true
+    bodyPanel.topAnchor.constraint(equalTo: headerPanel.bottomAnchor, constant: 20).isActive = true
   }
   
-  var cardSize: CGSize {
-    let cardWidth = (self.view.frame.width / CGFloat(cardCount)) - gap
-    return CGSize(width: cardWidth, height: cardWidth * 1.27)
+  func layoutWithHeader() -> UIStackView {
+    return setStackView([
+        generateEmptyView(true),
+        generateEmptyView(true),
+        generateEmptyView(true),
+        generateEmptyView(true),
+        generateEmptyView(false),
+        generateEmptyView(false),
+        generateCardView(false)
+    ])
+  }
+  
+  func layoutWithBody() -> UIStackView {
+    var cardViews: [CardView] = []
+    
+    for _ in 0..<GameConfig.cardCount {
+      cardViews.append(generateCardView(true))
+    }
+    
+    return setStackView(cardViews)
+  }
+  
+  func setStackView(_ subviews: [UIView]) -> UIStackView {
+    let stackView = UIStackView(arrangedSubviews: subviews)
+    
+    stackView.axis = .horizontal
+    stackView.alignment = .fill
+    stackView.spacing = 5
+    stackView.distribution = .fillEqually
+    stackView.translatesAutoresizingMaskIntoConstraints = false
+    
+    return stackView
+  }
+  
+  func generateEmptyView(_ hasBorder: Bool) -> EmptyView {
+    return EmptyView(frame: GameConfig.defaultFrame, hasBorder: hasBorder)
+  }
+  
+  func generateCardView(_ isFront: Bool) -> CardView {
+    guard isFront else {
+      return CardView(frame: GameConfig.defaultFrame)
+    }
+    
+    return CardView(frame: GameConfig.defaultFrame, card: try! cardDeck.remove())
+  }
+  
+  var getStackViewHeight: CGFloat {
+    let width = self.view.frame.width / CGFloat(GameConfig.cardCount)
+    return width * 1.27
   }
 }

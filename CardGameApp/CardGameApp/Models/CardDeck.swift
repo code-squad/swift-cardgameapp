@@ -8,8 +8,13 @@
 
 import Foundation
 
-class Deck {
-  private var cards: [Card] = []
+class CardDeck {
+  private static var sharedInstance = CardDeck()
+  private var cards: [Card] = [] {
+    didSet {
+      NotificationCenter.default.post(name: Notification.Name.cardDeck, object: self)
+    }
+  }
   
   init() {
     reset()
@@ -38,21 +43,25 @@ class Deck {
   func shuffle() {
     shuffleCards()
   }
+  
+  static func share() -> CardDeck {
+    return sharedInstance
+  }
 }
 
-private extension Deck {
+private extension CardDeck {
   func resetCards() {
     self.cards = []
     
     for suit in Suit.allValues {
       for number in Number.allValues {
-        self.cards.append(setCard(suit, number))
+        self.cards.append(generateCard(suit, number))
       }
     }
   }
   
-  func setCard(_ suit: Suit, _ number: Number) -> Card {
-    return Card(suit: suit, number: number)
+  func generateCard(_ suit: Suit, _ number: Number) -> Card {
+    return Card(suit, number)
   }
   
   func generateRandomInt() -> Int {
@@ -68,8 +77,8 @@ private extension Deck {
   }
 }
 
-extension Deck: Equatable {
-  static func ==(lhs: Deck, rhs: Deck) -> Bool {
+extension CardDeck: Equatable {
+  static func ==(lhs: CardDeck, rhs: CardDeck) -> Bool {
     guard lhs.cards == rhs.cards else { return false }
     
     return true
