@@ -7,10 +7,22 @@
 //
 
 import Foundation
+import UIKit
 
 struct Card {
-  private(set) var suit: Suit
-  private(set) var number: Number
+  private var suit: Suit
+  private var number: Number
+  
+  init(_ suit: Suit, _ number: Number) {
+    self.suit = suit
+    self.number = number
+  }
+}
+
+extension Card {
+  func bringFrontImage() -> UIImage {
+    return UIImage(imageLiteralResourceName: self.description)
+  }
 }
 
 extension Card: Equatable, Comparable {

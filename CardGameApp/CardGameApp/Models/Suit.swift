@@ -35,13 +35,13 @@ extension Suit: CustomStringConvertible {
   var description: String {
     switch self {
     case .heart:
-      return "♥️"
+      return "h"
     case .diamond:
-      return "♦️"
+      return "d"
     case .club:
-      return "♣️"
+      return "c"
     case .spade:
-      return "♠️"
+      return "s"
     }
   }
 }
