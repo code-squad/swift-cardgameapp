@@ -16,6 +16,10 @@
 		8737C6D32071D6E300D9D65B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8737C6D12071D6E300D9D65B /* LaunchScreen.storyboard */; };
 		8737C6DE2071D6E300D9D65B /* CardGameAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737C6DD2071D6E300D9D65B /* CardGameAppTests.swift */; };
 		8737C6E92071D6E300D9D65B /* CardGameAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737C6E82071D6E300D9D65B /* CardGameAppUITests.swift */; };
+		8745DAD720A19B5B00C5B097 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8745DAD620A19B5B00C5B097 /* EmptyView.swift */; };
+		87A7696320A13CC1008A1023 /* Notification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7696220A13CC1008A1023 /* Notification+.swift */; };
+		87A7696820A149AA008A1023 /* LiteralResoureNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7696720A149AA008A1023 /* LiteralResoureNames.swift */; };
+		87A7696C20A14E44008A1023 /* GameConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7696B20A14E44008A1023 /* GameConfig.swift */; };
 		87CE7F1020A1032900975DEC /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F0F20A1032900975DEC /* Card.swift */; };
 		87CE7F1220A1033D00975DEC /* Suit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1120A1033D00975DEC /* Suit.swift */; };
 		87CE7F1420A1035D00975DEC /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1320A1035D00975DEC /* Number.swift */; };
@@ -61,6 +65,10 @@
 		8737C6E42071D6E300D9D65B /* CardGameAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardGameAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8737C6E82071D6E300D9D65B /* CardGameAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameAppUITests.swift; sourceTree = "<group>"; };
 		8737C6EA2071D6E300D9D65B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8745DAD620A19B5B00C5B097 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		87A7696220A13CC1008A1023 /* Notification+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+.swift"; sourceTree = "<group>"; };
+		87A7696720A149AA008A1023 /* LiteralResoureNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteralResoureNames.swift; sourceTree = "<group>"; };
+		87A7696B20A14E44008A1023 /* GameConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConfig.swift; sourceTree = "<group>"; };
 		87CE7F0F20A1032900975DEC /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		87CE7F1120A1033D00975DEC /* Suit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suit.swift; sourceTree = "<group>"; };
 		87CE7F1320A1035D00975DEC /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
@@ -140,6 +148,7 @@
 		8737C6C72071D6E200D9D65B /* CardGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				87A7696620A14993008A1023 /* Commons */,
 				87CE7F1720A1038300975DEC /* Extensions */,
 				87CE7F0E20A1031F00975DEC /* Models */,
 				87F4FED72073177B0061FE9E /* Views */,
@@ -170,6 +179,15 @@
 			path = CardGameAppUITests;
 			sourceTree = "<group>";
 		};
+		87A7696620A14993008A1023 /* Commons */ = {
+			isa = PBXGroup;
+			children = (
+				87A7696720A149AA008A1023 /* LiteralResoureNames.swift */,
+				87A7696B20A14E44008A1023 /* GameConfig.swift */,
+			);
+			path = Commons;
+			sourceTree = "<group>";
+		};
 		87CE7F0E20A1031F00975DEC /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				87CE7F1820A1039100975DEC /* Array+.swift */,
+				87A7696220A13CC1008A1023 /* Notification+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -204,6 +223,7 @@
 			children = (
 				87F4FED8207317B10061FE9E /* BoardView.swift */,
 				87F4FEDA20731C820061FE9E /* CardView.swift */,
+				8745DAD620A19B5B00C5B097 /* EmptyView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -413,7 +433,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8737C6CB2071D6E200D9D65B /* ViewController.swift in Sources */,
+				87A7696320A13CC1008A1023 /* Notification+.swift in Sources */,
 				87CE7F1420A1035D00975DEC /* Number.swift in Sources */,
+				87A7696C20A14E44008A1023 /* GameConfig.swift in Sources */,
 				87CE7F1620A1037600975DEC /* CardDeck.swift in Sources */,
 				87F4FED9207317B10061FE9E /* BoardView.swift in Sources */,
 				87CE7F1920A1039100975DEC /* Array+.swift in Sources */,
@@ -421,6 +443,8 @@
 				87F4FEDB20731C820061FE9E /* CardView.swift in Sources */,
 				87CE7F1220A1033D00975DEC /* Suit.swift in Sources */,
 				87CE7F1B20A103AF00975DEC /* CardErrors.swift in Sources */,
+				87A7696820A149AA008A1023 /* LiteralResoureNames.swift in Sources */,
+				8745DAD720A19B5B00C5B097 /* EmptyView.swift in Sources */,
 				8737C6C92071D6E200D9D65B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -596,13 +620,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T393J4TVCC;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				INFOPLIST_FILE = CardGameApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuaming.CardGameApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodeSquad.CardGameApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -615,13 +639,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T393J4TVCC;
+				DEVELOPMENT_TEAM = B3PWYBKFUK;
 				INFOPLIST_FILE = CardGameApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuaming.CardGameApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodeSquad.CardGameApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
