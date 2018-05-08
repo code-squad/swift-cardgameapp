@@ -9,9 +9,17 @@
 import UIKit
 
 class CardView: UIImageView {
+  private var card: Card?
+  override var frame: CGRect {
+    didSet {
+      self.layer.cornerRadius = 3
+      self.layer.masksToBounds = true
+    }
+  }
+  
   override func layoutSubviews() {
     super.layoutSubviews()
-    loadDefaultOptions()
+    setCardImage()
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -20,16 +28,20 @@ class CardView: UIImageView {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    loadDefaultOptions()
-    self.frame = frame
+  }
+  
+  convenience init(frame: CGRect, card: Card) {
+    self.init(frame: frame)
+    self.card = card
   }
 }
 
-// MARK: - Private funcions
 private extension CardView {
-  func loadDefaultOptions() {
-    self.layer.cornerRadius = 3
-    self.layer.masksToBounds = true
-    self.image = UIImage(imageLiteralResourceName:"CardBack")
+  func setCardImage() {
+    if let card = self.card {
+      self.image = card.bringFrontImage()
+    } else {
+      self.image =  UIImage(imageLiteralResourceName: LiteralResoureNames.cardBack)
+    }
   }
 }
