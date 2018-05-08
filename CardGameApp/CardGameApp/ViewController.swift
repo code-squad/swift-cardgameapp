@@ -20,6 +20,12 @@ class ViewController: UIViewController {
     super.viewDidLoad()
     setup()
   }
+  
+  override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+    if motion == .motionShake {
+      reset()
+    }
+  }
 }
 
 private extension ViewController {
@@ -31,6 +37,10 @@ private extension ViewController {
       object: nil
     )
     
+    reset()
+  }
+  
+  func reset() {
     self.cardDeck = CardDeck.share()
     layoutWithInitializer()
   }
