@@ -1,5 +1,5 @@
 //
-//  GameView.swift
+//  BoardView.swict
 //  CardGameApp
 //
 //  Created by yuaming on 03/04/2018.
@@ -8,23 +8,22 @@
 
 import UIKit
 
-class GameView: UIView {
+class BoardView: UIView {
   override func layoutSubviews() {
     super.layoutSubviews()
     loadDefaultOptions()
   }
 }
 
-// MARK: - Private functions
-private extension GameView {
-  func loadDefaultOptions() {
-    self.backgroundColor = UIColor(patternImage: UIImage(imageLiteralResourceName: "Game"))
-  }
-}
-
-extension GameView {
+extension BoardView {
   static var statusHeight: CGFloat {
     let statusBarSize = UIApplication.shared.statusBarFrame.size
     return statusBarSize.height
+  }
+}
+
+private extension BoardView {
+  func loadDefaultOptions() {
+    self.backgroundColor = UIColor(patternImage: UIImage(imageLiteralResourceName: "GameBoard"))
   }
 }

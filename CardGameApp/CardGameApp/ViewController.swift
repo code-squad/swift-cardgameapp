@@ -22,7 +22,6 @@ class ViewController: UIViewController {
   }
 }
 
-// MARK: - Private functions, properties
 private extension ViewController {
   func loadCards() {
     for index in 0..<cardCount {
@@ -32,7 +31,7 @@ private extension ViewController {
   
   func generateCardView(_ index: Int) -> CardView {
     let xValue = index == 0 ? 0 : CGFloat(index) * (cardSize.width + gap)
-    let point = CGPoint(x: xValue, y: GameView.statusHeight)
+    let point = CGPoint(x: xValue, y: BoardView.statusHeight)
     let cardFrame = CGRect(origin: point, size: cardSize)
     return CardView(frame: cardFrame)
   }
