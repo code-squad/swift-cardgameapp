@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD55C62C20A14C340098D428 /* RuleChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD55C62B20A14C340098D428 /* RuleChecker.swift */; };
 		FD692644209D93EE0069B29A /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD692643209D93EE0069B29A /* CustomExtension.swift */; };
 		FD7A6A2520A031BC002D66CA /* WholeStackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7A6A2420A031BC002D66CA /* WholeStackDelegate.swift */; };
 		FD7A6A2720A0401A002D66CA /* DeckDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7A6A2620A0401A002D66CA /* DeckDelegate.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FD55C62B20A14C340098D428 /* RuleChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleChecker.swift; sourceTree = "<group>"; };
 		FD692643209D93EE0069B29A /* CustomExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExtension.swift; sourceTree = "<group>"; };
 		FD7A6A2420A031BC002D66CA /* WholeStackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WholeStackDelegate.swift; sourceTree = "<group>"; };
 		FD7A6A2620A0401A002D66CA /* DeckDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FD7DF3E420A2F07400BD62B7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FDD8FA27207F216B00F5FD99 /* CardImageView.swift */,
+				FD884CD220883F1100DD1954 /* CardStacksView.swift */,
+				FDC5D437208DF2BB000A1E0C /* FoundationView.swift */,
+				FDC1ACAF208F23F000A39C47 /* CardDeckView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FD7DF3E620A2F0DB00BD62B7 /* DelegateModel */ = {
+			isa = PBXGroup;
+			children = (
+				FD884CD62088AAF300DD1954 /* CardGameDelegate.swift */,
+				FD7A6A2620A0401A002D66CA /* DeckDelegate.swift */,
+				FDF8BBB3209C905100AA0C82 /* FoundationDelegate.swift */,
+				FD7A6A2420A031BC002D66CA /* WholeStackDelegate.swift */,
+				FDF8BBB1209AFA2A00AA0C82 /* StackDelegate.swift */,
+			);
+			path = DelegateModel;
+			sourceTree = "<group>";
+		};
 		FDD8FA09207F035400F5FD99 = {
 			isa = PBXGroup;
 			children = (
@@ -92,21 +117,12 @@
 				FDDFB93F2080499C00920FB4 /* Model */,
 				FDD8FA17207F035400F5FD99 /* ViewController.swift */,
 				FDD8FA15207F035400F5FD99 /* AppDelegate.swift */,
-				FD884CD62088AAF300DD1954 /* CardGameDelegate.swift */,
-				FD7A6A2620A0401A002D66CA /* DeckDelegate.swift */,
-				FD692643209D93EE0069B29A /* CustomExtension.swift */,
-				FDF8BBB3209C905100AA0C82 /* FoundationDelegate.swift */,
-				FDF8BBAF209AF89C00AA0C82 /* CustomProtocols.swift */,
-				FD7A6A2420A031BC002D66CA /* WholeStackDelegate.swift */,
-				FDF8BBB1209AFA2A00AA0C82 /* StackDelegate.swift */,
+				FD7DF3E620A2F0DB00BD62B7 /* DelegateModel */,
 				FDD8FA19207F035400F5FD99 /* Main.storyboard */,
 				FDD8FA1C207F035500F5FD99 /* Assets.xcassets */,
 				FDD8FA1E207F035500F5FD99 /* LaunchScreen.storyboard */,
 				FDD8FA21207F035500F5FD99 /* Info.plist */,
-				FDD8FA27207F216B00F5FD99 /* CardImageView.swift */,
-				FD884CD220883F1100DD1954 /* CardStacksView.swift */,
-				FDC5D437208DF2BB000A1E0C /* FoundationView.swift */,
-				FDC1ACAF208F23F000A39C47 /* CardDeckView.swift */,
+				FD7DF3E420A2F07400BD62B7 /* View */,
 			);
 			path = CardGameApp;
 			sourceTree = "<group>";
@@ -114,6 +130,9 @@
 		FDDFB93F2080499C00920FB4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FD55C62B20A14C340098D428 /* RuleChecker.swift */,
+				FD692643209D93EE0069B29A /* CustomExtension.swift */,
+				FDF8BBAF209AF89C00AA0C82 /* CustomProtocols.swift */,
 				FDDD33C52085EFCF000E9D0E /* CustomEnum.swift */,
 				FDDFB9352080498700920FB4 /* CardDeck.swift */,
 				FDDFB9332080498700920FB4 /* CardStack.swift */,
@@ -207,6 +226,7 @@
 				FDDFB93C2080498800920FB4 /* CardDeck.swift in Sources */,
 				FD692644209D93EE0069B29A /* CustomExtension.swift in Sources */,
 				FDD8FA28207F216B00F5FD99 /* CardImageView.swift in Sources */,
+				FD55C62C20A14C340098D428 /* RuleChecker.swift in Sources */,
 				FDDFB93D2080498800920FB4 /* Card.swift in Sources */,
 				FDD8FA16207F035400F5FD99 /* AppDelegate.swift in Sources */,
 				FDC1ACB0208F23F000A39C47 /* CardDeckView.swift in Sources */,
