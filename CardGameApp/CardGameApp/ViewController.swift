@@ -19,7 +19,7 @@ class ViewController: UIViewController {
   
   override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
     if motion == .motionShake {
-      reset()
+      initializer()
     }
   }
   
@@ -45,10 +45,10 @@ private extension ViewController {
       object: nil
     )
     
-    reset()
+    initializer()
   }
   
-  func reset() {
+  func initializer() {
     self.cardDeck = CardDeck.share()
     layoutWithInitializer()
   }
@@ -79,13 +79,13 @@ private extension ViewController {
   
   func layoutWithHeader() -> UIStackView {
     return setStackView([
-        generateEmptyView(true),
-        generateEmptyView(true),
-        generateEmptyView(true),
-        generateEmptyView(true),
-        generateEmptyView(false),
-        generateEmptyView(false),
-        generateCardView(false)
+        generateEmptyView(hasBorder: true),
+        generateEmptyView(hasBorder: true),
+        generateEmptyView(hasBorder: true),
+        generateEmptyView(hasBorder: true),
+        generateEmptyView(hasBorder: false),
+        generateEmptyView(hasBorder: false),
+        generateCardView(isFront: false)
     ])
   }
   
@@ -93,7 +93,7 @@ private extension ViewController {
     var cardViews: [CardView] = []
     
     for _ in 0..<GameConfig.cardCount {
-      cardViews.append(generateCardView(true))
+      cardViews.append(generateCardView(isFront: true))
     }
     
     return setStackView(cardViews)
@@ -111,11 +111,11 @@ private extension ViewController {
     return stackView
   }
   
-  func generateEmptyView(_ hasBorder: Bool) -> EmptyView {
+  func generateEmptyView(hasBorder: Bool) -> EmptyView {
     return EmptyView(frame: GameConfig.defaultFrame, hasBorder: hasBorder)
   }
   
-  func generateCardView(_ isFront: Bool) -> CardView {
+  func generateCardView(isFront: Bool) -> CardView {
     guard isFront else {
       return CardView(frame: GameConfig.defaultFrame)
     }
