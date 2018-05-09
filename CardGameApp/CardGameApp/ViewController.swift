@@ -62,6 +62,12 @@ private extension ViewController {
 
 private extension ViewController {
   func layoutWithInitializer() {
+    if hasStackView() {
+      for view in self.view.subviews {
+        view.removeFromSuperview()
+      }
+    }
+    
     let headerPanel = layoutWithHeader()
     let bodyPanel = layoutWithBody()
     
@@ -87,6 +93,10 @@ private extension ViewController {
         generateEmptyView(hasBorder: false),
         generateCardView(isFront: false)
     ])
+  }
+  
+  func hasStackView() -> Bool {
+    return self.view.subviews.filter { $0 is UIStackView }.count > 0
   }
   
   func layoutWithBody() -> UIStackView {
