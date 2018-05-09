@@ -12,10 +12,6 @@ class ViewController: UIViewController {
   private var cardDeck: CardDeck!
   private var boardView: BoardView!
   
-  override var preferredStatusBarStyle: UIStatusBarStyle {
-    return UIStatusBarStyle.lightContent
-  }
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     setup()
@@ -25,6 +21,18 @@ class ViewController: UIViewController {
     if motion == .motionShake {
       reset()
     }
+  }
+  
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return UIStatusBarStyle.lightContent
+  }
+  
+  deinit {
+    NotificationCenter.default.removeObserver(
+      self,
+      name: Notification.Name.cardDeck,
+      object: nil
+    )
   }
 }
 
