@@ -50,9 +50,10 @@ class FoundationDelegate: FoundationManageable, Stackable {
         } else {
             self.push(newCard: newCard)
         }
+        updateFoundationView()
     }
 
-    private func updateFoundation() {
+    private func updateFoundationView() {
         NotificationCenter.default.post(name: .foundationUpdated, object: nil)
     }
 
@@ -63,7 +64,6 @@ class FoundationDelegate: FoundationManageable, Stackable {
         for i in FoundationDelegate.range where !foundations[i].isEmpty() {
             guard foundations[i].last()!.isLower(than: newCard) else { continue }
             foundations[i].push(newCard: newCard)
-            updateFoundation()
             break
         }
     }
@@ -72,7 +72,6 @@ class FoundationDelegate: FoundationManageable, Stackable {
         for i in FoundationDelegate.range {
             guard self.foundations[i].isEmpty() else { continue }
             self.foundations[i].push(newCard: newCard)
-            updateFoundation()
             break
         }
     }

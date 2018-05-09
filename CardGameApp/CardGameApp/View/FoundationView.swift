@@ -44,10 +44,9 @@ class FoundationView: UIView {
     }
 
     func redraw() {
-       print("redraw")
         self.subviews.forEach({ $0.removeFromSuperview() })
 
-        for i in 0..<numberOfFoundation {
+        for i in FoundationDelegate.range {
             let newOrigin = CGPoint(x: PositionX.allValues[i].value, y: PositionY.upper.value)
             let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
 
