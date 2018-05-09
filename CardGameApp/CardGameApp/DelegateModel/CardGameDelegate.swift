@@ -18,7 +18,6 @@ class CardGameDelegate: CardGameManageable {
         var stacks = [CardStack]()
         for numberOfCard in CardGameDelegate.defaultStackRange {
             let oneStack = cardDeck.makeStack(numberOf: numberOfCard)
-            oneStack.sortDefaultStack()
             stacks.append(oneStack)
         }
 

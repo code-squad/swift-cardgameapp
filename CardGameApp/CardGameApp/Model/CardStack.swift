@@ -19,6 +19,21 @@ struct CardStack: CustomStringConvertible{
 
     init(_ cards: [Card]) {
         self.cards = cards
+        
+        let lastIndex = self.cards.count - 1
+        for i in 0..<self.cards.count {
+            let cardInTurn = self.cards[i]
+            if cardInTurn.side == .back {
+                guard i == lastIndex else { continue }
+                cardInTurn.openLastCard()
+            } else {
+                guard i == lastIndex else {
+                    cardInTurn.turnOver()
+                    continue
+                }
+                cardInTurn.openLastCard()
+            }
+        }
     }
 
     func getCards() -> [Card] {
@@ -44,24 +59,6 @@ struct CardStack: CustomStringConvertible{
         lastCard.openLastCard()
         self.cards.removeLast()
         self.cards.append(lastCard)
-    }
-
-    // 초기 스택을 세팅할때 한번만 호출됨 > init으로 옮기는 것 고려
-    func sortDefaultStack() {
-        let lastIndex = self.cards.count - 1
-        for i in 0..<self.cards.count {
-            let cardInTurn = self.cards[i]
-            if cardInTurn.side == .back {
-                guard i == lastIndex else { continue }
-                cardInTurn.openLastCard()
-            } else {
-                guard i == lastIndex else {
-                    cardInTurn.turnOver()
-                    continue
-                }
-                cardInTurn.openLastCard()
-            }
-        }
     }
 
     func getCard(at index: Int) -> Card {
