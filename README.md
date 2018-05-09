@@ -44,3 +44,11 @@
 
 ##### 학습거리
 * [The Ultimate Guide To iPhone Resolutions](https://www.paintcodeapp.com/news/ultimate-guide-to-iphone-resolutions)
+* [Demystifying iOS Layout](http://tech.gc.com/demystifying-ios-layout/)
+* [프로젝트 이미지 추가하기](https://wiki.yuaming.com/ios/adding-images-in-project.html) 
+* Simulator에서 Shake 이벤트 발생시키기
+    * _Command + Control + z_ 
+* View Model 역할에 대해 간단 정리
+    * View와 Model이 직접적으로 관계를 맺지 않고 다리 역할을 함
+    * Model의 데이터를 View에 맞게 가공함
+    * 

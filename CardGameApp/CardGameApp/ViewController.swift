@@ -127,10 +127,10 @@ private extension ViewController {
   
   func generateCardView(isFront: Bool) -> CardView {
     guard isFront else {
-      return CardView(frame: GameConfig.defaultFrame)
+      return CardViewModel(frame: GameConfig.defaultFrame).generateView()
     }
     
-    return CardView(frame: GameConfig.defaultFrame, card: try! cardDeck.remove())
+    return CardViewModel(frame: GameConfig.defaultFrame, card: try! cardDeck.remove()).generateView()
   }
   
   var getStackViewHeight: CGFloat {

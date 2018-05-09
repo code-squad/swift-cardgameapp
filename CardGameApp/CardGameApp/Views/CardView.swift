@@ -9,7 +9,6 @@
 import UIKit
 
 class CardView: UIImageView {
-  private var card: Card?
   override var frame: CGRect {
     didSet {
       self.layer.cornerRadius = 3
@@ -19,7 +18,6 @@ class CardView: UIImageView {
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    setCardImage()
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -30,18 +28,8 @@ class CardView: UIImageView {
     super.init(frame: frame)
   }
   
-  convenience init(frame: CGRect, card: Card) {
+  convenience init(frame: CGRect, image: UIImage) {
     self.init(frame: frame)
-    self.card = card
-  }
-}
-
-private extension CardView {
-  func setCardImage() {
-    if let card = self.card {
-      self.image = card.bringFrontImage()
-    } else {
-      self.image =  UIImage(imageLiteralResourceName: LiteralResoureNames.cardBack)
-    }
+    self.image = image
   }
 }
