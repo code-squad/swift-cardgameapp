@@ -26,7 +26,24 @@ class CardGameDelegate: CardGameManageable {
         self.foundationManager = FoundationDelegate()
         self.deckManager = DeckDelegate(deck: self.cardDeck)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(currentOpenedDeckDoubleTapped), name: .doubleTappedOpenedDeck, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(currentOpenedDeckDoubleTapped),
+                                               name: .doubleTappedOpenedDeck,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(closedDeckTapped),
+                                               name: .singleTappedClosedDeck,
+                                               object: nil)
+    }
+
+    @objc func closedDeckTapped() {
+        guard deckManager.hasEnoughCard()
+        else {
+            NotificationCenter.default.post(name: .openDeckUpdated, object: false)
+            return
+            }
+        deckManager.pop()
+        NotificationCenter.default.post(name: .openDeckUpdated, object: true)
     }
 
     class func shared() -> CardGameDelegate {
@@ -66,7 +83,7 @@ class CardGameDelegate: CardGameManageable {
         guard let fromView = userInfo["from"] else { return }
 
         if (fromView as? CardDeckView) != nil {
-            let activatedCard = deckManager.currentOpenedCard()
+            let activatedCard = deckManager.lastOpenedCard()
             if ruleChecker.isValidToMove(newCard: activatedCard) {
                 ruleChecker.sendCardToStackUp(newCard: activatedCard)
                 // gameDelegate는 activatedCard가 foundation으로 가야하는지 stack으로가야하는지 모르므로 ruleChecker에게 전달함

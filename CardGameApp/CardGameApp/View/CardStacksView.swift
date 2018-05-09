@@ -33,6 +33,10 @@ class CardStacksView: UIView {
         }
     }
 
+    func redraw() {
+
+    }
+
 }
 
 class OneStack: UIView {

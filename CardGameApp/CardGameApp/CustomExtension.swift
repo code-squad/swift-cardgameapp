@@ -11,5 +11,8 @@ import Foundation
 extension Notification.Name {
     static let doubleTappedOpenedDeck = Notification.Name("doubleTappedOpenedDeck")
     static let foundationUpdated = Notification.Name("foundationUpdated")
-    static let opendeckNeedsToBeDeleted = Notification.Name("opendeckNeedsToBeDeleted")
+    static let deckUpdated = Notification.Name("deckUpdated")
+    static let stackUpdated = Notification.Name("stackUpdated")
+    static let singleTappedClosedDeck = Notification.Name("singleTappedClosedDeck")
+    static let openDeckUpdated = Notification.Name("openDeckUpdated")
 }

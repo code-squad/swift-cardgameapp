@@ -11,7 +11,6 @@ import UIKit
 class CardDeckView: UIView {
     var gameManager: CardGameManageable = CardGameDelegate.shared()
     var closedCardDeck = CardImageView()
-    var pickedCards = [ImageSelector]()
     var deckManager: DeckDelegate!
 
     override init(frame: CGRect) {
@@ -50,32 +49,24 @@ class CardDeckView: UIView {
 
     @objc func deckTapped(sender : UITapGestureRecognizer) {
         if sender.state == .ended {
-            self.drawPickedCard()
+            NotificationCenter.default.post(name: .singleTappedClosedDeck, object: nil)
         }
     }
 
-    private func drawPickedCard() {
-        if deckManager.hasEnoughCard() {
-            self.pickCardFromDeck()
-        } else {
-            closedCardDeck.getRefreshImage()
-        }
-    }
-
-    private func pickCardFromDeck() {
-
+    func drawOpenDeck() {
         let newOrigin = CGPoint(x: PositionX.sixth.value, y: PositionY.upper.value)
         let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
 
         let pickedCardView = CardImageView(frame: frameForDraw)
         self.setDoubleTabToCard(to: pickedCardView)
 
-        let pickedCard = deckManager.pickACard()
-        pickedCard.turnOver()
-        self.pickedCards.append(pickedCard)
-
-        pickedCardView.getImage(of: self.pickedCards.last!)
+        let card = deckManager.lastOpenedCard()
+        pickedCardView.getImage(of: card)
         addSubview(pickedCardView)
+    }
+
+    func drawRefresh() {
+        closedCardDeck.getRefreshImage()
     }
 
     private func setDoubleTabToCard(to card: CardImageView) {
@@ -86,15 +77,14 @@ class CardDeckView: UIView {
 
     @objc func cardDoubleTapped(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
-            let ddd = sender.view?.superview
-
-            print((self.pickedCards.last! as! Card))
-            NotificationCenter.default.post(name: .doubleTappedOpenedDeck, object: self)
+            let deckview = sender.view?.superview as! CardDeckView
+            print(String(describing: deckview))
+            NotificationCenter.default.post(name: .doubleTappedOpenedDeck, object: self, userInfo: ["from": deckview])
         }
     }
 
-    func removeOpenedCard() {
-
+    func redraw() {
+        // after double tapped
     }
 
 

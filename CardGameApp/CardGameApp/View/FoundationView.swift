@@ -51,10 +51,10 @@ class FoundationView: UIView {
             let newOrigin = CGPoint(x: PositionX.allValues[i].value, y: PositionY.upper.value)
             let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
 
-            if foundationManager.countOfStack(of: i) == 0 {
+            if foundationManager.countOfCards(of: i) == 0 {
                 self.drawEmptyDock(in: frameForDraw)
             } else {
-                for j in 0..<foundationManager.countOfStack(of: i) {
+                for j in 0..<foundationManager.countOfCards(of: i) {
                     let card = foundationManager.cardInTurn(at: (column: i, row: j))
                     let cardImage = CardImageView(frame: frameForDraw)
                     cardImage.getImage(of: card)

@@ -17,15 +17,11 @@ class DeckDelegate {
     }
 
     func hasEnoughCard() -> Bool {
-        if deck.count() > 0 {
-            return true
-        } else {
-            return false
-        }
+        return deck.count() > 0
     }
 
-    func currentDeck() -> CardDeck {
-        return self.deck
+    func lastOpenedCard() -> Card {
+        return self.openedDeck.last!
     }
 
     func countOfDeck() -> Int {
@@ -33,17 +29,18 @@ class DeckDelegate {
     }
 
     func hasOpenedCard() -> Bool {
-        guard self.openedDeck.count == 0 else {
-            return false
-        }
-        return true
+        return self.openedDeck.count > 0
     }
 
-    func pickACard() -> Card {
-        self.openedDeck.append(deck.removeOne())
-        print(self.countOfDeck())
-        return self.openedDeck.last!
+    func pop() {
+        let selectedCard = deck.removeOne()
+        selectedCard.turnOver()
+        self.openedDeck.append(selectedCard)
     }
 
+    func removePoppedCard() {
+        self.openedDeck.removeLast()
+        NotificationCenter.default.post(name: .deckUpdated, object: nil)
+    }
 
 }

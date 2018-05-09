@@ -31,24 +31,52 @@ class ViewController: UIViewController {
     }
 
     private func initialView() {
-        self.newFoundation()
+        newFoundation()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
+        newDeck()
+        newStacks()
+        setNotification()
+    }
 
-        self.newDeck()
-        self.newStacks()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateFoundations), name: .foundationUpdated, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: <#T##Selector#>, name: .opendeckNeedsToBeDeleted, object: nil)
-
+    private func setNotification() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateFoundations),
+                                               name: .foundationUpdated,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateDeck),
+                                               name: .deckUpdated,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateDeck),
+                                               name: .stackUpdated,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateOpenDeck(notification: )),
+                                               name: .openDeckUpdated,
+                                               object: nil)
     }
 
     // MARK: ChangedView Related
+
     @objc func updateFoundations() {
-        print("viewController updateFoundations")
         self.foundationView.redraw()
     }
 
-    @objc func popOpendeckCard() {
-        self.deckView.removeOpenedCard()
+    @objc func updateDeck() {
+        self.deckView.redraw()
+    }
+
+    @objc func updateStack() {
+        self.stackView.redraw()
+    }
+
+    @objc func updateOpenDeck(notification: Notification) {
+        guard notification.object as! Bool else {
+            self.deckView.drawRefresh()
+            return
+        }
+        self.deckView.drawOpenDeck()
     }
 
     // MARK: InitialView Related
