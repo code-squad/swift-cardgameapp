@@ -8,7 +8,7 @@
 
 import Foundation
 
-class WholeStackDelegate {
+class WholeStackDelegate: Stackable {
     var stackManagers: [StackDelegate]!
 
     init(stacks: [CardStack]) {
@@ -23,5 +23,25 @@ class WholeStackDelegate {
         return self.stackManagers[column]
     }
 
+    func isStackable(nextCard card: Card) -> [Bool] {
+        return stackManagers.map{ $0.isStackable(nextCard: card) }
+    }
+
+    func stackUp(newCard: Card) {
+        for stack in stackManagers where stack.isStackable(nextCard: newCard) {
+            stack.stackUp(newCard: newCard)
+            break
+        }
+        //noti보내기 to VC
+    }
+
+    func removePoppedCard(of column: Int) {
+        stackManagers[column].removePoppedCard()
+        //noti보내기 to VC
+    }
+
+    func lastCard(of column: Int) -> Card {
+        return stackManagers[column].currentLastCard()
+    }
 
 }

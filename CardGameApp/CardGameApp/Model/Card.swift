@@ -62,12 +62,20 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
         return lhs.suit == rhs.suit
     }
 
-    func isContinuous(next: Card) -> Bool {
+    func isOnePointBigger(than next: Card) -> Bool {
         return self.denomination.isContinuous(next: next.denomination)
     }
 
     func isSameSuit(next: Card) -> Bool {
         return self.suit == next.suit
+    } // isSameColor
+
+    func isColorDifferent(with next: Card) -> Bool {
+        return self.suit != next.suit
+    }
+
+    func isOnePointSmaller(than next: Card) -> Bool  {
+        return self.denomination.isDescending(next: next.denomination)
     }
 
     func weightedScore() -> Int {
@@ -80,6 +88,10 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
 
     func isDenominationA() -> Bool {
         return self.denomination == .ace
+    }
+
+    func isDenominationK() -> Bool  {
+        return self.denomination == .thirteen
     }
 
     func turnOver() {
@@ -99,4 +111,15 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
             break
         }
     }
+
+    func isHigher(than nextCard: Card) -> Bool {
+        return isColorDifferent(with: nextCard) && isOnePointBigger(than: nextCard)
+    }
+    // stack에서
+
+    func isLower(than nextCard: Card) -> Bool {
+        return isColorDifferent(with: nextCard) && isOnePointSmaller(than: nextCard)
+    }
+    // foundation에서
+
 }

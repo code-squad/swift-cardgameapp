@@ -23,3 +23,9 @@ protocol CardGameManageable {
     func getDeckDelegate() -> DeckDelegate
 }
 
+// MARK: RuleCheck Related
+
+protocol Stackable {
+    func isStackable(nextCard card: Card) -> [Bool]
+    func stackUp(newCard: Card)
+}

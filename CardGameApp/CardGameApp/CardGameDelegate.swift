@@ -26,7 +26,7 @@ class CardGameDelegate: CardGameManageable {
         self.foundationManager = FoundationDelegate()
         self.deckManager = DeckDelegate(deck: self.cardDeck)
 
-        NotificationCenter.default.addObserver(self, selector: #selector(currentOpenedCardDoubleTapped), name: .doubleTappedOpenedDeck, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(currentOpenedDeckDoubleTapped), name: .doubleTappedOpenedDeck, object: nil)
     }
 
     class func shared() -> CardGameDelegate {
@@ -55,25 +55,35 @@ class CardGameDelegate: CardGameManageable {
     static let defaultStackRange: CountableClosedRange = 1...7
     static let defaultStackNumber: Int = 7
     private var cardDeck = CardDeck()
-    private var stackManagers: WholeStackDelegate!
-    private var foundationManager: FoundationManageable!
+    private var stackManagers: (WholeStackDelegate & Stackable)!
+    private var foundationManager: (FoundationManageable & Stackable)!
     private var deckManager: DeckDelegate!
-    var openedDeck = [Card]()
 
-    @objc func currentOpenedCardDoubleTapped() {
-        self.ruleCheck()
-    }
+    @objc func currentOpenedDeckDoubleTapped(notification: Notification) {
+        let ruleChecker = RuleChecker(foundationManager: foundationManager,
+                                      stackManagers: stackManagers)
+        guard let userInfo = notification.userInfo else {return}
+        guard let fromView = userInfo["from"] else { return }
 
-    func ruleCheck() {
-        guard let openedCard = self.openedDeck.last else { return }
-        if openedCard.isDenominationA() {
-            self.foundationManager.stackUp(newCard: openedCard)
-        } else {
-            // check stacks
+        if (fromView as? CardDeckView) != nil {
+            let activatedCard = deckManager.currentOpenedCard()
+            if ruleChecker.isValidToMove(newCard: activatedCard) {
+                ruleChecker.sendCardToStackUp(newCard: activatedCard)
+                // gameDelegate는 activatedCard가 foundation으로 가야하는지 stack으로가야하는지 모르므로 ruleChecker에게 전달함
+                deckManager.removePoppedCard()
+            }
         }
+        if let from = (fromView as? OneStack) {
+            let column = from.column
+            guard let stackColumn = column else { return }
+            let activatedCard = stackManagers.lastCard(of: stackColumn)
 
+            if ruleChecker.isValidToMove(newCard: activatedCard) {
+                ruleChecker.sendCardToStackUp(newCard: activatedCard)
+                stackManagers.removePoppedCard(of: stackColumn)
+            }
+        }
     }
-
 
 }
 
