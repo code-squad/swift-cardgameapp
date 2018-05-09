@@ -83,7 +83,7 @@ class CardGameDelegate: CardGameManageable {
         guard let fromView = userInfo["from"] else { return }
 
         if (fromView as? CardDeckView) != nil {
-            let activatedCard = deckManager.lastOpenedCard()
+            let activatedCard = deckManager.lastOpenedCard()!
             if ruleChecker.isValidToMove(newCard: activatedCard) {
                 ruleChecker.sendCardToStackUp(newCard: activatedCard)
                 // gameDelegate는 activatedCard가 foundation으로 가야하는지 stack으로가야하는지 모르므로 ruleChecker에게 전달함

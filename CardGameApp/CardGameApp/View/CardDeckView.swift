@@ -23,6 +23,7 @@ class CardDeckView: UIView {
 
     convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: 414, height: 100))
+        self.deckManager = gameManager.getDeckDelegate()
     }
 
     func drawDefault() {
@@ -30,7 +31,6 @@ class CardDeckView: UIView {
         let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
         self.closedCardDeck = CardImageView(frame: frameForDraw)
         self.setGestureToCardDeck()
-        self.deckManager = gameManager.getDeckDelegate()
         if deckManager.hasEnoughCard() {
             closedCardDeck.getDeckImage()
             addSubview(closedCardDeck)
@@ -60,7 +60,7 @@ class CardDeckView: UIView {
         let pickedCardView = CardImageView(frame: frameForDraw)
         self.setDoubleTabToCard(to: pickedCardView)
 
-        let card = deckManager.lastOpenedCard()
+        guard let card = deckManager.lastOpenedCard() else { return }
         pickedCardView.getImage(of: card)
         addSubview(pickedCardView)
     }
@@ -85,6 +85,9 @@ class CardDeckView: UIView {
 
     func redraw() {
         // after double tapped
+        self.subviews.forEach{ $0.removeFromSuperview() }
+        drawDefault()
+        drawOpenDeck()
     }
 
 

@@ -20,8 +20,8 @@ class DeckDelegate {
         return deck.count() > 0
     }
 
-    func lastOpenedCard() -> Card {
-        return self.openedDeck.last!
+    func lastOpenedCard() -> Card? {
+        return self.openedDeck.last
     }
 
     func countOfDeck() -> Int {
