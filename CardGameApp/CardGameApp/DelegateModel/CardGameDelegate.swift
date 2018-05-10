@@ -102,6 +102,10 @@ class CardGameDelegate: CardGameManageable {
         }
     }
 
+    func shuffleDeck() {
+        deckManager.shuffleDeck()
+    }
+
 }
 
 

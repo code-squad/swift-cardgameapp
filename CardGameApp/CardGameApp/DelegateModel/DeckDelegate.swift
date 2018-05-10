@@ -43,4 +43,10 @@ class DeckDelegate {
         NotificationCenter.default.post(name: .deckUpdated, object: nil)
     }
 
+    func shuffleDeck() {
+        deck.shuffleDeck(with: openedDeck)
+        openedDeck = [Card]()
+        NotificationCenter.default.post(name: .deckUpdated, object: nil)
+    }
+
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var cardGameManager: CardGameManageable!
+    var cardGameManager: CardGameManageable = CardGameDelegate.shared()
 
     private var deckView: CardDeckView!
     private var stackView: CardStacksView!
@@ -109,12 +109,15 @@ class ViewController: UIViewController {
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            view.subviews.forEach() { $0.removeFromSuperview() }
-            self.cardGameManager = CardGameDelegate.restartSharedDeck()
-            self.initialView()
+            self.cardGameManager.shuffleDeck()
         }
     }
 
+    // MARK: Animation Related
+
+    @objc func currentOpenedDeckDoubleTapped(notification: Notification) {
+
+    }
 
 }
 

@@ -22,6 +22,7 @@ protocol CardGameManageable {
     func getDeckDelegate() -> DeckDelegate
     func getWholeStackDelegate() -> WholeStackDelegate
     func getFoundationDelegate() -> FoundationManageable
+    func shuffleDeck()
 }
 
 // MARK: RuleCheck Related

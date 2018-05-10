@@ -27,7 +27,11 @@ class CardDeck: CustomStringConvertible {
     func reset() -> CardDeck {
         return CardDeck()
     }
-    
+
+    func shuffleDeck(with cards: [Card]) {
+        self.cards += cards
+    }
+
     func shuffle() {
         var tempCards = self.cards
         var shuffledCards = [Card]()
