@@ -59,10 +59,6 @@ class CardGameDelegate: CardGameManageable {
         return self.stackManagers
     }
 
-//    func getStackDelegate(of column: Int) -> StackDelegate {
-//        return self.stackManagers.getStackDelegate(of: column)
-//    }
-
     func getFoundationDelegate() -> FoundationManageable {
         return self.foundationManager
     }

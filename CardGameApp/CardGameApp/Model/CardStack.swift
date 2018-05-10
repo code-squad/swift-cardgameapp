@@ -79,6 +79,24 @@ struct CardStack: CustomStringConvertible{
 
     mutating func pop() {
         self.cards.removeLast()
+        arrangeStack()
+    }
+
+    func arrangeStack() {
+        let lastIndex = self.cards.count - 1
+        for i in 0..<self.cards.count {
+            let cardInTurn = self.cards[i]
+            if cardInTurn.side == .back {
+                guard i == lastIndex else { continue }
+                cardInTurn.openLastCard()
+            } else {
+                guard i == lastIndex else {
+                    cardInTurn.turnOver()
+                    continue
+                }
+                cardInTurn.openLastCard()
+            }
+        }
     }
 
     func isEmpty() -> Bool {
