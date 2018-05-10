@@ -9,6 +9,7 @@
 import Foundation
 
 class CardGameDelegate: CardGameManageable {
+
     // MARK: Singleton Related
 
     private static var sharedCardDeck = CardGameDelegate()
@@ -54,9 +55,13 @@ class CardGameDelegate: CardGameManageable {
         return sharedCardDeck
     }
 
-    func getStackDelegate(of column: Int) -> StackDelegate {
-        return self.stackManagers.getStackDelegate(of: column)
+    func getWholeStackDelegate() -> WholeStackDelegate {
+        return self.stackManagers
     }
+
+//    func getStackDelegate(of column: Int) -> StackDelegate {
+//        return self.stackManagers.getStackDelegate(of: column)
+//    }
 
     func getFoundationDelegate() -> FoundationManageable {
         return self.foundationManager

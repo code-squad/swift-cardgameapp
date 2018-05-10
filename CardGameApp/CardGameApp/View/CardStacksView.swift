@@ -9,7 +9,9 @@
 import UIKit
 
 class CardStacksView: UIView {
-    var stackManager: CardGameManageable = CardGameDelegate.shared()
+    var gameManager: CardGameManageable = CardGameDelegate.shared()
+    var wholeStackManager: WholeStackDelegate!
+    var oneStackViews = [OneStack]()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,6 +21,7 @@ class CardStacksView: UIView {
     convenience init() {
         self.init(frame: CGRect(x: 0, y: PositionY.bottom.value,
                                 width: 414, height: 736 - PositionY.bottom.value))
+        self.wholeStackManager = gameManager.getWholeStackDelegate()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -27,34 +30,35 @@ class CardStacksView: UIView {
 
     func newDraw() {
         for i in 0...6 {
-            let oneStack = OneStack(column: i)
-            addSubview(oneStack)
-            oneStack.newDrawCards()
+            oneStackViews.append(OneStack(column: i, manager: wholeStackManager))
+            addSubview(oneStackViews[i])
+            oneStackViews[i].newDrawCards()
         }
     }
 
-    func redraw() {
-
+    func redraw(column: Int) {
+        oneStackViews[column].redraw()
     }
 
 }
 
 class OneStack: UIView {
     var column: Int!
-    var gameManager: CardGameManageable = CardGameDelegate.shared()
+    var wholeStackManager: WholeStackDelegate!
     var stackManager: StackDelegate!
 
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
 
-    convenience init(column: Int) {
+    convenience init(column: Int, manager: WholeStackDelegate) {
         self.init(frame: CGRect(x: PositionX.allValues[column].value,
                                 y: 0,
                                 width: 414 / 7,
                                 height: 736 - PositionY.bottom.value))
         self.column = column
-        self.stackManager = self.gameManager.getStackDelegate(of: column)
+        self.wholeStackManager = manager
+        self.stackManager = wholeStackManager.getStackDelegate(of: column)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -68,8 +72,30 @@ class OneStack: UIView {
             let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
             let cardImage = CardImageView(frame: frameForDraw)
             cardImage.getImage(of: card)
+            if i == stackManager.countOfCard() - 1 {
+                self.setDoubleTabToCard(to: cardImage)
+            }
             addSubview(cardImage)
         }
     }
+
+    func redraw() {
+        self.subviews.forEach{ $0.removeFromSuperview() }
+        newDrawCards()
+    }
+
+    private func setDoubleTabToCard(to card: CardImageView) {
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(cardDoubleTapped(sender:)))
+        doubleTap.numberOfTapsRequired = 2
+        card.addGestureRecognizer(doubleTap)
+    }
+
+    @objc func cardDoubleTapped(sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            let oneStackView = sender.view?.superview as! OneStack
+            NotificationCenter.default.post(name: .doubleTappedOpenedDeck, object: self, userInfo: ["from": oneStackView])
+        }
+    }
+
 }
 

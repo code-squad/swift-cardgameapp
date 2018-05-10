@@ -19,8 +19,9 @@ protocol ImageSelector {
 // MARK: CardGame Related
 
 protocol CardGameManageable {
-    func getStackDelegate(of column: Int) -> StackDelegate
     func getDeckDelegate() -> DeckDelegate
+    func getWholeStackDelegate() -> WholeStackDelegate
+    func getFoundationDelegate() -> FoundationManageable
 }
 
 // MARK: RuleCheck Related

@@ -55,6 +55,10 @@ class ViewController: UIViewController {
                                                selector: #selector(updateOpenDeck(notification: )),
                                                name: .openDeckUpdated,
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateStack),
+                                               name: .stackUpdated,
+                                               object: nil)
     }
 
     // MARK: ChangedView Related
@@ -67,8 +71,10 @@ class ViewController: UIViewController {
         self.deckView.redraw()
     }
 
-    @objc func updateStack() {
-        self.stackView.redraw()
+    @objc func updateStack(notification: Notification) {
+        guard let number = notification.object else { return }
+        guard let column = number as? Int else { return }
+        self.stackView.redraw(column: column)
     }
 
     @objc func updateOpenDeck(notification: Notification) {

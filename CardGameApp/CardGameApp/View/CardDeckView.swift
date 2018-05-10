@@ -78,7 +78,6 @@ class CardDeckView: UIView {
     @objc func cardDoubleTapped(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             let deckview = sender.view?.superview as! CardDeckView
-            print(String(describing: deckview))
             NotificationCenter.default.post(name: .doubleTappedOpenedDeck, object: self, userInfo: ["from": deckview])
         }
     }

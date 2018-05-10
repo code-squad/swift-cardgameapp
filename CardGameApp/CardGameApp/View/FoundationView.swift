@@ -9,7 +9,7 @@
 import UIKit
 
 class FoundationView: UIView {
-    let gameManager = CardGameDelegate.shared()
+    let gameManager: CardGameManageable = CardGameDelegate.shared()
     var foundationManager: FoundationManageable!
     let numberOfFoundation = 4
 

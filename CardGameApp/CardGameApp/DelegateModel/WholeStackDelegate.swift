@@ -32,12 +32,10 @@ class WholeStackDelegate: Stackable {
             stack.stackUp(newCard: newCard)
             break
         }
-        //noti보내기 to VC
     }
 
     func removePoppedCard(of column: Int) {
         stackManagers[column].removePoppedCard()
-        //noti보내기 to VC
     }
 
     func lastCard(of column: Int) -> Card {
