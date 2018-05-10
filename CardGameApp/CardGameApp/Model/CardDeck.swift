@@ -86,7 +86,6 @@ class CardDeck: CustomStringConvertible {
 
 }
 
-
 extension CardDeck {
     
     enum Suit: String, EnumCollection, Comparable, CustomStringConvertible {
@@ -107,8 +106,9 @@ extension CardDeck {
         }
 
         static func ==(lhs: CardDeck.Suit, rhs: CardDeck.Suit) -> Bool {
-            return lhs.description == rhs.description
+            return lhs.hashValue == rhs.hashValue
         }
+
     }
     
     enum Denomination: Int, CustomStringConvertible, EnumCollection, Comparable {

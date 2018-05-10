@@ -68,10 +68,10 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
 
     func isSameSuit(next: Card) -> Bool {
         return self.suit == next.suit
-    } // isSameColor
+    }
 
     func isColorDifferent(with next: Card) -> Bool {
-        return self.suit != next.suit
+        return self.suit.description != next.suit.description
     }
 
     func isOnePointSmaller(than next: Card) -> Bool  {
@@ -118,7 +118,7 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
     // stack에서
 
     func isLower(than nextCard: Card) -> Bool {
-        return isColorDifferent(with: nextCard) && isOnePointSmaller(than: nextCard)
+        return isSameSuit(next: nextCard) && isOnePointSmaller(than: nextCard)
     }
     // foundation에서
 
