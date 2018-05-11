@@ -23,15 +23,16 @@ class WholeStackDelegate: Stackable {
         return self.stackManagers[column]
     }
 
-    func isStackable(nextCard card: Card) -> [Bool] {
-        return stackManagers.map{ $0.isStackable(nextCard: card) }
-    }
-
-    func stackUp(newCard: Card) {
-        for stack in stackManagers where stack.isStackable(nextCard: newCard) {
-            stack.stackUp(newCard: newCard)
-            break
+    func newStackable(nextCard card: Card) -> Int? {
+        for i in 0..<stackManagers.count {
+            guard stackManagers[i].isStackable(nextCard: card) else { continue }
+            return i
         }
+        return nil
+    } // 가능한 스택의 column리턴
+
+    func newStackUp(newCard: Card, column: Int) {
+        stackManagers[column].stackUp(newCard: newCard)
     }
 
     func removePoppedCard(of column: Int) {

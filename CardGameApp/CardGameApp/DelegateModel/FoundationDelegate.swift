@@ -9,9 +9,9 @@
 import Foundation
 
 protocol FoundationManageable {
-    func stackUp(newCard: Card)
     func cardInTurn(at:(column: Int, row: Int)) -> Card
     func countOfCards(of: Int) -> Int
+    func newStackUp(newCard: Card, column: Int)
 }
 
 
@@ -29,51 +29,42 @@ class FoundationDelegate: FoundationManageable, Stackable {
         }
     }
 
-    func isStackable(nextCard card: Card) -> [Bool] {
+//    func isStackable(nextCard card: Card) -> [Bool] {
+//        if card.isDenominationA() {
+//            return self.foundations.map{ $0.isEmpty() }
+//        } else {
+//            var result = [Bool]()
+//            for foundation in foundations where foundation.isEmpty() {
+//                result.append(false)
+//            }
+//            for foundation in foundations where !foundation.isEmpty() {
+//                result.append(foundation.last()!.isLower(than: card))
+//            }
+//            return result
+//        }
+//    }
+
+    func newStackable(nextCard card: Card) -> Int? {
         if card.isDenominationA() {
-            return self.foundations.map{ $0.isEmpty() }
+            for i in FoundationDelegate.range where foundations[i].isEmpty() {
+                return i
+            }
         } else {
-            var result = [Bool]()
-            for foundation in foundations where foundation.isEmpty() {
-                result.append(false)
+            for i in FoundationDelegate.range where !foundations[i].isEmpty() {
+                if foundations[i].last()!.isLower(than: card) {
+                    return i
+                }
             }
-            for foundation in foundations where !foundation.isEmpty() {
-                result.append(foundation.last()!.isLower(than: card))
-            }
-            return result
         }
+        return nil
     }
 
-    func stackUp(newCard: Card) {
-        if newCard.isDenominationA() {
-            self.pushAce(newCard: newCard)
-        } else {
-            self.push(newCard: newCard)
-        }
-        updateFoundationView()
+    func newStackUp(newCard: Card, column: Int) {
+        foundations[column].push(newCard: newCard)
     }
 
     private func updateFoundationView() {
         NotificationCenter.default.post(name: .foundationUpdated, object: nil)
-    }
-
-    private func push(newCard: Card) {
-        for i in FoundationDelegate.range where foundations[i].isEmpty() {
-            continue
-        }
-        for i in FoundationDelegate.range where !foundations[i].isEmpty() {
-            guard foundations[i].last()!.isLower(than: newCard) else { continue }
-            foundations[i].push(newCard: newCard)
-            break
-        }
-    }
-
-    private func pushAce(newCard: Card) {
-        for i in FoundationDelegate.range {
-            guard self.foundations[i].isEmpty() else { continue }
-            self.foundations[i].push(newCard: newCard)
-            break
-        }
     }
 
     func countOfCards(of column: Int) -> Int {

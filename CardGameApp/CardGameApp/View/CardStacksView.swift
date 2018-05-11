@@ -40,12 +40,20 @@ class CardStacksView: UIView {
         oneStackViews[column].redraw()
     }
 
+    func getOneStack(of column: Int) -> OneStack{
+        return self.oneStackViews[column]
+    }
+
 }
 
 class OneStack: UIView {
     var column: Int!
     var wholeStackManager: WholeStackDelegate!
     var stackManager: StackDelegate!
+    var lastCardView: CardImageView? {
+        guard let lastView = subviews.last else { return nil }
+        return lastView as? CardImageView
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -93,7 +101,7 @@ class OneStack: UIView {
     @objc func cardDoubleTapped(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             let oneStackView = sender.view?.superview as! OneStack
-            NotificationCenter.default.post(name: .doubleTappedOpenedDeck, object: self, userInfo: ["from": oneStackView])
+            NotificationCenter.default.post(name: .doubleTappedStack, object: self, userInfo: ["from": oneStackView])
         }
     }
 

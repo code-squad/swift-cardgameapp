@@ -23,11 +23,15 @@ protocol CardGameManageable {
     func getWholeStackDelegate() -> WholeStackDelegate
     func getFoundationDelegate() -> FoundationManageable
     func shuffleDeck()
+    func movableFromDeck(from: ViewKey) -> (to: ViewKey, index: Int?)
+    func movableFromStack(from: ViewKey, column: Int) -> (to: ViewKey, index: Int?)
+    func popOpenDeck()
+    func popStack(column: Int)
 }
 
 // MARK: RuleCheck Related
 
 protocol Stackable {
-    func isStackable(nextCard card: Card) -> [Bool]
-    func stackUp(newCard: Card)
+    func newStackable(nextCard card: Card) -> Int?
+    func newStackUp(newCard: Card, column: Int)
 }

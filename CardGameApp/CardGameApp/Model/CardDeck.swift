@@ -30,6 +30,7 @@ class CardDeck: CustomStringConvertible {
 
     func shuffleDeck(with cards: [Card]) {
         self.cards += cards
+        shuffle()
     }
 
     func shuffle() {

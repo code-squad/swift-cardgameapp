@@ -112,14 +112,14 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
         }
     }
 
+    // stack rule
     func isHigher(than nextCard: Card) -> Bool {
         return isColorDifferent(with: nextCard) && isOnePointBigger(than: nextCard)
     }
-    // stack에서
 
+    // foundation rule
     func isLower(than nextCard: Card) -> Bool {
         return isSameSuit(next: nextCard) && isOnePointSmaller(than: nextCard)
     }
-    // foundation에서
 
 }

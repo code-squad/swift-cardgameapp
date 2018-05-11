@@ -41,7 +41,6 @@ class StackDelegate {
             newCard.turnOver()
         }
         self.stack.push(newCard: newCard)
-        NotificationCenter.default.post(name: .stackUpdated, object: self.column)
     }
 
     func countOfCard() -> Int {
@@ -54,7 +53,6 @@ class StackDelegate {
 
     func removePoppedCard() {
         self.stack.pop()
-        NotificationCenter.default.post(name: .stackUpdated, object: self.column)
     }
 }
 

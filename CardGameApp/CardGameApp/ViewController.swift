@@ -39,25 +39,27 @@ class ViewController: UIViewController {
     }
 
     private func setNotification() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateFoundations),
-                                               name: .foundationUpdated,
-                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(updateFoundations),
+//                                               name: .foundationUpdated,
+//                                               object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateDeck),
                                                name: .deckUpdated,
                                                object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateDeck),
-                                               name: .stackUpdated,
-                                               object: nil)
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateOpenDeck(notification: )),
                                                name: .openDeckUpdated,
                                                object: nil)
+
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateStack),
-                                               name: .stackUpdated,
+                                               selector: #selector(deckViewDidDoubleTap(notification:)),
+                                               name: .doubleTappedOpenedDeck,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(stackViewDidDoubleTap(notification:)),
+                                               name: .doubleTappedStack,
                                                object: nil)
     }
 
@@ -115,8 +117,116 @@ class ViewController: UIViewController {
 
     // MARK: Animation Related
 
-    @objc func currentOpenedDeckDoubleTapped(notification: Notification) {
+    // from deck view to foundation || stack view
+    @objc func deckViewDidDoubleTap(notification: Notification) {
+        guard let userInfo = notification.userInfo else {return}
+        guard let from = userInfo["from"] else { return }
 
+        if let fromView = from as? CardDeckView {
+            let targetCard = deckView.lastCardView!
+
+            let result = cardGameManager.movableFromDeck(from: .deck)
+            let toView = result.to
+            guard let toIndex = result.index else { return } // toIndex가 옵셔널이 풀리면서 이미 룰 체크 완료
+
+            let fromFrame = frameCalculator(view: .deck, index: 0)
+
+            let toFrame = frameCalculator(view: toView, index: toIndex)
+            let moveTo = (x: toFrame.x - fromFrame.x,
+                          y: toFrame.y - fromFrame.y)
+            // 모델변화
+            let popCard = cardGameManager.getDeckDelegate().lastOpenedCard()!
+            if toView == .foundation {
+                cardGameManager.getFoundationDelegate().newStackUp(newCard: popCard, column: toIndex)
+            }
+            if toView == .stack {
+                cardGameManager.getWholeStackDelegate().newStackUp(newCard: popCard, column: toIndex)
+            }
+            cardGameManager.popOpenDeck() // deck의 마지막카드 제거
+            UIView.animate(
+                withDuration: 1.0,
+                animations: {
+                    targetCard.layer.zPosition = 1
+                    targetCard.frame.origin.x += moveTo.x
+                    targetCard.frame.origin.y += moveTo.y
+            },
+                completion: { _ in
+                    self.foundationView.redraw()
+                    self.deckView.redraw()
+                    self.stackView.redraw(column: toIndex)
+                    targetCard.removeFromSuperview()
+            })
+        } else {
+            return
+        }
+    }
+
+    @objc func stackViewDidDoubleTap(notification: Notification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let from = userInfo["from"] else { return }
+
+        if let fromView = from as? OneStack {
+            let fromIndex = fromView.column!
+            let targetCard = fromView.lastCardView!
+
+            let result = cardGameManager.movableFromStack(from: .fromStack, column: fromIndex)
+            let toView = result.to
+            guard let toIndex = result.index else { return }
+
+            let fromFrame = frameCalculator(view: .fromStack, index: fromIndex)
+            let toFrame = frameCalculator(view: toView, index: toIndex)
+
+            let moveTo = (x: toFrame.x - fromFrame.x,
+                          y: toFrame.y - fromFrame.y)
+            // 모델 변화(movable~ 메소드로 이미 룰 체킹됨)
+            let popCard = cardGameManager.getWholeStackDelegate().getStackDelegate(of: fromIndex).currentLastCard()
+            cardGameManager.getWholeStackDelegate().getStackDelegate(of: fromIndex).removePoppedCard() //stack의 마지막카드제거
+            if toView == .foundation {
+                cardGameManager.getFoundationDelegate().newStackUp(newCard: popCard, column: toIndex)
+            }
+            if toView == .stack {
+                cardGameManager.getWholeStackDelegate().newStackUp(newCard: popCard, column: toIndex)
+            }
+
+
+            UIView.animate(
+                withDuration: 1.0,
+                animations: {
+                    targetCard.layer.zPosition = 1
+                    targetCard.frame.origin.x += moveTo.x
+                    targetCard.frame.origin.y += moveTo.y
+                },
+                completion: { _ in
+                    targetCard.removeFromSuperview()
+                    self.foundationView.redraw()
+                    self.deckView.redraw()
+                    self.stackView.redraw(column: fromIndex)
+                    self.stackView.redraw(column: toIndex)
+                })
+        } else {
+            return
+        }
+    }
+
+    private func frameCalculator(view: ViewKey, index: Int) -> CGPoint {
+        switch view {
+        case .foundation:
+            return CGPoint(x: PositionX.allValues[index].value,
+                           y: PositionY.upper.value)
+        case .fromStack:
+            let newY = PositionY.bottom.value + (ViewController.spaceY * CGFloat(cardGameManager.getWholeStackDelegate().getStackDelegate(of: index).countOfCard()-1))
+            return CGPoint(x: PositionX.allValues[index].value,
+                           y: newY)
+
+        case .stack:
+            let newY = PositionY.bottom.value + (ViewController.spaceY * CGFloat(cardGameManager.getWholeStackDelegate().getStackDelegate(of: index).countOfCard()))
+            return CGPoint(x: PositionX.allValues[index].value,
+                           y: newY)
+
+        case .deck:
+            return CGPoint(x: PositionX.sixth.value,
+                            y: PositionY.upper.value)
+        }
     }
 
 }

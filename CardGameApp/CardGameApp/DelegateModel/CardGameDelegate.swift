@@ -26,10 +26,7 @@ class CardGameDelegate: CardGameManageable {
         self.foundationManager = FoundationDelegate()
         self.deckManager = DeckDelegate(deck: self.cardDeck)
 
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(currentOpenedDeckDoubleTapped),
-                                               name: .doubleTappedOpenedDeck,
-                                               object: nil)
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(closedDeckTapped),
                                                name: .singleTappedClosedDeck,
@@ -76,36 +73,40 @@ class CardGameDelegate: CardGameManageable {
     private var foundationManager: (FoundationManageable & Stackable)!
     private var deckManager: DeckDelegate!
 
-    @objc func currentOpenedDeckDoubleTapped(notification: Notification) {
-        let ruleChecker = RuleChecker(foundationManager: foundationManager,
-                                      stackManagers: stackManagers)
-        guard let userInfo = notification.userInfo else {return}
-        guard let fromView = userInfo["from"] else { return }
-
-        if (fromView as? CardDeckView) != nil {
-            let activatedCard = deckManager.lastOpenedCard()!
-            if ruleChecker.isValidToMove(newCard: activatedCard) {
-                ruleChecker.sendCardToStackUp(newCard: activatedCard)
-                // gameDelegate는 activatedCard가 foundation으로 가야하는지 stack으로가야하는지 모르므로 ruleChecker에게 전달함
-                deckManager.removePoppedCard()
-            }
-        }
-        if let from = (fromView as? OneStack) {
-            let column = from.column
-            guard let stackColumn = column else { return }
-            let activatedCard = stackManagers.lastCard(of: stackColumn)
-
-            if ruleChecker.isValidToMove(newCard: activatedCard) {
-                ruleChecker.sendCardToStackUp(newCard: activatedCard)
-                stackManagers.removePoppedCard(of: stackColumn)
-            }
-        }
-    }
-
     func shuffleDeck() {
         deckManager.shuffleDeck()
     }
 
-}
+    func popOpenDeck() {
+        deckManager.removePoppedCard()
+    }
 
+    func popStack(column: Int) {
+        let activatedCard = stackManagers.lastCard(of: column)
+        stackManagers.removePoppedCard(of: column)
+    }
+
+    func newRuleCheck(card: Card) -> (to: ViewKey, index: Int?) {
+        if let tofoundationIndex = foundationManager.newStackable(nextCard: card) {
+            return (to: .foundation, index: tofoundationIndex)
+        }
+        else if let toStackIndex = stackManagers.newStackable(nextCard: card) {
+            return (to: .stack, index: toStackIndex)
+        } else {
+            return (to: .deck, index: nil)
+        }
+    }
+
+    func movableFromDeck(from: ViewKey) -> (to: ViewKey, index: Int?) {
+        guard from == .deck else { return (to: .deck, index: nil) }
+        guard let newCard = deckManager.lastOpenedCard() else { return(to: .deck, index: nil) }
+        return newRuleCheck(card: newCard)
+    }
+
+    func movableFromStack(from: ViewKey, column: Int) -> (to: ViewKey, index: Int?) {
+        guard from == .fromStack else { return(to: .fromStack, index: nil) }
+        let newCard = stackManagers.lastCard(of: column)
+        return newRuleCheck(card: newCard)
+    }
+}
 

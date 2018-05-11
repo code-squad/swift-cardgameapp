@@ -55,3 +55,10 @@ enum StackTable: Int {
     case seventh
 }
 
+enum ViewKey {
+    case deck
+    case stack
+    case fromStack
+    case foundation
+}
+
