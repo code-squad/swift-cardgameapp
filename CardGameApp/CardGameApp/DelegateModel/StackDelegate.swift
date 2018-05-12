@@ -8,7 +8,8 @@
 
 import Foundation
 
-class StackDelegate {
+class StackDelegate: StackManageable {
+
     private static var stackDelegates = [StackDelegate]()
 
     private var lastCard: Card? {
@@ -26,7 +27,7 @@ class StackDelegate {
         return self.lastCard!
     }
 
-    // 다음에 오는 카드(더블탭된 카드)가 숫자가 연속되고 색깔이 다른지 판단
+    // 다음에 오는 카드가 숫자가 연속되고 색깔이 다른지 판단
     // 만약 스택이 비었다면, 첫번째 오는 카드가 K인지 판단
     func isStackable(nextCard: Card) -> Bool {
         if let last = self.lastCard {

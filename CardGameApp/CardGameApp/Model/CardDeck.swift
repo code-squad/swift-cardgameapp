@@ -8,12 +8,9 @@
 
 import Foundation
 
-class CardDeck: CustomStringConvertible {
+class CardDeck {
     private var cards = [Card]()
-    var description: String {
-        return "총 \(self.cards.count)장의 카드가 남아있습니다.\n"
-    }
-    
+
     init() {
         var cards = [Card]()
         for shape in Suit.allValues {
@@ -58,10 +55,6 @@ class CardDeck: CustomStringConvertible {
 
     func count() -> Int {
         return self.cards.count
-    }
-    
-    func makeShuffleMessage() -> String {
-        return "전체 \(self.cards.count)장의 카드를 섞었습니다.\n"
     }
 
     func makeCards(_ countOfCards: Int) -> [Card] {

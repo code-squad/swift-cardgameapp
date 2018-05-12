@@ -52,15 +52,15 @@ class CardGameDelegate: CardGameManageable {
         return sharedCardDeck
     }
 
-    func getWholeStackDelegate() -> WholeStackDelegate {
+    func getWholeStackDelegate() -> (CardStackManageable & Stackable) {
         return self.stackManagers
     }
 
-    func getFoundationDelegate() -> FoundationManageable {
+    func getFoundationDelegate() -> (FoundationManageable & Stackable) {
         return self.foundationManager
     }
 
-    func getDeckDelegate() -> DeckDelegate {
+    func getDeckDelegate() -> CardDeckManageable {
         return self.deckManager
     }
 
@@ -69,9 +69,9 @@ class CardGameDelegate: CardGameManageable {
     static let defaultStackRange: CountableClosedRange = 1...7
     static let defaultStackNumber: Int = 7
     private var cardDeck = CardDeck()
-    private var stackManagers: (WholeStackDelegate & Stackable)!
+    private var stackManagers: (CardStackManageable & Stackable)!
     private var foundationManager: (FoundationManageable & Stackable)!
-    private var deckManager: DeckDelegate!
+    private var deckManager: CardDeckManageable!
 
     func shuffleDeck() {
         deckManager.shuffleDeck()
@@ -87,10 +87,10 @@ class CardGameDelegate: CardGameManageable {
     }
 
     func newRuleCheck(card: Card) -> (to: ViewKey, index: Int?) {
-        if let tofoundationIndex = foundationManager.newStackable(nextCard: card) {
+        if let tofoundationIndex = foundationManager.stackable(nextCard: card) {
             return (to: .foundation, index: tofoundationIndex)
         }
-        else if let toStackIndex = stackManagers.newStackable(nextCard: card) {
+        else if let toStackIndex = stackManagers.stackable(nextCard: card) {
             return (to: .stack, index: toStackIndex)
         } else {
             return (to: .deck, index: nil)

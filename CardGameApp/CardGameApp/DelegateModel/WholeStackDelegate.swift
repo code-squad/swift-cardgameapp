@@ -8,22 +8,22 @@
 
 import Foundation
 
-class WholeStackDelegate: Stackable {
-    var stackManagers: [StackDelegate]!
+class WholeStackDelegate: CardStackManageable,Stackable {
+    var stackManagers: [StackManageable]!
 
     init(stacks: [CardStack]) {
-        var stackManagers = [StackDelegate]()
+        var stackManagers = [StackManageable]()
         for i in 0..<stacks.count {
             stackManagers.append(StackDelegate(oneStack: stacks[i], column: i))
         }
         self.stackManagers = stackManagers
     }
 
-    func getStackDelegate(of column: Int) -> StackDelegate {
+    func getStackDelegate(of column: Int) -> StackManageable {
         return self.stackManagers[column]
     }
 
-    func newStackable(nextCard card: Card) -> Int? {
+    func stackable(nextCard card: Card) -> Int? {
         for i in 0..<stackManagers.count {
             guard stackManagers[i].isStackable(nextCard: card) else { continue }
             return i
@@ -31,7 +31,7 @@ class WholeStackDelegate: Stackable {
         return nil
     } // 가능한 스택의 column리턴
 
-    func newStackUp(newCard: Card, column: Int) {
+    func stackUp(newCard: Card, column: Int) {
         stackManagers[column].stackUp(newCard: newCard)
     }
 

@@ -8,12 +8,9 @@
 
 import Foundation
 
-struct CardStack: CustomStringConvertible{
+struct CardStack {
 
     private var cards = [Card]()
-    var description: String {
-        return cards.description
-    }
 
     init() { } //empty stack
 
@@ -34,10 +31,6 @@ struct CardStack: CustomStringConvertible{
                 cardInTurn.openLastCard()
             }
         }
-    }
-
-    func getCards() -> [Card] {
-        return self.cards
     }
 
     enum SortOrder {

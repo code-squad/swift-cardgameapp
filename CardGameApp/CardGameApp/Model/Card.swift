@@ -78,10 +78,6 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
         return self.denomination.isDescending(next: next.denomination)
     }
 
-    func weightedScore() -> Int {
-        return self.denomination.rawValue
-    }
-
     func shape() -> CardDeck.Suit{
         return self.suit
     }

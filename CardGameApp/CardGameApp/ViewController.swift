@@ -39,10 +39,6 @@ class ViewController: UIViewController {
     }
 
     private func setNotification() {
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(updateFoundations),
-//                                               name: .foundationUpdated,
-//                                               object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateDeck),
                                                name: .deckUpdated,
@@ -134,13 +130,14 @@ class ViewController: UIViewController {
             let toFrame = frameCalculator(view: toView, index: toIndex)
             let moveTo = (x: toFrame.x - fromFrame.x,
                           y: toFrame.y - fromFrame.y)
-            // 모델변화
+
             let popCard = cardGameManager.getDeckDelegate().lastOpenedCard()!
             if toView == .foundation {
-                cardGameManager.getFoundationDelegate().newStackUp(newCard: popCard, column: toIndex)
+                let foundationManager: Stackable = cardGameManager.getFoundationDelegate() as! Stackable
+                foundationManager.stackUp(newCard: popCard, column: toIndex)
             }
             if toView == .stack {
-                cardGameManager.getWholeStackDelegate().newStackUp(newCard: popCard, column: toIndex)
+                cardGameManager.getWholeStackDelegate().stackUp(newCard: popCard, column: toIndex)
             }
             cardGameManager.popOpenDeck() // deck의 마지막카드 제거
             UIView.animate(
@@ -178,14 +175,18 @@ class ViewController: UIViewController {
 
             let moveTo = (x: toFrame.x - fromFrame.x,
                           y: toFrame.y - fromFrame.y)
-            // 모델 변화(movable~ 메소드로 이미 룰 체킹됨)
+
             let popCard = cardGameManager.getWholeStackDelegate().getStackDelegate(of: fromIndex).currentLastCard()
             cardGameManager.getWholeStackDelegate().getStackDelegate(of: fromIndex).removePoppedCard() //stack의 마지막카드제거
+
             if toView == .foundation {
-                cardGameManager.getFoundationDelegate().newStackUp(newCard: popCard, column: toIndex)
+                let foundationManager: Stackable = cardGameManager.getFoundationDelegate() as! Stackable
+                foundationManager.stackUp(newCard: popCard, column: toIndex)
             }
+
             if toView == .stack {
-                cardGameManager.getWholeStackDelegate().newStackUp(newCard: popCard, column: toIndex)
+                let stacksManger: Stackable = cardGameManager.getWholeStackDelegate() as Stackable
+                stacksManger.stackUp(newCard: popCard, column: toIndex)
             }
 
 

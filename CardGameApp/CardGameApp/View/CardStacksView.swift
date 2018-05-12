@@ -10,7 +10,7 @@ import UIKit
 
 class CardStacksView: UIView {
     var gameManager: CardGameManageable = CardGameDelegate.shared()
-    var wholeStackManager: WholeStackDelegate!
+    var wholeStackManager: (CardStackManageable & Stackable)!
     var oneStackViews = [OneStack]()
 
     override init(frame: CGRect) {
@@ -48,8 +48,8 @@ class CardStacksView: UIView {
 
 class OneStack: UIView {
     var column: Int!
-    var wholeStackManager: WholeStackDelegate!
-    var stackManager: StackDelegate!
+    var wholeStackManager: (CardStackManageable & Stackable)!
+    var stackManager: StackManageable!
     var lastCardView: CardImageView? {
         guard let lastView = subviews.last else { return nil }
         return lastView as? CardImageView
@@ -59,7 +59,7 @@ class OneStack: UIView {
         super.init(frame: frame)
     }
 
-    convenience init(column: Int, manager: WholeStackDelegate) {
+    convenience init(column: Int, manager: CardStackManageable & Stackable) {
         self.init(frame: CGRect(x: PositionX.allValues[column].value,
                                 y: 0,
                                 width: 414 / 7,

@@ -8,13 +8,6 @@
 
 import Foundation
 
-protocol FoundationManageable {
-    func cardInTurn(at:(column: Int, row: Int)) -> Card
-    func countOfCards(of: Int) -> Int
-    func newStackUp(newCard: Card, column: Int)
-}
-
-
 class FoundationDelegate: FoundationManageable, Stackable {
 
     static let range: CountableRange = 0..<4
@@ -29,22 +22,7 @@ class FoundationDelegate: FoundationManageable, Stackable {
         }
     }
 
-//    func isStackable(nextCard card: Card) -> [Bool] {
-//        if card.isDenominationA() {
-//            return self.foundations.map{ $0.isEmpty() }
-//        } else {
-//            var result = [Bool]()
-//            for foundation in foundations where foundation.isEmpty() {
-//                result.append(false)
-//            }
-//            for foundation in foundations where !foundation.isEmpty() {
-//                result.append(foundation.last()!.isLower(than: card))
-//            }
-//            return result
-//        }
-//    }
-
-    func newStackable(nextCard card: Card) -> Int? {
+    func stackable(nextCard card: Card) -> Int? {
         if card.isDenominationA() {
             for i in FoundationDelegate.range where foundations[i].isEmpty() {
                 return i
@@ -59,7 +37,7 @@ class FoundationDelegate: FoundationManageable, Stackable {
         return nil
     }
 
-    func newStackUp(newCard: Card, column: Int) {
+    func stackUp(newCard: Card, column: Int) {
         foundations[column].push(newCard: newCard)
     }
 
