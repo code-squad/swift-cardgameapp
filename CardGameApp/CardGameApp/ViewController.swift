@@ -31,10 +31,10 @@ class ViewController: UIViewController {
     }
 
     private func initialView() {
-        newFoundation()
+        drawFoundation()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
-        newDeck()
-        newStacks()
+        drawDeck()
+        drawStacks()
         setNotification()
     }
 
@@ -61,18 +61,8 @@ class ViewController: UIViewController {
 
     // MARK: ChangedView Related
 
-    @objc func updateFoundations() {
-        self.foundationView.redraw()
-    }
-
     @objc func updateDeck() {
         self.deckView.redraw()
-    }
-
-    @objc func updateStack(notification: Notification) {
-        guard let number = notification.object else { return }
-        guard let column = number as? Int else { return }
-        self.stackView.redraw(column: column)
     }
 
     @objc func updateOpenDeck(notification: Notification) {
@@ -85,19 +75,19 @@ class ViewController: UIViewController {
 
     // MARK: InitialView Related
 
-    private func newDeck() {
+    private func drawDeck() {
         self.deckView = CardDeckView()
         self.view.addSubview(deckView)
         deckView.drawDefault()
     }
 
-    private func newFoundation() {
+    private func drawFoundation() {
         self.foundationView = FoundationView()
         self.view.addSubview(foundationView)
         foundationView.drawDefault()
     }
 
-    private func newStacks() {
+    private func drawStacks() {
         self.stackView = CardStacksView()
         self.view.addSubview(stackView)
         stackView.newDraw()
@@ -108,7 +98,8 @@ class ViewController: UIViewController {
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             self.cardGameManager.shuffleDeck()
-        }
+        } // 모델 변경
+        self.deckView.resetByShake()
     }
 
     // MARK: Animation Related

@@ -34,7 +34,7 @@ class CardDeckView: UIView {
         let newOrigin = CGPoint(x: PositionX.seventh.value, y: PositionY.upper.value)
         let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
         self.closedCardDeck = CardImageView(frame: frameForDraw)
-        self.setGestureToCardDeck()
+        self.setTapGestureToCardDeck()
         if deckManager.hasEnoughCard() {
             closedCardDeck.getDeckImage()
             addSubview(closedCardDeck)
@@ -46,7 +46,7 @@ class CardDeckView: UIView {
 
     // MARK: Tap Gesture Related
 
-    private func setGestureToCardDeck() {
+    private func setTapGestureToCardDeck() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(deckTapped(sender:)))
         self.closedCardDeck.addGestureRecognizer(tap)
     }
@@ -87,7 +87,7 @@ class CardDeckView: UIView {
     }
 
     func redraw() {
-        // after double tapped
+        // after double tapped?
         self.subviews.forEach{ $0.removeFromSuperview() }
         drawDefault()
         drawOpenDeck()
@@ -98,5 +98,9 @@ class CardDeckView: UIView {
         return closedCardDeck
     }
 
+    func resetByShake() {
+        self.subviews.forEach{ $0.removeFromSuperview() }
+        drawDefault()
+    }
 
 }

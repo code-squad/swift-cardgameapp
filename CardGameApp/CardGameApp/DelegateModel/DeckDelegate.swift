@@ -43,9 +43,9 @@ class DeckDelegate: CardDeckManageable {
     }
 
     func shuffleDeck() {
+        openedDeck.forEach{ $0.turnOver() } // openedDeck안의 카드 상태를 전부 다시 closed로 만들어줌
         deck.shuffleDeck(with: openedDeck)
         openedDeck = [Card]()
-//        NotificationCenter.default.post(name: .deckUpdated, object: nil)
     }
 
 }
