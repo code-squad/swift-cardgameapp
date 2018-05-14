@@ -150,7 +150,7 @@ class ViewController: UIViewController {
         guard let userInfo = notification.userInfo else { return }
         guard let from = userInfo["from"] else { return }
         guard let fromView = from as? OneStack else { return }
-        let fromIndex = fromView.column!
+        let fromIndex = fromView.getColumn()
         let targetCard = fromView.lastCardView!
 
         let result = cardGameManager.movableFromStack(from: .fromStack, column: fromIndex)

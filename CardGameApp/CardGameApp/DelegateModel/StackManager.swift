@@ -9,14 +9,12 @@
 import Foundation
 
 class StackManager: StackDelegate {
-
     private static var stackDelegates = [StackManager]()
-
+    private var column: Int!
+    private var stack: CardStack!
     private var lastCard: Card? {
         return self.stack.last()
     }
-    private var column: Int!
-    private var stack: CardStack!
 
     init(oneStack: CardStack, column: Int) {
         self.stack = oneStack

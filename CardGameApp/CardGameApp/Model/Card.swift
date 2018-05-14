@@ -34,7 +34,7 @@ class Card: CustomStringConvertible, Comparable, Hashable, ImageSelector {
         }
     }
 
-    var backImage = "card-back"
+    let backImage = "card-back"
 
     var frontImage: String {
         var shape = ""

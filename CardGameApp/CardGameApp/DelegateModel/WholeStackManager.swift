@@ -9,7 +9,7 @@
 import Foundation
 
 class WholeStackManager: CardStackDelegate,Stackable {
-    var stackManagers: [StackDelegate]!
+    private var stackManagers: [StackDelegate]!
 
     init(stacks: [CardStack]) {
         var stackManagers = [StackDelegate]()

@@ -9,9 +9,9 @@
 import UIKit
 
 class FoundationView: UIView {
-    let gameManager: CardGameDelegate = CardGameManager.shared()
-    var foundationManager: FoundationDelegate!
-    let numberOfFoundation = 4
+    private let gameManager: CardGameDelegate = CardGameManager.shared()
+    private var foundationManager: FoundationDelegate!
+    private let numberOfFoundation = 4
 
     override init(frame: CGRect) {
         super.init(frame: frame)

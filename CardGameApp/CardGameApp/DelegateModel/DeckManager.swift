@@ -9,8 +9,8 @@
 import Foundation
 
 class DeckManager: CardDeckDelegate {
-    var deck: CardDeck!
-    var openedDeck = [Card]()
+    private var deck: CardDeck!
+    private var openedDeck = [Card]()
 
     init(deck: CardDeck) {
         self.deck = deck

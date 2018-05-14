@@ -9,9 +9,8 @@
 import UIKit
 
 class CardStacksView: UIView {
-    var gameManager: CardGameDelegate = CardGameManager.shared()
-    var wholeStackManager: (CardStackDelegate & Stackable)!
-    var oneStackViews = [OneStack]()
+    private var wholeStackManager: (CardStackDelegate & Stackable)!
+    private var oneStackViews = [OneStack]()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +20,7 @@ class CardStacksView: UIView {
     convenience init() {
         self.init(frame: CGRect(x: 0, y: PositionY.bottom.value,
                                 width: 414, height: 736 - PositionY.bottom.value))
-        self.wholeStackManager = gameManager.getWholeStackDelegate()
+        self.wholeStackManager = CardGameManager.shared().getWholeStackDelegate()
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -47,9 +46,9 @@ class CardStacksView: UIView {
 }
 
 class OneStack: UIView {
-    var column: Int!
-    var wholeStackManager: (CardStackDelegate & Stackable)!
-    var stackManager: StackDelegate!
+    private var column: Int!
+    private var wholeStackManager: (CardStackDelegate & Stackable)!
+    private var stackManager: StackDelegate!
     var lastCardView: CardImageView? {
         guard let lastView = subviews.last else { return nil }
         return lastView as? CardImageView
@@ -103,6 +102,10 @@ class OneStack: UIView {
             let oneStackView = sender.view?.superview as! OneStack
             NotificationCenter.default.post(name: .doubleTappedStack, object: self, userInfo: ["from": oneStackView])
         }
+    }
+
+    func getColumn() -> Int {
+        return self.column
     }
 
 }

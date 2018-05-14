@@ -9,9 +9,8 @@
 import Foundation
 
 class FoundationManager: FoundationDelegate, Stackable {
-
     static let range: CountableRange = 0..<4
-    var foundations = [CardStack]()
+    private var foundations = [CardStack]()
     var lastCards: [Card?] {
         return foundations.map{ $0.last() }
     }

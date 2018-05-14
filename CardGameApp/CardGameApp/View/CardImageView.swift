@@ -10,8 +10,8 @@ import UIKit
 
 class CardImageView: UIImageView {
 
-    var imageName: String!
-    var card: ImageSelector?
+    private var imageName: String!
+    private var card: ImageSelector?
 
     override func awakeFromNib() {
         super.awakeFromNib()
