@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let mainViewController = self.window?.rootViewController as! ViewController
-        mainViewController.cardGameManager = CardGameManager.shared()
+        mainViewController.cardGameDelegate = CardGameManager.shared()
         return true
     }
 

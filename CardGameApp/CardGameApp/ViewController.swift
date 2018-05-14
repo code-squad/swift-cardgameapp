@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var cardGameManager: CardGameDelegate = CardGameManager.shared()
+    var cardGameDelegate: CardGameDelegate = CardGameManager.shared()
 
     private var deckView: CardDeckView!
     private var stackView: CardStacksView!
@@ -100,7 +100,7 @@ class ViewController: UIViewController {
 
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            self.cardGameManager.shuffleDeck()
+            self.cardGameDelegate.shuffleDeck()
         } // 모델 변경
         self.deckView.resetByShake()
     }
@@ -114,7 +114,7 @@ class ViewController: UIViewController {
         guard (from as? CardDeckView) != nil else { return }
         let targetCard = deckView.lastCardView!
 
-        let result = cardGameManager.movableFromDeck(from: .deck)
+        let result = cardGameDelegate.movableFromDeck(from: .deck)
         let toView = result.to
         guard let toIndex = result.index else { return } // toIndex가 옵셔널이 풀리면서 이미 룰 체크 완료
 
@@ -124,15 +124,15 @@ class ViewController: UIViewController {
         let moveTo = (x: toFrame.x - fromFrame.x,
                       y: toFrame.y - fromFrame.y)
 
-        let popCard = cardGameManager.getDeckDelegate().lastOpenedCard()!
+        let popCard = cardGameDelegate.getDeckDelegate().lastOpenedCard()!
         if toView == .foundation {
-            let foundationManager: Stackable = cardGameManager.getFoundationDelegate() as Stackable
+            let foundationManager: Stackable = cardGameDelegate.getFoundationDelegate() as Stackable
             foundationManager.stackUp(newCard: popCard, column: toIndex)
         }
         if toView == .stack {
-            cardGameManager.getWholeStackDelegate().stackUp(newCard: popCard, column: toIndex)
+            cardGameDelegate.getWholeStackDelegate().stackUp(newCard: popCard, column: toIndex)
         }
-        cardGameManager.popOpenDeck() // deck의 마지막카드 제거
+        cardGameDelegate.popOpenDeck() // deck의 마지막카드 제거
         UIView.animate(
             withDuration: 1.0,
             animations: {
@@ -141,10 +141,10 @@ class ViewController: UIViewController {
                 targetCard.frame.origin.y += moveTo.y
         },
             completion: { _ in
+                targetCard.removeFromSuperview()
                 self.foundationView.reload()
                 self.deckView.reload()
                 self.stackView.reload(column: toIndex)
-                targetCard.removeFromSuperview()
         })
 
     }
@@ -156,7 +156,7 @@ class ViewController: UIViewController {
         let fromIndex = fromView.getColumn()
         let targetCard = fromView.lastCardView!
 
-        let result = cardGameManager.movableFromStack(from: .fromStack, column: fromIndex)
+        let result = cardGameDelegate.movableFromStack(from: .fromStack, column: fromIndex)
         let toView = result.to
         guard let toIndex = result.index else { return }
 
@@ -166,16 +166,16 @@ class ViewController: UIViewController {
         let moveTo = (x: toFrame.x - fromFrame.x,
                       y: toFrame.y - fromFrame.y)
 
-        let popCard = cardGameManager.getWholeStackDelegate().getStackDelegate(of: fromIndex).currentLastCard()
-        cardGameManager.getWholeStackDelegate().getStackDelegate(of: fromIndex).removePoppedCard() //stack의 마지막카드제거
+        let popCard = cardGameDelegate.getWholeStackDelegate().getStackDelegate(of: fromIndex).currentLastCard()
+        cardGameDelegate.getWholeStackDelegate().getStackDelegate(of: fromIndex).removePoppedCard() //stack의 마지막카드제거
 
         if toView == .foundation {
-            let foundationManager: Stackable = cardGameManager.getFoundationDelegate() as Stackable
+            let foundationManager: Stackable = cardGameDelegate.getFoundationDelegate() as Stackable
             foundationManager.stackUp(newCard: popCard, column: toIndex)
         }
 
         if toView == .stack {
-            let stacksManger: Stackable = cardGameManager.getWholeStackDelegate() as Stackable
+            let stacksManger: Stackable = cardGameDelegate.getWholeStackDelegate() as Stackable
             stacksManger.stackUp(newCard: popCard, column: toIndex)
         }
 
@@ -202,12 +202,12 @@ class ViewController: UIViewController {
             return CGPoint(x: PositionX.allValues[index].value,
                            y: PositionY.upper.value)
         case .fromStack:
-            let newY = PositionY.bottom.value + (ViewController.spaceY * CGFloat(cardGameManager.getWholeStackDelegate().getStackDelegate(of: index).countOfCard()-1))
+            let newY = PositionY.bottom.value + (ViewController.spaceY * CGFloat(cardGameDelegate.getWholeStackDelegate().getStackDelegate(of: index).countOfCard()-1))
             return CGPoint(x: PositionX.allValues[index].value,
                            y: newY)
 
         case .stack:
-            let newY = PositionY.bottom.value + (ViewController.spaceY * CGFloat(cardGameManager.getWholeStackDelegate().getStackDelegate(of: index).countOfCard()))
+            let newY = PositionY.bottom.value + (ViewController.spaceY * CGFloat(cardGameDelegate.getWholeStackDelegate().getStackDelegate(of: index).countOfCard()))
             return CGPoint(x: PositionX.allValues[index].value,
                            y: newY)
 
