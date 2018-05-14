@@ -108,96 +108,89 @@ class ViewController: UIViewController {
     @objc func deckViewDidDoubleTap(notification: Notification) {
         guard let userInfo = notification.userInfo else {return}
         guard let from = userInfo["from"] else { return }
+        guard (from as? CardDeckView) != nil else { return }
+        let targetCard = deckView.lastCardView!
 
-        if let fromView = from as? CardDeckView {
-            let targetCard = deckView.lastCardView!
+        let result = cardGameManager.movableFromDeck(from: .deck)
+        let toView = result.to
+        guard let toIndex = result.index else { return } // toIndex가 옵셔널이 풀리면서 이미 룰 체크 완료
 
-            let result = cardGameManager.movableFromDeck(from: .deck)
-            let toView = result.to
-            guard let toIndex = result.index else { return } // toIndex가 옵셔널이 풀리면서 이미 룰 체크 완료
+        let fromFrame = frameCalculator(view: .deck, index: 0)
 
-            let fromFrame = frameCalculator(view: .deck, index: 0)
+        let toFrame = frameCalculator(view: toView, index: toIndex)
+        let moveTo = (x: toFrame.x - fromFrame.x,
+                      y: toFrame.y - fromFrame.y)
 
-            let toFrame = frameCalculator(view: toView, index: toIndex)
-            let moveTo = (x: toFrame.x - fromFrame.x,
-                          y: toFrame.y - fromFrame.y)
-
-            let popCard = cardGameManager.getDeckDelegate().lastOpenedCard()!
-            if toView == .foundation {
-                let foundationManager: Stackable = cardGameManager.getFoundationDelegate() as! Stackable
-                foundationManager.stackUp(newCard: popCard, column: toIndex)
-            }
-            if toView == .stack {
-                cardGameManager.getWholeStackDelegate().stackUp(newCard: popCard, column: toIndex)
-            }
-            cardGameManager.popOpenDeck() // deck의 마지막카드 제거
-            UIView.animate(
-                withDuration: 1.0,
-                animations: {
-                    targetCard.layer.zPosition = 1
-                    targetCard.frame.origin.x += moveTo.x
-                    targetCard.frame.origin.y += moveTo.y
-            },
-                completion: { _ in
-                    self.foundationView.redraw()
-                    self.deckView.redraw()
-                    self.stackView.redraw(column: toIndex)
-                    targetCard.removeFromSuperview()
-            })
-        } else {
-            return
+        let popCard = cardGameManager.getDeckDelegate().lastOpenedCard()!
+        if toView == .foundation {
+            let foundationManager: Stackable = cardGameManager.getFoundationDelegate() as Stackable
+            foundationManager.stackUp(newCard: popCard, column: toIndex)
         }
+        if toView == .stack {
+            cardGameManager.getWholeStackDelegate().stackUp(newCard: popCard, column: toIndex)
+        }
+        cardGameManager.popOpenDeck() // deck의 마지막카드 제거
+        UIView.animate(
+            withDuration: 1.0,
+            animations: {
+                targetCard.layer.zPosition = 1
+                targetCard.frame.origin.x += moveTo.x
+                targetCard.frame.origin.y += moveTo.y
+        },
+            completion: { _ in
+                self.foundationView.redraw()
+                self.deckView.redraw()
+                self.stackView.redraw(column: toIndex)
+                targetCard.removeFromSuperview()
+        })
+
     }
 
     @objc func stackViewDidDoubleTap(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
         guard let from = userInfo["from"] else { return }
+        guard let fromView = from as? OneStack else { return }
+        let fromIndex = fromView.column!
+        let targetCard = fromView.lastCardView!
 
-        if let fromView = from as? OneStack {
-            let fromIndex = fromView.column!
-            let targetCard = fromView.lastCardView!
+        let result = cardGameManager.movableFromStack(from: .fromStack, column: fromIndex)
+        let toView = result.to
+        guard let toIndex = result.index else { return }
 
-            let result = cardGameManager.movableFromStack(from: .fromStack, column: fromIndex)
-            let toView = result.to
-            guard let toIndex = result.index else { return }
+        let fromFrame = frameCalculator(view: .fromStack, index: fromIndex)
+        let toFrame = frameCalculator(view: toView, index: toIndex)
 
-            let fromFrame = frameCalculator(view: .fromStack, index: fromIndex)
-            let toFrame = frameCalculator(view: toView, index: toIndex)
+        let moveTo = (x: toFrame.x - fromFrame.x,
+                      y: toFrame.y - fromFrame.y)
 
-            let moveTo = (x: toFrame.x - fromFrame.x,
-                          y: toFrame.y - fromFrame.y)
+        let popCard = cardGameManager.getWholeStackDelegate().getStackDelegate(of: fromIndex).currentLastCard()
+        cardGameManager.getWholeStackDelegate().getStackDelegate(of: fromIndex).removePoppedCard() //stack의 마지막카드제거
 
-            let popCard = cardGameManager.getWholeStackDelegate().getStackDelegate(of: fromIndex).currentLastCard()
-            cardGameManager.getWholeStackDelegate().getStackDelegate(of: fromIndex).removePoppedCard() //stack의 마지막카드제거
-
-            if toView == .foundation {
-                let foundationManager: Stackable = cardGameManager.getFoundationDelegate() as! Stackable
-                foundationManager.stackUp(newCard: popCard, column: toIndex)
-            }
-
-            if toView == .stack {
-                let stacksManger: Stackable = cardGameManager.getWholeStackDelegate() as Stackable
-                stacksManger.stackUp(newCard: popCard, column: toIndex)
-            }
-
-
-            UIView.animate(
-                withDuration: 1.0,
-                animations: {
-                    targetCard.layer.zPosition = 1
-                    targetCard.frame.origin.x += moveTo.x
-                    targetCard.frame.origin.y += moveTo.y
-                },
-                completion: { _ in
-                    targetCard.removeFromSuperview()
-                    self.foundationView.redraw()
-                    self.deckView.redraw()
-                    self.stackView.redraw(column: fromIndex)
-                    self.stackView.redraw(column: toIndex)
-                })
-        } else {
-            return
+        if toView == .foundation {
+            let foundationManager: Stackable = cardGameManager.getFoundationDelegate() as Stackable
+            foundationManager.stackUp(newCard: popCard, column: toIndex)
         }
+
+        if toView == .stack {
+            let stacksManger: Stackable = cardGameManager.getWholeStackDelegate() as Stackable
+            stacksManger.stackUp(newCard: popCard, column: toIndex)
+        }
+
+
+        UIView.animate(
+            withDuration: 1.0,
+            animations: {
+                targetCard.layer.zPosition = 1
+                targetCard.frame.origin.x += moveTo.x
+                targetCard.frame.origin.y += moveTo.y
+        },
+            completion: { _ in
+                targetCard.removeFromSuperview()
+                self.foundationView.redraw()
+                self.deckView.redraw()
+                self.stackView.redraw(column: fromIndex)
+                self.stackView.redraw(column: toIndex)
+        })
     }
 
     private func frameCalculator(view: ViewKey, index: Int) -> CGPoint {
