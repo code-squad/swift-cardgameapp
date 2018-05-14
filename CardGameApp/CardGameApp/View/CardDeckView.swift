@@ -23,6 +23,7 @@ class CardDeckView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.frame = CGRect(x: 0, y: 0, width: 414, height: 100)
     }
 
     convenience init() {

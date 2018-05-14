@@ -29,7 +29,11 @@ class CardImageView: UIImageView {
     }
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        self.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        self.layer.cornerRadius = 5.0
+        self.clipsToBounds = true
+        self.isUserInteractionEnabled = true
     }
 
     func getImage(of card: ImageSelector) {

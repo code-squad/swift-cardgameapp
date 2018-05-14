@@ -69,7 +69,11 @@ class OneStack: UIView {
     }
 
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        self.frame = CGRect(x: PositionX.allValues[column].value,
+                            y: 0,
+                            width: 414 / 7,
+                            height: 736 - PositionY.bottom.value)
     }
 
     func setup() {
