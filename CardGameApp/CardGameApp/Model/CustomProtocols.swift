@@ -18,10 +18,10 @@ protocol ImageSelector {
 
 // MARK: CardGame Related
 
-protocol CardGameManageable {
-    func getDeckDelegate() -> CardDeckManageable
-    func getWholeStackDelegate() -> (CardStackManageable & Stackable)
-    func getFoundationDelegate() -> (FoundationManageable & Stackable)
+protocol CardGameDelegate {
+    func getDeckDelegate() -> CardDeckDelegate
+    func getWholeStackDelegate() -> (CardStackDelegate & Stackable)
+    func getFoundationDelegate() -> (FoundationDelegate & Stackable)
     func shuffleDeck()
     func movableFromDeck(from: ViewKey) -> (to: ViewKey, index: Int?)
     func movableFromStack(from: ViewKey, column: Int) -> (to: ViewKey, index: Int?)
@@ -29,7 +29,7 @@ protocol CardGameManageable {
     func popStack(column: Int)
 }
 
-protocol CardDeckManageable {
+protocol CardDeckDelegate {
     func hasEnoughCard() -> Bool
     func lastOpenedCard() -> Card?
     func shuffleDeck()
@@ -37,19 +37,19 @@ protocol CardDeckManageable {
     func pop()
 }
 
-protocol CardStackManageable {
+protocol CardStackDelegate {
     func lastCard(of column: Int) -> Card
     func removePoppedCard(of column: Int)
-    func getStackDelegate(of column: Int) -> StackManageable
+    func getStackDelegate(of column: Int) -> StackDelegate
 }
 
-protocol FoundationManageable {
+protocol FoundationDelegate {
     func cardInTurn(at:(column: Int, row: Int)) -> Card
     func countOfCards(of: Int) -> Int
     func cards(in column: Int) -> [Card]
 }
 
-protocol StackManageable {
+protocol StackDelegate {
     func countOfCard() -> Int
     func cardInTurn(at index: Int) -> Card
     func removePoppedCard()

@@ -8,23 +8,23 @@
 
 import Foundation
 
-class CardGameDelegate: CardGameManageable {
+class CardGameManager: CardGameDelegate {
 
     // MARK: Singleton Related
 
-    private static var sharedCardDeck = CardGameDelegate()
+    private static var sharedCardDeck = CardGameManager()
 
     private init() {
         cardDeck.shuffle()
         var stacks = [CardStack]()
-        for numberOfCard in CardGameDelegate.defaultStackRange {
+        for numberOfCard in CardGameManager.defaultStackRange {
             let oneStack = cardDeck.makeStack(numberOf: numberOfCard)
             stacks.append(oneStack)
         }
 
-        self.stackManagers = WholeStackDelegate(stacks: stacks)
-        self.foundationManager = FoundationDelegate()
-        self.deckManager = DeckDelegate(deck: self.cardDeck)
+        self.stackManagers = WholeStackManager(stacks: stacks)
+        self.foundationManager = FoundationManager()
+        self.deckManager = DeckManager(deck: self.cardDeck)
 
 
         NotificationCenter.default.addObserver(self,
@@ -43,24 +43,24 @@ class CardGameDelegate: CardGameManageable {
         NotificationCenter.default.post(name: .openDeckUpdated, object: true)
     }
 
-    class func shared() -> CardGameDelegate {
+    class func shared() -> CardGameManager {
         return sharedCardDeck
     }
 
-    class func restartSharedDeck() -> CardGameDelegate {
-        sharedCardDeck = CardGameDelegate()
+    class func restartSharedDeck() -> CardGameManager {
+        sharedCardDeck = CardGameManager()
         return sharedCardDeck
     }
 
-    func getWholeStackDelegate() -> (CardStackManageable & Stackable) {
+    func getWholeStackDelegate() -> (CardStackDelegate & Stackable) {
         return self.stackManagers
     }
 
-    func getFoundationDelegate() -> (FoundationManageable & Stackable) {
+    func getFoundationDelegate() -> (FoundationDelegate & Stackable) {
         return self.foundationManager
     }
 
-    func getDeckDelegate() -> CardDeckManageable {
+    func getDeckDelegate() -> CardDeckDelegate {
         return self.deckManager
     }
 
@@ -69,9 +69,9 @@ class CardGameDelegate: CardGameManageable {
     static let defaultStackRange: CountableClosedRange = 1...7
     static let defaultStackNumber: Int = 7
     private var cardDeck = CardDeck()
-    private var stackManagers: (CardStackManageable & Stackable)!
-    private var foundationManager: (FoundationManageable & Stackable)!
-    private var deckManager: CardDeckManageable!
+    private var stackManagers: (CardStackDelegate & Stackable)!
+    private var foundationManager: (FoundationDelegate & Stackable)!
+    private var deckManager: CardDeckDelegate!
 
     func shuffleDeck() {
         deckManager.shuffleDeck()

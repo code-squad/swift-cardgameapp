@@ -9,9 +9,9 @@
 import UIKit
 
 class CardDeckView: UIView {
-    var gameManager: CardGameManageable = CardGameDelegate.shared()
+    var gameManager: CardGameDelegate = CardGameManager.shared()
     var closedCardDeck = CardImageView()
-    var deckManager: CardDeckManageable!
+    var deckManager: CardDeckDelegate!
     var lastCardView: CardImageView? {
         guard let lastView = subviews.last else { return nil }
         return lastView as? CardImageView

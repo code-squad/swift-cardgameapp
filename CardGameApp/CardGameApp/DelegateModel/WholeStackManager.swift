@@ -8,18 +8,18 @@
 
 import Foundation
 
-class WholeStackDelegate: CardStackManageable,Stackable {
-    var stackManagers: [StackManageable]!
+class WholeStackManager: CardStackDelegate,Stackable {
+    var stackManagers: [StackDelegate]!
 
     init(stacks: [CardStack]) {
-        var stackManagers = [StackManageable]()
+        var stackManagers = [StackDelegate]()
         for i in 0..<stacks.count {
-            stackManagers.append(StackDelegate(oneStack: stacks[i], column: i))
+            stackManagers.append(StackManager(oneStack: stacks[i], column: i))
         }
         self.stackManagers = stackManagers
     }
 
-    func getStackDelegate(of column: Int) -> StackManageable {
+    func getStackDelegate(of column: Int) -> StackDelegate {
         return self.stackManagers[column]
     }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DeckDelegate: CardDeckManageable {
+class DeckManager: CardDeckDelegate {
     var deck: CardDeck!
     var openedDeck = [Card]()
 

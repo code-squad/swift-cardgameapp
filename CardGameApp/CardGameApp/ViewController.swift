@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var cardGameManager: CardGameManageable = CardGameDelegate.shared()
+    var cardGameManager: CardGameDelegate = CardGameManager.shared()
 
     private var deckView: CardDeckView!
     private var stackView: CardStacksView!

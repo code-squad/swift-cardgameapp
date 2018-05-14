@@ -9,8 +9,8 @@
 import UIKit
 
 class FoundationView: UIView {
-    let gameManager: CardGameManageable = CardGameDelegate.shared()
-    var foundationManager: FoundationManageable!
+    let gameManager: CardGameDelegate = CardGameManager.shared()
+    var foundationManager: FoundationDelegate!
     let numberOfFoundation = 4
 
     override init(frame: CGRect) {
@@ -45,7 +45,7 @@ class FoundationView: UIView {
 
     func redraw() {
         self.subviews.forEach({ $0.removeFromSuperview() })
-        for i in FoundationDelegate.range {
+        for i in FoundationManager.range {
             let newOrigin = CGPoint(x: PositionX.allValues[i].value, y: PositionY.upper.value)
             let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
             if foundationManager.countOfCards(of: i) == 0 {

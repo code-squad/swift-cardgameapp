@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FoundationDelegate: FoundationManageable, Stackable {
+class FoundationManager: FoundationDelegate, Stackable {
 
     static let range: CountableRange = 0..<4
     var foundations = [CardStack]()
@@ -17,18 +17,18 @@ class FoundationDelegate: FoundationManageable, Stackable {
     }
 
     init() { //초기상태는 빈 카드스택 4개
-        for _ in FoundationDelegate.range {
+        for _ in FoundationManager.range {
             foundations.append(CardStack())
         }
     }
 
     func stackable(nextCard card: Card) -> Int? {
         if card.isDenominationA() {
-            for i in FoundationDelegate.range where foundations[i].isEmpty() {
+            for i in FoundationManager.range where foundations[i].isEmpty() {
                 return i
             }
         } else {
-            for i in FoundationDelegate.range where !foundations[i].isEmpty() {
+            for i in FoundationManager.range where !foundations[i].isEmpty() {
                 if foundations[i].last()!.isLower(than: card) {
                     return i
                 }

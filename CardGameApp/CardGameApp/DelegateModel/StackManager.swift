@@ -8,9 +8,9 @@
 
 import Foundation
 
-class StackDelegate: StackManageable {
+class StackManager: StackDelegate {
 
-    private static var stackDelegates = [StackDelegate]()
+    private static var stackDelegates = [StackManager]()
 
     private var lastCard: Card? {
         return self.stack.last()
