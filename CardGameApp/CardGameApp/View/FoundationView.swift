@@ -26,15 +26,15 @@ class FoundationView: UIView {
         self.foundationManager = gameManager.getFoundationDelegate()
     }
 
-    func drawDefault() {
+    func setup() {
         for i in 0..<numberOfFoundation {
             let newOrigin = CGPoint(x: PositionX.allValues[i].value, y: PositionY.upper.value)
             let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
-            self.drawEmptyDock(in: frameForDraw)
+            self.setEmptyDock(in: frameForDraw)
         }
     }
 
-    private func drawEmptyDock(in frameForDraw: CGRect) {
+    private func setEmptyDock(in frameForDraw: CGRect) {
         let foundation = UIView(frame: frameForDraw)
         foundation.clipsToBounds = true
         foundation.layer.cornerRadius = 5.0
@@ -43,13 +43,13 @@ class FoundationView: UIView {
         addSubview(foundation)
     }
 
-    func redraw() {
+    func reload() {
         self.subviews.forEach({ $0.removeFromSuperview() })
         for i in FoundationManager.range {
             let newOrigin = CGPoint(x: PositionX.allValues[i].value, y: PositionY.upper.value)
             let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
             if foundationManager.countOfCards(of: i) == 0 {
-                self.drawEmptyDock(in: frameForDraw)
+                self.setEmptyDock(in: frameForDraw)
             } else {
                 for card in foundationManager.cards(in: i) {
                     let cardImage = CardImageView(frame: frameForDraw)

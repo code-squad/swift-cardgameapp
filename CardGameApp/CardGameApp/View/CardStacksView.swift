@@ -28,16 +28,16 @@ class CardStacksView: UIView {
         super.init(coder: aDecoder)
     }
 
-    func newDraw() {
+    func setup() {
         for i in 0...6 {
             oneStackViews.append(OneStack(column: i, manager: wholeStackManager))
             addSubview(oneStackViews[i])
-            oneStackViews[i].newDrawCards()
+            oneStackViews[i].setup()
         }
     }
 
-    func redraw(column: Int) {
-        oneStackViews[column].redraw()
+    func reload(column: Int) {
+        oneStackViews[column].reload()
     }
 
     func getOneStack(of column: Int) -> OneStack{
@@ -73,7 +73,7 @@ class OneStack: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func newDrawCards() {
+    func setup() {
         for i in 0..<stackManager.countOfCard() {
             let card = stackManager.cardInTurn(at: i)
             let newOrigin = CGPoint(x: 0, y: ViewController.spaceY * CGFloat(i))
@@ -87,9 +87,9 @@ class OneStack: UIView {
         }
     }
 
-    func redraw() {
+    func reload() {
         self.subviews.forEach{ $0.removeFromSuperview() }
-        newDrawCards()
+        setup()
     }
 
     private func setDoubleTabToCard(to card: CardImageView) {

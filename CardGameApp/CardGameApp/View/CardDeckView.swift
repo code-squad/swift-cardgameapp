@@ -30,7 +30,7 @@ class CardDeckView: UIView {
         self.deckManager = gameManager.getDeckDelegate()
     }
 
-    func drawDefault() {
+    func setup() {
         let newOrigin = CGPoint(x: PositionX.seventh.value, y: PositionY.upper.value)
         let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
         self.closedCardDeck = CardImageView(frame: frameForDraw)
@@ -57,7 +57,7 @@ class CardDeckView: UIView {
         }
     }
 
-    func drawOpenDeck() {
+    func setOpenDeck() {
         let newOrigin = CGPoint(x: PositionX.sixth.value, y: PositionY.upper.value)
         let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
 
@@ -69,7 +69,7 @@ class CardDeckView: UIView {
         addSubview(pickedCardView)
     }
 
-    func drawRefresh() {
+    func loadRefreshIcon() {
         closedCardDeck.getRefreshImage()
     }
 
@@ -86,11 +86,10 @@ class CardDeckView: UIView {
         }
     }
 
-    func redraw() {
-        // after double tapped?
+    func reload() {
         self.subviews.forEach{ $0.removeFromSuperview() }
-        drawDefault()
-        drawOpenDeck()
+        setup()
+        setOpenDeck()
     }
 
     func movableCardView() -> CardImageView {
@@ -100,7 +99,7 @@ class CardDeckView: UIView {
 
     func resetByShake() {
         self.subviews.forEach{ $0.removeFromSuperview() }
-        drawDefault()
+        setup()
     }
 
 }

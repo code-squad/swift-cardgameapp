@@ -31,10 +31,10 @@ class ViewController: UIViewController {
     }
 
     private func initialView() {
-        drawFoundation()
+        setFoundationView()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg_pattern")!)
-        drawDeck()
-        drawStacks()
+        setDeckView()
+        setStacksView()
         setNotification()
     }
 
@@ -62,35 +62,35 @@ class ViewController: UIViewController {
     // MARK: ChangedView Related
 
     @objc func updateDeck() {
-        self.deckView.redraw()
+        self.deckView.reload()
     }
 
     @objc func updateOpenDeck(notification: Notification) {
         guard notification.object as! Bool else {
-            self.deckView.drawRefresh()
+            self.deckView.loadRefreshIcon()
             return
         }
-        self.deckView.drawOpenDeck()
+        self.deckView.setOpenDeck()
     }
 
     // MARK: InitialView Related
 
-    private func drawDeck() {
+    private func setDeckView() {
         self.deckView = CardDeckView()
         self.view.addSubview(deckView)
-        deckView.drawDefault()
+        deckView.setup()
     }
 
-    private func drawFoundation() {
+    private func setFoundationView() {
         self.foundationView = FoundationView()
         self.view.addSubview(foundationView)
-        foundationView.drawDefault()
+        foundationView.setup()
     }
 
-    private func drawStacks() {
+    private func setStacksView() {
         self.stackView = CardStacksView()
         self.view.addSubview(stackView)
-        stackView.newDraw()
+        stackView.setup()
     }
     
     // MARK: Shake motion Related
@@ -138,9 +138,9 @@ class ViewController: UIViewController {
                 targetCard.frame.origin.y += moveTo.y
         },
             completion: { _ in
-                self.foundationView.redraw()
-                self.deckView.redraw()
-                self.stackView.redraw(column: toIndex)
+                self.foundationView.reload()
+                self.deckView.reload()
+                self.stackView.reload(column: toIndex)
                 targetCard.removeFromSuperview()
         })
 
@@ -186,10 +186,10 @@ class ViewController: UIViewController {
         },
             completion: { _ in
                 targetCard.removeFromSuperview()
-                self.foundationView.redraw()
-                self.deckView.redraw()
-                self.stackView.redraw(column: fromIndex)
-                self.stackView.redraw(column: toIndex)
+                self.foundationView.reload()
+                self.deckView.reload()
+                self.stackView.reload(column: fromIndex)
+                self.stackView.reload(column: toIndex)
         })
     }
 
