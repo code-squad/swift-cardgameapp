@@ -23,11 +23,11 @@ class CardDeckView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.frame = CGRect(x: 0, y: 0, width: 414, height: 100)
+        self.frame = CGRect(x: 0, y: 0, width: ViewController.widthOfRootView, height: PositionY.bottom.value)
     }
 
     convenience init() {
-        self.init(frame: CGRect(x: 0, y: 0, width: 414, height: 100))
+        self.init(frame: CGRect(x: 0, y: 0, width: ViewController.widthOfRootView, height: PositionY.bottom.value))
         self.deckManager = gameManager.getDeckDelegate()
     }
 
@@ -83,7 +83,7 @@ class CardDeckView: UIView {
     @objc func cardDoubleTapped(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             let deckview = sender.view?.superview as! CardDeckView
-            NotificationCenter.default.post(name: .doubleTappedOpenedDeck, object: self, userInfo: ["from": deckview])
+            NotificationCenter.default.post(name: .doubleTappedOpenedDeck, object: self, userInfo: [ViewController.fromViewKey: deckview])
         }
     }
 

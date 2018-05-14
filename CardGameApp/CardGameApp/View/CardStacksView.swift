@@ -9,6 +9,7 @@
 import UIKit
 
 class CardStacksView: UIView {
+    static let numberOfStacks: Int = 7
     private var wholeStackManager: (CardStackDelegate & Stackable)!
     private var oneStackViews = [OneStack]()
 
@@ -19,7 +20,7 @@ class CardStacksView: UIView {
 
     convenience init() {
         self.init(frame: CGRect(x: 0, y: PositionY.bottom.value,
-                                width: 414, height: 736 - PositionY.bottom.value))
+                                width: ViewController.widthOfRootView, height: ViewController.heightOfRootView - PositionY.bottom.value))
         self.wholeStackManager = CardGameManager.shared().getWholeStackDelegate()
     }
 
@@ -28,7 +29,7 @@ class CardStacksView: UIView {
     }
 
     func setup() {
-        for i in 0...6 {
+        for i in 0..<CardStacksView.numberOfStacks {
             oneStackViews.append(OneStack(column: i, manager: wholeStackManager))
             addSubview(oneStackViews[i])
             oneStackViews[i].setup()
@@ -46,6 +47,7 @@ class CardStacksView: UIView {
 }
 
 class OneStack: UIView {
+
     private var column: Int!
     private var wholeStackManager: (CardStackDelegate & Stackable)!
     private var stackManager: StackDelegate!
@@ -61,8 +63,8 @@ class OneStack: UIView {
     convenience init(column: Int, manager: CardStackDelegate & Stackable) {
         self.init(frame: CGRect(x: PositionX.allValues[column].value,
                                 y: 0,
-                                width: 414 / 7,
-                                height: 736 - PositionY.bottom.value))
+                                width: ViewController.widthOfRootView / CGFloat(CardStacksView.numberOfStacks),
+                                height: ViewController.heightOfRootView - PositionY.bottom.value))
         self.column = column
         self.wholeStackManager = manager
         self.stackManager = wholeStackManager.getStackDelegate(of: column)
@@ -72,8 +74,8 @@ class OneStack: UIView {
         super.init(coder: aDecoder)
         self.frame = CGRect(x: PositionX.allValues[column].value,
                             y: 0,
-                            width: 414 / 7,
-                            height: 736 - PositionY.bottom.value)
+                            width: ViewController.widthOfRootView / CGFloat(CardStacksView.numberOfStacks),
+                            height: ViewController.heightOfRootView - PositionY.bottom.value)
     }
 
     func setup() {
@@ -104,7 +106,7 @@ class OneStack: UIView {
     @objc func cardDoubleTapped(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             let oneStackView = sender.view?.superview as! OneStack
-            NotificationCenter.default.post(name: .doubleTappedStack, object: self, userInfo: ["from": oneStackView])
+            NotificationCenter.default.post(name: .doubleTappedStack, object: self, userInfo: [ViewController.fromViewKey: oneStackView])
         }
     }
 

@@ -19,11 +19,11 @@ class FoundationView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.frame = CGRect(x: 0, y: 0, width: 414, height: 100)
+        self.frame = CGRect(x: 0, y: 0, width: ViewController.widthOfRootView, height: PositionY.bottom.value)
     }
 
     convenience init() {
-        self.init(frame: CGRect(x: 0, y: 0, width: 414, height: 100))
+        self.init(frame: CGRect(x: 0, y: 0, width: ViewController.widthOfRootView, height: PositionY.bottom.value))
         self.foundationManager = gameManager.getFoundationDelegate()
     }
 

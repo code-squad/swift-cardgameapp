@@ -15,11 +15,14 @@ class ViewController: UIViewController {
     private var stackView: CardStacksView!
     private var foundationView: FoundationView!
 
+    static let fromViewKey: String = "from"
+    static let widthOfRootView: CGFloat = 414
+    static let heightOfRootView: CGFloat = 736
     static let spaceY: CGFloat = 15.0
     static let widthDivider: CGFloat = 8
     static let cardHeightRatio: CGFloat = 1.27
-    static let cardSize = CGSize(width: 414 / ViewController.widthDivider,
-                                 height: (414 / ViewController.widthDivider) * ViewController.cardHeightRatio)
+    static let cardSize = CGSize(width: widthOfRootView / widthDivider,
+                                 height: (widthOfRootView / widthDivider) * cardHeightRatio)
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -107,7 +110,7 @@ class ViewController: UIViewController {
     // from deck view to foundation || stack view
     @objc func deckViewDidDoubleTap(notification: Notification) {
         guard let userInfo = notification.userInfo else {return}
-        guard let from = userInfo["from"] else { return }
+        guard let from = userInfo[ViewController.fromViewKey] else { return }
         guard (from as? CardDeckView) != nil else { return }
         let targetCard = deckView.lastCardView!
 
@@ -148,7 +151,7 @@ class ViewController: UIViewController {
 
     @objc func stackViewDidDoubleTap(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
-        guard let from = userInfo["from"] else { return }
+        guard let from = userInfo[ViewController.fromViewKey] else { return }
         guard let fromView = from as? OneStack else { return }
         let fromIndex = fromView.getColumn()
         let targetCard = fromView.lastCardView!
