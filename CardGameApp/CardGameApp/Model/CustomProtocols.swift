@@ -46,6 +46,7 @@ protocol CardStackManageable {
 protocol FoundationManageable {
     func cardInTurn(at:(column: Int, row: Int)) -> Card
     func countOfCards(of: Int) -> Int
+    func cards(in column: Int) -> [Card]
 }
 
 protocol StackManageable {

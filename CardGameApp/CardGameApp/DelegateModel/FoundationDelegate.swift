@@ -53,4 +53,8 @@ class FoundationDelegate: FoundationManageable, Stackable {
         return self.foundations[at.column].getCard(at: at.row)
     }
 
+    func cards(in column: Int) -> [Card] {
+        return self.foundations[column].getCards()
+    }
+
 }

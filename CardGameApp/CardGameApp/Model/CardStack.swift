@@ -96,6 +96,9 @@ struct CardStack {
         return (self.cards.count == 0)
     }
 
+    func getCards()-> [Card] {
+        return self.cards
+    }
 }
 
 

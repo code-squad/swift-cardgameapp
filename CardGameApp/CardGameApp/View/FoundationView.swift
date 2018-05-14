@@ -45,23 +45,19 @@ class FoundationView: UIView {
 
     func redraw() {
         self.subviews.forEach({ $0.removeFromSuperview() })
-
         for i in FoundationDelegate.range {
             let newOrigin = CGPoint(x: PositionX.allValues[i].value, y: PositionY.upper.value)
             let frameForDraw = CGRect(origin: newOrigin, size: ViewController.cardSize)
-
             if foundationManager.countOfCards(of: i) == 0 {
                 self.drawEmptyDock(in: frameForDraw)
             } else {
-                for j in 0..<foundationManager.countOfCards(of: i) {
-                    let card = foundationManager.cardInTurn(at: (column: i, row: j))
+                for card in foundationManager.cards(in: i) {
                     let cardImage = CardImageView(frame: frameForDraw)
                     cardImage.getImage(of: card)
                     addSubview(cardImage)
                 }
             }
         }
-
     }
 
 }
