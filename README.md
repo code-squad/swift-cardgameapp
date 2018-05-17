@@ -5,14 +5,8 @@
 ##### 프로그래밍 요구사항
 * 앱 기본 설정을 지정해서 StatusBar 스타일을 LightContent로 보이도록 함
 * ViewController 클래스에서 self.view 배경을 다음 이미지 패턴으로 지정한다. 이미지 파일은 Assets에 추가함
-* 다음 카드 뒷면 이미지를 다운로드해서 프로젝트 Assets.xcassets에 추가함
-
-<img src="./images/pattern.png" />
-
+* 카드 뒷면 이미지를 다운로드해서 프로젝트 Assets.xcassets에 추가함
 * ViewController 클래스에서 코드로 아래 출력 화면처럼 화면을 균등하게 7등분해서 7개 UIImageView를 추가하고 카드 뒷면을 보여줌
-
-<img src="./images/card.png" />
-
 * 카드 가로와 세로 비율은 1:1.27로 지정함
 
 ##### 실행결과 
@@ -51,4 +45,30 @@
 * View Model 역할에 대해 간단 정리
     * View와 Model이 직접적으로 관계를 맺지 않고 다리 역할을 함
     * Model의 데이터를 View에 맞게 가공함
-    * 
+    * ViewModel 속성을 이용하여 테스트 할 수 있음 
+    * [[RxSwift][Swift3]POP를 이용하여 더 나은 MVVM 구조 만들기](http://minsone.github.io/programming/better-mvvm-architecture-from-kickstarter-oss)
+
+### 3. 카드 스택 화면 표시
+
+##### 프로그래밍 요구사항
+* CardDeck 객체에서 랜덤으로 카드를 섞고, 출력 화면처럼 카드스택 형태로 보이도록 개선함
+    * 카드스택을 관리하는 모델 객체를 설계함
+    * 각 스택의 맨위의 카드만 앞카드로 뒤집음
+* 카드스택에 표시한 카드를 제외하고 남은 카드를 우측 상단에 뒤집힌 상태로 쌓아놓음
+* 맨위에 있는 카드를 터치하면 좌측에 카드 앞면을 표시하고, 다음 카드 뒷면을 표시함
+* 만약 남은 카드가 없는 경우는 우측에도 빈 카드를 대신해서 반복할 수 있다는 이미지(Refresh)를 표시함
+* 앱에서 Shake 이벤트를 발생하면 랜덤 카드를 다시 섞고 처음 상태로 다시 그리도록 구현함
+
+##### 출력화면
+
+<img src="./images/cardgame-stack-step1.png" width="30%"></img>
+<img src="./images/cardgame-stack-step2.png" width="30%"></img>
+<img src="./images/cardgame-stack-step3.png" width="30%"></img>
+
+##### 실행결과
+
+##### 학습거리 
+* UIStackView
+    * [정리](https://wiki.yuaming.com/ios/auto-layout.html)
+    * [개발자 문서](https://developer.apple.com/documentation/uikit/uistackview)
+* [해당 소스 분석 후, 카드게임 테스트 적용해보기](https://github.com/asmtechnology/Lesson12.iOSTesting.2017.Apress)
