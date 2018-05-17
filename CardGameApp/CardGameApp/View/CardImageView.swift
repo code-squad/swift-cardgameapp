@@ -22,6 +22,8 @@ class CardImageView: UIImageView {
         self.layer.cornerRadius = 5.0
         self.clipsToBounds = true
         self.isUserInteractionEnabled = true
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(cardDragged(_:)))
+        self.addGestureRecognizer(panGesture)
     }
 
     convenience init() {
@@ -54,5 +56,10 @@ class CardImageView: UIImageView {
     func getRefreshImage() {
         self.image = UIImage(named: "cardgameapp-refresh-app")
     }
+
+    @objc func cardDragged(_ sender: UIPanGestureRecognizer) {
+        NotificationCenter.default.post(name: .cardDragged, object: self, userInfo: [Key.GestureRecognizer:sender])
+    }
+
 
 }

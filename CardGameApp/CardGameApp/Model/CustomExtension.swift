@@ -17,6 +17,7 @@ extension Notification.Name {
     static let openDeckUpdated = Notification.Name("openDeckUpdated")
     static let doubleTappedStack = Notification.Name("doubleTappedStack")
     static let doubleTappedOpenedDeck = Notification.Name("doubleTappedOpenedDeck")
+    static let cardDragged = Notification.Name("cardDragged")
 }
 
 extension CGPoint {
@@ -42,4 +43,7 @@ extension UIView {
     func contains(point: CGPoint) -> Bool {
         return self.frame.contains(point)
     }
+
+
+
 }

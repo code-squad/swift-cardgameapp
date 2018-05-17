@@ -62,3 +62,7 @@ enum ViewKey {
     case foundation
 }
 
+enum Key {
+    case FromView
+    case GestureRecognizer
+}
