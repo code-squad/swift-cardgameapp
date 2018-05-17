@@ -9,77 +9,62 @@
 import Foundation
 
 class CardDeck {
-  private static var sharedInstance = CardDeck()
-  private var cards: [Card] = [] {
-    didSet {
-      NotificationCenter.default.post(name: Notification.Name.cardDeck, object: self)
-    }
-  }
+  private var cardStack: CardStack = CardStack()
   
   init() {
     reset()
   }
-  
-  func reset() {
-    resetCards()
-  }
-  
-  var count: Int {
-    return cards.count
-  }
-  
-  var isAvailable: Bool {
-    return self.count > 0
-  }
-  
-  func remove() throws -> Card {
-    guard self.count > 0 else {
-      throw CardErrors.notEnoughCards
-    }
-    
-    return removeCard()
-  }
-  
-  func shuffle() {
-    shuffleCards()
-  }
-  
-  static func share() -> CardDeck {
-    return sharedInstance
-  }
 }
 
-private extension CardDeck {
-  func resetCards() {
-    self.cards = []
+extension CardDeck {
+  func reset() {
+    self.cardStack = CardStack()
     
     for suit in Suit.allValues {
       for number in Number.allValues {
-        self.cards.append(generateCard(suit, number))
+        self.cardStack.push(generateCard(suit, number))
       }
     }
   }
   
+  func shuffle() {
+    cardStack.shuffle()
+  }
+  
+  func push(_ card: Card) {
+    cardStack.push(card)
+  }
+  
+  func choice() -> Card? {    
+    return choiceCard()
+  }
+  
+  func last() -> Card? {
+    return cardStack.last()
+  }
+  
+  var count: Int {
+    return cardStack.count
+  }
+}
+
+private extension CardDeck {
   func generateCard(_ suit: Suit, _ number: Number) -> Card {
     return Card(suit, number)
   }
   
   func generateRandomInt() -> Int {
-    return Int(arc4random_uniform(UInt32(cards.count)))
+    return Int(arc4random_uniform(UInt32(cardStack.count)))
   }
   
-  func removeCard() -> Card {
-    return self.cards.remove(at: generateRandomInt())
-  }
-  
-  func shuffleCards() {
-    self.cards = self.cards.shuffle()
+  func choiceCard() -> Card {
+    return cardStack.choice(at: generateRandomInt())
   }
 }
 
 extension CardDeck: Equatable {
   static func ==(lhs: CardDeck, rhs: CardDeck) -> Bool {
-    guard lhs.cards == rhs.cards else { return false }
+    guard lhs.cardStack == rhs.cardStack else { return false }
     
     return true
   }
