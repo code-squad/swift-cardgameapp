@@ -11,11 +11,6 @@ import UIKit
 class EmptyView: UIImageView {
   private var hasBorder: Bool = false
   
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    layoutWithInitializer()
-  }
-  
   override init(frame: CGRect) {
     super.init(frame: frame)
   }
@@ -23,6 +18,7 @@ class EmptyView: UIImageView {
   convenience init(frame: CGRect, hasBorder: Bool) {
     self.init(frame: frame)
     self.hasBorder = hasBorder
+    initialize()
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -31,7 +27,7 @@ class EmptyView: UIImageView {
 }
 
 private extension EmptyView {
-  func layoutWithInitializer() {
+  func initialize() {
     guard hasBorder else { return }
     
     self.layer.borderColor = UIColor.white.cgColor
