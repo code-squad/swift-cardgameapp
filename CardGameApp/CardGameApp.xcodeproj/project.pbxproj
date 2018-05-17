@@ -8,39 +8,43 @@
 
 /* Begin PBXBuildFile section */
 		04A82A11E0A1EC692B84C8E4 /* Pods_CardGameAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A63F862CD0C42692C8933B /* Pods_CardGameAppTests.framework */; };
-		453107C8F714E294CE066EEE /* Pods_CardGameAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9BEC4809F64DE0C05B4E030E /* Pods_CardGameAppUITests.framework */; };
 		667CD37186519FA3E7FAD6E8 /* Pods_CardGameApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C200D5FD7E596F369E0F6642 /* Pods_CardGameApp.framework */; };
+		8715761E20ACFD6A005F9C6C /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8715761C20ACFD6A005F9C6C /* CardViewModel.swift */; };
+		8715762320ACFD80005F9C6C /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8715762220ACFD80005F9C6C /* CardStack.swift */; };
+		8715762820ACFDD7005F9C6C /* CardStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8715762520ACFDD7005F9C6C /* CardStackTests.swift */; };
+		8715762920ACFDD7005F9C6C /* CardViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8715762620ACFDD7005F9C6C /* CardViewModelTests.swift */; };
+		8715762A20ACFDD7005F9C6C /* CardDeckTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8715762720ACFDD7005F9C6C /* CardDeckTests.swift */; };
+		8715762C20ACFE0B005F9C6C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8715762B20ACFE0B005F9C6C /* GameViewController.swift */; };
+		8717F60820ADCCC900D5838C /* GameViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8717F60720ADCCC900D5838C /* GameViewModelTests.swift */; };
+		8717F60A20ADCD5900D5838C /* ExtraViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8717F60920ADCD5900D5838C /* ExtraViewModelTests.swift */; };
+		8717F60E20ADCFC200D5838C /* MockGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8717F60D20ADCFC200D5838C /* MockGameViewController.swift */; };
 		8737C6C92071D6E200D9D65B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737C6C82071D6E200D9D65B /* AppDelegate.swift */; };
-		8737C6CB2071D6E200D9D65B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737C6CA2071D6E200D9D65B /* ViewController.swift */; };
-		8737C6CE2071D6E200D9D65B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8737C6CC2071D6E200D9D65B /* Main.storyboard */; };
-		8737C6D32071D6E300D9D65B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8737C6D12071D6E300D9D65B /* LaunchScreen.storyboard */; };
-		8737C6DE2071D6E300D9D65B /* CardGameAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737C6DD2071D6E300D9D65B /* CardGameAppTests.swift */; };
-		8737C6E92071D6E300D9D65B /* CardGameAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737C6E82071D6E300D9D65B /* CardGameAppUITests.swift */; };
-		8745DAD720A19B5B00C5B097 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8745DAD620A19B5B00C5B097 /* EmptyView.swift */; };
-		87A7696320A13CC1008A1023 /* Notification+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7696220A13CC1008A1023 /* Notification+.swift */; };
+		8742477920AD054700E9EA26 /* WastePileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742477820AD054700E9EA26 /* WastePileView.swift */; };
+		8742477B20AD055E00E9EA26 /* ExtraPileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742477A20AD055E00E9EA26 /* ExtraPileView.swift */; };
+		8742477D20AD059100E9EA26 /* TableauPileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742477C20AD059100E9EA26 /* TableauPileView.swift */; };
+		8742478220AD05F700E9EA26 /* FoundationPileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742478120AD05F700E9EA26 /* FoundationPileView.swift */; };
+		8742478620AD076800E9EA26 /* TableauPilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742478520AD076800E9EA26 /* TableauPilesViewController.swift */; };
+		8742478820AD078F00E9EA26 /* FoundationPilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742478720AD078F00E9EA26 /* FoundationPilesViewController.swift */; };
+		8742478A20AD0AFF00E9EA26 /* ExtraPileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742478920AD0AFF00E9EA26 /* ExtraPileViewModel.swift */; };
+		8742478C20AD0B7C00E9EA26 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742478B20AD0B7C00E9EA26 /* GameViewModel.swift */; };
+		8742478E20AD107500E9EA26 /* ViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742478D20AD107500E9EA26 /* ViewSettings.swift */; };
+		8742479020AD17D300E9EA26 /* UIImageView+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742478F20AD17D300E9EA26 /* UIImageView+Size.swift */; };
+		877EDF9020AD4FD50090768A /* WasteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877EDF8F20AD4FD50090768A /* WasteViewModel.swift */; };
+		877EDF9420AD66F40090768A /* GameViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877EDF9320AD66F40090768A /* GameViewControllerProtocol.swift */; };
 		87A7696820A149AA008A1023 /* LiteralResoureNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7696720A149AA008A1023 /* LiteralResoureNames.swift */; };
-		87A7696C20A14E44008A1023 /* GameConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7696B20A14E44008A1023 /* GameConfig.swift */; };
 		87CE7F1020A1032900975DEC /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F0F20A1032900975DEC /* Card.swift */; };
 		87CE7F1220A1033D00975DEC /* Suit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1120A1033D00975DEC /* Suit.swift */; };
 		87CE7F1420A1035D00975DEC /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1320A1035D00975DEC /* Number.swift */; };
 		87CE7F1620A1037600975DEC /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1520A1037600975DEC /* CardDeck.swift */; };
 		87CE7F1920A1039100975DEC /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1820A1039100975DEC /* Array+.swift */; };
-		87CE7F1B20A103AF00975DEC /* CardErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1A20A103AF00975DEC /* CardErrors.swift */; };
 		87F4FED62073144A0061FE9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87F4FED52073144A0061FE9E /* Assets.xcassets */; };
-		87F4FED9207317B10061FE9E /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F4FED8207317B10061FE9E /* BoardView.swift */; };
 		87F4FEDB20731C820061FE9E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F4FEDA20731C820061FE9E /* CardView.swift */; };
-		87FD3FF620A2D7B5000AC42D /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD3FF520A2D7B5000AC42D /* CardViewModel.swift */; };
+		87FCCD9420AD01EC0064A2C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FCCD9020AD01EC0064A2C1 /* LaunchScreen.storyboard */; };
+		87FCCD9520AD01EC0064A2C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FCCD9220AD01EC0064A2C1 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		8737C6DA2071D6E300D9D65B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8737C6BD2071D6E200D9D65B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8737C6C42071D6E200D9D65B;
-			remoteInfo = CardGameApp;
-		};
-		8737C6E52071D6E300D9D65B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8737C6BD2071D6E200D9D65B /* Project object */;
 			proxyType = 1;
@@ -54,32 +58,43 @@
 		542A1269114926818BE550A1 /* Pods-CardGameApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameApp/Pods-CardGameApp.debug.xcconfig"; sourceTree = "<group>"; };
 		59EA5B96903D08E459854738 /* Pods-CardGameAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameAppUITests/Pods-CardGameAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		75790D6E3C9676C2A98FE314 /* Pods-CardGameAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		8715761C20ACFD6A005F9C6C /* CardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		8715762220ACFD80005F9C6C /* CardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
+		8715762520ACFDD7005F9C6C /* CardStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackTests.swift; sourceTree = "<group>"; };
+		8715762620ACFDD7005F9C6C /* CardViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModelTests.swift; sourceTree = "<group>"; };
+		8715762720ACFDD7005F9C6C /* CardDeckTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDeckTests.swift; sourceTree = "<group>"; };
+		8715762B20ACFE0B005F9C6C /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		8717F60620ADCBD300D5838C /* CardGameAppTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CardGameAppTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		8717F60720ADCCC900D5838C /* GameViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModelTests.swift; sourceTree = "<group>"; };
+		8717F60920ADCD5900D5838C /* ExtraViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraViewModelTests.swift; sourceTree = "<group>"; };
+		8717F60D20ADCFC200D5838C /* MockGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGameViewController.swift; sourceTree = "<group>"; };
 		8737C6C52071D6E200D9D65B /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8737C6C82071D6E200D9D65B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8737C6CA2071D6E200D9D65B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8737C6CD2071D6E200D9D65B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8737C6D22071D6E300D9D65B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8737C6D42071D6E300D9D65B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8737C6D92071D6E300D9D65B /* CardGameAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardGameAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8737C6DD2071D6E300D9D65B /* CardGameAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameAppTests.swift; sourceTree = "<group>"; };
 		8737C6DF2071D6E300D9D65B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8737C6E42071D6E300D9D65B /* CardGameAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardGameAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8737C6E82071D6E300D9D65B /* CardGameAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameAppUITests.swift; sourceTree = "<group>"; };
-		8737C6EA2071D6E300D9D65B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8745DAD620A19B5B00C5B097 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
-		87A7696220A13CC1008A1023 /* Notification+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+.swift"; sourceTree = "<group>"; };
+		8742477820AD054700E9EA26 /* WastePileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WastePileView.swift; sourceTree = "<group>"; };
+		8742477A20AD055E00E9EA26 /* ExtraPileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraPileView.swift; sourceTree = "<group>"; };
+		8742477C20AD059100E9EA26 /* TableauPileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPileView.swift; sourceTree = "<group>"; };
+		8742478120AD05F700E9EA26 /* FoundationPileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPileView.swift; sourceTree = "<group>"; };
+		8742478520AD076800E9EA26 /* TableauPilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPilesViewController.swift; sourceTree = "<group>"; };
+		8742478720AD078F00E9EA26 /* FoundationPilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPilesViewController.swift; sourceTree = "<group>"; };
+		8742478920AD0AFF00E9EA26 /* ExtraPileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraPileViewModel.swift; sourceTree = "<group>"; };
+		8742478B20AD0B7C00E9EA26 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		8742478D20AD107500E9EA26 /* ViewSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSettings.swift; sourceTree = "<group>"; };
+		8742478F20AD17D300E9EA26 /* UIImageView+Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Size.swift"; sourceTree = "<group>"; };
+		877EDF8F20AD4FD50090768A /* WasteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasteViewModel.swift; sourceTree = "<group>"; };
+		877EDF9320AD66F40090768A /* GameViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerProtocol.swift; sourceTree = "<group>"; };
 		87A7696720A149AA008A1023 /* LiteralResoureNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteralResoureNames.swift; sourceTree = "<group>"; };
-		87A7696B20A14E44008A1023 /* GameConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConfig.swift; sourceTree = "<group>"; };
 		87CE7F0F20A1032900975DEC /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		87CE7F1120A1033D00975DEC /* Suit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suit.swift; sourceTree = "<group>"; };
 		87CE7F1320A1035D00975DEC /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		87CE7F1520A1037600975DEC /* CardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
 		87CE7F1820A1039100975DEC /* Array+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
-		87CE7F1A20A103AF00975DEC /* CardErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardErrors.swift; sourceTree = "<group>"; };
 		87F4FED52073144A0061FE9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		87F4FED8207317B10061FE9E /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		87F4FEDA20731C820061FE9E /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		87FD3FF520A2D7B5000AC42D /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		87FCCD9120AD01EC0064A2C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		87FCCD9320AD01EC0064A2C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9BEC4809F64DE0C05B4E030E /* Pods_CardGameAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardGameAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A63F862CD0C42692C8933B /* Pods_CardGameAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardGameAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF5E8D2D820723469BEAF324 /* Pods-CardGameAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -104,14 +119,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8737C6E12071D6E300D9D65B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				453107C8F714E294CE066EEE /* Pods_CardGameAppUITests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -125,12 +132,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8715761B20ACFD6A005F9C6C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				8742478B20AD0B7C00E9EA26 /* GameViewModel.swift */,
+				8715761C20ACFD6A005F9C6C /* CardViewModel.swift */,
+				8742478920AD0AFF00E9EA26 /* ExtraPileViewModel.swift */,
+				877EDF8F20AD4FD50090768A /* WasteViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		8737C6BC2071D6E200D9D65B = {
 			isa = PBXGroup;
 			children = (
 				8737C6C72071D6E200D9D65B /* CardGameApp */,
 				8737C6DC2071D6E300D9D65B /* CardGameAppTests */,
-				8737C6E72071D6E300D9D65B /* CardGameAppUITests */,
 				8737C6C62071D6E200D9D65B /* Products */,
 				D1FF0A95D0A5A91B6AD3A330 /* Pods */,
 				17135E96694EE62D106DE891 /* Frameworks */,
@@ -142,7 +159,6 @@
 			children = (
 				8737C6C52071D6E200D9D65B /* CardGameApp.app */,
 				8737C6D92071D6E300D9D65B /* CardGameAppTests.xctest */,
-				8737C6E42071D6E300D9D65B /* CardGameAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,15 +166,16 @@
 		8737C6C72071D6E200D9D65B /* CardGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				8737C6D42071D6E300D9D65B /* Info.plist */,
+				8737C6C82071D6E200D9D65B /* AppDelegate.swift */,
+				87F4FED52073144A0061FE9E /* Assets.xcassets */,
 				87A7696620A14993008A1023 /* Commons */,
 				87CE7F1720A1038300975DEC /* Extensions */,
 				87CE7F0E20A1031F00975DEC /* Models */,
+				87FCCD8F20AD01EC0064A2C1 /* Storyboards */,
+				8742478020AD05CE00E9EA26 /* ViewControllers */,
+				8715761B20ACFD6A005F9C6C /* ViewModels */,
 				87F4FED72073177B0061FE9E /* Views */,
-				87F4FED52073144A0061FE9E /* Assets.xcassets */,
-				87F4FED4207312920061FE9E /* Storyboards */,
-				8737C6C82071D6E200D9D65B /* AppDelegate.swift */,
-				8737C6CA2071D6E200D9D65B /* ViewController.swift */,
-				8737C6D42071D6E300D9D65B /* Info.plist */,
 			);
 			path = CardGameApp;
 			sourceTree = "<group>";
@@ -166,26 +183,34 @@
 		8737C6DC2071D6E300D9D65B /* CardGameAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				8737C6DD2071D6E300D9D65B /* CardGameAppTests.swift */,
+				8715762720ACFDD7005F9C6C /* CardDeckTests.swift */,
+				8715762520ACFDD7005F9C6C /* CardStackTests.swift */,
+				8715762620ACFDD7005F9C6C /* CardViewModelTests.swift */,
 				8737C6DF2071D6E300D9D65B /* Info.plist */,
+				8717F60620ADCBD300D5838C /* CardGameAppTests-Bridging-Header.h */,
+				8717F60720ADCCC900D5838C /* GameViewModelTests.swift */,
+				8717F60920ADCD5900D5838C /* ExtraViewModelTests.swift */,
+				8717F60D20ADCFC200D5838C /* MockGameViewController.swift */,
 			);
 			path = CardGameAppTests;
 			sourceTree = "<group>";
 		};
-		8737C6E72071D6E300D9D65B /* CardGameAppUITests */ = {
+		8742478020AD05CE00E9EA26 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				8737C6E82071D6E300D9D65B /* CardGameAppUITests.swift */,
-				8737C6EA2071D6E300D9D65B /* Info.plist */,
+				8715762B20ACFE0B005F9C6C /* GameViewController.swift */,
+				8742478520AD076800E9EA26 /* TableauPilesViewController.swift */,
+				8742478720AD078F00E9EA26 /* FoundationPilesViewController.swift */,
+				877EDF9320AD66F40090768A /* GameViewControllerProtocol.swift */,
 			);
-			path = CardGameAppUITests;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		87A7696620A14993008A1023 /* Commons */ = {
 			isa = PBXGroup;
 			children = (
+				8742478D20AD107500E9EA26 /* ViewSettings.swift */,
 				87A7696720A149AA008A1023 /* LiteralResoureNames.swift */,
-				87A7696B20A14E44008A1023 /* GameConfig.swift */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -193,11 +218,11 @@
 		87CE7F0E20A1031F00975DEC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8715762220ACFD80005F9C6C /* CardStack.swift */,
 				87CE7F0F20A1032900975DEC /* Card.swift */,
 				87CE7F1120A1033D00975DEC /* Suit.swift */,
 				87CE7F1320A1035D00975DEC /* Number.swift */,
 				87CE7F1520A1037600975DEC /* CardDeck.swift */,
-				87CE7F1A20A103AF00975DEC /* CardErrors.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -206,29 +231,30 @@
 			isa = PBXGroup;
 			children = (
 				87CE7F1820A1039100975DEC /* Array+.swift */,
-				87A7696220A13CC1008A1023 /* Notification+.swift */,
+				8742478F20AD17D300E9EA26 /* UIImageView+Size.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		87F4FED4207312920061FE9E /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-				8737C6CC2071D6E200D9D65B /* Main.storyboard */,
-				8737C6D12071D6E300D9D65B /* LaunchScreen.storyboard */,
-			);
-			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		87F4FED72073177B0061FE9E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				87F4FED8207317B10061FE9E /* BoardView.swift */,
 				87F4FEDA20731C820061FE9E /* CardView.swift */,
-				8745DAD620A19B5B00C5B097 /* EmptyView.swift */,
-				87FD3FF520A2D7B5000AC42D /* CardViewModel.swift */,
+				8742477820AD054700E9EA26 /* WastePileView.swift */,
+				8742477A20AD055E00E9EA26 /* ExtraPileView.swift */,
+				8742477C20AD059100E9EA26 /* TableauPileView.swift */,
+				8742478120AD05F700E9EA26 /* FoundationPileView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		87FCCD8F20AD01EC0064A2C1 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				87FCCD9020AD01EC0064A2C1 /* LaunchScreen.storyboard */,
+				87FCCD9220AD01EC0064A2C1 /* Main.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		D1FF0A95D0A5A91B6AD3A330 /* Pods */ = {
@@ -273,6 +299,7 @@
 				8737C6D52071D6E300D9D65B /* Sources */,
 				8737C6D62071D6E300D9D65B /* Frameworks */,
 				8737C6D72071D6E300D9D65B /* Resources */,
+				BB96B7FD8976158865C34F23 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -283,25 +310,6 @@
 			productName = CardGameAppTests;
 			productReference = 8737C6D92071D6E300D9D65B /* CardGameAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		8737C6E32071D6E300D9D65B /* CardGameAppUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8737C6F32071D6E300D9D65B /* Build configuration list for PBXNativeTarget "CardGameAppUITests" */;
-			buildPhases = (
-				412E6C4B5D1BD42B3B32D372 /* [CP] Check Pods Manifest.lock */,
-				8737C6E02071D6E300D9D65B /* Sources */,
-				8737C6E12071D6E300D9D65B /* Frameworks */,
-				8737C6E22071D6E300D9D65B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8737C6E62071D6E300D9D65B /* PBXTargetDependency */,
-			);
-			name = CardGameAppUITests;
-			productName = CardGameAppUITests;
-			productReference = 8737C6E42071D6E300D9D65B /* CardGameAppUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -318,10 +326,7 @@
 					};
 					8737C6D82071D6E300D9D65B = {
 						CreatedOnToolsVersion = 9.3;
-						TestTargetID = 8737C6C42071D6E200D9D65B;
-					};
-					8737C6E32071D6E300D9D65B = {
-						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
 						TestTargetID = 8737C6C42071D6E200D9D65B;
 					};
 				};
@@ -341,7 +346,6 @@
 			targets = (
 				8737C6C42071D6E200D9D65B /* CardGameApp */,
 				8737C6D82071D6E300D9D65B /* CardGameAppTests */,
-				8737C6E32071D6E300D9D65B /* CardGameAppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -351,20 +355,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8737C6D32071D6E300D9D65B /* LaunchScreen.storyboard in Resources */,
+				87FCCD9520AD01EC0064A2C1 /* Main.storyboard in Resources */,
 				87F4FED62073144A0061FE9E /* Assets.xcassets in Resources */,
-				8737C6CE2071D6E200D9D65B /* Main.storyboard in Resources */,
+				87FCCD9420AD01EC0064A2C1 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8737C6D72071D6E300D9D65B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8737C6E22071D6E300D9D65B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -392,22 +389,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		412E6C4B5D1BD42B3B32D372 /* [CP] Check Pods Manifest.lock */ = {
+		BB96B7FD8976158865C34F23 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
+				"${SRCROOT}/Pods/Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
+				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
 			);
-			name = "[CP] Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CardGameAppUITests-checkManifestLockResult.txt",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C365A5E5D8E538BD0FD8E263 /* [CP] Check Pods Manifest.lock */ = {
@@ -435,21 +434,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8737C6CB2071D6E200D9D65B /* ViewController.swift in Sources */,
-				87A7696320A13CC1008A1023 /* Notification+.swift in Sources */,
+				8742478820AD078F00E9EA26 /* FoundationPilesViewController.swift in Sources */,
+				877EDF9020AD4FD50090768A /* WasteViewModel.swift in Sources */,
 				87CE7F1420A1035D00975DEC /* Number.swift in Sources */,
-				87A7696C20A14E44008A1023 /* GameConfig.swift in Sources */,
 				87CE7F1620A1037600975DEC /* CardDeck.swift in Sources */,
-				87F4FED9207317B10061FE9E /* BoardView.swift in Sources */,
 				87CE7F1920A1039100975DEC /* Array+.swift in Sources */,
 				87CE7F1020A1032900975DEC /* Card.swift in Sources */,
+				8742478220AD05F700E9EA26 /* FoundationPileView.swift in Sources */,
+				8742477B20AD055E00E9EA26 /* ExtraPileView.swift in Sources */,
+				8742477920AD054700E9EA26 /* WastePileView.swift in Sources */,
+				8742478A20AD0AFF00E9EA26 /* ExtraPileViewModel.swift in Sources */,
+				8742479020AD17D300E9EA26 /* UIImageView+Size.swift in Sources */,
+				8742478620AD076800E9EA26 /* TableauPilesViewController.swift in Sources */,
 				87F4FEDB20731C820061FE9E /* CardView.swift in Sources */,
 				87CE7F1220A1033D00975DEC /* Suit.swift in Sources */,
-				87CE7F1B20A103AF00975DEC /* CardErrors.swift in Sources */,
+				8742478E20AD107500E9EA26 /* ViewSettings.swift in Sources */,
+				8742478C20AD0B7C00E9EA26 /* GameViewModel.swift in Sources */,
+				8715761E20ACFD6A005F9C6C /* CardViewModel.swift in Sources */,
+				8715762C20ACFE0B005F9C6C /* GameViewController.swift in Sources */,
 				87A7696820A149AA008A1023 /* LiteralResoureNames.swift in Sources */,
-				8745DAD720A19B5B00C5B097 /* EmptyView.swift in Sources */,
+				877EDF9420AD66F40090768A /* GameViewControllerProtocol.swift in Sources */,
 				8737C6C92071D6E200D9D65B /* AppDelegate.swift in Sources */,
-				87FD3FF620A2D7B5000AC42D /* CardViewModel.swift in Sources */,
+				8715762320ACFD80005F9C6C /* CardStack.swift in Sources */,
+				8742477D20AD059100E9EA26 /* TableauPileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,15 +464,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8737C6DE2071D6E300D9D65B /* CardGameAppTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8737C6E02071D6E300D9D65B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8737C6E92071D6E300D9D65B /* CardGameAppUITests.swift in Sources */,
+				8717F60A20ADCD5900D5838C /* ExtraViewModelTests.swift in Sources */,
+				8717F60820ADCCC900D5838C /* GameViewModelTests.swift in Sources */,
+				8717F60E20ADCFC200D5838C /* MockGameViewController.swift in Sources */,
+				8715762920ACFDD7005F9C6C /* CardViewModelTests.swift in Sources */,
+				8715762A20ACFDD7005F9C6C /* CardDeckTests.swift in Sources */,
+				8715762820ACFDD7005F9C6C /* CardStackTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -477,28 +481,23 @@
 			target = 8737C6C42071D6E200D9D65B /* CardGameApp */;
 			targetProxy = 8737C6DA2071D6E300D9D65B /* PBXContainerItemProxy */;
 		};
-		8737C6E62071D6E300D9D65B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8737C6C42071D6E200D9D65B /* CardGameApp */;
-			targetProxy = 8737C6E52071D6E300D9D65B /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8737C6CC2071D6E200D9D65B /* Main.storyboard */ = {
+		87FCCD9020AD01EC0064A2C1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				8737C6CD2071D6E200D9D65B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		8737C6D12071D6E300D9D65B /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8737C6D22071D6E300D9D65B /* Base */,
+				87FCCD9120AD01EC0064A2C1 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		87FCCD9220AD01EC0064A2C1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				87FCCD9320AD01EC0064A2C1 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -662,6 +661,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T393J4TVCC;
 				INFOPLIST_FILE = CardGameAppTests/Info.plist;
@@ -672,6 +672,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuaming.CardGameAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CardGameAppTests/CardGameAppTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CardGameApp.app/CardGameApp";
@@ -684,6 +686,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T393J4TVCC;
 				INFOPLIST_FILE = CardGameAppTests/Info.plist;
@@ -694,51 +697,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yuaming.CardGameAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CardGameAppTests/CardGameAppTests-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CardGameApp.app/CardGameApp";
-			};
-			name = Release;
-		};
-		8737C6F42071D6E300D9D65B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59EA5B96903D08E459854738 /* Pods-CardGameAppUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T393J4TVCC;
-				INFOPLIST_FILE = CardGameAppUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuaming.CardGameAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = CardGameApp;
-			};
-			name = Debug;
-		};
-		8737C6F52071D6E300D9D65B /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 42A3896CDD1844DB16B65734 /* Pods-CardGameAppUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = T393J4TVCC;
-				INFOPLIST_FILE = CardGameAppUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.yuaming.CardGameAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = CardGameApp;
 			};
 			name = Release;
 		};
@@ -768,15 +730,6 @@
 			buildConfigurations = (
 				8737C6F12071D6E300D9D65B /* Debug */,
 				8737C6F22071D6E300D9D65B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8737C6F32071D6E300D9D65B /* Build configuration list for PBXNativeTarget "CardGameAppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8737C6F42071D6E300D9D65B /* Debug */,
-				8737C6F52071D6E300D9D65B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
