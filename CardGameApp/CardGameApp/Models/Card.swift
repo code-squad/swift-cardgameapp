@@ -7,11 +7,10 @@
 //
 
 import Foundation
-import UIKit
 
 struct Card {
-  private var suit: Suit
-  private var number: Number
+  private(set) var suit: Suit
+  private(set) var number: Number
   
   init(_ suit: Suit, _ number: Number) {
     self.suit = suit
@@ -20,8 +19,8 @@ struct Card {
 }
 
 extension Card {
-  func bringFrontImage() -> UIImage {
-    return UIImage(imageLiteralResourceName: self.description)
+  func bringFrontImageName() -> String {
+    return self.description
   }
 }
 

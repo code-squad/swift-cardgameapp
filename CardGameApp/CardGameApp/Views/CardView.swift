@@ -9,27 +9,27 @@
 import UIKit
 
 class CardView: UIImageView {
-  override var frame: CGRect {
-    didSet {
-      self.layer.cornerRadius = 3
-      self.layer.masksToBounds = true
-    }
-  }
+  private var viewModel: CardViewModel!
   
-  override func layoutSubviews() {
-    super.layoutSubviews()
+  override init(frame: CGRect) {
+    super.init(frame: frame)
   }
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
   
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-  }
-  
-  convenience init(frame: CGRect, image: UIImage) {
+  convenience init(frame: CGRect, viewModel: CardViewModel) {
     self.init(frame: frame)
-    self.image = image
+    self.viewModel = viewModel
+    initialize()
+  }
+}
+
+private extension CardView {
+  func initialize() {
+    self.layer.cornerRadius = 3
+    self.layer.masksToBounds = true
+    self.image = UIImage(imageLiteralResourceName: viewModel.getCardImageName())
   }
 }
