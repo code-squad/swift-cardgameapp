@@ -11,4 +11,5 @@ import Foundation
 struct LiteralResoureNames {
   static let cardBack = "CardBack"
   static let board = "GameBoard"
+  static let refresh = "Refresh"
 }
