@@ -10,27 +10,22 @@ import Foundation
 import UIKit
 
 class CardViewModel {
-  private var card: Card?
+  private var card: Card
   private var status: Status
   
-  init(card: Card?, status: Status = .back) {
+  init(card: Card, status: Status = .back) {
     self.card = card
     self.status = status
-  }
-  
-  convenience init() {
-    self.init(card: nil)
   }
 }
 
 extension CardViewModel {
-  func getCardImageName() -> String {
-    guard let card = self.card else { return "" }
+  func getCardImage() -> UIImage {
     guard self.status == .front else {
-      return LiteralResoureNames.cardBack
+      return Image.cardBack
     }
     
-    return card.bringFrontImageName()
+    return UIImage(imageLiteralResourceName: card.bringFrontImageName())
   }
   
   enum Status {

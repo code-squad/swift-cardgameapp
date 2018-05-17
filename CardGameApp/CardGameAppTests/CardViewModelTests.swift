@@ -15,13 +15,13 @@ class CardViewModelTests: XCTestCase {
     XCTAssertNotNil(cardViewModel)
   }
   
-  func test_카드_뒷면_이미지이름_반환() {
+  func test_카드_뒷면_이미지_반환() {
     let cardViewModel = CardViewModel(card: Card(.heart, .ace))
-    XCTAssertTrue(cardViewModel.getCardImageName() == LiteralResoureNames.cardBack)
+    XCTAssertTrue(cardViewModel.getCardImage() == Image.cardBack)
   }
   
   func test_카드_앞면_이미지이름_반환() {
     let cardViewModel = CardViewModel(card: Card(.heart, .ace), status: .front)
-    XCTAssertTrue(cardViewModel.getCardImageName() == "hA")
+    XCTAssertTrue(cardViewModel.getCardImage() == UIImage(imageLiteralResourceName: "hA"))
   }
 }

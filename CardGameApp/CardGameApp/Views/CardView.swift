@@ -9,8 +9,6 @@
 import UIKit
 
 class CardView: UIImageView {
-  private var viewModel: CardViewModel!
-  
   override init(frame: CGRect) {
     super.init(frame: frame)
   }
@@ -19,17 +17,17 @@ class CardView: UIImageView {
     super.init(coder: aDecoder)
   }
   
-  convenience init(frame: CGRect, viewModel: CardViewModel) {
-    self.init(frame: frame)
-    self.viewModel = viewModel
-    initialize()
+  convenience init(viewModel: CardViewModel) {
+    self.init(frame: .zero)
+    self.frame = setFrame()
+    initialize(viewModel)
   }
 }
 
 private extension CardView {
-  func initialize() {
+  func initialize(_ viewModel: CardViewModel) {
     self.layer.cornerRadius = 3
     self.layer.masksToBounds = true
-    self.image = UIImage(imageLiteralResourceName: viewModel.getCardImageName())
+    self.image = viewModel.getCardImage()
   }
 }
