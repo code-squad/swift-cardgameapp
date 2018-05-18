@@ -19,35 +19,46 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6GV-69-fJY">
-                                <rect key="frame" x="5" y="30" width="365" height="100"/>
+                                <rect key="frame" x="5" y="30" width="365" height="110"/>
                                 <subviews>
-                                    <containerView alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="00v-mc-H44">
-                                        <rect key="frame" x="0.0" y="0.0" width="202" height="100"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <connections>
-                                            <segue destination="EwU-cJ-GiU" kind="embed" id="cTd-IQ-les"/>
-                                        </connections>
-                                    </containerView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X0D-cL-TlA" customClass="WastePileView" customModule="CardGameApp" customModuleProvider="target">
-                                        <rect key="frame" x="202" y="0.0" width="81.5" height="100"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="lxN-wJ-JmX">
+                                        <rect key="frame" x="0.0" y="0.0" width="365" height="110"/>
+                                        <subviews>
+                                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="00v-mc-H44">
+                                                <rect key="frame" x="0.0" y="0.0" width="212" height="110"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <segue destination="EwU-cJ-GiU" kind="embed" id="cTd-IQ-les"/>
+                                                </connections>
+                                            </containerView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D7v-mB-Qx6">
+                                                <rect key="frame" x="227" y="0.0" width="138" height="110"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X0D-cL-TlA" customClass="WastePileView" customModule="CardGameApp" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="72" height="110"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hM7-LL-haT" customClass="ExtraPileView" customModule="CardGameApp" customModuleProvider="target">
+                                                        <rect key="frame" x="72" y="0.0" width="66" height="110"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="hM7-LL-haT" firstAttribute="leading" secondItem="D7v-mB-Qx6" secondAttribute="leading" constant="72" id="xRz-v5-q2u"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="m0z-vZ-WEr"/>
+                                            <constraint firstItem="D7v-mB-Qx6" firstAttribute="leading" secondItem="lxN-wJ-JmX" secondAttribute="leading" constant="227" id="VZc-Bk-bSk"/>
                                         </constraints>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hM7-LL-haT" customClass="ExtraPileView" customModule="CardGameApp" customModuleProvider="target">
-                                        <rect key="frame" x="283.5" y="0.0" width="81.5" height="100"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </view>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="X0D-cL-TlA" firstAttribute="leading" secondItem="6GV-69-fJY" secondAttribute="leading" constant="202" id="787-kQ-CiP"/>
-                                    <constraint firstItem="X0D-cL-TlA" firstAttribute="height" secondItem="hM7-LL-haT" secondAttribute="height" id="fMc-hg-ufd"/>
-                                    <constraint firstItem="X0D-cL-TlA" firstAttribute="width" secondItem="hM7-LL-haT" secondAttribute="width" id="xGC-qb-U2e"/>
+                                    <constraint firstAttribute="height" constant="110" id="egr-Vp-lAo"/>
                                 </constraints>
                             </stackView>
-                            <containerView alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yho-Fq-1bv">
-                                <rect key="frame" x="5" y="140" width="365" height="517"/>
+                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yho-Fq-1bv">
+                                <rect key="frame" x="5" y="148" width="365" height="509"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <segue destination="85Y-NB-K9j" kind="embed" id="n6N-Wk-CTV"/>
@@ -56,13 +67,14 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yho-Fq-1bv" secondAttribute="bottom" constant="10" id="2Rb-JA-WXh"/>
-                            <constraint firstItem="yho-Fq-1bv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="5q9-wG-DbE"/>
-                            <constraint firstItem="yho-Fq-1bv" firstAttribute="top" secondItem="6GV-69-fJY" secondAttribute="bottom" constant="10" id="9B8-Us-V7L"/>
-                            <constraint firstItem="6GV-69-fJY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="ECl-yb-sll"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6GV-69-fJY" secondAttribute="trailing" constant="5" id="Eac-Ox-2iH"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yho-Fq-1bv" secondAttribute="trailing" constant="5" id="Vxb-Gk-RAj"/>
-                            <constraint firstItem="6GV-69-fJY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="fhM-L4-OvB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="6GV-69-fJY" secondAttribute="trailing" constant="5" id="Mq1-0u-YVa"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yho-Fq-1bv" secondAttribute="trailing" constant="5" id="PGN-4V-u3K"/>
+                            <constraint firstItem="yho-Fq-1bv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="PIM-mf-V3e"/>
+                            <constraint firstItem="yho-Fq-1bv" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="148" id="R4n-Er-wEZ"/>
+                            <constraint firstItem="6GV-69-fJY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="R8p-sN-dmV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yho-Fq-1bv" secondAttribute="bottom" constant="10" id="gBn-SU-28H"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yho-Fq-1bv" secondAttribute="bottom" constant="10" id="jcP-Jw-Qcs"/>
+                            <constraint firstItem="yho-Fq-1bv" firstAttribute="top" secondItem="6GV-69-fJY" secondAttribute="bottom" constant="8" symbolic="YES" id="stt-Wn-ciO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -80,9 +92,9 @@
             <objects>
                 <viewController id="EwU-cJ-GiU" customClass="FoundationPilesViewController" customModule="CardGameApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZFC-e4-lvx">
-                        <rect key="frame" x="0.0" y="0.0" width="202" height="100"/>
+                        <rect key="frame" x="0.0" y="0.0" width="212" height="110"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="bm5-ha-TSf"/>
                     </view>
                 </viewController>
@@ -95,9 +107,9 @@
             <objects>
                 <viewController id="85Y-NB-K9j" customClass="TableauPilesViewController" customModule="CardGameApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uhx-rn-jFI">
-                        <rect key="frame" x="0.0" y="0.0" width="365" height="517"/>
+                        <rect key="frame" x="0.0" y="0.0" width="365" height="509"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="iGa-OV-frE"/>
                     </view>
                 </viewController>
