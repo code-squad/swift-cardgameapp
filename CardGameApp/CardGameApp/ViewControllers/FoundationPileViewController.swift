@@ -14,30 +14,13 @@ class FoundationPileViewController: UIViewController {
   }
   
   func addView(pileIndex: Int, with cardViewModel: CardViewModel?) {
-    fitFrame(pileIndex)
+    ViewUtility.fitFrame(view: self.view, widthPosition: pileIndex)
     
     guard let cardViewModel = cardViewModel else {
-      addEmptyView()
+      ViewUtility.addEmptyView(view: self.view)
       return
     }
 
-    addCardView(cardViewModel)
-  }
-}
-
-private extension FoundationPileViewController {
-  func addEmptyView() {
-    let emptyView = UIImageView()
-    emptyView.generateEmptyView()
-    view.addSubview(emptyView)
-  }
-  
-  func addCardView(_ viewModel: CardViewModel) {
-    let cardView = CardView(viewModel: viewModel)
-    view.addSubview(cardView)
-  }
-  
-  func fitFrame(_ widthPosition: Int) {
-    view.frame = view.setFrame(widthPosition: widthPosition) 
+    ViewUtility.addCardView(view: self.view, with: cardViewModel)
   }
 }

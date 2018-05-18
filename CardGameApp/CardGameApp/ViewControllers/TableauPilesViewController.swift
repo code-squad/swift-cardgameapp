@@ -36,6 +36,6 @@ extension TableauPilesViewController: TableauPilesViewContrllerDelegate {
   func setCardViewModel(_ pileIndex: Int, _ cardIndex: Int, with cardViewModel: CardViewModel) {
     let tableauPileViewController = TableauPileViewController()
     tableauPileViewController.addView(pileIndex: pileIndex, cardIndex: cardIndex, with: cardViewModel)
-    ViewUility.addChildViewController(child: tableauPileViewController, to: self)
+    ViewUtility.addChildViewController(child: tableauPileViewController, to: self)
   }
 }

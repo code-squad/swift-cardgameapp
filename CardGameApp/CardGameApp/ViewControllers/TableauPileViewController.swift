@@ -14,31 +14,13 @@ class TableauPileViewController: UIViewController {
   }
   
   func addView(pileIndex: Int, cardIndex: Int, with cardViewModel: CardViewModel?) {
-    fitFrame(widthPosition: pileIndex, heightPosition: cardIndex)
+    ViewUtility.fitFrame(view: self.view, widthPosition: pileIndex, heightPosition: cardIndex)
     
     guard let cardViewModel = cardViewModel else {
-      addEmptyView()
+      ViewUtility.addEmptyView(view: self.view)
       return
     }
     
-    addCardView(cardViewModel)
+    ViewUtility.addCardView(view: self.view, with: cardViewModel)
   }
 }
-
-private extension TableauPileViewController {
-  func addEmptyView() {
-    let emptyView = UIImageView()
-    emptyView.generateEmptyView()
-    view.addSubview(emptyView)
-  }
-  
-  func addCardView(_ viewModel: CardViewModel) {
-    let cardView = CardView(viewModel: viewModel)
-    view.addSubview(cardView)
-  }
-  
-  func fitFrame(widthPosition: Int, heightPosition: Int) {
-    view.frame = view.setFrame(widthPosition: widthPosition, heightPosition: heightPosition)
-  }
-}
-

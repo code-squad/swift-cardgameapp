@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct ViewUility {
+struct ViewUtility {
   static func addChildViewController(child: UIViewController, to parent: UIViewController) {
     parent.addChildViewController(child)
     parent.view.addSubview(child.view)
@@ -20,5 +20,20 @@ struct ViewUility {
     child.willMove(toParentViewController: nil)
     child.view.removeFromSuperview()
     child.removeFromParentViewController()
+  }
+  
+  static func addEmptyView(view: UIView) {
+    let emptyView = UIImageView()
+    emptyView.generateEmptyView()
+    view.addSubview(emptyView)
+  }
+  
+  static func addCardView(view: UIView, with viewModel: CardViewModel) {
+    let cardView = CardView(viewModel: viewModel)
+    view.addSubview(cardView)
+  }
+  
+  static func fitFrame(view: UIView, widthPosition: Int = 0, heightPosition: Int = 0) {
+    view.frame = view.setFrame(widthPosition: widthPosition, heightPosition: heightPosition)
   }
 }
