@@ -23,11 +23,20 @@ class FoundationPilesViewController: UIViewController {
 
 private extension FoundationPilesViewController {
   func initialize() {
+    removeAllViewControllers()
     configueFoundationPilesView()
   }
   
   func configueFoundationPilesView() {
     foundationPilesViewModel.addCardViewModels()
+  }
+  
+  func removeAllViewControllers() {
+    if childViewControllers.count > 0 {
+      for child in childViewControllers {
+        ViewUtility.removeChildViewController(child: child)
+      }
+    }
   }
 }
 

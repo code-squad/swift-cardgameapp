@@ -17,17 +17,26 @@ class TableauPilesViewController: UIViewController {
   }
   
   override func viewDidLoad() {
-      super.viewDidLoad()
+    super.viewDidLoad()
   }
 }
 
 private extension TableauPilesViewController {
   func initialize() {
+    removeAllViewControllers()
     configueTablePileView()
   }
   
   func configueTablePileView() {
     tableauPilesViewModel.addCardViewModels()
+  }
+  
+  func removeAllViewControllers() {
+    if childViewControllers.count > 0 {
+      for child in childViewControllers {
+        ViewUtility.removeChildViewController(child: child)
+      }
+    }
   }
 }
 

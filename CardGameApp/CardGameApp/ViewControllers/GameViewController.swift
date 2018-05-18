@@ -27,15 +27,27 @@ class GameViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.gameViewModel = GameViewModel()
-    self.gameViewModel.initialize()
-    
-    initialize()
-    registerGestures()
+    startGame()
   }
   
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return UIStatusBarStyle.lightContent
+  }
+  
+  override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+    if motion == .motionShake {
+      wastePileView.removeAllViews()
+      extraPileView.removeAllViews()
+      startGame()
+    }
+  }
+  
+  private func startGame() {
+    self.gameViewModel = GameViewModel()
+    self.gameViewModel.initialize()
+  
+    initialize()
+    registerGestures()
   }
 }
 
