@@ -10,8 +10,26 @@ import Foundation
 
 class FoundationPilesViewModel {
   private var foundationPiles: FoundationPiles
+  var delegate: FoundationPilesViewControllerDelegate?
   
   init(_ foundationPiles: FoundationPiles) {
     self.foundationPiles = foundationPiles
+  }
+  
+  func addCardViewModels() {
+    guard isAvailable else {
+      (0...ViewSettings.foundationCount-1).forEach { setEmptyView($0) }
+      return
+    }
+  }
+  
+  var isAvailable: Bool {
+    return foundationPiles.count > 0
+  }
+}
+
+private extension FoundationPilesViewModel {
+  func setEmptyView(_ pileIndex: Int) {
+    delegate?.setEmptyView(pileIndex)
   }
 }
