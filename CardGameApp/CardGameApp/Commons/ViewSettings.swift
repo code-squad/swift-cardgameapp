@@ -11,7 +11,7 @@ import UIKit
 struct ViewSettings {
   static let cardCount: Int = 7
   static let foundationCount: Int = 4
-  static let spacing: CGFloat = 3
+  static let spacing = 3
   static var cardWidth: CGFloat = 0
   static var cardHeight: CGFloat = 0
 }

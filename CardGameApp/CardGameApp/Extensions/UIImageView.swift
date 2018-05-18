@@ -1,5 +1,5 @@
 //
-//  UIImageView+Size.swift
+//  UIImageView+.swift
 //  CardGameApp
 //
 //  Created by yuaming on 17/05/2018.
@@ -9,10 +9,6 @@
 import UIKit
 
 extension UIImageView {
-  func setFrame() -> CGRect {
-    return CGRect(origin: .zero, size: CGSize(width: ViewSettings.cardWidth, height: ViewSettings.cardHeight))
-  }
-  
   func generateEmptyView() {
     self.frame = setFrame()
     self.layer.borderColor = UIColor.white.cgColor
