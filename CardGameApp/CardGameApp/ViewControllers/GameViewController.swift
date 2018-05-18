@@ -25,8 +25,6 @@ class GameViewController: UIViewController {
     }
   }
   
-  private var tableauPilesViewController: TableauPilesViewController!
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.gameViewModel = GameViewModel()
@@ -57,7 +55,7 @@ private extension GameViewController {
   }
   
   func setCardSize() {
-    ViewSettings.cardWidth = view.frame.size.width / CGFloat(ViewSettings.cardCount) - ViewSettings.spacing
+    ViewSettings.cardWidth = view.frame.size.width / ViewSettings.cardCount.cgFloat - ViewSettings.spacing.cgFloat
     ViewSettings.cardHeight = ViewSettings.cardWidth * 1.27
   }
   
@@ -85,13 +83,13 @@ private extension GameViewController {
     }
     
     if imageView.image == Image.cardBack {
-      executeWhenCardIsBack()
+      executeWhenCardBackImage()
     } else {
       executeWhenRefreshedImage()
     }
   }
   
-  func executeWhenCardIsBack() {
+  func executeWhenCardBackImage() {
     if extraPileViewModel.isAvailable {
       guard let card = extraPileViewModel.choiceOneCard() else { return }
       wastePileViewModel.push(card)
@@ -135,15 +133,17 @@ extension GameViewController: GameViewControllerDelegate {
   }
 }
 
-// MARK:- Binding view models
+// MARK:- Binding View Models
 private extension GameViewController {
   func bindViewModels() {
     self.extraPileViewModel = ExtraPileViewModel(gameViewModel.extraPile)
     self.wastePileViewModel = WasteViewModel(gameViewModel.wastePile)
     if let vc = childViewControllers.first as? FoundationPilesViewController {
-      vc.foundationViewModel = FoundationPilesViewModel(gameViewModel.foundationPiles)
+      vc.foundationPilesViewModel = FoundationPilesViewModel(gameViewModel.foundationPiles)
     }
     
-//    if let vc = childViewControllers.last as? TableauPilesViewController { }
+    if let vc = childViewControllers.last as? TableauPilesViewController {
+      vc.tableauPilesViewModel = TableauPilesViewModel(gameViewModel.tableauPiles)
+    }
   }
 }
