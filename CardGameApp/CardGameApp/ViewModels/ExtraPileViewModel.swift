@@ -9,7 +9,7 @@
 import Foundation
 
 class ExtraPileViewModel {
-  var delegate: GameViewControllerProtocol?
+  var delegate: GameViewControllerDelegate?
   private(set) var extraPile: CardStack
   
   init(_ extraPile: CardStack) {

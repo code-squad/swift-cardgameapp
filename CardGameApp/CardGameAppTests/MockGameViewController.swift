@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 @testable import CardGameApp
 
-class MockGameViewController: GameViewControllerProtocol {
+class MockGameViewController: GameViewControllerDelegate {
   var expectationForSetCardViewModelInExtraPile: XCTestExpectation?
   var expectationForSetCardViewModelInWastePile: XCTestExpectation?
   var expectationForSetEmptyViewInExtraPile: XCTestExpectation?

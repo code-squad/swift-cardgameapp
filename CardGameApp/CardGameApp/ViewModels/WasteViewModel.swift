@@ -10,7 +10,7 @@ import Foundation
 
 class WasteViewModel {
   private var wastePile: CardStack
-  var delegate: GameViewControllerProtocol?
+  var delegate: GameViewControllerDelegate?
   
   init(_ wastePile: CardStack) {
     self.wastePile = wastePile

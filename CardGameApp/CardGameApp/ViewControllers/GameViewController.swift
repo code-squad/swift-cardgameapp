@@ -111,8 +111,8 @@ private extension GameViewController {
   }
 }
 
-// MARK:- GameViewControllerProtocol
-extension GameViewController: GameViewControllerProtocol {
+// MARK:- GameViewControllerDelegate
+extension GameViewController: GameViewControllerDelegate {
   func setCardViewModelInExtraPile(_ cardViewModel: CardViewModel) {
     extraPileView.addView(cardViewModel)
   }
@@ -140,7 +140,10 @@ private extension GameViewController {
   func bindViewModels() {
     self.extraPileViewModel = ExtraPileViewModel(gameViewModel.extraPile)
     self.wastePileViewModel = WasteViewModel(gameViewModel.wastePile)
-//    if let vc = childViewControllers.first as? FoundationPilesViewController { }
+    if let vc = childViewControllers.first as? FoundationPilesViewController {
+      vc.foundationViewModel = FoundationPilesViewModel(gameViewModel.foundationPiles)
+    }
+    
 //    if let vc = childViewControllers.last as? TableauPilesViewController { }
   }
 }
