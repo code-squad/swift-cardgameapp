@@ -45,6 +45,7 @@
 		87D77E4B20AEA50000BFFF55 /* TableauPilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4A20AEA50000BFFF55 /* TableauPilesViewModel.swift */; };
 		87D77E4D20AEB06800BFFF55 /* TableauPileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4C20AEB06800BFFF55 /* TableauPileViewController.swift */; };
 		87D77E4F20AEBC3500BFFF55 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4E20AEBC3500BFFF55 /* Int.swift */; };
+		87D77E5120AEC4C500BFFF55 /* ViewUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E5020AEC4C500BFFF55 /* ViewUtility.swift */; };
 		87F4FED62073144A0061FE9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87F4FED52073144A0061FE9E /* Assets.xcassets */; };
 		87F4FEDB20731C820061FE9E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F4FEDA20731C820061FE9E /* CardView.swift */; };
 		87FCCD9420AD01EC0064A2C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FCCD9020AD01EC0064A2C1 /* LaunchScreen.storyboard */; };
@@ -107,6 +108,7 @@
 		87D77E4A20AEA50000BFFF55 /* TableauPilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPilesViewModel.swift; sourceTree = "<group>"; };
 		87D77E4C20AEB06800BFFF55 /* TableauPileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPileViewController.swift; sourceTree = "<group>"; };
 		87D77E4E20AEBC3500BFFF55 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
+		87D77E5020AEC4C500BFFF55 /* ViewUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUtility.swift; sourceTree = "<group>"; };
 		87F4FED52073144A0061FE9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87F4FEDA20731C820061FE9E /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		87FCCD9120AD01EC0064A2C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -187,7 +189,7 @@
 				8737C6D42071D6E300D9D65B /* Info.plist */,
 				8737C6C82071D6E200D9D65B /* AppDelegate.swift */,
 				87F4FED52073144A0061FE9E /* Assets.xcassets */,
-				87A7696620A14993008A1023 /* Commons */,
+				87A7696620A14993008A1023 /* Utilities */,
 				87CE7F1720A1038300975DEC /* Extensions */,
 				87CE7F0E20A1031F00975DEC /* Models */,
 				87FCCD8F20AD01EC0064A2C1 /* Storyboards */,
@@ -228,13 +230,14 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		87A7696620A14993008A1023 /* Commons */ = {
+		87A7696620A14993008A1023 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				8742478D20AD107500E9EA26 /* ViewSettings.swift */,
 				87A7696720A149AA008A1023 /* LiteralResoureNames.swift */,
+				87D77E5020AEC4C500BFFF55 /* ViewUtility.swift */,
 			);
-			path = Commons;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		87CE7F0E20A1031F00975DEC /* Models */ = {
@@ -485,6 +488,7 @@
 				8715761E20ACFD6A005F9C6C /* CardViewModel.swift in Sources */,
 				8715762C20ACFE0B005F9C6C /* GameViewController.swift in Sources */,
 				87075CCC20AE6898001930C5 /* TableauPiles.swift in Sources */,
+				87D77E5120AEC4C500BFFF55 /* ViewUtility.swift in Sources */,
 				87A7696820A149AA008A1023 /* LiteralResoureNames.swift in Sources */,
 				8737C6C92071D6E200D9D65B /* AppDelegate.swift in Sources */,
 				8715762320ACFD80005F9C6C /* CardStack.swift in Sources */,
