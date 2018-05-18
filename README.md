@@ -66,6 +66,10 @@
 <img src="./images/cardgame-stack-step3.png" width="30%"></img>
 
 ##### 실행결과
+* 원하는 결과가 나왔지만, View 구조는 내가 생각하던 결과가 아니였음. TableauPileViewController 안에 Pile 속해 있는 View가 관리되기 원했음
+
+<img src="./images/cardgame-app-result-3-1.png" width="30%"></img>
+<img src="./images/cardgame-app-result-3-2.png" width="30%"></img>
 
 ##### 학습거리 
 * UIStackView
