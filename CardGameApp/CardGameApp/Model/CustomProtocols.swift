@@ -27,6 +27,9 @@ protocol CardGameDelegate {
     func movableFromStack(from: ViewKey, column: Int) -> (to: ViewKey, index: Int?)
     func popOpenDeck()
     func popStack(column: Int)
+    func ruleCheck(fromInfo: MoveInfo, toInfo: MoveInfo) -> Bool
+    func movableCards(info: MoveInfo) -> [Card]?
+    func checkStackAble(card: [Card], to toInfo: MoveInfo) -> Bool
 }
 
 protocol CardDeckDelegate {
@@ -55,13 +58,18 @@ protocol StackDelegate {
     func removePoppedCard()
     func currentLastCard() -> Card
     func isStackable(nextCard: Card) -> Bool
-    func stackUp(newCard: Card)
+    func stackUp(newCard: Card?, newCards: [Card]?)
+    func movableCards(from: Int) -> [Card]
 }
 
 // MARK: RuleCheck Related
 
 protocol Stackable {
     func stackable(nextCard card: Card) -> Int?
-    func stackUp(newCard: Card, column: Int)
+    func stackUp(newCard: Card?, newCards: [Card]?, column: Int)
 }
 
+protocol Movable {
+    func cardImages(at: Int?) -> [CardImageView]?
+    func convertViewKey() -> ViewKey
+}

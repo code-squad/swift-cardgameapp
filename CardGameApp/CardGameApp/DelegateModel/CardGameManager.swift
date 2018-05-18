@@ -108,5 +108,51 @@ class CardGameManager: CardGameDelegate {
         let newCard = stackManagers.lastCard(of: column)
         return newRuleCheck(card: newCard)
     }
+
+    // update model하고 Bool리턴
+    func ruleCheck(fromInfo: MoveInfo, toInfo: MoveInfo) -> Bool {
+        //카드구함
+        //카드로 toInfo에 있는 뷰와 인덱스로 가는것이 적합한지 검사
+        //검사 후 리턴값이 true면 movableCards 리턴/아니면 nil리턴
+        guard let movableCards: [Card] = self.movableCards(info: fromInfo) else { return false }
+        return  checkStackAble(card: movableCards, to: toInfo)
+    }
+
+    func movableCards(info: MoveInfo) -> [Card]? {
+        switch info.getView().convertViewKey() {
+        case .deck:
+            return [deckManager.lastOpenedCard()!]
+        case .foundation:
+            return foundationManager.cards(in: 0)
+        case .stack:
+            return stackManagers.getStackDelegate(of: info.getColumn()!).movableCards(from: info.getIndex()!)
+        default: return nil
+        }
+    }
+
+    func checkStackAble(card: [Card], to toInfo: MoveInfo) -> Bool {
+        switch toInfo.getView().convertViewKey() {
+        case .deck:
+            return false
+        case .foundation:
+            guard let column = foundationManager.stackable(nextCard: card[0]) else { return false }
+            foundationManager.stackUp(newCard: card[0], newCards: nil, column: column)
+            return true
+        case .stack:
+            // 모델에서 받아온 가능한 스택column
+            guard let availableStack = stackManagers.stackable(nextCard: card[0]) else { return false }
+            // toInfo에서 받아온 유저가 선택한 스택 column
+            guard let toColumn = toInfo.getColumn() else { return false }
+            // 모델에서 받아온 가능한 column과 유저가 선택한 column이 일치하는지 검사
+            guard availableStack == toColumn else { return false }
+            //모델변경
+            stackManagers.stackUp(newCard: nil, newCards: card, column: availableStack)
+            return true
+        default: return false
+        }
+        return false
+    }
+
+
 }
 
