@@ -60,10 +60,17 @@
 * 앱에서 Shake 이벤트를 발생하면 랜덤 카드를 다시 섞고 처음 상태로 다시 그리도록 구현함
 
 ##### 실행결과
-* 원하는 결과가 나왔지만, View 구조는 내가 생각하던 결과가 아니였음. TableauPileViewController 안에 Pile 속해 있는 View가 관리되기 원했음
+* 프로젝트 하면서 느낀 점은 구조 잡는 것이 제일 어려운 것 같음. 구조 잡는 것때문에 고민도 많이 하고 구조도 많이 지우고 작성하기도 함
+* 원하는 결과가 나왔지만, TableauPilesViewController의 View, View Controller 구조가 내가 원하는 역할로 나누어지지 않음
 
 <img src="./images/cardgame-app-result-3-1.png" width="30%"></img>
 <img src="./images/cardgame-app-result-3-2.png" width="30%"></img>
+
+* 결국 위 구조를 아래처럼 고침
+* 
+<img src="./images/cardgame-app-result-3-3.png" width="30%"></img>
+<img src="./images/cardgame-app-result-3-4.png" width="30%"></img>
+<img src="./images/cardgame-app-result-3-5.gif" width="30%"></img>
 
 ##### 학습거리 
 * UIStackView
