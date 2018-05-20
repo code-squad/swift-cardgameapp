@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     private var stackView: CardStacksView!
     private var foundationView: FoundationView!
 
-    //static let fromViewKey: String = "from"
     static let widthOfRootView: CGFloat = 414
     static let heightOfRootView: CGFloat = 736
     static let spaceY: CGFloat = 15.0
@@ -244,20 +243,20 @@ extension ViewController {
         let translation = recognizer.translation(in: view)
 
         switch recognizer.state {
-        case .began, .changed:
+        case .began:
             originalInfo = FrameCalculator().originalLocation(view: superView, position: cardView.frame.origin)
             movableViews = originalInfo.getView().cardImages(at: originalInfo.getIndex())
+        case .changed:
             movableViews.forEach{
                 $0.layer.zPosition = 1
                 $0.frame.origin = CGPoint(x: $0.frame.origin.x + translation.x,
                                           y: $0.frame.origin.y + translation.y)
                 currentFrames = $0.frame.origin
-                print(currentFrames)
             }
             recognizer.setTranslation(CGPoint.zero, in: view)
-        case .cancelled: return
         case .ended:
-            print("ended")
+            // currentFrame을 rootView기준으로 변환
+            currentFrames = FrameCalculator().convertToRootView(from: originalInfo, origin: self.currentFrames)
             guard isInside(point: currentFrames) else {return}
             toInfo = self.toInfo(at: currentFrames)
             guard cardGameDelegate.ruleCheck(fromInfo: originalInfo, toInfo: toInfo) else {return}
@@ -277,6 +276,7 @@ extension ViewController {
                 completion: { _ in
                     self.reloadViews()
             })
+        case .cancelled: return
         default: return
         }
 
