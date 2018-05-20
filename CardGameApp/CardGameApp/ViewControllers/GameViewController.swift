@@ -105,7 +105,7 @@ private extension GameViewController {
     if extraPileViewModel.isAvailable {
       guard let card = extraPileViewModel.choiceOneCard() else { return }
       wastePileViewModel.push(card)
-      wastePileViewModel.updateCardViewModel(card, status: .front)
+      wastePileViewModel.updateCardViewModel(card, isTurnedOver: true)
     } else {
       extraPileViewModel.refresh()
     }

@@ -19,6 +19,6 @@ class TableauPileViewController: UIViewController {
       return
     }
     
-    ViewUtility.addCardView(in: view, with: cardViewModel)
+    ViewUtility.addCardView(in: view, with: cardViewModel, widthPosition: pileIndex, heightPosition: cardIndex)
   }
 }

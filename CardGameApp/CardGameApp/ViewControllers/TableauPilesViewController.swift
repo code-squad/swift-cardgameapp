@@ -16,6 +16,9 @@ class TableauPilesViewController: UIViewController {
     }
   }
   
+  private var tableauPileViewController: TableauPileViewController = TableauPileViewController()
+  private var isEnded: Bool = false
+  
   override func viewDidLoad() {
     super.viewDidLoad()
   }
@@ -27,10 +30,6 @@ private extension TableauPilesViewController {
     configueTablePileView()
   }
   
-  func configueTablePileView() {
-    tableauPilesViewModel.addCardViewModels()
-  }
-  
   func removeAllViewControllers() {
     if childViewControllers.count > 0 {
       for child in childViewControllers {
@@ -38,13 +37,24 @@ private extension TableauPilesViewController {
       }
     }
   }
+  
+  func configueTablePileView() {
+    tableauPilesViewModel.updateCardViewModels()
+  }
 }
 
-// MARK:- FoundationPilesViewControllerDelegate
+// MARK:- TableauPilesViewContrllerDelegate
 extension TableauPilesViewController: TableauPilesViewContrllerDelegate {
-  func setCardViewModel(_ pileIndex: Int, _ cardIndex: Int, with cardViewModel: CardViewModel) {
-    let tableauPileViewController = TableauPileViewController()
+  func updateCardViewModel(_ pileIndex: Int, _ cardIndex: Int, with cardViewModel: CardViewModel) {
     tableauPileViewController.addView(pileIndex: pileIndex, cardIndex: cardIndex, with: cardViewModel)
     ViewUtility.addChildViewController(child: tableauPileViewController, to: self)
+    
+    if isEnded {
+      tableauPileViewController = TableauPileViewController()
+    }
+  }
+  
+  func updateLastPositionFlag(_ isEnded: Bool) {
+    self.isEnded = isEnded
   }
 }

@@ -11,25 +11,19 @@ import UIKit
 
 class CardViewModel {
   private var card: Card
-  private var status: Status
+  private var isTurnedOver: Bool
   
-  init(card: Card, status: Status = .back) {
+  init(card: Card, isTurnedOver: Bool = false) {
     self.card = card
-    self.status = status
+    self.isTurnedOver = isTurnedOver
   }
 }
 
 extension CardViewModel {
   func getCardImage() -> UIImage {
-    guard self.status == .front else {
-      return Image.cardBack
-    }
+    guard isTurnedOver else { return Image.cardBack }
     
     return UIImage(imageLiteralResourceName: card.bringFrontImageName())
-  }
-  
-  enum Status {
-    case front, back
   }
 }
 

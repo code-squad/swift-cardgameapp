@@ -23,12 +23,12 @@ class WasteViewModel {
     }
     
     wastePile.forEach {
-      updateCardViewModel($0, status: .front)
+      updateCardViewModel($0, isTurnedOver: true)
     }
   }
   
-  func updateCardViewModel(_ card: Card, status: CardViewModel.Status) {
-    delegate?.updateCardViewModelInWastePile(CardViewModel(card: card, status: status))
+  func updateCardViewModel(_ card: Card, isTurnedOver: Bool = false) {
+    delegate?.updateCardViewModelInWastePile(CardViewModel(card: card, isTurnedOver: isTurnedOver))
   }
   
   func push(_ card: Card) {

@@ -27,8 +27,8 @@ class ExtraPileViewModel {
     }
   }
   
-  func updateCardViewModel(_ card: Card, status: CardViewModel.Status = .back) {
-    delegate?.updateCardViewModelInExtraPile(CardViewModel(card: card, status: status))
+  func updateCardViewModel(_ card: Card, isTurnedOver: Bool = false) {
+    delegate?.updateCardViewModelInExtraPile(CardViewModel(card: card, isTurnedOver: isTurnedOver))
   }
   
   func refresh() {

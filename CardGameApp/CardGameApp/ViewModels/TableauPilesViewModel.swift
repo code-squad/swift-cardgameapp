@@ -16,23 +16,26 @@ class TableauPilesViewModel {
     self.tableauPiles = tableauPiles
   }
   
-  func addCardViewModels() {
+  func updateCardViewModels() {
     guard isAvailable else { return }
     
-    for pileIndex in 0...tableauPiles.count-1 {
-      var cardIndex = 0
-      
-      tableauPiles[pileIndex].forEach {
-        addCardViewModel(pileIndex, cardIndex, card: $0, status: .front)
-        cardIndex += 1
+    for (pileIndex, pile) in tableauPiles.enumerated() {
+      for (cardIndex, card) in pile.enumerated() {
+        let isEnded = pileIndex == cardIndex
+        
+        updateLastPositionFlag(isEnded)
+        updateCardViewModel(pileIndex, cardIndex, card: card, isTurnedOver: isEnded)
       }
     }
   }
   
-  func addCardViewModel(_ pileIndex: Int, _ cardIndex: Int, card: Card, status: CardViewModel.Status = .back) {
-    delegate?.setCardViewModel(pileIndex, cardIndex, with: CardViewModel(card: card, status: status))
+  func updateCardViewModel(_ pileIndex: Int, _ cardIndex: Int, card: Card, isTurnedOver: Bool = false) {
+    delegate?.updateCardViewModel(pileIndex, cardIndex, with: CardViewModel(card: card, isTurnedOver: isTurnedOver))
   }
-
+  
+  func updateLastPositionFlag(_ isEnded: Bool) {
+    delegate?.updateLastPositionFlag(isEnded)
+  }
   
   var isAvailable: Bool {
     return tableauPiles.count > 0

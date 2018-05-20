@@ -9,5 +9,6 @@
 import Foundation
 
 protocol TableauPilesViewContrllerDelegate {
-  func setCardViewModel(_ pileIndex: Int, _ cardIndex: Int, with cardViewModel: CardViewModel)
+  func updateCardViewModel(_ pileIndex: Int, _ cardIndex: Int, with cardViewModel: CardViewModel)
+  func updateLastPositionFlag(_ isEnded: Bool)
 }
