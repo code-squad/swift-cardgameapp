@@ -65,6 +65,26 @@ class FrameCalculator {
         return CGPoint(x:0.0, y:0.0)
     }
 
+    // 현재 currentFrame을 파라미터로 받고 위치한 뷰에 맞는 정보 생성
+    func toInfo(at point: CGPoint) -> (view: ViewKey, column: Int?, index: Int?)?{
+        let foundationY: Range<CGFloat> = 20.0..<100
+
+        if foundationY ~= point.y { // foundationView
+            for i in 0..<PositionX.allValues.count where 0...3 ~= i {
+                if PositionX.allValues[i].value...(PositionX.allValues[i].value + ViewController.cardSize.width) ~= point.x {
+                    return (view: ViewKey.foundation, column: i, index: nil)
+                }
+            }
+        } else if point.y >= PositionY.bottom.value { // stackView
+            for i in 1..<PositionX.allValues.count {
+                if PositionX.allValues[i-1].value...(PositionX.allValues[i-1].value + ViewController.cardSize.width) ~= point.x {
+                    return (view: ViewKey.stack, column: i-1, index: nil)
+                }
+            }
+        }
+        return nil
+    }
+
 }
 
 class MoveInfo {

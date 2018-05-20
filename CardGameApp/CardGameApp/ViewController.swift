@@ -257,7 +257,6 @@ extension ViewController {
         case .ended:
             // currentFrame을 rootView기준으로 변환
             currentFrames = FrameCalculator().convertToRootView(from: originalInfo, origin: self.currentFrames)
-            guard isInside(point: currentFrames) else {return}
             toInfo = self.toInfo(at: currentFrames)
             guard cardGameDelegate.ruleCheck(fromInfo: originalInfo, toInfo: toInfo) else {return}
             toFrame = FrameCalculator().availableFrame(of: toInfo)
@@ -282,19 +281,19 @@ extension ViewController {
 
     }
 
-    func toInfo(at point: CGPoint) -> MoveInfo {
-        for i in 0..<PositionX.allValues.count where 0...3 ~= i {
-            if point.y == PositionY.upper.value {
-                return MoveInfo(view: foundationView as! Movable, column: nil, index: nil)
-            }
+    // 현재 currentFrame이 위치한 뷰에 맞는 MoveInfo 생성
+    func toInfo(at point: CGPoint) -> MoveInfo? {
+        guard let to = FrameCalculator().toInfo(at: point) else {return nil}
+
+        switch to.view {
+        case .foundation:
+            return MoveInfo(view: foundationView as Movable, column: to.column!, index: nil)
+        case .stack:
+            return MoveInfo(view: stackView.getOneStack(of: to.column!), column: to.column!, index: nil)
+        default: break
         }
-        for i in 0..<PositionX.allValues.count {
-            if point.x == PositionX.allValues[i].value {
-                let cardIndex = self.stackView.lastCardPosition(column: i)
-                return MoveInfo(view: stackView.getOneStack(of: i) as! Movable, column: i, index: cardIndex)
-            }
-        }
-        return MoveInfo(view: foundationView as! Movable, column: nil, index: nil)
+
+        return nil
     }
 
     func isInside(point: CGPoint) -> Bool {
