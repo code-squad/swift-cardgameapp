@@ -17,7 +17,7 @@ class GenericIterator<Element>: IteratorProtocol {
   }
     
   func next() -> Element? {
-    nextIndex += 1
+    defer { nextIndex += 1 }
     guard nextIndex < elements.count else { return nil }
     return elements[nextIndex]
   }
