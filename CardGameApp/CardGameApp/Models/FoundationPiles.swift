@@ -60,3 +60,9 @@ private extension FoundationPiles {
     pile.push(pCard)
   }
 }
+
+extension FoundationPiles: Sequence {
+  func makeIterator() -> GenericIterator<CardStack> {
+    return GenericIterator<CardStack>(self.cardPiles)
+  }
+}

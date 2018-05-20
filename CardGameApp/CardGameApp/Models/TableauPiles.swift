@@ -50,3 +50,9 @@ private extension TableauPiles {
     pile.push(pCard)
   }
 }
+
+extension TableauPiles: Sequence {
+  func makeIterator() -> GenericIterator<CardStack> {
+    return GenericIterator<CardStack>(self.cardPiles)
+  }
+}

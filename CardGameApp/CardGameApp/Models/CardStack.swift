@@ -70,22 +70,7 @@ extension CardStack: Equatable {
 }
 
 extension CardStack: Sequence {
-  func makeIterator() -> CardStackIterator {
-    return CardStackIterator(self)
-  }
-}
-
-class CardStackIterator: IteratorProtocol {
-  private let cardStack: CardStack
-  private var nextIndex = 0
-  
-  init(_ cardStack: CardStack) {
-    self.cardStack = cardStack
-  }
-  
-  func next() -> Card? {
-    defer { nextIndex += 1 }
-    guard nextIndex < cardStack.count else { return nil }
-    return cardStack[nextIndex]
+  func makeIterator() -> GenericIterator<Card> {
+    return GenericIterator<Card>(self.cards)
   }
 }
