@@ -31,6 +31,7 @@
 		8742478C20AD0B7C00E9EA26 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742478B20AD0B7C00E9EA26 /* GameViewModel.swift */; };
 		8742478E20AD107500E9EA26 /* ViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742478D20AD107500E9EA26 /* ViewSettings.swift */; };
 		8742479020AD17D300E9EA26 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8742478F20AD17D300E9EA26 /* UIImageView.swift */; };
+		8749029E20B16A9D00B438D2 /* GenericIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749029D20B16A9D00B438D2 /* GenericIterator.swift */; };
 		877EDF9020AD4FD50090768A /* WasteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877EDF8F20AD4FD50090768A /* WasteViewModel.swift */; };
 		87A7696820A149AA008A1023 /* LiteralResoureNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7696720A149AA008A1023 /* LiteralResoureNames.swift */; };
 		87CE7F1020A1032900975DEC /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F0F20A1032900975DEC /* Card.swift */; };
@@ -94,6 +95,7 @@
 		8742478B20AD0B7C00E9EA26 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		8742478D20AD107500E9EA26 /* ViewSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSettings.swift; sourceTree = "<group>"; };
 		8742478F20AD17D300E9EA26 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
+		8749029D20B16A9D00B438D2 /* GenericIterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericIterator.swift; sourceTree = "<group>"; };
 		877EDF8F20AD4FD50090768A /* WasteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasteViewModel.swift; sourceTree = "<group>"; };
 		87A7696720A149AA008A1023 /* LiteralResoureNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteralResoureNames.swift; sourceTree = "<group>"; };
 		87CE7F0F20A1032900975DEC /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				8742478D20AD107500E9EA26 /* ViewSettings.swift */,
 				87A7696720A149AA008A1023 /* LiteralResoureNames.swift */,
 				87D77E5020AEC4C500BFFF55 /* ViewUtility.swift */,
+				8749029D20B16A9D00B438D2 /* GenericIterator.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				87A7696820A149AA008A1023 /* LiteralResoureNames.swift in Sources */,
 				8737C6C92071D6E200D9D65B /* AppDelegate.swift in Sources */,
 				8715762320ACFD80005F9C6C /* CardStack.swift in Sources */,
+				8749029E20B16A9D00B438D2 /* GenericIterator.swift in Sources */,
 				87D77E4720AEA43700BFFF55 /* TableauPilesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
