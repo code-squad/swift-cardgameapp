@@ -34,6 +34,8 @@
 		8749029E20B16A9D00B438D2 /* GenericIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8749029D20B16A9D00B438D2 /* GenericIterator.swift */; };
 		877EDF9020AD4FD50090768A /* WasteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877EDF8F20AD4FD50090768A /* WasteViewModel.swift */; };
 		87A5AC0120B1C48700CC7805 /* WasteViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5AC0020B1C48700CC7805 /* WasteViewModelTests.swift */; };
+		87A5AC0320B1C5E300CC7805 /* FoundationPilesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5AC0220B1C5E300CC7805 /* FoundationPilesTests.swift */; };
+		87A5AC0520B1C68100CC7805 /* TableauPilesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5AC0420B1C68100CC7805 /* TableauPilesTests.swift */; };
 		87A7696820A149AA008A1023 /* LiteralResoureNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7696720A149AA008A1023 /* LiteralResoureNames.swift */; };
 		87CE7F1020A1032900975DEC /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F0F20A1032900975DEC /* Card.swift */; };
 		87CE7F1220A1033D00975DEC /* Suit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1120A1033D00975DEC /* Suit.swift */; };
@@ -99,6 +101,8 @@
 		8749029D20B16A9D00B438D2 /* GenericIterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericIterator.swift; sourceTree = "<group>"; };
 		877EDF8F20AD4FD50090768A /* WasteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasteViewModel.swift; sourceTree = "<group>"; };
 		87A5AC0020B1C48700CC7805 /* WasteViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasteViewModelTests.swift; sourceTree = "<group>"; };
+		87A5AC0220B1C5E300CC7805 /* FoundationPilesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPilesTests.swift; sourceTree = "<group>"; };
+		87A5AC0420B1C68100CC7805 /* TableauPilesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPilesTests.swift; sourceTree = "<group>"; };
 		87A7696720A149AA008A1023 /* LiteralResoureNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteralResoureNames.swift; sourceTree = "<group>"; };
 		87CE7F0F20A1032900975DEC /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		87CE7F1120A1033D00975DEC /* Suit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suit.swift; sourceTree = "<group>"; };
@@ -216,6 +220,8 @@
 				8717F60920ADCD5900D5838C /* ExtraViewModelTests.swift */,
 				8717F60D20ADCFC200D5838C /* MockGameViewController.swift */,
 				87A5AC0020B1C48700CC7805 /* WasteViewModelTests.swift */,
+				87A5AC0220B1C5E300CC7805 /* FoundationPilesTests.swift */,
+				87A5AC0420B1C68100CC7805 /* TableauPilesTests.swift */,
 			);
 			path = CardGameAppTests;
 			sourceTree = "<group>";
@@ -509,8 +515,10 @@
 			files = (
 				8717F60A20ADCD5900D5838C /* ExtraViewModelTests.swift in Sources */,
 				8717F60820ADCCC900D5838C /* GameViewModelTests.swift in Sources */,
+				87A5AC0520B1C68100CC7805 /* TableauPilesTests.swift in Sources */,
 				8717F60E20ADCFC200D5838C /* MockGameViewController.swift in Sources */,
 				8715762920ACFDD7005F9C6C /* CardViewModelTests.swift in Sources */,
+				87A5AC0320B1C5E300CC7805 /* FoundationPilesTests.swift in Sources */,
 				8715762A20ACFDD7005F9C6C /* CardDeckTests.swift in Sources */,
 				87A5AC0120B1C48700CC7805 /* WasteViewModelTests.swift in Sources */,
 				8715762820ACFDD7005F9C6C /* CardStackTests.swift in Sources */,
