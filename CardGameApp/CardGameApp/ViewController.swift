@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     private var stackView: CardStacksView!
     private var foundationView: FoundationView!
 
-    static let fromViewKey: String = "from"
+    //static let fromViewKey: String = "from"
     static let widthOfRootView: CGFloat = 414
     static let heightOfRootView: CGFloat = 736
     static let spaceY: CGFloat = 15.0
@@ -60,6 +60,11 @@ class ViewController: UIViewController {
                                                selector: #selector(stackViewDidDoubleTap(notification:)),
                                                name: .doubleTappedStack,
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(dragAction(notification:)),
+                                               name: .cardDragged,
+                                               object: nil)
+
     }
 
     // MARK: ChangedView Related
@@ -110,7 +115,7 @@ class ViewController: UIViewController {
     // from deck view to foundation || stack view
     @objc func deckViewDidDoubleTap(notification: Notification) {
         guard let userInfo = notification.userInfo else {return}
-        guard let from = userInfo[ViewController.fromViewKey] else { return }
+        guard let from = userInfo[Key.FromView] else { return }
         guard (from as? CardDeckView) != nil else { return }
         let targetCard = deckView.lastCardView!
 
@@ -127,10 +132,10 @@ class ViewController: UIViewController {
         let popCard = cardGameDelegate.getDeckDelegate().lastOpenedCard()!
         if toView == .foundation {
             let foundationManager: Stackable = cardGameDelegate.getFoundationDelegate() as Stackable
-            foundationManager.stackUp(newCard: popCard, column: toIndex)
+            foundationManager.stackUp(newCard: popCard, newCards: nil, column: toIndex)
         }
         if toView == .stack {
-            cardGameDelegate.getWholeStackDelegate().stackUp(newCard: popCard, column: toIndex)
+            cardGameDelegate.getWholeStackDelegate().stackUp(newCard: popCard, newCards: nil, column: toIndex)
         }
         cardGameDelegate.popOpenDeck() // deck의 마지막카드 제거
         UIView.animate(
@@ -151,7 +156,7 @@ class ViewController: UIViewController {
 
     @objc func stackViewDidDoubleTap(notification: Notification) {
         guard let userInfo = notification.userInfo else { return }
-        guard let from = userInfo[ViewController.fromViewKey] else { return }
+        guard let from = userInfo[Key.FromView] else { return }
         guard let fromView = from as? OneStack else { return }
         let fromIndex = fromView.getColumn()
         let targetCard = fromView.lastCardView!
@@ -171,12 +176,12 @@ class ViewController: UIViewController {
 
         if toView == .foundation {
             let foundationManager: Stackable = cardGameDelegate.getFoundationDelegate() as Stackable
-            foundationManager.stackUp(newCard: popCard, column: toIndex)
+            foundationManager.stackUp(newCard: popCard, newCards: nil, column: toIndex)
         }
 
         if toView == .stack {
             let stacksManger: Stackable = cardGameDelegate.getWholeStackDelegate() as Stackable
-            stacksManger.stackUp(newCard: popCard, column: toIndex)
+            stacksManger.stackUp(newCard: popCard, newCards: nil, column: toIndex)
         }
 
 
@@ -217,6 +222,108 @@ class ViewController: UIViewController {
         }
     }
 
+    var movableViews: [CardImageView]!
+    var currentFrames = CGPoint(x: 0.0, y:0.0)
+    var originalInfo: MoveInfo!
+    var toFrame: CGPoint!
+    var toInfo: MoveInfo!
+
 }
 
+// MARK: Drag Action Related
+
+extension ViewController {
+
+    @objc func dragAction(notification: Notification) {
+        guard let object = notification.object else {return}
+        guard let cardView = object as? CardImageView else {return}
+        guard let superView = cardView.superview else {return}
+        guard let userInfo = notification.userInfo else {return}
+        guard let sender = userInfo[Key.GestureRecognizer] else {return}
+        guard let recognizer = sender as? UIPanGestureRecognizer else {return}
+        let translation = recognizer.translation(in: view)
+
+        switch recognizer.state {
+        case .began, .changed:
+            originalInfo = FrameCalculator().originalLocation(view: superView, position: cardView.frame.origin)
+            movableViews = originalInfo.getView().cardImages(at: originalInfo.getIndex())
+            movableViews.forEach{
+                $0.layer.zPosition = 1
+                $0.frame.origin = CGPoint(x: $0.frame.origin.x + translation.x,
+                                          y: $0.frame.origin.y + translation.y)
+                currentFrames = $0.frame.origin
+                print(currentFrames)
+            }
+            recognizer.setTranslation(CGPoint.zero, in: view)
+        case .cancelled: return
+        case .ended:
+            print("ended")
+            guard isInside(point: currentFrames) else {return}
+            toInfo = self.toInfo(at: currentFrames)
+            guard cardGameDelegate.ruleCheck(fromInfo: originalInfo, toInfo: toInfo) else {return}
+            toFrame = FrameCalculator().availableFrame(of: toInfo)
+            let moveTo = (x: toFrame.x - currentFrames.x,
+                          y: toFrame.y - currentFrames.y)
+
+            UIView.animate(
+                withDuration: 0.5,
+                animations: {
+                    self.movableViews.forEach {
+                        $0.layer.zPosition = 1
+                        $0.frame.origin.x += moveTo.x
+                        $0.frame.origin.y += moveTo.y
+                    }
+            },
+                completion: { _ in
+                    self.reloadViews()
+            })
+        default: return
+        }
+
+    }
+
+    func toInfo(at point: CGPoint) -> MoveInfo {
+        for i in 0..<PositionX.allValues.count where 0...3 ~= i {
+            if point.y == PositionY.upper.value {
+                return MoveInfo(view: foundationView as! Movable, column: nil, index: nil)
+            }
+        }
+        for i in 0..<PositionX.allValues.count {
+            if point.x == PositionX.allValues[i].value {
+                let cardIndex = self.stackView.lastCardPosition(column: i)
+                return MoveInfo(view: stackView.getOneStack(of: i) as! Movable, column: i, index: cardIndex)
+            }
+        }
+        return MoveInfo(view: foundationView as! Movable, column: nil, index: nil)
+    }
+
+    func isInside(point: CGPoint) -> Bool {
+        if self.foundationView.contains(point: point) {
+            return true
+        } else if self.stackView.isContains(point: point) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    // model업데이트 후에 해당하는 뷰 reload
+    private func reloadViews() {
+        let from = self.originalInfo.getView().convertViewKey()
+        let to = self.toInfo.getView().convertViewKey()
+
+        switch from {
+        case .deck: self.deckView.reload()
+        case .stack: self.stackView.reload(column: self.originalInfo.getColumn()!)
+        default: return
+        }
+
+        switch to {
+        case .stack: self.stackView.reload(column: self.toInfo.getColumn()!)
+        case .foundation: self.foundationView.reload()
+        default: return
+        }
+    }
+
+}
 
