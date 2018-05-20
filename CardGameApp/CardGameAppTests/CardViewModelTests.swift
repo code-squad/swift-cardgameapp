@@ -21,7 +21,7 @@ class CardViewModelTests: XCTestCase {
   }
   
   func test_카드_앞면_이미지이름_반환() {
-    let cardViewModel = CardViewModel(card: Card(.heart, .ace), status: .front)
+    let cardViewModel = CardViewModel(card: Card(.heart, .ace), isTurnedOver: true)
     XCTAssertTrue(cardViewModel.getCardImage() == UIImage(imageLiteralResourceName: "hA"))
   }
 }

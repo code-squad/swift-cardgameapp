@@ -19,6 +19,15 @@ class GameViewModelTests: XCTestCase {
     let gameViewModel = GameViewModel()
     gameViewModel.initialize()
     XCTAssert(gameViewModel.wastePile.count == 0)
-    XCTAssert(gameViewModel.extraPile.count == 52)
+    XCTAssert(gameViewModel.extraPile.count == 24)
+    XCTAssert(gameViewModel.foundationPiles.count == 0)
+    XCTAssert(gameViewModel.tableauPiles.count == 7)
+    XCTAssert(gameViewModel.tableauPiles[0].count == 1)
+    XCTAssert(gameViewModel.tableauPiles[1].count == 2)
+    XCTAssert(gameViewModel.tableauPiles[2].count == 3)
+    XCTAssert(gameViewModel.tableauPiles[3].count == 4)
+    XCTAssert(gameViewModel.tableauPiles[4].count == 5)
+    XCTAssert(gameViewModel.tableauPiles[5].count == 6)
+    XCTAssert(gameViewModel.tableauPiles[6].count == 7)
   }
 }

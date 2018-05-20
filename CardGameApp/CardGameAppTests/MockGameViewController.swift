@@ -11,29 +11,29 @@ import XCTest
 @testable import CardGameApp
 
 class MockGameViewController: GameViewControllerDelegate {
-  var expectationForSetCardViewModelInExtraPile: XCTestExpectation?
-  var expectationForSetCardViewModelInWastePile: XCTestExpectation?
-  var expectationForSetEmptyViewInExtraPile: XCTestExpectation?
-  var expectationForSetEmptyViewInWastePile: XCTestExpectation?
-  var expectationForSetRefreshViewInExtraPile: XCTestExpectation?
+  var expectationForUpdateCardViewModelInExtraPile: XCTestExpectation?
+  var expectationForUpdateCardViewModelInWastePile: XCTestExpectation?
+  var expectationForUpdateEmptyViewInExtraPile: XCTestExpectation?
+  var expectationForUpdateEmptyViewInWastePile: XCTestExpectation?
+  var expectationForUpdateRefreshViewInExtraPile: XCTestExpectation?
   
-  func setCardViewModelInExtraPile(_ cardViewModel: CardViewModel) {
-    expectationForSetCardViewModelInExtraPile?.fulfill()
+  func updateCardViewModelInExtraPile(_ cardViewModel: CardViewModel) {
+    expectationForUpdateCardViewModelInExtraPile?.fulfill()
   }
   
-  func setCardViewModelInWastePile(_ cardViewModel: CardViewModel) {
-    expectationForSetCardViewModelInWastePile?.fulfill()
+  func updateCardViewModelInWastePile(_ cardViewModel: CardViewModel) {
+    expectationForUpdateCardViewModelInWastePile?.fulfill()
   }
   
-  func setEmptyViewInExtraPile() {
-    expectationForSetEmptyViewInExtraPile?.fulfill()
+  func updateEmptyViewInExtraPile() {
+    expectationForUpdateEmptyViewInExtraPile?.fulfill()
   }
   
-  func setEmptyViewInWastePile() {
-    expectationForSetEmptyViewInWastePile?.fulfill()
+  func updateEmptyViewInWastePile() {
+    expectationForUpdateEmptyViewInWastePile?.fulfill()
   }
   
-  func setRefreshViewInExtraPile() {
-    expectationForSetRefreshViewInExtraPile?.fulfill()
+  func updateRefreshViewInExtraPile() {
+    expectationForUpdateRefreshViewInExtraPile?.fulfill()
   }
 }

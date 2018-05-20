@@ -21,17 +21,23 @@ class ExtraViewModelTests: XCTestCase {
     let cardStack = CardStack()
     cardStack.push(.init(.club, .ace))
     cardStack.push(.init(.club, .two))
+    
     let extraViewModel = ExtraPileViewModel(cardStack)
     extraViewModel.delegate = mockGameViewController
-    extraViewModel.addCardViewModels()
+    extraViewModel.updateCardViewModels()
+    
+    XCTAssert(extraViewModel.isAvailable == true)
   }
   
   func test_한개_CardViewModel_추가() {
     let cardStack = CardStack()
     cardStack.push(.init(.club, .ace))
     cardStack.push(.init(.club, .two))
+    
     let extraViewModel = ExtraPileViewModel(cardStack)
     extraViewModel.delegate = mockGameViewController
-    extraViewModel.addCardViewModel(cardStack.choice()!, status: .front)
+    extraViewModel.updateCardViewModel(cardStack.choice()!, isTurnedOver: true)
+    
+    XCTAssert(extraViewModel.isAvailable == true)
   }
 }
