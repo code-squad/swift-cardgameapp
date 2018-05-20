@@ -16,19 +16,19 @@ class WasteViewModel {
     self.wastePile = wastePile
   }
   
-  func addCardViewModels() {
+  func updateCardViewModels() {
     guard isAvailable else {
-      delegate?.setEmptyViewInWastePile()
+      delegate?.updateEmptyViewInWastePile()
       return
     }
     
     wastePile.forEach {
-      addCardViewModel($0, status: .front)
+      updateCardViewModel($0, status: .front)
     }
   }
   
-  func addCardViewModel(_ card: Card, status: CardViewModel.Status) {
-    delegate?.setCardViewModelInWastePile(CardViewModel(card: card, status: status))
+  func updateCardViewModel(_ card: Card, status: CardViewModel.Status) {
+    delegate?.updateCardViewModelInWastePile(CardViewModel(card: card, status: status))
   }
   
   func push(_ card: Card) {
@@ -37,12 +37,7 @@ class WasteViewModel {
   
   func removeAllCards() -> CardStack? {
     let cardStack: CardStack = CardStack()
-    
-    (0..<wastePile.count).forEach { _ in
-      guard let card = wastePile.choice() else { return }
-      cardStack.push(card)
-    }
-    
+    wastePile.forEach { cardStack.push($0) }
     return cardStack
   }
   

@@ -9,9 +9,9 @@
 import Foundation
 
 protocol GameViewControllerDelegate {
-  func setCardViewModelInExtraPile(_ cardViewModel: CardViewModel)
-  func setCardViewModelInWastePile(_ cardViewModel: CardViewModel)
-  func setEmptyViewInExtraPile()
-  func setEmptyViewInWastePile()
-  func setRefreshViewInExtraPile()
+  func updateCardViewModelInExtraPile(_ cardViewModel: CardViewModel)
+  func updateCardViewModelInWastePile(_ cardViewModel: CardViewModel)
+  func updateEmptyViewInExtraPile()
+  func updateEmptyViewInWastePile()
+  func updateRefreshViewInExtraPile()
 }

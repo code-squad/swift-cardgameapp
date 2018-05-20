@@ -16,23 +16,23 @@ class ExtraPileViewModel {
     self.extraPile = extraPile
   }
   
-  func addCardViewModels() {
+  func updateCardViewModels() {
     guard isAvailable else {
-      delegate?.setEmptyViewInExtraPile()
+      delegate?.updateEmptyViewInExtraPile()
       return
     }
     
     extraPile.forEach {
-      addCardViewModel($0)
+      updateCardViewModel($0)
     }
   }
   
-  func addCardViewModel(_ card: Card, status: CardViewModel.Status = .back) {
-    delegate?.setCardViewModelInExtraPile(CardViewModel(card: card, status: status))
+  func updateCardViewModel(_ card: Card, status: CardViewModel.Status = .back) {
+    delegate?.updateCardViewModelInExtraPile(CardViewModel(card: card, status: status))
   }
   
-  func setRefresh() {
-    delegate?.setRefreshViewInExtraPile()
+  func refresh() {
+    delegate?.updateRefreshViewInExtraPile()
   }
   
   func choiceOneCard() -> Card? {

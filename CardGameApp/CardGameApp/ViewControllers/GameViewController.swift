@@ -78,11 +78,11 @@ private extension GameViewController {
   }
   
   func configueExtraPileView() {
-    extraPileViewModel.addCardViewModels()
+    extraPileViewModel.updateCardViewModels()
   }
   
   func configueWastePileView() {
-    wastePileViewModel.addCardViewModels()
+    wastePileViewModel.updateCardViewModels()
   }
 }
 
@@ -97,7 +97,7 @@ private extension GameViewController {
     if imageView.image == Image.cardBack {
       executeWhenCardBackImage()
     } else {
-      executeWhenRefreshedImage()
+      executeWhenRefreshImage()
     }
   }
   
@@ -105,41 +105,41 @@ private extension GameViewController {
     if extraPileViewModel.isAvailable {
       guard let card = extraPileViewModel.choiceOneCard() else { return }
       wastePileViewModel.push(card)
-      wastePileViewModel.addCardViewModel(card, status: .front)
+      wastePileViewModel.updateCardViewModel(card, status: .front)
     } else {
-      extraPileViewModel.setRefresh()
+      extraPileViewModel.refresh()
     }
   }
   
-  func executeWhenRefreshedImage() {
+  func executeWhenRefreshImage() {
     guard let cardStack = wastePileViewModel.removeAllCards() else { return }
     wastePileView.removeAllViews()
-    wastePileViewModel.addCardViewModels()
+    wastePileViewModel.updateCardViewModels()
     extraPileView.removeAllViews()
     extraPileViewModel.store(with: cardStack)
-    extraPileViewModel.addCardViewModels()
+    extraPileViewModel.updateCardViewModels()
   }
 }
 
 // MARK:- GameViewControllerDelegate
 extension GameViewController: GameViewControllerDelegate {
-  func setCardViewModelInExtraPile(_ cardViewModel: CardViewModel) {
+  func updateCardViewModelInExtraPile(_ cardViewModel: CardViewModel) {
     extraPileView.addView(cardViewModel)
   }
   
-  func setCardViewModelInWastePile(_ cardViewModel: CardViewModel) {
+  func updateCardViewModelInWastePile(_ cardViewModel: CardViewModel) {
     wastePileView.addView(cardViewModel)
   }
   
-  func setEmptyViewInExtraPile() {
+  func updateEmptyViewInExtraPile() {
     extraPileView.addView(nil)
   }
   
-  func setEmptyViewInWastePile() {
+  func updateEmptyViewInWastePile() {
     wastePileView.addView(nil)
   }
   
-  func setRefreshViewInExtraPile() {
+  func updateRefreshViewInExtraPile() {
     extraPileView.removeAllViews()
     extraPileView.addRefreshView()
   }
