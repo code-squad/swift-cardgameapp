@@ -9,5 +9,5 @@
 import Foundation
 
 protocol FoundationPilesViewControllerDelegate {
-  func setEmptyView(_ pileIndex: Int)
+  func updateEmptyView(_ pileIndex: Int)
 }

@@ -18,7 +18,7 @@ class FoundationPilesViewModel {
   
   func addCardViewModels() {
     guard isAvailable else {
-      (1...ViewSettings.foundationCount).forEach { setEmptyView($0) }
+      (0...ViewSettings.foundationCount-1).forEach { updateEmptyView($0) }
       return
     }
   }
@@ -29,7 +29,7 @@ class FoundationPilesViewModel {
 }
 
 private extension FoundationPilesViewModel {
-  func setEmptyView(_ pileIndex: Int) {
-    delegate?.setEmptyView(pileIndex)
+  func updateEmptyView(_ pileIndex: Int) {
+    delegate?.updateEmptyView(pileIndex)
   }
 }
