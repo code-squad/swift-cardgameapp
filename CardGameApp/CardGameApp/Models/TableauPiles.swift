@@ -43,6 +43,10 @@ extension TableauPiles {
   var count: Int {
     return cardPiles.count
   }
+  
+  var isAvailable: Bool {
+    return count > 0
+  }
 }
 
 private extension TableauPiles {

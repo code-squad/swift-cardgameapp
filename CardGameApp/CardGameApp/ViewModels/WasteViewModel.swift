@@ -17,7 +17,7 @@ class WasteViewModel {
   }
   
   func updateCardViewModels() {
-    guard isAvailable else {
+    guard wastePile.isAvailable else {
       delegate?.updateEmptyViewInWastePile()
       return
     }
@@ -45,6 +45,6 @@ class WasteViewModel {
   }
   
   var isAvailable: Bool {
-    return wastePile.count > 0
+    return wastePile.isAvailable
   }
 }

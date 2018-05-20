@@ -17,7 +17,7 @@ class ExtraPileViewModel {
   }
   
   func updateCardViewModels() {
-    guard isAvailable else {
+    guard extraPile.isAvailable else {
       delegate?.updateEmptyViewInExtraPile()
       return
     }
@@ -44,6 +44,6 @@ class ExtraPileViewModel {
   }
   
   var isAvailable: Bool {
-    return extraPile.count > 0
+    return extraPile.isAvailable
   }
 }

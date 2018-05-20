@@ -17,14 +17,10 @@ class FoundationPilesViewModel {
   }
   
   func addCardViewModels() {
-    guard isAvailable else {
+    guard foundationPiles.isAvailable else {
       (0...ViewSettings.foundationCount-1).forEach { updateEmptyView($0) }
       return
     }
-  }
-  
-  var isAvailable: Bool {
-    return foundationPiles.count > 0
   }
 }
 

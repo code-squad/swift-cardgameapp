@@ -25,12 +25,16 @@ extension FoundationPiles {
     self.cardPiles = []
   }
   
+  subscript(_ pileIndex: Int) -> CardStack {
+    return cardPiles[pileIndex]
+  }
+  
   var count: Int {
     return cardPiles.count
   }
   
-  subscript(_ pileIndex: Int) -> CardStack {
-    return cardPiles[pileIndex]
+  var isAvailable: Bool {
+    return count > 0
   }
 }
 

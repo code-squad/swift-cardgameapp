@@ -17,7 +17,7 @@ class TableauPilesViewModel {
   }
   
   func updateCardViewModels() {
-    guard isAvailable else { return }
+    guard tableauPiles.isAvailable else { return }
     
     for (pileIndex, pile) in tableauPiles.enumerated() {
       for (cardIndex, card) in pile.enumerated() {
@@ -35,9 +35,5 @@ class TableauPilesViewModel {
   
   func updateLastPositionFlag(_ isEnded: Bool) {
     delegate?.updateLastPositionFlag(isEnded)
-  }
-  
-  var isAvailable: Bool {
-    return tableauPiles.count > 0
   }
 }

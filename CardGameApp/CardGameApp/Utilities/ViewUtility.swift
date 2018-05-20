@@ -33,8 +33,4 @@ struct ViewUtility {
     cardView.frame = cardView.setFrame(widthPosition: widthPosition, heightPosition: heightPosition)
     view.addSubview(cardView)
   }
-  
-  static func fitFrame(view: UIView, widthPosition: Int = 0, heightPosition: Int = 0) {
-    view.frame = view.setFrame(widthPosition: widthPosition, heightPosition: heightPosition)
-  }
 }
