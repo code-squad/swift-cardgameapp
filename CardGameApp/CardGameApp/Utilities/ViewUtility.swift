@@ -22,14 +22,15 @@ struct ViewUtility {
     child.removeFromParentViewController()
   }
   
-  static func addEmptyView(view: UIView) {
+  static func addEmptyView(in view: UIView, widthPosition: Int = 0, heightPosition: Int = 0) {
     let emptyView = UIImageView()
-    emptyView.generateEmptyView()
+    emptyView.generateEmptyView(widthPosition: widthPosition, heightPosition: heightPosition)
     view.addSubview(emptyView)
   }
   
-  static func addCardView(view: UIView, with viewModel: CardViewModel) {
+  static func addCardView(in view: UIView, with viewModel: CardViewModel, widthPosition: Int = 0, heightPosition: Int = 0) {
     let cardView = CardView(viewModel: viewModel)
+    cardView.frame = cardView.setFrame(widthPosition: widthPosition, heightPosition: heightPosition)
     view.addSubview(cardView)
   }
   

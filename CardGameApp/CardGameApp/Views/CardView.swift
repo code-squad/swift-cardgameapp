@@ -19,7 +19,6 @@ class CardView: UIImageView {
   
   convenience init(viewModel: CardViewModel) {
     self.init(frame: .zero)
-    self.frame = setFrame()
     initialize(viewModel)
   }
 }

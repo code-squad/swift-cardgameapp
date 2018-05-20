@@ -37,7 +37,10 @@ class WasteViewModel {
   
   func removeAllCards() -> CardStack? {
     let cardStack: CardStack = CardStack()
-    wastePile.forEach { cardStack.push($0) }
+    wastePile.forEach { _ in
+      guard let card = wastePile.choice() else { return }
+      cardStack.push(card)
+    }
     return cardStack
   }
   
