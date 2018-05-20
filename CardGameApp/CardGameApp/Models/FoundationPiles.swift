@@ -25,16 +25,6 @@ extension FoundationPiles {
     self.cardPiles = []
   }
   
-  func push(pileIndex: Int, card: Card) {
-    let cardPile = cardPiles[pileIndex]
-    
-    if cardPile.count > 0 {
-      pushNonFirstCard(pile: cardPile, card: card)
-    } else {
-      pushCard(pile: cardPile, card: card)
-    }
-  }
-  
   var count: Int {
     return cardPiles.count
   }
@@ -45,7 +35,7 @@ extension FoundationPiles {
 }
 
 private extension FoundationPiles {
-  func pushNonFirstCard(pile: CardStack, card pCard: Card) {
+  func pushCard(pile: CardStack, card pCard: Card) {
     guard let card = pile.last() else { return }
     
     let nextNumber = card.number.rawValue + 1
@@ -54,10 +44,6 @@ private extension FoundationPiles {
     }
     
     pushCard(pile: pile, card: pCard)
-  }
-  
-  func pushCard(pile: CardStack, card pCard: Card) {
-    pile.push(pCard)
   }
 }
 

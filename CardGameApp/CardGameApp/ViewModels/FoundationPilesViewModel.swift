@@ -18,7 +18,7 @@ class FoundationPilesViewModel {
   
   func addCardViewModels() {
     guard isAvailable else {
-      (0...ViewSettings.foundationCount-1).forEach { setEmptyView($0) }
+      (1...ViewSettings.foundationCount).forEach { setEmptyView($0) }
       return
     }
   }
