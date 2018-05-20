@@ -16,7 +16,7 @@ class FoundationPilesViewModel {
     self.foundationPiles = foundationPiles
   }
   
-  func addCardViewModels() {
+  func updateCardViewModels() {
     guard foundationPiles.isAvailable else {
       (0...ViewSettings.foundationCount-1).forEach { updateEmptyView($0) }
       return

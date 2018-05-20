@@ -28,7 +28,7 @@ private extension FoundationPilesViewController {
   }
   
   func configueFoundationPilesView() {
-    foundationPilesViewModel.addCardViewModels()
+    foundationPilesViewModel.updateCardViewModels()
   }
   
   func removeAllViewControllers() {
