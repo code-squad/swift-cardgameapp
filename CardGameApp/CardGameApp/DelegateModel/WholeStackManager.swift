@@ -31,8 +31,8 @@ class WholeStackManager: CardStackDelegate,Stackable {
         return nil
     } // 가능한 스택의 column리턴
 
-    func stackUp(newCard: Card, column: Int) {
-        stackManagers[column].stackUp(newCard: newCard)
+    func stackUp(newCard: Card?, newCards: [Card]?, column: Int) {
+        stackManagers[column].stackUp(newCard: newCard, newCards: newCards)
     }
 
     func removePoppedCard(of column: Int) {

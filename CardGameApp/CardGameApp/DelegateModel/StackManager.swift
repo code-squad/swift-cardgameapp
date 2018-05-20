@@ -8,7 +8,7 @@
 
 import Foundation
 
-class StackManager: StackDelegate {
+class StackManager: StackDelegate { 
     private static var stackDelegates = [StackManager]()
     private var column: Int!
     private var stack: CardStack!
@@ -35,11 +35,17 @@ class StackManager: StackDelegate {
         }
     }
 
-    func stackUp(newCard: Card) {
-        if newCard.side == .back {
-            newCard.turnOver()
-        }
-        self.stack.push(newCard: newCard)
+    func stackUp(newCard: Card?, newCards: [Card]?) {
+        if newCard != nil {
+            if newCard?.side == .back {
+                newCard?.turnOver()
+            }
+            self.stack.push(newCard: newCard!)
+        } else if newCards != nil {
+            newCards?.forEach{
+                self.stack.push(newCard: $0)
+            }
+        } else { return }
     }
 
     func countOfCard() -> Int {
@@ -52,6 +58,14 @@ class StackManager: StackDelegate {
 
     func removePoppedCard() {
         self.stack.pop()
+    }
+
+    func movableCards(from: Int) -> [Card] {
+        var temp = [Card]()
+        for i in from..<countOfCard() {
+            temp.append(self.cardInTurn(at: i))
+        }
+        return temp
     }
 }
 
