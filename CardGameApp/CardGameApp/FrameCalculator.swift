@@ -46,6 +46,25 @@ class FrameCalculator {
         return CGPoint(x: 0.0, y: 0.0)
     }
 
+    // 서브뷰 기준에서의 current origin(드래그가 끝난 지점)을 root view기준의 origin으로 변환
+    func convertToRootView(from: MoveInfo, origin points: CGPoint) -> CGPoint {
+        let fromView = from.getView().convertViewKey()
+        let positionX = PositionX.allValues.map{ $0.value }
+
+        switch fromView {
+        case .deck:
+            return CGPoint(x: points.x + PositionX.sixth.value,
+                           y: points.y + PositionY.upper.value)
+        case .stack:
+            guard let column = from.getColumn() else { break }
+            return CGPoint(x: points.x + positionX[column],
+                           y: points.y + PositionY.bottom.value)
+        default:
+            break
+        }
+        return CGPoint(x:0.0, y:0.0)
+    }
+
 }
 
 class MoveInfo {
