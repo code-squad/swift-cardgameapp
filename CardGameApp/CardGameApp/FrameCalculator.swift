@@ -16,53 +16,42 @@ class FrameCalculator {
                                width: ViewController.widthOfRootView,
                                height: ViewController.heightOfRootView)
 
-    func originalLocation(view: UIView, position: CGPoint) -> (view: Movable, column: Int?, index: Int?) {
-        if let from = view as? OneStack {
-            //guard let fromView = from as? Movable else { return (from, nil, nil) }
-            guard let column = stackColumn(originX: from.frame.origin.x) else {
-                return (from, nil, nil)
-            }
-            return (from, column, cardIndexInStack(originY: position.y))
-        } else if let from = view as? CardDeckView {
-            return (from, nil, nil)
-        }
-        return (view as! Movable, nil, nil)
-    }
-
-    // origin.x로 검사하여 oneStackView의 column을 알아낸다.
-    func stackColumn(originX: CGFloat) -> Int? {
-        for x in PositionX.allValues {
-            guard x.value == originX else { continue }
-            return x.hashValue
-        }
-        return nil
-    }
 
     // origin.y를 검사하여 oneStack내에서의 cardIndex를 알아낸다.
     func cardIndexInStack(originY: CGFloat) -> Int {
         return Int(originY / 15.0)
     }
 
-    func originalLocation2(view: UIView, position: CGPoint) -> MoveInfo {
+    func originalLocation(view: UIView, position: CGPoint) -> MoveInfo {
         if let from = view as? OneStack {
-            //guard let fromView = from as? Movable else { return (from, nil, nil) }
-            guard let column = stackColumn(originX: from.frame.origin.x) else {
-                return MoveInfo(view: from, column: nil, index: nil)
-            }
-            return MoveInfo(view: from, column: column, index: cardIndexInStack(originY: position.y))
+            return MoveInfo(view: from, column: from.getColumn(), index: cardIndexInStack(originY: position.y))
         } else if let from = view as? CardDeckView {
             return MoveInfo(view: from, column: nil, index: nil)
+        } else {
+            return MoveInfo(view: view as! Movable, column: nil, index: nil)
         }
-        return MoveInfo(view: view as! Movable, column: nil, index: nil)
     }
 
+    func availableFrame(of info: MoveInfo) -> CGPoint {
+        switch info.view.convertViewKey() {
+        case .foundation:
+            return CGPoint(x: PositionX.second.value, y: PositionY.upper.value)
+        case .stack:
+            guard let column = info.column else {break}
+            guard let index = info.index else {break}
+            return CGPoint(x: PositionX.allValues[column].value,
+                           y: PositionY.bottom.value + CGFloat(15 * index))
+        default: return CGPoint(x: 0.0, y: 0.0)
+        }
+        return CGPoint(x: 0.0, y: 0.0)
+    }
 
 }
 
 class MoveInfo {
-    var view: Movable
-    var column: Int?
-    var index: Int?
+    fileprivate var view: Movable
+    fileprivate var column: Int?
+    fileprivate var index: Int?
 
     init(view: Movable, column: Int?, index: Int?) {
         self.view = view
@@ -81,7 +70,7 @@ class MoveInfo {
 
     func getIndex() -> Int? {
         guard self.index != nil else { return nil }
-        return nil
+        return self.index!
     }
 
 }
