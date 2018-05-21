@@ -44,9 +44,21 @@ class CardStacksView: UIView {
         return self.oneStackViews[column]
     }
 
+    func isContains(point: CGPoint) -> Bool {
+        for view in oneStackViews {
+            guard view.isContains(point: point) else { continue }
+            return true
+        }
+        return false
+    }
+
+    func lastCardPosition(column: Int) -> Int{
+        return self.oneStackViews[column].lastCardPosition()
+    }
+
 }
 
-class OneStack: UIView {
+class OneStack: UIView, Movable {
 
     private var column: Int!
     private var wholeStackManager: (CardStackDelegate & Stackable)!
@@ -106,13 +118,38 @@ class OneStack: UIView {
     @objc func cardDoubleTapped(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             let oneStackView = sender.view?.superview as! OneStack
-            NotificationCenter.default.post(name: .doubleTappedStack, object: self, userInfo: [ViewController.fromViewKey: oneStackView])
+            NotificationCenter.default.post(name: .doubleTappedStack, object: self, userInfo: [Key.FromView: oneStackView])
         }
     }
 
     func getColumn() -> Int {
         return self.column
     }
+
+    func cardImages(at: Int?) -> [CardImageView]? {
+        var result = [CardImageView]()
+        guard self.subviews.count == self.stackManager.countOfCard() else { return result }
+        guard let index = at else { return result }
+        guard index != self.subviews.count else { return [lastCardView!] }
+        for i in index..<self.stackManager.countOfCard() {
+            result.append(self.subviews[i] as! CardImageView)
+        }
+        return result
+    }
+
+    func isContains(point: CGPoint) -> Bool {
+        return self.lastCardView!.contains(point: point)
+    }
+
+    func lastCardPosition() -> Int {
+        guard self.lastCardView != nil else { return 0 }
+        return self.subviews.count + 1
+    }
+
+    func convertViewKey() -> ViewKey {
+        return .stack
+    }
+
 
 }
 

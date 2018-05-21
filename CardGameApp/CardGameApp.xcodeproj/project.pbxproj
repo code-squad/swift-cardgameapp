@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD38968020AD2DE100EFBA96 /* FrameCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD38967F20AD2DE100EFBA96 /* FrameCalculator.swift */; };
 		FD692644209D93EE0069B29A /* CustomExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD692643209D93EE0069B29A /* CustomExtension.swift */; };
 		FD7A6A2520A031BC002D66CA /* WholeStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7A6A2420A031BC002D66CA /* WholeStackManager.swift */; };
 		FD7A6A2720A0401A002D66CA /* DeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD7A6A2620A0401A002D66CA /* DeckManager.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FD38967F20AD2DE100EFBA96 /* FrameCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameCalculator.swift; sourceTree = "<group>"; };
 		FD692643209D93EE0069B29A /* CustomExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExtension.swift; sourceTree = "<group>"; };
 		FD7A6A2420A031BC002D66CA /* WholeStackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WholeStackManager.swift; sourceTree = "<group>"; };
 		FD7A6A2620A0401A002D66CA /* DeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckManager.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				FDD8FA1E207F035500F5FD99 /* LaunchScreen.storyboard */,
 				FDD8FA21207F035500F5FD99 /* Info.plist */,
 				FD7DF3E420A2F07400BD62B7 /* View */,
+				FD38967F20AD2DE100EFBA96 /* FrameCalculator.swift */,
 			);
 			path = CardGameApp;
 			sourceTree = "<group>";
@@ -128,9 +131,9 @@
 		FDDFB93F2080499C00920FB4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FDDD33C52085EFCF000E9D0E /* CustomEnum.swift */,
 				FD692643209D93EE0069B29A /* CustomExtension.swift */,
 				FDF8BBAF209AF89C00AA0C82 /* CustomProtocols.swift */,
-				FDDD33C52085EFCF000E9D0E /* CustomEnum.swift */,
 				FDDFB9352080498700920FB4 /* CardDeck.swift */,
 				FDDFB9332080498700920FB4 /* CardStack.swift */,
 				FDDFB9342080498700920FB4 /* EnumCollection.swift */,
@@ -213,6 +216,7 @@
 			files = (
 				FDC5D438208DF2BB000A1E0C /* FoundationView.swift in Sources */,
 				FD884CD320883F1100DD1954 /* CardStacksView.swift in Sources */,
+				FD38968020AD2DE100EFBA96 /* FrameCalculator.swift in Sources */,
 				FDF8BBB0209AF89C00AA0C82 /* CustomProtocols.swift in Sources */,
 				FD7A6A2520A031BC002D66CA /* WholeStackManager.swift in Sources */,
 				FD884CD72088AAF300DD1954 /* CardGameManager.swift in Sources */,

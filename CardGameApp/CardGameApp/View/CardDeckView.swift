@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardDeckView: UIView {
+class CardDeckView: UIView, Movable {
     private var gameManager: CardGameDelegate = CardGameManager.shared()
     private var closedCardDeck = CardImageView()
     private var deckManager: CardDeckDelegate!
@@ -19,11 +19,13 @@ class CardDeckView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.isUserInteractionEnabled = true
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.frame = CGRect(x: 0, y: 0, width: ViewController.widthOfRootView, height: PositionY.bottom.value)
+        self.isUserInteractionEnabled = true
     }
 
     convenience init() {
@@ -83,7 +85,7 @@ class CardDeckView: UIView {
     @objc func cardDoubleTapped(sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             let deckview = sender.view?.superview as! CardDeckView
-            NotificationCenter.default.post(name: .doubleTappedOpenedDeck, object: self, userInfo: [ViewController.fromViewKey: deckview])
+            NotificationCenter.default.post(name: .doubleTappedOpenedDeck, object: self, userInfo: [Key.FromView: deckview])
         }
     }
 
@@ -101,6 +103,22 @@ class CardDeckView: UIView {
     func resetByShake() {
         self.subviews.forEach{ $0.removeFromSuperview() }
         setup()
+    }
+
+    func calculateCardIndex(point: CGPoint) -> Int {
+        if point.x.isLessThanOrEqualTo(PositionX.sixth.value + ViewController.cardSize.width) {
+
+        }
+        return 0
+    }
+
+    func cardImages(at: Int?) -> [CardImageView]? {
+        guard let last = self.lastCardView else { return nil }
+        return [last]
+    }
+
+    func convertViewKey() -> ViewKey {
+        return .deck
     }
 
 }

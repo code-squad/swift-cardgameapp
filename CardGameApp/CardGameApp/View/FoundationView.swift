@@ -8,7 +8,8 @@
 
 import UIKit
 
-class FoundationView: UIView {
+class FoundationView: UIView, Movable {
+
     private let gameManager: CardGameDelegate = CardGameManager.shared()
     private var foundationManager: FoundationDelegate!
     private let numberOfFoundation = 4
@@ -59,6 +60,14 @@ class FoundationView: UIView {
                 }
             }
         }
+    }
+
+    func cardImages(at: Int?) -> [CardImageView]? {
+        return nil
+    }
+
+    func convertViewKey() -> ViewKey {
+        return .foundation
     }
 
 }
