@@ -274,11 +274,11 @@ extension ViewController {
             },
                 completion: { _ in
                     self.reloadViews()
+                    self.movableViews.forEach{ $0.removeFromSuperview() }
             })
         case .cancelled: return
         default: return
         }
-
     }
 
     // 현재 currentFrame이 위치한 뷰에 맞는 MoveInfo 생성
@@ -296,15 +296,6 @@ extension ViewController {
         return nil
     }
 
-    func isInside(point: CGPoint) -> Bool {
-        if self.foundationView.contains(point: point) {
-            return true
-        } else if self.stackView.isContains(point: point) {
-            return true
-        } else {
-            return false
-        }
-    }
 
     // model업데이트 후에 해당하는 뷰 reload
     private func reloadViews() {

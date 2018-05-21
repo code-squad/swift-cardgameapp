@@ -109,48 +109,61 @@ class CardGameManager: CardGameDelegate {
         return newRuleCheck(card: newCard)
     }
 
+
     // update model하고 Bool리턴
     func ruleCheck(fromInfo: MoveInfo, toInfo: MoveInfo) -> Bool {
-        //카드구함
-        //카드로 toInfo에 있는 뷰와 인덱스로 가는것이 적합한지 검사
-        //검사 후 리턴값이 true면 movableCards 리턴/아니면 nil리턴
-        guard let movableCards: [Card] = self.movableCards(info: fromInfo) else { return false }
-        return  checkStackAble(card: movableCards, to: toInfo)
+        guard let movableCards = self.movableCards(info: fromInfo) else { return false }
+        guard isStackAble(cards: movableCards, to: toInfo) else { return false }
+        guard removeCards(fromInfo: fromInfo) else { return false }
+        return true
     }
 
+    // MoveInfo에서 알려주는 뷰, column, index로 움직이는 대상 [Card]를 구함
     func movableCards(info: MoveInfo) -> [Card]? {
         switch info.getView().convertViewKey() {
         case .deck:
             return [deckManager.lastOpenedCard()!]
         case .foundation:
-            return foundationManager.cards(in: 0)
+            return foundationManager.cards(in: info.getColumn()!)
         case .stack:
             return stackManagers.getStackDelegate(of: info.getColumn()!).movableCards(from: info.getIndex()!)
         default: return nil
         }
     }
 
-    func checkStackAble(card: [Card], to toInfo: MoveInfo) -> Bool {
+    // toInfo에 [Card]가 stackable한지 검사 후 모델 업데이트
+    func isStackAble(cards: [Card], to toInfo: MoveInfo) -> Bool {
         switch toInfo.getView().convertViewKey() {
         case .deck:
             return false
         case .foundation:
-            guard let column = foundationManager.stackable(nextCard: card[0]) else { return false }
-            foundationManager.stackUp(newCard: card[0], newCards: nil, column: column)
+            guard let column = foundationManager.stackable(nextCard: cards[0]) else { return false }
+            foundationManager.stackUp(newCard: cards[0], newCards: nil, column: column)
             return true
         case .stack:
-            // 모델에서 받아온 가능한 스택column
-            guard let availableStack = stackManagers.stackable(nextCard: card[0]) else { return false }
-            // toInfo에서 받아온 유저가 선택한 스택 column
+            guard let availableStack = stackManagers.stackable(nextCard: cards[0]) else { return false }
             guard let toColumn = toInfo.getColumn() else { return false }
-            // 모델에서 받아온 가능한 column과 유저가 선택한 column이 일치하는지 검사
             guard availableStack == toColumn else { return false }
-            //모델변경
-            stackManagers.stackUp(newCard: nil, newCards: card, column: availableStack)
+            stackManagers.stackUp(newCard: nil, newCards: cards, column: availableStack)
             return true
         default: return false
         }
         return false
+    }
+
+    // fromInfo에서 다른 곳으로 옯겨진 카드제거 후 성공시 true리턴
+    func removeCards(fromInfo from: MoveInfo) -> Bool {
+        switch from.getView().convertViewKey() {
+        case .deck:
+            deckManager.removePoppedCard()
+            return true
+        case .foundation:
+            return false
+        case .stack:
+            stackManagers.getStackDelegate(of: from.getColumn()!).removeCards(from: from.getIndex()!)
+            return true
+        default: return false
+        }
     }
 
 
