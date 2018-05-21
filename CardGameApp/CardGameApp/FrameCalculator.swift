@@ -58,7 +58,7 @@ class FrameCalculator {
         case .stack:
             guard let column = from.getColumn() else { break }
             return CGPoint(x: points.x + positionX[column],
-                           y: points.y) // y는 그대로 가야될거같음
+                           y: points.y + PositionY.bottom.value)
         default:
             break
         }
