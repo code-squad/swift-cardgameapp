@@ -258,7 +258,26 @@ extension ViewController {
             // currentFrame을 rootView기준으로 변환
             currentFrames = FrameCalculator().convertToRootView(from: originalInfo, origin: self.currentFrames)
             toInfo = self.toInfo(at: currentFrames)
-            guard cardGameDelegate.ruleCheck(fromInfo: originalInfo, toInfo: toInfo) else {return}
+            guard cardGameDelegate.ruleCheck(fromInfo: originalInfo, toInfo: toInfo) else {
+                toFrame = FrameCalculator().availableFrame(of: originalInfo)
+                let moveTo = (x: toFrame.x - currentFrames.x,
+                              y: toFrame.y - currentFrames.y)
+
+                UIView.animate(
+                    withDuration: 0.5,
+                    animations: {
+                        self.movableViews.forEach {
+                            $0.layer.zPosition = 1
+                            $0.frame.origin.x += moveTo.x
+                            $0.frame.origin.y += moveTo.y
+                        }
+                },
+                    completion: { _ in
+                        self.reloadViews()
+                        self.movableViews.forEach{ $0.removeFromSuperview() }
+                })
+                return
+            }
             toFrame = FrameCalculator().availableFrame(of: toInfo)
             let moveTo = (x: toFrame.x - currentFrames.x,
                           y: toFrame.y - currentFrames.y)
