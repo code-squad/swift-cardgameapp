@@ -263,7 +263,7 @@ extension ViewController {
                 return
             }
             animateCards(to: frameCalculator.availableFrame(of: toInfo))
-        case .cancelled: return
+        case .cancelled: animateCards(to: frameCalculator.availableFrame(of: originalInfo))
         default: return
         }
     }
