@@ -105,13 +105,6 @@ class CardDeckView: UIView, Movable {
         setup()
     }
 
-    func calculateCardIndex(point: CGPoint) -> Int {
-        if point.x.isLessThanOrEqualTo(PositionX.sixth.value + ViewController.cardSize.width) {
-
-        }
-        return 0
-    }
-
     func cardImages(at: Int?) -> [CardImageView]? {
         guard let last = self.lastCardView else { return nil }
         return [last]
