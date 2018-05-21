@@ -224,7 +224,6 @@ class ViewController: UIViewController {
     var movableViews: [CardImageView]!
     var currentFrames = CGPoint(x: 0.0, y:0.0)
     var originalInfo: MoveInfo!
-    var toFrame: CGPoint!
     var toInfo: MoveInfo!
 
 }
@@ -259,49 +258,17 @@ extension ViewController {
             currentFrames = FrameCalculator().convertToRootView(from: originalInfo, origin: self.currentFrames)
             toInfo = self.toInfo(at: currentFrames)
             guard cardGameDelegate.ruleCheck(fromInfo: originalInfo, toInfo: toInfo) else {
-                toFrame = FrameCalculator().availableFrame(of: originalInfo)
-                let moveTo = (x: toFrame.x - currentFrames.x,
-                              y: toFrame.y - currentFrames.y)
-
-                UIView.animate(
-                    withDuration: 0.5,
-                    animations: {
-                        self.movableViews.forEach {
-                            $0.layer.zPosition = 1
-                            $0.frame.origin.x += moveTo.x
-                            $0.frame.origin.y += moveTo.y
-                        }
-                },
-                    completion: { _ in
-                        self.reloadViews()
-                        self.movableViews.forEach{ $0.removeFromSuperview() }
-                })
+                animateCards(to: FrameCalculator().availableFrame(of: originalInfo))
                 return
             }
-            toFrame = FrameCalculator().availableFrame(of: toInfo)
-            let moveTo = (x: toFrame.x - currentFrames.x,
-                          y: toFrame.y - currentFrames.y)
-
-            UIView.animate(
-                withDuration: 0.5,
-                animations: {
-                    self.movableViews.forEach {
-                        $0.layer.zPosition = 1
-                        $0.frame.origin.x += moveTo.x
-                        $0.frame.origin.y += moveTo.y
-                    }
-            },
-                completion: { _ in
-                    self.reloadViews()
-                    self.movableViews.forEach{ $0.removeFromSuperview() }
-            })
+            animateCards(to: FrameCalculator().availableFrame(of: toInfo))
         case .cancelled: return
         default: return
         }
     }
 
     // 현재 currentFrame이 위치한 뷰에 맞는 MoveInfo 생성
-    func toInfo(at point: CGPoint) -> MoveInfo? {
+    private func toInfo(at point: CGPoint) -> MoveInfo? {
         guard let to = FrameCalculator().toInfo(at: point) else {return nil}
 
         switch to.view {
@@ -314,7 +281,6 @@ extension ViewController {
 
         return nil
     }
-
 
     // model업데이트 후에 해당하는 뷰 reload
     private func reloadViews() {
@@ -332,6 +298,25 @@ extension ViewController {
         case .foundation: self.foundationView.reload()
         default: return
         }
+    }
+
+    private func animateCards(to toPoint: CGPoint) {
+        let moveTo = (x: toPoint.x - currentFrames.x,
+                      y: toPoint.y - currentFrames.y)
+
+        UIView.animate(
+            withDuration: 0.5,
+            animations: {
+                self.movableViews.forEach {
+                    $0.layer.zPosition = 1
+                    $0.frame.origin.x += moveTo.x
+                    $0.frame.origin.y += moveTo.y
+                }
+        },
+            completion: { _ in
+                self.reloadViews()
+                self.movableViews.forEach{ $0.removeFromSuperview() }
+        })
     }
 
 }
