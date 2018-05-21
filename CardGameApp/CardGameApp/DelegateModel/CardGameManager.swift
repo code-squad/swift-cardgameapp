@@ -111,9 +111,10 @@ class CardGameManager: CardGameDelegate {
 
 
     // update model하고 Bool리턴
-    func ruleCheck(fromInfo: MoveInfo, toInfo: MoveInfo) -> Bool {
+    func ruleCheck(fromInfo: MoveInfo, toInfo: MoveInfo?) -> Bool {
         guard let movableCards = self.movableCards(info: fromInfo) else { return false }
-        guard isStackAble(cards: movableCards, to: toInfo) else { return false }
+        guard let to = toInfo else { return false }
+        guard isStackAble(cards: movableCards, to: to) else { return false }
         guard removeCards(fromInfo: fromInfo) else { return false }
         return true
     }

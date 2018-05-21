@@ -54,12 +54,11 @@ class FrameCalculator {
 
         switch fromView {
         case .deck:
-            return CGPoint(x: points.x + PositionX.sixth.value,
-                           y: points.y + PositionY.upper.value)
+            return CGPoint(x: points.x, y: points.y)
         case .stack:
             guard let column = from.getColumn() else { break }
             return CGPoint(x: points.x + positionX[column],
-                           y: points.y + PositionY.bottom.value)
+                           y: points.y) // y는 그대로 가야될거같음
         default:
             break
         }
@@ -76,9 +75,9 @@ class FrameCalculator {
                 }
             }
         } else if point.y >= PositionY.bottom.value { // stackView
-            for i in 1..<PositionX.allValues.count {
-                if PositionX.allValues[i-1].value...(PositionX.allValues[i-1].value + ViewController.cardSize.width) ~= point.x {
-                    return (view: ViewKey.stack, column: i-1, index: nil)
+            for i in 0..<PositionX.allValues.count {
+                if PositionX.allValues[i].value...(PositionX.allValues[i].value + ViewController.cardSize.width) ~= point.x {
+                    return (view: ViewKey.stack, column: i, index: nil)
                 }
             }
         }

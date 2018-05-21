@@ -27,7 +27,7 @@ protocol CardGameDelegate {
     func movableFromStack(from: ViewKey, column: Int) -> (to: ViewKey, index: Int?)
     func popOpenDeck()
     func popStack(column: Int)
-    func ruleCheck(fromInfo: MoveInfo, toInfo: MoveInfo) -> Bool
+    func ruleCheck(fromInfo: MoveInfo, toInfo: MoveInfo?) -> Bool
     func movableCards(info: MoveInfo) -> [Card]?
     func isStackAble(cards: [Card], to toInfo: MoveInfo) -> Bool
 }
