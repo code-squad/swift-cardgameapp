@@ -1,5 +1,5 @@
 //
-//  FoundationDelegate.swift
+//  FoundationManager.swift
 //  CardGameApp
 //
 //  Created by YOUTH2 on 2018. 5. 4..

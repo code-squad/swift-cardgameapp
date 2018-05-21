@@ -86,6 +86,8 @@ class CardGameManager: CardGameDelegate {
         stackManagers.removePoppedCard(of: column)
     }
 
+    // MARK: DoubleTap Action Related
+
     func newRuleCheck(card: Card) -> (to: ViewKey, index: Int?) {
         if let tofoundationIndex = foundationManager.stackable(nextCard: card) {
             return (to: .foundation, index: tofoundationIndex)
@@ -109,6 +111,7 @@ class CardGameManager: CardGameDelegate {
         return newRuleCheck(card: newCard)
     }
 
+    // MARK: Drag Action Related
 
     // update model하고 Bool리턴
     func ruleCheck(fromInfo: MoveInfo, toInfo: MoveInfo?) -> Bool {
@@ -149,11 +152,10 @@ class CardGameManager: CardGameDelegate {
             return true
         default: return false
         }
-        return false
     }
 
     // fromInfo에서 다른 곳으로 옯겨진 카드제거 후 성공시 true리턴
-    func removeCards(fromInfo from: MoveInfo) -> Bool {
+    private func removeCards(fromInfo from: MoveInfo) -> Bool {
         switch from.getView().convertViewKey() {
         case .deck:
             deckManager.removePoppedCard()

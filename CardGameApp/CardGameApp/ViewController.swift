@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     var cardGameDelegate: CardGameDelegate = CardGameManager.shared()
+    let frameCalculator = FrameCalculator()
 
     private var deckView: CardDeckView!
     private var stackView: CardStacksView!
@@ -122,9 +123,9 @@ class ViewController: UIViewController {
         let toView = result.to
         guard let toIndex = result.index else { return } // toIndex가 옵셔널이 풀리면서 이미 룰 체크 완료
 
-        let fromFrame = frameCalculator(view: .deck, index: 0)
+        let fromFrame = calculateFrame(view: .deck, index: 0)
 
-        let toFrame = frameCalculator(view: toView, index: toIndex)
+        let toFrame = calculateFrame(view: toView, index: toIndex)
         let moveTo = (x: toFrame.x - fromFrame.x,
                       y: toFrame.y - fromFrame.y)
 
@@ -164,8 +165,8 @@ class ViewController: UIViewController {
         let toView = result.to
         guard let toIndex = result.index else { return }
 
-        let fromFrame = frameCalculator(view: .fromStack, index: fromIndex)
-        let toFrame = frameCalculator(view: toView, index: toIndex)
+        let fromFrame = calculateFrame(view: .fromStack, index: fromIndex)
+        let toFrame = calculateFrame(view: toView, index: toIndex)
 
         let moveTo = (x: toFrame.x - fromFrame.x,
                       y: toFrame.y - fromFrame.y)
@@ -200,7 +201,7 @@ class ViewController: UIViewController {
         })
     }
 
-    private func frameCalculator(view: ViewKey, index: Int) -> CGPoint {
+    private func calculateFrame(view: ViewKey, index: Int) -> CGPoint {
         switch view {
         case .foundation:
             return CGPoint(x: PositionX.allValues[index].value,
@@ -222,7 +223,7 @@ class ViewController: UIViewController {
     }
 
     var movableViews: [CardImageView]!
-    var currentFrames = CGPoint(x: 0.0, y:0.0)
+    var currentPoint = CGPoint(x: 0.0, y:0.0)
     var originalInfo: MoveInfo!
     var toInfo: MoveInfo!
 
@@ -243,25 +244,25 @@ extension ViewController {
 
         switch recognizer.state {
         case .began:
-            originalInfo = FrameCalculator().originalLocation(view: superView, position: cardView.frame.origin)
+            originalInfo = frameCalculator.originalLocation(view: superView, position: cardView.frame.origin)
             movableViews = originalInfo.getView().cardImages(at: originalInfo.getIndex())
         case .changed:
             movableViews.forEach{
                 $0.layer.zPosition = 1
                 $0.frame.origin = CGPoint(x: $0.frame.origin.x + translation.x,
                                           y: $0.frame.origin.y + translation.y)
-                currentFrames = $0.frame.origin
+                currentPoint = $0.frame.origin
             }
             recognizer.setTranslation(CGPoint.zero, in: view)
         case .ended:
             // currentFrame을 rootView기준으로 변환
-            currentFrames = FrameCalculator().convertToRootView(from: originalInfo, origin: self.currentFrames)
-            toInfo = self.toInfo(at: currentFrames)
+            currentPoint = frameCalculator.convertToRootView(from: originalInfo, origin: self.currentPoint)
+            toInfo = self.toInfo(at: currentPoint)
             guard cardGameDelegate.ruleCheck(fromInfo: originalInfo, toInfo: toInfo) else {
-                animateCards(to: FrameCalculator().availableFrame(of: originalInfo))
+                animateCards(to: frameCalculator.availableFrame(of: originalInfo))
                 return
             }
-            animateCards(to: FrameCalculator().availableFrame(of: toInfo))
+            animateCards(to: frameCalculator.availableFrame(of: toInfo))
         case .cancelled: return
         default: return
         }
@@ -269,7 +270,7 @@ extension ViewController {
 
     // 현재 currentFrame이 위치한 뷰에 맞는 MoveInfo 생성
     private func toInfo(at point: CGPoint) -> MoveInfo? {
-        guard let to = FrameCalculator().toInfo(at: point) else {return nil}
+        guard let to = frameCalculator.toInfo(at: point) else {return nil}
 
         switch to.view {
         case .foundation:
@@ -301,8 +302,8 @@ extension ViewController {
     }
 
     private func animateCards(to toPoint: CGPoint) {
-        let moveTo = (x: toPoint.x - currentFrames.x,
-                      y: toPoint.y - currentFrames.y)
+        let moveTo = (x: toPoint.x - currentPoint.x,
+                      y: toPoint.y - currentPoint.y)
 
         UIView.animate(
             withDuration: 0.5,

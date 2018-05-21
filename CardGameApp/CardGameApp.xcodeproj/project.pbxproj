@@ -29,7 +29,7 @@
 		FDDFB93D2080498800920FB4 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDFB9362080498700920FB4 /* Card.swift */; };
 		FDF8BBB0209AF89C00AA0C82 /* CustomProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF8BBAF209AF89C00AA0C82 /* CustomProtocols.swift */; };
 		FDF8BBB2209AFA2A00AA0C82 /* StackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF8BBB1209AFA2A00AA0C82 /* StackManager.swift */; };
-		FDF8BBB4209C905100AA0C82 /* FoundationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF8BBB3209C905100AA0C82 /* FoundationDelegate.swift */; };
+		FDF8BBB4209C905100AA0C82 /* FoundationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDF8BBB3209C905100AA0C82 /* FoundationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,7 +57,7 @@
 		FDDFB9362080498700920FB4 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		FDF8BBAF209AF89C00AA0C82 /* CustomProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProtocols.swift; sourceTree = "<group>"; };
 		FDF8BBB1209AFA2A00AA0C82 /* StackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackManager.swift; sourceTree = "<group>"; };
-		FDF8BBB3209C905100AA0C82 /* FoundationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationDelegate.swift; sourceTree = "<group>"; };
+		FDF8BBB3209C905100AA0C82 /* FoundationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +87,7 @@
 			children = (
 				FD884CD62088AAF300DD1954 /* CardGameManager.swift */,
 				FD7A6A2620A0401A002D66CA /* DeckManager.swift */,
-				FDF8BBB3209C905100AA0C82 /* FoundationDelegate.swift */,
+				FDF8BBB3209C905100AA0C82 /* FoundationManager.swift */,
 				FD7A6A2420A031BC002D66CA /* WholeStackManager.swift */,
 				FDF8BBB1209AFA2A00AA0C82 /* StackManager.swift */,
 			);
@@ -222,7 +222,7 @@
 				FD884CD72088AAF300DD1954 /* CardGameManager.swift in Sources */,
 				FD7A6A2720A0401A002D66CA /* DeckManager.swift in Sources */,
 				FDD8FA18207F035400F5FD99 /* ViewController.swift in Sources */,
-				FDF8BBB4209C905100AA0C82 /* FoundationDelegate.swift in Sources */,
+				FDF8BBB4209C905100AA0C82 /* FoundationManager.swift in Sources */,
 				FDDD33C62085EFCF000E9D0E /* CustomEnum.swift in Sources */,
 				FDDFB93C2080498800920FB4 /* CardDeck.swift in Sources */,
 				FD692644209D93EE0069B29A /* CustomExtension.swift in Sources */,
