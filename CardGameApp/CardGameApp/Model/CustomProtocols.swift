@@ -29,7 +29,7 @@ protocol CardGameDelegate {
     func popStack(column: Int)
     func ruleCheck(fromInfo: MoveInfo, toInfo: MoveInfo) -> Bool
     func movableCards(info: MoveInfo) -> [Card]?
-    func checkStackAble(card: [Card], to toInfo: MoveInfo) -> Bool
+    func isStackAble(cards: [Card], to toInfo: MoveInfo) -> Bool
 }
 
 protocol CardDeckDelegate {
@@ -60,6 +60,7 @@ protocol StackDelegate {
     func isStackable(nextCard: Card) -> Bool
     func stackUp(newCard: Card?, newCards: [Card]?)
     func movableCards(from: Int) -> [Card]
+    func removeCards(from index: Int)
 }
 
 // MARK: RuleCheck Related
