@@ -35,7 +35,8 @@ class FrameCalculator {
     func availableFrame(of info: MoveInfo) -> CGPoint {
         switch info.view.convertViewKey() {
         case .foundation:
-            return CGPoint(x: PositionX.second.value, y: PositionY.upper.value)
+            return CGPoint(x: PositionX.allValues[info.getColumn()!].value,
+                           y: PositionY.upper.value)
         case .stack:
             guard let column = info.column else {break}
             guard let index = info.index else {break}
@@ -65,11 +66,10 @@ class FrameCalculator {
         return CGPoint(x:0.0, y:0.0)
     }
 
-    // 현재 currentFrame을 파라미터로 받고 위치한 뷰에 맞는 정보 생성
+    // 현재 currentFrame을 파라미터로 받고 위치한 뷰에 맞는 정보 생성 (카드 도착지점)
     func toInfo(at point: CGPoint) -> (view: ViewKey, column: Int?, index: Int?)?{
-        let foundationY: Range<CGFloat> = 20.0..<100
 
-        if foundationY ~= point.y { // foundationView
+        if PositionY.upper.value..<PositionY.bottom.value ~= point.y { // foundationView
             for i in 0..<PositionX.allValues.count where 0...3 ~= i {
                 if PositionX.allValues[i].value...(PositionX.allValues[i].value + ViewController.cardSize.width) ~= point.x {
                     return (view: ViewKey.foundation, column: i, index: nil)
