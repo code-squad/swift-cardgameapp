@@ -9,6 +9,7 @@
 import Foundation
 
 class FoundationManager: FoundationDelegate, Stackable {
+
     static let range: CountableRange = 0..<4
     private var foundations = [CardStack]()
     var lastCards: [Card?] {
@@ -36,8 +37,9 @@ class FoundationManager: FoundationDelegate, Stackable {
         return nil
     }
 
-    func stackUp(newCard: Card, column: Int) {
-        foundations[column].push(newCard: newCard)
+    func stackUp(newCard: Card?, newCards: [Card]?, column: Int) {
+        guard let card = newCard else {return}
+        foundations[column].push(newCard: card)
     }
 
     private func updateFoundationView() {

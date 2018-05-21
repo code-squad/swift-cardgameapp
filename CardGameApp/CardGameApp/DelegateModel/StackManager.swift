@@ -67,5 +67,11 @@ class StackManager: StackDelegate {
         }
         return temp
     }
+
+    func removeCards(from index: Int) {
+        for _ in index..<countOfCard() {
+            removePoppedCard()
+        }
+    }
 }
 
