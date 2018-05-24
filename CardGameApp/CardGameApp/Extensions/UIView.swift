@@ -15,16 +15,18 @@ extension UIView {
                                   y: yPoint),
                   size: CGSize(width: ViewSettings.cardWidth, height: ViewSettings.cardHeight))
   }
-  
-  class func addEmptyView(in view: UIView, widthPosition: Int = 0, heightPosition: Int = 0) {
+}
+
+extension UIView {
+  func addEmptyView(widthPosition: Int = 0, heightPosition: Int = 0) {
     let emptyView = UIImageView()
     emptyView.generateEmptyView(widthPosition: widthPosition, heightPosition: heightPosition)
-    view.addSubview(emptyView)
+    self.addSubview(emptyView)
   }
   
-  class  func addCardView(in view: UIView, with viewModel: CardViewModel, widthPosition: Int = 0, heightPosition: Int = 0) {
+  func addCardView(with viewModel: CardViewModel, widthPosition: Int = 0, heightPosition: Int = 0) {
     let cardView = CardView(viewModel: viewModel)
     cardView.frame = UIView.setFrame(widthPosition: widthPosition, heightPosition: heightPosition)
-    view.addSubview(cardView)
+    self.addSubview(cardView)
   }
 }

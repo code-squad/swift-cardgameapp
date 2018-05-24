@@ -47,7 +47,7 @@ private extension TableauPilesViewController {
 extension TableauPilesViewController: TableauPilesViewContrllerDelegate {
   func updateCardViewModel(_ pileIndex: Int, _ cardIndex: Int, with cardViewModel: CardViewModel) {
     tableauPileViewController.addView(pileIndex: pileIndex, cardIndex: cardIndex, with: cardViewModel)
-    self.addChildViewController(child: tableauPileViewController, to: self)
+    self.addChildViewController(child: tableauPileViewController)
     
     if isEnded {
       tableauPileViewController = TableauPileViewController()

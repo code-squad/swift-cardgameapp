@@ -11,11 +11,11 @@ import UIKit
 class ExtraPileView: UIView {  
   func addView(_ cardViewModel: CardViewModel?) {
     guard let cardViewModel = cardViewModel else {
-      UIView.addEmptyView(in: self)
+      addEmptyView()
       return
     }
     
-    UIView.addCardView(in: self, with: cardViewModel)
+    addCardView(with: cardViewModel)
   }
   
   func addRefreshView() {

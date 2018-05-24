@@ -15,10 +15,10 @@ class FoundationPileViewController: UIViewController {
   
   func addView(pileIndex: Int, with cardViewModel: CardViewModel?) {
     guard let cardViewModel = cardViewModel else {
-      UIView.addEmptyView(in: view, widthPosition: pileIndex)
+      self.view.addEmptyView(widthPosition: pileIndex)
       return
     }
 
-    UIView.addCardView(in: view, with: cardViewModel)
+    self.view.addCardView(with: cardViewModel)
   }
 }

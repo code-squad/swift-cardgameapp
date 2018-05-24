@@ -15,10 +15,10 @@ class TableauPileViewController: UIViewController {
   
   func addView(pileIndex: Int, cardIndex: Int, with cardViewModel: CardViewModel?) {
     guard let cardViewModel = cardViewModel else {
-      UIView.addEmptyView(in: view, widthPosition: pileIndex)
+      self.view.addEmptyView(widthPosition: pileIndex)
       return
     }
     
-    UIView.addCardView(in: view, with: cardViewModel, widthPosition: pileIndex, heightPosition: cardIndex)
+    self.view.addCardView(with: cardViewModel, widthPosition: pileIndex, heightPosition: cardIndex)
   }
 }

@@ -13,10 +13,10 @@ class BaseViewController: UIViewController {
     super.viewDidLoad()
   }
   
-  func addChildViewController(child: UIViewController, to parent: UIViewController) {
-    parent.addChildViewController(child)
-    parent.view.addSubview(child.view)
-    child.didMove(toParentViewController: parent)
+  func addChildViewController(child: UIViewController) {
+    self.addChildViewController(child)
+    self.view.addSubview(child.view)
+    child.didMove(toParentViewController: self)
   }
   
   func removeChildViewController(child: UIViewController) {

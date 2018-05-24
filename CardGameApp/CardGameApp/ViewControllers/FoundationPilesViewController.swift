@@ -45,7 +45,7 @@ extension FoundationPilesViewController: FoundationPilesViewControllerDelegate {
   func updateEmptyView(_ pileIndex: Int) {
     let foundationPileViewController = FoundationPileViewController()
     foundationPileViewController.addView(pileIndex: pileIndex, with: nil)
-    self.addChildViewController(child: foundationPileViewController, to: self)
+    self.addChildViewController(child: foundationPileViewController)
   }
 }
 
