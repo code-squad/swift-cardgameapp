@@ -11,13 +11,9 @@ import UIKit
 class TableauPilesViewController: BaseViewController {
   var tableauPilesViewModel: TableauPilesViewModel! {
     didSet {
-      self.tableauPilesViewModel.delegate = self
       initialize()
     }
   }
-  
-  private var tableauPileViewController: TableauPileViewController = TableauPileViewController()
-  private var isEnded: Bool = false
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -27,34 +23,23 @@ class TableauPilesViewController: BaseViewController {
 private extension TableauPilesViewController {
   func initialize() {
     removeAllViewControllers()
-    configueTablePileView()
+    setUpTablePilesView()
   }
   
   func removeAllViewControllers() {
-    if childViewControllers.count > 0 {
-      for child in childViewControllers {
-        self.removeChildViewController(child: child)
+    childViewControllers.forEach { self.removeChildViewController(child: $0) }
+  }
+  
+  func setUpTablePilesView() {
+    var tablePileViewController = TableauPileViewController()
+    tableauPilesViewModel.takeCardModels() { (cardViewModel, pileIndex, cardIndex) in
+      tablePileViewController.addView(pileIndex: pileIndex, cardIndex: cardIndex, with: cardViewModel)
+      self.addChildViewController(child: tablePileViewController)
+      
+      if pileIndex == cardIndex {
+        tablePileViewController = TableauPileViewController()
       }
     }
   }
-  
-  func configueTablePileView() {
-    tableauPilesViewModel.updateCardViewModels()
-  }
 }
 
-// MARK:- TableauPilesViewContrllerDelegate
-extension TableauPilesViewController: TableauPilesViewContrllerDelegate {
-  func updateCardViewModel(_ pileIndex: Int, _ cardIndex: Int, with cardViewModel: CardViewModel) {
-    tableauPileViewController.addView(pileIndex: pileIndex, cardIndex: cardIndex, with: cardViewModel)
-    self.addChildViewController(child: tableauPileViewController)
-    
-    if isEnded {
-      tableauPileViewController = TableauPileViewController()
-    }
-  }
-  
-  func updateLastPositionFlag(_ isEnded: Bool) {
-    self.isEnded = isEnded
-  }
-}
