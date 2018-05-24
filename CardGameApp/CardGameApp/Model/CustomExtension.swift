@@ -20,25 +20,6 @@ extension Notification.Name {
     static let cardDragged = Notification.Name("cardDragged")
 }
 
-extension CGPoint {
-    func isContained(in view: UIView) -> (owner: ViewKey, index: Int)? {
-        var owner: ViewKey = .deck
-        var index = 0
-
-        guard view.contains(point: self) else { return nil }
-        switch view {
-            case is CardDeckView: owner = .deck
-            case is FoundationView: owner = .foundation
-            case is OneStack:
-                guard let activeView = view as? OneStack else { break }
-                owner = .stack
-                index = activeView.getColumn()
-            default: owner = .deck
-        }
-        return (owner: owner, index: index)
-    }
-}
-
 extension UIView {
     func contains(point: CGPoint) -> Bool {
         return self.frame.contains(point)
