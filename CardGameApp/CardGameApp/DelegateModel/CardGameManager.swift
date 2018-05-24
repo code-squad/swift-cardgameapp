@@ -126,11 +126,15 @@ class CardGameManager: CardGameDelegate {
     func movableCards(info: MoveInfo) -> [Card]? {
         switch info.getView().convertViewKey() {
         case .deck:
-            return [deckManager.lastOpenedCard()!]
+            guard let card = deckManager.lastOpenedCard() else { return nil }
+            return [card]
         case .foundation:
-            return foundationManager.cards(in: info.getColumn()!)
+            guard let column = info.getColumn() else { return nil }
+            return foundationManager.cards(in: column)
         case .stack:
-            return stackManagers.getStackDelegate(of: info.getColumn()!).movableCards(from: info.getIndex()!)
+            guard let column = info.getColumn() else { return nil }
+            guard let index = info.getIndex() else { return nil }
+            return stackManagers.getStackDelegate(of: column).movableCards(from: index)
         default: return nil
         }
     }
