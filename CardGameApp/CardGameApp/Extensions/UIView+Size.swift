@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIView {
-  func setFrame(widthPosition: Int = 0, heightPosition: Int = 0) -> CGRect {
+  class func setFrame(widthPosition: Int = 0, heightPosition: Int = 0) -> CGRect {
     let yPoint = heightPosition == 0 ? 0 : heightPosition.cgFloat * 15
     return CGRect(origin: CGPoint(x: ViewSettings.cardWidth * widthPosition.cgFloat,
                                   y: yPoint),

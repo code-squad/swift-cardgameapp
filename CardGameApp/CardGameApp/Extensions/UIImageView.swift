@@ -10,7 +10,7 @@ import UIKit
 
 extension UIImageView {
   func generateEmptyView(widthPosition: Int = 0, heightPosition: Int = 0) {
-    self.frame = setFrame(widthPosition: widthPosition, heightPosition: heightPosition)
+    self.frame = UIView.setFrame(widthPosition: widthPosition, heightPosition: heightPosition)
     self.layer.borderColor = UIColor.white.cgColor
     self.layer.borderWidth = 2
     self.layer.cornerRadius = 3
@@ -18,7 +18,7 @@ extension UIImageView {
   }
   
   func generateRefreshView() {
-    self.frame = setFrame()
+    self.frame = UIView.setFrame()
     self.layer.borderColor = UIColor.white.cgColor
     self.layer.borderWidth = 2
     self.layer.cornerRadius = 3

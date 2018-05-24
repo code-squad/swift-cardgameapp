@@ -30,7 +30,7 @@ struct ViewUtility {
   
   static func addCardView(in view: UIView, with viewModel: CardViewModel, widthPosition: Int = 0, heightPosition: Int = 0) {
     let cardView = CardView(viewModel: viewModel)
-    cardView.frame = cardView.setFrame(widthPosition: widthPosition, heightPosition: heightPosition)
+    cardView.frame = UIView.setFrame(widthPosition: widthPosition, heightPosition: heightPosition)
     view.addSubview(cardView)
   }
 }
