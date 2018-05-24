@@ -9,8 +9,8 @@
 import Foundation
 
 struct Card {
-  private(set) var suit: Suit
-  private(set) var number: Number
+  private var suit: Suit
+  private var number: Number
   
   init(_ suit: Suit, _ number: Number) {
     self.suit = suit
@@ -21,6 +21,18 @@ struct Card {
 extension Card {
   func bringFrontImageName() -> String {
     return self.description
+  }
+}
+
+extension Card {
+  static func isNextPositionCorrect(lhs: Card, rhs: Card) -> Bool {
+    let nextNumber = lhs.number.rawValue + 1
+    
+    guard lhs.suit == rhs.suit && nextNumber == rhs.number.rawValue else {
+      return false
+    }
+    
+    return true
   }
 }
 

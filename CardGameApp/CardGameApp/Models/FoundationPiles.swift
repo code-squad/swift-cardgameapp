@@ -41,12 +41,8 @@ extension FoundationPiles {
 private extension FoundationPiles {
   func pushCard(pile: CardStack, card pCard: Card) {
     guard let card = pile.last() else { return }
-    
-    let nextNumber = card.number.rawValue + 1
-    guard card.suit == pCard.suit && nextNumber == pCard.number.rawValue else {
-      return
-    }
-    
+    guard Card.isNextPositionCorrect(lhs: card, rhs: pCard) else { return }
+        
     pushCard(pile: pile, card: pCard)
   }
 }
