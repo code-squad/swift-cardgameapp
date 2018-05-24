@@ -245,7 +245,8 @@ extension ViewController {
         switch recognizer.state {
         case .began:
             originalInfo = frameCalculator.originalLocation(view: superView, position: cardView.frame.origin)
-            movableViews = originalInfo.getView().cardImages(at: originalInfo.getIndex())
+            guard let movables = originalInfo.getView().cardImages(at: originalInfo.getIndex()) else { return }
+            movableViews = movables
         case .changed:
             movableViews.forEach{
                 $0.layer.zPosition = 1

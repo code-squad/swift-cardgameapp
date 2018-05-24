@@ -128,8 +128,8 @@ class OneStack: UIView, Movable {
 
     func cardImages(at: Int?) -> [CardImageView]? {
         var result = [CardImageView]()
-        guard self.subviews.count == self.stackManager.countOfCard() else { return result }
-        guard let index = at else { return result }
+        guard self.subviews.count == self.stackManager.countOfCard() else { return nil }
+        guard let index = at else { return nil }
         guard index != self.subviews.count else { return [lastCardView!] }
         for i in index..<self.stackManager.countOfCard() {
             result.append(self.subviews[i] as! CardImageView)
