@@ -15,7 +15,7 @@ class ExtraPileViewModel {
     self.extraPile = extraPile
   }
 
-  func takeCardModels(completion: @escaping (CardViewModel) -> Void) {
+  func setUp(completion: @escaping (CardViewModel) -> Void) {
     extraPile.forEach {
       completion(CardViewModel(card: $0).generate())
     }

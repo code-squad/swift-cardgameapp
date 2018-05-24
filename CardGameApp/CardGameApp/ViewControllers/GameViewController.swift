@@ -63,7 +63,7 @@ private extension GameViewController {
   
   func setUpExtraView() {
     extraPileView.removeAllViews()
-    extraPileViewModel.takeCardModels() { cardViewModel in
+    extraPileViewModel.setUp() { cardViewModel in
       self.extraPileView.addCardView(with: cardViewModel)
     }
   }

@@ -32,7 +32,7 @@ private extension TableauPilesViewController {
   
   func setUpTablePilesView() {
     var tablePileViewController = TableauPileViewController()
-    tableauPilesViewModel.takeCardModels() { (cardViewModel, pileIndex, cardIndex) in
+    tableauPilesViewModel.setUp() { (cardViewModel, pileIndex, cardIndex) in
       tablePileViewController.addView(pileIndex: pileIndex, cardIndex: cardIndex, with: cardViewModel)
       self.addChildViewController(child: tablePileViewController)
       

@@ -15,7 +15,7 @@ class TableauPilesViewModel {
     self.tableauPiles = tableauPiles
   }
   
-  func takeCardModels(completion: @escaping (CardViewModel, Int, Int) -> Void) {
+  func setUp(completion: @escaping (CardViewModel, Int, Int) -> Void) {
     for (pileIndex, pile) in tableauPiles.enumerated() {
       for (cardIndex, card) in pile.enumerated() {
         let isEnded = pileIndex == cardIndex
