@@ -12,7 +12,6 @@
 		87075CCA20AE67DC001930C5 /* FoundationPilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87075CC920AE67DC001930C5 /* FoundationPilesViewModel.swift */; };
 		87075CCC20AE6898001930C5 /* TableauPiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87075CCB20AE6897001930C5 /* TableauPiles.swift */; };
 		87075CCE20AE689F001930C5 /* FoundationPiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87075CCD20AE689F001930C5 /* FoundationPiles.swift */; };
-		87075CD020AE706F001930C5 /* FoundationPilesViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87075CCF20AE706F001930C5 /* FoundationPilesViewControllerDelegate.swift */; };
 		8715761E20ACFD6A005F9C6C /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8715761C20ACFD6A005F9C6C /* CardViewModel.swift */; };
 		8715762320ACFD80005F9C6C /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8715762220ACFD80005F9C6C /* CardStack.swift */; };
 		8715762820ACFDD7005F9C6C /* CardStackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8715762520ACFDD7005F9C6C /* CardStackTests.swift */; };
@@ -45,7 +44,6 @@
 		87D6D5CA20AE7FFD00684C67 /* FoundationPileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D6D5C920AE7FFD00684C67 /* FoundationPileViewController.swift */; };
 		87D77E4520AE9D9100BFFF55 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4420AE9D9100BFFF55 /* UIView.swift */; };
 		87D77E4720AEA43700BFFF55 /* TableauPilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4620AEA43700BFFF55 /* TableauPilesViewController.swift */; };
-		87D77E4920AEA48100BFFF55 /* TableauPilesViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4820AEA48100BFFF55 /* TableauPilesViewControllerDelegate.swift */; };
 		87D77E4B20AEA50000BFFF55 /* TableauPilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4A20AEA50000BFFF55 /* TableauPilesViewModel.swift */; };
 		87D77E4D20AEB06800BFFF55 /* TableauPileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4C20AEB06800BFFF55 /* TableauPileViewController.swift */; };
 		87D77E4F20AEBC3500BFFF55 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4E20AEBC3500BFFF55 /* Int.swift */; };
@@ -73,7 +71,6 @@
 		87075CC920AE67DC001930C5 /* FoundationPilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPilesViewModel.swift; sourceTree = "<group>"; };
 		87075CCB20AE6897001930C5 /* TableauPiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableauPiles.swift; sourceTree = "<group>"; };
 		87075CCD20AE689F001930C5 /* FoundationPiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPiles.swift; sourceTree = "<group>"; };
-		87075CCF20AE706F001930C5 /* FoundationPilesViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPilesViewControllerDelegate.swift; sourceTree = "<group>"; };
 		8715761C20ACFD6A005F9C6C /* CardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		8715762220ACFD80005F9C6C /* CardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		8715762520ACFDD7005F9C6C /* CardStackTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackTests.swift; sourceTree = "<group>"; };
@@ -111,7 +108,6 @@
 		87D6D5C920AE7FFD00684C67 /* FoundationPileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPileViewController.swift; sourceTree = "<group>"; };
 		87D77E4420AE9D9100BFFF55 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		87D77E4620AEA43700BFFF55 /* TableauPilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPilesViewController.swift; sourceTree = "<group>"; };
-		87D77E4820AEA48100BFFF55 /* TableauPilesViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPilesViewControllerDelegate.swift; sourceTree = "<group>"; };
 		87D77E4A20AEA50000BFFF55 /* TableauPilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPilesViewModel.swift; sourceTree = "<group>"; };
 		87D77E4C20AEB06800BFFF55 /* TableauPileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPileViewController.swift; sourceTree = "<group>"; };
 		87D77E4E20AEBC3500BFFF55 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
@@ -228,11 +224,9 @@
 			isa = PBXGroup;
 			children = (
 				8742478720AD078F00E9EA26 /* FoundationPilesViewController.swift */,
-				87075CCF20AE706F001930C5 /* FoundationPilesViewControllerDelegate.swift */,
 				87D6D5C920AE7FFD00684C67 /* FoundationPileViewController.swift */,
 				8715762B20ACFE0B005F9C6C /* GameViewController.swift */,
 				87D77E4620AEA43700BFFF55 /* TableauPilesViewController.swift */,
-				87D77E4820AEA48100BFFF55 /* TableauPilesViewControllerDelegate.swift */,
 				87D77E4C20AEB06800BFFF55 /* TableauPileViewController.swift */,
 				87C0520420B65713009DB671 /* BaseViewController.swift */,
 			);
@@ -480,7 +474,6 @@
 				87CE7F1920A1039100975DEC /* Array.swift in Sources */,
 				87CE7F1020A1032900975DEC /* Card.swift in Sources */,
 				87075CCE20AE689F001930C5 /* FoundationPiles.swift in Sources */,
-				87075CD020AE706F001930C5 /* FoundationPilesViewControllerDelegate.swift in Sources */,
 				8742477B20AD055E00E9EA26 /* ExtraPileView.swift in Sources */,
 				87075CCA20AE67DC001930C5 /* FoundationPilesViewModel.swift in Sources */,
 				8742477920AD054700E9EA26 /* WastePileView.swift in Sources */,
@@ -493,7 +486,6 @@
 				87D77E4D20AEB06800BFFF55 /* TableauPileViewController.swift in Sources */,
 				8742478E20AD107500E9EA26 /* ViewSettings.swift in Sources */,
 				8742478C20AD0B7C00E9EA26 /* GameViewModel.swift in Sources */,
-				87D77E4920AEA48100BFFF55 /* TableauPilesViewControllerDelegate.swift in Sources */,
 				8715761E20ACFD6A005F9C6C /* CardViewModel.swift in Sources */,
 				8715762C20ACFE0B005F9C6C /* GameViewController.swift in Sources */,
 				87075CCC20AE6898001930C5 /* TableauPiles.swift in Sources */,

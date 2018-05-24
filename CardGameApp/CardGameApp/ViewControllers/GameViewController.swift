@@ -143,12 +143,12 @@ private extension GameViewController {
   func bindViewModels() {
     self.extraPileViewModel = ExtraPileViewModel(gameViewModel.extraPile)
     self.wastePileViewModel = WasteViewModel(gameViewModel.wastePile)
-//    if let vc = childViewControllers.first as? FoundationPilesViewController {
-//      vc.foundationPilesViewModel = FoundationPilesViewModel(gameViewModel.foundationPiles)
-//    }
-//
-//    if let vc = childViewControllers.last as? TableauPilesViewController {
-//      vc.tableauPilesViewModel = TableauPilesViewModel(gameViewModel.tableauPiles)
-//    }
+    if let vc = childViewControllers.first as? FoundationPilesViewController {
+      vc.foundationPilesViewModel = FoundationPilesViewModel(gameViewModel.foundationPiles)
+    }
+
+    if let vc = childViewControllers.last as? TableauPilesViewController {
+      vc.tableauPilesViewModel = TableauPilesViewModel(gameViewModel.tableauPiles)
+    }
   }
 }

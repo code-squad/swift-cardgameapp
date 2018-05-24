@@ -11,7 +11,6 @@ import UIKit
 class FoundationPilesViewController: BaseViewController {
   var foundationPilesViewModel: FoundationPilesViewModel! {
     didSet {
-      self.foundationPilesViewModel.delegate = self
       initialize()
     }
   }
@@ -24,28 +23,19 @@ class FoundationPilesViewController: BaseViewController {
 private extension FoundationPilesViewController {
   func initialize() {
     removeAllViewControllers()
-    configueFoundationPilesView()
+    setUpFoundationPilesView()
   }
-  
-  func configueFoundationPilesView() {
-    foundationPilesViewModel.updateCardViewModels()
-  }
-  
-  func removeAllViewControllers() {
-    if childViewControllers.count > 0 {
-      for child in childViewControllers {
-        self.removeChildViewController(child: child)
-      }
-    }
-  }
-}
 
-// MARK:- FoundationPilesViewControllerDelegate
-extension FoundationPilesViewController: FoundationPilesViewControllerDelegate {
-  func updateEmptyView(_ pileIndex: Int) {
-    let foundationPileViewController = FoundationPileViewController()
-    foundationPileViewController.addView(pileIndex: pileIndex, with: nil)
-    self.addChildViewController(child: foundationPileViewController)
+  func removeAllViewControllers() {
+    childViewControllers.forEach { self.removeChildViewController(child: $0) }
+  }
+  
+  func setUpFoundationPilesView() {
+    (0...ViewSettings.foundationCount-1).forEach { pileIndex in
+      let foundationPileViewController = FoundationPileViewController()
+      foundationPileViewController.addView(pileIndex: pileIndex)
+      self.addChildViewController(child: foundationPileViewController)
+    }
   }
 }
 
