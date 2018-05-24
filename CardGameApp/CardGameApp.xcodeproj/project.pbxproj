@@ -117,13 +117,13 @@
 				FDDFB93F2080499C00920FB4 /* Model */,
 				FDD8FA17207F035400F5FD99 /* ViewController.swift */,
 				FDD8FA15207F035400F5FD99 /* AppDelegate.swift */,
+				FD38967F20AD2DE100EFBA96 /* FrameCalculator.swift */,
 				FD7DF3E620A2F0DB00BD62B7 /* DelegateModel */,
 				FDD8FA19207F035400F5FD99 /* Main.storyboard */,
 				FDD8FA1C207F035500F5FD99 /* Assets.xcassets */,
 				FDD8FA1E207F035500F5FD99 /* LaunchScreen.storyboard */,
 				FDD8FA21207F035500F5FD99 /* Info.plist */,
 				FD7DF3E420A2F07400BD62B7 /* View */,
-				FD38967F20AD2DE100EFBA96 /* FrameCalculator.swift */,
 			);
 			path = CardGameApp;
 			sourceTree = "<group>";

@@ -43,7 +43,13 @@ extension UIView {
     func contains(point: CGPoint) -> Bool {
         return self.frame.contains(point)
     }
+}
 
+extension CGFloat {
 
+    // origin.y를 검사하여 oneStack내에서의 cardIndex를 알아낸다.
+    func indexInStack() -> Int {
+        return Int(self / 15.0)
+    }
 
 }

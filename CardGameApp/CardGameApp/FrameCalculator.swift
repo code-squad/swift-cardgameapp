@@ -16,15 +16,9 @@ class FrameCalculator {
                                width: ViewController.widthOfRootView,
                                height: ViewController.heightOfRootView)
 
-
-    // origin.y를 검사하여 oneStack내에서의 cardIndex를 알아낸다.
-    func cardIndexInStack(originY: CGFloat) -> Int {
-        return Int(originY / 15.0)
-    }
-
     func originalLocation(view: UIView, position: CGPoint) -> MoveInfo {
         if let from = view as? OneStack {
-            return MoveInfo(view: from, column: from.getColumn(), index: cardIndexInStack(originY: position.y))
+            return MoveInfo(view: from, column: from.getColumn(), index: position.y.indexInStack())
         } else if let from = view as? CardDeckView {
             return MoveInfo(view: from, column: nil, index: nil)
         } else {
