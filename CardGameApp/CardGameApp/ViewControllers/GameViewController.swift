@@ -39,6 +39,10 @@ class GameViewController: UIViewController {
     registerGestures()
     registerObservers()
   }
+  
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
 }
 
 // MARK:- Initializer
