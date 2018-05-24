@@ -60,14 +60,14 @@
 * 앱에서 Shake 이벤트를 발생하면 랜덤 카드를 다시 섞고 처음 상태로 다시 그리도록 구현함
 
 ##### 실행결과
-* 프로젝트 하면서 느낀 점은 구조 잡는 것이 제일 어려운 것 같음. 구조 잡는 것때문에 고민도 많이 하고 구조도 많이 지우고 작성하기도 함
-* 원하는 결과가 나왔지만, TableauPilesViewController의 View, View Controller 구조가 내가 원하는 역할로 나누어지지 않음
+* 카드게임 프로젝트를 진행하면서 구조 잡는 것이 제일 어려웠음. 구조 잡는 것때문에 고민도 많이 하고 구조도 많이 지우고 작성하기도 함
+* 그러나, TableauPilesViewController와 TableauPileViewController과 1 : 7이 아니라 카드 개수만큼 TableauViewController가 생겨버림
 
 <img src="./images/cardgame-app-result-3-1.png" width="30%"></img>
 <img src="./images/cardgame-app-result-3-2.png" width="30%"></img>
 
-* 결국 위 구조를 아래처럼 고침
-* 
+* 결국 구조를 아래처럼 고침
+
 <img src="./images/cardgame-app-result-3-3.png" width="30%"></img>
 <img src="./images/cardgame-app-result-3-4.png" width="30%"></img>
 <img src="./images/cardgame-app-result-3-5.gif" width="30%"></img>
@@ -76,6 +76,11 @@
 * UIStackView
     * [정리](https://wiki.yuaming.com/ios/auto-layout.html)
     * [개발자 문서](https://developer.apple.com/documentation/uikit/uistackview)
+* Clean Architecture in iOS
+    * [정리](https://github.com/yuaming/reviews/blob/master/clean-architecture-in-ios.adoc)  
 * [해당 소스 분석 후, 카드게임 테스트 적용해보기](https://github.com/asmtechnology/Lesson12.iOSTesting.2017.Apress)
 * [클린 아키텍처를 적용한 iOS 샘플 프로젝트](https://github.com/Clean-Swift/CleanStore)
 * [Clean Swift iOS Architecture for Fixing Massive View Controller](https://clean-swift.com/clean-swift-ios-architecture/)
+* [Managing View Controllers With Container View Controllers](https://cocoacasts.com/managing-view-controllers-with-container-view-controllers/)
+* [Swift / Clean Architecture / RxSwift로 제작중인 어플 공개 소스](https://github.com/AidenJLee/iam)
+* [ArchitectureStudy Github Repository](https://github.com/ArchitectureStudy/study)
