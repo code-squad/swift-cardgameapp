@@ -277,7 +277,9 @@ extension ViewController {
         case .foundation:
             return MoveInfo(view: foundationView as Movable, column: to.column!, index: nil)
         case .stack:
-            return MoveInfo(view: stackView.getOneStack(of: to.column!), column: to.column!, index: nil)
+            guard let toColumn = to.column else { return nil }
+            let toIndex = stackView.lastCardPosition(column: toColumn)
+            return MoveInfo(view: stackView.getOneStack(of: toColumn), column: toColumn, index: toIndex)
         default: break
         }
 

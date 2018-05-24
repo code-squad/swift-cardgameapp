@@ -143,7 +143,7 @@ class OneStack: UIView, Movable {
 
     func lastCardPosition() -> Int {
         guard self.lastCardView != nil else { return 0 }
-        return self.subviews.count + 1
+        return self.subviews.count
     }
 
     func convertViewKey() -> ViewKey {
