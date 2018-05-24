@@ -25,5 +25,9 @@ extension CardViewModel {
     
     return UIImage(imageLiteralResourceName: card.bringFrontImageName())
   }
+  
+  func generate() -> CardViewModel {
+    return CardViewModel(card: card, isTurnedOver: isTurnedOver)
+  }
 }
 

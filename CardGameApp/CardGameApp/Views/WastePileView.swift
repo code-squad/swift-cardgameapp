@@ -7,18 +7,8 @@
 //
 
 import UIKit
-import Foundation
 
-class WastePileView: UIView {
-  func addView(_ cardViewModel: CardViewModel?) {
-    guard let cardViewModel = cardViewModel else {
-      self.addEmptyView()
-      return
-    }
-    
-    self.addCardView(with: cardViewModel)
-  }
-  
+class WastePileView: UIView {  
   func removeAllViews() {
     subviews.forEach { $0.removeFromSuperview() }
   }

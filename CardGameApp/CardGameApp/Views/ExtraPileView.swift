@@ -9,23 +9,18 @@
 import UIKit
 
 class ExtraPileView: UIView {  
-  func addView(_ cardViewModel: CardViewModel?) {
-    guard let cardViewModel = cardViewModel else {
-      addEmptyView()
-      return
-    }
-    
-    addCardView(with: cardViewModel)
-  }
-  
   func addRefreshView() {
     let refreshView = UIImageView()
     refreshView.generateRefreshView()
-    addSubview(refreshView)
+    self.addSubview(refreshView)
   }
   
   func removeAllViews() {
     subviews.forEach { $0.removeFromSuperview() }
+  }
+  
+  func removeView() {
+    subviews.first?.removeFromSuperview()
   }
   
   func addTapGesture(_ tapGesture: UITapGestureRecognizer) {

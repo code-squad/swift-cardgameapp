@@ -13,17 +13,8 @@ class GameViewController: UIViewController {
   @IBOutlet weak var extraPileView: ExtraPileView!
 
   private var gameViewModel: GameViewModel!
-  private var extraPileViewModel: ExtraPileViewModel! {
-    didSet {
-      self.extraPileViewModel.delegate = self
-    }
-  }
-  
-  private var wastePileViewModel: WasteViewModel! {
-    didSet {
-      self.wastePileViewModel.delegate = self
-    }
-  }
+  private var extraPileViewModel: ExtraPileViewModel!
+  private var wastePileViewModel: WasteViewModel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -36,8 +27,6 @@ class GameViewController: UIViewController {
   
   override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
     if motion == .motionShake {
-      wastePileView.removeAllViews()
-      extraPileView.removeAllViews()
       startGame()
     }
   }
@@ -48,6 +37,7 @@ class GameViewController: UIViewController {
   
     initialize()
     registerGestures()
+    registerObservers()
   }
 }
 
@@ -58,8 +48,8 @@ private extension GameViewController {
     setCardSize()
     bindViewModels()
     
-    configueExtraPileView()
-    configueWastePileView()
+    setUpWasteView()
+    setUpExtraView()
   }
   
   func setBackground() {
@@ -71,18 +61,33 @@ private extension GameViewController {
     ViewSettings.cardHeight = ViewSettings.cardWidth * 1.27
   }
   
+  func setUpExtraView() {
+    extraPileView.removeAllViews()
+    extraPileViewModel.takeCardModels() { cardViewModel in
+      self.extraPileView.addCardView(with: cardViewModel)
+    }
+  }
+  
+  func setUpWasteView() {
+    wastePileView.removeAllViews()
+    wastePileView.addEmptyView()
+  }
+  
   func registerGestures() {
     let tabGesture = UITapGestureRecognizer(target: self,
                                             action: #selector(extraPileViewDidTap(_:)))
     extraPileView.addTapGesture(tabGesture)
   }
   
-  func configueExtraPileView() {
-    extraPileViewModel.updateCardViewModels()
-  }
-  
-  func configueWastePileView() {
-    wastePileViewModel.updateCardViewModels()
+  func registerObservers() {
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(cardDidChoiceInExtraPile(_:)),
+                                           name: .cardDidChoiceInExtraPile,
+                                           object: nil)
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(allCardsDidRemove(_:)),
+                                           name: .allCardsDidRemove,
+                                           object: nil)
   }
 }
 
@@ -101,47 +106,35 @@ private extension GameViewController {
     }
   }
   
-  func executeWhenCardBackImage() {
-    if extraPileViewModel.isAvailable {
-      guard let card = extraPileViewModel.choiceOneCard() else { return }
-      wastePileViewModel.push(card)
-      wastePileViewModel.updateCardViewModel(card, isTurnedOver: true)
-    } else {
-      extraPileViewModel.refresh()
+  @objc func cardDidChoiceInExtraPile(_ notification: Notification) {
+    guard let userInfo = notification.userInfo,
+      let card = userInfo["card"] as? Card,
+        let quantity = userInfo["remainingQuantity"] as? Int else { return }
+  
+    wastePileView.addCardView(with: CardViewModel(card: card, isTurnedOver: true).generate())
+    wastePileViewModel.push(card)
+    extraPileView.removeView()
+    
+    if quantity == 0 {
+      extraPileView.addRefreshView()
     }
   }
   
+  @objc func allCardsDidRemove(_ notification: Notification) {
+    guard let userInfo = notification.userInfo,
+      let pile = userInfo["pile"] as? CardStack else { return }
+    
+    self.extraPileViewModel = ExtraPileViewModel(pile)
+    setUpWasteView()
+    setUpExtraView()
+  }
+  
+  func executeWhenCardBackImage() {
+    extraPileViewModel.choice()
+  }
+  
   func executeWhenRefreshImage() {
-    guard let cardStack = wastePileViewModel.removeAllCards() else { return }
-    wastePileView.removeAllViews()
-    wastePileViewModel.updateCardViewModels()
-    extraPileView.removeAllViews()
-    extraPileViewModel.store(with: cardStack)
-    extraPileViewModel.updateCardViewModels()
-  }
-}
-
-// MARK:- GameViewControllerDelegate
-extension GameViewController: GameViewControllerDelegate {
-  func updateCardViewModelInExtraPile(_ cardViewModel: CardViewModel) {
-    extraPileView.addView(cardViewModel)
-  }
-  
-  func updateCardViewModelInWastePile(_ cardViewModel: CardViewModel) {
-    wastePileView.addView(cardViewModel)
-  }
-  
-  func updateEmptyViewInExtraPile() {
-    extraPileView.addView(nil)
-  }
-  
-  func updateEmptyViewInWastePile() {
-    wastePileView.addView(nil)
-  }
-  
-  func updateRefreshViewInExtraPile() {
-    extraPileView.removeAllViews()
-    extraPileView.addRefreshView()
+    wastePileViewModel.removeAllCards()
   }
 }
 
@@ -150,12 +143,12 @@ private extension GameViewController {
   func bindViewModels() {
     self.extraPileViewModel = ExtraPileViewModel(gameViewModel.extraPile)
     self.wastePileViewModel = WasteViewModel(gameViewModel.wastePile)
-    if let vc = childViewControllers.first as? FoundationPilesViewController {
-      vc.foundationPilesViewModel = FoundationPilesViewModel(gameViewModel.foundationPiles)
-    }
-    
-    if let vc = childViewControllers.last as? TableauPilesViewController {
-      vc.tableauPilesViewModel = TableauPilesViewModel(gameViewModel.tableauPiles)
-    }
+//    if let vc = childViewControllers.first as? FoundationPilesViewController {
+//      vc.foundationPilesViewModel = FoundationPilesViewModel(gameViewModel.foundationPiles)
+//    }
+//
+//    if let vc = childViewControllers.last as? TableauPilesViewController {
+//      vc.tableauPilesViewModel = TableauPilesViewModel(gameViewModel.tableauPiles)
+//    }
   }
 }

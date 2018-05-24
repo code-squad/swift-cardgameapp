@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		04A82A11E0A1EC692B84C8E4 /* Pods_CardGameAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A63F862CD0C42692C8933B /* Pods_CardGameAppTests.framework */; };
 		667CD37186519FA3E7FAD6E8 /* Pods_CardGameApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C200D5FD7E596F369E0F6642 /* Pods_CardGameApp.framework */; };
-		87075CC820AE66BE001930C5 /* GameViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87075CC720AE66BE001930C5 /* GameViewControllerDelegate.swift */; };
 		87075CCA20AE67DC001930C5 /* FoundationPilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87075CC920AE67DC001930C5 /* FoundationPilesViewModel.swift */; };
 		87075CCC20AE6898001930C5 /* TableauPiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87075CCB20AE6897001930C5 /* TableauPiles.swift */; };
 		87075CCE20AE689F001930C5 /* FoundationPiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87075CCD20AE689F001930C5 /* FoundationPiles.swift */; };
@@ -71,7 +70,6 @@
 		542A1269114926818BE550A1 /* Pods-CardGameApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameApp/Pods-CardGameApp.debug.xcconfig"; sourceTree = "<group>"; };
 		59EA5B96903D08E459854738 /* Pods-CardGameAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameAppUITests/Pods-CardGameAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		75790D6E3C9676C2A98FE314 /* Pods-CardGameAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameAppTests/Pods-CardGameAppTests.release.xcconfig"; sourceTree = "<group>"; };
-		87075CC720AE66BE001930C5 /* GameViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewControllerDelegate.swift; sourceTree = "<group>"; };
 		87075CC920AE67DC001930C5 /* FoundationPilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPilesViewModel.swift; sourceTree = "<group>"; };
 		87075CCB20AE6897001930C5 /* TableauPiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableauPiles.swift; sourceTree = "<group>"; };
 		87075CCD20AE689F001930C5 /* FoundationPiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPiles.swift; sourceTree = "<group>"; };
@@ -233,7 +231,6 @@
 				87075CCF20AE706F001930C5 /* FoundationPilesViewControllerDelegate.swift */,
 				87D6D5C920AE7FFD00684C67 /* FoundationPileViewController.swift */,
 				8715762B20ACFE0B005F9C6C /* GameViewController.swift */,
-				87075CC720AE66BE001930C5 /* GameViewControllerDelegate.swift */,
 				87D77E4620AEA43700BFFF55 /* TableauPilesViewController.swift */,
 				87D77E4820AEA48100BFFF55 /* TableauPilesViewControllerDelegate.swift */,
 				87D77E4C20AEB06800BFFF55 /* TableauPileViewController.swift */,
@@ -478,7 +475,6 @@
 				877EDF9020AD4FD50090768A /* WasteViewModel.swift in Sources */,
 				87CE7F1420A1035D00975DEC /* Number.swift in Sources */,
 				87D77E4F20AEBC3500BFFF55 /* Int.swift in Sources */,
-				87075CC820AE66BE001930C5 /* GameViewControllerDelegate.swift in Sources */,
 				87CE7F1620A1037600975DEC /* CardDeck.swift in Sources */,
 				87C0520520B65713009DB671 /* BaseViewController.swift in Sources */,
 				87CE7F1920A1039100975DEC /* Array.swift in Sources */,

@@ -9,41 +9,27 @@
 import Foundation
 
 class ExtraPileViewModel {
-  var delegate: GameViewControllerDelegate?
-  private(set) var extraPile: CardStack
+  private var extraPile: CardStack
   
   init(_ extraPile: CardStack) {
     self.extraPile = extraPile
   }
-  
-  func updateCardViewModels() {
-    guard extraPile.isAvailable else {
-      delegate?.updateEmptyViewInExtraPile()
-      return
-    }
-    
+
+  func takeCardModels(completion: @escaping (CardViewModel) -> Void) {
     extraPile.forEach {
-      updateCardViewModel($0)
+      completion(CardViewModel(card: $0).generate())
     }
   }
   
-  func updateCardViewModel(_ card: Card, isTurnedOver: Bool = false) {
-    delegate?.updateCardViewModelInExtraPile(CardViewModel(card: card, isTurnedOver: isTurnedOver))
+  @discardableResult func choice() -> Card? {
+    guard let card = extraPile.choice() else { return nil }
+    NotificationCenter.default.post(name: .cardDidChoiceInExtraPile,
+                                    object: nil,
+                                    userInfo: ["card": card, "remainingQuantity": extraPile.count])
+    return card
   }
-  
-  func refresh() {
-    delegate?.updateRefreshViewInExtraPile()
-  }
-  
-  func choiceOneCard() -> Card? {
-    return extraPile.choice()
-  }
-  
-  func store(with data: CardStack) {
-    self.extraPile = data
-  }
-  
-  var isAvailable: Bool {
-    return extraPile.isAvailable
-  }
+}
+
+extension Notification.Name {
+  static let cardDidChoiceInExtraPile = Notification.Name(rawValue: "CardDidChoiceInExtraPile")
 }
