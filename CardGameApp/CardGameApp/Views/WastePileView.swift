@@ -12,11 +12,11 @@ import Foundation
 class WastePileView: UIView {
   func addView(_ cardViewModel: CardViewModel?) {
     guard let cardViewModel = cardViewModel else {
-      ViewUtility.addEmptyView(in: self)
+      UIView.addEmptyView(in: self)
       return
     }
     
-    ViewUtility.addCardView(in: self, with: cardViewModel)
+    UIView.addCardView(in: self, with: cardViewModel)
   }
   
   func removeAllViews() {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FoundationPilesViewController: UIViewController {
+class FoundationPilesViewController: BaseViewController {
   var foundationPilesViewModel: FoundationPilesViewModel! {
     didSet {
       self.foundationPilesViewModel.delegate = self
@@ -34,7 +34,7 @@ private extension FoundationPilesViewController {
   func removeAllViewControllers() {
     if childViewControllers.count > 0 {
       for child in childViewControllers {
-        ViewUtility.removeChildViewController(child: child)
+        self.removeChildViewController(child: child)
       }
     }
   }
@@ -45,7 +45,7 @@ extension FoundationPilesViewController: FoundationPilesViewControllerDelegate {
   func updateEmptyView(_ pileIndex: Int) {
     let foundationPileViewController = FoundationPileViewController()
     foundationPileViewController.addView(pileIndex: pileIndex, with: nil)
-    ViewUtility.addChildViewController(child: foundationPileViewController, to: self)
+    self.addChildViewController(child: foundationPileViewController, to: self)
   }
 }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TableauPilesViewController: UIViewController {
+class TableauPilesViewController: BaseViewController {
   var tableauPilesViewModel: TableauPilesViewModel! {
     didSet {
       self.tableauPilesViewModel.delegate = self
@@ -33,7 +33,7 @@ private extension TableauPilesViewController {
   func removeAllViewControllers() {
     if childViewControllers.count > 0 {
       for child in childViewControllers {
-        ViewUtility.removeChildViewController(child: child)
+        self.removeChildViewController(child: child)
       }
     }
   }
@@ -47,7 +47,7 @@ private extension TableauPilesViewController {
 extension TableauPilesViewController: TableauPilesViewContrllerDelegate {
   func updateCardViewModel(_ pileIndex: Int, _ cardIndex: Int, with cardViewModel: CardViewModel) {
     tableauPileViewController.addView(pileIndex: pileIndex, cardIndex: cardIndex, with: cardViewModel)
-    ViewUtility.addChildViewController(child: tableauPileViewController, to: self)
+    self.addChildViewController(child: tableauPileViewController, to: self)
     
     if isEnded {
       tableauPileViewController = TableauPileViewController()

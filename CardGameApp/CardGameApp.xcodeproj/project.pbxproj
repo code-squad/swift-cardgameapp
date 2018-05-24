@@ -37,19 +37,19 @@
 		87A5AC0320B1C5E300CC7805 /* FoundationPilesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5AC0220B1C5E300CC7805 /* FoundationPilesTests.swift */; };
 		87A5AC0520B1C68100CC7805 /* TableauPilesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A5AC0420B1C68100CC7805 /* TableauPilesTests.swift */; };
 		87A7696820A149AA008A1023 /* LiteralResoureNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A7696720A149AA008A1023 /* LiteralResoureNames.swift */; };
+		87C0520520B65713009DB671 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87C0520420B65713009DB671 /* BaseViewController.swift */; };
 		87CE7F1020A1032900975DEC /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F0F20A1032900975DEC /* Card.swift */; };
 		87CE7F1220A1033D00975DEC /* Suit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1120A1033D00975DEC /* Suit.swift */; };
 		87CE7F1420A1035D00975DEC /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1320A1035D00975DEC /* Number.swift */; };
 		87CE7F1620A1037600975DEC /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1520A1037600975DEC /* CardDeck.swift */; };
 		87CE7F1920A1039100975DEC /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE7F1820A1039100975DEC /* Array.swift */; };
 		87D6D5CA20AE7FFD00684C67 /* FoundationPileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D6D5C920AE7FFD00684C67 /* FoundationPileViewController.swift */; };
-		87D77E4520AE9D9100BFFF55 /* UIView+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4420AE9D9100BFFF55 /* UIView+Size.swift */; };
+		87D77E4520AE9D9100BFFF55 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4420AE9D9100BFFF55 /* UIView.swift */; };
 		87D77E4720AEA43700BFFF55 /* TableauPilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4620AEA43700BFFF55 /* TableauPilesViewController.swift */; };
 		87D77E4920AEA48100BFFF55 /* TableauPilesViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4820AEA48100BFFF55 /* TableauPilesViewControllerDelegate.swift */; };
 		87D77E4B20AEA50000BFFF55 /* TableauPilesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4A20AEA50000BFFF55 /* TableauPilesViewModel.swift */; };
 		87D77E4D20AEB06800BFFF55 /* TableauPileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4C20AEB06800BFFF55 /* TableauPileViewController.swift */; };
 		87D77E4F20AEBC3500BFFF55 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E4E20AEBC3500BFFF55 /* Int.swift */; };
-		87D77E5120AEC4C500BFFF55 /* ViewUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87D77E5020AEC4C500BFFF55 /* ViewUtility.swift */; };
 		87F4FED62073144A0061FE9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87F4FED52073144A0061FE9E /* Assets.xcassets */; };
 		87F4FEDB20731C820061FE9E /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F4FEDA20731C820061FE9E /* CardView.swift */; };
 		87FCCD9420AD01EC0064A2C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87FCCD9020AD01EC0064A2C1 /* LaunchScreen.storyboard */; };
@@ -104,19 +104,19 @@
 		87A5AC0220B1C5E300CC7805 /* FoundationPilesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPilesTests.swift; sourceTree = "<group>"; };
 		87A5AC0420B1C68100CC7805 /* TableauPilesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPilesTests.swift; sourceTree = "<group>"; };
 		87A7696720A149AA008A1023 /* LiteralResoureNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteralResoureNames.swift; sourceTree = "<group>"; };
+		87C0520420B65713009DB671 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		87CE7F0F20A1032900975DEC /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		87CE7F1120A1033D00975DEC /* Suit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Suit.swift; sourceTree = "<group>"; };
 		87CE7F1320A1035D00975DEC /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		87CE7F1520A1037600975DEC /* CardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
 		87CE7F1820A1039100975DEC /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		87D6D5C920AE7FFD00684C67 /* FoundationPileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationPileViewController.swift; sourceTree = "<group>"; };
-		87D77E4420AE9D9100BFFF55 /* UIView+Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Size.swift"; sourceTree = "<group>"; };
+		87D77E4420AE9D9100BFFF55 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		87D77E4620AEA43700BFFF55 /* TableauPilesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPilesViewController.swift; sourceTree = "<group>"; };
 		87D77E4820AEA48100BFFF55 /* TableauPilesViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPilesViewControllerDelegate.swift; sourceTree = "<group>"; };
 		87D77E4A20AEA50000BFFF55 /* TableauPilesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPilesViewModel.swift; sourceTree = "<group>"; };
 		87D77E4C20AEB06800BFFF55 /* TableauPileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauPileViewController.swift; sourceTree = "<group>"; };
 		87D77E4E20AEBC3500BFFF55 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
-		87D77E5020AEC4C500BFFF55 /* ViewUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUtility.swift; sourceTree = "<group>"; };
 		87F4FED52073144A0061FE9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87F4FEDA20731C820061FE9E /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		87FCCD9120AD01EC0064A2C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -237,6 +237,7 @@
 				87D77E4620AEA43700BFFF55 /* TableauPilesViewController.swift */,
 				87D77E4820AEA48100BFFF55 /* TableauPilesViewControllerDelegate.swift */,
 				87D77E4C20AEB06800BFFF55 /* TableauPileViewController.swift */,
+				87C0520420B65713009DB671 /* BaseViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -246,7 +247,6 @@
 			children = (
 				8742478D20AD107500E9EA26 /* ViewSettings.swift */,
 				87A7696720A149AA008A1023 /* LiteralResoureNames.swift */,
-				87D77E5020AEC4C500BFFF55 /* ViewUtility.swift */,
 				8749029D20B16A9D00B438D2 /* GenericIterator.swift */,
 			);
 			path = Utilities;
@@ -271,7 +271,7 @@
 			children = (
 				87CE7F1820A1039100975DEC /* Array.swift */,
 				8742478F20AD17D300E9EA26 /* UIImageView.swift */,
-				87D77E4420AE9D9100BFFF55 /* UIView+Size.swift */,
+				87D77E4420AE9D9100BFFF55 /* UIView.swift */,
 				87D77E4E20AEBC3500BFFF55 /* Int.swift */,
 			);
 			path = Extensions;
@@ -480,6 +480,7 @@
 				87D77E4F20AEBC3500BFFF55 /* Int.swift in Sources */,
 				87075CC820AE66BE001930C5 /* GameViewControllerDelegate.swift in Sources */,
 				87CE7F1620A1037600975DEC /* CardDeck.swift in Sources */,
+				87C0520520B65713009DB671 /* BaseViewController.swift in Sources */,
 				87CE7F1920A1039100975DEC /* Array.swift in Sources */,
 				87CE7F1020A1032900975DEC /* Card.swift in Sources */,
 				87075CCE20AE689F001930C5 /* FoundationPiles.swift in Sources */,
@@ -488,7 +489,7 @@
 				87075CCA20AE67DC001930C5 /* FoundationPilesViewModel.swift in Sources */,
 				8742477920AD054700E9EA26 /* WastePileView.swift in Sources */,
 				8742478A20AD0AFF00E9EA26 /* ExtraPileViewModel.swift in Sources */,
-				87D77E4520AE9D9100BFFF55 /* UIView+Size.swift in Sources */,
+				87D77E4520AE9D9100BFFF55 /* UIView.swift in Sources */,
 				8742479020AD17D300E9EA26 /* UIImageView.swift in Sources */,
 				87D6D5CA20AE7FFD00684C67 /* FoundationPileViewController.swift in Sources */,
 				87F4FEDB20731C820061FE9E /* CardView.swift in Sources */,
@@ -500,7 +501,6 @@
 				8715761E20ACFD6A005F9C6C /* CardViewModel.swift in Sources */,
 				8715762C20ACFE0B005F9C6C /* GameViewController.swift in Sources */,
 				87075CCC20AE6898001930C5 /* TableauPiles.swift in Sources */,
-				87D77E5120AEC4C500BFFF55 /* ViewUtility.swift in Sources */,
 				87A7696820A149AA008A1023 /* LiteralResoureNames.swift in Sources */,
 				8737C6C92071D6E200D9D65B /* AppDelegate.swift in Sources */,
 				8715762320ACFD80005F9C6C /* CardStack.swift in Sources */,
