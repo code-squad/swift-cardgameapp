@@ -139,7 +139,7 @@ class ViewController: UIViewController {
         }
         cardGameDelegate.popOpenDeck() // deck의 마지막카드 제거
         UIView.animate(
-            withDuration: 1.0,
+            withDuration: 1.0, delay: 0, options: UIViewAnimationOptions.curveEaseOut,
             animations: {
                 targetCard.layer.zPosition = 1
                 targetCard.frame.origin.x += moveTo.x
@@ -186,7 +186,7 @@ class ViewController: UIViewController {
 
 
         UIView.animate(
-            withDuration: 1.0,
+            withDuration: 1.0, delay: 0, options: UIViewAnimationOptions.curveEaseOut,
             animations: {
                 targetCard.layer.zPosition = 1
                 targetCard.frame.origin.x += moveTo.x
@@ -307,7 +307,7 @@ extension ViewController {
                       y: toPoint.y - currentPoint.y)
 
         UIView.animate(
-            withDuration: 0.5,
+            withDuration: 0.5, delay: 0, options: UIViewAnimationOptions.curveEaseOut,
             animations: {
                 self.movableViews.forEach {
                     $0.layer.zPosition = 1
