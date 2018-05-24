@@ -9,7 +9,7 @@
 import Foundation
 
 class CardDeck {
-  private var cardStack: CardStack = CardStack()
+  private var cards: [Card] = []
   
   init() {
     reset()
@@ -18,21 +18,21 @@ class CardDeck {
 
 extension CardDeck {
   func reset() {
-    self.cardStack = CardStack()
+    self.cards = []
     
     for suit in Suit.allValues {
       for number in Number.allValues {
-        self.cardStack.push(generateCard(suit, number))
+        self.cards.append(generateCard(suit, number))
       }
     }
   }
   
   func shuffle() {
-    cardStack.shuffle()
+    self.cards = cards.shuffle()
   }
   
   func push(_ card: Card) {
-    cardStack.push(card)
+    cards.append(card)
   }
   
   func choice() -> Card? {    
@@ -40,11 +40,11 @@ extension CardDeck {
   }
   
   func last() -> Card? {
-    return cardStack.last()
+    return cards.last
   }
   
   var count: Int {
-    return cardStack.count
+    return cards.count
   }
 }
 
@@ -54,17 +54,17 @@ private extension CardDeck {
   }
   
   func generateRandomInt() -> Int {
-    return Int(arc4random_uniform(UInt32(cardStack.count)))
+    return Int(arc4random_uniform(UInt32(cards.count)))
   }
   
   func choiceCard() -> Card {
-    return cardStack.choice(at: generateRandomInt())
+    return cards.remove(at: generateRandomInt())
   }
 }
 
 extension CardDeck: Equatable {
   static func ==(lhs: CardDeck, rhs: CardDeck) -> Bool {
-    guard lhs.cardStack == rhs.cardStack else { return false }
+    guard lhs.cards == rhs.cards else { return false }
     
     return true
   }
