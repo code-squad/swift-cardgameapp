@@ -52,7 +52,7 @@ class CardGameManager: CardGameDelegate {
         return sharedCardDeck
     }
 
-    func getWholeStackDelegate() -> (CardStackDelegate & Stackable) {
+    func getWholeStackDelegate() -> (CardStackDelegate & Stackable & Draggable) {
         return self.stackManagers
     }
 
@@ -69,7 +69,7 @@ class CardGameManager: CardGameDelegate {
     static let defaultStackRange: CountableClosedRange = 1...7
     static let defaultStackNumber: Int = 7
     private var cardDeck = CardDeck()
-    private var stackManagers: (CardStackDelegate & Stackable)!
+    private var stackManagers: (CardStackDelegate & Stackable & Draggable)!
     private var foundationManager: (FoundationDelegate & Stackable)!
     private var deckManager: CardDeckDelegate!
 
@@ -82,7 +82,7 @@ class CardGameManager: CardGameDelegate {
     }
 
     func popStack(column: Int) {
-        let activatedCard = stackManagers.lastCard(of: column)
+        //let activatedCard = stackManagers.lastCard(of: column)
         stackManagers.removePoppedCard(of: column)
     }
 
@@ -146,13 +146,13 @@ class CardGameManager: CardGameDelegate {
             return false
         case .foundation:
             guard let column = foundationManager.stackable(nextCard: cards[0]) else { return false }
-            foundationManager.stackUp(newCard: cards[0], newCards: nil, column: column)
+            foundationManager.stackOne(card: cards[0], column: column)
             return true
         case .stack:
             guard let availableStack = stackManagers.stackable(nextCard: cards[0]) else { return false }
             guard let toColumn = toInfo.getColumn() else { return false }
             guard availableStack == toColumn else { return false }
-            stackManagers.stackUp(newCard: nil, newCards: cards, column: availableStack)
+            stackManagers.stackUp(cards: cards, column: availableStack)
             return true
         default: return false
         }

@@ -8,7 +8,8 @@
 
 import Foundation
 
-class WholeStackManager: CardStackDelegate,Stackable {
+class WholeStackManager: CardStackDelegate, Stackable, Draggable {
+
     private var stackManagers: [StackDelegate]!
 
     init(stacks: [CardStack]) {
@@ -31,8 +32,8 @@ class WholeStackManager: CardStackDelegate,Stackable {
         return nil
     } // 가능한 스택의 column리턴
 
-    func stackUp(newCard: Card?, newCards: [Card]?, column: Int) {
-        stackManagers[column].stackUp(newCard: newCard, newCards: newCards)
+    func stackOne(card: Card, column: Int) {
+        stackManagers[column].stackOne(card: card)
     }
 
     func removePoppedCard(of column: Int) {
@@ -41,6 +42,10 @@ class WholeStackManager: CardStackDelegate,Stackable {
 
     func lastCard(of column: Int) -> Card {
         return stackManagers[column].currentLastCard()
+    }
+
+    func stackUp(cards: [Card], column: Int) {
+        stackManagers[column].stackUp(newCards: cards)
     }
 
 }

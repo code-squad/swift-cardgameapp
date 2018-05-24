@@ -132,10 +132,10 @@ class ViewController: UIViewController {
         let popCard = cardGameDelegate.getDeckDelegate().lastOpenedCard()!
         if toView == .foundation {
             let foundationManager: Stackable = cardGameDelegate.getFoundationDelegate() as Stackable
-            foundationManager.stackUp(newCard: popCard, newCards: nil, column: toIndex)
+            foundationManager.stackOne(card: popCard, column: toIndex)
         }
         if toView == .stack {
-            cardGameDelegate.getWholeStackDelegate().stackUp(newCard: popCard, newCards: nil, column: toIndex)
+            cardGameDelegate.getWholeStackDelegate().stackOne(card: popCard, column: toIndex)
         }
         cardGameDelegate.popOpenDeck() // deck의 마지막카드 제거
         UIView.animate(
@@ -176,12 +176,12 @@ class ViewController: UIViewController {
 
         if toView == .foundation {
             let foundationManager: Stackable = cardGameDelegate.getFoundationDelegate() as Stackable
-            foundationManager.stackUp(newCard: popCard, newCards: nil, column: toIndex)
+            foundationManager.stackOne(card: popCard, column: toIndex)
         }
 
         if toView == .stack {
             let stacksManger: Stackable = cardGameDelegate.getWholeStackDelegate() as Stackable
-            stacksManger.stackUp(newCard: popCard, newCards: nil, column: toIndex)
+            stacksManger.stackOne(card: popCard, column: toIndex)
         }
 
 

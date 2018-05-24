@@ -37,8 +37,7 @@ class FoundationManager: FoundationDelegate, Stackable {
         return nil
     }
 
-    func stackUp(newCard: Card?, newCards: [Card]?, column: Int) {
-        guard let card = newCard else {return}
+    func stackOne(card: Card, column: Int) {
         foundations[column].push(newCard: card)
     }
 

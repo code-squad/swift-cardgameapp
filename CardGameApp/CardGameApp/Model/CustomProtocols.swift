@@ -20,7 +20,7 @@ protocol ImageSelector {
 
 protocol CardGameDelegate {
     func getDeckDelegate() -> CardDeckDelegate
-    func getWholeStackDelegate() -> (CardStackDelegate & Stackable)
+    func getWholeStackDelegate() -> (CardStackDelegate & Stackable & Draggable)
     func getFoundationDelegate() -> (FoundationDelegate & Stackable)
     func shuffleDeck()
     func movableFromDeck(from: ViewKey) -> (to: ViewKey, index: Int?)
@@ -58,19 +58,25 @@ protocol StackDelegate {
     func removePoppedCard()
     func currentLastCard() -> Card
     func isStackable(nextCard: Card) -> Bool
-    func stackUp(newCard: Card?, newCards: [Card]?)
+    func stackOne(card: Card)
+    func stackUp(newCards: [Card])
     func movableCards(from: Int) -> [Card]
     func removeCards(from index: Int)
 }
 
-// MARK: RuleCheck Related
+// MARK: RuleCheck - Double Tap, Drag Action Related
 
 protocol Stackable {
     func stackable(nextCard card: Card) -> Int?
-    func stackUp(newCard: Card?, newCards: [Card]?, column: Int)
+    func stackOne(card: Card, column: Int)
 }
 
 protocol Movable {
     func cardImages(at: Int?) -> [CardImageView]?
     func convertViewKey() -> ViewKey
 }
+
+protocol Draggable {
+    func stackUp(cards: [Card], column: Int)
+}
+
