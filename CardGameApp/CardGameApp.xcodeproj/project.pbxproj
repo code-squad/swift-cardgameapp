@@ -10,6 +10,7 @@
 		B33B857220D094EB0070AB35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33B857120D094EB0070AB35 /* AppDelegate.swift */; };
 		B33B857920D094EC0070AB35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B33B857820D094EC0070AB35 /* Assets.xcassets */; };
 		B33B857C20D094EC0070AB35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B33B857A20D094EC0070AB35 /* LaunchScreen.storyboard */; };
+		B33B858520D098780070AB35 /* MainCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33B858420D098780070AB35 /* MainCollectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +19,7 @@
 		B33B857820D094EC0070AB35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B33B857B20D094EC0070AB35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B33B857D20D094EC0070AB35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B33B858420D098780070AB35 /* MainCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				B33B857120D094EB0070AB35 /* AppDelegate.swift */,
+				B33B858420D098780070AB35 /* MainCollectionView.swift */,
 				B33B858320D096610070AB35 /* SuppportFile */,
 			);
 			path = CardGameApp;
@@ -137,6 +140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B33B857220D094EB0070AB35 /* AppDelegate.swift in Sources */,
+				B33B858520D098780070AB35 /* MainCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +278,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 524TVTU6B9;
-				INFOPLIST_FILE = CardGameApp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/CardGameApp/SuppportFile/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -292,7 +296,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 524TVTU6B9;
-				INFOPLIST_FILE = CardGameApp/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/CardGameApp/SuppportFile/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
