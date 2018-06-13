@@ -55,13 +55,21 @@
 			isa = PBXGroup;
 			children = (
 				B33B857120D094EB0070AB35 /* AppDelegate.swift */,
+				B33B858320D096610070AB35 /* SuppportFile */,
 				B33B857320D094EB0070AB35 /* ViewController.swift */,
 				B33B857520D094EB0070AB35 /* Main.storyboard */,
+			);
+			path = CardGameApp;
+			sourceTree = "<group>";
+		};
+		B33B858320D096610070AB35 /* SuppportFile */ = {
+			isa = PBXGroup;
+			children = (
 				B33B857820D094EC0070AB35 /* Assets.xcassets */,
 				B33B857A20D094EC0070AB35 /* LaunchScreen.storyboard */,
 				B33B857D20D094EC0070AB35 /* Info.plist */,
 			);
-			path = CardGameApp;
+			path = SuppportFile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
