@@ -10,10 +10,6 @@ import UIKit
 
 class MainCollectionView: UICollectionViewController {
     
-    private let cardRatio = CGFloat(1.27)
-    private let width = (UIScreen.main.bounds.width / 7)
-    private let margin = (UIScreen.main.bounds.width / 7) / 30
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = UIColor(patternImage: .init(imageLiteralResourceName: "bg_pattern"))
@@ -21,15 +17,17 @@ class MainCollectionView: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return Int(CARDGAMEAPP.LAYOUT.horizonCardCount.rawValue)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: width - margin, height: (width - margin) * cardRatio)
+        return CGSize(
+                    width: CARDGAMEAPP.LAYOUT.width.rawValue - CARDGAMEAPP.LAYOUT.margin.rawValue,
+                    height: (CARDGAMEAPP.LAYOUT.width.rawValue - CARDGAMEAPP.LAYOUT.margin.rawValue) * CARDGAMEAPP.LAYOUT.cardRatio.rawValue)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return margin
+        return CARDGAMEAPP.LAYOUT.margin.rawValue
     }
     
 }
