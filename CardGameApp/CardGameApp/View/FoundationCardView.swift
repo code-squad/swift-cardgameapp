@@ -10,10 +10,10 @@ import UIKit
 
 class FoundationCardView: BaseView {
     
-    private let firstFiled: UIImageView = CARDGAMEAPP.FRAME.foundationField.instance
-    private let secondFiled: UIImageView = CARDGAMEAPP.FRAME.foundationField.instance
-    private let thirdFiled: UIImageView = CARDGAMEAPP.FRAME.foundationField.instance
-    private let fourFiled: UIImageView = CARDGAMEAPP.FRAME.foundationField.instance
+    private let firstFiled: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
+    private let secondFiled: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
+    private let thirdFiled: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
+    private let fourFiled: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
     
     override func setupView() {
         super.setupView()

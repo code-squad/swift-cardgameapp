@@ -25,6 +25,7 @@
 		B39DA5A120D40EA4006DF2A6 /* Shape+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39DA59F20D40EA4006DF2A6 /* Shape+.swift */; };
 		B39DA5A220D40EA4006DF2A6 /* Suits+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39DA5A020D40EA4006DF2A6 /* Suits+.swift */; };
 		B39DA5A420D40F9D006DF2A6 /* EnumCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39DA5A320D40F9D006DF2A6 /* EnumCollection.swift */; };
+		B39DA5A620D4156B006DF2A6 /* StackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B39DA5A520D4156B006DF2A6 /* StackCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		B39DA59F20D40EA4006DF2A6 /* Shape+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Shape+.swift"; sourceTree = "<group>"; };
 		B39DA5A020D40EA4006DF2A6 /* Suits+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Suits+.swift"; sourceTree = "<group>"; };
 		B39DA5A320D40F9D006DF2A6 /* EnumCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumCollection.swift; sourceTree = "<group>"; };
+		B39DA5A520D4156B006DF2A6 /* StackCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 			children = (
 				B38E527320D245ED0012C75F /* FoundationCardView.swift */,
 				B322221520D3850A000E8F21 /* DeckView.swift */,
+				B39DA5A520D4156B006DF2A6 /* StackCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				B38E527220D245E60012C75F /* MainVC.swift in Sources */,
 				B322222B20D39BBA000E8F21 /* Card.swift in Sources */,
 				B39DA5A420D40F9D006DF2A6 /* EnumCollection.swift in Sources */,
+				B39DA5A620D4156B006DF2A6 /* StackCardView.swift in Sources */,
 				B39DA59E20D40E60006DF2A6 /* Int+.swift in Sources */,
 				B322222920D39BBA000E8F21 /* Suits.swift in Sources */,
 				B393829520D207490021A981 /* CARDGAMEAPP.swift in Sources */,

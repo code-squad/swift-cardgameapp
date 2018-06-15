@@ -10,7 +10,7 @@ import UIKit
 
 class DeckView: BaseView {
     
-    private let deckField: UIImageView = CARDGAMEAPP.FRAME.deckField.instance
+    private let deckField: UIImageView = CARDGAMEAPP.Attributes.deckField.instance
     
     override func setupView() {
         super.setupView()

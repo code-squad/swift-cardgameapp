@@ -31,9 +31,10 @@ enum CARDGAMEAPP {
         }
     }
     
-    enum FRAME {
+    enum Attributes {
         case foundationField
         case deckField
+        case stackCardField(imageNamed: String)
         
         var instance: UIImageView {
             switch self {
@@ -49,6 +50,14 @@ enum CARDGAMEAPP {
                 case .deckField:
                     let card = UIImageView()
                     card.image = UIImage(named: "card-back")
+                    card.contentMode = .scaleAspectFit
+                    card.clipsToBounds = true
+                    card.layer.cornerRadius = 5
+                    return card
+                
+                case .stackCardField(let named):
+                    let card = UIImageView()
+                    card.image = UIImage(named: named)
                     card.contentMode = .scaleAspectFit
                     card.clipsToBounds = true
                     card.layer.cornerRadius = 5
