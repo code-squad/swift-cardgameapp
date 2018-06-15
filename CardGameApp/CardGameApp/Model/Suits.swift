@@ -8,8 +8,8 @@
 
 //모양을 가지는 enum
 enum Suits : String {
-    case spade   = "♠"
-    case clover  = "♣"
-    case heart   = "♥"
-    case diamond = "◆"
+    case spade   = "s"
+    case clover  = "c"
+    case heart   = "h"
+    case diamond = "d"
 }
