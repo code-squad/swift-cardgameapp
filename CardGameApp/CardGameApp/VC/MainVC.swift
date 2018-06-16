@@ -23,8 +23,7 @@ class MainVC: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        deck.shuffle()
-        stackField.makeInitStackView(makeStackCard())
+        cardReset()
     }
     
     private func makeStackCard() -> [String] {
@@ -35,5 +34,15 @@ class MainVC: BaseVC {
         return stackCardNames
     }
     
+    private func cardReset() {
+        deck.shuffle()
+        stackField.makeInitStackView(makeStackCard())
+    }
+    
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+           cardReset()
+        }
+    }
     
 }
