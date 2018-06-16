@@ -10,19 +10,19 @@ import UIKit
 
 class FoundationCardView: BaseView {
     
-    private let firstFiled: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
-    private let secondFiled: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
-    private let thirdFiled: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
-    private let fourFiled: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
+    private let firstField: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
+    private let secondField: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
+    private let thirdField: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
+    private let fourField: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
     
     override func setupView() {
         super.setupView()
-        addSubView(firstFiled, secondFiled, thirdFiled, fourFiled)
+        addSubView(firstField, secondField, thirdField, fourField)
         makeFoundationCard()
     }
     
     private func makeFoundationCard() {
-        let foundationFileds: [UIImageView] = [firstFiled, secondFiled, thirdFiled, fourFiled]
+        let foundationFileds: [UIImageView] = [firstField, secondField, thirdField, fourField]
 
         for (index, view) in foundationFileds.enumerated() {
             view.frame = CGRect(x: (CARDGAMEAPP.LAYOUT.width.rawValue / CARDGAMEAPP.LAYOUT.horizonCardCount.rawValue) +
