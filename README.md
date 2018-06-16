@@ -18,3 +18,15 @@
 	* minimumInteritemSpacingForSectionAt로 cell 간격 지정
 
 ![](CardGameImg/CardGame-step1.png)
+
+# CardGame Step2
+
+- BaseVC, BaseView 생성
+	-	BaseVC: UIViewContoller를 상속하여 setupView 함수를 viewdidload에서 호출
+	- BaseView: UIView를 상속하여 setupView를 초기화시 호출하여 view를 생성
+
+- 구조
+![](CardGameImg/CardGame-step2-structure.png)
+
+
+![](CardGameImg/CardGame-step2.png)
