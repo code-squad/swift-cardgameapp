@@ -22,7 +22,7 @@ enum CARDGAMEAPP {
             case .cardRatio:
                 return 1.27
             case .width:
-                return (UIScreen.main.bounds.width / CARDGAMEAPP.LAYOUT.horizonCardCount.rawValue)
+                return (UIScreen.main.bounds.width / CARDGAMEAPP.LAYOUT.horizonCardCount.rawValue) - ((UIScreen.main.bounds.width / CARDGAMEAPP.LAYOUT.horizonCardCount.rawValue)) / 20
             case .margin:
                 return CARDGAMEAPP.LAYOUT.width.rawValue / 30
             case .top:
@@ -34,7 +34,6 @@ enum CARDGAMEAPP {
     enum Attributes {
         case foundationField
         case deckField
-        case stackCardField(imageNamed: String)
         
         var instance: UIImageView {
             switch self {
@@ -50,14 +49,6 @@ enum CARDGAMEAPP {
                 case .deckField:
                     let card = UIImageView()
                     card.image = UIImage(named: "card-back")
-                    card.contentMode = .scaleAspectFit
-                    card.clipsToBounds = true
-                    card.layer.cornerRadius = 5
-                    return card
-                
-                case .stackCardField(let named):
-                    let card = UIImageView()
-                    card.image = UIImage(named: named)
                     card.contentMode = .scaleAspectFit
                     card.clipsToBounds = true
                     card.layer.cornerRadius = 5
