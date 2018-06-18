@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B30D71B520D770E800E7B6BB /* FoundationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30D71B420D770E800E7B6BB /* FoundationView.swift */; };
 		B322221620D3850A000E8F21 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322221520D3850A000E8F21 /* DeckView.swift */; };
 		B322222820D39BBA000E8F21 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322222420D39BBA000E8F21 /* Shape.swift */; };
 		B322222920D39BBA000E8F21 /* Suits.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322222520D39BBA000E8F21 /* Suits.swift */; };
@@ -16,7 +17,7 @@
 		B33B857920D094EC0070AB35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B33B857820D094EC0070AB35 /* Assets.xcassets */; };
 		B33B857C20D094EC0070AB35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B33B857A20D094EC0070AB35 /* LaunchScreen.storyboard */; };
 		B38E526E20D245290012C75F /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E526D20D245290012C75F /* BaseView.swift */; };
-		B38E527020D2452F0012C75F /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E526F20D2452F0012C75F /* BaseVC.swift */; };
+		B38E527020D2452F0012C75F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E526F20D2452F0012C75F /* BaseViewController.swift */; };
 		B38E527220D245E60012C75F /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E527120D245E60012C75F /* MainVC.swift */; };
 		B38E527420D245ED0012C75F /* FoundationCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E527320D245ED0012C75F /* FoundationCardView.swift */; };
 		B38E527720D2533D0012C75F /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E527620D2533D0012C75F /* View+.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B30D71B420D770E800E7B6BB /* FoundationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationView.swift; sourceTree = "<group>"; };
 		B322221520D3850A000E8F21 /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
 		B322222420D39BBA000E8F21 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		B322222520D39BBA000E8F21 /* Suits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suits.swift; sourceTree = "<group>"; };
@@ -40,7 +42,7 @@
 		B33B857B20D094EC0070AB35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B33B857D20D094EC0070AB35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B38E526D20D245290012C75F /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
-		B38E526F20D2452F0012C75F /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
+		B38E526F20D2452F0012C75F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		B38E527120D245E60012C75F /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		B38E527320D245ED0012C75F /* FoundationCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationCardView.swift; sourceTree = "<group>"; };
 		B38E527620D2533D0012C75F /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
@@ -146,7 +148,8 @@
 			isa = PBXGroup;
 			children = (
 				B38E526D20D245290012C75F /* BaseView.swift */,
-				B38E526F20D2452F0012C75F /* BaseVC.swift */,
+				B38E526F20D2452F0012C75F /* BaseViewController.swift */,
+				B30D71B420D770E800E7B6BB /* FoundationView.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				B38E527220D245E60012C75F /* MainVC.swift in Sources */,
 				B322222B20D39BBA000E8F21 /* Card.swift in Sources */,
 				B39DA5A420D40F9D006DF2A6 /* EnumCollection.swift in Sources */,
+				B30D71B520D770E800E7B6BB /* FoundationView.swift in Sources */,
 				B39DA5A620D4156B006DF2A6 /* StackCardView.swift in Sources */,
 				B39DA59E20D40E60006DF2A6 /* Int+.swift in Sources */,
 				B322222920D39BBA000E8F21 /* Suits.swift in Sources */,
@@ -256,7 +260,7 @@
 				B322222820D39BBA000E8F21 /* Shape.swift in Sources */,
 				B322221620D3850A000E8F21 /* DeckView.swift in Sources */,
 				B38E526E20D245290012C75F /* BaseView.swift in Sources */,
-				B38E527020D2452F0012C75F /* BaseVC.swift in Sources */,
+				B38E527020D2452F0012C75F /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

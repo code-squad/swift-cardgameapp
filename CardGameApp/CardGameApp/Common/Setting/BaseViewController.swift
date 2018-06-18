@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BaseVC: UIViewController {
+class BaseViewController: UIViewController {
     
     func setupView() {
         self.view.backgroundColor = UIColor(patternImage: .init(imageLiteralResourceName: "bg_pattern"))
