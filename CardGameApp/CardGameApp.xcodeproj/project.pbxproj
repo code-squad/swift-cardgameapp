@@ -15,7 +15,7 @@
 		B322222920D39BBA000E8F21 /* Suits.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322222520D39BBA000E8F21 /* Suits.swift */; };
 		B322222A20D39BBA000E8F21 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322222620D39BBA000E8F21 /* Deck.swift */; };
 		B322222B20D39BBA000E8F21 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322222720D39BBA000E8F21 /* Card.swift */; };
-		B3304FB620D8C1A7006A8978 /* ConcreateDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3304FB520D8C1A7006A8978 /* ConcreateDeckView.swift */; };
+		B3304FB620D8C1A7006A8978 /* ConcreateCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3304FB520D8C1A7006A8978 /* ConcreateCardView.swift */; };
 		B3304FB820D8C1CC006A8978 /* CardViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3304FB720D8C1CC006A8978 /* CardViewable.swift */; };
 		B3304FBB20D8D88F006A8978 /* BaseViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3304FBA20D8D88F006A8978 /* BaseViewable.swift */; };
 		B33B857220D094EB0070AB35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33B857120D094EB0070AB35 /* AppDelegate.swift */; };
@@ -43,7 +43,7 @@
 		B322222520D39BBA000E8F21 /* Suits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suits.swift; sourceTree = "<group>"; };
 		B322222620D39BBA000E8F21 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		B322222720D39BBA000E8F21 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		B3304FB520D8C1A7006A8978 /* ConcreateDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcreateDeckView.swift; sourceTree = "<group>"; };
+		B3304FB520D8C1A7006A8978 /* ConcreateCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcreateCardView.swift; sourceTree = "<group>"; };
 		B3304FB720D8C1CC006A8978 /* CardViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewable.swift; sourceTree = "<group>"; };
 		B3304FBA20D8D88F006A8978 /* BaseViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewable.swift; sourceTree = "<group>"; };
 		B33B856E20D094EB0070AB35 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,7 +97,7 @@
 		B3304FB420D8C190006A8978 /* DeckView */ = {
 			isa = PBXGroup;
 			children = (
-				B3304FB520D8C1A7006A8978 /* ConcreateDeckView.swift */,
+				B3304FB520D8C1A7006A8978 /* ConcreateCardView.swift */,
 			);
 			path = DeckView;
 			sourceTree = "<group>";
@@ -295,7 +295,7 @@
 				B322222820D39BBA000E8F21 /* Shape.swift in Sources */,
 				B322221620D3850A000E8F21 /* DeckView.swift in Sources */,
 				B38E526E20D245290012C75F /* BaseView.swift in Sources */,
-				B3304FB620D8C1A7006A8978 /* ConcreateDeckView.swift in Sources */,
+				B3304FB620D8C1A7006A8978 /* ConcreateCardView.swift in Sources */,
 				B38E527020D2452F0012C75F /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
