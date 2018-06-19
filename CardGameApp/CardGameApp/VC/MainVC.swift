@@ -17,7 +17,7 @@ class MainVC: BaseViewController {
     
     override func setupView() {
         super.setupView()
-        view.addSubView(foundationField, deckField, stackField)
+        view.addSubViews(foundationField, deckField, stackField)
         
     }
     
