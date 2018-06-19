@@ -36,7 +36,7 @@ class MainVC: BaseViewController {
     
     private func cardReset() {
         deck.shuffle()
-        stackField.makeInitStackView(makeStackCard())
+        stackField.makelocationStackCard(makeStackCard())
     }
     
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
