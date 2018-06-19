@@ -10,30 +10,31 @@ import UIKit
 
 class StackCardView: BaseView {
     
-    private let stackCardFirst: UIImageView = CARDGAMEAPP.Attributes.deckField.instance
-    private let stackCardSecond: UIImageView = CARDGAMEAPP.Attributes.deckField.instance
-    private let stackCardThird: UIImageView = CARDGAMEAPP.Attributes.deckField.instance
-    private let stackCardFour: UIImageView = CARDGAMEAPP.Attributes.deckField.instance
-    private let stackCardFifth: UIImageView = CARDGAMEAPP.Attributes.deckField.instance
-    private let stackCardSixth: UIImageView = CARDGAMEAPP.Attributes.deckField.instance
-    private let stackCardSeventh: UIImageView = CARDGAMEAPP.Attributes.deckField.instance
+    private let stackField: ConcreateCardView = ConcreateCardView()
+    private var stackCards: [UIImageView] = []
     
     override func setupView() {
         super.setupView()
-        addSubView(stackCardFirst, stackCardSecond, stackCardThird, stackCardFour, stackCardFifth, stackCardSixth, stackCardSeventh)
+        makeStackCard()
     }
     
-    func makeInitStackView(_ stackCardNames: [String]) {
-        let stackCards: [UIImageView] = [stackCardFirst, stackCardSecond, stackCardThird, stackCardFour, stackCardFifth, stackCardSixth, stackCardSeventh]
-        
+    private func makeStackCard() {
+        for _ in 1 ... 7 {
+            stackCards.append(directorView.createCardView(stackField))
+        }
+    }
+    
+    func makelocationStackCard(_ stackCardNames: [String]) {
         for (index, stackCardName) in stackCardNames.enumerated() {
+            addSubview(stackCards[index])
             stackCards[index].image = UIImage(named: stackCardName)
             stackCards[index].frame = CGRect(x: (CARDGAMEAPP.LAYOUT.width.rawValue / CARDGAMEAPP.LAYOUT.horizonCardCount.rawValue) +
                 ((CARDGAMEAPP.LAYOUT.width.rawValue + CARDGAMEAPP.LAYOUT.margin.rawValue) * CGFloat(index)),
-                                y: CARDGAMEAPP.LAYOUT.top.rawValue + CARDGAMEAPP.LAYOUT.width.rawValue * CARDGAMEAPP.LAYOUT.cardRatio.rawValue + CARDGAMEAPP.LAYOUT.margin.rawValue,
-                                width: CARDGAMEAPP.LAYOUT.width.rawValue,
-                                height: CARDGAMEAPP.LAYOUT.width.rawValue * CARDGAMEAPP.LAYOUT.cardRatio.rawValue)
+                                             y: CARDGAMEAPP.LAYOUT.top.rawValue + CARDGAMEAPP.LAYOUT.width.rawValue * CARDGAMEAPP.LAYOUT.cardRatio.rawValue + CARDGAMEAPP.LAYOUT.margin.rawValue,
+                                             width: CARDGAMEAPP.LAYOUT.width.rawValue,
+                                             height: CARDGAMEAPP.LAYOUT.width.rawValue * CARDGAMEAPP.LAYOUT.cardRatio.rawValue)
             
         }
+
     }
 }

@@ -9,29 +9,32 @@
 import UIKit
 
 class FoundationCardView: BaseView {
-    
-    private let firstField: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
-    private let secondField: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
-    private let thirdField: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
-    private let fourField: UIImageView = CARDGAMEAPP.Attributes.foundationField.instance
-    
+  
+    private let createFoundation: ConcreateFoundationView = ConcreateFoundationView()   // FoundationView 구현, 객체 생성 결과의 대한 책임
+    private var foundationFields: [UIImageView] = []
+
     override func setupView() {
         super.setupView()
-        addSubView(firstField, secondField, thirdField, fourField)
-        makeFoundationCard()
+        makeFoudationView()
+        makelocationFoundationView(foundationFields)
     }
     
-    private func makeFoundationCard() {
-        let foundationFileds: [UIImageView] = [firstField, secondField, thirdField, fourField]
-
-        for (index, view) in foundationFileds.enumerated() {
+    private func makeFoudationView() {
+        for _ in 1 ... 4 {
+            let foundationView = directorView.createFoundationView(createFoundation)
+            foundationFields.append(foundationView)
+        }
+    }
+    
+    private func makelocationFoundationView(_ foundationViews: [UIImageView]) {
+        for (index, view) in foundationFields.enumerated() {
+            addSubview(view)
             view.frame = CGRect(x: (CARDGAMEAPP.LAYOUT.width.rawValue / CARDGAMEAPP.LAYOUT.horizonCardCount.rawValue) +
-                               ((CARDGAMEAPP.LAYOUT.width.rawValue + CARDGAMEAPP.LAYOUT.margin.rawValue) * CGFloat(index)),
+                ((CARDGAMEAPP.LAYOUT.width.rawValue + CARDGAMEAPP.LAYOUT.margin.rawValue) * CGFloat(index)),
                                 y: CARDGAMEAPP.LAYOUT.top.rawValue,
                                 width: CARDGAMEAPP.LAYOUT.width.rawValue,
                                 height: CARDGAMEAPP.LAYOUT.width.rawValue * CARDGAMEAPP.LAYOUT.cardRatio.rawValue)
+
         }
     }
-
-    
 }
