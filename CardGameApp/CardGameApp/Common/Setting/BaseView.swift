@@ -24,3 +24,9 @@ class BaseView: UIView {
     }
     
 }
+
+extension BaseView: BaseViewable {
+    var directorView: DirectorView {
+        return DirectorView()
+    }
+}
