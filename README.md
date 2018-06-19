@@ -30,3 +30,11 @@
 
 
 ![](CardGameImg/CardGame-step2.png)
+
+
+- Builder pattern 구현
+
+	- Director : 객체 생성 박식에 대한 책임
+	- Builder: 객체 생성 하는 추상 인터페이스
+	- ConcreteBuilder: Builder의 구현 클래스로 객체 생성결과에 대한 구체적인(속성) 책임
+	- Product: Builder를 이용해서 Director
