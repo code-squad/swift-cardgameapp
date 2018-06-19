@@ -7,12 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B30D71B520D770E800E7B6BB /* FoundationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30D71B420D770E800E7B6BB /* FoundationView.swift */; };
+		B30D71B720D77A9100E7B6BB /* FoundationViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30D71B620D77A9100E7B6BB /* FoundationViewable.swift */; };
+		B30D71BA20D77C8100E7B6BB /* ConcreateFoundationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30D71B920D77C8100E7B6BB /* ConcreateFoundationView.swift */; };
+		B30D71BC20D7956400E7B6BB /* DirectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30D71BB20D7956400E7B6BB /* DirectorView.swift */; };
 		B322221620D3850A000E8F21 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322221520D3850A000E8F21 /* DeckView.swift */; };
 		B322222820D39BBA000E8F21 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322222420D39BBA000E8F21 /* Shape.swift */; };
 		B322222920D39BBA000E8F21 /* Suits.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322222520D39BBA000E8F21 /* Suits.swift */; };
 		B322222A20D39BBA000E8F21 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322222620D39BBA000E8F21 /* Deck.swift */; };
 		B322222B20D39BBA000E8F21 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B322222720D39BBA000E8F21 /* Card.swift */; };
+		B3304FB620D8C1A7006A8978 /* ConcreateDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3304FB520D8C1A7006A8978 /* ConcreateDeckView.swift */; };
+		B3304FB820D8C1CC006A8978 /* CardViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3304FB720D8C1CC006A8978 /* CardViewable.swift */; };
+		B3304FBB20D8D88F006A8978 /* BaseViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3304FBA20D8D88F006A8978 /* BaseViewable.swift */; };
 		B33B857220D094EB0070AB35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33B857120D094EB0070AB35 /* AppDelegate.swift */; };
 		B33B857920D094EC0070AB35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B33B857820D094EC0070AB35 /* Assets.xcassets */; };
 		B33B857C20D094EC0070AB35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B33B857A20D094EC0070AB35 /* LaunchScreen.storyboard */; };
@@ -30,12 +35,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B30D71B420D770E800E7B6BB /* FoundationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationView.swift; sourceTree = "<group>"; };
+		B30D71B620D77A9100E7B6BB /* FoundationViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationViewable.swift; sourceTree = "<group>"; };
+		B30D71B920D77C8100E7B6BB /* ConcreateFoundationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcreateFoundationView.swift; sourceTree = "<group>"; };
+		B30D71BB20D7956400E7B6BB /* DirectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectorView.swift; sourceTree = "<group>"; };
 		B322221520D3850A000E8F21 /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
 		B322222420D39BBA000E8F21 /* Shape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		B322222520D39BBA000E8F21 /* Suits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suits.swift; sourceTree = "<group>"; };
 		B322222620D39BBA000E8F21 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		B322222720D39BBA000E8F21 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		B3304FB520D8C1A7006A8978 /* ConcreateDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcreateDeckView.swift; sourceTree = "<group>"; };
+		B3304FB720D8C1CC006A8978 /* CardViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewable.swift; sourceTree = "<group>"; };
+		B3304FBA20D8D88F006A8978 /* BaseViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewable.swift; sourceTree = "<group>"; };
 		B33B856E20D094EB0070AB35 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B33B857120D094EB0070AB35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B33B857820D094EC0070AB35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,6 +75,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B30D71B820D77C0E00E7B6BB /* FoundationView */ = {
+			isa = PBXGroup;
+			children = (
+				B30D71B920D77C8100E7B6BB /* ConcreateFoundationView.swift */,
+			);
+			path = FoundationView;
+			sourceTree = "<group>";
+		};
 		B322221720D39AD0000E8F21 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,6 +92,14 @@
 				B322222520D39BBA000E8F21 /* Suits.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B3304FB420D8C190006A8978 /* DeckView */ = {
+			isa = PBXGroup;
+			children = (
+				B3304FB520D8C1A7006A8978 /* ConcreateDeckView.swift */,
+			);
+			path = DeckView;
 			sourceTree = "<group>";
 		};
 		B33B856520D094EB0070AB35 = {
@@ -147,9 +173,11 @@
 		B38E526C20D245180012C75F /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				B30D71BB20D7956400E7B6BB /* DirectorView.swift */,
 				B38E526D20D245290012C75F /* BaseView.swift */,
 				B38E526F20D2452F0012C75F /* BaseViewController.swift */,
-				B30D71B420D770E800E7B6BB /* FoundationView.swift */,
+				B3304FB420D8C190006A8978 /* DeckView */,
+				B30D71B820D77C0E00E7B6BB /* FoundationView */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -169,6 +197,9 @@
 			isa = PBXGroup;
 			children = (
 				B39DA5A320D40F9D006DF2A6 /* EnumCollection.swift */,
+				B30D71B620D77A9100E7B6BB /* FoundationViewable.swift */,
+				B3304FB720D8C1CC006A8978 /* CardViewable.swift */,
+				B3304FBA20D8D88F006A8978 /* BaseViewable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -244,22 +275,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				B322222A20D39BBA000E8F21 /* Deck.swift in Sources */,
+				B3304FBB20D8D88F006A8978 /* BaseViewable.swift in Sources */,
+				B3304FB820D8C1CC006A8978 /* CardViewable.swift in Sources */,
 				B33B857220D094EB0070AB35 /* AppDelegate.swift in Sources */,
+				B30D71BC20D7956400E7B6BB /* DirectorView.swift in Sources */,
 				B39DA5A120D40EA4006DF2A6 /* Shape+.swift in Sources */,
 				B38E527420D245ED0012C75F /* FoundationCardView.swift in Sources */,
 				B38E527220D245E60012C75F /* MainVC.swift in Sources */,
 				B322222B20D39BBA000E8F21 /* Card.swift in Sources */,
 				B39DA5A420D40F9D006DF2A6 /* EnumCollection.swift in Sources */,
-				B30D71B520D770E800E7B6BB /* FoundationView.swift in Sources */,
 				B39DA5A620D4156B006DF2A6 /* StackCardView.swift in Sources */,
+				B30D71B720D77A9100E7B6BB /* FoundationViewable.swift in Sources */,
 				B39DA59E20D40E60006DF2A6 /* Int+.swift in Sources */,
 				B322222920D39BBA000E8F21 /* Suits.swift in Sources */,
 				B393829520D207490021A981 /* CARDGAMEAPP.swift in Sources */,
 				B38E527720D2533D0012C75F /* View+.swift in Sources */,
+				B30D71BA20D77C8100E7B6BB /* ConcreateFoundationView.swift in Sources */,
 				B39DA5A220D40EA4006DF2A6 /* Suits+.swift in Sources */,
 				B322222820D39BBA000E8F21 /* Shape.swift in Sources */,
 				B322221620D3850A000E8F21 /* DeckView.swift in Sources */,
 				B38E526E20D245290012C75F /* BaseView.swift in Sources */,
+				B3304FB620D8C1A7006A8978 /* ConcreateDeckView.swift in Sources */,
 				B38E527020D2452F0012C75F /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
