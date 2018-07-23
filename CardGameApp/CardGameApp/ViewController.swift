@@ -12,10 +12,20 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        addBackgroundImage()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    private func addBackgroundImage() {
+        guard let backgroundImage = UIImage(named: "bg_pattern") else { return }
+        self.view.backgroundColor = UIColor(patternImage: backgroundImage)
     }
 
 }
