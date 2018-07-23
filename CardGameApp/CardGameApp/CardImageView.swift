@@ -11,12 +11,8 @@ import UIKit
 
 class CardImageView {
 
-    private var width: CGFloat {
-        return UIScreen.main.bounds.width / 7
-    }
-    private var margin: CGFloat {
-        return width / 30
-    }
+    private let width: CGFloat = UIScreen.main.bounds.width / 7
+    private lazy var margin: CGFloat = self.width / 30
     private let ratio: CGFloat = 1.27
     private let statusBarMargin: CGFloat = 25
 
