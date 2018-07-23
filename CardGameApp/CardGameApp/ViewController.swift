@@ -10,9 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    private var imageViews: [UIImageView] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addBackgroundImage()
+        addCardBack()
     }
     
     override func didReceiveMemoryWarning() {
@@ -24,8 +27,15 @@ class ViewController: UIViewController {
     }
     
     private func addBackgroundImage() {
-        guard let backgroundImage = UIImage(named: "bg_pattern") else { return }
+        guard let backgroundImage = UIImage(named: CardName.bgPattern.rawValue) else { return }
         self.view.backgroundColor = UIColor(patternImage: backgroundImage)
+    }
+    
+    private func addCardBack() {
+        let range = 7
+        for index in 0..<range {
+            self.view.addSubview(CardImageView().getCardBackImages(index))
+        }
     }
 
 }
