@@ -10,8 +10,8 @@ import Foundation
 
 class Card {
     
-    var suit: Suit
-    var rank: Rank
+    private var suit: Suit
+    private var rank: Rank
     
     init(_ suit: Suit,_ rank: Rank) {
         self.suit = suit
@@ -24,6 +24,15 @@ class Card {
         case diamond = "♦️"
         case club = "♣️"
         static let suits = [spade, heart, diamond, club]
+        
+        var value: String {
+            switch self {
+            case .spade: return "s"
+            case .heart: return "h"
+            case .diamond: return "d"
+            case .club: return "c"
+            }
+        }
     }
     
     enum Rank: String {
@@ -46,11 +55,9 @@ class Card {
 }
 
 extension Card: CustomStringConvertible {
-    
     var description: String {
-        return self.suit.rawValue + self.rank.rawValue
+        return self.suit.value + self.rank.rawValue
     }
-    
 }
 
 

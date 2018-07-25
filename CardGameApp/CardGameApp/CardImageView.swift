@@ -14,14 +14,33 @@ class CardImageView {
     private let width: CGFloat = UIScreen.main.bounds.width / 7
     private lazy var margin: CGFloat = self.width / 30
     private let ratio: CGFloat = 1.27
-    private let statusBarMargin: CGFloat = 25
+    private var statusBarMargin: CGFloat = 0
 
-    func getCardBackImages(_ index: Int) -> UIImageView {
-        let cardImageView = UIImageView(image: UIImage(named: CardName.cardBack.rawValue))
+    func getCardImages(_ index: Int,_ image: String,_ side: CardSide) -> UIImageView {
+        checkSideOfCards(side)
+        let cardImageView = UIImageView(image: UIImage(named: image))
         cardImageView.frame = CGRect(origin: CGPoint(x: width * CGFloat(index) + margin, y: statusBarMargin), size: CGSize(width: width - margin, height: width * ratio))
         cardImageView.layer.cornerRadius = 5.0
         cardImageView.clipsToBounds = true
         return cardImageView
+    }
+    
+    func getEmptyCardStack(_ index: Int) -> UIImageView {
+        let imageView = UIImageView(image: UIImage())
+        statusBarMargin = 20
+        imageView.frame = CGRect(origin: CGPoint(x: width * CGFloat(index) + margin, y: statusBarMargin), size: CGSize(width: width - margin, height: width * ratio))
+        imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.layer.borderWidth = 1
+        imageView.layer.cornerRadius = 5.0
+        imageView.clipsToBounds = true
+        return imageView
+    }
+    
+    private func checkSideOfCards(_ side: CardSide) {
+        switch side {
+        case .front: self.statusBarMargin = 100
+        case .back: self.statusBarMargin = 20
+        }
     }
 
 }
@@ -30,3 +49,9 @@ enum CardName: String {
     case bgPattern = "bg_pattern"
     case cardBack = "card-back"
 }
+
+enum CardSide {
+    case front
+    case back
+}
+

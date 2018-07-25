@@ -36,8 +36,7 @@ class CardDeck: OutputPrintable {
     }
     
     func removeOne() -> (basic: [Card], pick: Card) {
-        let randomCard: UInt32 = arc4random_uniform(UInt32(cards.count-1))
-        let removeCard = self.cards.remove(at: Int(randomCard))
+        let removeCard = self.cards.removeLast()
         pickCards.append(removeCard)
         return (self.cards, removeCard)
     }

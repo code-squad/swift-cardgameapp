@@ -9,13 +9,19 @@
 import UIKit
 
 class ViewController: UIViewController {
-
-    private var imageViews: [UIImageView] = []
+    
+    var cardDeck: CardDeck!
+    var cardImageView: CardImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addBackgroundImage()
-        addCardBack()
+        cardDeck = CardDeck()
+        cardImageView = CardImageView()
+        cardDeck.shuffle()
+        addImageOfCardBack()
+        addImageOfCardFront()
+        addEmptyCardStack()
     }
     
     override func didReceiveMemoryWarning() {
@@ -31,10 +37,30 @@ class ViewController: UIViewController {
         self.view.backgroundColor = UIColor(patternImage: backgroundImage)
     }
     
-    private func addCardBack() {
+    private func addImageOfCardBack() {
+        let range = 6
+        self.view.addSubview(cardImageView.getCardImages(range, CardName.cardBack.rawValue, .back))
+    }
+    
+    private func addImageOfCardFront() {
         let range = 7
         for index in 0..<range {
-            self.view.addSubview(CardImageView().getCardBackImages(index))
+            let cards = cardDeck.removeOne().pick
+            self.view.addSubview(cardImageView.getCardImages(index, cards.description, .front))
+        }
+    }
+    
+    private func addEmptyCardStack() {
+        let range = 4
+        for index in 0..<range {
+            self.view.addSubview(cardImageView.getEmptyCardStack(index))
+        }
+    }
+
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            cardDeck.shuffle()
+            addImageOfCardFront()
         }
     }
 
