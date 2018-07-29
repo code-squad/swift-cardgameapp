@@ -61,8 +61,11 @@ class ViewController: UIViewController {
     }
     
     private func addImageOfCardBack() {
-        let range = 6
-        self.view.addSubview(cardImageView.getCardImages(range, CardName.cardBack.rawValue, 20, .back))
+        let position = 6
+        let cards = cardDeck.getCards()
+        for card in cards {
+            self.view.addSubview(cardImageView.getCardImages(position, card.description, 20, .back))
+        }
     }
     
     private func addEmptyCardStack() {

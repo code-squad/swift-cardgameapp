@@ -46,5 +46,9 @@ class CardDeck {
         return self.cards
     }
     
+    func getCards() -> [Card] {
+        return self.cards
+    }
+    
 }
 
