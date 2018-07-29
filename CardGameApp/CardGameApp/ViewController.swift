@@ -12,15 +12,17 @@ class ViewController: UIViewController {
     
     var cardDeck: CardDeck!
     var cardImageView: CardImageView!
+    var cardStack: CardStack!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addBackgroundImage()
         cardDeck = CardDeck()
         cardImageView = CardImageView()
+        cardStack = CardStack()
         cardDeck.shuffle()
+        addImageOfCardStack()
         addImageOfCardBack()
-        addImageOfCardFront()
         addEmptyCardStack()
     }
     
@@ -37,17 +39,30 @@ class ViewController: UIViewController {
         self.view.backgroundColor = UIColor(patternImage: backgroundImage)
     }
     
-    private func addImageOfCardBack() {
-        let range = 6
-        self.view.addSubview(cardImageView.getCardImages(range, CardName.cardBack.rawValue, .back))
+    private func addImageOfCardStack() {
+        let stack = cardStack.makeCardStack(cardDeck)
+        var index = 7
+        var position = 0
+        var statusBarMargin: CGFloat = 100
+        for i in 0..<stack.count {
+            for j in 0..<index {
+                if j == 0 {
+                    self.view.addSubview(cardImageView.getCardImages(position, stack[i][j].description, statusBarMargin, .front))
+                } else {
+                    self.view.addSubview(cardImageView.getCardImages(position, stack[i][j].description, statusBarMargin, .back))
+                }
+                position += 1
+            }
+            position = 1
+            position += i
+            index -= 1
+            statusBarMargin += 20
+        }
     }
     
-    private func addImageOfCardFront() {
-        let range = 7
-        for index in 0..<range {
-            let cards = cardDeck.removeOne().pick
-            self.view.addSubview(cardImageView.getCardImages(index, cards.description, .front))
-        }
+    private func addImageOfCardBack() {
+        let range = 6
+        self.view.addSubview(cardImageView.getCardImages(range, CardName.cardBack.rawValue, 20, .back))
     }
     
     private func addEmptyCardStack() {
@@ -62,8 +77,8 @@ class ViewController: UIViewController {
             view.subviews.forEach() {$0.removeFromSuperview()}
             cardDeck.reset()
             cardDeck.shuffle()
+            addImageOfCardStack()
             addImageOfCardBack()
-            addImageOfCardFront()
             addEmptyCardStack()
         }
     }

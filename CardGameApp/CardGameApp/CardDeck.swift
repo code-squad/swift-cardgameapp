@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CardDeck: OutputPrintable {
+class CardDeck {
     
     private var cards = [Card]()
     private var pickCards = [Card]()
@@ -44,10 +44,6 @@ class CardDeck: OutputPrintable {
     func reset() -> [Card] {
         self.cards = CardDeck().cards
         return self.cards
-    }
-    
-    func countOfCards() -> String {
-        return "\(self.cards.count)장"
     }
     
 }

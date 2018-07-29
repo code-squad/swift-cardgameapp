@@ -18,7 +18,6 @@
 		D610273F2105CD4E0070D5B8 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D610273E2105CD4E0070D5B8 /* Card.swift */; };
 		D61027412105CD780070D5B8 /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61027402105CD780070D5B8 /* CardDeck.swift */; };
 		D61027432105CD910070D5B8 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61027422105CD910070D5B8 /* CardStack.swift */; };
-		D61027452105CDB40070D5B8 /* Printable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61027442105CDB40070D5B8 /* Printable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +55,6 @@
 		D610273E2105CD4E0070D5B8 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D61027402105CD780070D5B8 /* CardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
 		D61027422105CD910070D5B8 /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
-		D61027442105CDB40070D5B8 /* Printable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +111,6 @@
 				D610273E2105CD4E0070D5B8 /* Card.swift */,
 				D61027402105CD780070D5B8 /* CardDeck.swift */,
 				D61027422105CD910070D5B8 /* CardStack.swift */,
-				D61027442105CDB40070D5B8 /* Printable.swift */,
 				D61027122105903A0070D5B8 /* Main.storyboard */,
 				D61027152105903D0070D5B8 /* Assets.xcassets */,
 				D61027172105903D0070D5B8 /* LaunchScreen.storyboard */,
@@ -276,7 +273,6 @@
 				D61027432105CD910070D5B8 /* CardStack.swift in Sources */,
 				D610273F2105CD4E0070D5B8 /* Card.swift in Sources */,
 				D610273D2105B1010070D5B8 /* CardImageView.swift in Sources */,
-				D61027452105CDB40070D5B8 /* Printable.swift in Sources */,
 				D610270F2105903A0070D5B8 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

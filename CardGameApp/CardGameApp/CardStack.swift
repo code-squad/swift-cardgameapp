@@ -8,48 +8,19 @@
 
 import Foundation
 
-enum Cards: Int {
-    case sevenCards = 7, fiveCards = 5, invalidCards
-}
-
-enum Players: Int {
-    case onePlayer = 1, twoPlayer, threePlayer, fourPlayer, invalidPlayer
-}
-
-class CardStack: CardStackPrintable {
-    
-    private var cardStack = [[Card]]()
-    private var cards: Cards
-    private var players: Players
-    
-    init(_ cards: Cards,_ players: Players) {
-        self.cards = cards
-        self.players = players
-    }
+class CardStack {
     
     func makeCardStack(_ deck: CardDeck) -> [[Card]] {
-        for _ in 0...self.players.rawValue {
+        var cardStack = [[Card]]()
+        let range = 7
+        for i in 0..<range {
             var tempCard = [Card]()
-            for _ in 0..<self.cards.rawValue {
+            for _ in i..<range {
                 tempCard.append(deck.removeOne().pick)
             }
-            self.cardStack.append(tempCard)
+            cardStack.append(tempCard)
         }
-        return self.cardStack
+        return cardStack
     }
-    
-    func printCardStack(_ handler: (_ cards: [Card]) -> Void  ) {
-        var player = 1
-        for cards in self.cardStack {
-            if player > self.players.rawValue {
-                print("딜러 " , terminator: "")
-                handler(cards)
-            } else {
-                print("참가자#\(player) " , terminator: "")
-                handler(cards)
-                player = player+1
-            }
-        }
-    }
-    
+
 }

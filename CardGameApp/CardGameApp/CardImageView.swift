@@ -16,9 +16,13 @@ class CardImageView {
     private let ratio: CGFloat = 1.27
     private var statusBarMargin: CGFloat = 0
 
-    func getCardImages(_ index: Int,_ image: String,_ side: CardSide) -> UIImageView {
-        checkSideOfCards(side)
-        let cardImageView = UIImageView(image: UIImage(named: image))
+    func getCardImages(_ index: Int,_ image: String,_ statusBarMargin: CGFloat,_ cardSide: CardSide) -> UIImageView {
+        var cardImageView = UIImageView()
+        if cardSide == .back {
+            cardImageView = UIImageView(image: UIImage(named: CardName.cardBack.rawValue))
+        } else {
+            cardImageView = UIImageView(image: UIImage(named: image))
+        }
         cardImageView.frame = CGRect(origin: CGPoint(x: width * CGFloat(index) + margin, y: statusBarMargin), size: CGSize(width: width - margin, height: width * ratio))
         cardImageView.layer.cornerRadius = 5.0
         cardImageView.clipsToBounds = true
@@ -34,13 +38,6 @@ class CardImageView {
         imageView.layer.cornerRadius = 5.0
         imageView.clipsToBounds = true
         return imageView
-    }
-    
-    private func checkSideOfCards(_ side: CardSide) {
-        switch side {
-        case .front: self.statusBarMargin = 100
-        case .back: self.statusBarMargin = 20
-        }
     }
 
 }
