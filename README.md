@@ -43,3 +43,19 @@
 ### 학습꺼리
 * Assets 으로 이미지를 관리하는 방법에 대해 학습한다.
 * 디바이스 종류에 따라 화면 크기에 대한 처리를 학습한다. [관련 자료](https://www.paintcodeapp.com/news/ultimate-guide-to-iphone-resolutions)
+
+## step 3
+
+### 프로그래밍 요구사항
+* CardDeck 객체에서 랜덤으로 카드를 섞고, 출력 화면처럼 카드스택 형태로 보이도록 개선한다.
+	* 카드스택을 관리하는 모델 객체를 설계한다.
+	* 각 스택의 맨위의 카드만 앞카드로 뒤집는다.
+* 카드스택에 표시한 카드를 제외하고 남은 카드를 우측 상단에 뒤집힌 상태로 쌓아놓는다.
+* 맨위에 있는 카드를 터치하면 좌측에 카드 앞면을 표시하고, 다음 카드 뒷면을 표시한다.
+* 만약 남은 카드가 없는 경우는 우측에도 빈 카드를 대신해서 반복할 수 있다는 이미지(refresh)를 표시한다.
+* 앱에서 Shake 이벤트를 발생하면 랜덤 카드를 다시 섞고 처음 상태로 다시 그리도록 구현한다.
+
+![step3](images/step3.gif)
+
+### 학습꺼리
+* UIStackView에 대해서 학습하고, 화면 요소 중에서 UIStackView를 적용할 수 있는 부분이 있으면 개선한다. [UIStackView 개발자 문서](https://developer.apple.com/documentation/uikit/uistackview)
