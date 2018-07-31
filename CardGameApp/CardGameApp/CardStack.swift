@@ -16,7 +16,7 @@ class CardStack {
         for i in 0..<range {
             var tempCard = [Card]()
             for _ in i..<range {
-                tempCard.append(deck.removeOne().pick)
+                tempCard.append(deck.removeOne())
             }
             cardStack.append(tempCard)
         }

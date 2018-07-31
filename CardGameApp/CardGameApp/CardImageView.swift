@@ -45,10 +45,17 @@ class CardImageView {
 enum CardName: String {
     case bgPattern = "bg_pattern"
     case cardBack = "card-back"
+    case refresh = "refresh"
 }
 
 enum CardSide {
     case front
     case back
+}
+
+enum RemoveIdentifier: String  {
+    case pickCardDeck = "pickCardDeck"
+    case openCardDeck = "openCardDeck"
+    case refreshCardDeck = "refreshCardDeck"
 }
 

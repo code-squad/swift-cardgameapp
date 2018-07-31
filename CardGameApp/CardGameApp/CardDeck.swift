@@ -35,20 +35,31 @@ class CardDeck {
         return self.cards
     }
     
-    func removeOne() -> (basic: [Card], pick: Card) {
+    func removeOne() -> Card {
         let removeCard = self.cards.removeLast()
-        pickCards.append(removeCard)
-        return (self.cards, removeCard)
+        return removeCard
     }
     
     func reset() -> [Card] {
         self.cards = CardDeck().cards
         return self.cards
     }
+
+    func addPickCard(_ card: Card) {
+        self.pickCards.append(card)
+    }
+    
+    func getPickCard() -> [Card] {
+        return self.pickCards
+    }
     
     func getCards() -> [Card] {
         return self.cards
     }
     
+    func refreshCard(_ pickCard: [Card]) {
+        self.cards = pickCard
+        self.pickCards.removeAll()
+    }
 }
 
