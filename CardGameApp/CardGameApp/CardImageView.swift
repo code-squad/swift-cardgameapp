@@ -53,9 +53,9 @@ enum CardSide {
     case back
 }
 
-enum RemoveIdentifier: String  {
-    case pickCardDeck = "pickCardDeck"
-    case openCardDeck = "openCardDeck"
-    case refreshCardDeck = "refreshCardDeck"
+enum Tag: Int  {
+    case pickCardDeck = 1
+    case openCardDeck = 2
+    case refreshCardDeck = 3
 }
 

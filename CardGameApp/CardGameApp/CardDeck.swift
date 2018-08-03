@@ -58,7 +58,7 @@ class CardDeck {
     }
     
     func refreshCard(_ pickCard: [Card]) {
-        self.cards = pickCard
+        self.cards = pickCard.reversed()
         self.pickCards.removeAll()
     }
 }

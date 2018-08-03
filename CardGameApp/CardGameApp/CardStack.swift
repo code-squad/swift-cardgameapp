@@ -15,7 +15,7 @@ class CardStack {
         let range = 7
         for i in 0..<range {
             var tempCard = [Card]()
-            for _ in i..<range {
+            for _ in 0...i {
                 tempCard.append(deck.removeOne())
             }
             cardStack.append(tempCard)
