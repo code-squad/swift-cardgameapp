@@ -18,6 +18,10 @@ class ViewController: UIViewController {
     private var deckImageView: UIImageView!
     private var pickImageView: UIImageView!
     
+    private var pickImageViews = [UIImageView]()
+    private var deckImageViews = [UIImageView]()
+    private var refreshImages = [UIImageView]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,9 +76,10 @@ class ViewController: UIViewController {
         let position = 5
         let statusBarMargin: CGFloat = 20
         let tapCard = cardDeck.removeOne()
+        
         cardDeck.addPickCard(tapCard)
         pickImageView = cardImageView.getCardImages(position, tapCard.description, statusBarMargin, .front)
-        pickImageView.tag = Tag.pickCardDeck.rawValue
+        pickImageViews.append(pickImageView)
         self.view.addSubview(pickImageView)
         configurePickCard()
     }
@@ -82,7 +87,7 @@ class ViewController: UIViewController {
     private func configurePickCard() {
         let cards = cardDeck.getCards()
         if cards.count == 0 {
-            self.view.subviews.filter({$0.tag == Tag.pickCardDeck.rawValue}).forEach({$0.removeFromSuperview()})
+            pickImageViews.forEach({$0.removeFromSuperview()})
             let pickCards = cardDeck.getPickCard()
             cardDeck.refreshCard(pickCards)
         }
@@ -90,7 +95,7 @@ class ViewController: UIViewController {
     }
     
     private func loadCardDeckImage(_ cards: [Card]) -> UIImageView {
-        self.view.subviews.filter({$0.tag == Tag.openCardDeck.rawValue}).forEach({$0.removeFromSuperview()})
+        deckImageViews.forEach({$0.removeFromSuperview()})
         if cards.isEmpty {
             deckImageView = loadRefreshImage(cards)
         } else {
@@ -103,8 +108,8 @@ class ViewController: UIViewController {
         let position = 6
         let statusBarMargin: CGFloat = 20
         deckImageView = cardImageView.getCardImages(position, CardName.refresh.rawValue, statusBarMargin, .front)
-        deckImageView.tag = Tag.refreshCardDeck.rawValue
-        self.view.subviews.filter({$0.tag == Tag.refreshCardDeck.rawValue}).forEach({$0.removeFromSuperview()})
+        refreshImages.append(deckImageView)
+        refreshImages.forEach({$0.removeFromSuperview()})
         makeTapGesture(deckImageView)
         self.view.addSubview(deckImageView)
         return deckImageView
@@ -115,7 +120,7 @@ class ViewController: UIViewController {
         let statusBarMargin: CGFloat = 20
         for card in cards {
             deckImageView = cardImageView.getCardImages(position, card.description, statusBarMargin, .back)
-            deckImageView.tag = Tag.openCardDeck.rawValue
+            deckImageViews.append(deckImageView)
             makeTapGesture(deckImageView)
             self.view.addSubview(deckImageView)
         }

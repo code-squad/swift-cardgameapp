@@ -53,9 +53,4 @@ enum CardSide {
     case back
 }
 
-enum Tag: Int  {
-    case pickCardDeck = 1
-    case openCardDeck = 2
-    case refreshCardDeck = 3
-}
 
