@@ -9,13 +9,19 @@
 import UIKit
 
 class PatternUIView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        defalutBackground()
     }
-    */
-
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        defalutBackground()
+    }
+    
+    private func defalutBackground() {
+        if let backgroundPattern = UIImage(named: "bg_pattern.png") {
+            self.backgroundColor = UIColor(patternImage: backgroundPattern)
+        }
+    }
 }
