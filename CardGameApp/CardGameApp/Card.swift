@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /*
  카드를 class로 선택한 이유는 카드의 개수는 number * shape 로 총 52개가 정해져있는데 값타입보다는 참조타입이 적합하다고 판단되어 사용하였습니다.
@@ -29,6 +30,14 @@ class Card: CustomStringConvertible {
     func isHighNumber(with anotherCard: Card) -> Bool {
         let result = self.cardNumber.hashValue > anotherCard.cardNumber.hashValue ? true : false
         return result
+    }
+    
+    func image() -> UIImage? {
+        guard let shape = self.cardShape.rawValue.first else { return nil }
+        let number = self.cardNumber.rawValue
+        let cardImageName = String(shape) + number
+        guard let cardImage = UIImage(named: cardImageName) else { return nil }
+        return cardImage
     }
     
 }
