@@ -14,10 +14,10 @@ import Foundation
  */
 
 enum CardShape: String {
-    case heart = "♥️"
-    case spade = "♠️"
-    case diamond = "♦️"
-    case club = "♣️"
+    case heart
+    case spade
+    case diamond
+    case club
     
     static var allCases: [CardShape] = [heart, spade, diamond, club]
     
