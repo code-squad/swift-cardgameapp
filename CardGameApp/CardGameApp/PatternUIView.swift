@@ -9,6 +9,8 @@
 import UIKit
 
 class PatternUIView: UIView {
+    private let cardDeck = CardDeck()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         defalutSetting()
@@ -34,10 +36,11 @@ class PatternUIView: UIView {
     private func listCards() {
         var xValue = freeSpace()
         let yValue = CGFloat(100)
-        let cardCount = 7
         
-        for _ in 0..<cardCount {
-            let image = UIImage(named: "card-back.png")
+        guard let defaultCardList = cardDeck.remove(7) else { return }
+        for card in defaultCardList {
+            card.turnOver(with: .front)
+            let image = card.image()
             let cardBack = CardBackUIImageView(image: image)
             cardBack.reSize(with: self.frame)
             cardBack.frame = CGRect(x: xValue, y: yValue, width: cardBack.frame.width, height: cardBack.frame.height)
@@ -70,8 +73,9 @@ class PatternUIView: UIView {
         let anotherCardsWidth = cardWidth * 6 // 컬렉션 카드 앞에 계산되어야 할 카드 개수
         let xValue = freeSpaces + anotherCardsWidth
         let yValue = CGFloat(20)
-        let cardDeck = CardDeck()
+        
         cardDeck.reset()
+        cardDeck.shuffle()
         let cardList = cardDeck.list()
         
         for index in 0..<cardList.count {
