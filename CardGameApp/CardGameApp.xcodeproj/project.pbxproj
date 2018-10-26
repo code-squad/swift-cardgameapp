@@ -23,6 +23,7 @@
 		47C7FD8B2182C9C9003417E8 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD7F2182C9C9003417E8 /* Game.swift */; };
 		47C7FD8D2182C9C9003417E8 /* Hands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD812182C9C9003417E8 /* Hands.swift */; };
 		47C7FD8E2182C9C9003417E8 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD822182C9C9003417E8 /* Card.swift */; };
+		47C7FD902183039B003417E8 /* String+PNG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD8F2183039B003417E8 /* String+PNG.swift */; };
 		E92C59F4C46CBA792E28745E /* Pods_CardGameApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C5E66D143B71340C75FD6E8 /* Pods_CardGameApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		47C7FD7F2182C9C9003417E8 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		47C7FD812182C9C9003417E8 /* Hands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hands.swift; sourceTree = "<group>"; };
 		47C7FD822182C9C9003417E8 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		47C7FD8F2183039B003417E8 /* String+PNG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+PNG.swift"; sourceTree = "<group>"; };
 		F61891CE579B49D38C70D1CE /* Pods-CardGameApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameApp/Pods-CardGameApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 				475E24662182082E00801BFF /* LaunchScreen.storyboard */,
 				475E24692182082E00801BFF /* Info.plist */,
 				47C7FD7121821889003417E8 /* PatternUIView.swift */,
+				47C7FD8F2183039B003417E8 /* String+PNG.swift */,
 				47C7FD752182B020003417E8 /* CardUIImageView.swift */,
 			);
 			path = CardGameApp;
@@ -240,6 +243,7 @@
 				47C7FD7221821889003417E8 /* PatternUIView.swift in Sources */,
 				47C7FD872182C9C9003417E8 /* CardProperty.swift in Sources */,
 				47C7FD8B2182C9C9003417E8 /* Game.swift in Sources */,
+				47C7FD902183039B003417E8 /* String+PNG.swift in Sources */,
 				47C7FD8A2182C9C9003417E8 /* InputProperty.swift in Sources */,
 				475E24602182082D00801BFF /* ViewController.swift in Sources */,
 				47C7FD862182C9C9003417E8 /* CardDeck.swift in Sources */,

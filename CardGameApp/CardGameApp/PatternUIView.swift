@@ -9,6 +9,16 @@
 import UIKit
 
 class PatternUIView: UIView {
+    private let cardStorageYValue = CGFloat(20)
+    private let collectionYValue = CGFloat(20)
+    private let defalutCardsYValue = CGFloat(100)
+    private let defalutSize = CGFloat(100)
+    private let cardStorageCount = 4
+    private let cardStorageBorderWidth = CGFloat(1)
+    private let cardStorageBorderColor = UIColor.white.cgColor
+    private let cardCount = CGFloat(7)
+    private let tenPercentOfFrame = CGFloat(0.1)
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         defalutSetting()
@@ -25,20 +35,19 @@ class PatternUIView: UIView {
     }
     
     private func defalutBackground() {
-        guard let backgroundPattern = UIImage(named: "bg_pattern.png") else { return }
+        let image = "bg_pattern".formatPNG
+        guard let backgroundPattern = UIImage(named: image) else { return }
         self.backgroundColor = UIColor(patternImage: backgroundPattern)
     }
     
     private func cardStorage() {
         var xValue = freeSpace()
-        let yValue = CGFloat(20)
-        let cardStorageCount = 4
         for _ in 0..<cardStorageCount {
-            let rect = CGRect(x: xValue, y: yValue, width: 100, height: 100)
+            let rect = CGRect(x: xValue, y: cardStorageYValue, width: defalutSize, height: defalutSize)
             let cardFrame = CardUIImageView(frame: rect)
             cardFrame.reSize(with: self.frame)
-            cardFrame.layer.borderWidth = 1
-            cardFrame.layer.borderColor = UIColor.white.cgColor
+            cardFrame.layer.borderWidth = cardStorageBorderWidth
+            cardFrame.layer.borderColor = cardStorageBorderColor
             self.addSubview(cardFrame)
             let newXValue = xValue + cardFrame.frame.width + freeSpace()
             xValue = newXValue
@@ -47,14 +56,12 @@ class PatternUIView: UIView {
     
     public func defalutCards(with cardList: [Card]) {
         var xValue = freeSpace()
-        let yValue = CGFloat(100)
-        
         for card in cardList {
             card.turnOver(with: .front)
             let image = card.image()
             let cardBack = CardUIImageView(image: image)
             cardBack.reSize(with: self.frame)
-            cardBack.frame = CGRect(x: xValue, y: yValue, width: cardBack.frame.width, height: cardBack.frame.height)
+            cardBack.frame = CGRect(x: xValue, y: defalutCardsYValue, width: cardBack.frame.width, height: cardBack.frame.height)
             self.addSubview(cardBack)
             let newXValue = xValue + cardBack.frame.width + freeSpace()
             xValue = newXValue
@@ -62,25 +69,24 @@ class PatternUIView: UIView {
     }
     
     public func collection(with cardList: [Card]) {
-        let freeSpaces = freeSpace() * 7 // 카드마다 사이 공간
-        let cardsWidth = self.frame.width - self.frame.width * 0.1
-        let cardWidth = cardsWidth / 7
-        let anotherCardsWidth = cardWidth * 6 // 컬렉션 카드 앞에 계산되어야 할 카드 개수
+        let freeSpaces = freeSpace() * cardCount // 카드마다 사이 공간
+        let cardsWidth = self.frame.width - self.frame.width * tenPercentOfFrame
+        let cardWidth = cardsWidth / cardCount
+        let anotherCardsWidth = cardWidth * (cardCount - 1) // 컬렉션 카드 앞에 계산되어야 할 카드 개수
         let xValue = freeSpaces + anotherCardsWidth
-        let yValue = CGFloat(20)
         
         for index in 0..<cardList.count {
             guard let image = cardList[index].image() else { return }
             let cardBack = CardUIImageView(image: image)
             cardBack.reSize(with: self.frame)
-            cardBack.frame = CGRect(x: xValue, y: yValue, width: cardBack.frame.width, height: cardBack.frame.height)
+            cardBack.frame = CGRect(x: xValue, y: collectionYValue, width: cardBack.frame.width, height: cardBack.frame.height)
             self.addSubview(cardBack)
         }
     }
     
     private func freeSpace() -> CGFloat {
-        let space = self.frame.width * 0.1
-        let eachSpace = space / 8
+        let space = self.frame.width * tenPercentOfFrame
+        let eachSpace = space / (cardCount + 1)
         return eachSpace
     }
 }
