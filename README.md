@@ -15,3 +15,25 @@
 
 ### 첨부파일
 ![Step1](CaptureImage/Step1.png)
+
+# Step2
+> 카드 UI
+
+### 작업내용
+1. 레벨2 CardGame 코드 복사
+2. 카드 이미지 다운로드
+3. Card 객체에 파일명 매치 및 해당 카드 이미지 리턴 메소드 추가
+4. Card 객체가 앞, 뒤면 처리하도록 개선
+5. CardDeck 인스턴스 생성 및 랜덤 카드 섞고 컬렉션(Collection)에 쌓기
+6. 컬렉션에서 카드 7개 가져와서 아래 기본 세팅
+7. 화면 위쪽에 빈 공간 표시(CardStorage)하는 UIImageView 4개 추가 , 우측 상단에 UIImageView 추가
+    - 상단 화면 요소의 y 좌표는 20pt 기준
+    - 7장의 카드 이미지 y 좌표는 100pt 기준
+8. 앱에서 Shake 이벤트 발생하면 랜덤 카드를 다시 섞고 다시 그리도록 구현
+
+### 첨부파일
+![Step2_1](CaptureImage/Step2_1.png)
+![Step2_2](CaptureImage/Step2_2.png)
+![Step2_3](CaptureImage/Step2_3.png)
+![Step2_4](CaptureImage/Step2_4.png)
+![Step2 Demo](CaptureImage/Step2Demo.gif)
