@@ -55,7 +55,7 @@ class CardDeck {
         return self.cards.removeFirst()
     }
     
-    public func remove(_ count: Int) -> [Card]? {
+    public func remove(count: Int) -> [Card]? {
         guard self.cards.count > 0 else { return nil }
         var cards = [Card]()
         for _ in 0..<count {

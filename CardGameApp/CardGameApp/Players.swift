@@ -14,10 +14,10 @@ class Players {
     init?(_ numberOfPlayers: NumberOfPlayers, _ gameType: GameType, _ cardDeck: CardDeck) {
         var players = [Player]()
         for number in 0..<numberOfPlayers.rawValue {
-            guard let cards = cardDeck.remove(gameType.number) else { return nil }
+            guard let cards = cardDeck.remove(count: gameType.number) else { return nil }
             players.append(Player.init(cards, "참가자#\(number + 1)"))
         }
-        guard let cards = cardDeck.remove(gameType.number) else { return nil }
+        guard let cards = cardDeck.remove(count: gameType.number) else { return nil }
         players.append(Player.init(cards, "딜러"))
         
         self.players = players
