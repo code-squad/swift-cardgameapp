@@ -13,7 +13,7 @@
 		475E24652182082E00801BFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 475E24642182082E00801BFF /* Assets.xcassets */; };
 		475E24682182082E00801BFF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 475E24662182082E00801BFF /* LaunchScreen.storyboard */; };
 		47C7FD7221821889003417E8 /* PatternUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD7121821889003417E8 /* PatternUIView.swift */; };
-		47C7FD762182B020003417E8 /* CardBackUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD752182B020003417E8 /* CardBackUIImageView.swift */; };
+		47C7FD762182B020003417E8 /* CardUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD752182B020003417E8 /* CardUIImageView.swift */; };
 		47C7FD832182C9C9003417E8 /* CardError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD772182C9C8003417E8 /* CardError.swift */; };
 		47C7FD862182C9C9003417E8 /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD7A2182C9C8003417E8 /* CardDeck.swift */; };
 		47C7FD872182C9C9003417E8 /* CardProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD7B2182C9C8003417E8 /* CardProperty.swift */; };
@@ -37,7 +37,7 @@
 		475E24672182082E00801BFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		475E24692182082E00801BFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		47C7FD7121821889003417E8 /* PatternUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternUIView.swift; sourceTree = "<group>"; };
-		47C7FD752182B020003417E8 /* CardBackUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackUIImageView.swift; sourceTree = "<group>"; };
+		47C7FD752182B020003417E8 /* CardUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardUIImageView.swift; sourceTree = "<group>"; };
 		47C7FD772182C9C8003417E8 /* CardError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardError.swift; sourceTree = "<group>"; };
 		47C7FD7A2182C9C8003417E8 /* CardDeck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
 		47C7FD7B2182C9C8003417E8 /* CardProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardProperty.swift; sourceTree = "<group>"; };
@@ -99,7 +99,7 @@
 				475E24662182082E00801BFF /* LaunchScreen.storyboard */,
 				475E24692182082E00801BFF /* Info.plist */,
 				47C7FD7121821889003417E8 /* PatternUIView.swift */,
-				47C7FD752182B020003417E8 /* CardBackUIImageView.swift */,
+				47C7FD752182B020003417E8 /* CardUIImageView.swift */,
 			);
 			path = CardGameApp;
 			sourceTree = "<group>";
@@ -246,7 +246,7 @@
 				475E245E2182082D00801BFF /* AppDelegate.swift in Sources */,
 				47C7FD832182C9C9003417E8 /* CardError.swift in Sources */,
 				47C7FD882182C9C9003417E8 /* Players.swift in Sources */,
-				47C7FD762182B020003417E8 /* CardBackUIImageView.swift in Sources */,
+				47C7FD762182B020003417E8 /* CardUIImageView.swift in Sources */,
 				47C7FD8D2182C9C9003417E8 /* Hands.swift in Sources */,
 				47C7FD8E2182C9C9003417E8 /* Card.swift in Sources */,
 			);

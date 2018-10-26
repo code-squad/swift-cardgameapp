@@ -41,7 +41,7 @@ class PatternUIView: UIView {
         for card in defaultCardList {
             card.turnOver(with: .front)
             let image = card.image()
-            let cardBack = CardBackUIImageView(image: image)
+            let cardBack = CardUIImageView(image: image)
             cardBack.reSize(with: self.frame)
             cardBack.frame = CGRect(x: xValue, y: yValue, width: cardBack.frame.width, height: cardBack.frame.height)
             self.addSubview(cardBack)
@@ -56,7 +56,7 @@ class PatternUIView: UIView {
         let cardStorageCount = 4
         for _ in 0..<cardStorageCount {
             let rect = CGRect(x: xValue, y: yValue, width: 100, height: 100)
-            let cardFrame = CardBackUIImageView(frame: rect)
+            let cardFrame = CardUIImageView(frame: rect)
             cardFrame.reSize(with: self.frame)
             cardFrame.layer.borderWidth = 1
             cardFrame.layer.borderColor = UIColor.white.cgColor
@@ -80,7 +80,7 @@ class PatternUIView: UIView {
         
         for index in 0..<cardList.count {
             guard let image = cardList[index].image() else { return }
-            let cardBack = CardBackUIImageView(image: image)
+            let cardBack = CardUIImageView(image: image)
             cardBack.reSize(with: self.frame)
             cardBack.frame = CGRect(x: xValue, y: yValue, width: cardBack.frame.width, height: cardBack.frame.height)
             self.addSubview(cardBack)
