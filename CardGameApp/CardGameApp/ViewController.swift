@@ -9,13 +9,19 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet var patternUIView: PatternUIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        guard motion == .motionShake else { return }
+        patternUIView.motionShake()
     }
 
 }

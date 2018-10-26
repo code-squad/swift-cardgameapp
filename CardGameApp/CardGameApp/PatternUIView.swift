@@ -92,4 +92,8 @@ class PatternUIView: UIView {
         let eachSpace = space / 8
         return eachSpace
     }
+    
+    func motionShake() {
+        defalutSetting()
+    }
 }
