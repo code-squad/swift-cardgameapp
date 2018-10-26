@@ -29,10 +29,10 @@ class ViewController: UIViewController {
     private func defaultSetting() {
         cardDeck.reset()
         cardDeck.shuffle()
-        patternUIView.collection(with: cardDeck.list())
         
         guard let defalutCards = cardDeck.remove(count: 7) else { return }
-        patternUIView.defalutCards(with: defalutCards)
+        patternUIView.defalutCards(with: defalutCards)        
+        patternUIView.collection(with: cardDeck.list())
     }
 
 }
