@@ -22,16 +22,16 @@ class PatternUIView: UIView {
     }
     
     private func defalutBackground() {
-        if let backgroundPattern = UIImage(named: "bg_pattern.png") {
-            self.backgroundColor = UIColor(patternImage: backgroundPattern)
-        }
+        guard let backgroundPattern = UIImage(named: "bg_pattern.png") else { return }
+        self.backgroundColor = UIColor(patternImage: backgroundPattern)
     }
     
     private func listCards() {
         var xValue = freeSpace()
         let yValue = CGFloat(40)
+        let cardCount = 7
         
-        for _ in 0..<7 {
+        for _ in 0..<cardCount {
             let image = UIImage(named: "card-back.png")
             let cardBack = CardBackUIImageView(image: image)
             cardBack.reSize(with: self.frame)
