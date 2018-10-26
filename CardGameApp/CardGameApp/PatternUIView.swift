@@ -12,12 +12,14 @@ class PatternUIView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         defalutBackground()
+        cardStorage()
         listCards()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         defalutBackground()
+        cardStorage()
         listCards()
     }
     
@@ -28,7 +30,7 @@ class PatternUIView: UIView {
     
     private func listCards() {
         var xValue = freeSpace()
-        let yValue = CGFloat(40)
+        let yValue = CGFloat(100)
         let cardCount = 7
         
         for _ in 0..<cardCount {
@@ -38,6 +40,22 @@ class PatternUIView: UIView {
             cardBack.frame = CGRect(x: xValue, y: yValue, width: cardBack.frame.width, height: cardBack.frame.height)
             self.addSubview(cardBack)
             let newXValue = xValue + cardBack.frame.width + freeSpace()
+            xValue = newXValue
+        }
+    }
+    
+    private func cardStorage() {
+        var xValue = freeSpace()
+        let yValue = CGFloat(20)
+        let cardStorageCount = 4
+        for _ in 0..<cardStorageCount {
+            let rect = CGRect(x: xValue, y: yValue, width: 100, height: 100)
+            let cardFrame = CardBackUIImageView(frame: rect)
+            cardFrame.reSize(with: self.frame)
+            cardFrame.layer.borderWidth = 1
+            cardFrame.layer.borderColor = UIColor.white.cgColor
+            self.addSubview(cardFrame)
+            let newXValue = xValue + cardFrame.frame.width + freeSpace()
             xValue = newXValue
         }
     }
