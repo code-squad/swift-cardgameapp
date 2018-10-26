@@ -28,9 +28,23 @@ class PatternUIView: UIView {
     }
     
     private func listCards() {
-        let image = UIImage(named: "card-back.png")
-        let cardBack = CardBackUIImageView(image: image)
-        cardBack.reSize(with: self.frame)
-        self.addSubview(cardBack)
+        var xValue = freeSpace()
+        let yValue = CGFloat(40)
+        
+        for _ in 0..<7 {
+            let image = UIImage(named: "card-back.png")
+            let cardBack = CardBackUIImageView(image: image)
+            cardBack.reSize(with: self.frame)
+            cardBack.frame = CGRect(x: xValue, y: yValue, width: cardBack.frame.width, height: cardBack.frame.height)
+            self.addSubview(cardBack)
+            let newXValue = xValue + cardBack.frame.width + freeSpace()
+            xValue = newXValue
+        }
+    }
+    
+    private func freeSpace() -> CGFloat {
+        let space = self.frame.width * 0.1
+        let eachSpace = space / 8
+        return eachSpace
     }
 }
