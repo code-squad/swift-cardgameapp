@@ -65,6 +65,10 @@ class CardDeck {
         return cards
     }
     
+    public func list() -> [Card] {
+        return cards
+    }
+    
     public func count() -> Int {
         return self.cards.count
     }

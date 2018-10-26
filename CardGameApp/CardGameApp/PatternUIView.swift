@@ -11,15 +11,18 @@ import UIKit
 class PatternUIView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        defalutBackground()
-        cardStorage()
-        listCards()
+        defalutSetting()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        defalutSetting()
+    }
+    
+    private func defalutSetting() {
         defalutBackground()
         cardStorage()
+        collection()
         listCards()
     }
     
@@ -57,6 +60,26 @@ class PatternUIView: UIView {
             self.addSubview(cardFrame)
             let newXValue = xValue + cardFrame.frame.width + freeSpace()
             xValue = newXValue
+        }
+    }
+    
+    private func collection() {
+        let freeSpaces = freeSpace() * 7 // 카드마다 사이 공간
+        let cardsWidth = self.frame.width - self.frame.width * 0.1
+        let cardWidth = cardsWidth / 7
+        let anotherCardsWidth = cardWidth * 6 // 컬렉션 카드 앞에 계산되어야 할 카드 개수
+        let xValue = freeSpaces + anotherCardsWidth
+        let yValue = CGFloat(20)
+        let cardDeck = CardDeck()
+        cardDeck.reset()
+        let cardList = cardDeck.list()
+        
+        for index in 0..<cardList.count {
+            guard let image = cardList[index].image() else { return }
+            let cardBack = CardBackUIImageView(image: image)
+            cardBack.reSize(with: self.frame)
+            cardBack.frame = CGRect(x: xValue, y: yValue, width: cardBack.frame.width, height: cardBack.frame.height)
+            self.addSubview(cardBack)
         }
     }
     
