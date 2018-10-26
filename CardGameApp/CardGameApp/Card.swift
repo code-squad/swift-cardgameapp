@@ -36,14 +36,19 @@ class Card: CustomStringConvertible {
     
     func image() -> UIImage? {
         if self.condition == .back {
-            return UIImage(named: "card-back.png")
+            let cardBack = addFormat(from: "card-back")
+            return UIImage(named: cardBack)
         }
         
         guard let shape = self.cardShape.rawValue.first else { return nil }
         let number = self.cardNumber.rawValue
-        let cardImageName = String(shape) + number
-        guard let cardImage = UIImage(named: cardImageName) else { return nil }
+        let cardName = addFormat(from: String(shape) + number)
+        guard let cardImage = UIImage(named: cardName) else { return nil }
         return cardImage
+    }
+    
+    private func addFormat(from fileName: String) -> String {
+        return fileName + ".png"
     }
     
     func turnOver(with condition: CardCondition) {
