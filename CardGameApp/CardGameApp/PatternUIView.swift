@@ -63,12 +63,8 @@ class PatternUIView: UIView {
         var xValue = freeSpace
         for card in cardList {
             card.turnOver(with: .front)
-            let image = card.image()
-            let cardBack = CardUIImageView(image: image)
-            cardBack.reSize(with: self.frame)
-            cardBack.frame = CGRect(x: xValue, y: defalutCardsYValue, width: cardBack.frame.width, height: cardBack.frame.height)
-            self.addSubview(cardBack)
-            let newXValue = xValue + cardBack.frame.width + freeSpace
+            let cardUIImageView = addCardView(with: card, xValue: xValue, yValue: defalutCardsYValue)
+            let newXValue = xValue + cardUIImageView.frame.width + freeSpace
             xValue = newXValue
         }
     }
@@ -79,13 +75,17 @@ class PatternUIView: UIView {
         let cardWidth = cardsWidth / cardCount
         let anotherCardsWidth = cardWidth * (cardCount - 1) // 컬렉션 카드 앞에 계산되어야 할 카드 개수
         let xValue = freeSpaces + anotherCardsWidth
-        
         for index in 0..<cardList.count {
-            guard let image = cardList[index].image() else { return }
-            let cardBack = CardUIImageView(image: image)
-            cardBack.reSize(with: self.frame)
-            cardBack.frame = CGRect(x: xValue, y: collectionYValue, width: cardBack.frame.width, height: cardBack.frame.height)
-            self.addSubview(cardBack)
+            _ = addCardView(with: cardList[index], xValue: xValue, yValue: collectionYValue)
         }
+    }
+    
+    private func addCardView(with card: Card, xValue: CGFloat, yValue: CGFloat) -> CardUIImageView {
+        guard let image = card.image() else { return CardUIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0)) }
+        let cardBack = CardUIImageView(image: image)
+        cardBack.reSize(with: self.frame)
+        cardBack.frame = CGRect(x: xValue, y: yValue, width: cardBack.frame.width, height: cardBack.frame.height)
+        self.addSubview(cardBack)
+        return cardBack
     }
 }
