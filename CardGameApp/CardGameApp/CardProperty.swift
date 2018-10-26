@@ -48,3 +48,8 @@ enum CardNumber: String {
     }
     
 }
+
+enum CardCondition {
+    case back
+    case front
+}

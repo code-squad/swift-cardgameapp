@@ -17,10 +17,12 @@ import UIKit
 class Card: CustomStringConvertible {
     private var cardNumber: CardNumber
     private var cardShape: CardShape
+    private var condition: CardCondition
     
     init(number: CardNumber, shape: CardShape) {
         self.cardNumber = number
         self.cardShape = shape
+        self.condition = .back
     }
     
     var description: String {
@@ -33,11 +35,19 @@ class Card: CustomStringConvertible {
     }
     
     func image() -> UIImage? {
+        if self.condition == .back {
+            return UIImage(named: "card-back.png")
+        }
+        
         guard let shape = self.cardShape.rawValue.first else { return nil }
         let number = self.cardNumber.rawValue
         let cardImageName = String(shape) + number
         guard let cardImage = UIImage(named: cardImageName) else { return nil }
         return cardImage
+    }
+    
+    func turnOver(with condition: CardCondition) {
+        self.condition = condition
     }
     
 }
