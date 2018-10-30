@@ -23,6 +23,7 @@ class PatternUIView: UIView {
         let eachSpace = space / (cardCount + 1)
         return eachSpace
     }
+    private let reverseBoxView = ReverseBoxView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +38,8 @@ class PatternUIView: UIView {
     private func defalutSetting() {
         defalutBackground()
         cardStorage()
+        self.addSubview(reverseBoxView)
+        reverseBoxView.defaultSetting()
     }
     
     private func defalutBackground() {
