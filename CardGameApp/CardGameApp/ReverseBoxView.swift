@@ -15,9 +15,8 @@ class ReverseBoxView: UIView {
     private let widthRatio = CGFloat(1)
     private let heightRatio = CGFloat(1.27)
     private let reverseBoxYValue = CGFloat(20)
-    private let fromLeftSpace = CGFloat(5.5)
-    private let fromLeftWidth = CGFloat(4.5)
-    //    private var stack = Stack<CardUIImageView>()
+    private let fromLeftSpace = CGFloat(7)
+    private let fromLeftWidth = CGFloat(6)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
