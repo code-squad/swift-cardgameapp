@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         
         guard let defalutCards = cardDeck.remove(count: 7) else { return }
         patternUIView.defalutCards(with: defalutCards)        
-        patternUIView.collection(with: cardDeck.list())
+        patternUIView.reverseBox(with: cardDeck.list())
     }
 
 }

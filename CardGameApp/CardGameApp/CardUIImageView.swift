@@ -15,9 +15,10 @@ class CardUIImageView: UIImageView {
     private let heightRatio = CGFloat(1.27)
     private var card = Card(number: .ace, shape: .heart)
     
-    init(card: Card) {
+    init(card: Card, frame: CGRect) {
         super.init(image: card.image())
         self.card = card
+        self.frame = frame
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapAction(tapGestureRecognizer:)))
         self.isUserInteractionEnabled = true
         self.addGestureRecognizer(tapGesture)
