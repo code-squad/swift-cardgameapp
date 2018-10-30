@@ -16,6 +16,9 @@ class CardUIImageView: UIImageView {
     
     override init(image: UIImage?) {
         super.init(image: image)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapAction(tapGestureRecognizer:)))
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(tapGesture)
     }
     
     override init(frame: CGRect) {
@@ -34,5 +37,8 @@ class CardUIImageView: UIImageView {
         // newSize
         let newSize = CGSize(width: imageWidth * widthRatio, height: imageWidth * heightRatio)
         self.frame.size = newSize
+    }
+    
+    @objc private func tapAction(tapGestureRecognizer: UITapGestureRecognizer) {
     }
 }
