@@ -13,9 +13,11 @@ class CardUIImageView: UIImageView {
     private let tenPercentOfFrame = CGFloat(0.1)
     private let widthRatio = CGFloat(1)
     private let heightRatio = CGFloat(1.27)
+    private var card = Card(number: .ace, shape: .heart)
     
-    override init(image: UIImage?) {
-        super.init(image: image)
+    init(card: Card) {
+        super.init(image: card.image())
+        self.card = card
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapAction(tapGestureRecognizer:)))
         self.isUserInteractionEnabled = true
         self.addGestureRecognizer(tapGesture)
@@ -29,7 +31,7 @@ class CardUIImageView: UIImageView {
         super.init(coder: aDecoder)
     }
     
-    public func reSize(with frame: CGRect) {
+    func reSize(with frame: CGRect) {
         let viewWidth = frame.width
         // 여유공간을 빼주기 위함 (즉, 전체화면의 10%를 더 빼고 카드넓이 계산)
         let viewWidthWithSpace = viewWidth - viewWidth * tenPercentOfFrame
@@ -40,5 +42,10 @@ class CardUIImageView: UIImageView {
     }
     
     @objc private func tapAction(tapGestureRecognizer: UITapGestureRecognizer) {
+        turnOver()
+    }
+    
+    private func turnOver() {
+        self.image = card.turnOver()
     }
 }

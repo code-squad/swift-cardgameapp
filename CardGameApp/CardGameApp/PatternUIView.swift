@@ -59,10 +59,10 @@ class PatternUIView: UIView {
         }
     }
     
-    public func defalutCards(with cardList: [Card]) {
+    func defalutCards(with cardList: [Card]) {
         var xValue = freeSpace
         for card in cardList {
-            card.turnOver(with: .front)
+            card.switchCondition(with: .front)
             let cardUIImageView = addCardView(with: card, xValue: xValue, yValue: defalutCardsYValue)
             let newXValue = xValue + cardUIImageView.frame.width + freeSpace
             xValue = newXValue
@@ -81,11 +81,10 @@ class PatternUIView: UIView {
     }
     
     private func addCardView(with card: Card, xValue: CGFloat, yValue: CGFloat) -> CardUIImageView {
-        guard let image = card.image() else { return CardUIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0)) }
-        let cardBack = CardUIImageView(image: image)
-        cardBack.reSize(with: self.frame)
-        cardBack.frame = CGRect(x: xValue, y: yValue, width: cardBack.frame.width, height: cardBack.frame.height)
-        self.addSubview(cardBack)
-        return cardBack
+        let cardImageView = CardUIImageView(card: card)
+        cardImageView.reSize(with: self.frame)
+        cardImageView.frame = CGRect(x: xValue, y: yValue, width: cardImageView.frame.width, height: cardImageView.frame.height)
+        self.addSubview(cardImageView)
+        return cardImageView
     }
 }

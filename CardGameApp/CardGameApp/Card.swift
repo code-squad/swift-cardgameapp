@@ -47,8 +47,13 @@ class Card: CustomStringConvertible {
         return cardImage
     }
     
-    func turnOver(with condition: CardCondition) {
+    func switchCondition(with condition: CardCondition) {
         self.condition = condition
+    }
+    
+    func turnOver() -> UIImage? {
+        self.condition = self.condition == CardCondition.back ? CardCondition.front : CardCondition.back
+        return self.image()
     }
     
 }
