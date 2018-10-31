@@ -88,4 +88,10 @@ class PatternUIView: UIView {
             ReverseBoxView.shared.addSubview(cardImageView)
         }
     }
+    
+    func emptyBox() {
+        for view in BoxView.shared.subviews {
+            view.removeFromSuperview()
+        }
+    }
 }

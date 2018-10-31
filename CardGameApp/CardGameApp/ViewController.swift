@@ -31,8 +31,8 @@ class ViewController: UIViewController {
         cardDeck.shuffle()
         
         guard let defalutCards = cardDeck.remove(count: 7) else { return }
-        patternUIView.defalutCards(with: defalutCards)        
+        patternUIView.defalutCards(with: defalutCards)
         patternUIView.reverseBox(with: cardDeck.list())
+        patternUIView.emptyBox()
     }
-
 }
