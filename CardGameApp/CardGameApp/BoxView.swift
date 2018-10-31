@@ -28,7 +28,6 @@ class BoxView: UIView {
     }
     
     public func defaultSetting() {
-        self.backgroundColor = .blue // temp
         guard let superView = self.superview else { return }
         let superWidth = superView.frame.width
         let superSpace = superWidth * tenPercentOfFrame
