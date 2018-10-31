@@ -33,7 +33,7 @@ class CardUIImageView: UIImageView {
         moveToBox()
     }
     
-    private func turnOver() {
+    func turnOver() {
         self.image = card.turnOver()
     }
     

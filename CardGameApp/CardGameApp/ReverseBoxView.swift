@@ -24,10 +24,26 @@ class ReverseBoxView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        addGesture()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        addGesture()
+    }
+    
+    private func addGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(emptyCard(tapGestureRecognizer:)))
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func emptyCard(tapGestureRecognizer: UITapGestureRecognizer) {
+        for _ in 0..<BoxView.shared.subviews.count {
+            guard let cardView = BoxView.shared.subviews[BoxView.shared.subviews.count - 1] as? CardUIImageView else { continue }
+            cardView.turnOver()
+            self.addSubview(cardView)
+        }
     }
     
     public func defaultSetting() {
