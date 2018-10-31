@@ -44,9 +44,17 @@ class CardUIImageView: UIImageView {
     
     @objc private func tapAction(tapGestureRecognizer: UITapGestureRecognizer) {
         turnOver()
+        moveToBox()
     }
     
     private func turnOver() {
         self.image = card.turnOver()
+    }
+    
+    private func moveToBox() {
+        guard self.superview is ReverseBoxView, let superView = self.superview else { return }
+        guard superView.subviews.count > 0 else { return }
+        let topView = superView.subviews[superView.subviews.count - 1]
+        BoxView.shared.addSubview(topView)
     }
 }
