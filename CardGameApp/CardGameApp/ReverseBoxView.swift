@@ -18,6 +18,9 @@ class ReverseBoxView: UIView {
     private let reverseBoxYValue = CGFloat(20)
     private let fromLeftSpace = CGFloat(7)
     private let fromLeftWidth = CGFloat(6)
+    private let refreshRatio = CGFloat(0.3)
+    private let refreshPoint = CGFloat(0.5)
+    private let refreshImageView = RefreshImageView(image: UIImage(named: "cardgameapp-refresh-app".formatPNG))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,7 +31,6 @@ class ReverseBoxView: UIView {
     }
     
     public func defaultSetting() {
-        self.backgroundColor = .red // temp
         guard let superView = self.superview else { return }
         let superWidth = superView.frame.width
         let superSpace = superWidth * tenPercentOfFrame
@@ -37,13 +39,19 @@ class ReverseBoxView: UIView {
         let xValue = space * fromLeftSpace + width * fromLeftWidth
         reFrame(xValue: xValue)
         reSize(width: width)
+        addRefresh()
+    }
+    
+    private func reFrame(xValue: CGFloat) {
+        self.frame = CGRect(x: xValue, y: reverseBoxYValue, width: self.frame.size.width, height: self.frame.size.height)
     }
     
     private func reSize(width: CGFloat) {
         self.frame.size = CGSize(width: width * widthRatio, height: width * heightRatio)
     }
     
-    private func reFrame(xValue: CGFloat) {
-        self.frame = CGRect(x: xValue, y: reverseBoxYValue, width: self.frame.size.width, height: self.frame.size.height)
+    private func addRefresh() {
+        self.addSubview(refreshImageView)
+        refreshImageView.setting()
     }
 }

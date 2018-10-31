@@ -13,6 +13,7 @@
 		475E24652182082E00801BFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 475E24642182082E00801BFF /* Assets.xcassets */; };
 		475E24682182082E00801BFF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 475E24662182082E00801BFF /* LaunchScreen.storyboard */; };
 		479FBB5A2188BA3E003041B3 /* BoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479FBB592188BA3E003041B3 /* BoxView.swift */; };
+		479FBB5C2189C2AA003041B3 /* RefreshImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479FBB5B2189C2AA003041B3 /* RefreshImageView.swift */; };
 		47C7FD7221821889003417E8 /* PatternUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD7121821889003417E8 /* PatternUIView.swift */; };
 		47C7FD762182B020003417E8 /* CardUIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD752182B020003417E8 /* CardUIImageView.swift */; };
 		47C7FD832182C9C9003417E8 /* CardError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD772182C9C8003417E8 /* CardError.swift */; };
@@ -40,6 +41,7 @@
 		475E24672182082E00801BFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		475E24692182082E00801BFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		479FBB592188BA3E003041B3 /* BoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxView.swift; sourceTree = "<group>"; };
+		479FBB5B2189C2AA003041B3 /* RefreshImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshImageView.swift; sourceTree = "<group>"; };
 		47C7FD7121821889003417E8 /* PatternUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatternUIView.swift; sourceTree = "<group>"; };
 		47C7FD752182B020003417E8 /* CardUIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardUIImageView.swift; sourceTree = "<group>"; };
 		47C7FD772182C9C8003417E8 /* CardError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardError.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				479FBB592188BA3E003041B3 /* BoxView.swift */,
 				47C7FD8F2183039B003417E8 /* String+PNG.swift */,
 				47C7FD752182B020003417E8 /* CardUIImageView.swift */,
+				479FBB5B2189C2AA003041B3 /* RefreshImageView.swift */,
 			);
 			path = CardGameApp;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				47C7FD8A2182C9C9003417E8 /* InputProperty.swift in Sources */,
 				475E24602182082D00801BFF /* ViewController.swift in Sources */,
 				47CDAD0B21883E32002725B8 /* ReverseBoxView.swift in Sources */,
+				479FBB5C2189C2AA003041B3 /* RefreshImageView.swift in Sources */,
 				47C7FD862182C9C9003417E8 /* CardDeck.swift in Sources */,
 				475E245E2182082D00801BFF /* AppDelegate.swift in Sources */,
 				47C7FD832182C9C9003417E8 /* CardError.swift in Sources */,
