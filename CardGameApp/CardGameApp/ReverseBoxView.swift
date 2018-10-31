@@ -9,6 +9,7 @@
 import UIKit
 
 class ReverseBoxView: UIView {
+    static let shared = ReverseBoxView()
     private let cardCount = CGFloat(7)
     private let spaceCount = CGFloat(8)
     private let tenPercentOfFrame = CGFloat(0.1)
