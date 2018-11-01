@@ -87,12 +87,14 @@ class PatternUIView: UIView {
     
     func defaultAddCardStack(with cardList: [Card]) {
         var yValue = defalutCardsYValue
-        for card in cardList {
+        for index in 0..<cardList.count {
             let xValue = cardContainer[cardList.count - 1].frame.minX
             let rect = CGRect(x: xValue, y: yValue, width: imageWidth * widthRatio, height: imageWidth * heightRatio)
-            let cardImageView = CardUIImageView(card: card, frame: rect)
+            let cardImageView = CardUIImageView(card: cardList[index], frame: rect)
+            if index == cardList.count - 1 {
+                cardImageView.turnOver()
+            }
             self.addSubview(cardImageView)
-            self.cardContainer.append(cardImageView)
             yValue += 20
         }
     }
