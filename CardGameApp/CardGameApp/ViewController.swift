@@ -9,6 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
+    private let cardCount = 7
     private let cardDeck = CardDeck()
     @IBOutlet var patternUIView: PatternUIView!
     
@@ -30,8 +31,11 @@ class ViewController: UIViewController {
         cardDeck.reset()
         cardDeck.shuffle()
         
-        guard let defalutCards = cardDeck.remove(count: 7) else { return }
-        patternUIView.defalutCards(with: defalutCards)
+        patternUIView.setCardStack()
+        for count in 1...cardCount {
+            guard let defalutCards = cardDeck.remove(count: count) else { return }
+            patternUIView.defaultAddCardStack(with: defalutCards)
+        }
         patternUIView.reverseBox(with: cardDeck.list())
         patternUIView.emptyBox()
     }

@@ -17,6 +17,7 @@ class PatternUIView: UIView {
     private let cardStorageBorderWidth = CGFloat(1)
     private let cardStorageBorderColor = UIColor.white.cgColor
     private let cardCount = CGFloat(7)
+    private let cardCountNumber = 7
     private let tenPercentOfFrame = CGFloat(0.1)
     private let widthRatio = CGFloat(1)
     private let heightRatio = CGFloat(1.27)
@@ -30,6 +31,7 @@ class PatternUIView: UIView {
         let imageWidth = viewWidthWithoutSpace / cardCount
         return imageWidth
     }
+    private var cardContainer = [UIView]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,15 +71,29 @@ class PatternUIView: UIView {
         }
     }
     
-    func defalutCards(with cardList: [Card]) {
+    func setCardStack() {
         var xValue = freeSpace
-        for card in cardList {
-            card.switchCondition(with: .front)
+        for _ in 0..<cardCountNumber {
             let rect = CGRect(x: xValue, y: defalutCardsYValue, width: imageWidth * widthRatio, height: imageWidth * heightRatio)
+            let container = UIView(frame: rect)
+            container.layer.borderWidth = cardStorageBorderWidth
+            container.layer.borderColor = cardStorageBorderColor
+            self.addSubview(container)
+            self.cardContainer.append(container)
+            let newXValue = xValue + container.frame.width + freeSpace
+            xValue = newXValue
+        }
+    }
+    
+    func defaultAddCardStack(with cardList: [Card]) {
+        var yValue = defalutCardsYValue
+        for card in cardList {
+            let xValue = cardContainer[cardList.count - 1].frame.minX
+            let rect = CGRect(x: xValue, y: yValue, width: imageWidth * widthRatio, height: imageWidth * heightRatio)
             let cardImageView = CardUIImageView(card: card, frame: rect)
             self.addSubview(cardImageView)
-            let newXValue = xValue + cardImageView.frame.width + freeSpace
-            xValue = newXValue
+            self.cardContainer.append(cardImageView)
+            yValue += 20
         }
     }
     
