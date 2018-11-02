@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardUIImageView: UIImageView {
+class CardImageView: UIImageView {
     private var card = Card(number: .ace, shape: .heart)
     
     init(card: Card, frame: CGRect) {

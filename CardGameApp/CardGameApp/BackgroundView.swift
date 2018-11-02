@@ -81,7 +81,7 @@ class BackgroundView: UIView {
         for index in 0..<cardList.count {
             let xValue = cardContainer[cardList.count - 1].frame.minX
             let rect = CGRect(x: xValue, y: yValue, width: imageWidth * Unit.widthRatio, height: imageWidth * Unit.heightRatio)
-            let cardImageView = CardUIImageView(card: cardList[index], frame: rect)
+            let cardImageView = CardImageView(card: cardList[index], frame: rect)
             if index == cardList.count - 1 {
                 cardImageView.turnOver()
             }
@@ -93,7 +93,7 @@ class BackgroundView: UIView {
     func reverseBox(with cardList: [Card]) {
         for card in cardList {
             let rect = CGRect(x: 0, y: 0, width: reverseBoxView.frame.width, height: reverseBoxView.frame.height)
-            let cardImageView = CardUIImageView(card: card, frame: rect)
+            let cardImageView = CardImageView(card: card, frame: rect)
             reverseBoxView.addSubview(cardImageView)
         }
     }

@@ -29,7 +29,7 @@ class ReverseBoxView: UIView {
     
     @objc private func emptyCard(tapGestureRecognizer: UITapGestureRecognizer) {
         for _ in 0..<BoxView.shared.subviews.count {
-            guard let cardView = BoxView.shared.subviews[BoxView.shared.subviews.count - 1] as? CardUIImageView else { continue }
+            guard let cardView = BoxView.shared.subviews[BoxView.shared.subviews.count - 1] as? CardImageView else { continue }
             cardView.turnOver()
             self.addSubview(cardView)
         }
