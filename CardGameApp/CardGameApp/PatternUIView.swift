@@ -61,12 +61,9 @@ class PatternUIView: UIView {
     private func cardStorage() {
         var xValue = freeSpace
         for _ in 0..<cardStorageCount {
-            let rect = CGRect(x: xValue, y: cardStorageYValue, width: imageWidth * widthRatio, height: imageWidth * heightRatio)
-            let cardFrame = CardUIImageView(frame: rect)
-            cardFrame.layer.borderWidth = cardStorageBorderWidth
-            cardFrame.layer.borderColor = cardStorageBorderColor
-            self.addSubview(cardFrame)
-            let newXValue = xValue + cardFrame.frame.width + freeSpace
+            let mold = cardMold(xValue: xValue, yValue: cardStorageYValue)
+            self.addSubview(mold)
+            let newXValue = xValue + mold.frame.width + freeSpace
             xValue = newXValue
         }
     }
@@ -74,15 +71,20 @@ class PatternUIView: UIView {
     func setCardStack() {
         var xValue = freeSpace
         for _ in 0..<cardCountNumber {
-            let rect = CGRect(x: xValue, y: defalutCardsYValue, width: imageWidth * widthRatio, height: imageWidth * heightRatio)
-            let container = UIView(frame: rect)
-            container.layer.borderWidth = cardStorageBorderWidth
-            container.layer.borderColor = cardStorageBorderColor
-            self.addSubview(container)
-            self.cardContainer.append(container)
-            let newXValue = xValue + container.frame.width + freeSpace
+            let mold = cardMold(xValue: xValue, yValue: defalutCardsYValue)
+            self.addSubview(mold)
+            self.cardContainer.append(mold)
+            let newXValue = xValue + mold.frame.width + freeSpace
             xValue = newXValue
         }
+    }
+    
+    private func cardMold(xValue: CGFloat, yValue: CGFloat) -> UIView {
+        let rect = CGRect(x: xValue, y: yValue, width: imageWidth * widthRatio, height: imageWidth * heightRatio)
+        let mold = UIView(frame: rect)
+        mold.layer.borderWidth = cardStorageBorderWidth
+        mold.layer.borderColor = cardStorageBorderColor
+        return mold
     }
     
     func defaultAddCardStack(with cardList: [Card]) {
