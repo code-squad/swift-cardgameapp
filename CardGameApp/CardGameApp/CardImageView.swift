@@ -41,6 +41,7 @@ class CardImageView: UIImageView {
         guard self.superview is ReverseBoxView, let superView = self.superview else { return }
         guard superView.subviews.count > 0 else { return }
         let topView = superView.subviews[superView.subviews.count - 1]
-        BoxView.shared.addSubview(topView)
+        let name = Notification.Name(NotificationKey.name.moveToBox)
+        NotificationCenter.default.post(name: name, object: nil, userInfo: [NotificationKey.hash.view: topView])
     }
 }

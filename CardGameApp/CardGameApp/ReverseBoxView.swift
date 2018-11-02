@@ -13,12 +13,10 @@ class ReverseBoxView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addGesture()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        addGesture()
     }
     
     private func addGesture() {
@@ -28,9 +26,18 @@ class ReverseBoxView: UIView {
     }
     
     @objc private func emptyCard(tapGestureRecognizer: UITapGestureRecognizer) {
-        for _ in 0..<BoxView.shared.subviews.count {
-            guard let cardView = BoxView.shared.subviews[BoxView.shared.subviews.count - 1] as? CardImageView else { continue }
-            cardView.turnOver()
+        let name = Notification.Name(NotificationKey.name.restore)
+        NotificationCenter.default.post(name: name, object: nil)
+    }
+    
+    private func createdObservers() {
+        let name = Notification.Name(NotificationKey.name.getBack)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.getBack(_:)), name: name, object: nil)
+    }
+    
+    @objc private func getBack(_ notification: Notification) {
+        guard let cardViewList = notification.userInfo?[NotificationKey.hash.cardViewList] as? [CardImageView] else { return }
+        for cardView in cardViewList {
             self.addSubview(cardView)
         }
     }
@@ -45,6 +52,8 @@ class ReverseBoxView: UIView {
         reFrame(xValue: xValue)
         reSize(width: width)
         addRefresh()
+        addGesture()
+        createdObservers()
     }
     
     private func reFrame(xValue: CGFloat) {
