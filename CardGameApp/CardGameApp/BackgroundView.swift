@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PatternUIView: UIView {
+class BackgroundView: UIView {
     private let cardStorageYValue = CGFloat(20)
     private let reverseBoxYValue = CGFloat(20)
     private let defalutCardsYValue = CGFloat(100)
