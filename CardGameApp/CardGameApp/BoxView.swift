@@ -28,17 +28,12 @@ class BoxView: UIView {
         let space = superSpace / Unit.spaceCount
         let width = (superWidth - superSpace) / Unit.cardCount
         let xValue = space * Unit.fromLeftSpaceOfBox + width * Unit.fromLeftWidthOfBox
-        reFrame(xValue: xValue)
-        reSize(width: width)
+        updateFrame(xValue: xValue, width: width)
         createdObservers()
     }
-    
-    private func reSize(width: CGFloat) {
-        self.frame.size = CGSize(width: width * Unit.widthRatio, height: width * Unit.heightRatio)
-    }
-    
-    private func reFrame(xValue: CGFloat) {
-        self.frame = CGRect(x: xValue, y: Unit.reverseBoxYValue, width: self.frame.size.width, height: self.frame.size.height)
+
+    private func updateFrame(xValue: CGFloat, width: CGFloat) {
+        self.frame = CGRect(x: xValue, y: Unit.reverseBoxYValue, width: width * Unit.widthRatio, height: width * Unit.heightRatio)
     }
     
     private func createdObservers() {
