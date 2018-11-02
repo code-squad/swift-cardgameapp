@@ -9,6 +9,7 @@
 import UIKit
 
 class BackgroundView: UIView {
+    private let reverseBoxView = ReverseBoxView()
     private var cardContainer = [UIView]()
     private var freeSpace: CGFloat {
         let space = self.frame.width * Unit.tenPercentOfFrame
@@ -34,8 +35,8 @@ class BackgroundView: UIView {
     private func defalutSetting() {
         defalutBackground()
         cardStorage()
-        self.addSubview(ReverseBoxView.shared)
-        ReverseBoxView.shared.defaultSetting()
+        self.addSubview(reverseBoxView)
+        reverseBoxView.defaultSetting()
         self.addSubview(BoxView.shared)
         BoxView.shared.defaultSetting()
     }
@@ -91,9 +92,9 @@ class BackgroundView: UIView {
     
     func reverseBox(with cardList: [Card]) {
         for card in cardList {
-            let rect = CGRect(x: 0, y: 0, width: ReverseBoxView.shared.frame.width, height: ReverseBoxView.shared.frame.height)
+            let rect = CGRect(x: 0, y: 0, width: reverseBoxView.frame.width, height: reverseBoxView.frame.height)
             let cardImageView = CardUIImageView(card: card, frame: rect)
-            ReverseBoxView.shared.addSubview(cardImageView)
+            reverseBoxView.addSubview(cardImageView)
         }
     }
     

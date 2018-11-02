@@ -9,8 +9,6 @@
 import UIKit
 
 class ReverseBoxView: UIView {
-    static let shared = ReverseBoxView()
-    
     private let refreshImageView = RefreshImageView(image: UIImage(named: "cardgameapp-refresh-app".formatPNG))
     
     override init(frame: CGRect) {
