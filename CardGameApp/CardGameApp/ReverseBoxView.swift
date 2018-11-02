@@ -50,7 +50,7 @@ class ReverseBoxView: UIView {
         let width = (superWidth - superSpace) / Unit.cardCount
         let xValue = space * Unit.fromLeftSpaceOfReverseBox + width * Unit.fromLeftWidthOfReverseBox
         updateFrame(xValue: xValue, width: width)
-        addRefresh()
+        addRefreshImageView()
         addGesture()
         createdObservers()
     }
@@ -59,7 +59,7 @@ class ReverseBoxView: UIView {
         self.frame = CGRect(x: xValue, y: Unit.reverseBoxYValue, width: width * Unit.widthRatio, height: width * Unit.heightRatio)
     }
     
-    private func addRefresh() {
+    private func addRefreshImageView() {
         self.addSubview(refreshImageView)
         refreshImageView.setting()
     }
