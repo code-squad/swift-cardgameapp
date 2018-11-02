@@ -9,9 +9,6 @@
 import UIKit
 
 class RefreshImageView: UIImageView {
-    private let refreshRatio = CGFloat(0.3)
-    private let refreshPoint = CGFloat(0.5)
-    
     override init(image: UIImage?) {
         super.init(image: image)
     }
@@ -26,7 +23,7 @@ class RefreshImageView: UIImageView {
     
     func setting() {
         guard let superView = self.superview else { return }
-        self.frame.size = CGSize(width: superView.frame.width * refreshRatio, height: superView.frame.height * refreshRatio)
-        self.center = CGPoint(x: superView.frame.width * refreshPoint, y: superView.frame.height * refreshPoint)
+        self.frame.size = CGSize(width: superView.frame.width * Unit.refreshRatio, height: superView.frame.height * Unit.refreshRatio)
+        self.center = CGPoint(x: superView.frame.width * Unit.refreshPoint, y: superView.frame.height * Unit.refreshPoint)
     }
 }
