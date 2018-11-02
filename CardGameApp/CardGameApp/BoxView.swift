@@ -25,7 +25,7 @@ class BoxView: UIView {
         let superSpace = superWidth * Unit.tenPercentOfFrame
         let space = superSpace / Unit.spaceCount
         let width = (superWidth - superSpace) / Unit.cardCount
-        let xValue = space * Unit.fromLeftSpace + width * Unit.fromLeftWidth
+        let xValue = space * Unit.fromLeftSpaceOfBox + width * Unit.fromLeftWidthOfBox
         reFrame(xValue: xValue)
         reSize(width: width)
     }

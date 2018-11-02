@@ -41,7 +41,7 @@ class ReverseBoxView: UIView {
         let superSpace = superWidth * Unit.tenPercentOfFrame
         let space = superSpace / Unit.spaceCount
         let width = (superWidth - superSpace) / Unit.cardCount
-        let xValue = space * Unit.fromLeftSpace + width * Unit.fromLeftWidth
+        let xValue = space * Unit.fromLeftSpaceOfReverseBox + width * Unit.fromLeftWidthOfReverseBox
         reFrame(xValue: xValue)
         reSize(width: width)
         addRefresh()
