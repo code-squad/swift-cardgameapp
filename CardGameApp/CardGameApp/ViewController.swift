@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
-        defaultSetting()
+        resetCard()
     }
     
     private func defaultSetting() {
@@ -36,6 +36,10 @@ class ViewController: UIViewController {
             backgroundView.defaultAddCardStack(with: defalutCards)
         }
         backgroundView.reverseBox(with: cardDeck.list())
-        backgroundView.emptyBox()
+    }
+    
+    private func resetCard() {
+        backgroundView.resetCard()
+        defaultSetting()
     }
 }
