@@ -60,4 +60,10 @@ class BoxView: UIView {
         let name = Notification.Name(NotificationKey.name.getBack)
         NotificationCenter.default.post(name: name, object: nil, userInfo: [NotificationKey.hash.cardViewList: cardViewList])
     }
+    
+    func removeSubView() {
+        for subview in self.subviews {
+            subview.removeFromSuperview()
+        }
+    }
 }

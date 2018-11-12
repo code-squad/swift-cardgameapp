@@ -19,6 +19,28 @@ class ReverseBoxView: UIView {
         super.init(coder: aDecoder)
     }
     
+    public func defaultSetting() {
+        guard let superView = self.superview else { return }
+        let superWidth = superView.frame.width
+        let superSpace = superWidth * Unit.tenPercentOfFrame
+        let space = superSpace / Unit.spaceCount
+        let width = (superWidth - superSpace) / Unit.cardCount
+        let xValue = space * Unit.fromLeftSpaceOfReverseBox + width * Unit.fromLeftWidthOfReverseBox
+        updateFrame(xValue: xValue, width: width)
+        addRefreshImageView()
+        addGesture()
+        createdObservers()
+    }
+    
+    private func updateFrame(xValue: CGFloat, width: CGFloat) {
+        self.frame = CGRect(x: xValue, y: Unit.reverseBoxYValue, width: width * Unit.widthRatio, height: width * Unit.heightRatio)
+    }
+    
+    private func addRefreshImageView() {
+        self.addSubview(refreshImageView)
+        refreshImageView.setting()
+    }
+    
     private func addGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(emptyCard(tapGestureRecognizer:)))
         self.isUserInteractionEnabled = true
@@ -42,25 +64,11 @@ class ReverseBoxView: UIView {
         }
     }
     
-    public func defaultSetting() {
-        guard let superView = self.superview else { return }
-        let superWidth = superView.frame.width
-        let superSpace = superWidth * Unit.tenPercentOfFrame
-        let space = superSpace / Unit.spaceCount
-        let width = (superWidth - superSpace) / Unit.cardCount
-        let xValue = space * Unit.fromLeftSpaceOfReverseBox + width * Unit.fromLeftWidthOfReverseBox
-        updateFrame(xValue: xValue, width: width)
-        addRefreshImageView()
-        addGesture()
-        createdObservers()
-    }
-    
-    private func updateFrame(xValue: CGFloat, width: CGFloat) {
-        self.frame = CGRect(x: xValue, y: Unit.reverseBoxYValue, width: width * Unit.widthRatio, height: width * Unit.heightRatio)
-    }
-    
-    private func addRefreshImageView() {
-        self.addSubview(refreshImageView)
-        refreshImageView.setting()
+    func removeSubView() {
+        for subview in self.subviews {
+            // RefreshImageView를 제외한 CardImageView만 제거
+            guard let cardView = subview as? CardImageView else { continue }
+            cardView.removeFromSuperview()
+        }
     }
 }

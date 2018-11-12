@@ -100,15 +100,12 @@ class BackgroundView: UIView {
     }
     
     func resetCard() {
-        for view in boxView.subviews {
-            view.removeFromSuperview()
-        }
-        
-        for view in reverseBoxView.subviews {
-            // RefreshImageView를 제외한 CardImageView만 제거
-            guard let cardView = view as? CardImageView else { continue }
-            cardView.removeFromSuperview()
-        }
+        boxView.removeSubView()
+        reverseBoxView.removeSubView()
+        self.removeSubView()
+    }
+    
+    private func removeSubView() {
         // container view가 없는 cardStack 들을 지우기 위해 Y값을 이용
         for view in self.subviews where view.frame.minY >= 100 {
             view.removeFromSuperview()
