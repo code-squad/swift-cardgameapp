@@ -38,9 +38,7 @@ class BackgroundView: UIView {
         addSubViewToCardStorage()
         addSubViewToCardStack()
         self.addSubview(reverseBoxView)
-        reverseBoxView.defaultSetting()
         self.addSubview(boxView)
-        boxView.defaultSetting()
     }
     
     private func defalutBackground() {

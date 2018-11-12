@@ -13,15 +13,16 @@ class ReverseBoxView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        defaultSetting()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        defaultSetting()
     }
     
-    public func defaultSetting() {
-        guard let superView = self.superview else { return }
-        let superWidth = superView.frame.width
+    private func defaultSetting() {
+        let superWidth = Unit.iphone8plusWidth
         let superSpace = superWidth * Unit.tenPercentOfFrame
         let space = superSpace / Unit.spaceCount
         let width = (superWidth - superSpace) / Unit.cardCount

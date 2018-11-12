@@ -28,4 +28,5 @@ struct Unit {
     public static let fromLeftWidthOfBox = CGFloat(4.5)
     public static let refreshRatio = CGFloat(0.3)
     public static let refreshPoint = CGFloat(0.5)
+    public static let iphone8plusWidth = CGFloat(414)
 }
