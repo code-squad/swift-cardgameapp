@@ -36,6 +36,7 @@ class BackgroundView: UIView {
     private func defalutSetting() {
         defalutBackground()
         addSubViewToCardStorage()
+        addSubViewToCardStack()
         self.addSubview(reverseBoxView)
         reverseBoxView.defaultSetting()
         self.addSubview(boxView)
@@ -58,7 +59,7 @@ class BackgroundView: UIView {
         }
     }
     
-    func setCardStack() {
+    private func addSubViewToCardStack() {
         var xValue = freeSpace
         for _ in 0..<Unit.cardCountNumber {
             let mold = cardMold(xValue: xValue, yValue: Unit.defalutCardsYValue)

@@ -30,7 +30,6 @@ class ViewController: UIViewController {
         cardDeck.reset()
         cardDeck.shuffle()
         
-        backgroundView.setCardStack()
         for count in 1...Unit.cardCountNumber {
             guard let defalutCards = cardDeck.remove(count: count) else { return }
             backgroundView.defaultAddCardStack(with: defalutCards)
