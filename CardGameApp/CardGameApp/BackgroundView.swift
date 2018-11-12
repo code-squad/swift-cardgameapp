@@ -62,7 +62,9 @@ class BackgroundView: UIView {
         for _ in 0..<Unit.cardCountNumber {
             let mold = cardMold(xValue: xValue, yValue: Unit.defalutCardsYValue)
             self.addSubview(mold)
-            self.cardContainer.append(mold)
+            let container = cardStackContainer(xValue: xValue, yValue: Unit.defalutCardsYValue)
+            self.addSubview(container)
+            self.cardContainer.append(container)
             let newXValue = xValue + mold.frame.width + freeSpace
             xValue = newXValue
         }
@@ -76,16 +78,21 @@ class BackgroundView: UIView {
         return mold
     }
     
+    private func cardStackContainer(xValue: CGFloat, yValue: CGFloat) -> UIView {
+        let rect = CGRect(x: xValue, y: yValue, width: imageWidth * Unit.widthRatio, height: 400)
+        let container = UIView(frame: rect)
+        return container
+    }
+    
     func defaultAddCardStack(with cardList: [Card]) {
-        var yValue = Unit.defalutCardsYValue
+        var yValue: CGFloat = 0
         for index in 0..<cardList.count {
-            let xValue = cardContainer[cardList.count - 1].frame.minX
-            let rect = CGRect(x: xValue, y: yValue, width: imageWidth * Unit.widthRatio, height: imageWidth * Unit.heightRatio)
+            let rect = CGRect(x: 0, y: yValue, width: imageWidth * Unit.widthRatio, height: imageWidth * Unit.heightRatio)
             let cardImageView = CardImageView(card: cardList[index], frame: rect)
             if index == cardList.count - 1 {
                 cardImageView.turnOver()
             }
-            self.addSubview(cardImageView)
+            cardContainer[cardList.count - 1].addSubview(cardImageView)
             yValue += 20
         }
     }
@@ -101,13 +108,14 @@ class BackgroundView: UIView {
     func resetCard() {
         boxView.removeSubView()
         reverseBoxView.removeSubView()
-        self.removeSubView()
+        self.removeSubViewToCardContainer()
     }
     
-    private func removeSubView() {
-        // container view가 없는 cardStack 들을 지우기 위해 Y값을 이용
-        for view in self.subviews where view.frame.minY >= 100 {
-            view.removeFromSuperview()
+    private func removeSubViewToCardContainer() {
+        for containerView in self.cardContainer {
+            for subView in containerView.subviews {
+                subView.removeFromSuperview()
+            }
         }
     }
 }
