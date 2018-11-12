@@ -11,7 +11,7 @@ import UIKit
 class BackgroundView: UIView {
     private let reverseBoxView = ReverseBoxView()
     private let boxView = BoxView()
-    private var cardContainer = [UIView]()
+    private var cardStack = CardStack()
     private var freeSpace: CGFloat {
         let space = self.frame.width * Unit.tenPercentOfFrame
         let eachSpace = space / (Unit.cardCount + 1)
@@ -64,7 +64,7 @@ class BackgroundView: UIView {
             self.addSubview(mold)
             let container = cardStackContainer(xValue: xValue, yValue: Unit.defalutCardsYValue)
             self.addSubview(container)
-            self.cardContainer.append(container)
+            self.cardStack.append(view: container)
             let newXValue = xValue + mold.frame.width + freeSpace
             xValue = newXValue
         }
@@ -92,7 +92,7 @@ class BackgroundView: UIView {
             if index == cardList.count - 1 {
                 cardImageView.turnOver()
             }
-            cardContainer[cardList.count - 1].addSubview(cardImageView)
+            self.cardStack.addSubView(index: cardList.count - 1, view: cardImageView)
             yValue += 20
         }
     }
@@ -108,14 +108,6 @@ class BackgroundView: UIView {
     func resetCard() {
         boxView.removeSubView()
         reverseBoxView.removeSubView()
-        self.removeSubViewToCardContainer()
-    }
-    
-    private func removeSubViewToCardContainer() {
-        for containerView in self.cardContainer {
-            for subView in containerView.subviews {
-                subView.removeFromSuperview()
-            }
-        }
+        cardStack.removeSubView()
     }
 }
