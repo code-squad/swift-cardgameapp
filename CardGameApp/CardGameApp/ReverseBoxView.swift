@@ -22,19 +22,9 @@ class ReverseBoxView: UIView {
     }
     
     private func defaultSetting() {
-        let superWidth = Unit.iphone8plusWidth
-        let superSpace = superWidth * Unit.tenPercentOfFrame
-        let space = superSpace / Unit.spaceCount
-        let width = (superWidth - superSpace) / Unit.cardCount
-        let xValue = space * Unit.fromLeftSpaceOfReverseBox + width * Unit.fromLeftWidthOfReverseBox
-        updateFrame(xValue: xValue, width: width)
         addRefreshImageView()
         addGesture()
         createdObservers()
-    }
-    
-    private func updateFrame(xValue: CGFloat, width: CGFloat) {
-        self.frame = CGRect(x: xValue, y: Unit.reverseBoxYValue, width: width * Unit.widthRatio, height: width * Unit.heightRatio)
     }
     
     private func addRefreshImageView() {
