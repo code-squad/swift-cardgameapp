@@ -9,7 +9,6 @@
 import UIKit
 
 class BackgroundView: UIView {
-    private let boxView = BoxView()
     private var cardStack = CardStack()
     private var freeSpace: CGFloat {
         let space = self.frame.width * Unit.tenPercentOfFrame
@@ -35,8 +34,7 @@ class BackgroundView: UIView {
     private func defalutSetting() {
         defalutBackground()
         addSubViewToCardStorage()
-        addSubViewToCardStack()
-        self.addSubview(boxView)
+        addSubViewToCardStack()        
     }
     
     private func defalutBackground() {
@@ -96,7 +94,6 @@ class BackgroundView: UIView {
     }
     
     func resetCard() {
-        boxView.removeSubView()
         cardStack.removeSubView()
     }
 }

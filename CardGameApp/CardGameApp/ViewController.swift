@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     private let cardDeck = CardDeck()
     @IBOutlet var backgroundView: BackgroundView!
     private var reverseBoxView: ReverseBoxView!
+    private var boxView: BoxView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +34,11 @@ class ViewController: UIViewController {
         let superSpace = superWidth * Unit.tenPercentOfFrame
         let space = superSpace / Unit.spaceCount
         let width = (superWidth - superSpace) / Unit.cardCount
-        let xValue = space * Unit.fromLeftSpaceOfReverseBox + width * Unit.fromLeftWidthOfReverseBox
-        self.reverseBoxView = ReverseBoxView(frame: CGRect(x: xValue, y: Unit.reverseBoxYValue, width: width * Unit.widthRatio, height: width * Unit.heightRatio))
+        let reverseBoxXValue = space * Unit.fromLeftSpaceOfReverseBox + width * Unit.fromLeftWidthOfReverseBox
+        let boxXValue = space * Unit.fromLeftSpaceOfBox + width * Unit.fromLeftWidthOfBox
+        
+        self.reverseBoxView = ReverseBoxView(frame: CGRect(x: reverseBoxXValue, y: Unit.reverseBoxYValue, width: width * Unit.widthRatio, height: width * Unit.heightRatio))
+        self.boxView = BoxView(frame: CGRect(x: boxXValue, y: Unit.reverseBoxYValue, width: width * Unit.widthRatio, height: width * Unit.heightRatio))
     }
     
     private func reverseBoxAddSubView(with cardList: [Card]) {
@@ -47,6 +51,7 @@ class ViewController: UIViewController {
     
     private func defaultSetting() {
         backgroundView.addSubview(reverseBoxView)
+        backgroundView.addSubview(boxView)
         
         cardDeck.reset()
         cardDeck.shuffle()
@@ -61,6 +66,7 @@ class ViewController: UIViewController {
     private func resetCard() {
         backgroundView.resetCard()
         reverseBoxView.removeSubView()
+        boxView.removeSubView()
         defaultSetting()
     }
 }

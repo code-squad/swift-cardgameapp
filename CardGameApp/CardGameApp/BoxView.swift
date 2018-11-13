@@ -24,19 +24,9 @@ class BoxView: UIView {
     }
     
     private func defaultSetting() {
-        let superWidth = Unit.iphone8plusWidth
-        let superSpace = superWidth * Unit.tenPercentOfFrame
-        let space = superSpace / Unit.spaceCount
-        let width = (superWidth - superSpace) / Unit.cardCount
-        let xValue = space * Unit.fromLeftSpaceOfBox + width * Unit.fromLeftWidthOfBox
-        updateFrame(xValue: xValue, width: width)
         createdObservers()
     }
 
-    private func updateFrame(xValue: CGFloat, width: CGFloat) {
-        self.frame = CGRect(x: xValue, y: Unit.reverseBoxYValue, width: width * Unit.widthRatio, height: width * Unit.heightRatio)
-    }
-    
     private func createdObservers() {
         let moveToBox = Notification.Name(NotificationKey.name.moveToBox)
         NotificationCenter.default.addObserver(self, selector: #selector(self.moveToBox(_:)), name: moveToBox, object: nil)
