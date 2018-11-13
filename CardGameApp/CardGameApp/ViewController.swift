@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     @IBOutlet var backgroundView: BackgroundView!
     private var reverseBoxView: ReverseBoxView!
     private var boxView: BoxView!
+    private let refreshImageView = RefreshImageView(image: UIImage(named: "cardgameapp-refresh-app".formatPNG))
     private let cardDeck = CardDeck()
     private let cardStack = CardStack()
     private var freeSpace: CGFloat {
@@ -25,12 +26,50 @@ class ViewController: UIViewController {
         return imageWidth
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         viewFrameSetting()
+        
+        reverseBoxView.addSubview(refreshImageView)
+        refreshImageView.setting()
+        
         addSubViewToCardStack()
         addSubViewToCardStorage()
         defaultSetting()
+    
+        createdObservers()
+    }
+    
+    private func createdObservers() {
+        let moveToBox = Notification.Name(NotificationKey.name.moveToBox)
+        NotificationCenter.default.addObserver(self, selector: #selector(moveToBox(_:)), name: moveToBox, object: nil)
+        let restore = Notification.Name(NotificationKey.name.restore)
+        NotificationCenter.default.addObserver(self, selector: #selector(restoreCard), name: restore, object: nil)
+    }
+    
+    @objc private func moveToBox(_ notification: Notification) {
+        guard let view = notification.userInfo?[NotificationKey.hash.view] as? UIView else { return }
+        boxView.addSubview(view)
+    }
+    
+    @objc private func restoreCard() {
+        var cardViewList = [CardImageView]()
+        var index = 1
+        for _ in 0..<boxView.subviews.count {
+            guard let cardView = boxView.subviews[boxView.subviews.count - index] as? CardImageView else { continue }
+            cardView.turnOver()
+            cardViewList.append(cardView)
+            index += 1
+        }
+        
+        for card in cardViewList {
+            reverseBoxView.addSubview(card)
+        }
     }
     
     private func viewFrameSetting() {

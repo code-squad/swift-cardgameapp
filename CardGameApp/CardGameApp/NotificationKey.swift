@@ -16,10 +16,8 @@ struct NotificationKey {
 struct Name {
     let moveToBox = "moveToBox"
     let restore = "restore"
-    let getBack = "getBack"
 }
 
 struct Hash {
     let view = "view"
-    let cardViewList = "cardViewList"
 }

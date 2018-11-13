@@ -9,27 +9,15 @@
 import UIKit
 
 class ReverseBoxView: UIView {
-    private let refreshImageView = RefreshImageView(image: UIImage(named: "cardgameapp-refresh-app".formatPNG))
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        defaultSetting()
+        addGesture()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        defaultSetting()
-    }
-    
-    private func defaultSetting() {
-        addRefreshImageView()
         addGesture()
-        createdObservers()
-    }
-    
-    private func addRefreshImageView() {
-        self.addSubview(refreshImageView)
-        refreshImageView.setting()
     }
     
     private func addGesture() {
@@ -41,18 +29,6 @@ class ReverseBoxView: UIView {
     @objc private func emptyCard(tapGestureRecognizer: UITapGestureRecognizer) {
         let name = Notification.Name(NotificationKey.name.restore)
         NotificationCenter.default.post(name: name, object: nil)
-    }
-    
-    private func createdObservers() {
-        let name = Notification.Name(NotificationKey.name.getBack)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.getBack(_:)), name: name, object: nil)
-    }
-    
-    @objc private func getBack(_ notification: Notification) {
-        guard let cardViewList = notification.userInfo?[NotificationKey.hash.cardViewList] as? [CardImageView] else { return }
-        for cardView in cardViewList {
-            self.addSubview(cardView)
-        }
     }
     
     func removeSubView() {
