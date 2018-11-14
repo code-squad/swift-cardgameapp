@@ -64,6 +64,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4702BA03219C2C0500092138 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				47C7FD7121821889003417E8 /* BackgroundView.swift */,
+				4702B9BF219982CF00092138 /* TableauView.swift */,
+				479FBB592188BA3E003041B3 /* WasteView.swift */,
+				47CDAD0A21883E32002725B8 /* StockView.swift */,
+				47C7FD752182B020003417E8 /* CardImageView.swift */,
+				479FBB5B2189C2AA003041B3 /* RefreshImageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4702BA04219C2C1D00092138 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				47C7FD7B2182C9C8003417E8 /* CardProperty.swift */,
+				47C7FD822182C9C9003417E8 /* Card.swift */,
+				47C7FD7A2182C9C8003417E8 /* CardDeck.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4702BA05219C2C2200092138 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4702BA06219C2C3800092138 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				471FFEDF218C16B1002F66DC /* Unit.swift */,
+				47C7FD8F2183039B003417E8 /* String+PNG.swift */,
+				47378C83218C95E300978365 /* NotificationKey.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		475E24512182082D00801BFF = {
 			isa = PBXGroup;
 			children = (
@@ -85,20 +125,12 @@
 		475E245C2182082D00801BFF /* CardGameApp */ = {
 			isa = PBXGroup;
 			children = (
-				475E24692182082E00801BFF /* Info.plist */,
+				4702BA06219C2C3800092138 /* Utility */,
+				4702BA05219C2C2200092138 /* ViewModel */,
+				4702BA03219C2C0500092138 /* View */,
+				4702BA04219C2C1D00092138 /* Model */,
 				475E245D2182082D00801BFF /* AppDelegate.swift */,
-				47C7FD7121821889003417E8 /* BackgroundView.swift */,
-				479FBB592188BA3E003041B3 /* WasteView.swift */,
-				47C7FD822182C9C9003417E8 /* Card.swift */,
-				47C7FD7A2182C9C8003417E8 /* CardDeck.swift */,
-				47C7FD752182B020003417E8 /* CardImageView.swift */,
-				47C7FD7B2182C9C8003417E8 /* CardProperty.swift */,
-				4702B9BF219982CF00092138 /* TableauView.swift */,
-				47378C83218C95E300978365 /* NotificationKey.swift */,
-				479FBB5B2189C2AA003041B3 /* RefreshImageView.swift */,
-				47CDAD0A21883E32002725B8 /* StockView.swift */,
-				47C7FD8F2183039B003417E8 /* String+PNG.swift */,
-				471FFEDF218C16B1002F66DC /* Unit.swift */,
+				475E24692182082E00801BFF /* Info.plist */,
 				475E245F2182082D00801BFF /* ViewController.swift */,
 				475E24642182082E00801BFF /* Assets.xcassets */,
 				475E24662182082E00801BFF /* LaunchScreen.storyboard */,
