@@ -14,7 +14,7 @@ struct NotificationKey {
 }
 
 struct Name {
-    let moveToBox = "moveToBox"
+    let moveToWaste = "moveToWaste"
     let restore = "restore"
 }
 

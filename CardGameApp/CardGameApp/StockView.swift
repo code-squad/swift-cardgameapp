@@ -1,5 +1,5 @@
 //
-//  ReverseBoxView.swift
+//  StockView.swift
 //  CardGameApp
 //
 //  Created by oingbong on 30/10/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ReverseBoxView: UIView {
+class StockView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

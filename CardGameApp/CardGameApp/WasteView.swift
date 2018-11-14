@@ -1,5 +1,5 @@
 //
-//  BoxView.swift
+//  WasteView.swift
 //  CardGameApp
 //
 //  Created by oingbong on 31/10/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BoxView: UIView {
+class WasteView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

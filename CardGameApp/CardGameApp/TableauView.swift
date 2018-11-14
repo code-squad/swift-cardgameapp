@@ -1,5 +1,5 @@
 //
-//  CardStack.swift
+//  TableauView.swift
 //  CardGameApp
 //
 //  Created by oingbong on 12/11/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardStack {
+class TableauView {
     private var container: [UIView]
     
     init() {

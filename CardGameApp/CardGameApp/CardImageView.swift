@@ -30,18 +30,18 @@ class CardImageView: UIImageView {
     
     @objc private func tapAction(tapGestureRecognizer: UITapGestureRecognizer) {
         turnOver()
-        moveToBox()
+        moveToWaste()
     }
     
     func turnOver() {
         self.image = card.turnOver()
     }
     
-    private func moveToBox() {
-        guard self.superview is ReverseBoxView, let superView = self.superview else { return }
+    private func moveToWaste() {
+        guard self.superview is WasteView, let superView = self.superview else { return }
         guard superView.subviews.count > 0 else { return }
         let topView = superView.subviews[superView.subviews.count - 1]
-        let name = Notification.Name(NotificationKey.name.moveToBox)
+        let name = Notification.Name(NotificationKey.name.moveToWaste)
         NotificationCenter.default.post(name: name, object: nil, userInfo: [NotificationKey.hash.view: topView])
     }
 }
