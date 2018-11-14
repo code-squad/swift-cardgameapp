@@ -38,7 +38,7 @@ class CardImageView: UIImageView {
     }
     
     private func moveToWaste() {
-        guard self.superview is WasteView, let superView = self.superview else { return }
+        guard self.superview is StockView, let superView = self.superview else { return }
         guard superView.subviews.count > 0 else { return }
         let topView = superView.subviews[superView.subviews.count - 1]
         let name = Notification.Name(NotificationKey.name.moveToWaste)
