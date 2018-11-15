@@ -73,29 +73,26 @@ class ViewController: UIViewController {
     }
     
     @objc private func moveToWaste(_ notification: Notification) {
-        if let card = stockViewModel.pop() {
-            stockView.removeTopSubView()
-            
-            wasteViewModel.push(card)
-            let rect = CGRect(x: 0, y: 0, width: wasteView.frame.width, height: wasteView.frame.height)
-            card.switchCondition(with: .front)
-            let cardView = CardImageView(card: card, frame: rect)
-            wasteView.addTopSubView(cardView)
-        }
+        guard let card = stockViewModel.pop() else { return }
+        stockView.removeTopSubView()
+        
+        wasteViewModel.push(card)
+        let rect = CGRect(x: 0, y: 0, width: wasteView.frame.width, height: wasteView.frame.height)
+        card.switchCondition(with: .front)
+        let cardView = CardImageView(card: card, frame: rect)
+        wasteView.addTopSubView(cardView)
     }
     
     @objc private func restoreCard() {
         for _ in 0..<wasteViewModel.list().count {
-            if let card = wasteViewModel.pop() {
-                // waste 모델 하나 pop 하면 view 가장 위에 삭제
-                wasteView.removeTopSubView()
-                
-                stockViewModel.push(card)
-                let rect = CGRect(x: 0, y: 0, width: stockView.frame.width, height: stockView.frame.height)
-                card.switchCondition(with: .back)
-                let cardView = CardImageView(card: card, frame: rect)
-                stockView.addTopSubView(cardView)
-            }
+            guard let card = wasteViewModel.pop() else { return }
+            wasteView.removeTopSubView()
+            
+            stockViewModel.push(card)
+            let rect = CGRect(x: 0, y: 0, width: stockView.frame.width, height: stockView.frame.height)
+            card.switchCondition(with: .back)
+            let cardView = CardImageView(card: card, frame: rect)
+            stockView.addTopSubView(cardView)
         }
     }
 }
