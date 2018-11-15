@@ -69,6 +69,12 @@ class TableauContainerView: UIView {
         let subview = self.container[index].subviews
         subview[subview.count - 1].removeFromSuperview()
     }
+    
+    func turnOverTopSubView(index: Int) {
+        let subview = self.container[index].subviews
+        guard let cardView = subview[subview.count - 1] as? CardImageView else { return }
+        cardView.turnOver()
+    }
 }
 
 extension TableauContainerView {
