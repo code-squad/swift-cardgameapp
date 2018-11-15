@@ -17,8 +17,9 @@ class WasteView: UIView {
         super.init(coder: aDecoder)
     }
     
-    func addTopSubView(_ view: UIImageView) {
+    func addTopSubView(_ view: CardImageView) {
         self.addSubview(view)
+        addGestureCardView(with: view)
     }
     
     func removeTopSubView() {
@@ -29,5 +30,14 @@ class WasteView: UIView {
         for subview in self.subviews {
             subview.removeFromSuperview()
         }
+    }
+}
+
+extension WasteView {
+    private func addGestureCardView(with view: CardImageView) {
+        let doubleTapGesture = UITapGestureRecognizer(target: view, action: #selector(view.dobuleTapActionWaste(tapGestureRecognizer:)))
+        doubleTapGesture.numberOfTapsRequired = 2
+        view.isUserInteractionEnabled = true
+        view.addGestureRecognizer(doubleTapGesture)
     }
 }

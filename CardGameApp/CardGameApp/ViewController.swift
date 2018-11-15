@@ -70,6 +70,9 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(moveToWaste(_:)), name: moveToWaste, object: nil)
         let restore = Notification.Name(NotificationKey.name.restore)
         NotificationCenter.default.addObserver(self, selector: #selector(restoreCard), name: restore, object: nil)
+        let doubleTap = Notification.Name(NotificationKey.name.doubleTap)
+        NotificationCenter.default.addObserver(self, selector: #selector(doubleTapWaste), name: doubleTap, object: WasteView.self)
+        NotificationCenter.default.addObserver(self, selector: #selector(doubleTapTableau), name: doubleTap, object: TableauContainerView.self)
     }
     
     @objc private func moveToWaste(_ notification: Notification) {
@@ -94,6 +97,14 @@ class ViewController: UIViewController {
             let cardView = CardImageView(card: card, frame: rect)
             stockView.addTopSubView(cardView)
         }
+    }
+    
+    @objc private func doubleTapWaste() {
+        
+    }
+    
+    @objc private func doubleTapTableau() {
+        
     }
 }
 

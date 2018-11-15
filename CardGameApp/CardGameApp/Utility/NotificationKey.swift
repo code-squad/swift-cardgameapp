@@ -16,6 +16,7 @@ struct NotificationKey {
 struct Name {
     let moveToWaste = "moveToWaste"
     let restore = "restore"
+    let doubleTap = "doubleTap"
 }
 
 struct Hash {
