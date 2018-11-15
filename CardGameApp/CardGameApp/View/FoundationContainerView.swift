@@ -49,4 +49,12 @@ class FoundationContainerView: UIView {
         view.frame = CGRect(x: 0, y: 0, width: self.container[index].frame.width, height: self.container[index].frame.height)
         self.container[index].addSubview(view)
     }
+    
+    func removeAllSubView() {
+        for containerView in self.container {
+            for subView in containerView.subviews {
+                subView.removeFromSuperview()
+            }
+        }
+    }
 }

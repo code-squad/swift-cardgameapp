@@ -28,6 +28,12 @@ class FoundationViewModel {
         foundationModels[index].push(card)
     }
     
+    func removeAll() {
+        for index in 0..<foundationModels.count {
+            foundationModels[index].removeAll()
+        }
+    }
+    
     func isEmpty(index: Int) -> Bool {
         return self.foundationModels[index].list().count == 0 ? true : false
     }

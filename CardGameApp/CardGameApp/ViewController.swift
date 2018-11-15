@@ -142,9 +142,11 @@ extension ViewController {
     private func reconfigure() {
         stockView.removeAllSubView()
         wasteView.removeAllSubView()
+        foundationContainerView.removeAllSubView()
         tableauContainerView.removeAllSubView()
         stockViewModel.removeAll()
         wasteViewModel.removeAll()
+        foundationViewModel.removeAll()
         tableauViewModel.removeAll()
         cardConfigure()
     }
