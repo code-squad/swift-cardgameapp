@@ -7,3 +7,19 @@
 //
 
 import Foundation
+
+class StockViewModel {
+    private var stockModel = StockModel()
+    
+    func push(_ card: Card) {
+        stockModel.push(card)
+    }
+    
+    func pop() -> Card? {
+        return stockModel.pop()
+    }
+    
+    func removeAll() {
+        stockModel.removeAll()
+    }
+}

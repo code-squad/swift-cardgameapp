@@ -12,15 +12,15 @@ class BackgroundView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        defalutBackground()
+        configure()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        defalutBackground()
+        configure()
     }
     
-    private func defalutBackground() {
+    private func configure() {
         let image = "bg_pattern".formatPNG
         guard let backgroundPattern = UIImage(named: image) else { return }
         self.backgroundColor = UIColor(patternImage: backgroundPattern)

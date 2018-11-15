@@ -9,22 +9,15 @@
 import UIKit
 
 class ViewController: UIViewController {
+    private let cardDeck = CardDeck()
     @IBOutlet var backgroundView: BackgroundView!
     private var stockView: StockView!
     private var wasteView: WasteView!
-    private let refreshImageView = RefreshImageView(image: UIImage(named: "cardgameapp-refresh-app".formatPNG))
-    private let cardDeck = CardDeck()
-    private let tableauView = TableauView()
-    private var freeSpace: CGFloat {
-        let space = backgroundView.frame.width * Unit.tenPercentOfFrame
-        let eachSpace = space / (Unit.cardCount + 1)
-        return eachSpace
-    }
-    private var imageWidth: CGFloat {
-        let viewWidthWithoutSpace = backgroundView.frame.width - backgroundView.frame.width * Unit.tenPercentOfFrame
-        let imageWidth = viewWidthWithoutSpace / Unit.cardCount
-        return imageWidth
-    }
+    private var foundationContainerView: FoundationContainerView!
+    private var tableauContainerView: TableauContainerView!
+    private var stockViewModel = StockViewModel()
+    private var wasteViewModel = WasteViewModel()
+    private var tableauViewModel = TableauViewModel()
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -32,19 +25,46 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewFrameSetting()
-        
-        stockView.addSubview(refreshImageView)
-        refreshImageView.setting()
-        
-        addSubViewToTableau()
-        addSubViewToFoundation()
-        defaultSetting()
-    
+        viewConfigure()
         createdObservers()
+        cardConfigure()
     }
     
+    private func viewConfigure() {
+        self.stockView = StockView(frame: CGRect(x: Unit.stockXValue, y: Unit.stockYValue, width: Unit.cardWidth * Unit.widthRatio, height: Unit.cardWidth * Unit.heightRatio))
+        self.wasteView = WasteView(frame: CGRect(x: Unit.wasteXValue, y: Unit.stockYValue, width: Unit.cardWidth * Unit.widthRatio, height: Unit.cardWidth * Unit.heightRatio))
+        self.tableauContainerView = TableauContainerView(frame: CGRect(x: 0, y: Unit.defalutCardsYValue, width: backgroundView.frame.width, height: backgroundView.frame.height - Unit.defalutCardsYValue))
+        self.foundationContainerView = FoundationContainerView(frame: CGRect(x: 0, y: Unit.foundationYValue, width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio))
+        backgroundView.addSubview(stockView)
+        backgroundView.addSubview(wasteView)
+        backgroundView.addSubview(tableauContainerView)
+        backgroundView.addSubview(foundationContainerView)
+    }
+    
+    private func cardConfigure() {
+        cardDeck.reset()
+        cardDeck.shuffle()
+        
+        for count in 1...Unit.cardCountNumber {
+            guard let defalutCards = cardDeck.remove(count: count) else { return }
+            for index in 0..<defalutCards.count {
+                let containerLocation = defalutCards.count - 1
+                tableauViewModel.push(defalutCards[index], index: containerLocation)
+                let rect = CGRect(x: 0, y: 0, width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio)
+                let cardView = CardImageView(card: defalutCards[index], frame: rect)
+                tableauContainerView.addTopSubView(index: containerLocation, view: cardView)
+            }
+        }
+        
+        for card in cardDeck.list() {
+            stockViewModel.push(card)
+            let rect = CGRect(x: 0, y: 0, width: stockView.frame.width, height: stockView.frame.height)
+            card.switchCondition(with: .back)
+            let cardView = CardImageView(card: card, frame: rect)
+            stockView.addTopSubView(cardView)
+        }
+    }
+
     private func createdObservers() {
         let moveToWaste = Notification.Name(NotificationKey.name.moveToWaste)
         NotificationCenter.default.addObserver(self, selector: #selector(moveToWaste(_:)), name: moveToWaste, object: nil)
@@ -53,106 +73,29 @@ class ViewController: UIViewController {
     }
     
     @objc private func moveToWaste(_ notification: Notification) {
-        guard let view = notification.userInfo?[NotificationKey.hash.view] as? UIView else { return }
-        wasteView.addSubview(view)
+        if let card = stockViewModel.pop() {
+            stockView.removeTopSubView()
+            
+            wasteViewModel.push(card)
+            let rect = CGRect(x: 0, y: 0, width: wasteView.frame.width, height: wasteView.frame.height)
+            card.switchCondition(with: .front)
+            let cardView = CardImageView(card: card, frame: rect)
+            wasteView.addTopSubView(cardView)
+        }
     }
     
     @objc private func restoreCard() {
-        var cardViewList = [CardImageView]()
-        var index = 1
-        for _ in 0..<wasteView.subviews.count {
-            guard let cardView = wasteView.subviews[wasteView.subviews.count - index] as? CardImageView else { continue }
-            cardView.turnOver()
-            cardViewList.append(cardView)
-            index += 1
-        }
-        
-        for card in cardViewList {
-            stockView.addSubview(card)
-        }
-    }
-    
-    private func viewFrameSetting() {
-        let superWidth = Unit.iphone8plusWidth
-        let superSpace = superWidth * Unit.tenPercentOfFrame
-        let space = superSpace / Unit.spaceCount
-        let width = (superWidth - superSpace) / Unit.cardCount
-        let stockXValue = space * Unit.fromLeftSpaceOfStock + width * Unit.fromLeftWidthOfStock
-        let wasteXValue = space * Unit.fromLeftSpaceOfWaste + width * Unit.fromLeftWidthOfWaste
-        
-        self.stockView = StockView(frame: CGRect(x: stockXValue, y: Unit.stockYValue, width: width * Unit.widthRatio, height: width * Unit.heightRatio))
-        self.wasteView = WasteView(frame: CGRect(x: wasteXValue, y: Unit.stockYValue, width: width * Unit.widthRatio, height: width * Unit.heightRatio))
-    }
-    
-    private func addSubViewToTableau() {
-        var xValue = freeSpace
-        for _ in 0..<Unit.cardCountNumber {
-            let mold = cardMold(xValue: xValue, yValue: Unit.defalutCardsYValue)
-            backgroundView.addSubview(mold)
-            let container = tableauContainer(xValue: xValue, yValue: Unit.defalutCardsYValue)
-            backgroundView.addSubview(container)
-            self.tableauView.append(view: container)
-            let newXValue = xValue + mold.frame.width + freeSpace
-            xValue = newXValue
-        }
-    }
-    
-    private func addSubViewToFoundation() {
-        var xValue = freeSpace
-        for _ in 0..<Unit.foundationCount {
-            let mold = cardMold(xValue: xValue, yValue: Unit.foundationYValue)
-            backgroundView.addSubview(mold)
-            let newXValue = xValue + mold.frame.width + freeSpace
-            xValue = newXValue
-        }
-    }
-    
-    private func cardMold(xValue: CGFloat, yValue: CGFloat) -> UIView {
-        let rect = CGRect(x: xValue, y: yValue, width: imageWidth * Unit.widthRatio, height: imageWidth * Unit.heightRatio)
-        let mold = UIView(frame: rect)
-        mold.layer.borderWidth = Unit.foundationBorderWidth
-        mold.layer.borderColor = Unit.foundationBorderColor
-        return mold
-    }
-    
-    private func tableauContainer(xValue: CGFloat, yValue: CGFloat) -> UIView {
-        let rect = CGRect(x: xValue, y: yValue, width: imageWidth * Unit.widthRatio, height: 400)
-        let container = UIView(frame: rect)
-        return container
-    }
-    
-    private func defaultSetting() {
-        backgroundView.addSubview(stockView)
-        backgroundView.addSubview(wasteView)
-        
-        cardDeck.reset()
-        cardDeck.shuffle()
-        
-        for count in 1...Unit.cardCountNumber {
-            guard let defalutCards = cardDeck.remove(count: count) else { return }
-            defaultAddTableau(with: defalutCards)
-        }
-        stockAddSubView(with: cardDeck.list())
-    }
-    
-    private func defaultAddTableau(with cardList: [Card]) {
-        var yValue: CGFloat = 0
-        for index in 0..<cardList.count {
-            let rect = CGRect(x: 0, y: yValue, width: imageWidth * Unit.widthRatio, height: imageWidth * Unit.heightRatio)
-            let cardImageView = CardImageView(card: cardList[index], frame: rect)
-            if index == cardList.count - 1 {
-                cardImageView.turnOver()
+        for _ in 0..<wasteViewModel.list().count {
+            if let card = wasteViewModel.pop() {
+                // waste 모델 하나 pop 하면 view 가장 위에 삭제
+                wasteView.removeTopSubView()
+                
+                stockViewModel.push(card)
+                let rect = CGRect(x: 0, y: 0, width: stockView.frame.width, height: stockView.frame.height)
+                card.switchCondition(with: .back)
+                let cardView = CardImageView(card: card, frame: rect)
+                stockView.addTopSubView(cardView)
             }
-            self.tableauView.addSubView(index: cardList.count - 1, view: cardImageView)
-            yValue += 20
-        }
-    }
-    
-    private func stockAddSubView(with cardList: [Card]) {
-        for card in cardList {
-            let rect = CGRect(x: 0, y: 0, width: stockView.frame.width, height: stockView.frame.height)
-            let cardImageView = CardImageView(card: card, frame: rect)
-            stockView.addSubview(cardImageView)
         }
     }
 }
@@ -166,14 +109,16 @@ extension ViewController {
 extension ViewController {
     override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         guard motion == .motionShake else { return }
-        resetCard()
+        reconfigure()
     }
     
-    private func resetCard() {
-        stockView.removeSubView()
-        wasteView.removeSubView()
-        tableauView.removeSubView()
-        
-        defaultSetting()
+    private func reconfigure() {
+        stockView.removeAllSubView()
+        wasteView.removeAllSubView()
+        tableauContainerView.removeAllSubView()
+        stockViewModel.removeAll()
+        wasteViewModel.removeAll()
+        tableauViewModel.removeAll()
+        cardConfigure()
     }
 }

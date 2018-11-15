@@ -7,3 +7,23 @@
 //
 
 import Foundation
+
+class WasteViewModel {
+    private var wasteModel = WasteModel()
+    
+    func push(_ card: Card) {
+        wasteModel.push(card)
+    }
+    
+    func pop() -> Card? {
+        return wasteModel.pop()
+    }
+    
+    func removeAll() {
+        wasteModel.removeAll()
+    }
+    
+    func list() -> [Card] {
+        return wasteModel.list()
+    }
+}

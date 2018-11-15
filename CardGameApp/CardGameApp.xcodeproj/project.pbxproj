@@ -7,7 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4702B9C0219982CF00092138 /* TableauView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702B9BF219982CF00092138 /* TableauView.swift */; };
+		4702B9C0219982CF00092138 /* TableauContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702B9BF219982CF00092138 /* TableauContainerView.swift */; };
+		4702BA08219C2EEA00092138 /* StockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702BA07219C2EEA00092138 /* StockModel.swift */; };
+		4702BA0A219C2F6500092138 /* StockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702BA09219C2F6500092138 /* StockViewModel.swift */; };
+		4702BA0E219C479100092138 /* WasteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702BA0D219C479100092138 /* WasteViewModel.swift */; };
+		4702BA10219C47C800092138 /* WasteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702BA0F219C47C800092138 /* WasteModel.swift */; };
+		4702BA12219C543000092138 /* TableauViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702BA11219C543000092138 /* TableauViewModel.swift */; };
+		4702BA14219C544900092138 /* TableauModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702BA13219C544900092138 /* TableauModel.swift */; };
+		4702BA18219C56EB00092138 /* FoundationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702BA17219C56EB00092138 /* FoundationViewModel.swift */; };
+		4702BA1A219C56F400092138 /* FoundationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702BA19219C56F400092138 /* FoundationModel.swift */; };
+		4702BA1C219D1D1300092138 /* FoundationContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702BA1B219D1D1300092138 /* FoundationContainerView.swift */; };
 		471FFEE0218C16B1002F66DC /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FFEDF218C16B1002F66DC /* Unit.swift */; };
 		47378C84218C95E300978365 /* NotificationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47378C83218C95E300978365 /* NotificationKey.swift */; };
 		475E245E2182082D00801BFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475E245D2182082D00801BFF /* AppDelegate.swift */; };
@@ -30,7 +39,16 @@
 /* Begin PBXFileReference section */
 		1C5E66D143B71340C75FD6E8 /* Pods_CardGameApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CardGameApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D80CF91870C870E4B1EA4B9 /* Pods-CardGameApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameApp/Pods-CardGameApp.debug.xcconfig"; sourceTree = "<group>"; };
-		4702B9BF219982CF00092138 /* TableauView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauView.swift; sourceTree = "<group>"; };
+		4702B9BF219982CF00092138 /* TableauContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauContainerView.swift; sourceTree = "<group>"; };
+		4702BA07219C2EEA00092138 /* StockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockModel.swift; sourceTree = "<group>"; };
+		4702BA09219C2F6500092138 /* StockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockViewModel.swift; sourceTree = "<group>"; };
+		4702BA0D219C479100092138 /* WasteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasteViewModel.swift; sourceTree = "<group>"; };
+		4702BA0F219C47C800092138 /* WasteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasteModel.swift; sourceTree = "<group>"; };
+		4702BA11219C543000092138 /* TableauViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauViewModel.swift; sourceTree = "<group>"; };
+		4702BA13219C544900092138 /* TableauModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableauModel.swift; sourceTree = "<group>"; };
+		4702BA17219C56EB00092138 /* FoundationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationViewModel.swift; sourceTree = "<group>"; };
+		4702BA19219C56F400092138 /* FoundationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationModel.swift; sourceTree = "<group>"; };
+		4702BA1B219D1D1300092138 /* FoundationContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationContainerView.swift; sourceTree = "<group>"; };
 		471FFEDF218C16B1002F66DC /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 		47378C83218C95E300978365 /* NotificationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationKey.swift; sourceTree = "<group>"; };
 		475E245A2182082D00801BFF /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,12 +85,13 @@
 		4702BA03219C2C0500092138 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				47C7FD7121821889003417E8 /* BackgroundView.swift */,
-				4702B9BF219982CF00092138 /* TableauView.swift */,
-				479FBB592188BA3E003041B3 /* WasteView.swift */,
-				47CDAD0A21883E32002725B8 /* StockView.swift */,
-				47C7FD752182B020003417E8 /* CardImageView.swift */,
 				479FBB5B2189C2AA003041B3 /* RefreshImageView.swift */,
+				47C7FD752182B020003417E8 /* CardImageView.swift */,
+				47C7FD7121821889003417E8 /* BackgroundView.swift */,
+				47CDAD0A21883E32002725B8 /* StockView.swift */,
+				479FBB592188BA3E003041B3 /* WasteView.swift */,
+				4702BA1B219D1D1300092138 /* FoundationContainerView.swift */,
+				4702B9BF219982CF00092138 /* TableauContainerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -83,6 +102,10 @@
 				47C7FD7B2182C9C8003417E8 /* CardProperty.swift */,
 				47C7FD822182C9C9003417E8 /* Card.swift */,
 				47C7FD7A2182C9C8003417E8 /* CardDeck.swift */,
+				4702BA07219C2EEA00092138 /* StockModel.swift */,
+				4702BA0F219C47C800092138 /* WasteModel.swift */,
+				4702BA19219C56F400092138 /* FoundationModel.swift */,
+				4702BA13219C544900092138 /* TableauModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -90,6 +113,10 @@
 		4702BA05219C2C2200092138 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4702BA09219C2F6500092138 /* StockViewModel.swift */,
+				4702BA0D219C479100092138 /* WasteViewModel.swift */,
+				4702BA17219C56EB00092138 /* FoundationViewModel.swift */,
+				4702BA11219C543000092138 /* TableauViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -275,16 +302,25 @@
 				47C7FD872182C9C9003417E8 /* CardProperty.swift in Sources */,
 				471FFEE0218C16B1002F66DC /* Unit.swift in Sources */,
 				47C7FD902183039B003417E8 /* String+PNG.swift in Sources */,
+				4702BA14219C544900092138 /* TableauModel.swift in Sources */,
+				4702BA1A219C56F400092138 /* FoundationModel.swift in Sources */,
 				475E24602182082D00801BFF /* ViewController.swift in Sources */,
 				47CDAD0B21883E32002725B8 /* StockView.swift in Sources */,
 				47378C84218C95E300978365 /* NotificationKey.swift in Sources */,
+				4702BA0E219C479100092138 /* WasteViewModel.swift in Sources */,
 				479FBB5C2189C2AA003041B3 /* RefreshImageView.swift in Sources */,
 				47C7FD862182C9C9003417E8 /* CardDeck.swift in Sources */,
+				4702BA12219C543000092138 /* TableauViewModel.swift in Sources */,
 				475E245E2182082D00801BFF /* AppDelegate.swift in Sources */,
-				4702B9C0219982CF00092138 /* TableauView.swift in Sources */,
+				4702B9C0219982CF00092138 /* TableauContainerView.swift in Sources */,
+				4702BA10219C47C800092138 /* WasteModel.swift in Sources */,
+				4702BA08219C2EEA00092138 /* StockModel.swift in Sources */,
 				479FBB5A2188BA3E003041B3 /* WasteView.swift in Sources */,
 				47C7FD762182B020003417E8 /* CardImageView.swift in Sources */,
 				47C7FD8E2182C9C9003417E8 /* Card.swift in Sources */,
+				4702BA18219C56EB00092138 /* FoundationViewModel.swift in Sources */,
+				4702BA1C219D1D1300092138 /* FoundationContainerView.swift in Sources */,
+				4702BA0A219C2F6500092138 /* StockViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

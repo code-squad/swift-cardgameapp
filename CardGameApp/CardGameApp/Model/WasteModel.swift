@@ -7,3 +7,27 @@
 //
 
 import Foundation
+
+class WasteModel {
+    private var cards = [Card]()
+    
+    var count: Int {
+        return cards.count
+    }
+    
+    func push(_ card: Card) {
+        cards.append(card)
+    }
+    
+    func pop() -> Card? {
+        return cards.popLast()
+    }
+    
+    func list() -> [Card] {
+        return cards
+    }
+    
+    func removeAll() {
+        return cards = [Card]()
+    }
+}

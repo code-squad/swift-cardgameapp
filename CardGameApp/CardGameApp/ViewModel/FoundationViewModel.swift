@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+class FoundationViewModel {
+    private var foundationModels: [FoundationModel]
+    
+    init() {
+        var modelList = [FoundationModel]()
+        for _ in 0..<Unit.foundationCount {
+            let foundationModel = FoundationModel()
+            modelList.append(foundationModel)
+        }
+        self.foundationModels = modelList
+    }
+}

@@ -17,7 +17,15 @@ class WasteView: UIView {
         super.init(coder: aDecoder)
     }
     
-    func removeSubView() {
+    func addTopSubView(_ view: UIImageView) {
+        self.addSubview(view)
+    }
+    
+    func removeTopSubView() {
+        self.subviews[subviews.count - 1].removeFromSuperview()
+    }
+    
+    func removeAllSubView() {
         for subview in self.subviews {
             subview.removeFromSuperview()
         }

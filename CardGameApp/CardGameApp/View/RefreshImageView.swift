@@ -17,7 +17,7 @@ class RefreshImageView: UIImageView {
         super.init(coder: aDecoder)
     }
     
-    func setting() {
+    func configure() {
         guard let superView = self.superview else { return }
         self.frame.size = CGSize(width: superView.frame.width * Unit.refreshRatio, height: superView.frame.height * Unit.refreshRatio)
         self.center = CGPoint(x: superView.frame.width * Unit.refreshPoint, y: superView.frame.height * Unit.refreshPoint)

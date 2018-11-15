@@ -9,15 +9,12 @@
 import UIKit
 
 class CardImageView: UIImageView {
-    private var card = Card(number: .ace, shape: .heart)
+    public var card = Card(number: .ace, shape: .heart)
     
     init(card: Card, frame: CGRect) {
         super.init(image: card.image())
         self.card = card
         self.frame = frame
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapAction(tapGestureRecognizer:)))
-        self.isUserInteractionEnabled = true
-        self.addGestureRecognizer(tapGesture)
     }
     
     override init(frame: CGRect) {
@@ -28,20 +25,14 @@ class CardImageView: UIImageView {
         super.init(coder: aDecoder)
     }
     
-    @objc private func tapAction(tapGestureRecognizer: UITapGestureRecognizer) {
-        turnOver()
-        moveToWaste()
-    }
-    
     func turnOver() {
         self.image = card.turnOver()
     }
-    
-    private func moveToWaste() {
-        guard self.superview is StockView, let superView = self.superview else { return }
-        guard superView.subviews.count > 0 else { return }
-        let topView = superView.subviews[superView.subviews.count - 1]
+}
+
+extension CardImageView {
+    @objc public func tapAction(tapGestureRecognizer: UITapGestureRecognizer) {
         let name = Notification.Name(NotificationKey.name.moveToWaste)
-        NotificationCenter.default.post(name: name, object: nil, userInfo: [NotificationKey.hash.view: topView])
+        NotificationCenter.default.post(name: name, object: nil)
     }
 }
