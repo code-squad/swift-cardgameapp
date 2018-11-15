@@ -9,7 +9,7 @@
 import UIKit
 
 class CardImageView: UIImageView {
-    public var card = Card(number: .ace, shape: .heart)
+    private var card = Card(number: .ace, shape: .heart)
     
     init(card: Card, frame: CGRect) {
         super.init(image: card.image())
