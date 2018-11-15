@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TableauView {
+class TableauContainerView {
     private var container: [UIView]
     
     init() {
