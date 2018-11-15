@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     private var tableauContainerView: TableauContainerView!
     private var stockViewModel = StockViewModel()
     private var wasteViewModel = WasteViewModel()
+    private var foundationViewModel = FoundationViewModel()
     private var tableauViewModel = TableauViewModel()
     
     deinit {
@@ -67,7 +68,7 @@ class ViewController: UIViewController {
 
     private func createdObservers() {
         let moveToWaste = Notification.Name(NotificationKey.name.moveToWaste)
-        NotificationCenter.default.addObserver(self, selector: #selector(moveToWaste(_:)), name: moveToWaste, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(moveCardToWaste), name: moveToWaste, object: nil)
         let restore = Notification.Name(NotificationKey.name.restore)
         NotificationCenter.default.addObserver(self, selector: #selector(restoreCard), name: restore, object: nil)
         let doubleTap = Notification.Name(NotificationKey.name.doubleTap)
@@ -75,7 +76,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(doubleTapTableau), name: doubleTap, object: TableauContainerView.self)
     }
     
-    @objc private func moveToWaste(_ notification: Notification) {
+    @objc private func moveCardToWaste() {
         guard let card = stockViewModel.pop() else { return }
         stockView.removeTopSubView()
         
@@ -100,11 +101,29 @@ class ViewController: UIViewController {
     }
     
     @objc private func doubleTapWaste() {
-        
+        guard let lastCard = wasteViewModel.lastCard() else { return }
+        guard lastCard.isFrontCondition() else { return }
+        if lastCard.isAce() {
+            aceEvent()
+        }
     }
     
     @objc private func doubleTapTableau() {
         
+    }
+    
+    private func aceEvent() {
+        guard let card = wasteViewModel.pop() else { return }
+        wasteView.removeTopSubView()
+        // Foundation 중 왼쪽부터 비어있는 곳에 animate
+        for index in 0..<foundationViewModel.count {
+            guard foundationViewModel.isEmpty(index: index) else { continue }
+            foundationViewModel.push(card, index: index)
+            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
+            let cardView = CardImageView(card: card, frame: rect)
+            foundationContainerView.addTopSubView(index: index, view: cardView)
+            break
+        }
     }
 }
 

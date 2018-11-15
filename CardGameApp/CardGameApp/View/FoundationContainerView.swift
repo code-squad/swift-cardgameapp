@@ -44,4 +44,9 @@ class FoundationContainerView: UIView {
         mold.layer.borderColor = Unit.foundationBorderColor
         return mold
     }
+    
+    func addTopSubView(index: Int, view: CardImageView) {
+        view.frame = CGRect(x: 0, y: 0, width: self.container[index].frame.width, height: self.container[index].frame.height)
+        self.container[index].addSubview(view)
+    }
 }

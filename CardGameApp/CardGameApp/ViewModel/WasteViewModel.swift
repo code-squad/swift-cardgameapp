@@ -26,4 +26,8 @@ class WasteViewModel {
     func list() -> [Card] {
         return wasteModel.list()
     }
+    
+    func lastCard() -> Card? {
+        return wasteModel.lastCard
+    }
 }

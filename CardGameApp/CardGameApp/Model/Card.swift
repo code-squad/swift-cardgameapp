@@ -56,6 +56,13 @@ class Card: CustomStringConvertible {
         return self.image()
     }
     
+    func isFrontCondition() -> Bool {
+        return self.condition == .front ? true : false
+    }
+    
+    func isAce() -> Bool {
+        return self.cardNumber == .ace
+    }
 }
 
 extension Card: Equatable, Comparable {

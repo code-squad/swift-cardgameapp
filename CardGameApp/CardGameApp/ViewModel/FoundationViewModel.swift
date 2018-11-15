@@ -19,4 +19,16 @@ class FoundationViewModel {
         }
         self.foundationModels = modelList
     }
+    
+    var count: Int {
+        return self.foundationModels.count
+    }
+    
+    func push(_ card: Card, index: Int) {
+        foundationModels[index].push(card)
+    }
+    
+    func isEmpty(index: Int) -> Bool {
+        return self.foundationModels[index].list().count == 0 ? true : false
+    }
 }
