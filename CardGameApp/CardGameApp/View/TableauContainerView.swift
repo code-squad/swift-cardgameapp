@@ -54,7 +54,7 @@ class TableauContainerView: UIView {
         }
         view.frame.origin = CGPoint(x: 0, y: CGFloat(yValue))
         self.container[index].addSubview(view)
-        addGestureCardView(with: view)
+        addGestureCardView(with: view, index: index)
     }
     
     func removeAllSubView() {
@@ -64,12 +64,18 @@ class TableauContainerView: UIView {
             }
         }
     }
+    
+    func removeTopSubView(index: Int) {
+        let subview = self.container[index].subviews
+        subview[subview.count - 1].removeFromSuperview()
+    }
 }
 
 extension TableauContainerView {
-    private func addGestureCardView(with view: CardImageView) {
-        let doubleTapGesture = UITapGestureRecognizer(target: view, action: #selector(view.dobuleTapActionTableau(tapGestureRecognizer:)))
+    private func addGestureCardView(with view: CardImageView, index: Int) {
+        let doubleTapGesture = CustomUITapGestureRecognizer(target: view, action: #selector(view.dobuleTapActionTableau(tapGestureRecognizer:)))
         doubleTapGesture.numberOfTapsRequired = 2
+        doubleTapGesture.index = index
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(doubleTapGesture)
     }

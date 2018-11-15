@@ -29,4 +29,14 @@ class TableauViewModel {
             tableauModels[index].removeAll()
         }
     }
+    
+    func lastCard(index: Int) -> Card? {
+        return tableauModels[index].lastCard
+    }
+}
+
+extension TableauViewModel {
+    subscript(index: Int) -> TableauModel {
+        return tableauModels[index]
+    }
 }

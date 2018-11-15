@@ -11,6 +11,13 @@ import Foundation
 class TableauModel {
     private var cards = [Card]()
     
+    var count: Int {
+        return cards.count
+    }
+    var lastCard: Card? {
+        return cards[count - 1]
+    }
+    
     func push(_ card: Card) {
         cards.append(card)
     }

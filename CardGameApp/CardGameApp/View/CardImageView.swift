@@ -41,8 +41,9 @@ extension CardImageView {
         NotificationCenter.default.post(name: name, object: WasteView.self)
     }
     
-    @objc public func dobuleTapActionTableau(tapGestureRecognizer: UITapGestureRecognizer) {
+    @objc public func dobuleTapActionTableau(tapGestureRecognizer: CustomUITapGestureRecognizer) {
         let name = Notification.Name(NotificationKey.name.doubleTap)
-        NotificationCenter.default.post(name: name, object: TableauContainerView.self)
+        let cardIndex = tapGestureRecognizer.index
+        NotificationCenter.default.post(name: name, object: TableauContainerView.self, userInfo: ["index": cardIndex])
     }
 }

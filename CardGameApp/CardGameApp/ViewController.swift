@@ -73,7 +73,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(restoreCard), name: restore, object: nil)
         let doubleTap = Notification.Name(NotificationKey.name.doubleTap)
         NotificationCenter.default.addObserver(self, selector: #selector(doubleTapWaste), name: doubleTap, object: WasteView.self)
-        NotificationCenter.default.addObserver(self, selector: #selector(doubleTapTableau), name: doubleTap, object: TableauContainerView.self)
+        NotificationCenter.default.addObserver(self, selector: #selector(doubleTapTableau(_:)), name: doubleTap, object: TableauContainerView.self)
     }
     
     @objc private func moveCardToWaste() {
@@ -108,8 +108,13 @@ class ViewController: UIViewController {
         }
     }
     
-    @objc private func doubleTapTableau() {
-        
+    @objc private func doubleTapTableau(_ notification: Notification) {
+        guard let index = notification.userInfo?["index"] as? Int else { return }
+        guard let lastCard = tableauViewModel.lastCard(index: index) else { return }
+        guard lastCard.isFrontCondition() else { return }
+        if lastCard.isAce() {
+            aceEvent2(index: index)
+        }
     }
     
     private func aceEvent() {
@@ -122,6 +127,20 @@ class ViewController: UIViewController {
             let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
             let cardView = CardImageView(card: card, frame: rect)
             foundationContainerView.addTopSubView(index: index, view: cardView)
+            break
+        }
+    }
+    
+    private func aceEvent2(index: Int) {
+        guard let card = tableauViewModel[index].pop() else { return }
+        tableauContainerView.removeTopSubView(index: index)
+        // Foundation 중 왼쪽부터 비어있는 곳에 animate
+        for containerIndex in 0..<foundationViewModel.count {
+            guard foundationViewModel.isEmpty(index: containerIndex) else { continue }
+            foundationViewModel.push(card, index: containerIndex)
+            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
+            let cardView = CardImageView(card: card, frame: rect)
+            foundationContainerView.addTopSubView(index: containerIndex, view: cardView)
             break
         }
     }
