@@ -183,6 +183,10 @@ class ViewController: UIViewController {
             guard let popCard = tableauViewModel[index].pop() else { continue }
             tableauContainerView.removeTopSubView(index: index)
             
+            if tableauContainerView.hasSubView(index: index) {
+                tableauContainerView.turnOverTopSubView(index: index) // 마지막카드 앞면 뒤집기
+            }
+            
             foundationViewModel.push(popCard, index: containerIndex)
             let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
             let cardView = CardImageView(card: popCard, frame: rect)
