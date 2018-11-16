@@ -74,9 +74,9 @@ class Card: CustomStringConvertible {
     }
     
     func isOneStepHigherWithAnotherShape(with card: Card) -> Bool {
-        let gap = card.cardNumber.rawValue - self.cardNumber.rawValue
+        let gap = self.cardNumber.rawValue - card.cardNumber.rawValue
         let anotherShape = self.isAnotherColor(with: card)
-        return gap == 1 && anotherShape ? true : false
+        return gap == -1 && anotherShape ? true : false
     }
     
     private func isAnotherColor(with anotherCard: Card) -> Bool {

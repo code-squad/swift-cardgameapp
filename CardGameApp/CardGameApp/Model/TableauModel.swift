@@ -37,4 +37,8 @@ class TableauModel {
     func info() -> Card? {
         return cards.last
     }
+    
+    func hasCard() -> Bool {
+        return cards.count > 0 ? true : false
+    }
 }

@@ -142,6 +142,7 @@ class ViewController: UIViewController {
          */
         // 1, 2
         guard let card = wasteViewModel.info() else { return }
+        
         for index in 0..<foundationViewModel.count {
             guard foundationViewModel.isOneStepLower(with: card, index: index) else { continue }
             guard let popCard = wasteViewModel.pop() else { continue }
@@ -155,6 +156,17 @@ class ViewController: UIViewController {
         }
         
         // 3, 4
+        for index in 0..<tableauViewModel.count {
+            guard tableauViewModel.isOneStepHigher(with: card, index: index) else { continue }
+            guard let popCard = wasteViewModel.pop() else { continue }
+            wasteView.removeTopSubView()
+            
+            tableauViewModel.push(popCard, index: index)
+            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
+            let cardView = CardImageView(card: popCard, frame: rect)
+            tableauContainerView.addTopSubView(index: index, view: cardView)
+            break
+        }
     }
     
     private func normalEvent2(index: Int) {
@@ -164,7 +176,6 @@ class ViewController: UIViewController {
          3. Tableau 를 돌면서 가장 위에 있는 카드가 나보다 한단계 위이며 모양(색)이 다른지 확인
          4. 조건 맞으면 그 위로 이동 / 없으면 넘어감
          */
-        // 1, 2
         guard let card = tableauViewModel[index].info() else { return }
         for containerIndex in 0..<foundationViewModel.count {
             guard index != containerIndex else { continue } // 같은 인덱스 제외 (해야되나?)
@@ -178,12 +189,29 @@ class ViewController: UIViewController {
             foundationContainerView.addTopSubView(index: containerIndex, view: cardView)
             break
         }
+        
+        for containerIndex in 0..<tableauViewModel.count {
+            guard index != containerIndex else { continue } // 같은 인덱스 제외 (해야되나?)
+            guard tableauViewModel.isOneStepHigher(with: card, index: containerIndex) else { continue }
+            guard let popCard = tableauViewModel[index].pop() else { continue }
+            tableauContainerView.removeTopSubView(index: index)
+            
+            if tableauContainerView.hasSubView(index: index) {
+                tableauContainerView.turnOverTopSubView(index: index) // 마지막카드 앞면 뒤집기
+            }
+            
+            tableauViewModel.push(popCard, index: containerIndex)
+            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
+            let cardView = CardImageView(card: popCard, frame: rect)
+            tableauContainerView.addTopSubView(index: containerIndex, view: cardView)
+            break
+        }
     }
     
     private func kingEvent() {
         for index in 0..<tableauViewModel.count {
             guard tableauViewModel.isEmpty(index: index) else { continue }
-            // 2
+
             guard let card = wasteViewModel.pop() else { return }
             wasteView.removeTopSubView()
             
@@ -198,7 +226,7 @@ class ViewController: UIViewController {
     private func kingEvent2(index: Int) {
         for containerIndex in 0..<tableauViewModel.count {
             guard tableauViewModel.isEmpty(index: containerIndex) else { continue }
-            // 2
+
             guard let card = tableauViewModel.pop(index: index) else { return }
             tableauContainerView.removeTopSubView(index: index)
             

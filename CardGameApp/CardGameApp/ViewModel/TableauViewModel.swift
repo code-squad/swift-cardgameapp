@@ -49,6 +49,12 @@ class TableauViewModel {
     func info(index: Int) -> Card? {
         return tableauModels[index].info()
     }
+    
+    func isOneStepHigher(with card: Card, index: Int) -> Bool {
+        guard tableauModels[index].hasCard() else { return false }
+        guard let lastCard = tableauModels[index].lastCard else { return false }
+        return card.isOneStepHigherWithAnotherShape(with: lastCard)
+    }
 }
 
 extension TableauViewModel {
