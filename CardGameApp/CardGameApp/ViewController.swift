@@ -108,7 +108,7 @@ class ViewController: UIViewController {
             return
         }
         if lastCard.isKing() {
-            kingEvent(deliveryVM: wasteViewModel, index: nil)
+            kingEvent(deliveryVM: wasteViewModel, deliveryView: wasteView, index: nil)
             return
         }
         normalEvent()
@@ -123,7 +123,7 @@ class ViewController: UIViewController {
             return
         }
         if lastCard.isKing() {
-            kingEvent(deliveryVM: tableauViewModel, index: index)
+            kingEvent(deliveryVM: tableauViewModel, deliveryView: tableauContainerView, index: index)
             return
         }
         normalEvent2(index: index)
@@ -204,18 +204,12 @@ class ViewController: UIViewController {
         }
     }
     
-    private func kingEvent(deliveryVM: DeliverableViewModel, index: Int?) {
+    private func kingEvent(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, index: Int?) {
         for containerIndex in 0..<tableauViewModel.count {
             guard tableauViewModel.isEmpty(index: containerIndex) else { continue }
             
             guard let card = deliveryVM.pop(index: index) else { return }
-            if deliveryVM is WasteViewModel {
-                wasteView.removeTopSubView()
-            }
-            if deliveryVM is TableauViewModel {
-                guard let idx = index else { return }
-                tableauContainerView.removeTopSubView(index: idx)
-            }
+            deliveryView.removeTopSubView(index: index)
             
             tableauViewModel.push(card, index: containerIndex)
             let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
