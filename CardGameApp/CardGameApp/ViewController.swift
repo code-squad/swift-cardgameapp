@@ -108,7 +108,7 @@ class ViewController: UIViewController {
             return
         }
         if lastCard.isKing() {
-            kingEvent()
+            kingEvent(deliveryVM: wasteViewModel, index: nil)
             return
         }
         normalEvent()
@@ -123,7 +123,7 @@ class ViewController: UIViewController {
             return
         }
         if lastCard.isKing() {
-            kingEvent2(index: index)
+            kingEvent(deliveryVM: tableauViewModel, index: index)
             return
         }
         normalEvent2(index: index)
@@ -204,27 +204,18 @@ class ViewController: UIViewController {
         }
     }
     
-    private func kingEvent() {
-        for index in 0..<tableauViewModel.count {
-            guard tableauViewModel.isEmpty(index: index) else { continue }
-
-            guard let card = wasteViewModel.pop() else { return }
-            wasteView.removeTopSubView()
-            
-            tableauViewModel.push(card, index: index)
-            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
-            let cardView = CardImageView(card: card, frame: rect)
-            tableauContainerView.addTopSubView(index: index, view: cardView)
-            break
-        }
-    }
-    
-    private func kingEvent2(index: Int) {
+    private func kingEvent(deliveryVM: DeliverableViewModel, index: Int?) {
         for containerIndex in 0..<tableauViewModel.count {
             guard tableauViewModel.isEmpty(index: containerIndex) else { continue }
-
-            guard let card = tableauViewModel.pop(index: index) else { return }
-            tableauContainerView.removeTopSubView(index: index)
+            
+            guard let card = deliveryVM.pop(index: index) else { return }
+            if deliveryVM is WasteViewModel {
+                wasteView.removeTopSubView()
+            }
+            if deliveryVM is TableauViewModel {
+                guard let idx = index else { return }
+                tableauContainerView.removeTopSubView(index: idx)
+            }
             
             tableauViewModel.push(card, index: containerIndex)
             let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
