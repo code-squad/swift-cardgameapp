@@ -41,3 +41,9 @@ extension WasteView {
         view.addGestureRecognizer(doubleTapGesture)
     }
 }
+
+extension WasteView: DeliverableView {
+    func removeTopSubView(index: Int?) {
+        self.subviews[subviews.count - 1].removeFromSuperview()
+    }
+}

@@ -93,3 +93,15 @@ extension TableauContainerView {
         view.addGestureRecognizer(doubleTapGesture)
     }
 }
+
+extension TableauContainerView: DeliverableView {
+    func removeTopSubView(index: Int?) {
+        guard let idx = index else { return }
+        
+        let subview = self.container[idx].subviews
+        subview[subview.count - 1].removeFromSuperview()
+        
+        guard hasSubView(index: idx) else { return }
+        turnOverTopSubView(index: idx)
+    }
+}

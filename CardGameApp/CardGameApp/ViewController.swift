@@ -104,7 +104,7 @@ class ViewController: UIViewController {
         guard let lastCard = wasteViewModel.lastCard() else { return }
         guard lastCard.isFrontCondition() else { return }
         if lastCard.isAce() {
-            aceEvent(deliveryVM: wasteViewModel, index: nil)
+            aceEvent(deliveryVM: wasteViewModel, deliveryView: wasteView, index: nil)
             return
         }
         if lastCard.isKing() {
@@ -119,7 +119,7 @@ class ViewController: UIViewController {
         guard let lastCard = tableauViewModel.lastCard(index: index) else { return }
         guard lastCard.isFrontCondition() else { return }
         if lastCard.isAce() {
-            aceEvent(deliveryVM: tableauViewModel, index: index)
+            aceEvent(deliveryVM: tableauViewModel, deliveryView: tableauContainerView, index: index)
             return
         }
         if lastCard.isKing() {
@@ -225,17 +225,9 @@ class ViewController: UIViewController {
         }
     }
     
-    private func aceEvent(deliveryVM: DeliverableViewModel, index: Int?) {
+    private func aceEvent(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, index: Int?) {
         guard let card = deliveryVM.pop(index: index) else { return }
-        
-        if deliveryVM is WasteViewModel {
-            wasteView.removeTopSubView()
-        }
-        if deliveryVM is TableauViewModel {
-            guard let idx = index else { return }
-            tableauContainerView.removeTopSubView(index: idx)
-        }
-        
+        deliveryView.removeTopSubView(index: index)
         for containerIndex in 0..<foundationViewModel.count {
             guard foundationViewModel.isEmpty(index: containerIndex) else { continue }
             foundationViewModel.push(card, index: containerIndex)

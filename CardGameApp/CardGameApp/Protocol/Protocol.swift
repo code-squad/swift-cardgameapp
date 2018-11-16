@@ -11,3 +11,7 @@ import Foundation
 protocol DeliverableViewModel {
     func pop(index: Int?) -> Card?
 }
+
+protocol DeliverableView {
+    func removeTopSubView(index: Int?)
+}
