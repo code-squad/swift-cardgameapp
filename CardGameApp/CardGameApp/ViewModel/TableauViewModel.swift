@@ -9,6 +9,7 @@
 import Foundation
 
 class TableauViewModel {
+
     private var tableauModels: [TableauModel]
     
     init() {
@@ -60,5 +61,12 @@ class TableauViewModel {
 extension TableauViewModel {
     subscript(index: Int) -> TableauModel {
         return tableauModels[index]
+    }
+}
+
+extension TableauViewModel: DeliverableViewModel {
+    func pop(index: Int?) -> Card? {
+        guard let idx = index else { return nil }
+        return tableauModels[idx].pop()
     }
 }

@@ -22,14 +22,14 @@ class WasteView: UIView {
         addGestureCardView(with: view)
     }
     
-    func removeTopSubView() {
-        self.subviews[subviews.count - 1].removeFromSuperview()
-    }
-    
     func removeAllSubView() {
         for subview in self.subviews {
             subview.removeFromSuperview()
         }
+    }
+    
+    func removeTopSubView() {
+        self.subviews[subviews.count - 1].removeFromSuperview()
     }
 }
 

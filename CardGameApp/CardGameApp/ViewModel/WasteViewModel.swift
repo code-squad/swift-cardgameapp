@@ -35,3 +35,9 @@ class WasteViewModel {
         return wasteModel.info()
     }
 }
+
+extension WasteViewModel: DeliverableViewModel {
+    func pop(index: Int?) -> Card? {
+        return wasteModel.pop()
+    }
+}

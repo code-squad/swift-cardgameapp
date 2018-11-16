@@ -20,6 +20,7 @@
 		471FFEE0218C16B1002F66DC /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FFEDF218C16B1002F66DC /* Unit.swift */; };
 		47378C84218C95E300978365 /* NotificationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47378C83218C95E300978365 /* NotificationKey.swift */; };
 		47474F3D219DC0F4007FE9B8 /* CustomUITapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47474F3C219DC0F4007FE9B8 /* CustomUITapGestureRecognizer.swift */; };
+		47474F3F219E978D007FE9B8 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47474F3E219E978D007FE9B8 /* Protocol.swift */; };
 		475E245E2182082D00801BFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475E245D2182082D00801BFF /* AppDelegate.swift */; };
 		475E24602182082D00801BFF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475E245F2182082D00801BFF /* ViewController.swift */; };
 		475E24632182082D00801BFF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 475E24612182082D00801BFF /* Main.storyboard */; };
@@ -53,6 +54,7 @@
 		471FFEDF218C16B1002F66DC /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 		47378C83218C95E300978365 /* NotificationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationKey.swift; sourceTree = "<group>"; };
 		47474F3C219DC0F4007FE9B8 /* CustomUITapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUITapGestureRecognizer.swift; sourceTree = "<group>"; };
+		47474F3E219E978D007FE9B8 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		475E245A2182082D00801BFF /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		475E245D2182082D00801BFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		475E245F2182082D00801BFF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +136,14 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		47474F40219E9793007FE9B8 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				47474F3E219E978D007FE9B8 /* Protocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 		475E24512182082D00801BFF = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +165,7 @@
 		475E245C2182082D00801BFF /* CardGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				47474F40219E9793007FE9B8 /* Protocol */,
 				4702BA06219C2C3800092138 /* Utility */,
 				4702BA05219C2C2200092138 /* ViewModel */,
 				4702BA03219C2C0500092138 /* View */,
@@ -315,6 +326,7 @@
 				47C7FD862182C9C9003417E8 /* CardDeck.swift in Sources */,
 				4702BA12219C543000092138 /* TableauViewModel.swift in Sources */,
 				475E245E2182082D00801BFF /* AppDelegate.swift in Sources */,
+				47474F3F219E978D007FE9B8 /* Protocol.swift in Sources */,
 				4702B9C0219982CF00092138 /* TableauContainerView.swift in Sources */,
 				4702BA10219C47C800092138 /* WasteModel.swift in Sources */,
 				4702BA08219C2EEA00092138 /* StockModel.swift in Sources */,

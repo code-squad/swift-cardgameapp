@@ -104,7 +104,7 @@ class ViewController: UIViewController {
         guard let lastCard = wasteViewModel.lastCard() else { return }
         guard lastCard.isFrontCondition() else { return }
         if lastCard.isAce() {
-            aceEvent()
+            aceEvent(deliveryVM: wasteViewModel, index: nil)
             return
         }
         if lastCard.isKing() {
@@ -119,7 +119,7 @@ class ViewController: UIViewController {
         guard let lastCard = tableauViewModel.lastCard(index: index) else { return }
         guard lastCard.isFrontCondition() else { return }
         if lastCard.isAce() {
-            aceEvent2(index: index)
+            aceEvent(deliveryVM: tableauViewModel, index: index)
             return
         }
         if lastCard.isKing() {
@@ -234,25 +234,17 @@ class ViewController: UIViewController {
         }
     }
     
-    private func aceEvent() {
-        guard let card = wasteViewModel.pop() else { return }
-        wasteView.removeTopSubView()
-        // Foundation 중 왼쪽부터 비어있는 곳에 animate
-        for index in 0..<foundationViewModel.count {
-            guard foundationViewModel.isEmpty(index: index) else { continue }
-            foundationViewModel.push(card, index: index)
-            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
-            let cardView = CardImageView(card: card, frame: rect)
-            foundationContainerView.addTopSubView(index: index, view: cardView)
-            break
+    private func aceEvent(deliveryVM: DeliverableViewModel, index: Int?) {
+        guard let card = deliveryVM.pop(index: index) else { return }
+        
+        if deliveryVM is WasteViewModel {
+            wasteView.removeTopSubView()
         }
-    }
-    
-    private func aceEvent2(index: Int) {
-        guard let card = tableauViewModel[index].pop() else { return }
-        tableauContainerView.removeTopSubView(index: index)
-
-        // Foundation 중 왼쪽부터 비어있는 곳에 animate
+        if deliveryVM is TableauViewModel {
+            guard let idx = index else { return }
+            tableauContainerView.removeTopSubView(index: idx)
+        }
+        
         for containerIndex in 0..<foundationViewModel.count {
             guard foundationViewModel.isEmpty(index: containerIndex) else { continue }
             foundationViewModel.push(card, index: containerIndex)
