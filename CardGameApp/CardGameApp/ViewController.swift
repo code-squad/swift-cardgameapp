@@ -111,7 +111,7 @@ class ViewController: UIViewController {
             kingEvent(deliveryVM: wasteViewModel, deliveryView: wasteView, index: nil)
             return
         }
-        normalEvent()
+        normalEvent(deliveryVM: wasteViewModel, deliveryView: wasteView, index: nil)
     }
     
     @objc private func doubleTapTableau(_ notification: Notification) {
@@ -126,82 +126,49 @@ class ViewController: UIViewController {
             kingEvent(deliveryVM: tableauViewModel, deliveryView: tableauContainerView, index: index)
             return
         }
-        normalEvent2(index: index)
+        normalEvent(deliveryVM: tableauViewModel, deliveryView: tableauContainerView, index: index)
     }
     
-    //    나머지 2이상 카드인 경우 왼쪽 상단에 같은 모양의 A가 있는 경우는 그 위로 이동시킨다.
-    //    상단으로 이동할 수 없는 경우, 스택 중에서 좌측부터 앞면으로 된 카드 중 가장 위에 있는 카드와 다음 조건을 확인하고 조건에 맞으면 그 위로 이동시킨다.
-    //    숫자가 하나 큰 카드가 있는지 확인한다. ex) 터치한 카드가 2인 경우 3, 10인 경우 J
-    //    모양의 색이 다른지 확인한다. ex) 터치한 카드가 ♠️♣️ 이면 ♥️♦️
-    private func normalEvent() {
-        /*
-         1. 나(waste)를 중심으로 Foundation에 한단계 아래 카드가 있는지 확인
-         2. 있으면 그 위로 이동 / 없으면 다음
-         3. Tableau 를 돌면서 가장 위에 있는 카드가 나보다 한단계 위이며 모양(색)이 다른지 확인
-         4. 조건 맞으면 그 위로 이동 / 없으면 넘어감
-         */
-        // 1, 2
-        guard let card = wasteViewModel.info() else { return }
-        
-        for index in 0..<foundationViewModel.count {
-            guard foundationViewModel.isOneStepLower(with: card, index: index) else { continue }
-            guard let popCard = wasteViewModel.pop() else { continue }
-            wasteView.removeTopSubView()
-            
-            foundationViewModel.push(popCard, index: index)
-            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
-            let cardView = CardImageView(card: popCard, frame: rect)
-            foundationContainerView.addTopSubView(index: index, view: cardView)
-            break
+    private func normalEvent(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, index: Int?) {
+        guard let card = deliveryVM.info(index: index) else { return }
+        // 카드(waste or tableau)를 중심으로 Foundation에 한단계 아래 카드가 있다면 그 위로 이동 / 없다면 다음
+        if findFoundation(deliveryVM: deliveryVM, deliveryView: deliveryView, card: card, index: index) {
+            return
         }
-        
-        // 3, 4
-        for index in 0..<tableauViewModel.count {
-            guard tableauViewModel.isOneStepHigher(with: card, index: index) else { continue }
-            guard let popCard = wasteViewModel.pop() else { continue }
-            wasteView.removeTopSubView()
-            
-            tableauViewModel.push(popCard, index: index)
-            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
-            let cardView = CardImageView(card: popCard, frame: rect)
-            tableauContainerView.addTopSubView(index: index, view: cardView)
-            break
+        // Tableau를 돌면서 가장 위에 있는 카드가 나보다 한단계 위 카드이며 색상이 다르다면 그 위로 이동 / 없으면 다음
+        if findTableau(deliveryVM: deliveryVM, deliveryView: deliveryView, card: card, index: index) {
+            return
         }
     }
     
-    private func normalEvent2(index: Int) {
-        /*
-         1. 나(tableau)를 중심으로 다른 Foundation에 한단계 아래 카드가 있는지 확인 ( 같은 인덱스 제외? )
-         2. 있으면 그 위로 이동 / 없으면 다음
-         3. Tableau 를 돌면서 가장 위에 있는 카드가 나보다 한단계 위이며 모양(색)이 다른지 확인
-         4. 조건 맞으면 그 위로 이동 / 없으면 넘어감
-         */
-        guard let card = tableauViewModel[index].info() else { return }
+    private func findFoundation(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, card: Card, index: Int?) -> Bool {
         for containerIndex in 0..<foundationViewModel.count {
-            guard index != containerIndex else { continue } // 같은 인덱스 제외 (해야되나?)
             guard foundationViewModel.isOneStepLower(with: card, index: containerIndex) else { continue }
-            guard let popCard = tableauViewModel[index].pop() else { continue }
-            tableauContainerView.removeTopSubView(index: index)
+            guard let popCard = deliveryVM.pop(index: index) else { continue }
+            deliveryView.removeTopSubView(index: index)
             
             foundationViewModel.push(popCard, index: containerIndex)
             let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
             let cardView = CardImageView(card: popCard, frame: rect)
             foundationContainerView.addTopSubView(index: containerIndex, view: cardView)
-            break
+            return true
         }
-        
+        return false
+    }
+    
+    private func findTableau(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, card: Card, index: Int?) -> Bool {
         for containerIndex in 0..<tableauViewModel.count {
-            guard index != containerIndex else { continue } // 같은 인덱스 제외 (해야되나?)
             guard tableauViewModel.isOneStepHigher(with: card, index: containerIndex) else { continue }
-            guard let popCard = tableauViewModel[index].pop() else { continue }
-            tableauContainerView.removeTopSubView(index: index)
+            guard let popCard = deliveryVM.pop(index: index) else { continue }
+            deliveryView.removeTopSubView(index: index)
             
             tableauViewModel.push(popCard, index: containerIndex)
             let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
             let cardView = CardImageView(card: popCard, frame: rect)
             tableauContainerView.addTopSubView(index: containerIndex, view: cardView)
-            break
+            return true
         }
+        return false
     }
     
     private func kingEvent(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, index: Int?) {

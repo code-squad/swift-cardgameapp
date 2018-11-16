@@ -10,6 +10,7 @@ import Foundation
 
 protocol DeliverableViewModel {
     func pop(index: Int?) -> Card?
+    func info(index: Int?) -> Card?
 }
 
 protocol DeliverableView {

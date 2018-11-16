@@ -40,4 +40,8 @@ extension WasteViewModel: DeliverableViewModel {
     func pop(index: Int?) -> Card? {
         return wasteModel.pop()
     }
+    
+    func info(index: Int?) -> Card? {
+        return wasteModel.info()
+    }
 }

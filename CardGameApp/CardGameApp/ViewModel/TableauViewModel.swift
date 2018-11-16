@@ -69,4 +69,9 @@ extension TableauViewModel: DeliverableViewModel {
         guard let idx = index else { return nil }
         return tableauModels[idx].pop()
     }
+    
+    func info(index: Int?) -> Card? {
+        guard let idx = index else { return nil }
+        return tableauModels[idx].info()
+    }
 }
