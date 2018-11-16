@@ -65,3 +65,37 @@
     
 ### 첨부파일
 ![Step3 Demo](CaptureImage/Step3Demo.gif)
+
+# Step4
+> MVVM 아키텍처 패턴 최대한 구현(리팩토링) , 더블탭 이벤트 처리
+
+### 작업 내용
+
+##### Step3 리팩토링
+1. 제가 생각하는 MVVM 아키텍처 패턴을 최대한 구현 해보았습니다.
+- 세 단계를 거쳐 리팩토링 진행하였습니다.
+1. BackgroundView에 집중된 대부분의 로직을 ViewController 로 이동
+2. MVVM 패턴 형태로 최대한 로직 분리 : 데이터 관리 추가
+3. Observe 패턴 지양 : 데이터 변경되면 Observe 패턴을 사용해 ViewModel 에서 ViewController 로 흘러가는 것을 ViewModel 에 데이터 추가될 때 View 에도 같이 추가하도록 변경 (TabGesture 는 Observe 패턴 사용)
+2. 데이터 관리
+- 이전 : 카드를 바로 View에 추가하고 삭제하는 방식
+- 변경 : 카드를 Model 과 View 동시에 추가하고 삭제하는 방식
+3. 명칭 변경
+- CardStorageView → FoundationContainerView
+- BoxView → WasteView
+- ReverseBoxView → StockView
+- CardStack → TableauContainerView
+4. CardImageView 클릭 변경
+- 이전 : CardImageView에 제스처를 등록하고 클릭하면 superView 를 확인하고 StockView 일 때만 처리
+- 변경 : StockView에 CardImageView 를 addSubview 할 때 제스처를 등록하고 클릭하면 바로 처리
+5. 뷰 크기 고정
+- 이전 : superView 에 따라 크기를 구하고 적용
+- 변경 : iPhone8+ 를 기준으로 크기를 구하고 적용
+6. containerView 정의 (Foundation, Tableau)
+- containerView 에는 각 mold 라는 명칭의 흰색 기준선이 존재하며 이 subView 는 따로 데이터 관리를 하지 않습니다. 각 containerView
+
+##### Step4
+1. 더블탭 이벤트 처리
+
+### 첨부파일
+![Step4 Demo](CaptureImage/Step4Demo.gif)
