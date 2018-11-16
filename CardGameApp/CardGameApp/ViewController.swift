@@ -119,6 +119,7 @@ class ViewController: UIViewController {
             aceEvent2(index: index)
         }
         if lastCard.isKing() {
+            kingEvent2(index: index)
         }
     }
     
@@ -133,6 +134,25 @@ class ViewController: UIViewController {
             let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
             let cardView = CardImageView(card: card, frame: rect)
             tableauContainerView.addTopSubView(index: index, view: cardView)
+            break
+        }
+    }
+    
+    private func kingEvent2(index: Int) {
+        for containerIndex in 0..<tableauViewModel.count {
+            guard tableauViewModel.isEmpty(index: containerIndex) else { continue }
+            // 2
+            guard let card = tableauViewModel.pop(index: index) else { return }
+            tableauContainerView.removeTopSubView(index: index)
+            
+            if tableauContainerView.hasSubView(index: index) {
+                tableauContainerView.turnOverTopSubView(index: index) // 마지막카드 앞면 뒤집기
+            }
+            
+            tableauViewModel.push(card, index: containerIndex)
+            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
+            let cardView = CardImageView(card: card, frame: rect)
+            tableauContainerView.addTopSubView(index: containerIndex, view: cardView)
             break
         }
     }

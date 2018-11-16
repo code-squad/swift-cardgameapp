@@ -28,6 +28,10 @@ class CardImageView: UIImageView {
     func turnOver() {
         self.image = card.turnOver()
     }
+    
+    func turnOverFront() {
+        self.image = card.turnOverFront()
+    }
 }
 
 extension CardImageView {

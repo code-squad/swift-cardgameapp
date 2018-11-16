@@ -50,7 +50,7 @@ class TableauContainerView: UIView {
         let yValue = CGFloat(count) * Unit.cardSpace
         // 가장 마지막 카드 앞면 보이게 하기
         if count == index {
-            view.turnOver()
+            view.turnOverFront()
         }
         view.frame = CGRect(x: 0, y: CGFloat(yValue), width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio)
         self.container[index].addSubview(view)

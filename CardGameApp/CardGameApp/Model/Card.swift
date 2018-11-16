@@ -56,6 +56,11 @@ class Card: CustomStringConvertible {
         return self.image()
     }
     
+    func turnOverFront() -> UIImage? {
+        self.condition = CardCondition.front
+        return self.image()
+    }
+    
     func isFrontCondition() -> Bool {
         return self.condition == .front ? true : false
     }

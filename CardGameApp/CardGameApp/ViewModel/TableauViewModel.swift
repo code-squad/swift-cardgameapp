@@ -28,6 +28,10 @@ class TableauViewModel {
         tableauModels[index].push(card)
     }
     
+    func pop(index: Int) -> Card? {
+        return tableauModels[index].pop()
+    }
+    
     func removeAll() {
         for index in 0..<tableauModels.count {
             tableauModels[index].removeAll()
