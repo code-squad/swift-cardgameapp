@@ -134,7 +134,9 @@ class ViewController: UIViewController {
     private func aceEvent2(index: Int) {
         guard let card = tableauViewModel[index].pop() else { return }
         tableauContainerView.removeTopSubView(index: index)
-        tableauContainerView.turnOverTopSubView(index: index) // 마지막카드 앞면 뒤집기
+        if tableauContainerView.hasSubView(index: index) {
+            tableauContainerView.turnOverTopSubView(index: index) // 마지막카드 앞면 뒤집기
+        }
         // Foundation 중 왼쪽부터 비어있는 곳에 animate
         for containerIndex in 0..<foundationViewModel.count {
             guard foundationViewModel.isEmpty(index: containerIndex) else { continue }

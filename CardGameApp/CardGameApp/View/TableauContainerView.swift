@@ -75,6 +75,10 @@ class TableauContainerView: UIView {
         guard let cardView = subview[subview.count - 1] as? CardImageView else { return }
         cardView.turnOver()
     }
+    
+    func hasSubView(index: Int) -> Bool {
+        return container[index].subviews.count > 0 ? true : false
+    }
 }
 
 extension TableauContainerView {
