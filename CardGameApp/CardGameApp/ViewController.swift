@@ -183,10 +183,6 @@ class ViewController: UIViewController {
             guard let popCard = tableauViewModel[index].pop() else { continue }
             tableauContainerView.removeTopSubView(index: index)
             
-            if tableauContainerView.hasSubView(index: index) {
-                tableauContainerView.turnOverTopSubView(index: index) // 마지막카드 앞면 뒤집기
-            }
-            
             foundationViewModel.push(popCard, index: containerIndex)
             let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
             let cardView = CardImageView(card: popCard, frame: rect)
@@ -199,10 +195,6 @@ class ViewController: UIViewController {
             guard tableauViewModel.isOneStepHigher(with: card, index: containerIndex) else { continue }
             guard let popCard = tableauViewModel[index].pop() else { continue }
             tableauContainerView.removeTopSubView(index: index)
-            
-            if tableauContainerView.hasSubView(index: index) {
-                tableauContainerView.turnOverTopSubView(index: index) // 마지막카드 앞면 뒤집기
-            }
             
             tableauViewModel.push(popCard, index: containerIndex)
             let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
@@ -234,10 +226,6 @@ class ViewController: UIViewController {
             guard let card = tableauViewModel.pop(index: index) else { return }
             tableauContainerView.removeTopSubView(index: index)
             
-            if tableauContainerView.hasSubView(index: index) {
-                tableauContainerView.turnOverTopSubView(index: index) // 마지막카드 앞면 뒤집기
-            }
-            
             tableauViewModel.push(card, index: containerIndex)
             let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
             let cardView = CardImageView(card: card, frame: rect)
@@ -263,9 +251,7 @@ class ViewController: UIViewController {
     private func aceEvent2(index: Int) {
         guard let card = tableauViewModel[index].pop() else { return }
         tableauContainerView.removeTopSubView(index: index)
-        if tableauContainerView.hasSubView(index: index) {
-            tableauContainerView.turnOverTopSubView(index: index) // 마지막카드 앞면 뒤집기
-        }
+
         // Foundation 중 왼쪽부터 비어있는 곳에 animate
         for containerIndex in 0..<foundationViewModel.count {
             guard foundationViewModel.isEmpty(index: containerIndex) else { continue }

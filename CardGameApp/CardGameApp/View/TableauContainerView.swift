@@ -68,6 +68,9 @@ class TableauContainerView: UIView {
     func removeTopSubView(index: Int) {
         let subview = self.container[index].subviews
         subview[subview.count - 1].removeFromSuperview()
+        
+        guard hasSubView(index: index) else { return }
+        turnOverTopSubView(index: index)
     }
     
     func turnOverTopSubView(index: Int) {
