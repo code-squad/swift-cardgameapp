@@ -45,6 +45,10 @@ class TableauViewModel {
     func isEmpty(index: Int) -> Bool {
         return self.tableauModels[index].list().count == 0 ? true : false
     }
+    
+    func info(index: Int) -> Card? {
+        return tableauModels[index].info()
+    }
 }
 
 extension TableauViewModel {

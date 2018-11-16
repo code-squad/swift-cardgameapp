@@ -37,4 +37,20 @@ class FoundationViewModel {
     func isEmpty(index: Int) -> Bool {
         return self.foundationModels[index].list().count == 0 ? true : false
     }
+    
+    private func lastCard(index: Int) -> Card? {
+        return foundationModels[index].lastCard
+    }
+    
+    func isOneStepLower(with card: Card, index: Int) -> Bool {
+        guard foundationModels[index].hasCard() else { return false }
+        guard let lastCard = foundationModels[index].lastCard else { return false }
+        return card.isOneStepLowerWithEqualShape(with: lastCard)
+    }
+}
+
+extension FoundationViewModel {
+    subscript(index: Int) -> FoundationModel {
+        return foundationModels[index]
+    }
 }

@@ -11,6 +11,13 @@ import Foundation
 class FoundationModel {
     private var cards = [Card]()
     
+    var count: Int {
+        return cards.count
+    }
+    var lastCard: Card? {
+        return cards[count - 1]
+    }
+    
     func push(_ card: Card) {
         cards.append(card)
     }
@@ -25,5 +32,9 @@ class FoundationModel {
     
     func removeAll() {
         return cards = [Card]()
+    }
+    
+    func hasCard() -> Bool {
+        return cards.count > 0 ? true : false
     }
 }

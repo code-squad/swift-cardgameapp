@@ -30,4 +30,8 @@ class WasteViewModel {
     func lastCard() -> Card? {
         return wasteModel.lastCard
     }
+    
+    func info() -> Card? {
+        return wasteModel.info()
+    }
 }

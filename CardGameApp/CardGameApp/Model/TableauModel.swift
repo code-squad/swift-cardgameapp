@@ -33,4 +33,8 @@ class TableauModel {
     func removeAll() {
         return cards = [Card]()
     }
+    
+    func info() -> Card? {
+        return cards.last
+    }
 }

@@ -105,10 +105,13 @@ class ViewController: UIViewController {
         guard lastCard.isFrontCondition() else { return }
         if lastCard.isAce() {
             aceEvent()
+            return
         }
         if lastCard.isKing() {
             kingEvent()
+            return
         }
+        normalEvent()
     }
     
     @objc private func doubleTapTableau(_ notification: Notification) {
@@ -117,9 +120,63 @@ class ViewController: UIViewController {
         guard lastCard.isFrontCondition() else { return }
         if lastCard.isAce() {
             aceEvent2(index: index)
+            return
         }
         if lastCard.isKing() {
             kingEvent2(index: index)
+            return
+        }
+        normalEvent2(index: index)
+    }
+    
+    //    나머지 2이상 카드인 경우 왼쪽 상단에 같은 모양의 A가 있는 경우는 그 위로 이동시킨다.
+    //    상단으로 이동할 수 없는 경우, 스택 중에서 좌측부터 앞면으로 된 카드 중 가장 위에 있는 카드와 다음 조건을 확인하고 조건에 맞으면 그 위로 이동시킨다.
+    //    숫자가 하나 큰 카드가 있는지 확인한다. ex) 터치한 카드가 2인 경우 3, 10인 경우 J
+    //    모양의 색이 다른지 확인한다. ex) 터치한 카드가 ♠️♣️ 이면 ♥️♦️
+    private func normalEvent() {
+        /*
+         1. 나(waste)를 중심으로 Foundation에 한단계 아래 카드가 있는지 확인
+         2. 있으면 그 위로 이동 / 없으면 다음
+         3. Tableau 를 돌면서 가장 위에 있는 카드가 나보다 한단계 위이며 모양(색)이 다른지 확인
+         4. 조건 맞으면 그 위로 이동 / 없으면 넘어감
+         */
+        // 1, 2
+        guard let card = wasteViewModel.info() else { return }
+        for index in 0..<foundationViewModel.count {
+            guard foundationViewModel.isOneStepLower(with: card, index: index) else { continue }
+            guard let popCard = wasteViewModel.pop() else { continue }
+            wasteView.removeTopSubView()
+            
+            foundationViewModel.push(popCard, index: index)
+            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
+            let cardView = CardImageView(card: popCard, frame: rect)
+            foundationContainerView.addTopSubView(index: index, view: cardView)
+            break
+        }
+        
+        // 3, 4
+    }
+    
+    private func normalEvent2(index: Int) {
+        /*
+         1. 나(tableau)를 중심으로 다른 Foundation에 한단계 아래 카드가 있는지 확인 ( 같은 인덱스 제외? )
+         2. 있으면 그 위로 이동 / 없으면 다음
+         3. Tableau 를 돌면서 가장 위에 있는 카드가 나보다 한단계 위이며 모양(색)이 다른지 확인
+         4. 조건 맞으면 그 위로 이동 / 없으면 넘어감
+         */
+        // 1, 2
+        guard let card = tableauViewModel[index].info() else { return }
+        for containerIndex in 0..<foundationViewModel.count {
+            guard index != containerIndex else { continue } // 같은 인덱스 제외 (해야되나?)
+            guard foundationViewModel.isOneStepLower(with: card, index: containerIndex) else { continue }
+            guard let popCard = tableauViewModel[index].pop() else { continue }
+            tableauContainerView.removeTopSubView(index: index)
+            
+            foundationViewModel.push(popCard, index: containerIndex)
+            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
+            let cardView = CardImageView(card: popCard, frame: rect)
+            foundationContainerView.addTopSubView(index: containerIndex, view: cardView)
+            break
         }
     }
     

@@ -41,7 +41,7 @@ class Card: CustomStringConvertible {
         }
         
         guard let shape = self.cardShape.rawValue.first else { return nil }
-        let number = self.cardNumber.rawValue
+        let number = self.cardNumber.description
         let cardName = String(shape) + number
         guard let cardImage = UIImage(named: cardName.formatPNG) else { return nil }
         return cardImage
@@ -72,6 +72,23 @@ class Card: CustomStringConvertible {
     func isKing() -> Bool {
         return self.cardNumber == .king
     }
+    
+    func isOneStepHigherWithAnotherShape(with card: Card) -> Bool {
+        let gap = card.cardNumber.rawValue - self.cardNumber.rawValue
+        let anotherShape = self.isAnotherColor(with: card)
+        return gap == 1 && anotherShape ? true : false
+    }
+    
+    private func isAnotherColor(with anotherCard: Card) -> Bool {
+        return self.cardShape.description != anotherCard.cardShape.description ? true : false
+    }
+    
+    func isOneStepLowerWithEqualShape(with card: Card) -> Bool {
+        let gap = card.cardNumber.rawValue - self.cardNumber.rawValue
+        let equalShape = self.cardShape == card.cardShape
+        return gap == -1 && equalShape ? true : false
+    }
+    
 }
 
 extension Card: Equatable, Comparable {
