@@ -106,6 +106,9 @@ class ViewController: UIViewController {
         if lastCard.isAce() {
             aceEvent()
         }
+        if lastCard.isKing() {
+            kingEvent()
+        }
     }
     
     @objc private func doubleTapTableau(_ notification: Notification) {
@@ -114,6 +117,23 @@ class ViewController: UIViewController {
         guard lastCard.isFrontCondition() else { return }
         if lastCard.isAce() {
             aceEvent2(index: index)
+        }
+        if lastCard.isKing() {
+        }
+    }
+    
+    private func kingEvent() {
+        for index in 0..<tableauViewModel.count {
+            guard tableauViewModel.isEmpty(index: index) else { continue }
+            // 2
+            guard let card = wasteViewModel.pop() else { return }
+            wasteView.removeTopSubView()
+            
+            tableauViewModel.push(card, index: index)
+            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
+            let cardView = CardImageView(card: card, frame: rect)
+            tableauContainerView.addTopSubView(index: index, view: cardView)
+            break
         }
     }
     

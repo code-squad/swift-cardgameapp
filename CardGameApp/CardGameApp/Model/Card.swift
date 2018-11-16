@@ -63,6 +63,10 @@ class Card: CustomStringConvertible {
     func isAce() -> Bool {
         return self.cardNumber == .ace
     }
+    
+    func isKing() -> Bool {
+        return self.cardNumber == .king
+    }
 }
 
 extension Card: Equatable, Comparable {

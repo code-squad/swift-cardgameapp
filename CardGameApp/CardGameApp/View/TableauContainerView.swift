@@ -52,7 +52,7 @@ class TableauContainerView: UIView {
         if count == index {
             view.turnOver()
         }
-        view.frame.origin = CGPoint(x: 0, y: CGFloat(yValue))
+        view.frame = CGRect(x: 0, y: CGFloat(yValue), width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio)
         self.container[index].addSubview(view)
         addGestureCardView(with: view, index: index)
     }

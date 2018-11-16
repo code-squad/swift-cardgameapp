@@ -20,6 +20,10 @@ class TableauViewModel {
         self.tableauModels = modelList
     }
     
+    var count: Int {
+        return self.tableauModels.count
+    }
+    
     func push(_ card: Card, index: Int) {
         tableauModels[index].push(card)
     }
@@ -32,6 +36,10 @@ class TableauViewModel {
     
     func lastCard(index: Int) -> Card? {
         return tableauModels[index].lastCard
+    }
+    
+    func isEmpty(index: Int) -> Bool {
+        return self.tableauModels[index].list().count == 0 ? true : false
     }
 }
 
