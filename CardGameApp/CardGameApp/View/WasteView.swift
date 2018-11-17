@@ -19,21 +19,6 @@ class WasteView: UIView {
         super.init(coder: aDecoder)
     }
     
-    func addTopSubView(_ view: CardImageView) {
-        self.addSubview(view)
-        addGestureCardView(with: view)
-    }
-    
-    func removeAllSubView() {
-        for subview in self.subviews {
-            subview.removeFromSuperview()
-        }
-    }
-    
-    private func removeTopSubView() {
-        self.subviews[subviews.count - 1].removeFromSuperview()
-    }
-    
     func draw() {
         removeAllSubView()
         addAllSubView()
@@ -47,6 +32,12 @@ class WasteView: UIView {
             let cardView = CardImageView(card: card, frame: rect)
             addGestureCardView(with: cardView)
             self.addSubview(cardView)
+        }
+    }
+    
+    private func removeAllSubView() {
+        for subview in self.subviews {
+            subview.removeFromSuperview()
         }
     }
 }
