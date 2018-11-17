@@ -16,3 +16,7 @@ protocol DeliverableViewModel {
 protocol DeliverableView {
     func removeTopSubView(index: Int?)
 }
+
+protocol StockDataSource {
+    func list() -> CardStack
+}

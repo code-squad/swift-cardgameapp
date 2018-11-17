@@ -10,6 +10,7 @@ import UIKit
 
 class StockView: UIView {
     private let refreshImageView = RefreshImageView(image: UIImage(named: Unit.refreshImage.formatPNG))
+    var dataSource: StockDataSource?
     
     override init(frame: CGRect) {
         let superWidth = Unit.iphone8plusWidth
@@ -37,20 +38,27 @@ class StockView: UIView {
         refreshImageView.configure()
     }
     
-    func addTopSubView(_ view: CardImageView) {
-        addGestureCardView(with: view)
-        self.addSubview(view)
+    func draw() {
+        removeAllSubView()
+        addAllSubView()
     }
     
-    func removeTopSubView() {
-        self.subviews[subviews.count - 1].removeFromSuperview()
-    }
-    
-    func removeAllSubView() {
+    private func removeAllSubView() {
         for subview in self.subviews {
             // RefreshImageView를 제외한 CardImageView만 제거
             guard let cardView = subview as? CardImageView else { continue }
             cardView.removeFromSuperview()
+        }
+    }
+    
+    private func addAllSubView() {
+        guard let cardStack = dataSource?.list() else { return }
+        for card in cardStack.list() {
+            card.switchCondition(with: .back)
+            let rect = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+            let cardView = CardImageView(card: card, frame: rect)
+            addGestureCardView(with: cardView)
+            self.addSubview(cardView)
         }
     }
 }

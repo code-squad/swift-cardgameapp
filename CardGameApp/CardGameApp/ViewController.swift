@@ -43,6 +43,8 @@ class ViewController: UIViewController {
     }
     
     private func cardConfigure() {
+        stockView.dataSource = stockViewModel
+        
         cardDeck.reset()
         cardDeck.shuffle()
         
@@ -59,11 +61,8 @@ class ViewController: UIViewController {
         
         for card in cardDeck.list() {
             stockViewModel.push(card)
-            let rect = CGRect(x: 0, y: 0, width: stockView.frame.width, height: stockView.frame.height)
-            card.switchCondition(with: .back)
-            let cardView = CardImageView(card: card, frame: rect)
-            stockView.addTopSubView(cardView)
         }
+        stockView.draw()
     }
 
     private func createdObservers() {
@@ -78,7 +77,7 @@ class ViewController: UIViewController {
     
     @objc private func moveCardToWaste() {
         guard let card = stockViewModel.pop() else { return }
-        stockView.removeTopSubView()
+        stockView.draw()
         
         wasteViewModel.push(card)
         let rect = CGRect(x: 0, y: 0, width: wasteView.frame.width, height: wasteView.frame.height)
@@ -93,11 +92,8 @@ class ViewController: UIViewController {
             wasteView.removeTopSubView()
             
             stockViewModel.push(card)
-            let rect = CGRect(x: 0, y: 0, width: stockView.frame.width, height: stockView.frame.height)
-            card.switchCondition(with: .back)
-            let cardView = CardImageView(card: card, frame: rect)
-            stockView.addTopSubView(cardView)
         }
+        stockView.draw()
     }
     
     @objc private func doubleTapWaste() {
@@ -213,11 +209,11 @@ extension ViewController {
     }
     
     private func reconfigure() {
-        stockView.removeAllSubView()
         wasteView.removeAllSubView()
         foundationContainerView.removeAllSubView()
         tableauContainerView.removeAllSubView()
         stockViewModel.removeAll()
+        stockView.draw()
         wasteViewModel.removeAll()
         foundationViewModel.removeAll()
         tableauViewModel.removeAll()

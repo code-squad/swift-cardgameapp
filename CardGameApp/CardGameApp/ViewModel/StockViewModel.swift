@@ -23,3 +23,9 @@ class StockViewModel {
         stockModel.removeAll()
     }
 }
+
+extension StockViewModel: StockDataSource {
+    func list() -> CardStack {
+        return stockModel
+    }
+}
