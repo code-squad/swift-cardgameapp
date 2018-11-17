@@ -20,3 +20,7 @@ protocol DeliverableView {
 protocol SingleDataSource {
     func cardStack() -> CardStack
 }
+
+protocol MultipleDataSource {
+    func cardStackList() -> [CardStack]
+}

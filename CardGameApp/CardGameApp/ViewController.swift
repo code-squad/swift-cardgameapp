@@ -45,6 +45,8 @@ class ViewController: UIViewController {
     private func cardConfigure() {
         stockView.dataSource = stockViewModel
         wasteView.dataSource = wasteViewModel
+        foundationContainerView.dataSource = foundationViewModel
+        tableauContainerView.dataSource = tableauViewModel
         
         cardDeck.reset()
         cardDeck.shuffle()
@@ -54,11 +56,9 @@ class ViewController: UIViewController {
             for index in 0..<defalutCards.count {
                 let containerLocation = defalutCards.count - 1
                 tableauViewModel.push(defalutCards[index], index: containerLocation)
-                let rect = CGRect(x: 0, y: 0, width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio)
-                let cardView = CardImageView(card: defalutCards[index], frame: rect)
-                tableauContainerView.addTopSubView(index: containerLocation, view: cardView)
             }
         }
+        tableauContainerView.draw()
         
         for card in cardDeck.list() {
             stockViewModel.push(card)
@@ -141,9 +141,7 @@ class ViewController: UIViewController {
             deliveryView.removeTopSubView(index: index)
             
             foundationViewModel.push(popCard, index: containerIndex)
-            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
-            let cardView = CardImageView(card: popCard, frame: rect)
-            foundationContainerView.addTopSubView(index: containerIndex, view: cardView)
+            foundationContainerView.draw()
             return true
         }
         return false
@@ -156,9 +154,7 @@ class ViewController: UIViewController {
             deliveryView.removeTopSubView(index: index)
             
             tableauViewModel.push(popCard, index: containerIndex)
-            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
-            let cardView = CardImageView(card: popCard, frame: rect)
-            tableauContainerView.addTopSubView(index: containerIndex, view: cardView)
+            tableauContainerView.draw()
             return true
         }
         return false
@@ -172,9 +168,7 @@ class ViewController: UIViewController {
             deliveryView.removeTopSubView(index: index)
             
             tableauViewModel.push(card, index: containerIndex)
-            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
-            let cardView = CardImageView(card: card, frame: rect)
-            tableauContainerView.addTopSubView(index: containerIndex, view: cardView)
+            tableauContainerView.draw()
             break
         }
     }
@@ -185,9 +179,7 @@ class ViewController: UIViewController {
         for containerIndex in 0..<foundationViewModel.count {
             guard foundationViewModel.isEmpty(index: containerIndex) else { continue }
             foundationViewModel.push(card, index: containerIndex)
-            let rect = CGRect(x: 0, y: 0, width: 0, height: 0)
-            let cardView = CardImageView(card: card, frame: rect)
-            foundationContainerView.addTopSubView(index: containerIndex, view: cardView)
+            foundationContainerView.draw()
             break
         }
     }
@@ -206,14 +198,14 @@ extension ViewController {
     }
     
     private func reconfigure() {
-        foundationContainerView.removeAllSubView()
-        tableauContainerView.removeAllSubView()
         stockViewModel.removeAll()
         stockView.draw()
         wasteViewModel.removeAll()
         wasteView.draw()
         foundationViewModel.removeAll()
+        foundationContainerView.draw()
         tableauViewModel.removeAll()
+        tableauContainerView.draw()
         cardConfigure()
     }
 }

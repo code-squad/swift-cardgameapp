@@ -9,6 +9,7 @@
 import UIKit
 
 class TableauContainerView: UIView {
+    var dataSource: MultipleDataSource?
     // 카드몰드는 배열에도 속하지 않고 그냥 모양을 나타내기 위해 addSubView만 합니다.
     private var container = [UIView]()
     
@@ -45,26 +46,6 @@ class TableauContainerView: UIView {
         return mold
     }
     
-    func addTopSubView(index: Int, view: CardImageView) {
-        let count = self.container[index].subviews.count
-        let yValue = CGFloat(count) * Unit.cardSpace
-        // 가장 마지막 카드 앞면 보이게 하기
-        if count == index {
-            view.turnOverFront()
-        }
-        view.frame = CGRect(x: 0, y: CGFloat(yValue), width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio)
-        self.container[index].addSubview(view)
-        addGestureCardView(with: view, index: index)
-    }
-    
-    func removeAllSubView() {
-        for containerView in self.container {
-            for subView in containerView.subviews {
-                subView.removeFromSuperview()
-            }
-        }
-    }
-    
     func removeTopSubView(index: Int) {
         let subview = self.container[index].subviews
         subview[subview.count - 1].removeFromSuperview()
@@ -81,6 +62,39 @@ class TableauContainerView: UIView {
     
     func hasSubView(index: Int) -> Bool {
         return container[index].subviews.count > 0 ? true : false
+    }
+    
+    func draw() {
+        removeAllSubView()
+        addAllSubView()
+    }
+    
+    private func removeAllSubView() {
+        for containerView in self.container {
+            for subView in containerView.subviews {
+                subView.removeFromSuperview()
+            }
+        }
+    }
+    
+    private func addAllSubView() {
+        guard let cardStackList = dataSource?.cardStackList() else { return }
+        for largeIndex in 0..<cardStackList.count {
+            for index in 0..<cardStackList[largeIndex].list().count {
+                let count = self.container[largeIndex].subviews.count
+                let yValue = CGFloat(count) * Unit.cardSpace
+                let card = cardStackList[largeIndex].list()[index]
+                
+                if count == largeIndex {
+                    card.switchCondition(with: .front)
+                }
+                
+                let rect = CGRect(x: 0, y: yValue, width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio)
+                let cardView = CardImageView(card: card, frame: rect)
+                self.container[largeIndex].addSubview(cardView)
+                addGestureCardView(with: cardView, index: largeIndex)
+            }
+        }
     }
 }
 

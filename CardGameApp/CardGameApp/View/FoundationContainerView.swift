@@ -9,6 +9,7 @@
 import UIKit
 
 class FoundationContainerView: UIView {
+    var dataSource: MultipleDataSource?
     // 카드몰드는 배열에도 속하지 않고 그냥 모양을 나타내기 위해 addSubView만 합니다.
     private var container = [UIView]()
     
@@ -45,15 +46,27 @@ class FoundationContainerView: UIView {
         return mold
     }
     
-    func addTopSubView(index: Int, view: CardImageView) {
-        view.frame = CGRect(x: 0, y: 0, width: self.container[index].frame.width, height: self.container[index].frame.height)
-        self.container[index].addSubview(view)
+    func draw() {
+        removeAllSubView()
+        addAllSubView()
     }
     
-    func removeAllSubView() {
+    private func removeAllSubView() {
         for containerView in self.container {
             for subView in containerView.subviews {
                 subView.removeFromSuperview()
+            }
+        }
+    }
+    
+    private func addAllSubView() {
+        guard let cardStackList = dataSource?.cardStackList() else { return }
+        for largeIndex in 0..<cardStackList.count {
+            for index in 0..<cardStackList[largeIndex].list().count {
+                let card = cardStackList[largeIndex].list()[index]
+                let rect = CGRect(x: 0, y: 0, width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio)
+                let cardView = CardImageView(card: card, frame: rect)
+                self.container[largeIndex].addSubview(cardView)
             }
         }
     }

@@ -74,3 +74,9 @@ extension TableauViewModel: DeliverableViewModel {
         return tableauModels[idx].info()
     }
 }
+
+extension TableauViewModel: MultipleDataSource {
+    func cardStackList() -> [CardStack] {
+        return tableauModels
+    }
+}

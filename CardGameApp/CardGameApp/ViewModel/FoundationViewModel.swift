@@ -54,3 +54,9 @@ extension FoundationViewModel {
         return foundationModels[index]
     }
 }
+
+extension FoundationViewModel: MultipleDataSource {
+    func cardStackList() -> [CardStack] {
+        return foundationModels
+    }
+}
