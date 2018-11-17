@@ -37,12 +37,21 @@ class WasteViewModel {
 }
 
 extension WasteViewModel: DeliverableViewModel {
+    
     func pop(index: Int?) -> Card? {
         return wasteModel.pop()
     }
     
     func info(index: Int?) -> Card? {
         return wasteModel.info()
+    }
+    
+    func lastCard(index: Int?) -> Card? {
+        return wasteModel.lastCard
+    }
+    
+    func hasCard(index: Int?) -> Bool {
+        return wasteModel.count > 0 ? true : false
     }
 }
 

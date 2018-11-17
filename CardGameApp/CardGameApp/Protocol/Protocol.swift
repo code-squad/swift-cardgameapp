@@ -11,10 +11,12 @@ import Foundation
 protocol DeliverableViewModel {
     func pop(index: Int?) -> Card?
     func info(index: Int?) -> Card?
+    func lastCard(index: Int?) -> Card?
+    func hasCard(index: Int?) -> Bool
 }
 
 protocol DeliverableView {
-    func removeTopSubView(index: Int?)
+    func draw()
 }
 
 protocol SingleDataSource {

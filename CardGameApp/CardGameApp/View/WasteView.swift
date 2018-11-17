@@ -52,7 +52,9 @@ extension WasteView {
 }
 
 extension WasteView: DeliverableView {
-    func removeTopSubView(index: Int?) {
-        self.subviews[subviews.count - 1].removeFromSuperview()
+    func draw(index: Int?) {
+//        self.subviews[subviews.count - 1].removeFromSuperview()
+        removeAllSubView()
+        addAllSubView()
     }
 }

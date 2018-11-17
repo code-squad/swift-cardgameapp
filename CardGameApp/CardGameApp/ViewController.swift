@@ -79,7 +79,6 @@ class ViewController: UIViewController {
     @objc private func moveCardToWaste() {
         guard let card = stockViewModel.pop() else { return }
         stockView.draw()
-        
         wasteViewModel.push(card)
         wasteView.draw()
     }
@@ -138,8 +137,10 @@ class ViewController: UIViewController {
         for containerIndex in 0..<foundationViewModel.count {
             guard foundationViewModel.isOneStepLower(with: card, index: containerIndex) else { continue }
             guard let popCard = deliveryVM.pop(index: index) else { continue }
-            deliveryView.removeTopSubView(index: index)
-            
+            if deliveryVM.hasCard(index: index), let lastCard = deliveryVM.lastCard(index: index) {
+                lastCard.switchCondition(with: .front)
+            }
+            deliveryView.draw()
             foundationViewModel.push(popCard, index: containerIndex)
             foundationContainerView.draw()
             return true
@@ -151,8 +152,10 @@ class ViewController: UIViewController {
         for containerIndex in 0..<tableauViewModel.count {
             guard tableauViewModel.isOneStepHigher(with: card, index: containerIndex) else { continue }
             guard let popCard = deliveryVM.pop(index: index) else { continue }
-            deliveryView.removeTopSubView(index: index)
-            
+            if deliveryVM.hasCard(index: index), let lastCard = deliveryVM.lastCard(index: index) {
+                lastCard.switchCondition(with: .front)
+            }
+            deliveryView.draw()
             tableauViewModel.push(popCard, index: containerIndex)
             tableauContainerView.draw()
             return true
@@ -163,10 +166,11 @@ class ViewController: UIViewController {
     private func kingEvent(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, index: Int?) {
         for containerIndex in 0..<tableauViewModel.count {
             guard tableauViewModel.isEmpty(index: containerIndex) else { continue }
-            
             guard let card = deliveryVM.pop(index: index) else { return }
-            deliveryView.removeTopSubView(index: index)
-            
+            if deliveryVM.hasCard(index: index), let lastCard = deliveryVM.lastCard(index: index) {
+                lastCard.switchCondition(with: .front)
+            }
+            deliveryView.draw()
             tableauViewModel.push(card, index: containerIndex)
             tableauContainerView.draw()
             break
@@ -175,7 +179,10 @@ class ViewController: UIViewController {
     
     private func aceEvent(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, index: Int?) {
         guard let card = deliveryVM.pop(index: index) else { return }
-        deliveryView.removeTopSubView(index: index)
+        if deliveryVM.hasCard(index: index), let lastCard = deliveryVM.lastCard(index: index) {
+            lastCard.switchCondition(with: .front)
+        }
+        deliveryView.draw()
         for containerIndex in 0..<foundationViewModel.count {
             guard foundationViewModel.isEmpty(index: containerIndex) else { continue }
             foundationViewModel.push(card, index: containerIndex)

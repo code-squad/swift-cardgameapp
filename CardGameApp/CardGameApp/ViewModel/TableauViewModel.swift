@@ -73,6 +73,16 @@ extension TableauViewModel: DeliverableViewModel {
         guard let idx = index else { return nil }
         return tableauModels[idx].info()
     }
+    
+    func lastCard(index: Int?) -> Card? {
+        guard let idx = index else { return nil }
+        return tableauModels[idx].lastCard
+    }
+    
+    func hasCard(index: Int?) -> Bool {
+        guard let idx = index else { return false }
+        return tableauModels[idx].count > 0 ? true : false
+    }
 }
 
 extension TableauViewModel: MultipleDataSource {
