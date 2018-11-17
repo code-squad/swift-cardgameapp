@@ -9,12 +9,12 @@
 import Foundation
 
 class FoundationViewModel {
-    private var foundationModels: [FoundationModel]
+    private var foundationModels: [CardStack]
     
     init() {
-        var modelList = [FoundationModel]()
+        var modelList = [CardStack]()
         for _ in 0..<Unit.foundationCount {
-            let foundationModel = FoundationModel()
+            let foundationModel = CardStack()
             modelList.append(foundationModel)
         }
         self.foundationModels = modelList
@@ -50,7 +50,7 @@ class FoundationViewModel {
 }
 
 extension FoundationViewModel {
-    subscript(index: Int) -> FoundationModel {
+    subscript(index: Int) -> CardStack {
         return foundationModels[index]
     }
 }

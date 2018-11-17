@@ -9,13 +9,12 @@
 import Foundation
 
 class TableauViewModel {
-
-    private var tableauModels: [TableauModel]
+    private var tableauModels: [CardStack]
     
     init() {
-        var modelList = [TableauModel]()
+        var modelList = [CardStack]()
         for _ in 0..<Unit.tableauCount {
-            let tableauModel = TableauModel()
+            let tableauModel = CardStack()
             modelList.append(tableauModel)
         }
         self.tableauModels = modelList
@@ -59,7 +58,7 @@ class TableauViewModel {
 }
 
 extension TableauViewModel {
-    subscript(index: Int) -> TableauModel {
+    subscript(index: Int) -> CardStack {
         return tableauModels[index]
     }
 }

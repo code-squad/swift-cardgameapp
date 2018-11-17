@@ -9,7 +9,7 @@
 import Foundation
 
 class WasteViewModel {
-    private var wasteModel = WasteModel()
+    private var wasteModel = CardStack()
     
     func push(_ card: Card) {
         wasteModel.push(card)

@@ -9,7 +9,7 @@
 import Foundation
 
 class StockViewModel {
-    private var stockModel = StockModel()
+    private var stockModel = CardStack()
     
     func push(_ card: Card) {
         stockModel.push(card)

@@ -1,14 +1,14 @@
 //
-//  WasteModel.swift
+//  CardStack.swift
 //  CardGameApp
 //
-//  Created by oingbong on 14/11/2018.
+//  Created by oingbong on 17/11/2018.
 //  Copyright © 2018 oingbong. All rights reserved.
 //
 
 import Foundation
 
-class WasteModel {
+struct CardStack {
     private var cards = [Card]()
     
     var count: Int {
@@ -18,11 +18,11 @@ class WasteModel {
         return cards[count - 1]
     }
     
-    func push(_ card: Card) {
+    mutating func push(_ card: Card) {
         cards.append(card)
     }
     
-    func pop() -> Card? {
+    mutating func pop() -> Card? {
         return cards.popLast()
     }
     
@@ -30,11 +30,15 @@ class WasteModel {
         return cards
     }
     
-    func removeAll() {
+    mutating func removeAll() {
         return cards = [Card]()
     }
     
     func info() -> Card? {
         return cards.last
+    }
+    
+    func hasCard() -> Bool {
+        return cards.count > 0 ? true : false
     }
 }
