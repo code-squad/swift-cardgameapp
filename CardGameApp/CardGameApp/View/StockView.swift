@@ -9,7 +9,7 @@
 import UIKit
 
 class StockView: UIView {
-    private let refreshImageView = RefreshImageView(image: UIImage(named: "cardgameapp-refresh-app".formatPNG))
+    private let refreshImageView = RefreshImageView(image: UIImage(named: Unit.refreshImage.formatPNG))
     
     override init(frame: CGRect) {
         let superWidth = Unit.iphone8plusWidth

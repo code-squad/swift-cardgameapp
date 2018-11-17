@@ -36,7 +36,7 @@ class Card: CustomStringConvertible {
     
     func image() -> UIImage? {
         if self.condition == .back {
-            let image = "card-back".formatPNG
+            let image = Unit.cardBack.formatPNG
             return UIImage(named: image)
         }
         

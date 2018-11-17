@@ -21,7 +21,7 @@ class BackgroundView: UIView {
     }
     
     private func configure() {
-        let image = "bg_pattern".formatPNG
+        let image = Unit.bgPattern.formatPNG
         guard let backgroundPattern = UIImage(named: image) else { return }
         self.backgroundColor = UIColor(patternImage: backgroundPattern)
     }
