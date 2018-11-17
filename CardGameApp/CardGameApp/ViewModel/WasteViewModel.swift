@@ -45,3 +45,9 @@ extension WasteViewModel: DeliverableViewModel {
         return wasteModel.info()
     }
 }
+
+extension WasteViewModel: SingleDataSource {
+    func cardStack() -> CardStack {
+        return wasteModel
+    }
+}

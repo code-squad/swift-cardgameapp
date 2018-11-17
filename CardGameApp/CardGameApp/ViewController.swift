@@ -44,6 +44,7 @@ class ViewController: UIViewController {
     
     private func cardConfigure() {
         stockView.dataSource = stockViewModel
+        wasteView.dataSource = wasteViewModel
         
         cardDeck.reset()
         cardDeck.shuffle()
@@ -80,19 +81,15 @@ class ViewController: UIViewController {
         stockView.draw()
         
         wasteViewModel.push(card)
-        let rect = CGRect(x: 0, y: 0, width: wasteView.frame.width, height: wasteView.frame.height)
-        card.switchCondition(with: .front)
-        let cardView = CardImageView(card: card, frame: rect)
-        wasteView.addTopSubView(cardView)
+        wasteView.draw()
     }
     
     @objc private func restoreCard() {
         for _ in 0..<wasteViewModel.list().count {
             guard let card = wasteViewModel.pop() else { return }
-            wasteView.removeTopSubView()
-            
             stockViewModel.push(card)
         }
+        wasteView.draw()
         stockView.draw()
     }
     
@@ -209,12 +206,12 @@ extension ViewController {
     }
     
     private func reconfigure() {
-        wasteView.removeAllSubView()
         foundationContainerView.removeAllSubView()
         tableauContainerView.removeAllSubView()
         stockViewModel.removeAll()
         stockView.draw()
         wasteViewModel.removeAll()
+        wasteView.draw()
         foundationViewModel.removeAll()
         tableauViewModel.removeAll()
         cardConfigure()

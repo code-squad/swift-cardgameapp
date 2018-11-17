@@ -24,8 +24,8 @@ class StockViewModel {
     }
 }
 
-extension StockViewModel: StockDataSource {
-    func list() -> CardStack {
+extension StockViewModel: SingleDataSource {
+    func cardStack() -> CardStack {
         return stockModel
     }
 }

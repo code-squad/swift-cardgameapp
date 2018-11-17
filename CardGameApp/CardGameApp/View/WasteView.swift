@@ -9,6 +9,8 @@
 import UIKit
 
 class WasteView: UIView {
+    var dataSource: SingleDataSource?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -28,8 +30,24 @@ class WasteView: UIView {
         }
     }
     
-    func removeTopSubView() {
+    private func removeTopSubView() {
         self.subviews[subviews.count - 1].removeFromSuperview()
+    }
+    
+    func draw() {
+        removeAllSubView()
+        addAllSubView()
+    }
+    
+    private func addAllSubView() {
+        guard let cardStack = dataSource?.cardStack() else { return }
+        for card in cardStack.list() {
+            let rect = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+            card.switchCondition(with: .front)
+            let cardView = CardImageView(card: card, frame: rect)
+            addGestureCardView(with: cardView)
+            self.addSubview(cardView)
+        }
     }
 }
 

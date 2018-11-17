@@ -10,7 +10,7 @@ import UIKit
 
 class StockView: UIView {
     private let refreshImageView = RefreshImageView(image: UIImage(named: Unit.refreshImage.formatPNG))
-    var dataSource: StockDataSource?
+    var dataSource: SingleDataSource?
     
     override init(frame: CGRect) {
         let superWidth = Unit.iphone8plusWidth
@@ -52,7 +52,7 @@ class StockView: UIView {
     }
     
     private func addAllSubView() {
-        guard let cardStack = dataSource?.list() else { return }
+        guard let cardStack = dataSource?.cardStack() else { return }
         for card in cardStack.list() {
             card.switchCondition(with: .back)
             let rect = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
