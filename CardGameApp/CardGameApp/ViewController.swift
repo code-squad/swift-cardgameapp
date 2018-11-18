@@ -26,12 +26,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewConfigure()
-        createdObservers()
-        cardConfigure()
+        configureView()
+        configureDataSource()
+        configureCard()
+        configureObservers()
     }
     
-    private func viewConfigure() {
+    private func configureView() {
         self.stockView = StockView(frame: CGRect(x: Unit.stockXValue, y: Unit.stockYValue, width: Unit.cardWidth * Unit.widthRatio, height: Unit.cardWidth * Unit.heightRatio))
         self.wasteView = WasteView(frame: CGRect(x: Unit.wasteXValue, y: Unit.stockYValue, width: Unit.cardWidth * Unit.widthRatio, height: Unit.cardWidth * Unit.heightRatio))
         self.tableauContainerView = TableauContainerView(frame: CGRect(x: 0, y: Unit.defalutCardsYValue, width: backgroundView.frame.width, height: backgroundView.frame.height - Unit.defalutCardsYValue))
@@ -42,12 +43,14 @@ class ViewController: UIViewController {
         backgroundView.addSubview(foundationContainerView)
     }
     
-    private func cardConfigure() {
+    private func configureDataSource() {
         stockView.dataSource = stockViewModel
         wasteView.dataSource = wasteViewModel
         foundationContainerView.dataSource = foundationViewModel
         tableauContainerView.dataSource = tableauViewModel
-        
+    }
+    
+    private func configureCard() {
         cardDeck.reset()
         cardDeck.shuffle()
         
@@ -66,14 +69,13 @@ class ViewController: UIViewController {
         stockView.draw()
     }
 
-    private func createdObservers() {
+    private func configureObservers() {
         let moveToWaste = Notification.Name(NotificationKey.name.moveToWaste)
         NotificationCenter.default.addObserver(self, selector: #selector(moveCardToWaste), name: moveToWaste, object: nil)
         let restore = Notification.Name(NotificationKey.name.restore)
         NotificationCenter.default.addObserver(self, selector: #selector(restoreCard), name: restore, object: nil)
         let doubleTap = Notification.Name(NotificationKey.name.doubleTap)
-        NotificationCenter.default.addObserver(self, selector: #selector(doubleTapWaste), name: doubleTap, object: WasteView.self)
-        NotificationCenter.default.addObserver(self, selector: #selector(doubleTapTableau(_:)), name: doubleTap, object: TableauContainerView.self)
+        NotificationCenter.default.addObserver(self, selector: #selector(doubleTapCard(_:)), name: doubleTap, object: nil)
     }
     
     @objc private func moveCardToWaste() {
@@ -91,52 +93,68 @@ class ViewController: UIViewController {
         wasteView.draw()
         stockView.draw()
     }
-    
-    @objc private func doubleTapWaste() {
-        guard let lastCard = wasteViewModel.lastCard() else { return }
+
+    @objc private func doubleTapCard(_ notification: Notification) {
+        let delivery = configureDelivery(notification)
+        guard let lastCard = delivery.viewModel.lastCard(index: delivery.index) else { return }
         guard lastCard.isFrontCondition() else { return }
         if lastCard.isAce() {
-            aceEvent(deliveryVM: wasteViewModel, deliveryView: wasteView, index: nil)
+            aceEvent(with: delivery)
             return
         }
         if lastCard.isKing() {
-            kingEvent(deliveryVM: wasteViewModel, deliveryView: wasteView, index: nil)
+            kingEvent(with: delivery)
             return
         }
-        normalEvent(deliveryVM: wasteViewModel, deliveryView: wasteView, index: nil)
+        normalEvent(with: delivery)
     }
     
-    @objc private func doubleTapTableau(_ notification: Notification) {
-        guard let index = notification.userInfo?["index"] as? Int else { return }
-        guard let lastCard = tableauViewModel.lastCard(index: index) else { return }
-        guard lastCard.isFrontCondition() else { return }
-        if lastCard.isAce() {
-            aceEvent(deliveryVM: tableauViewModel, deliveryView: tableauContainerView, index: index)
-            return
+    private func configureDelivery(_ notification: Notification) -> Delivery {
+        // from waste
+        var delivery = Delivery(viewModel: wasteViewModel, view: wasteView, index: nil)
+        if let idx = notification.userInfo?["index"] as? Int {
+            // from tableau
+            delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: idx)
         }
-        if lastCard.isKing() {
-            kingEvent(deliveryVM: tableauViewModel, deliveryView: tableauContainerView, index: index)
-            return
-        }
-        normalEvent(deliveryVM: tableauViewModel, deliveryView: tableauContainerView, index: index)
+        return delivery
     }
     
-    private func normalEvent(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, index: Int?) {
-        guard let card = deliveryVM.info(index: index) else { return }
+    private func aceEvent(with delivery: Delivery) {
+        for containerIndex in 0..<foundationViewModel.count {
+            guard foundationViewModel.isEmpty(index: containerIndex) else { continue }
+            guard let card = popDeliveryCard(with: delivery) else { continue }
+            foundationViewModel.push(card, index: containerIndex)
+            foundationContainerView.draw()
+            break
+        }
+    }
+    
+    private func kingEvent(with delivery: Delivery) {
+        for containerIndex in 0..<tableauViewModel.count {
+            guard tableauViewModel.isEmpty(index: containerIndex) else { continue }
+            guard let card = popDeliveryCard(with: delivery) else { continue }
+            tableauViewModel.push(card, index: containerIndex)
+            tableauContainerView.draw()
+            break
+        }
+    }
+    
+    private func normalEvent(with delivery: Delivery) {
+        guard let card = delivery.viewModel.info(index: delivery.index) else { return }
         // 카드(waste or tableau)를 중심으로 Foundation에 한단계 아래 카드가 있다면 그 위로 이동 / 없다면 다음
-        if findFoundation(deliveryVM: deliveryVM, deliveryView: deliveryView, card: card, index: index) {
+        if findFoundation(with: delivery, card: card) {
             return
         }
         // Tableau를 돌면서 가장 위에 있는 카드가 나보다 한단계 위 카드이며 색상이 다르다면 그 위로 이동 / 없으면 다음
-        if findTableau(deliveryVM: deliveryVM, deliveryView: deliveryView, card: card, index: index) {
+        if findTableau(with: delivery, card: card) {
             return
         }
     }
     
-    private func findFoundation(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, card: Card, index: Int?) -> Bool {
+    private func findFoundation(with delivery: Delivery, card: Card) -> Bool {
         for containerIndex in 0..<foundationViewModel.count {
             guard foundationViewModel.isOneStepLower(with: card, index: containerIndex) else { continue }
-            guard let popCard = popDeliveryCard(deliveryVM: deliveryVM, deliveryView: deliveryView, index: index) else { continue }
+            guard let popCard = popDeliveryCard(with: delivery) else { continue }
             foundationViewModel.push(popCard, index: containerIndex)
             foundationContainerView.draw()
             return true
@@ -144,10 +162,10 @@ class ViewController: UIViewController {
         return false
     }
     
-    private func findTableau(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, card: Card, index: Int?) -> Bool {
+    private func findTableau(with delivery: Delivery, card: Card) -> Bool {
         for containerIndex in 0..<tableauViewModel.count {
             guard tableauViewModel.isOneStepHigher(with: card, index: containerIndex) else { continue }
-            guard let popCard = popDeliveryCard(deliveryVM: deliveryVM, deliveryView: deliveryView, index: index) else { continue }
+            guard let popCard = popDeliveryCard(with: delivery) else { continue }
             tableauViewModel.push(popCard, index: containerIndex)
             tableauContainerView.draw()
             return true
@@ -155,32 +173,12 @@ class ViewController: UIViewController {
         return false
     }
     
-    private func kingEvent(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, index: Int?) {
-        for containerIndex in 0..<tableauViewModel.count {
-            guard tableauViewModel.isEmpty(index: containerIndex) else { continue }
-            guard let card = popDeliveryCard(deliveryVM: deliveryVM, deliveryView: deliveryView, index: index) else { return }
-            tableauViewModel.push(card, index: containerIndex)
-            tableauContainerView.draw()
-            break
-        }
-    }
-    
-    private func aceEvent(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, index: Int?) {
-        for containerIndex in 0..<foundationViewModel.count {
-            guard foundationViewModel.isEmpty(index: containerIndex) else { continue }
-            guard let card = popDeliveryCard(deliveryVM: deliveryVM, deliveryView: deliveryView, index: index) else { return }
-            foundationViewModel.push(card, index: containerIndex)
-            foundationContainerView.draw()
-            break
-        }
-    }
-    
-    private func popDeliveryCard(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, index: Int?) -> Card? {
-        guard let card = deliveryVM.pop(index: index) else { return nil }
-        if deliveryVM.hasCard(index: index), let lastCard = deliveryVM.lastCard(index: index) {
+    private func popDeliveryCard(with delivery: Delivery) -> Card? {
+        guard let card = delivery.viewModel.pop(index: delivery.index) else { return nil }
+        if delivery.viewModel.hasCard(index: delivery.index), let lastCard = delivery.viewModel.lastCard(index: delivery.index) {
             lastCard.flipCondition(with: .front)
         }
-        deliveryView.draw()
+        delivery.view.draw()
         return card
     }
 }
@@ -206,6 +204,6 @@ extension ViewController {
         foundationContainerView.draw()
         tableauViewModel.removeAll()
         tableauContainerView.draw()
-        cardConfigure()
+        configureCard()
     }
 }

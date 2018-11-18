@@ -23,6 +23,7 @@
 		475E24652182082E00801BFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 475E24642182082E00801BFF /* Assets.xcassets */; };
 		475E24682182082E00801BFF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 475E24662182082E00801BFF /* LaunchScreen.storyboard */; };
 		478D350B21A01229005208FB /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478D350A21A01229005208FB /* CardStack.swift */; };
+		478D350D21A12519005208FB /* DTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478D350C21A12519005208FB /* DTO.swift */; };
 		479FBB5A2188BA3E003041B3 /* WasteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479FBB592188BA3E003041B3 /* WasteView.swift */; };
 		479FBB5C2189C2AA003041B3 /* RefreshImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479FBB5B2189C2AA003041B3 /* RefreshImageView.swift */; };
 		47C7FD7221821889003417E8 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD7121821889003417E8 /* BackgroundView.swift */; };
@@ -56,6 +57,7 @@
 		475E24672182082E00801BFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		475E24692182082E00801BFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		478D350A21A01229005208FB /* CardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
+		478D350C21A12519005208FB /* DTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTO.swift; sourceTree = "<group>"; };
 		479FBB592188BA3E003041B3 /* WasteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WasteView.swift; sourceTree = "<group>"; };
 		479FBB5B2189C2AA003041B3 /* RefreshImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshImageView.swift; sourceTree = "<group>"; };
 		47C7FD7121821889003417E8 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				47474F3E219E978D007FE9B8 /* Protocol.swift */,
+				478D350C21A12519005208FB /* DTO.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				475E24602182082D00801BFF /* ViewController.swift in Sources */,
 				47CDAD0B21883E32002725B8 /* StockView.swift in Sources */,
 				478D350B21A01229005208FB /* CardStack.swift in Sources */,
+				478D350D21A12519005208FB /* DTO.swift in Sources */,
 				47378C84218C95E300978365 /* NotificationKey.swift in Sources */,
 				4702BA0E219C479100092138 /* WasteViewModel.swift in Sources */,
 				479FBB5C2189C2AA003041B3 /* RefreshImageView.swift in Sources */,
