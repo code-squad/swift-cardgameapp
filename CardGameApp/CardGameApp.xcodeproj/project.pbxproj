@@ -121,6 +121,7 @@
 		4702BA06219C2C3800092138 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				478D350C21A12519005208FB /* DTO.swift */,
 				471FFEDF218C16B1002F66DC /* Unit.swift */,
 				47C7FD8F2183039B003417E8 /* String+PNG.swift */,
 				47378C83218C95E300978365 /* NotificationKey.swift */,
@@ -133,7 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				47474F3E219E978D007FE9B8 /* Protocol.swift */,
-				478D350C21A12519005208FB /* DTO.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -165,8 +165,8 @@
 				4702BA03219C2C0500092138 /* View */,
 				4702BA04219C2C1D00092138 /* Model */,
 				475E245D2182082D00801BFF /* AppDelegate.swift */,
-				475E24692182082E00801BFF /* Info.plist */,
 				475E245F2182082D00801BFF /* ViewController.swift */,
+				475E24692182082E00801BFF /* Info.plist */,
 				475E24642182082E00801BFF /* Assets.xcassets */,
 				475E24662182082E00801BFF /* LaunchScreen.storyboard */,
 				475E24612182082D00801BFF /* Main.storyboard */,
