@@ -178,7 +178,7 @@ class ViewController: UIViewController {
     private func popDeliveryCard(deliveryVM: DeliverableViewModel, deliveryView: DeliverableView, index: Int?) -> Card? {
         guard let card = deliveryVM.pop(index: index) else { return nil }
         if deliveryVM.hasCard(index: index), let lastCard = deliveryVM.lastCard(index: index) {
-            lastCard.switchCondition(with: .front)
+            lastCard.flipCondition(with: .front)
         }
         deliveryView.draw()
         return card

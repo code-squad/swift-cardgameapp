@@ -68,7 +68,7 @@ class TableauContainerView: UIView {
                 let card = cardStackList[largeIndex].list()[index]
                 
                 if count == largeIndex {
-                    card.switchCondition(with: .front)
+                    card.flipCondition(with: .front)
                 }
                 
                 let cardView = CardImageView(frame: CGRect(x: 0, y: yValue, width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio))

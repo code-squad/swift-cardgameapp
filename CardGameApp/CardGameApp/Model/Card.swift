@@ -47,18 +47,8 @@ class Card: CustomStringConvertible {
         return cardImage
     }
     
-    func switchCondition(with condition: CardCondition) {
+    func flipCondition(with condition: CardCondition) {
         self.condition = condition
-    }
-    
-    func turnOver() -> UIImage? {
-        self.condition = self.condition == CardCondition.back ? CardCondition.front : CardCondition.back
-        return self.image()
-    }
-    
-    func turnOverFront() -> UIImage? {
-        self.condition = CardCondition.front
-        return self.image()
     }
     
     func isFrontCondition() -> Bool {

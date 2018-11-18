@@ -27,7 +27,7 @@ class WasteView: UIView {
     private func addAllSubView() {
         guard let cardStack = dataSource?.cardStack() else { return }
         for card in cardStack.list() {
-            card.switchCondition(with: .front)
+            card.flipCondition(with: .front)
             let cardView = CardImageView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
             cardView.image = card.image()
             addGestureCardView(with: cardView)
