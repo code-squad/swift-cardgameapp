@@ -20,5 +20,5 @@ struct Name {
 }
 
 struct Hash {
-    let view = "view"
+    let index = "index"
 }

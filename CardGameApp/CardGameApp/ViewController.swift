@@ -113,7 +113,7 @@ class ViewController: UIViewController {
     private func configureDelivery(_ notification: Notification) -> Delivery {
         // from waste
         var delivery = Delivery(viewModel: wasteViewModel, view: wasteView, index: nil)
-        if let idx = notification.userInfo?["index"] as? Int {
+        if let idx = notification.userInfo?[NotificationKey.hash.index] as? Int {
             // from tableau
             delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: idx)
         }
