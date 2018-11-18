@@ -13,13 +13,7 @@ class StockView: UIView {
     var dataSource: SingleDataSource?
     
     override init(frame: CGRect) {
-        let superWidth = Unit.iphone8plusWidth
-        let superSpace = superWidth * Unit.tenPercentOfFrame
-        let space = superSpace / Unit.spaceCount
-        let width = (superWidth - superSpace) / Unit.cardCount
-        let stockXValue = space * Unit.fromLeftSpaceOfStock + width * Unit.fromLeftWidthOfStock
-        let newFrame = CGRect(x: stockXValue, y: Unit.stockYValue, width: width * Unit.widthRatio, height: width * Unit.heightRatio)
-        super.init(frame: newFrame)
+        super.init(frame: frame)
         configure()
     }
     
