@@ -11,32 +11,25 @@ import Foundation
 class WasteViewModel {
     private var wasteModel = CardStack()
     
-    func push(_ card: Card) {
-        wasteModel.push(card)
+    func list() -> [Card] {
+        return wasteModel.list()
     }
-    
-    func pop() -> Card? {
-        return wasteModel.pop()
+}
+
+extension WasteViewModel: SingleDataSource {
+    func cardStack() -> CardStack {
+        return wasteModel
+    }
+}
+
+extension WasteViewModel: DeliverableViewModel {
+    func push(card: Card, index: Int?) {
+        wasteModel.push(card)
     }
     
     func removeAll() {
         wasteModel.removeAll()
     }
-    
-    func list() -> [Card] {
-        return wasteModel.list()
-    }
-    
-    func lastCard() -> Card? {
-        return wasteModel.lastCard
-    }
-    
-    func info() -> Card? {
-        return wasteModel.info()
-    }
-}
-
-extension WasteViewModel: DeliverableViewModel {
     
     func pop(index: Int?) -> Card? {
         return wasteModel.pop()
@@ -49,14 +42,8 @@ extension WasteViewModel: DeliverableViewModel {
     func lastCard(index: Int?) -> Card? {
         return wasteModel.lastCard
     }
-    
+
     func hasCard(index: Int?) -> Bool {
         return wasteModel.count > 0 ? true : false
-    }
-}
-
-extension WasteViewModel: SingleDataSource {
-    func cardStack() -> CardStack {
-        return wasteModel
     }
 }

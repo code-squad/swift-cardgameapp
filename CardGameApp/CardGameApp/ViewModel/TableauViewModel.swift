@@ -24,30 +24,8 @@ class TableauViewModel {
         return self.tableauModels.count
     }
     
-    func push(_ card: Card, index: Int) {
-        tableauModels[index].push(card)
-    }
-    
-    func pop(index: Int) -> Card? {
-        return tableauModels[index].pop()
-    }
-    
-    func removeAll() {
-        for index in 0..<tableauModels.count {
-            tableauModels[index].removeAll()
-        }
-    }
-    
-    func lastCard(index: Int) -> Card? {
-        return tableauModels[index].lastCard
-    }
-    
     func isEmpty(index: Int) -> Bool {
         return self.tableauModels[index].list().count == 0 ? true : false
-    }
-    
-    func info(index: Int) -> Card? {
-        return tableauModels[index].info()
     }
     
     func isOneStepHigher(with card: Card, index: Int) -> Bool {
@@ -63,7 +41,24 @@ extension TableauViewModel {
     }
 }
 
+extension TableauViewModel: MultipleDataSource {
+    func cardStackList() -> [CardStack] {
+        return tableauModels
+    }
+}
+
 extension TableauViewModel: DeliverableViewModel {
+    func push(card: Card, index: Int?) {
+        guard let idx = index else { return }
+        tableauModels[idx].push(card)
+    }
+    
+    func removeAll() {
+        for index in 0..<tableauModels.count {
+            tableauModels[index].removeAll()
+        }
+    }
+    
     func pop(index: Int?) -> Card? {
         guard let idx = index else { return nil }
         return tableauModels[idx].pop()
@@ -82,11 +77,5 @@ extension TableauViewModel: DeliverableViewModel {
     func hasCard(index: Int?) -> Bool {
         guard let idx = index else { return false }
         return tableauModels[idx].count > 0 ? true : false
-    }
-}
-
-extension TableauViewModel: MultipleDataSource {
-    func cardStackList() -> [CardStack] {
-        return tableauModels
     }
 }

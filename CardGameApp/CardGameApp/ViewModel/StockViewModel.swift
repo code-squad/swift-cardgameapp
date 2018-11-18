@@ -11,21 +11,23 @@ import Foundation
 class StockViewModel {
     private var stockModel = CardStack()
     
-    func push(_ card: Card) {
-        stockModel.push(card)
-    }
-    
     func pop() -> Card? {
         return stockModel.pop()
-    }
-    
-    func removeAll() {
-        stockModel.removeAll()
     }
 }
 
 extension StockViewModel: SingleDataSource {
     func cardStack() -> CardStack {
         return stockModel
+    }
+}
+
+extension StockViewModel: BasicViewModel {
+    func push(card: Card, index: Int?) {
+        stockModel.push(card)
+    }
+    
+    func removeAll() {
+        stockModel.removeAll()
     }
 }

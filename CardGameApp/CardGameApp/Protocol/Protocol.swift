@@ -8,7 +8,12 @@
 
 import Foundation
 
-protocol DeliverableViewModel {
+protocol BasicViewModel {
+    func push(card: Card, index: Int?)
+    func removeAll()
+}
+
+protocol DeliverableViewModel: BasicViewModel {
     func pop(index: Int?) -> Card?
     func info(index: Int?) -> Card?
     func lastCard(index: Int?) -> Card?

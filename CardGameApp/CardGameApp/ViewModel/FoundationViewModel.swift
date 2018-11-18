@@ -17,29 +17,15 @@ class FoundationViewModel {
             let foundationModel = CardStack()
             modelList.append(foundationModel)
         }
-        self.foundationModels = modelList
+        foundationModels = modelList
     }
     
     var count: Int {
-        return self.foundationModels.count
-    }
-    
-    func push(_ card: Card, index: Int) {
-        foundationModels[index].push(card)
-    }
-    
-    func removeAll() {
-        for index in 0..<foundationModels.count {
-            foundationModels[index].removeAll()
-        }
+        return foundationModels.count
     }
     
     func isEmpty(index: Int) -> Bool {
-        return self.foundationModels[index].list().count == 0 ? true : false
-    }
-    
-    private func lastCard(index: Int) -> Card? {
-        return foundationModels[index].lastCard
+        return foundationModels[index].list().count == 0 ? true : false
     }
     
     func isOneStepLower(with card: Card, index: Int) -> Bool {
@@ -58,5 +44,18 @@ extension FoundationViewModel {
 extension FoundationViewModel: MultipleDataSource {
     func cardStackList() -> [CardStack] {
         return foundationModels
+    }
+}
+
+extension FoundationViewModel: BasicViewModel {
+    func push(card: Card, index: Int?) {
+        guard let idx = index else { return }
+        foundationModels[idx].push(card)
+    }
+    
+    func removeAll() {
+        for index in 0..<foundationModels.count {
+            foundationModels[index].removeAll()
+        }
     }
 }

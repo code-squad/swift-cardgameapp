@@ -57,14 +57,14 @@ class ViewController: UIViewController {
         for count in 1...Unit.cardCountNumber {
             guard let defalutCards = cardDeck.remove(count: count) else { return }
             for index in 0..<defalutCards.count {
-                let containerLocation = defalutCards.count - 1
-                tableauViewModel.push(defalutCards[index], index: containerLocation)
+                let containerIndex = defalutCards.count - 1
+                tableauViewModel.push(card: defalutCards[index], index: containerIndex)
             }
         }
         tableauContainerView.draw()
         
         for card in cardDeck.list() {
-            stockViewModel.push(card)
+            stockViewModel.push(card: card, index: nil)
         }
         stockView.draw()
     }
@@ -81,14 +81,15 @@ class ViewController: UIViewController {
     @objc private func moveCardToWaste() {
         guard let card = stockViewModel.pop() else { return }
         stockView.draw()
-        wasteViewModel.push(card)
+        wasteViewModel.push(card: card, index: nil)
         wasteView.draw()
     }
     
     @objc private func restoreCard() {
         for _ in 0..<wasteViewModel.list().count {
-            guard let card = wasteViewModel.pop() else { return }
-            stockViewModel.push(card)
+            guard let card = wasteViewModel.pop(index: nil) else { return }
+            
+            stockViewModel.push(card: card, index: nil)
         }
         wasteView.draw()
         stockView.draw()
@@ -123,7 +124,7 @@ class ViewController: UIViewController {
         for containerIndex in 0..<foundationViewModel.count {
             guard foundationViewModel.isEmpty(index: containerIndex) else { continue }
             guard let card = popDeliveryCard(with: delivery) else { continue }
-            foundationViewModel.push(card, index: containerIndex)
+            foundationViewModel.push(card: card, index: containerIndex)
             foundationContainerView.draw()
             break
         }
@@ -133,7 +134,7 @@ class ViewController: UIViewController {
         for containerIndex in 0..<tableauViewModel.count {
             guard tableauViewModel.isEmpty(index: containerIndex) else { continue }
             guard let card = popDeliveryCard(with: delivery) else { continue }
-            tableauViewModel.push(card, index: containerIndex)
+            tableauViewModel.push(card: card, index: containerIndex)
             tableauContainerView.draw()
             break
         }
@@ -155,7 +156,7 @@ class ViewController: UIViewController {
         for containerIndex in 0..<foundationViewModel.count {
             guard foundationViewModel.isOneStepLower(with: card, index: containerIndex) else { continue }
             guard let popCard = popDeliveryCard(with: delivery) else { continue }
-            foundationViewModel.push(popCard, index: containerIndex)
+            foundationViewModel.push(card: popCard, index: containerIndex)
             foundationContainerView.draw()
             return true
         }
@@ -166,7 +167,7 @@ class ViewController: UIViewController {
         for containerIndex in 0..<tableauViewModel.count {
             guard tableauViewModel.isOneStepHigher(with: card, index: containerIndex) else { continue }
             guard let popCard = popDeliveryCard(with: delivery) else { continue }
-            tableauViewModel.push(popCard, index: containerIndex)
+            tableauViewModel.push(card: popCard, index: containerIndex)
             tableauContainerView.draw()
             return true
         }
