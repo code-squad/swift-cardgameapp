@@ -46,10 +46,6 @@ class TableauContainerView: UIView {
         return mold
     }
     
-    func hasSubView(index: Int) -> Bool {
-        return container[index].subviews.count > 0 ? true : false
-    }
-    
     func draw() {
         removeAllSubView()
         addAllSubView()
