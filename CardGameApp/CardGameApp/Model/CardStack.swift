@@ -42,3 +42,9 @@ struct CardStack {
         return cards.count > 0 ? true : false
     }
 }
+
+extension CardStack {
+    subscript(index: Int) -> Card {
+        return cards[index]
+    }
+}
