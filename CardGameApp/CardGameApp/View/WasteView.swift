@@ -27,9 +27,9 @@ class WasteView: UIView {
     private func addAllSubView() {
         guard let cardStack = dataSource?.cardStack() else { return }
         for card in cardStack.list() {
-            let rect = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
             card.switchCondition(with: .front)
-            let cardView = CardImageView(card: card, frame: rect)
+            let cardView = CardImageView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+            cardView.image = card.image()
             addGestureCardView(with: cardView)
             self.addSubview(cardView)
         }
@@ -53,7 +53,6 @@ extension WasteView {
 
 extension WasteView: DeliverableView {
     func draw(index: Int?) {
-//        self.subviews[subviews.count - 1].removeFromSuperview()
         removeAllSubView()
         addAllSubView()
     }

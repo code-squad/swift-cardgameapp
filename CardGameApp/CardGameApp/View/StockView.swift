@@ -55,8 +55,8 @@ class StockView: UIView {
         guard let cardStack = dataSource?.cardStack() else { return }
         for card in cardStack.list() {
             card.switchCondition(with: .back)
-            let rect = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
-            let cardView = CardImageView(card: card, frame: rect)
+            let cardView = CardImageView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+            cardView.image = card.image()
             addGestureCardView(with: cardView)
             self.addSubview(cardView)
         }

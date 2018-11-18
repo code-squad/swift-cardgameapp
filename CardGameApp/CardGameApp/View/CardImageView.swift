@@ -9,28 +9,12 @@
 import UIKit
 
 class CardImageView: UIImageView {
-    private var card = Card(number: .ace, shape: .heart)
-    
-    init(card: Card, frame: CGRect) {
-        super.init(image: card.image())
-        self.card = card
-        self.frame = frame
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    func turnOver() {
-        self.image = card.turnOver()
-    }
-    
-    func turnOverFront() {
-        self.image = card.turnOverFront()
     }
 }
 

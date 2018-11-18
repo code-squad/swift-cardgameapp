@@ -46,20 +46,6 @@ class TableauContainerView: UIView {
         return mold
     }
     
-    func removeTopSubView(index: Int) {
-        let subview = self.container[index].subviews
-        subview[subview.count - 1].removeFromSuperview()
-        
-        guard hasSubView(index: index) else { return }
-        turnOverTopSubView(index: index)
-    }
-    
-    func turnOverTopSubView(index: Int) {
-        let subview = self.container[index].subviews
-        guard let cardView = subview[subview.count - 1] as? CardImageView else { return }
-        cardView.turnOver()
-    }
-    
     func hasSubView(index: Int) -> Bool {
         return container[index].subviews.count > 0 ? true : false
     }
@@ -89,8 +75,8 @@ class TableauContainerView: UIView {
                     card.switchCondition(with: .front)
                 }
                 
-                let rect = CGRect(x: 0, y: yValue, width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio)
-                let cardView = CardImageView(card: card, frame: rect)
+                let cardView = CardImageView(frame: CGRect(x: 0, y: yValue, width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio))
+                cardView.image = card.image()
                 self.container[largeIndex].addSubview(cardView)
                 addGestureCardView(with: cardView, index: largeIndex)
             }
@@ -110,13 +96,6 @@ extension TableauContainerView {
 
 extension TableauContainerView: DeliverableView {
     func draw(index: Int?) {
-//        guard let idx = index else { return }
-//
-//        let subview = self.container[idx].subviews
-//        subview[subview.count - 1].removeFromSuperview()
-//
-//        guard hasSubView(index: idx) else { return }
-//        turnOverTopSubView(index: idx)
         removeAllSubView()
         addAllSubView()
     }
