@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FoundationContainerView: UIView {
+class FoundationContainerView: UIView, CardContainerView {
     var dataSource: MultipleDataSource?
     // 카드몰드는 배열에도 속하지 않고 그냥 모양을 나타내기 위해 addSubView만 합니다.
     private var container = [UIView]()

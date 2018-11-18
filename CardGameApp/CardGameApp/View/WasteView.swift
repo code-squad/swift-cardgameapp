@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WasteView: UIView {
+class WasteView: UIView, CardView {
     var dataSource: SingleDataSource?
     
     override init(frame: CGRect) {
@@ -53,7 +53,6 @@ extension WasteView {
 
 extension WasteView: DeliverableView {
     func draw(index: Int?) {
-        removeAllSubView()
-        addAllSubView()
+        draw()
     }
 }

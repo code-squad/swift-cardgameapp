@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StockView: UIView {
+class StockView: UIView, CardView {
     private let refreshImageView = RefreshImageView(image: UIImage(named: Unit.refreshImage.formatPNG))
     var dataSource: SingleDataSource?
     

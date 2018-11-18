@@ -31,3 +31,15 @@ protocol SingleDataSource {
 protocol MultipleDataSource {
     func cardStackList() -> [CardStack]
 }
+
+protocol DrawView {
+    func draw()
+}
+
+protocol CardView: DrawView {
+    var dataSource: SingleDataSource? { get }
+}
+
+protocol CardContainerView: DrawView {
+    var dataSource: MultipleDataSource? { get }
+}

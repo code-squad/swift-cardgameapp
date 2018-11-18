@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TableauContainerView: UIView {
+class TableauContainerView: UIView, CardContainerView {
     var dataSource: MultipleDataSource?
     // 카드몰드는 배열에도 속하지 않고 그냥 모양을 나타내기 위해 addSubView만 합니다.
     private var container = [UIView]()
@@ -92,7 +92,6 @@ extension TableauContainerView {
 
 extension TableauContainerView: DeliverableView {
     func draw(index: Int?) {
-        removeAllSubView()
-        addAllSubView()
+        draw()
     }
 }
