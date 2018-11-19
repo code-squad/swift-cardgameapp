@@ -48,19 +48,27 @@ extension TableauViewModel: MultipleDataSource {
 }
 
 extension TableauViewModel: DeliverableViewModel {
+    func postNotification() {
+        let name = Notification.Name(NotificationKey.name.tableau)
+        NotificationCenter.default.post(name: name, object: nil)
+    }
+    
     func push(card: Card, index: Int?) {
         guard let idx = index else { return }
         tableauModels[idx].push(card)
+        postNotification()
     }
     
     func removeAll() {
         for index in 0..<tableauModels.count {
             tableauModels[index].removeAll()
         }
+        postNotification()
     }
     
     func pop(index: Int?) -> Card? {
         guard let idx = index else { return nil }
+        postNotification()
         return tableauModels[idx].pop()
     }
     

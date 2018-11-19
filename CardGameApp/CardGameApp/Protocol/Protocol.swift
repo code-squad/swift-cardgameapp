@@ -9,6 +9,7 @@
 import Foundation
 
 protocol BasicViewModel {
+    func postNotification()
     func push(card: Card, index: Int?)
     func removeAll()
 }
@@ -21,7 +22,7 @@ protocol DeliverableViewModel: BasicViewModel {
 }
 
 protocol DeliverableView {
-    func draw()
+    func drawSubView()
 }
 
 protocol SingleDataSource {
@@ -32,14 +33,10 @@ protocol MultipleDataSource {
     func cardStackList() -> [CardStack]
 }
 
-protocol DrawView {
-    func draw()
-}
-
-protocol CardView: DrawView {
+protocol CardView {
     var dataSource: SingleDataSource? { get }
 }
 
-protocol CardContainerView: DrawView {
+protocol CardContainerView {
     var dataSource: MultipleDataSource? { get }
 }

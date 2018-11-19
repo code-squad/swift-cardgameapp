@@ -46,7 +46,7 @@ class FoundationContainerView: UIView, CardContainerView {
         return mold
     }
     
-    func draw() {
+    override func layoutSubviews() {
         removeAllSubView()
         addAllSubView()
     }

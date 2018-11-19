@@ -17,6 +17,10 @@ struct Name {
     let moveToWaste = "moveToWaste"
     let restore = "restore"
     let doubleTap = "doubleTap"
+    let stock = "stock"
+    let waste = "waste"
+    let foundation = "foundation"
+    let tableau = "tableau"
 }
 
 struct Hash {

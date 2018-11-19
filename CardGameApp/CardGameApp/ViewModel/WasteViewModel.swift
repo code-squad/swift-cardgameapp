@@ -23,15 +23,23 @@ extension WasteViewModel: SingleDataSource {
 }
 
 extension WasteViewModel: DeliverableViewModel {
+    func postNotification() {
+        let name = Notification.Name(NotificationKey.name.waste)
+        NotificationCenter.default.post(name: name, object: nil)
+    }
+    
     func push(card: Card, index: Int?) {
         wasteModel.push(card)
+        postNotification()
     }
     
     func removeAll() {
         wasteModel.removeAll()
+        postNotification()
     }
     
     func pop(index: Int?) -> Card? {
+        postNotification()
         return wasteModel.pop()
     }
     

@@ -19,7 +19,7 @@ class WasteView: UIView, CardView {
         super.init(coder: aDecoder)
     }
     
-    func draw() {
+    override func layoutSubviews() {
         removeAllSubView()
         addAllSubView()
     }
@@ -52,7 +52,7 @@ extension WasteView {
 }
 
 extension WasteView: DeliverableView {
-    func draw(index: Int?) {
-        draw()
+    func drawSubView() {
+        setNeedsLayout()
     }
 }

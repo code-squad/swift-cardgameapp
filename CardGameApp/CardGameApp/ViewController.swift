@@ -53,7 +53,6 @@ class ViewController: UIViewController {
     private func configureCard() {
         cardDeck.reset()
         cardDeck.shuffle()
-        
         for count in 1...Unit.cardCountNumber {
             guard let defalutCards = cardDeck.remove(count: count) else { return }
             for index in 0..<defalutCards.count {
@@ -61,12 +60,9 @@ class ViewController: UIViewController {
                 tableauViewModel.push(card: defalutCards[index], index: containerIndex)
             }
         }
-        tableauContainerView.draw()
-        
         for card in cardDeck.list() {
             stockViewModel.push(card: card, index: nil)
         }
-        stockView.draw()
     }
 
     private func configureObservers() {
@@ -76,13 +72,35 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(restoreCard), name: restore, object: nil)
         let doubleTap = Notification.Name(NotificationKey.name.doubleTap)
         NotificationCenter.default.addObserver(self, selector: #selector(doubleTapCard(_:)), name: doubleTap, object: nil)
+        let stock = Notification.Name(NotificationKey.name.stock)
+        NotificationCenter.default.addObserver(self, selector: #selector(redrawStock), name: stock, object: nil)
+        let waste = Notification.Name(NotificationKey.name.waste)
+        NotificationCenter.default.addObserver(self, selector: #selector(redrawWaste), name: waste, object: nil)
+        let foundation = Notification.Name(NotificationKey.name.foundation)
+        NotificationCenter.default.addObserver(self, selector: #selector(redrawFoundation), name: foundation, object: nil)
+        let tableau = Notification.Name(NotificationKey.name.tableau)
+        NotificationCenter.default.addObserver(self, selector: #selector(redrawTableau), name: tableau, object: nil)
+    }
+    
+    @objc private func redrawTableau() {
+        tableauContainerView.setNeedsLayout()
+    }
+    
+    @objc private func redrawFoundation() {
+        foundationContainerView.setNeedsLayout()
+    }
+    
+    @objc private func redrawStock() {
+        stockView.setNeedsLayout()
+    }
+    
+    @objc private func redrawWaste() {
+        wasteView.setNeedsLayout()
     }
     
     @objc private func moveCardToWaste() {
         guard let card = stockViewModel.pop() else { return }
-        stockView.draw()
         wasteViewModel.push(card: card, index: nil)
-        wasteView.draw()
     }
     
     @objc private func restoreCard() {
@@ -91,8 +109,6 @@ class ViewController: UIViewController {
             
             stockViewModel.push(card: card, index: nil)
         }
-        wasteView.draw()
-        stockView.draw()
     }
 
     @objc private func doubleTapCard(_ notification: Notification) {
@@ -125,7 +141,6 @@ class ViewController: UIViewController {
             guard foundationViewModel.isEmpty(index: containerIndex) else { continue }
             guard let card = popDeliveryCard(with: delivery) else { continue }
             foundationViewModel.push(card: card, index: containerIndex)
-            foundationContainerView.draw()
             break
         }
     }
@@ -135,7 +150,6 @@ class ViewController: UIViewController {
             guard tableauViewModel.isEmpty(index: containerIndex) else { continue }
             guard let card = popDeliveryCard(with: delivery) else { continue }
             tableauViewModel.push(card: card, index: containerIndex)
-            tableauContainerView.draw()
             break
         }
     }
@@ -157,7 +171,6 @@ class ViewController: UIViewController {
             guard foundationViewModel.isOneStepLower(with: card, index: containerIndex) else { continue }
             guard let popCard = popDeliveryCard(with: delivery) else { continue }
             foundationViewModel.push(card: popCard, index: containerIndex)
-            foundationContainerView.draw()
             return true
         }
         return false
@@ -168,7 +181,6 @@ class ViewController: UIViewController {
             guard tableauViewModel.isOneStepHigher(with: card, index: containerIndex) else { continue }
             guard let popCard = popDeliveryCard(with: delivery) else { continue }
             tableauViewModel.push(card: popCard, index: containerIndex)
-            tableauContainerView.draw()
             return true
         }
         return false
@@ -179,7 +191,7 @@ class ViewController: UIViewController {
         if delivery.viewModel.hasCard(index: delivery.index), let lastCard = delivery.viewModel.lastCard(index: delivery.index) {
             lastCard.flipCondition(with: .front)
         }
-        delivery.view.draw()
+        delivery.view.drawSubView()
         return card
     }
 }
@@ -198,13 +210,9 @@ extension ViewController {
     
     private func reconfigure() {
         stockViewModel.removeAll()
-        stockView.draw()
         wasteViewModel.removeAll()
-        wasteView.draw()
         foundationViewModel.removeAll()
-        foundationContainerView.draw()
         tableauViewModel.removeAll()
-        tableauContainerView.draw()
         configureCard()
     }
 }

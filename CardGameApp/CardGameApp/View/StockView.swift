@@ -32,7 +32,7 @@ class StockView: UIView, CardView {
         refreshImageView.configure()
     }
     
-    func draw() {
+    override func layoutSubviews() {
         removeAllSubView()
         addAllSubView()
     }

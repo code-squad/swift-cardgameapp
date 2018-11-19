@@ -46,7 +46,7 @@ class TableauContainerView: UIView, CardContainerView {
         return mold
     }
     
-    func draw() {
+    override func layoutSubviews() {
         removeAllSubView()
         addAllSubView()
     }
@@ -90,7 +90,7 @@ extension TableauContainerView {
 }
 
 extension TableauContainerView: DeliverableView {
-    func draw(index: Int?) {
-        draw()
+    func drawSubView() {
+        setNeedsLayout()
     }
 }
