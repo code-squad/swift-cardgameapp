@@ -26,11 +26,11 @@ protocol DeliverableView {
 }
 
 protocol SingleDataSource {
-    func cardStack() -> CardStack
+    func card(_ handler: (Card) -> Void)
 }
 
 protocol MultipleDataSource {
-    func cardStackList() -> [CardStack]
+    func card(_ handler: (Card, Int) -> Void)
 }
 
 protocol CardView {

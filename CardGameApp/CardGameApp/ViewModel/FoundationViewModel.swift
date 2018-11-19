@@ -42,8 +42,12 @@ extension FoundationViewModel {
 }
 
 extension FoundationViewModel: MultipleDataSource {
-    func cardStackList() -> [CardStack] {
-        return foundationModels
+    func card(_ handler: (Card, Int) -> Void) {
+        for index in 0..<foundationModels.count {
+            for card in foundationModels[index].list() {
+                handler(card, index)
+            }
+        }
     }
 }
 

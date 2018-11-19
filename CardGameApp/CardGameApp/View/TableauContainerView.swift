@@ -60,21 +60,16 @@ class TableauContainerView: UIView, CardContainerView {
     }
     
     private func addAllSubView() {
-        guard let cardStackList = dataSource?.cardStackList() else { return }
-        for index in 0..<cardStackList.count {
-            for card in cardStackList[index].list() {
-                let count = self.container[index].subviews.count
-                let yValue = CGFloat(count) * Unit.cardSpace
-                
-                if count == index {
-                    card.flipCondition(with: .front)
-                }
-                
-                let cardView = CardImageView(frame: CGRect(x: 0, y: yValue, width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio))
-                cardView.image = card.image()
-                self.container[index].addSubview(cardView)
-                addGestureCardView(with: cardView, index: index)
+        dataSource?.card {
+            let count = self.container[$1].subviews.count
+            let yValue = CGFloat(count) * Unit.cardSpace
+            if count == $1 {
+                $0.flipCondition(with: .front)
             }
+            let cardView = CardImageView(frame: CGRect(x: 0, y: yValue, width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio))
+            cardView.image = $0.image()
+            self.container[$1].addSubview(cardView)
+            addGestureCardView(with: cardView, index: $1)
         }
     }
 }

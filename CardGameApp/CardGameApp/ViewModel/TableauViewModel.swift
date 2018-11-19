@@ -42,8 +42,12 @@ extension TableauViewModel {
 }
 
 extension TableauViewModel: MultipleDataSource {
-    func cardStackList() -> [CardStack] {
-        return tableauModels
+    func card(_ handler: (Card, Int) -> Void) {
+        for index in 0..<tableauModels.count {
+            for card in tableauModels[index].list() {
+                handler(card, index)
+            }
+        }
     }
 }
 

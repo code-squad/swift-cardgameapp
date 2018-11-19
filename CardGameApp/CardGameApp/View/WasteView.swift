@@ -24,20 +24,18 @@ class WasteView: UIView, CardView {
         addAllSubView()
     }
     
-    private func addAllSubView() {
-        guard let cardStack = dataSource?.cardStack() else { return }
-        for card in cardStack.list() {
-            card.flipCondition(with: .front)
-            let cardView = CardImageView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
-            cardView.image = card.image()
-            addGestureCardView(with: cardView)
-            self.addSubview(cardView)
-        }
-    }
-    
     private func removeAllSubView() {
         for subview in self.subviews {
             subview.removeFromSuperview()
+        }
+    }
+    
+    private func addAllSubView() {
+        dataSource?.card {
+            let cardView = CardImageView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
+            cardView.image = $0.image()
+            addGestureCardView(with: cardView)
+            self.addSubview(cardView)
         }
     }
 }

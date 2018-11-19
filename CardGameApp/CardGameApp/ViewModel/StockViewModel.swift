@@ -18,8 +18,11 @@ class StockViewModel {
 }
 
 extension StockViewModel: SingleDataSource {
-    func cardStack() -> CardStack {
-        return stockModel
+    func card(_ handler: (Card) -> Void) {
+        for card in stockModel.list() {
+            card.flipCondition(with: .back)
+            handler(card)
+        }
     }
 }
 

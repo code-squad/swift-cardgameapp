@@ -34,7 +34,7 @@ class StockView: UIView, CardView {
     
     override func layoutSubviews() {
         removeAllSubView()
-        addAllSubView()
+        addAllSubview()
     }
     
     private func removeAllSubView() {
@@ -45,12 +45,10 @@ class StockView: UIView, CardView {
         }
     }
     
-    private func addAllSubView() {
-        guard let cardStack = dataSource?.cardStack() else { return }
-        for card in cardStack.list() {
-            card.flipCondition(with: .back)
+    private func addAllSubview() {
+        dataSource?.card {
             let cardView = CardImageView(frame: CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height))
-            cardView.image = card.image()
+            cardView.image = $0.image()
             addGestureCardView(with: cardView)
             self.addSubview(cardView)
         }

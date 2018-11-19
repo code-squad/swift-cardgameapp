@@ -17,8 +17,11 @@ class WasteViewModel {
 }
 
 extension WasteViewModel: SingleDataSource {
-    func cardStack() -> CardStack {
-        return wasteModel
+    func card(_ handler: (Card) -> Void) {
+        for card in wasteModel.list() {
+            card.flipCondition(with: .front)
+            handler(card)
+        }
     }
 }
 
