@@ -28,7 +28,7 @@ class TableauViewModel {
         return self.tableauModels[index].list().count == 0 ? true : false
     }
     
-    func isOneStepHigher(with card: Card, index: Int) -> Bool {
+    func isOneStepHigher(with card: Card, at index: Int) -> Bool {
         guard tableauModels[index].hasCard() else { return false }
         guard let lastCard = tableauModels[index].lastCard else { return false }
         return card.isOneStepHigherWithAnotherShape(with: lastCard)
@@ -49,11 +49,11 @@ extension TableauViewModel: MultipleDataSource {
 
 extension TableauViewModel: DeliverableViewModel {
     func postNotification() {
-        let name = Notification.Name(NotificationKey.name.tableau)
-        NotificationCenter.default.post(name: name, object: nil)
+        let key = Notification.Name(NotificationKey.name.tableau)
+        NotificationCenter.default.post(name: key, object: nil)
     }
     
-    func push(card: Card, index: Int?) {
+    func push(_ card: Card, at index: Int?) {
         guard let idx = index else { return }
         tableauModels[idx].push(card)
         postNotification()
@@ -66,23 +66,23 @@ extension TableauViewModel: DeliverableViewModel {
         postNotification()
     }
     
-    func pop(index: Int?) -> Card? {
+    func pop(at index: Int?) -> Card? {
         guard let idx = index else { return nil }
         postNotification()
         return tableauModels[idx].pop()
     }
     
-    func info(index: Int?) -> Card? {
+    func info(at index: Int?) -> Card? {
         guard let idx = index else { return nil }
         return tableauModels[idx].info()
     }
     
-    func lastCard(index: Int?) -> Card? {
+    func lastCard(at index: Int?) -> Card? {
         guard let idx = index else { return nil }
         return tableauModels[idx].lastCard
     }
     
-    func hasCard(index: Int?) -> Bool {
+    func hasCard(at index: Int?) -> Bool {
         guard let idx = index else { return false }
         return tableauModels[idx].count > 0 ? true : false
     }

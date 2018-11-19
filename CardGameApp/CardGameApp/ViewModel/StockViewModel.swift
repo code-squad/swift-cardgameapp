@@ -25,11 +25,11 @@ extension StockViewModel: SingleDataSource {
 
 extension StockViewModel: BasicViewModel {
     func postNotification() {
-        let name = Notification.Name(NotificationKey.name.stock)
-        NotificationCenter.default.post(name: name, object: nil)
+        let key = Notification.Name(NotificationKey.name.stock)
+        NotificationCenter.default.post(name: key, object: nil)
     }
     
-    func push(card: Card, index: Int?) {
+    func push(_ card: Card, at index: Int?) {
         stockModel.push(card)
         postNotification()
     }

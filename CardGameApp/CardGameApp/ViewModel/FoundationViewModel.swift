@@ -49,11 +49,11 @@ extension FoundationViewModel: MultipleDataSource {
 
 extension FoundationViewModel: BasicViewModel {
     func postNotification() {
-        let name = Notification.Name(NotificationKey.name.foundation)
-        NotificationCenter.default.post(name: name, object: nil)
+        let key = Notification.Name(NotificationKey.name.foundation)
+        NotificationCenter.default.post(name: key, object: nil)
     }
     
-    func push(card: Card, index: Int?) {
+    func push(_ card: Card, at index: Int?) {
         guard let idx = index else { return }
         foundationModels[idx].push(card)
         postNotification()

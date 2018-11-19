@@ -26,7 +26,7 @@ class FoundationContainerView: UIView, CardContainerView {
     private func configure() {
         var xValue = Unit.space
         for _ in 0..<Unit.foundationCount {
-            let mold = cardMold(xValue: xValue, yValue: 0)
+            let mold = cardMold(x: xValue, y: 0)
             // 모델에서 추가할 때는 인덱스를 보고 추가하기 위해 배열에 넣어 사용합니다.
             self.addSubview(mold)
             let rect = CGRect(x: xValue, y: 0, width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio)
@@ -38,7 +38,7 @@ class FoundationContainerView: UIView, CardContainerView {
         }
     }
     
-    private func cardMold(xValue: CGFloat, yValue: CGFloat) -> UIView {
+    private func cardMold(x xValue: CGFloat, y yValue: CGFloat) -> UIView {
         let rect = CGRect(x: xValue, y: yValue, width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio)
         let mold = UIView(frame: rect)
         mold.layer.borderWidth = Unit.foundationBorderWidth

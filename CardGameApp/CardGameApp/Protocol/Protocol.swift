@@ -10,15 +10,15 @@ import Foundation
 
 protocol BasicViewModel {
     func postNotification()
-    func push(card: Card, index: Int?)
+    func push(_ card: Card, at index: Int?)
     func removeAll()
 }
 
 protocol DeliverableViewModel: BasicViewModel {
-    func pop(index: Int?) -> Card?
-    func info(index: Int?) -> Card?
-    func lastCard(index: Int?) -> Card?
-    func hasCard(index: Int?) -> Bool
+    func pop(at index: Int?) -> Card?
+    func info(at index: Int?) -> Card?
+    func lastCard(at index: Int?) -> Card?
+    func hasCard(at index: Int?) -> Bool
 }
 
 protocol DeliverableView {
