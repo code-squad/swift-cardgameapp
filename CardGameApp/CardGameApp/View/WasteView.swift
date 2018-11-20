@@ -49,8 +49,17 @@ extension WasteView {
     }
 }
 
-extension WasteView: DeliverableView {
+extension WasteView: DeliverableView, DestinationView {
     func drawSubView() {
         setNeedsLayout()
     }
+    
+    func convert(at index: Int?, to view: UIView) -> CGPoint? {
+        return self.convert(self.bounds.origin, to: view)
+    }
+    
+    func topSubView(at index: Int?) -> UIView? {
+        guard let top = self.subviews.last else { return nil }
+        return top
+    }    
 }

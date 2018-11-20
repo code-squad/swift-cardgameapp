@@ -26,7 +26,7 @@ extension StockViewModel: SingleDataSource {
     }
 }
 
-extension StockViewModel: BasicViewModel {
+extension StockViewModel: DeliverableViewModel {
     func postNotification() {
         let key = Notification.Name(NotificationKey.name.stock)
         NotificationCenter.default.post(name: key, object: nil)
@@ -40,5 +40,22 @@ extension StockViewModel: BasicViewModel {
     func removeAll() {
         stockModel.removeAll()
         postNotification()
+    }
+    
+    func pop(at index: Int?) -> Card? {
+        postNotification()
+        return stockModel.pop()
+    }
+    
+    func info(at index: Int?) -> Card? {
+        return stockModel.info()
+    }
+    
+    func lastCard(at index: Int?) -> Card? {
+        return stockModel.lastCard
+    }
+    
+    func hasCard(at index: Int?) -> Bool {
+        return stockModel.count > 0 ? true : false
     }
 }

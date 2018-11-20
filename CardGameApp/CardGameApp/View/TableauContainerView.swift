@@ -75,6 +75,10 @@ class TableauContainerView: UIView, CardContainerView {
 }
 
 extension TableauContainerView {
+    subscript(index: Int) -> UIView {
+        return self.container[index]
+    }
+    
     private func addGestureCardView(with view: CardImageView, index: Int) {
         let doubleTapGesture = CustomUITapGestureRecognizer(target: view, action: #selector(view.dobuleTapActionTableau(tapGestureRecognizer:)))
         doubleTapGesture.numberOfTapsRequired = 2
@@ -84,8 +88,23 @@ extension TableauContainerView {
     }
 }
 
-extension TableauContainerView: DeliverableView {
+extension TableauContainerView: DeliverableView, DestinationView {
     func drawSubView() {
         setNeedsLayout()
+    }
+    
+    func convert(at index: Int?, to view: UIView) -> CGPoint? {
+        guard let idx = index else { return nil }
+        var targetView = self.container[idx]
+        if let lastSubview = self.container[idx].subviews.last {
+            targetView = lastSubview
+        }
+        return targetView.convert(targetView.bounds.origin, to: view)
+    }
+    
+    func topSubView(at index: Int?) -> UIView? {
+        guard let idx = index else { return nil }
+        guard let top = self.container[idx].subviews.last else { return nil }
+        return top
     }
 }

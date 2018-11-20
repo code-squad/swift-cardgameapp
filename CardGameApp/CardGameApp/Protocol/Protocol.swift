@@ -6,7 +6,7 @@
 //  Copyright © 2018 oingbong. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol BasicViewModel {
     func postNotification()
@@ -23,6 +23,12 @@ protocol DeliverableViewModel: BasicViewModel {
 
 protocol DeliverableView {
     func drawSubView()
+    func convert(at index: Int?, to view: UIView) -> CGPoint?
+    func topSubView(at index: Int?) -> UIView?
+}
+
+protocol DestinationView {
+    func convert(at index: Int?, to view: UIView) -> CGPoint?
 }
 
 protocol SingleDataSource {

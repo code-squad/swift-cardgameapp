@@ -84,30 +84,30 @@ class ViewController: UIViewController {
     }
     
     @objc private func redrawStock() {
-        stockView.setNeedsLayout()
+        self.stockView.setNeedsLayout()
     }
     
     @objc private func redrawWaste() {
-        wasteView.setNeedsLayout()
+        self.wasteView.setNeedsLayout()
     }
     
     @objc private func redrawTableau() {
-        tableauContainerView.setNeedsLayout()
+        self.tableauContainerView.setNeedsLayout()
     }
     
     @objc private func redrawFoundation() {
-        foundationContainerView.setNeedsLayout()
+        self.foundationContainerView.setNeedsLayout()
     }
     
     @objc private func moveCardToWaste() {
-        guard let card = stockViewModel.pop() else { return }
-        wasteViewModel.push(card, at: nil)
+        let delivery = Delivery(viewModel: stockViewModel, view: stockView, index: nil)
+        let destination = Destination(viewModel: wasteViewModel, view: wasteView, index: nil)
+        moveCard(from: delivery, to: destination)
     }
     
     @objc private func restoreCard() {
         for _ in 0..<wasteViewModel.list().count {
             guard let card = wasteViewModel.pop(at: nil) else { return }
-            
             stockViewModel.push(card, at: nil)
         }
     }
@@ -140,8 +140,8 @@ class ViewController: UIViewController {
     private func aceEvent(with delivery: Delivery) {
         for containerIndex in 0..<foundationViewModel.count {
             guard foundationViewModel.isEmpty(index: containerIndex) else { continue }
-            guard let card = popDeliveryCard(with: delivery) else { continue }
-            foundationViewModel.push(card, at: containerIndex)
+            let destination = Destination(viewModel: foundationViewModel, view: foundationContainerView, index: containerIndex)
+            moveCard(from: delivery, to: destination)
             break
         }
     }
@@ -149,8 +149,8 @@ class ViewController: UIViewController {
     private func kingEvent(with delivery: Delivery) {
         for containerIndex in 0..<tableauViewModel.count {
             guard tableauViewModel.isEmpty(index: containerIndex) else { continue }
-            guard let card = popDeliveryCard(with: delivery) else { continue }
-            tableauViewModel.push(card, at: containerIndex)
+            let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: containerIndex)
+            moveCard(from: delivery, to: destination)
             break
         }
     }
@@ -170,8 +170,8 @@ class ViewController: UIViewController {
     private func findFoundation(with delivery: Delivery, card: Card) -> Bool {
         for containerIndex in 0..<foundationViewModel.count {
             guard foundationViewModel.isOneStepLower(with: card, index: containerIndex) else { continue }
-            guard let popCard = popDeliveryCard(with: delivery) else { continue }
-            foundationViewModel.push(popCard, at: containerIndex)
+            let destination = Destination(viewModel: foundationViewModel, view: foundationContainerView, index: containerIndex)
+            moveCard(from: delivery, to: destination)
             return true
         }
         return false
@@ -180,8 +180,8 @@ class ViewController: UIViewController {
     private func findTableau(with delivery: Delivery, card: Card) -> Bool {
         for containerIndex in 0..<tableauViewModel.count {
             guard tableauViewModel.isOneStepHigher(with: card, at: containerIndex) else { continue }
-            guard let popCard = popDeliveryCard(with: delivery) else { continue }
-            tableauViewModel.push(popCard, at: containerIndex)
+            let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: containerIndex)
+            moveCard(from: delivery, to: destination)
             return true
         }
         return false
@@ -194,6 +194,21 @@ class ViewController: UIViewController {
         }
         delivery.view.drawSubView()
         return card
+    }
+    
+    private func moveCard(from delivery: Delivery, to destination: Destination) {
+        guard let toPoint = destination.view.convert(at: destination.index, to: backgroundView) else { return }
+        guard let fromPoint = delivery.view.convert(at: delivery.index, to: backgroundView) else { return }
+        UIView.animate(withDuration: 0.2, animations: {
+            let movePoint = CGPoint(
+                x: toPoint.x - fromPoint.x,
+                y: toPoint.y - fromPoint.y)
+            delivery.view.topSubView(at: delivery.index)?.frame.origin.x += movePoint.x
+            delivery.view.topSubView(at: delivery.index)?.frame.origin.y += movePoint.y
+        }, completion: { (_) in
+            guard let card = self.popDeliveryCard(with: delivery) else { return }
+            destination.viewModel.push(card, at: destination.index)
+        })
     }
 }
 
