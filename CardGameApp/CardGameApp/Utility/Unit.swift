@@ -12,6 +12,7 @@ struct Unit {
     public static let refreshImage = "cardgameapp-refresh-app"
     public static let cardBack = "card-back"
     public static let bgPattern = "bg_pattern"
+    public static let basePoint = CGPoint(x: 0, y: 0)
     public static let foundationYValue = CGFloat(20)
     public static let foundationCount = 4
     public static let foundationBorderWidth = CGFloat(1)

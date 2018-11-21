@@ -80,7 +80,7 @@ extension StockView: DeliverableView {
     }
     
     func convert(at index: Int?, to view: UIView) -> CGPoint? {
-        return self.convert(self.bounds.origin, to: view)
+        return self.convert(Unit.basePoint, to: view)
     }
     
     func topSubView(at index: Int?) -> UIView? {

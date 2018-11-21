@@ -99,7 +99,7 @@ extension TableauContainerView: DeliverableView, DestinationView {
         if let lastSubview = self.container[idx].subviews.last {
             targetView = lastSubview
         }
-        return targetView.convert(targetView.bounds.origin, to: view)
+        return targetView.convert(Unit.basePoint, to: view)
     }
     
     func topSubView(at index: Int?) -> UIView? {
