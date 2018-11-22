@@ -11,3 +11,8 @@ import UIKit
 class CustomUITapGestureRecognizer: UITapGestureRecognizer {
     var index = 0
 }
+
+class CustomUIPanGestureRecognizer: UIPanGestureRecognizer {
+    var index = 0
+    var subIndex = 0
+}

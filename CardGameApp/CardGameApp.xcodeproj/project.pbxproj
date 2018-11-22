@@ -15,7 +15,7 @@
 		4702BA1C219D1D1300092138 /* FoundationContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4702BA1B219D1D1300092138 /* FoundationContainerView.swift */; };
 		471FFEE0218C16B1002F66DC /* Unit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471FFEDF218C16B1002F66DC /* Unit.swift */; };
 		47378C84218C95E300978365 /* NotificationKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47378C83218C95E300978365 /* NotificationKey.swift */; };
-		47474F3D219DC0F4007FE9B8 /* CustomUITapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47474F3C219DC0F4007FE9B8 /* CustomUITapGestureRecognizer.swift */; };
+		47474F3D219DC0F4007FE9B8 /* CustomGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47474F3C219DC0F4007FE9B8 /* CustomGestureRecognizer.swift */; };
 		47474F3F219E978D007FE9B8 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47474F3E219E978D007FE9B8 /* Protocol.swift */; };
 		475E245E2182082D00801BFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475E245D2182082D00801BFF /* AppDelegate.swift */; };
 		475E24602182082D00801BFF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475E245F2182082D00801BFF /* ViewController.swift */; };
@@ -47,7 +47,7 @@
 		4702BA1B219D1D1300092138 /* FoundationContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationContainerView.swift; sourceTree = "<group>"; };
 		471FFEDF218C16B1002F66DC /* Unit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unit.swift; sourceTree = "<group>"; };
 		47378C83218C95E300978365 /* NotificationKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationKey.swift; sourceTree = "<group>"; };
-		47474F3C219DC0F4007FE9B8 /* CustomUITapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUITapGestureRecognizer.swift; sourceTree = "<group>"; };
+		47474F3C219DC0F4007FE9B8 /* CustomGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomGestureRecognizer.swift; sourceTree = "<group>"; };
 		47474F3E219E978D007FE9B8 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		475E245A2182082D00801BFF /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		475E245D2182082D00801BFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -125,7 +125,7 @@
 				471FFEDF218C16B1002F66DC /* Unit.swift */,
 				47C7FD8F2183039B003417E8 /* String+PNG.swift */,
 				47378C83218C95E300978365 /* NotificationKey.swift */,
-				47474F3C219DC0F4007FE9B8 /* CustomUITapGestureRecognizer.swift */,
+				47474F3C219DC0F4007FE9B8 /* CustomGestureRecognizer.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -328,7 +328,7 @@
 				4702BA18219C56EB00092138 /* FoundationViewModel.swift in Sources */,
 				4702BA1C219D1D1300092138 /* FoundationContainerView.swift in Sources */,
 				4702BA0A219C2F6500092138 /* StockViewModel.swift in Sources */,
-				47474F3D219DC0F4007FE9B8 /* CustomUITapGestureRecognizer.swift in Sources */,
+				47474F3D219DC0F4007FE9B8 /* CustomGestureRecognizer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

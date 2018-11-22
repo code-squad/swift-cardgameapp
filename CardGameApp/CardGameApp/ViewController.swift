@@ -81,6 +81,32 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(restoreCard), name: restore, object: nil)
         let doubleTap = Notification.Name(keyName.doubleTap)
         NotificationCenter.default.addObserver(self, selector: #selector(doubleTapCard(_:)), name: doubleTap, object: nil)
+        let dragPan = Notification.Name("drag")
+        NotificationCenter.default.addObserver(self, selector: #selector(drag(_:)), name: dragPan, object: nil)
+    }
+    
+    @objc private func drag(_ notification: Notification) {
+        guard let recognizer = notification.userInfo?["recognizer"] as? UIPanGestureRecognizer else { return }
+        guard let index = notification.userInfo?["index"] as? Int else { return }
+        guard let subIndex = notification.userInfo?["subIndex"] as? Int else { return }
+        
+        let selectedCardView = tableauContainerView[index].subviews[subIndex]
+        let floorHeight = Unit.cardSpace * CGFloat(subIndex)
+        let originalCenter = CGPoint(x: selectedCardView.bounds.width / 2, y: selectedCardView.bounds.height / 2 + floorHeight)
+        if recognizer.state == .began {
+            
+        } else if recognizer.state == .changed {
+            let transition = recognizer.translation(in: tableauContainerView)
+            let changeX = selectedCardView.center.x + transition.x
+            let changeY = selectedCardView.center.y + transition.y
+            selectedCardView.center = CGPoint(x: changeX, y: changeY)
+            recognizer.setTranslation(CGPoint.zero, in: selectedCardView)
+        } else if recognizer.state == .ended {
+            // 비교하기
+
+            // 원래 자리로 돌아오기
+            selectedCardView.center = originalCenter
+        }
     }
     
     @objc private func redrawStock() {

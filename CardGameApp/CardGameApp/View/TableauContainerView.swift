@@ -69,7 +69,7 @@ class TableauContainerView: UIView, CardContainerView {
             let cardView = CardImageView(frame: CGRect(x: 0, y: yValue, width: Unit.imageWidth * Unit.widthRatio, height: Unit.imageWidth * Unit.heightRatio))
             cardView.image = $0.image()
             self.container[$1].addSubview(cardView)
-            addGestureCardView(with: cardView, index: $1)
+            addGestureCardView(with: cardView, index: $1, subIndex: count)
         }
     }
 }
@@ -79,12 +79,19 @@ extension TableauContainerView {
         return self.container[index]
     }
     
-    private func addGestureCardView(with view: CardImageView, index: Int) {
+    private func addGestureCardView(with view: CardImageView, index: Int, subIndex: Int) {
         let doubleTapGesture = CustomUITapGestureRecognizer(target: view, action: #selector(view.dobuleTapActionTableau(tapGestureRecognizer:)))
         doubleTapGesture.numberOfTapsRequired = 2
         doubleTapGesture.index = index
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(doubleTapGesture)
+        
+        let panGesture = CustomUIPanGestureRecognizer(target: view, action: #selector(view.panAction(tapGestureRecognizer:)))
+        panGesture.maximumNumberOfTouches = 1
+        panGesture.minimumNumberOfTouches = 1
+        panGesture.index = index
+        panGesture.subIndex = subIndex
+        view.addGestureRecognizer(panGesture)
     }
 }
 
