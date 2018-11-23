@@ -88,22 +88,34 @@ class ViewController: UIViewController {
     @objc private func drag(_ notification: Notification) {
         guard let recognizer = notification.userInfo?["recognizer"] as? UIPanGestureRecognizer else { return }
         let delivery = configureDelivery(notification)
+        var selectedCardViews = [UIView]()
         guard let selectedCardView = delivery.view.topSubView(at: delivery.index) else { return }
-
-        var floorHeight: CGFloat = 0
-        if let subIdx = delivery.subIndex {
-            floorHeight = Unit.cardSpace * CGFloat(subIdx)
+        selectedCardViews.append(selectedCardView)
+        
+        // tableau 클릭할 때만 두 개 이상의 뷰가 클릭 되는 경우가 있습니다.
+        if let tableauViews = tableauContainerView.selectedSubViews(at: delivery.index, sub: delivery.subIndex) {
+            selectedCardViews = tableauViews
         }
-
-        let originalCenter = CGPoint(x: selectedCardView.bounds.width / 2, y: selectedCardView.bounds.height / 2 + floorHeight)
+        
+        var originalCenters = [CGPoint]()
+        let firstSubViewIndex = delivery.subIndex ?? 0
+        
+        for index in 0..<selectedCardViews.count {
+            let floorIndex = firstSubViewIndex + index
+            let floor = Unit.cardSpace * CGFloat(floorIndex)
+            originalCenters.append(CGPoint(x: selectedCardViews[index].bounds.width / 2, y: selectedCardViews[index].bounds.height / 2 + floor))
+        }
+        
         if recognizer.state == .began {
-
+            
         } else if recognizer.state == .changed {
-            let transition = recognizer.translation(in: backgroundView)
-            let changeX = selectedCardView.center.x + transition.x
-            let changeY = selectedCardView.center.y + transition.y
-            selectedCardView.center = CGPoint(x: changeX, y: changeY)
-            recognizer.setTranslation(CGPoint.zero, in: selectedCardView)
+            selectedCardViews.forEach {
+                let transition = recognizer.translation(in: backgroundView)
+                let changeX = $0.center.x + transition.x
+                let changeY = $0.center.y + transition.y
+                $0.center = CGPoint(x: changeX, y: changeY)
+            }
+            recognizer.setTranslation(CGPoint.zero, in: backgroundView)
         } else if recognizer.state == .ended {
             // 비교하기
 
@@ -137,7 +149,9 @@ class ViewController: UIViewController {
             }
 
             // 원래 자리로 돌아오기
-            selectedCardView.center = originalCenter
+            for index in 0..<selectedCardViews.count {
+                selectedCardViews[index].center = originalCenters[index]
+            }
         }
     }
     

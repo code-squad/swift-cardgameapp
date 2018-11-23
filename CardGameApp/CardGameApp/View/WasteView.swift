@@ -66,5 +66,5 @@ extension WasteView: DeliverableView, DestinationView {
     func topSubView(at index: Int?) -> UIView? {
         guard let top = self.subviews.last else { return nil }
         return top
-    }    
+    }
 }

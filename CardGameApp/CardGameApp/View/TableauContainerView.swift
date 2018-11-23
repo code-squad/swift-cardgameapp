@@ -72,6 +72,19 @@ class TableauContainerView: UIView, CardContainerView {
             addGestureCardView(with: cardView, index: $1, subIndex: count)
         }
     }
+    
+    func selectedSubViews(at index: Int?, sub subIndex: Int?) -> [CardImageView]? {
+        guard let idx = index, let subIdx = subIndex else { return nil }
+        var views = [CardImageView]()
+        var subviewIndex = 0
+        for subView in self.container[idx].subviews {
+            if subviewIndex >= subIdx, let cardView = subView as? CardImageView {
+                views.append(cardView)
+            }
+            subviewIndex += 1
+        }
+        return views
+    }
 }
 
 extension TableauContainerView {
