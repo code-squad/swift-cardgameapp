@@ -107,8 +107,14 @@ class ViewController: UIViewController {
             // 좌표계산
             let lastPoint = recognizer.location(in: backgroundView)
             // x값으로 tableau index 구하기
-            let tableauIndex = calculateIndex(from: lastPoint)
-            let target = tableauViewModel.lastCardPosition(at: tableauIndex)
+            let targetIndex = calculateIndex(from: lastPoint)
+            let target: DragTargetInfo
+            if lastPoint.y >= 100 {
+                target = tableauViewModel.lastCardPosition(at: targetIndex)
+            } else {
+                target = foundationViewModel.lastCardPosition(at: targetIndex)
+            }
+            
             // 설정된 index 안에 들어오는지 확인
             let rect = CGRect(x: target.minX, y: target.minY, width: target.maxX - target.minX, height: target.maxY - target.minY)
             if rect.contains(lastPoint) {
@@ -116,23 +122,25 @@ class ViewController: UIViewController {
                 let deliveryCard = tableauViewModel[index][subIndex]
                 
                 if deliveryCard.isAce() {
-                    
+                    guard foundationViewModel.isEmpty(index: targetIndex) else { return }
+                    let delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: index)
+                    let destination = Destination(viewModel: foundationViewModel, view: foundationContainerView, index: targetIndex)
+                    moveCard(from: delivery, to: destination)
                     return
                 }
                 if deliveryCard.isKing() {
-                    guard tableauViewModel.isEmpty(index: tableauIndex) else { return }
+                    guard tableauViewModel.isEmpty(index: targetIndex) else { return }
                     let delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: index)
-                    let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: tableauIndex)
+                    let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: targetIndex)
                     moveCard(from: delivery, to: destination)
                     return
                 }
                 // normalEvent
-                guard let targetCard = tableauViewModel[tableauIndex].lastCard else { return }
-                
+                guard let targetCard = tableauViewModel[targetIndex].lastCard else { return }
                 let isHigherStep = deliveryCard.isOneStepHigherWithAnotherShape(with: targetCard)
                 if isHigherStep {
                     let delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: index)
-                    let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: tableauIndex)
+                    let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: targetIndex)
                     moveCard(from: delivery, to: destination)
                     return 
                 }
