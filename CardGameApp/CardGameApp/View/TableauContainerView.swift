@@ -73,12 +73,11 @@ class TableauContainerView: UIView, CardContainerView {
         }
     }
     
-    func selectedSubViews(at index: Int?, sub subIndex: Int?) -> [CardImageView]? {
-        guard let idx = index, let subIdx = subIndex else { return nil }
+    func selectedSubViews(at index: Int, sub subIndex: Int) -> [CardImageView] {
         var views = [CardImageView]()
         var subviewIndex = 0
-        for subView in self.container[idx].subviews {
-            if subviewIndex >= subIdx, let cardView = subView as? CardImageView {
+        for subView in self.container[index].subviews {
+            if subviewIndex >= subIndex, let cardView = subView as? CardImageView {
                 views.append(cardView)
             }
             subviewIndex += 1

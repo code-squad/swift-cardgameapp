@@ -46,6 +46,11 @@ class TableauViewModel {
         let dragTargetInfo = DragTargetInfo(minX: minX, maxX: maxX, minY: minY, maxY: maxY)
         return dragTargetInfo
     }
+    
+    func selectedCard(at index: Int, sub subIndex: Int) -> Card {
+        let card = self.tableauModels[index][subIndex]
+        return card
+    }
 }
 
 extension TableauViewModel {

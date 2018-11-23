@@ -64,7 +64,7 @@ class ViewController: UIViewController {
             stockViewModel.push(card, at: nil)
         }
     }
-
+    
     private func configureObservers() {
         let keyName = NotificationKey.name
         let stock = Notification.Name(keyName.stock)
@@ -89,12 +89,15 @@ class ViewController: UIViewController {
         guard let recognizer = notification.userInfo?["recognizer"] as? UIPanGestureRecognizer else { return }
         let delivery = configureDelivery(notification)
         var selectedCardViews = [UIView]()
+        // waste or tableau 하나의 카드만 클릭 했을 경우
         guard let selectedCardView = delivery.view.topSubView(at: delivery.index) else { return }
+        guard var selectedCard = delivery.viewModel.lastCard(at: delivery.index) else { return }
         selectedCardViews.append(selectedCardView)
         
         // tableau 클릭할 때만 두 개 이상의 뷰가 클릭 되는 경우가 있습니다.
-        if let tableauViews = tableauContainerView.selectedSubViews(at: delivery.index, sub: delivery.subIndex) {
-            selectedCardViews = tableauViews
+        if let idx = delivery.index, let subIdx = delivery.subIndex {
+            selectedCardViews = tableauContainerView.selectedSubViews(at: idx, sub: subIdx)
+            selectedCard = tableauViewModel.selectedCard(at: idx, sub: subIdx)
         }
         
         var originalCenters = [CGPoint]()
@@ -118,10 +121,10 @@ class ViewController: UIViewController {
             recognizer.setTranslation(CGPoint.zero, in: backgroundView)
         } else if recognizer.state == .ended {
             // 비교하기
-
+            
             // 좌표계산
             let lastPoint = recognizer.location(in: backgroundView)
-            // x값으로 tableau index 구하기
+            // x값으로 tableau or foundation index 구하기
             let targetIndex = calculateIndex(from: lastPoint)
             let target: DragTargetInfo
             if lastPoint.y >= 100 {
@@ -129,30 +132,61 @@ class ViewController: UIViewController {
             } else {
                 target = foundationViewModel.lastCardPosition(at: targetIndex)
             }
-
+            
             // 설정된 index 안에 들어오는지 확인
             let rect = CGRect(x: target.minX, y: target.minY, width: target.maxX - target.minX, height: target.maxY - target.minY)
             if rect.contains(lastPoint) {
                 // success
-                guard let deliveryCard = delivery.viewModel.lastCard(at: delivery.index) else { return }
-                if deliveryCard.isAce() {
-                    aceEvent(with: delivery)
+                if selectedCard.isAce() {
+                    guard foundationViewModel.isEmpty(index: targetIndex) else { return }
+                    let destination = Destination(viewModel: foundationViewModel, view: foundationContainerView, index: targetIndex)
+                    moveCard(from: delivery, to: destination)
                     return
                 }
-                if deliveryCard.isKing() {
-                    kingEvent(with: delivery)
+                if selectedCard.isKing() {
+                    guard tableauViewModel.isEmpty(index: targetIndex) else { return }
+                    let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: targetIndex)
+                    moveCard(from: delivery, to: destination)
                     return
                 }
-                normalEvent(with: delivery)
+                if selectedCardViews.count > 1 {
+                    
+                } else {
+                    // normalEvent
+                    
+                    // for foundation
+                    if targetIndex < 4 {
+                        if foundationViewModel.isOneStepLower(with: selectedCard, index: targetIndex) {
+                            let destination = Destination(viewModel: foundationViewModel, view: foundationContainerView, index: targetIndex)
+                            moveCard(from: delivery, to: destination)
+                            return
+                        }
+                    }
+                    // for tableau
+                    if tableauViewModel.isOneStepHigher(with: selectedCard, at: targetIndex) {
+                        let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: targetIndex)
+                        moveCard(from: delivery, to: destination)
+                    }
+                }
             } else {
                 // fail
             }
-
+            
             // 원래 자리로 돌아오기
             for index in 0..<selectedCardViews.count {
                 selectedCardViews[index].center = originalCenters[index]
             }
         }
+    }
+    
+    private func findTableau2(with delivery: Delivery, card: Card) -> Bool {
+        for containerIndex in 0..<tableauViewModel.count {
+            guard tableauViewModel.isOneStepHigher(with: card, at: containerIndex) else { continue }
+            let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: containerIndex)
+            moveCard(from: delivery, to: destination)
+            return true
+        }
+        return false
     }
     
     private func calculateIndex(from point: CGPoint) -> Int {
@@ -189,7 +223,7 @@ class ViewController: UIViewController {
             stockViewModel.push(card, at: nil)
         }
     }
-
+    
     @objc private func doubleTapCard(_ notification: Notification) {
         let delivery = configureDelivery(notification)
         guard let lastCard = delivery.viewModel.lastCard(at: delivery.index) else { return }
