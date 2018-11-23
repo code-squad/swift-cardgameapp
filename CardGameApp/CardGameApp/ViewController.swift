@@ -114,8 +114,21 @@ class ViewController: UIViewController {
             if rect.contains(lastPoint) {
                 // success
                 let deliveryCard = tableauViewModel[index][subIndex]
+                
+                if deliveryCard.isAce() {
+                    
+                    return
+                }
+                if deliveryCard.isKing() {
+                    guard tableauViewModel.isEmpty(index: tableauIndex) else { return }
+                    let delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: index)
+                    let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: tableauIndex)
+                    moveCard(from: delivery, to: destination)
+                    return
+                }
                 // normalEvent
                 guard let targetCard = tableauViewModel[tableauIndex].lastCard else { return }
+                
                 let isHigherStep = deliveryCard.isOneStepHigherWithAnotherShape(with: targetCard)
                 if isHigherStep {
                     let delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: index)
@@ -123,7 +136,6 @@ class ViewController: UIViewController {
                     moveCard(from: delivery, to: destination)
                     return 
                 }
-                
             } else {
                 // fail
             }
