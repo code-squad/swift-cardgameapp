@@ -16,27 +16,6 @@ class CardImageView: UIImageView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        print("began")
-//    }
-//
-//    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        guard let touch = touches.first else { return }
-//        let location = touch.location(in: superview?.superview)
-//        print(location)
-//        UIView.animate(withDuration: 0.1) {
-////            let movePoint = CGPoint(
-////                x: toPoint.x - fromPoint.x,
-////                y: toPoint.y - fromPoint.y)
-////            delivery.view.topSubView(at: delivery.index)?.frame.origin.x += movePoint.x
-////            delivery.view.topSubView(at: delivery.index)?.frame.origin.y += movePoint.y
-////            self.frame.origin.x = location.x
-////            self.frame.origin.y = location.y
-//            self.frame.origin.x =
-//            self.frame.origin.y = location.y
-//        }
-//    }
 }
 
 extension CardImageView {

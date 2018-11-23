@@ -103,10 +103,29 @@ class ViewController: UIViewController {
             recognizer.setTranslation(CGPoint.zero, in: selectedCardView)
         } else if recognizer.state == .ended {
             // 비교하기
+            
+            // 좌표계산
+            let lastPoint = recognizer.location(in: backgroundView)
+            // x값으로 tableau index 구하기
+            let tableauIndex = calculateIndex(from: lastPoint)
+            let target = tableauViewModel.lastCardPosition(at: tableauIndex)
+            // 설정된 index 안에 들어오는지 확인
+            let rect = CGRect(x: target.minX, y: target.minY, width: target.maxX - target.minX, height: target.maxY - target.minY)
+            if rect.contains(lastPoint) {
+                // success
+            } else {
+                // fail
+            }
 
             // 원래 자리로 돌아오기
             selectedCardView.center = originalCenter
         }
+    }
+    
+    private func calculateIndex(from point: CGPoint) -> Int {
+        let tableauIndexDemical = point.x / (Unit.space + Unit.imageWidth)
+        let tableauIndex = Int(floor(tableauIndexDemical))
+        return tableauIndex
     }
     
     @objc private func redrawStock() {

@@ -19,3 +19,10 @@ struct Destination {
     var view: DestinationView
     var index: Int?
 }
+
+struct DragTargetInfo {
+    var minX: Int
+    var maxX: Int
+    var minY: Int
+    var maxY: Int
+}
