@@ -121,6 +121,7 @@ class ViewController: UIViewController {
                     let delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: index)
                     let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: tableauIndex)
                     moveCard(from: delivery, to: destination)
+                    return 
                 }
                 
             } else {

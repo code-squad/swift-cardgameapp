@@ -39,10 +39,10 @@ class TableauViewModel {
         let standardIndex = index + 1
         let standardCount = cardCount - 1
         let bonusY = 40
-        let minX = Int(Unit.space) * standardIndex + Int(Unit.imageWidth) * standardCount
-        let maxX = Int(Unit.space) * standardIndex + Int(Unit.imageWidth) * cardCount
+        let minX = Int(Unit.space) * standardIndex + Int(Unit.imageWidth) * index
+        let maxX = minX + Int(Unit.imageWidth)
         let minY = Int(Unit.defalutCardsYValue) + Int(Unit.cardSpace) * standardCount
-        let maxY = Int(Unit.defalutCardsYValue) + Int(Unit.cardSpace) * standardCount + Int(Unit.imageWidth) + bonusY
+        let maxY = minY + Int(Unit.imageWidth) + bonusY
         let dragTargetInfo = DragTargetInfo(minX: minX, maxX: maxX, minY: minY, maxY: maxY)
         return dragTargetInfo
     }
