@@ -12,6 +12,7 @@ struct Delivery {
     var viewModel: DeliverableViewModel
     var view: DeliverableView
     var index: Int?
+    var subIndex: Int?
 }
 
 struct Destination {

@@ -85,16 +85,27 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(drag(_:)), name: dragPan, object: nil)
     }
     
+    private func configureDelivery2(_ notification: Notification) -> Delivery {
+        var delivery = Delivery(viewModel: wasteViewModel, view: wasteView, index: nil, subIndex: nil)
+        if let idx = notification.userInfo?["index"] as? Int, let subIdx = notification.userInfo?["subIndex"] as? Int {
+            delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: idx, subIndex: subIdx)
+        }
+        return delivery
+    }
+    
     @objc private func drag(_ notification: Notification) {
         guard let recognizer = notification.userInfo?["recognizer"] as? UIPanGestureRecognizer else { return }
-        guard let index = notification.userInfo?["index"] as? Int else { return }
-        guard let subIndex = notification.userInfo?["subIndex"] as? Int else { return }
-        
-        let selectedCardView = tableauContainerView[index].subviews[subIndex]
-        let floorHeight = Unit.cardSpace * CGFloat(subIndex)
+        let delivery = configureDelivery2(notification)
+        guard let selectedCardView = delivery.view.topSubView(at: delivery.index) else { return }
+
+        var floorHeight: CGFloat = 0
+        if let subIdx = delivery.subIndex {
+            floorHeight = Unit.cardSpace * CGFloat(subIdx)
+        }
+
         let originalCenter = CGPoint(x: selectedCardView.bounds.width / 2, y: selectedCardView.bounds.height / 2 + floorHeight)
         if recognizer.state == .began {
-            
+
         } else if recognizer.state == .changed {
             let transition = recognizer.translation(in: tableauContainerView)
             let changeX = selectedCardView.center.x + transition.x
@@ -103,7 +114,7 @@ class ViewController: UIViewController {
             recognizer.setTranslation(CGPoint.zero, in: selectedCardView)
         } else if recognizer.state == .ended {
             // 비교하기
-            
+
             // 좌표계산
             let lastPoint = recognizer.location(in: backgroundView)
             // x값으로 tableau index 구하기
@@ -114,23 +125,20 @@ class ViewController: UIViewController {
             } else {
                 target = foundationViewModel.lastCardPosition(at: targetIndex)
             }
-            
+
             // 설정된 index 안에 들어오는지 확인
             let rect = CGRect(x: target.minX, y: target.minY, width: target.maxX - target.minX, height: target.maxY - target.minY)
             if rect.contains(lastPoint) {
                 // success
-                let deliveryCard = tableauViewModel[index][subIndex]
-                
+                guard let deliveryCard = delivery.viewModel.lastCard(at: delivery.index) else { return }
                 if deliveryCard.isAce() {
                     guard foundationViewModel.isEmpty(index: targetIndex) else { return }
-                    let delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: index)
                     let destination = Destination(viewModel: foundationViewModel, view: foundationContainerView, index: targetIndex)
                     moveCard(from: delivery, to: destination)
                     return
                 }
                 if deliveryCard.isKing() {
                     guard tableauViewModel.isEmpty(index: targetIndex) else { return }
-                    let delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: index)
                     let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: targetIndex)
                     moveCard(from: delivery, to: destination)
                     return
@@ -139,10 +147,9 @@ class ViewController: UIViewController {
                 guard let targetCard = tableauViewModel[targetIndex].lastCard else { return }
                 let isHigherStep = deliveryCard.isOneStepHigherWithAnotherShape(with: targetCard)
                 if isHigherStep {
-                    let delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: index)
                     let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: targetIndex)
                     moveCard(from: delivery, to: destination)
-                    return 
+                    return
                 }
             } else {
                 // fail
@@ -176,7 +183,7 @@ class ViewController: UIViewController {
     }
     
     @objc private func moveCardToWaste() {
-        let delivery = Delivery(viewModel: stockViewModel, view: stockView, index: nil)
+        let delivery = Delivery(viewModel: stockViewModel, view: stockView, index: nil, subIndex: nil)
         let destination = Destination(viewModel: wasteViewModel, view: wasteView, index: nil)
         moveCard(from: delivery, to: destination)
     }
@@ -205,10 +212,14 @@ class ViewController: UIViewController {
     
     private func configureDelivery(_ notification: Notification) -> Delivery {
         // from waste
-        var delivery = Delivery(viewModel: wasteViewModel, view: wasteView, index: nil)
+        var delivery = Delivery(viewModel: wasteViewModel, view: wasteView, index: nil, subIndex: nil)
         if let idx = notification.userInfo?[NotificationKey.hash.index] as? Int {
             // from tableau
-            delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: idx)
+            delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: idx, subIndex: nil)
+            
+            if let subIdx = notification.userInfo?["subIndex"] as? Int {
+                delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: idx, subIndex: subIdx)
+            }
         }
         return delivery
     }

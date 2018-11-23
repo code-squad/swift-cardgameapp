@@ -46,6 +46,11 @@ extension WasteView {
         doubleTapGesture.numberOfTapsRequired = 2
         view.isUserInteractionEnabled = true
         view.addGestureRecognizer(doubleTapGesture)
+        
+        let panGesture = CustomUIPanGestureRecognizer(target: view, action: #selector(view.panActionWaste(tapGestureRecognizer:)))
+        panGesture.maximumNumberOfTouches = 1
+        panGesture.minimumNumberOfTouches = 1
+        view.addGestureRecognizer(panGesture)
     }
 }
 

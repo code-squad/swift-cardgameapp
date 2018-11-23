@@ -35,6 +35,11 @@ extension CardImageView {
         NotificationCenter.default.post(name: name, object: TableauContainerView.self, userInfo: [NotificationKey.hash.index: cardIndex])
     }
     
+    @objc public func panActionWaste(tapGestureRecognizer: CustomUIPanGestureRecognizer) {
+        let name = Notification.Name("drag")
+        NotificationCenter.default.post(name: name, object: nil, userInfo: ["recognizer": tapGestureRecognizer])
+    }
+    
     @objc public func panAction(tapGestureRecognizer: CustomUIPanGestureRecognizer) {
         let name = Notification.Name("drag")
         let index = tapGestureRecognizer.index
