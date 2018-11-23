@@ -113,6 +113,16 @@ class ViewController: UIViewController {
             let rect = CGRect(x: target.minX, y: target.minY, width: target.maxX - target.minX, height: target.maxY - target.minY)
             if rect.contains(lastPoint) {
                 // success
+                let deliveryCard = tableauViewModel[index][subIndex]
+                // normalEvent
+                guard let targetCard = tableauViewModel[tableauIndex].lastCard else { return }
+                let isHigherStep = deliveryCard.isOneStepHigherWithAnotherShape(with: targetCard)
+                if isHigherStep {
+                    let delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: index)
+                    let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: tableauIndex)
+                    moveCard(from: delivery, to: destination)
+                }
+                
             } else {
                 // fail
             }

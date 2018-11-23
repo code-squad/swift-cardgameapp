@@ -43,8 +43,8 @@ class TableauViewModel {
         let maxX = Int(Unit.space) * standardIndex + Int(Unit.imageWidth) * cardCount
         let minY = Int(Unit.defalutCardsYValue) + Int(Unit.cardSpace) * standardCount
         let maxY = Int(Unit.defalutCardsYValue) + Int(Unit.cardSpace) * standardCount + Int(Unit.imageWidth) + bonusY
-        let locationDTO = DragTargetInfo(minX: minX, maxX: maxX, minY: minY, maxY: maxY)
-        return locationDTO
+        let dragTargetInfo = DragTargetInfo(minX: minX, maxX: maxX, minY: minY, maxY: maxY)
+        return dragTargetInfo
     }
 }
 
