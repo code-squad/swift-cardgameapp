@@ -40,7 +40,6 @@ class FoundationViewModel {
         let maxX = minX + Int(Unit.imageWidth)
         let minY = Int(Unit.foundationYValue)
         let maxY = minY + Int(Unit.imageWidth)
-        print("\(minX)/\(maxX)/\(minY)/\(maxY)")
         let dragTargetInfo = DragTargetInfo(minX: minX, maxX: maxX, minY: minY, maxY: maxY)
         return dragTargetInfo
     }

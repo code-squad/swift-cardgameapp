@@ -132,25 +132,14 @@ class ViewController: UIViewController {
                 // success
                 guard let deliveryCard = delivery.viewModel.lastCard(at: delivery.index) else { return }
                 if deliveryCard.isAce() {
-                    guard foundationViewModel.isEmpty(index: targetIndex) else { return }
-                    let destination = Destination(viewModel: foundationViewModel, view: foundationContainerView, index: targetIndex)
-                    moveCard(from: delivery, to: destination)
+                    aceEvent(with: delivery)
                     return
                 }
                 if deliveryCard.isKing() {
-                    guard tableauViewModel.isEmpty(index: targetIndex) else { return }
-                    let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: targetIndex)
-                    moveCard(from: delivery, to: destination)
+                    kingEvent(with: delivery)
                     return
                 }
-                // normalEvent
-                guard let targetCard = tableauViewModel[targetIndex].lastCard else { return }
-                let isHigherStep = deliveryCard.isOneStepHigherWithAnotherShape(with: targetCard)
-                if isHigherStep {
-                    let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: targetIndex)
-                    moveCard(from: delivery, to: destination)
-                    return
-                }
+                normalEvent(with: delivery)
             } else {
                 // fail
             }
