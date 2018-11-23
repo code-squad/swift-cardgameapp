@@ -85,17 +85,9 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(drag(_:)), name: dragPan, object: nil)
     }
     
-    private func configureDelivery2(_ notification: Notification) -> Delivery {
-        var delivery = Delivery(viewModel: wasteViewModel, view: wasteView, index: nil, subIndex: nil)
-        if let idx = notification.userInfo?["index"] as? Int, let subIdx = notification.userInfo?["subIndex"] as? Int {
-            delivery = Delivery(viewModel: tableauViewModel, view: tableauContainerView, index: idx, subIndex: subIdx)
-        }
-        return delivery
-    }
-    
     @objc private func drag(_ notification: Notification) {
         guard let recognizer = notification.userInfo?["recognizer"] as? UIPanGestureRecognizer else { return }
-        let delivery = configureDelivery2(notification)
+        let delivery = configureDelivery(notification)
         guard let selectedCardView = delivery.view.topSubView(at: delivery.index) else { return }
 
         var floorHeight: CGFloat = 0
@@ -107,7 +99,7 @@ class ViewController: UIViewController {
         if recognizer.state == .began {
 
         } else if recognizer.state == .changed {
-            let transition = recognizer.translation(in: tableauContainerView)
+            let transition = recognizer.translation(in: backgroundView)
             let changeX = selectedCardView.center.x + transition.x
             let changeY = selectedCardView.center.y + transition.y
             selectedCardView.center = CGPoint(x: changeX, y: changeY)
