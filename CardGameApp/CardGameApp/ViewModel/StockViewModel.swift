@@ -10,11 +10,6 @@ import Foundation
 
 class StockViewModel {
     private var stockModel = CardStack()
-    
-    func pop() -> Card? {
-        postNotification()
-        return stockModel.pop()
-    }
 }
 
 extension StockViewModel: SingleDataSource {
@@ -42,7 +37,7 @@ extension StockViewModel: DeliverableViewModel {
         postNotification()
     }
     
-    func pop(at index: Int?) -> Card? {
+    func pop(at index: Int?, sub subIndex: Int?) -> Card? {
         postNotification()
         return stockModel.pop()
     }

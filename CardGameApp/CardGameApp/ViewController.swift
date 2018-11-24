@@ -109,6 +109,8 @@ class ViewController: UIViewController {
             originalCenters.append(CGPoint(x: selectedCardViews[index].bounds.width / 2, y: selectedCardViews[index].bounds.height / 2 + floor))
         }
         
+        var isPass = false
+        
         if recognizer.state == .began {
             
         } else if recognizer.state == .changed {
@@ -132,46 +134,57 @@ class ViewController: UIViewController {
             } else {
                 target = foundationViewModel.lastCardPosition(at: targetIndex)
             }
-            
             // 설정된 index 안에 들어오는지 확인
             let rect = CGRect(x: target.minX, y: target.minY, width: target.maxX - target.minX, height: target.maxY - target.minY)
             if rect.contains(lastPoint) {
-                // success
-                if selectedCard.isAce() {
-                    guard foundationViewModel.isEmpty(index: targetIndex) else { return }
-                    let destination = Destination(viewModel: foundationViewModel, view: foundationContainerView, index: targetIndex)
-                    moveCard(from: delivery, to: destination)
-                    return
-                }
-                if selectedCard.isKing() {
-                    guard tableauViewModel.isEmpty(index: targetIndex) else { return }
-                    let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: targetIndex)
-                    moveCard(from: delivery, to: destination)
-                    return
-                }
-                if selectedCardViews.count > 1 {
-                    
-                } else {
-                    // normalEvent
-                    
-                    // for foundation
-                    if targetIndex < 4 {
-                        if foundationViewModel.isOneStepLower(with: selectedCard, index: targetIndex) {
-                            let destination = Destination(viewModel: foundationViewModel, view: foundationContainerView, index: targetIndex)
-                            moveCard(from: delivery, to: destination)
-                            return
+                if lastPoint.y >= 100 {
+                    // tableau
+                    if selectedCard.isKing() {
+                        guard tableauViewModel.isEmpty(index: targetIndex) else { return }
+                        for _ in selectedCardViews {
+                            // firstSubViewIndex 를 계속 사용하는 이유 : pop 할 때 카드가 삭제되면서 index 가 줄어들게 되므로 게속 유지하면서 pop 해줍니다.
+                            let deliveryR = Delivery(viewModel: delivery.viewModel, view: delivery.view, index: delivery.index, subIndex: firstSubViewIndex)
+                            let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: targetIndex)
+                            guard let card = self.popDeliveryCard(with: deliveryR) else { return }
+                            destination.viewModel.push(card, at: destination.index)
                         }
+                        isPass = true
+                    } else {
+                        guard tableauViewModel.isOneStepHigher(with: selectedCard, at: targetIndex) else { return }
+                        for _ in selectedCardViews {
+                            let deliveryR = Delivery(viewModel: delivery.viewModel, view: delivery.view, index: delivery.index, subIndex: firstSubViewIndex)
+                            let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: targetIndex)
+                            guard let card = self.popDeliveryCard(with: deliveryR) else { return }
+                            destination.viewModel.push(card, at: destination.index)
+                        }
+                        isPass = true
                     }
-                    // for tableau
-                    if tableauViewModel.isOneStepHigher(with: selectedCard, at: targetIndex) {
-                        let destination = Destination(viewModel: tableauViewModel, view: tableauContainerView, index: targetIndex)
-                        moveCard(from: delivery, to: destination)
+                } else {
+                    // foundation
+                    if selectedCard.isAce() {
+                        guard foundationViewModel.isEmpty(index: targetIndex) else { return }
+                        let deliveryR = Delivery(viewModel: delivery.viewModel, view: delivery.view, index: delivery.index, subIndex: firstSubViewIndex)
+                        let destination = Destination(viewModel: foundationViewModel, view: foundationContainerView, index: targetIndex)
+                        guard let card = self.popDeliveryCard(with: deliveryR) else { return }
+                        destination.viewModel.push(card, at: destination.index)
+                        isPass = true
+                    } else {
+                        guard foundationViewModel.isOneStepLower(with: selectedCard, index: targetIndex) else { return }
+                        let deliveryR = Delivery(viewModel: delivery.viewModel, view: delivery.view, index: delivery.index, subIndex: firstSubViewIndex)
+                        let destination = Destination(viewModel: foundationViewModel, view: foundationContainerView, index: targetIndex)
+                        guard let card = self.popDeliveryCard(with: deliveryR) else { return }
+                        destination.viewModel.push(card, at: destination.index)
+                        isPass = true
                     }
                 }
             } else {
                 // fail
+                // 원래 자리로 돌아오기
+                for index in 0..<selectedCardViews.count {
+                    selectedCardViews[index].center = originalCenters[index]
+                }
             }
-            
+            if isPass { return }
             // 원래 자리로 돌아오기
             for index in 0..<selectedCardViews.count {
                 selectedCardViews[index].center = originalCenters[index]
@@ -219,7 +232,7 @@ class ViewController: UIViewController {
     
     @objc private func restoreCard() {
         for _ in 0..<wasteViewModel.list().count {
-            guard let card = wasteViewModel.pop(at: nil) else { return }
+            guard let card = wasteViewModel.pop(at: nil, sub: nil) else { return }
             stockViewModel.push(card, at: nil)
         }
     }
@@ -302,9 +315,9 @@ class ViewController: UIViewController {
         }
         return false
     }
-    
+
     private func popDeliveryCard(with delivery: Delivery) -> Card? {
-        guard let card = delivery.viewModel.pop(at: delivery.index) else { return nil }
+        guard let card = delivery.viewModel.pop(at: delivery.index, sub: delivery.subIndex) else { return nil }
         if delivery.viewModel.hasCard(at: delivery.index), let lastCard = delivery.viewModel.lastCard(at: delivery.index) {
             lastCard.flipCondition(with: .front)
         }

@@ -88,10 +88,10 @@ extension TableauViewModel: DeliverableViewModel {
         postNotification()
     }
     
-    func pop(at index: Int?) -> Card? {
-        guard let idx = index else { return nil }
+    func pop(at index: Int?, sub subIndex: Int?) -> Card? {
+        guard let idx = index, let subIdx = subIndex else { return nil }
         postNotification()
-        return tableauModels[idx].pop()
+        return tableauModels[idx].specifiedPop(at: subIdx)
     }
     
     func info(at index: Int?) -> Card? {

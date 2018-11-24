@@ -15,7 +15,7 @@ protocol BasicViewModel {
 }
 
 protocol DeliverableViewModel: BasicViewModel {
-    func pop(at index: Int?) -> Card?
+    func pop(at index: Int?, sub subIndex: Int?) -> Card?
     func info(at index: Int?) -> Card?
     func lastCard(at index: Int?) -> Card?
     func hasCard(at index: Int?) -> Bool

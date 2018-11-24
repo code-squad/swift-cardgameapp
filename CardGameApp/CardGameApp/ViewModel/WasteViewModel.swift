@@ -41,7 +41,7 @@ extension WasteViewModel: DeliverableViewModel {
         postNotification()
     }
     
-    func pop(at index: Int?) -> Card? {
+    func pop(at index: Int?, sub subIndex: Int?) -> Card? {
         postNotification()
         return wasteModel.pop()
     }

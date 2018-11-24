@@ -26,6 +26,10 @@ struct CardStack {
         return cards.popLast()
     }
     
+    mutating func specifiedPop(at index: Int) -> Card? {
+        return cards.remove(at: index)
+    }
+    
     func list() -> [Card] {
         return cards
     }
