@@ -33,16 +33,6 @@ class FoundationViewModel {
         guard let lastCard = foundationModels[index].lastCard else { return false }
         return card.isOneStepLowerWithEqualShape(with: lastCard)
     }
-    
-    func lastCardPosition(at index: Int) -> DragTargetInfo {
-        let standardIndex = index + 1
-        let minX = Int(Unit.space) * standardIndex + Int(Unit.imageWidth) * index
-        let maxX = minX + Int(Unit.imageWidth)
-        let minY = Int(Unit.foundationYValue)
-        let maxY = minY + Int(Unit.imageWidth)
-        let dragTargetInfo = DragTargetInfo(minX: minX, maxX: maxX, minY: minY, maxY: maxY)
-        return dragTargetInfo
-    }
 }
 
 extension FoundationViewModel {

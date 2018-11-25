@@ -6,7 +6,7 @@
 //  Copyright © 2018 oingbong. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Delivery {
     var viewModel: DeliverableViewModel
@@ -21,9 +21,16 @@ struct Destination {
     var index: Int?
 }
 
-struct DragTargetInfo {
-    var minX: Int
-    var maxX: Int
-    var minY: Int
-    var maxY: Int
+struct CoordinatesInfo {
+    var selectedCardViews: [UIView]
+    var selectedCard: Card
+    var targetIndex: Int
+    var target: Target
+}
+
+struct DragInfo {
+    var recognizer: UIPanGestureRecognizer
+    var originalCenters: [CGPoint]
+    var delivery: Delivery
+    var coordinatesInfo: CoordinatesInfo
 }

@@ -33,6 +33,7 @@
 		47C7FD8E2182C9C9003417E8 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD822182C9C9003417E8 /* Card.swift */; };
 		47C7FD902183039B003417E8 /* String+PNG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C7FD8F2183039B003417E8 /* String+PNG.swift */; };
 		47CDAD0B21883E32002725B8 /* StockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CDAD0A21883E32002725B8 /* StockView.swift */; };
+		47DDF06921AA84CF00C272CF /* Enum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DDF06821AA84CF00C272CF /* Enum.swift */; };
 		E92C59F4C46CBA792E28745E /* Pods_CardGameApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C5E66D143B71340C75FD6E8 /* Pods_CardGameApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		47C7FD822182C9C9003417E8 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		47C7FD8F2183039B003417E8 /* String+PNG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+PNG.swift"; sourceTree = "<group>"; };
 		47CDAD0A21883E32002725B8 /* StockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockView.swift; sourceTree = "<group>"; };
+		47DDF06821AA84CF00C272CF /* Enum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enum.swift; sourceTree = "<group>"; };
 		F61891CE579B49D38C70D1CE /* Pods-CardGameApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CardGameApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CardGameApp/Pods-CardGameApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,6 +128,7 @@
 				47C7FD8F2183039B003417E8 /* String+PNG.swift */,
 				47378C83218C95E300978365 /* NotificationKey.swift */,
 				47474F3C219DC0F4007FE9B8 /* CustomGestureRecognizer.swift */,
+				47DDF06821AA84CF00C272CF /* Enum.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				4702B9C0219982CF00092138 /* TableauContainerView.swift in Sources */,
 				479FBB5A2188BA3E003041B3 /* WasteView.swift in Sources */,
 				47C7FD762182B020003417E8 /* CardImageView.swift in Sources */,
+				47DDF06921AA84CF00C272CF /* Enum.swift in Sources */,
 				47C7FD8E2182C9C9003417E8 /* Card.swift in Sources */,
 				4702BA18219C56EB00092138 /* FoundationViewModel.swift in Sources */,
 				4702BA1C219D1D1300092138 /* FoundationContainerView.swift in Sources */,

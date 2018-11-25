@@ -34,19 +34,6 @@ class TableauViewModel {
         return card.isOneStepHigherWithAnotherShape(with: lastCard)
     }
     
-    func lastCardPosition(at index: Int) -> DragTargetInfo {
-        let cardCount = tableauModels[index].count
-        let standardIndex = index + 1
-        let standardCount = cardCount - 1
-        let bonusY = 40
-        let minX = Int(Unit.space) * standardIndex + Int(Unit.imageWidth) * index
-        let maxX = minX + Int(Unit.imageWidth)
-        let minY = Int(Unit.defalutCardsYValue) + Int(Unit.cardSpace) * standardCount
-        let maxY = minY + Int(Unit.imageWidth) + bonusY
-        let dragTargetInfo = DragTargetInfo(minX: minX, maxX: maxX, minY: minY, maxY: maxY)
-        return dragTargetInfo
-    }
-    
     func selectedCard(at index: Int, sub subIndex: Int) -> Card {
         let card = self.tableauModels[index][subIndex]
         return card

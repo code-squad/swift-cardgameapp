@@ -21,8 +21,11 @@ struct Name {
     let waste = "waste"
     let foundation = "foundation"
     let tableau = "tableau"
+    let drag = "drag"
 }
 
 struct Hash {
+    let recognizer = "recognizer"
     let index = "index"
+    let subIndex = "subIndex"
 }

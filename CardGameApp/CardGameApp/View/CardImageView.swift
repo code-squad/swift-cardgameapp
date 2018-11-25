@@ -36,14 +36,14 @@ extension CardImageView {
     }
     
     @objc public func panActionWaste(tapGestureRecognizer: CustomUIPanGestureRecognizer) {
-        let name = Notification.Name("drag")
-        NotificationCenter.default.post(name: name, object: nil, userInfo: ["recognizer": tapGestureRecognizer])
+        let name = Notification.Name(NotificationKey.name.drag)
+        NotificationCenter.default.post(name: name, object: nil, userInfo: [NotificationKey.hash.recognizer: tapGestureRecognizer])
     }
     
     @objc public func panAction(tapGestureRecognizer: CustomUIPanGestureRecognizer) {
-        let name = Notification.Name("drag")
+        let name = Notification.Name(NotificationKey.name.drag)
         let index = tapGestureRecognizer.index
         let subIndex = tapGestureRecognizer.subIndex
-        NotificationCenter.default.post(name: name, object: nil, userInfo: ["recognizer": tapGestureRecognizer, "index": index, "subIndex": subIndex])
+        NotificationCenter.default.post(name: name, object: nil, userInfo: [NotificationKey.hash.recognizer: tapGestureRecognizer, NotificationKey.hash.index: index, NotificationKey.hash.subIndex: subIndex])
     }
 }

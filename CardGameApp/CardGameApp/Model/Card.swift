@@ -55,12 +55,12 @@ class Card: CustomStringConvertible {
         return self.condition == .front ? true : false
     }
     
-    func isAce() -> Bool {
-        return self.cardNumber == .ace
-    }
-    
-    func isKing() -> Bool {
-        return self.cardNumber == .king
+    var category: Category {
+        switch self.cardNumber {
+        case .ace: return Category.ace
+        case .king: return Category.king
+        default: return Category.normal
+        }
     }
     
     func isOneStepHigherWithAnotherShape(with card: Card) -> Bool {
