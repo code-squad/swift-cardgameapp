@@ -56,7 +56,7 @@ extension TableauViewModel: MultipleDataSource {
     }
 }
 
-extension TableauViewModel: DeliverableViewModel {
+extension TableauViewModel: DeliverableViewModeling {
     func postNotification() {
         let key = Notification.Name(NotificationKey.name.tableau)
         NotificationCenter.default.post(name: key, object: nil)

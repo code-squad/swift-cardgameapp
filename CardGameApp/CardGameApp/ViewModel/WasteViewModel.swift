@@ -25,7 +25,7 @@ extension WasteViewModel: SingleDataSource {
     }
 }
 
-extension WasteViewModel: DeliverableViewModel {
+extension WasteViewModel: DeliverableViewModeling {
     func postNotification() {
         let key = Notification.Name(NotificationKey.name.waste)
         NotificationCenter.default.post(name: key, object: nil)

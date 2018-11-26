@@ -62,7 +62,7 @@ extension FoundationViewModel: MultipleDataSource {
     }
 }
 
-extension FoundationViewModel: BasicViewModel {
+extension FoundationViewModel: BasicViewModeling {
     func postNotification() {
         let key = Notification.Name(NotificationKey.name.foundation)
         NotificationCenter.default.post(name: key, object: nil)

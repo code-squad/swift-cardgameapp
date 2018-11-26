@@ -9,15 +9,15 @@
 import UIKit
 
 struct Delivery {
-    var viewModel: DeliverableViewModel
-    var view: DeliverableView
+    var viewModel: DeliverableViewModeling
+    var view: DeliverableViewable
     var index: Int?
     var subIndex: Int?
 }
 
 struct Destination {
-    var viewModel: BasicViewModel
-    var view: DestinationView
+    var viewModel: BasicViewModeling
+    var view: DestinationViewable
     var index: Int?
 }
 

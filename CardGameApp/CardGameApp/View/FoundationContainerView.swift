@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FoundationContainerView: UIView, CardContainerView {
+class FoundationContainerView: UIView, CardContainerReceiving {
     var dataSource: MultipleDataSource?
     // 카드몰드는 배열에도 속하지 않고 그냥 모양을 나타내기 위해 addSubView만 합니다.
     private var container = [UIView]()
@@ -74,7 +74,7 @@ extension FoundationContainerView {
     }
 }
 
-extension FoundationContainerView: DestinationView {
+extension FoundationContainerView: DestinationViewable {
     func convert(at index: Int?, to view: UIView) -> CGPoint? {
         guard let idx = index else { return nil }
         return self.container[idx].convert(Unit.basePoint, to: view)

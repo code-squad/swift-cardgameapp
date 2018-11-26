@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WasteView: UIView, CardView {
+class WasteView: UIView, CardReceiving {
     var dataSource: SingleDataSource?
     
     override init(frame: CGRect) {
@@ -54,7 +54,7 @@ extension WasteView {
     }
 }
 
-extension WasteView: DeliverableView, DestinationView {
+extension WasteView: DeliverableViewable, DestinationViewable {
     func drawSubView() {
         setNeedsLayout()
     }

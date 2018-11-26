@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StockView: UIView, CardView {
+class StockView: UIView, CardReceiving {
     private let refreshImageView = RefreshImageView(image: UIImage(named: Unit.refreshImage.formatPNG))
     var dataSource: SingleDataSource?
     
@@ -74,7 +74,7 @@ extension StockView {
     }
 }
 
-extension StockView: DeliverableView {
+extension StockView: DeliverableViewable {
     func drawSubView() {
         setNeedsLayout()
     }
