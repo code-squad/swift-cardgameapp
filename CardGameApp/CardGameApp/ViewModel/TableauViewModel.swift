@@ -76,7 +76,12 @@ extension TableauViewModel: DeliverableViewModel {
     }
     
     func pop(at index: Int?, sub subIndex: Int?) -> Card? {
-        guard let idx = index, let subIdx = subIndex else { return nil }
+        guard let idx = index else { return nil }
+        // 기본으로 해당 CarStack 의 마지막 index 를 세팅해주며 subIndex 가 존재하면 세팅해줍니다.
+        var subIdx = tableauModels[idx].count - 1
+        if let tempIndex = subIndex {
+            subIdx = tempIndex
+        }
         postNotification()
         return tableauModels[idx].specifiedPop(at: subIdx)
     }
