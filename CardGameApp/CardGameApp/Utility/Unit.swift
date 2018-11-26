@@ -12,6 +12,7 @@ struct Unit {
     public static let refreshImage = "cardgameapp-refresh-app"
     public static let cardBack = "card-back"
     public static let bgPattern = "bg_pattern"
+    public static let cardTotalCount = 52
     public static let basePoint = CGPoint(x: 0, y: 0)
     public static let foundationYValue = CGFloat(20)
     public static let foundationCount = 4
@@ -44,4 +45,8 @@ struct Unit {
     
     private static let viewWidthWithoutSpace = iphone8plusWidth - iphone8plusWidth * tenPercentOfFrame
     public static let imageWidth = viewWidthWithoutSpace / cardCount
+    
+    public static let alertTitle = "축하합니다"
+    public static let alertMessage = "다음단계 넘어가자"
+    public static let actionTitle = "OK"
 }

@@ -9,7 +9,18 @@
 import Foundation
 
 class FoundationViewModel {
-    private var foundationModels: [CardStack]
+    private var foundationModels: [CardStack] {
+        didSet {
+            var totalCount = 0
+            for model in foundationModels {
+                totalCount += model.count
+            }
+            if totalCount == Unit.cardTotalCount {
+                let key = Notification.Name(NotificationKey.name.complete)
+                NotificationCenter.default.post(name: key, object: nil)
+            }
+        }
+    }
     
     init() {
         var modelList = [CardStack]()

@@ -22,6 +22,7 @@ struct Name {
     let foundation = "foundation"
     let tableau = "tableau"
     let drag = "drag"
+    let complete = "complete"
 }
 
 struct Hash {

@@ -109,6 +109,8 @@ extension ViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(doubleTapCard(_:)), name: doubleTap, object: nil)
         let dragPan = Notification.Name(keyName.drag)
         NotificationCenter.default.addObserver(self, selector: #selector(drag(_:)), name: dragPan, object: nil)
+        let complete = Notification.Name(keyName.complete)
+        NotificationCenter.default.addObserver(self, selector: #selector(completeGame), name: complete, object: nil)
     }
     
     @objc private func redrawStock() {
@@ -138,6 +140,13 @@ extension ViewController {
             guard let card = wasteViewModel.pop(at: nil, sub: nil) else { return }
             stockViewModel.push(card, at: nil)
         }
+    }
+    
+    @objc private func completeGame() {
+        let alert = UIAlertController(title: Unit.alertTitle, message: Unit.alertMessage, preferredStyle: .alert)
+        let action = UIAlertAction(title: Unit.actionTitle, style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: false, completion: nil)
     }
 }
 
