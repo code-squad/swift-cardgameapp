@@ -129,13 +129,7 @@ extension TableauContainerView: DeliverableView, DestinationView {
     
     func selectedSubView(at index: Int?, sub subIndex: Int?) -> UIView? {
         guard let idx = index, let subIdx = subIndex else { return nil }
-        var subviewIndex = 0
-        for subView in self.container[idx].subviews {
-            if subviewIndex == subIdx {
-                return subView
-            }
-            subviewIndex += 1
-        }
-        return nil
+        let selected = self.container[idx].subviews[subIdx]
+        return selected
     }
 }
