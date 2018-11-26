@@ -14,7 +14,7 @@
  - xcode의 타겟을 8+로 지정했지만 스토리보드에서는 8+로 지정하지 않아 frame 계산할 때 원하는대로 나오지 않음
 
 ### 첨부파일
-![Step1](CaptureImage/Step1.png){: width="375" height="667"}
+![Step1](CaptureImage/Step1.png)
 
 # Step2
 > 카드 UI
@@ -32,11 +32,11 @@
 8. 앱에서 Shake 이벤트 발생하면 랜덤 카드를 다시 섞고 다시 그리도록 구현
 
 ### 첨부파일
-![Step2_1](CaptureImage/Step2_1.png){: width="375" height="667"}
-![Step2_2](CaptureImage/Step2_2.png){: width="375" height="667"}
-![Step2_3](CaptureImage/Step2_3.png){: width="375" height="667"}
-![Step2_4](CaptureImage/Step2_4.png){: width="375" height="667"}
-![Step2 Demo](CaptureImage/Step2Demo.gif){: width="375" height="667"}
+![Step2_1](CaptureImage/Step2_1.png)
+![Step2_2](CaptureImage/Step2_2.png)
+![Step2_3](CaptureImage/Step2_3.png)
+![Step2_4](CaptureImage/Step2_4.png)
+![Step2 Demo](CaptureImage/Step2Demo.gif)
 
 # Step3
 > 카드 배치
@@ -64,7 +64,7 @@
     4. 맨 위에 카드만 앞으로 뒤집어 놓기
     
 ### 첨부파일
-![Step3 Demo](CaptureImage/Step3Demo.gif){: width="375" height="667"}
+![Step3 Demo](CaptureImage/Step3Demo.gif)
 
 # Step4
 > MVVM 아키텍처 패턴 최대한 구현(리팩토링) , 더블탭 이벤트 처리
@@ -106,7 +106,19 @@
 - Model : `Card` 를 객체로 가지고 있으며 `Stack` 의 형태를 가지고 있는 객체
 
 ### MVVM 구조
-![Step4 MVVM](CaptureImage/Step4_MVVM.png){: width="375" height="667"}
+![Step4 MVVM](CaptureImage/Step4_MVVM.png)
 
 ### 첨부파일
-![Step4 Demo](CaptureImage/Step4Demo.gif){: width="375" height="667"}
+![Step4 Demo](CaptureImage/Step4Demo.gif)
+
+# Step5
+> 드래그 구현
+
+### 작업내용
+1. dataSource 접근 방식 변경 : 객체 함수로 전체 데이터 가져오기 -> 클로저 사용
+2. draw 함수 이름 변경 및 setNeedsLayout 사용
+3. 드래그 관련된 프로토콜, 함수 등 구현
+4. 앱 아이콘 등록
+
+### 첨부파일
+![Step5 Demo](CaptureImage/Step5Demo.gif)
