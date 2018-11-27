@@ -127,4 +127,4 @@
 > 클래스 다이어그램
 
 ### 클래스 다이어그램
-![ClassDiagram](CaptureImage/ClassDiagram.pdf)
+![ClassDiagram](CaptureImage/ClassDiagram.png)
