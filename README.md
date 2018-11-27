@@ -122,3 +122,9 @@
 
 ### 첨부파일
 ![Step5 Demo](CaptureImage/Step5Demo.gif)
+
+# Step6
+> 클래스 다이어그램
+
+### 클래스 다이어그램
+![ClassDiagram](CaptureImage/ClassDiagram.pdf)
