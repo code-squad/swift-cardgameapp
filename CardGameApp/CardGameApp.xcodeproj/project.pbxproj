@@ -14,6 +14,7 @@
 		D536E52621D078E8004B7014 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D536E52421D078E8004B7014 /* LaunchScreen.storyboard */; };
 		D536E53121D078E8004B7014 /* CardGameAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E53021D078E8004B7014 /* CardGameAppTests.swift */; };
 		D536E53C21D078E8004B7014 /* CardGameAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E53B21D078E8004B7014 /* CardGameAppUITests.swift */; };
+		D536E54A21D07BF1004B7014 /* images in Resources */ = {isa = PBXBuildFile; fileRef = D536E54921D07BF1004B7014 /* images */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		D536E53721D078E8004B7014 /* CardGameAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardGameAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D536E53B21D078E8004B7014 /* CardGameAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameAppUITests.swift; sourceTree = "<group>"; };
 		D536E53D21D078E8004B7014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D536E54921D07BF1004B7014 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				D536E52221D078E8004B7014 /* Assets.xcassets */,
 				D536E52421D078E8004B7014 /* LaunchScreen.storyboard */,
 				D536E52721D078E8004B7014 /* Info.plist */,
+				D536E54921D07BF1004B7014 /* images */,
 			);
 			path = CardGameApp;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D536E54A21D07BF1004B7014 /* images in Resources */,
 				D536E52621D078E8004B7014 /* LaunchScreen.storyboard in Resources */,
 				D536E52321D078E8004B7014 /* Assets.xcassets in Resources */,
 				D536E52121D078E8004B7014 /* Main.storyboard in Resources */,
