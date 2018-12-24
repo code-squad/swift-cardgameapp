@@ -25,7 +25,7 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIStatusBarStyle</key>
-	<string>LightContent</string>
+	<string>UIStatusBarStyleLightContent</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

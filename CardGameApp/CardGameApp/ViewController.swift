@@ -12,14 +12,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIGraphicsBeginImageContext(self.view.frame.size)
-//        UIImage(named: "images/bg_pattern")?.draw(in: self.view.bounds)
-        let bgIamge = #imageLiteral(resourceName: "bg_pattern")
-        bgIamge.draw(in: self.view.bounds)
-        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        self.view.backgroundColor = UIColor(patternImage: image)
         
+        // 배경이미지 바둑판식으로 출력
+        view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "Image"))
         
     }
 
