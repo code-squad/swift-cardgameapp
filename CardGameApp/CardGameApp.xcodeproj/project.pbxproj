@@ -14,6 +14,7 @@
 		D536E52621D078E8004B7014 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D536E52421D078E8004B7014 /* LaunchScreen.storyboard */; };
 		D536E53121D078E8004B7014 /* CardGameAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E53021D078E8004B7014 /* CardGameAppTests.swift */; };
 		D536E53C21D078E8004B7014 /* CardGameAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E53B21D078E8004B7014 /* CardGameAppUITests.swift */; };
+		D536E54C21D4A735004B7014 /* model in Resources */ = {isa = PBXBuildFile; fileRef = D536E54B21D4A735004B7014 /* model */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		D536E53721D078E8004B7014 /* CardGameAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardGameAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D536E53B21D078E8004B7014 /* CardGameAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameAppUITests.swift; sourceTree = "<group>"; };
 		D536E53D21D078E8004B7014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D536E54B21D4A735004B7014 /* model */ = {isa = PBXFileReference; lastKnownFileType = folder; path = model; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		D536E51A21D078E8004B7014 /* CardGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				D536E54B21D4A735004B7014 /* model */,
 				D536E51B21D078E8004B7014 /* AppDelegate.swift */,
 				D536E51D21D078E8004B7014 /* ViewController.swift */,
 				D536E51F21D078E8004B7014 /* Main.storyboard */,
@@ -234,6 +237,7 @@
 			files = (
 				D536E52621D078E8004B7014 /* LaunchScreen.storyboard in Resources */,
 				D536E52321D078E8004B7014 /* Assets.xcassets in Resources */,
+				D536E54C21D4A735004B7014 /* model in Resources */,
 				D536E52121D078E8004B7014 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
