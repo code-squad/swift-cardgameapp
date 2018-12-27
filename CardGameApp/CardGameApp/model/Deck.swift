@@ -41,10 +41,8 @@ struct Deck {
     
     /// 카드 한장을 빼서 리턴
     mutating func removeOne() -> Card? {
-        guard count() != 0 else {
-            return nil
-        }
-        return cardList.removeFirst()
+        // 카드가 있으면 마지막 팝, 없으면 닐 리턴
+        return cardList.popLast()
     }
     
     /// 카드를 섞는다
