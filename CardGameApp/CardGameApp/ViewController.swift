@@ -41,10 +41,8 @@ class ViewController: UIViewController {
     
     /// 카드뒷면 cardCount장 출력
     func setBackCards(cardCount: Int){
-        // 반복문용 변수로 변환
-        let count = cardCount - 1
         // 0 ~ cardCount -1 까지
-        for x in 0...count {
+        for x in 0..<cardCount {
             // 위치 0에서부터 시작해서 cardCount 만큼 늘려준다
             let backImage : UIImageView = UIImageView(frame: CGRect(x: cardSize.width * CGFloat(x), y: statusBarHeight, width: cardSize.width, height: cardSize.height))
             // 이미지 설정
