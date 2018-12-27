@@ -9,8 +9,8 @@
 import UIKit
 
 struct CardSize {
-    init(screenBound: CGRect ){
-        self.width = screenBound.width / 7
+    init(width: CGFloat ){
+        self.width = width * 0.9
         self.height = self.width  * 1.25
     }
     
@@ -31,7 +31,13 @@ class ViewController: UIViewController {
     /// 카드 개수
     let maxBackCard = 7
     
-    var cardSize : CardSize!
+    /// 카드사이즈
+//    var cardSize : CardSize!
+    
+    /// 카드 덱
+    var cardDeck = Deck()
+    
+    
     
     /// 앱 배경화면 설정
     func setBackGroundImage() {
@@ -41,10 +47,16 @@ class ViewController: UIViewController {
     
     /// 카드뒷면 cardCount장 출력
     func setBackCards(cardCount: Int){
+        
+        let dividedWidth = UIScreen.main.bounds.width / CGFloat(cardCount)
+        
+        
+        let cardSize = CardSize(width: dividedWidth )
+        
         // 0 ~ cardCount -1 까지
         for x in 0..<cardCount {
             // 위치 0에서부터 시작해서 cardCount 만큼 늘려준다
-            let backImage : UIImageView = UIImageView(frame: CGRect(x: cardSize.width * CGFloat(x), y: statusBarHeight, width: cardSize.width, height: cardSize.height))
+            let backImage : UIImageView = UIImageView(frame: CGRect(x: dividedWidth * CGFloat(x), y: cardSize.height, width: cardSize.width, height: cardSize.height))
             // 이미지 설정
             backImage.image = #imageLiteral(resourceName: "card-back")
             // 배열에 추가
@@ -55,15 +67,14 @@ class ViewController: UIViewController {
     }
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 카드 사이즈 설정
-        self.cardSize = CardSize(screenBound: UIScreen.main.bounds)
-        
         // 앱 배경 설정
         setBackGroundImage()
+        
+        // 카드덱 초기화
+        cardDeck.reset()
         
         // 카드 뒷면 세팅
         setBackCards(cardCount: 7)
