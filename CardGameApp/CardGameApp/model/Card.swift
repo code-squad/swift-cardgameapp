@@ -76,5 +76,10 @@ class Card {
     /// 카드정보 리턴
     func name() -> String {
         return mark.getValue() + numbering.getValue()
-    }    
+    }
+    
+    /// 카드 뒷면 리턴
+    var backImage : String = {
+        return "card-back"
+    }()
 }
