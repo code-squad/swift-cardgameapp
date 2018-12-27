@@ -18,10 +18,10 @@ enum Mark {
     /// 출력값 리턴을 위한 함수
     func getValue() -> String {
         switch self {
-        case .spade : return ("♠️")
-        case .clover : return ("♣️")
-        case .heart : return ("♥️")
-        case .diamond : return ("♦️")
+        case .spade : return ("s")
+        case .clover : return ("c")
+        case .heart : return ("h")
+        case .diamond : return ("d")
         }
     }
 }
@@ -74,7 +74,7 @@ class Card {
     }
     
     /// 카드정보 리턴
-    func getInfo() -> String {
+    func name() -> String {
         return mark.getValue() + numbering.getValue()
-    }
+    }    
 }

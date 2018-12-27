@@ -31,7 +31,7 @@ class Slot : CustomStringConvertible{
         var result : String = "["
         // 반복문으로 결과값에 문자열을 쌓는다
         for card in cardList {
-            result.append(card.getInfo()+",")
+            result.append(card.name()+",")
         }
         // 마지막 , 를 지워준다
         result.removeLast()

@@ -2,6 +2,21 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:CardGameApp.xcodeproj">
+      location = "group:/Users/yoda/swift/ios_lv3/swift-cardgameapp/CardGameApp/CardGameApp/Card.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/yoda/swift/ios_lv3/swift-cardgameapp/CardGameApp/CardGameApp/Deck.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/yoda/swift/ios_lv3/swift-cardgameapp/CardGameApp/CardGameApp/GameBoard.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/yoda/swift/ios_lv3/swift-cardgameapp/CardGameApp/CardGameApp/GameInputView.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/yoda/swift/ios_lv3/swift-cardgameapp/CardGameApp/CardGameApp/Slot.swift">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>
