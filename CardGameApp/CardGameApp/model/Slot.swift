@@ -38,4 +38,9 @@ class Slot : CustomStringConvertible{
         // 결과에 ] 붙여 리턴한다
         return result+"]"
     }
+    
+    /// 카드 카운트 리턴
+    func count() -> Int {
+        return cardList.count
+    }
 }
