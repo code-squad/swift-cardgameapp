@@ -41,9 +41,6 @@ struct CardSize {
 
 class ViewController: UIViewController {
     
-    /// 카드 뷰 배열
-    var cardBackImageViews : [UIView] = []
-    
     /// status var height
     let statusBarHeight = UIApplication.shared.statusBarFrame.height
     
@@ -78,36 +75,66 @@ class ViewController: UIViewController {
         
     }
     
-    /// 
+    /// 최대 카드 수량 체크
+    func checkMaxCardCount(startNumber: Int, cardCount: Int) -> Bool {
+        return startNumber > maxCardCount || cardCount > maxCardCount
+    }
+    
+    /// 첫줄 카드배경 출력
+    func setObjectPositions(cardSize: CardSize){
+        for x in 1...4 {
+        // 카드 빈자리 4장 출력
+            drawCardView(widthPosition: x, height: 20, cardSize: cardSize, cardImage: nil)
+        }
+    }
+    
     
     /// 카드 * cardCount 출력
-    func drawCardViews(startNumber: Int, cardCount: Int, height: CGFloat, cardSize: CardSize, cardImage: UIImage?){
+    func drawCardViews(startNumber: Int, cardCount: Int, height: CGFloat, cardSize: CardSize, cards: Slot){
         // 최대 카드 수량을 넘어가면 강제리턴
-        if startNumber > maxCardCount || cardCount > maxCardCount{
+        if checkMaxCardCount(startNumber: startNumber, cardCount: startNumber) {
             return ()
         }
         
         // 0 ~ cardCount-1 까지
         for x in startNumber..<(startNumber + cardCount) {
-            // 위치 0에서부터 시작해서 cardCount 만큼 늘려준다
-            let cardView : UIImageView = UIImageView(frame: CGRect(x: widthPositions[x - 1], y: height, width: cardSize.originWidth, height: cardSize.originHeight))
-            
-            let cardImageView : UIImageView = UIImageView(frame: CGRect(x: cardView.bounds.origin.x + cardSize.widthPadding, y: cardView.bounds.origin.y + cardSize.heightPadding, width: cardSize.width, height: cardSize.height))
-            
-            
-            makeBlankSlot(imageView: cardImageView)
-            
-            if cardImage != nil {
-                cardImageView.image = cardImage
-            }
-            
-            cardView.addSubview(cardImageView)
-            
-            // 배열에 추가
-            cardBackImageViews.append(cardView)
-            // 서브뷰 추가
-            self.view.addSubview(cardView)
+            // slot 인덱스를 넘어가면 리턴
+            guard let card = cards.pop() else { return () }
+            // 카드 이름으로 카드이미지 연결
+            let cardImage = UIImage(named: card.name())
+            // 이미지를 뷰로 출력
+            drawCardView(widthPosition: x, height: height, cardSize: cardSize, cardImage: cardImage)
         }
+    }
+    
+    /// 뷰를 받아서 패딩 적용된 이미지뷰를 추가한다
+    func addSubImageVIew(superView: UIView, cardSize: CardSize, image: UIImage?){
+        // 카드사이즈로 뷰 생성
+        let cardImageView : UIImageView = UIImageView(frame: CGRect(x: superView.bounds.origin.x + cardSize.widthPadding, y: superView.bounds.origin.y + cardSize.heightPadding, width: cardSize.width, height: cardSize.height))
+        
+        // 뒷 테두리 추가
+        makeViewBorder(imageView: cardImageView)
+        
+        
+        // 카드사이즈 뷰에 이미지 생성
+        cardImageView.image = image
+        
+        // 카드사이즈 뷰를 배경뷰에 추가
+        superView.addSubview(cardImageView)
+        
+        
+    }
+    
+    /// 카드 이미지 출력
+    func drawCardView(widthPosition: Int, height: CGFloat, cardSize: CardSize, cardImage: UIImage?){
+        // 배경 뷰 생성
+        let cardView : UIImageView = UIImageView(frame: CGRect(x: widthPositions[widthPosition - 1], y: height, width: cardSize.originWidth, height: cardSize.originHeight))
+        // 카드사이즈로 뷰 생성
+        addSubImageVIew(superView: cardView, cardSize: cardSize, image: cardImage)
+        
+        // 서브뷰 추가
+        self.view.addSubview(cardView)
+        
     }
     
     
@@ -126,14 +153,11 @@ class ViewController: UIViewController {
         cardDeck.reset()
         
         // 카드 빈자리 4장 출력
-        drawCardViews(startNumber: 1, cardCount: 4, height: 20, cardSize: cardSize, cardImage: nil)
+        setObjectPositions(cardSize: cardSize)
         
         // 카드 뒷면 생성
-        drawCardViews(startNumber: 7, cardCount: 1, height: 20, cardSize: cardSize, cardImage: #imageLiteral(resourceName: "card-back"))
-        
-        // 랜덤카드 7장 생성
-        drawCardViews(startNumber: 7, cardCount: 1, height: 20, cardSize: cardSize, cardImage: #imageLiteral(resourceName: "card-back"))
-        
+        drawCardView(widthPosition: 7, height: 20, cardSize: cardSize, cardImage: #imageLiteral(resourceName: "card-back"))
+                
     }
 
     override func didReceiveMemoryWarning() {
