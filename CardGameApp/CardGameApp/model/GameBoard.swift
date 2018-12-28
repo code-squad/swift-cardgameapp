@@ -62,7 +62,7 @@ struct GameBoard {
                 return nil
             }
             // 뽑은 카드를 슬롯 리스트에 넣는다
-            slotList.append(Slot(pickedCards))
+            slotList.append(pickedCards)
         }
         return slotList
     }
