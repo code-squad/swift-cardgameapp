@@ -41,16 +41,11 @@ struct CardSize {
 
 
 class ViewController: UIViewController {
-    
-    /// status var height
-    let statusBarHeight = UIApplication.shared.statusBarFrame.height
-    
     /// 카드 개수
     let maxCardCount = 7
     
     /// 카드 덱
     var cardDeck = Deck()
-    
     /// 카드 전체 위치 배열
     var widthPositions : [CGFloat] = []
     
@@ -75,7 +70,6 @@ class ViewController: UIViewController {
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 1.5
         imageView.layer.borderColor = UIColor.white.cgColor
-        
     }
     
     /// 최대 카드 수량 체크
@@ -119,14 +113,11 @@ class ViewController: UIViewController {
         // 뒷 테두리 추가
         makeViewBorder(imageView: cardImageView)
         
-        
         // 카드사이즈 뷰에 이미지 생성
         cardImageView.image = image
         
         // 카드사이즈 뷰를 배경뷰에 추가
         superView.addSubview(cardImageView)
-        
-        
     }
     
     /// 카드 이미지 출력
@@ -138,7 +129,6 @@ class ViewController: UIViewController {
         
         // 서브뷰 추가
         self.view.addSubview(cardView)
-        
     }
     
     /// 랜덤카드 7장 출력
@@ -158,7 +148,6 @@ class ViewController: UIViewController {
             let cardImage = UIImage(named: card.name())
             addCardView(widthPosition: x, height: 100, cardSize: cardSize, cardImage: cardImage)
         }
-
     }
     
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
@@ -171,6 +160,7 @@ class ViewController: UIViewController {
         // 카드 사이즈 계산
         cardSize = CardSize(width: UIScreen.main.bounds.width, MaxCount: maxCardCount)
         
+        // 화면 가로사이즈를 받아서 카드출력 기준점 계산
         calculateRawPosition(cardSize: cardSize)
         
         // 앱 배경 설정
@@ -187,14 +177,11 @@ class ViewController: UIViewController {
         
         // 랜덤카드 7장 생성
         drawFirstCards()
-
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-
 }
 
 // Configure StatusBar
