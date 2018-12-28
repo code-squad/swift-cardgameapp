@@ -143,10 +143,16 @@ class ViewController: UIViewController {
     
     /// 랜덤카드 7장 출력
     func drawFirstCards(){
-        guard var randomCards = cardDeck.removeCards(7) else { return ()}
+        // 덱 초기화
+        cardDeck.reset()
         
-        for x in 1...randomCards.count {
-            guard let card = randomCards.popLast() else { return () }
+        // 덱에서 카드 추출
+        guard let randomCards = cardDeck.removeCards(maxCardCount) else { return ()}
+        
+        // 뽑은 카드 수 만큼 반복
+        for x in 1...randomCards.count() {
+            // 뽑은
+            guard let card = randomCards.pop() else { return () }
             let cardImage = UIImage(named: card.name())
             addCardView(widthPosition: x, height: 100, cardSize: cardSize, cardImage: cardImage)
         }
