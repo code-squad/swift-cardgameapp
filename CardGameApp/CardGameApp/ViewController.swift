@@ -148,7 +148,7 @@ class ViewController: UIViewController {
         for x in 1...randomCards.count {
             guard let card = randomCards.popLast() else { return () }
             let cardImage = UIImage(named: card.name())
-            addCardView(widthPosition: x, height: 20, cardSize: cardSize, cardImage: cardImage)
+            addCardView(widthPosition: x, height: 100, cardSize: cardSize, cardImage: cardImage)
         }
 
     }
@@ -174,7 +174,7 @@ class ViewController: UIViewController {
         addCardView(widthPosition: 7, height: 20, cardSize: cardSize, cardImage: #imageLiteral(resourceName: "card-back"))
         
         // 랜덤카드 7장 생성
-        
+        drawFirstCards()
 
     }
 
