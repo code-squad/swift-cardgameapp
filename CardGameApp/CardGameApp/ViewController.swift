@@ -26,17 +26,17 @@ struct CardSize {
     }
     
     /// 입력받은 가로값
-    let originWidth : CGFloat
+    var originWidth : CGFloat = 0
     /// 입력받은 가로 * 1.25
-    let originHeight : CGFloat
+    var originHeight : CGFloat = 0
     /// 카드 가로값. origin * 0.9
-    let width : CGFloat
+    var width : CGFloat = 0
     /// 카드 세로값
-    let height : CGFloat
+    var height : CGFloat = 0
     /// originWidth * 0.1
-    let widthPadding : CGFloat
+    var widthPadding : CGFloat = 0
     /// originHeight * 0.1
-    let heightPadding : CGFloat
+    var heightPadding : CGFloat = 0
 }
 
 
@@ -143,12 +143,12 @@ class ViewController: UIViewController {
     
     /// 랜덤카드 7장 출력
     func drawFirstCards(){
-        guard let randomCards = cardDeck.removeCards(7) else { return ()}
+        guard var randomCards = cardDeck.removeCards(7) else { return ()}
         
         for x in 1...randomCards.count {
-            guard let card = randomCards?.popLast() { return () }
-            let cardImage = UIImage(named: card.)
-            drawCardView(widthPosition: x, height: 20, cardSize: cardSize, cardImage: #imageLiteral(resourceName: "card-back"))
+            guard let card = randomCards.popLast() else { return () }
+            let cardImage = UIImage(named: card.name())
+            addCardView(widthPosition: x, height: 20, cardSize: cardSize, cardImage: cardImage)
         }
 
     }
