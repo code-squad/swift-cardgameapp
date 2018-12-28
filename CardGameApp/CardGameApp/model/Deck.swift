@@ -65,7 +65,7 @@ struct Deck {
     }
     
     /// 카드를 입력받은 수만큼 배열로 리턴하는 함수
-    mutating func removeCards(_ number: Int) -> [Card]? {
+    mutating func removeCards(_ number: Int) -> Slot? {
         // 리턴용 배열 선언
         var result : [Card] = []
         // 입력받은만큼 카드를 빼서 추가한다
@@ -80,6 +80,7 @@ struct Deck {
             }
         }
         // 결과배열 리턴
-        return result
+        return Slot(result)
+        
     }
 }

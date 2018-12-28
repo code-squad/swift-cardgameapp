@@ -153,6 +153,10 @@ class ViewController: UIViewController {
 
     }
     
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        drawFirstCards()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
