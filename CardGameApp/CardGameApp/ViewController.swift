@@ -145,6 +145,8 @@ class ViewController: UIViewController {
     func drawFirstCards(){
         // 덱 초기화
         cardDeck.reset()
+        // 섞기
+        cardDeck.shuffle()
         
         // 덱에서 카드 추출
         guard let randomCards = cardDeck.removeCards(maxCardCount) else { return ()}
