@@ -43,4 +43,8 @@ class Slot : CustomStringConvertible{
     func count() -> Int {
         return cardList.count
     }
+    
+    func pop() -> Card? {
+        return cardList.popLast()
+    }
 }
