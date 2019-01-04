@@ -9,6 +9,8 @@
 import UIKit
 
 struct CardSize {
+    /// 최대 카드 장수
+    var maxCardCount : Int = 1
     /// 입력받은 가로값
     var originWidth : CGFloat = 0
     /// 입력받은 가로 * 1.25
@@ -22,10 +24,15 @@ struct CardSize {
     /// originHeight * 0.1
     var heightPadding : CGFloat = 0
     
-    init(){}
-    init(width: CGFloat, MaxCount: Int ){
+    init(maxCardCount: Int ){
+        // 최대 장수
+        self.maxCardCount = maxCardCount
+    }
+    
+    /// 화면 가로사이즈를 받아서 필요한 사이즈들을 계산
+    mutating func calculateCardSize(screenWidth: CGFloat){
         // 입력값 원본
-        self.originWidth = width / CGFloat(MaxCount)
+        self.originWidth = screenWidth / CGFloat(self.maxCardCount)
         self.originHeight = self.originWidth * 1.25
         
         // 패딩 좌우 0.1 * 2 를 제외한 0.8
@@ -41,18 +48,13 @@ struct CardSize {
 
 
 class ViewController: UIViewController {
-    /// 카드 개수
-    let maxCardCount = 7
-    
-    var cardSize = CardSize()
+    /// 최대 카드 개수 장수로 카드사이즈 세팅
+    var cardSize = CardSize(maxCardCount: 7)
     
     /// 카드 덱
     var cardDeck = Deck()
     /// 카드 전체 위치 배열
     var widthPositions : [CGFloat] = []
-    
-    
-    
     
     /// 앱 배경화면 설정
     func setBackGroundImage() {
@@ -63,7 +65,7 @@ class ViewController: UIViewController {
     /// 전체 위치를 설정
     func calculateRawPosition(cardSize: CardSize) {
         // 0 ~ maxCardCount -1 추가
-        for x in 0..<maxCardCount {
+        for x in 0..<cardSize.maxCardCount {
             widthPositions.append(cardSize.originWidth * CGFloat(x))
         }
     }
@@ -77,7 +79,7 @@ class ViewController: UIViewController {
     
     /// 최대 카드 수량 체크
     func checkMaxCardCount(startNumber: Int, cardCount: Int) -> Bool {
-        return startNumber > maxCardCount || cardCount > maxCardCount
+        return startNumber > cardSize.maxCardCount || cardCount > cardSize.maxCardCount
     }
     
     /// 첫줄 카드배경 출력
@@ -142,7 +144,7 @@ class ViewController: UIViewController {
         cardDeck.shuffle()
         
         // 덱에서 카드 추출
-        guard let randomCards = cardDeck.removeCards(maxCardCount) else { return ()}
+        guard let randomCards = cardDeck.removeCards(cardSize.maxCardCount) else { return ()}
         
         // 뽑은 카드 수 만큼 반복
         for x in 1...randomCards.count() {
@@ -161,7 +163,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // 카드 사이즈 계산
-        cardSize = CardSize(width: UIScreen.main.bounds.width, MaxCount: maxCardCount)
+        cardSize.calculateCardSize(screenWidth: UIScreen.main.bounds.width)
         
         // 화면 가로사이즈를 받아서 카드출력 기준점 계산
         calculateRawPosition(cardSize: cardSize)
