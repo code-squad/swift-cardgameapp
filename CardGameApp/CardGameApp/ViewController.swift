@@ -49,21 +49,21 @@ struct CardSize {
 
 class ViewController: UIViewController {
     /// 최대 카드 개수 장수로 카드사이즈 세팅
-    var cardSize = CardSize(maxCardCount: 7)
+    private var cardSize = CardSize(maxCardCount: 7)
     
     /// 카드 덱
-    var cardDeck = Deck()
+    private var cardDeck = Deck()
     /// 카드 전체 위치 배열
-    var widthPositions : [CGFloat] = []
+    private var widthPositions : [CGFloat] = []
     
     /// 앱 배경화면 설정
-    func setBackGroundImage() {
+    private func setBackGroundImage() {
         // 배경이미지 바둑판식으로 출력
         view.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "bg_pattern"))
     }
     
     /// 전체 위치를 설정
-    func calculateRawPosition(cardSize: CardSize) {
+    private func calculateRawPosition(cardSize: CardSize) {
         // 0 ~ maxCardCount -1 추가
         for x in 0..<cardSize.maxCardCount {
             widthPositions.append(cardSize.originWidth * CGFloat(x))
@@ -71,19 +71,19 @@ class ViewController: UIViewController {
     }
     
     /// 뷰 테두리 생성
-    func makeViewBorder(imageView: UIImageView){
+    private func makeViewBorder(imageView: UIImageView){
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 1.5
         imageView.layer.borderColor = UIColor.white.cgColor
     }
     
     /// 최대 카드 수량 체크
-    func checkMaxCardCount(startNumber: Int, cardCount: Int) -> Bool {
+    private func checkMaxCardCount(startNumber: Int, cardCount: Int) -> Bool {
         return startNumber > cardSize.maxCardCount || cardCount > cardSize.maxCardCount
     }
     
     /// 첫줄 카드배경 출력
-    func setObjectPositions(height: CGFloat, cardSize: CardSize){
+    private func setObjectPositions(height: CGFloat, cardSize: CardSize){
         // 원하는 빈칸은 4칸
         for x in 1...4 {
         // 카드 빈자리 4장 출력
@@ -93,7 +93,7 @@ class ViewController: UIViewController {
     
     
     /// 카드 * cardCount 출력
-    func addCardViews(startNumber: Int, cardCount: Int, height: CGFloat, cardSize: CardSize, cards: Slot){
+    private func addCardViews(startNumber: Int, cardCount: Int, height: CGFloat, cardSize: CardSize, cards: Slot){
         // 최대 카드 수량을 넘어가면 강제리턴
         if checkMaxCardCount(startNumber: startNumber, cardCount: startNumber) {
             return ()
@@ -111,7 +111,7 @@ class ViewController: UIViewController {
     }
     
     /// 뷰를 받아서 패딩 적용된 이미지뷰를 추가한다
-    func addSubImageVIew(superView: UIView, cardSize: CardSize, image: UIImage?){
+    private func addSubImageVIew(superView: UIView, cardSize: CardSize, image: UIImage?){
         // 카드사이즈로 뷰 생성
         let cardImageView : UIImageView = UIImageView(frame: CGRect(x: superView.bounds.origin.x + cardSize.widthPadding, y: superView.bounds.origin.y + cardSize.heightPadding, width: cardSize.width, height: cardSize.height))
         
@@ -126,7 +126,7 @@ class ViewController: UIViewController {
     }
     
     /// 카드 이미지 출력
-    func addCardView(widthPosition: Int, height: CGFloat, cardSize: CardSize, cardImage: UIImage?){
+    private func addCardView(widthPosition: Int, height: CGFloat, cardSize: CardSize, cardImage: UIImage?){
         // 배경 뷰 생성
         let cardView : UIImageView = UIImageView(frame: CGRect(x: widthPositions[widthPosition - 1], y: height, width: cardSize.originWidth, height: cardSize.originHeight))
         // 카드사이즈로 뷰 생성
@@ -137,7 +137,7 @@ class ViewController: UIViewController {
     }
     
     /// 랜덤카드 7장 출력
-    func drawFirstCards(){
+    private func drawFirstCards(){
         // 덱 초기화
         cardDeck.reset()
         // 섞기
