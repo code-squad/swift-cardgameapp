@@ -9,6 +9,19 @@
 import UIKit
 
 struct CardSize {
+    /// 입력받은 가로값
+    var originWidth : CGFloat = 0
+    /// 입력받은 가로 * 1.25
+    var originHeight : CGFloat = 0
+    /// 카드 가로값. origin * 0.9
+    var width : CGFloat = 0
+    /// 카드 세로값
+    var height : CGFloat = 0
+    /// originWidth * 0.1
+    var widthPadding : CGFloat = 0
+    /// originHeight * 0.1
+    var heightPadding : CGFloat = 0
+    
     init(){}
     init(width: CGFloat, MaxCount: Int ){
         // 입력값 원본
@@ -24,19 +37,6 @@ struct CardSize {
         self.widthPadding = self.originWidth * 0.1
         self.heightPadding = self.originHeight * 0.1
     }
-    
-    /// 입력받은 가로값
-    var originWidth : CGFloat = 0
-    /// 입력받은 가로 * 1.25
-    var originHeight : CGFloat = 0
-    /// 카드 가로값. origin * 0.9
-    var width : CGFloat = 0
-    /// 카드 세로값
-    var height : CGFloat = 0
-    /// originWidth * 0.1
-    var widthPadding : CGFloat = 0
-    /// originHeight * 0.1
-    var heightPadding : CGFloat = 0
 }
 
 
@@ -44,12 +44,15 @@ class ViewController: UIViewController {
     /// 카드 개수
     let maxCardCount = 7
     
+    var cardSize = CardSize()
+    
     /// 카드 덱
     var cardDeck = Deck()
     /// 카드 전체 위치 배열
     var widthPositions : [CGFloat] = []
     
-    var cardSize = CardSize()
+    
+    
     
     /// 앱 배경화면 설정
     func setBackGroundImage() {
