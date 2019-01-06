@@ -41,6 +41,23 @@ struct GameBoard {
         return Card(mark: randomMark, numbering: randomNumbering)
     }
     
+    /// 게임을 초기화 한다
+    mutating func reset(){
+        // 덱 초기화
+        self.deck.reset()
+        // 덱 섞기
+        self.deck.shuffle()
+        // 덱을 펼친다. 생성된 가로배열 만큼 반복
+        for x in 0..<playingCard.count {
+            // 1~ 가로배열 번호 만큼 카드를 추가
+            for _ in 0...x {
+                // 덱에서 카드 한장 뽑는다
+                guard let popedCard = deck.removeOne() else { return () }
+                // 뽑은 카드를 플레이배열에 넣는다
+                playingCard[x].addCard(popedCard)
+            }
+        }
+    }
     
     
 //    /// 슬롯 배열을 받아서 문자형 배열로 리턴
