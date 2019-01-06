@@ -106,11 +106,16 @@ struct GameBoard {
     
 }
 
+/// 카드 배열의 경우를 위한 확장
 extension Array where Element : Card{
+    /// 카드배열에 카드 추가. 처음 추가할땐 앞면. 추가되면서 마지막을 뒷면처리. 따라서 마지막만 앞면 나머지는 뒷면
     mutating func addCard(_ newElement: Element) {
+        // 배열에 카드가 있으면
         if let lastCard = last {
+            // 마지막 카드를 뒤집는다.
             lastCard.flip()
         }
+        // 카드추가
         append(newElement)
     }
 }
