@@ -49,18 +49,38 @@ class Card {
     private let numbering : Numbering
     private let mark : Mark
     
+    // 카드가 앞면인지
+    private var front = true
+    
     init(mark: Mark, numbering: Numbering){
         self.mark = mark
         self.numbering = numbering
     }
     
+    /// 카드 뒤집기
+    func flip(){
+        front = !front
+    }
+    
+    /// 앞뒤상태에 따라 다른 카드 모양 리턴
+    func image() -> String {
+        // 카드가 앞면이면
+        if front {
+            return name()
+        }
+            // 뒷면이면
+        else {
+            return backImage
+        }
+    }
+    
     /// 카드정보 리턴
-    func name() -> String {
+    private func name() -> String {
         return mark.getValue() + numbering.getValue()
     }
     
     /// 카드 뒷면 리턴
-    let backImage : String = {
+    private let backImage : String = {
         return "card-back"
     }()
 }
