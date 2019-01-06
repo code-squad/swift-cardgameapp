@@ -16,11 +16,6 @@ class Slot {
         self.cardList = cardList
     }
     
-    /// description 프로토콜을 준수한다
-    var description : String {
-        return getInfo()
-    }
-    
     /// 카드 카운트 리턴
     func count() -> Int {
         return cardList.count
