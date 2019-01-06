@@ -60,7 +60,7 @@ class Card {
     }
     
     /// 카드 뒷면 리턴
-    var backImage : String = {
+    let backImage : String = {
         return "card-back"
     }()
 }
