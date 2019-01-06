@@ -86,4 +86,14 @@ struct GameBoard {
 //        }
 //        return getInfo(slots: slots)
 //    }
+    
+}
+
+extension Array where Element : Card{
+    mutating func addCard(_ newElement: Element) {
+        if let lastCard = last {
+            lastCard.flip()
+        }
+        append(newElement)
+    }
 }
