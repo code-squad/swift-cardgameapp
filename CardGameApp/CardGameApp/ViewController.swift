@@ -13,9 +13,6 @@ class ViewController: UIViewController {
     /// 플레이카드가 들어가는 스택뷰
     @IBOutlet weak var playCardMainStackView: UIStackView!
     
-    
-    
-    
     /// 최대 카드 개수 장수로 카드사이즈 세팅
     private var cardSize = CardSize(maxCardCount: 7)
     
@@ -116,28 +113,37 @@ class ViewController: UIViewController {
         self.view.addSubview(cardView)
     }
     
-    /// 랜덤카드 7장 출력
-    private func drawFirstLineCards(){
-        // 덱 초기화
-        cardDeck.reset()
-        // 섞기
-        cardDeck.shuffle()
-        
-        // 덱에서 카드 추출
-        guard let randomCards = cardDeck.removeCards(cardSize.maxCardCount) else { return ()}
-        
-        // 뽑은 카드 수 만큼 반복
-        for x in 1...randomCards.count() {
-            // 뽑은
-            guard let card = randomCards.pop() else { return () }
-            let cardImage = UIImage(named: card.image())
-            addCardView(widthPosition: x, height: 100, cardSize: cardSize, cardImage: cardImage)
+    
+    /// 덱을 뷰와 함께 출력
+    func drawDeckView(){
+        // 덱을 카드객체가 아닌 프로토콜로 받는다
+        let cardInfos : [CardInfo] = self.cardDeck.info()
+        for cardInfo in cardInfos {
+            let cardImage = UIImage(named: cardInfo.image())
+            addCardView(widthPosition: 7, height: 20, cardSize: cardSize, cardImage: cardImage)
         }
     }
     
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-//        drawFirstCards()
+        gameBoard.reset()
     }
+    
+    /// 라인번호와 카드배열을 받아서 해당 라인에 카드를 출력한다
+    func drawCardLine(lineNumber: Int, cardSize: CardSize){
+        let cardInfos = gameBoard.getPlayCardLine(lineNumber: lineNumber)
+        for x in 0..<cardInfos.count {
+            let cardImage = UIImage(named: cardInfos[x].image())
+            addCardView(widthPosition: lineNumber, height: heightPositions[x], cardSize: cardSize, cardImage: cardImage)
+        }
+    }
+    
+    /// 맥스카드카운트로 모든 플레이카드 를 출력한다
+    func drawAllPlayCard(cardSize: CardSize) {
+        for x in 1...cardSize.maxCardCount {
+            drawCardLine(lineNumber: x, cardSize: cardSize)
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,6 +153,8 @@ class ViewController: UIViewController {
         
         // 화면 가로사이즈를 받아서 카드출력 기준점 계산
         calculateWidthPosition(cardSize: cardSize)
+        // 세로 위치 설정
+        calculateHeightPosition(cardSize: cardSize)
         
         // 앱 배경 설정
         setBackGroundImage()
@@ -157,14 +165,12 @@ class ViewController: UIViewController {
         // 카드 빈자리 4장 출력
         setObjectPositions(height: 20, cardSize: cardSize)
         
-        // 카드 뒷면 생성
-        addCardView(widthPosition: 7, height: 20, cardSize: cardSize, cardImage: #imageLiteral(resourceName: "card-back"))
+        // 덱 출력
+        drawDeckView()
         
-        // 게임덱을 초기화
-        gameBoard.reset()
+        // 플레이카드 출력
+        drawAllPlayCard(cardSize: cardSize)
         
-        
-//        super.view.addSubview(stackView.arrangedSubviews.first!)
     }
 
     override func didReceiveMemoryWarning() {
