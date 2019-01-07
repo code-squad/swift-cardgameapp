@@ -66,6 +66,11 @@ class GameBoard {
         }
     }
     
+    /// 플레이카드 열번호로 카드정보 배열 리턴
+    func getPlayCardLine(lineNumber: Int) -> [CardInfo] {
+        return playCard[lineNumber-1]
+    }
+    
 //    /// 슬롯 배열을 받아서 문자형 배열로 리턴
 //    private func getInfo(slots: [Slot]) -> [String] {
 //        // 결과 리턴용
