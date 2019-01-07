@@ -8,7 +8,7 @@
 
 import Foundation
 /// 카드들을 가지고 있는 구조체
-struct Deck {
+class Deck {
     // 덱 선언
     private var cardList : [Card] = []
     
@@ -19,7 +19,7 @@ struct Deck {
     }
     
     /// 덱 초기화 함수
-    mutating func reset(){
+    func reset(){
         // 모든 넘버링, 마크를 리스트로 만든다
         let numberings = [Numbering.ace,.two,.three,.four,.five,.six,.seven,.eight,.nine,.ten,.jack,.queen,.king]
         let marks = [Mark.spade,.clover,.heart,.diamond]
@@ -40,13 +40,13 @@ struct Deck {
     }
     
     /// 카드 한장을 빼서 리턴
-    mutating func removeOne() -> Card? {
+    func removeOne() -> Card? {
         // 카드가 있으면 마지막 팝, 없으면 닐 리턴
         return cardList.popLast()
     }
     
     /// 카드를 섞는다
-    mutating func shuffle(){
+    func shuffle(){
         // 임시 덱 생성
         var tempDeck : [Card] = []
         // 카운트 프로퍼티 생성
@@ -65,7 +65,7 @@ struct Deck {
     }
     
     /// 카드를 입력받은 수만큼 배열로 리턴하는 함수
-    mutating func removeCards(_ number: Int) -> Slot? {
+    func removeCards(_ number: Int) -> Slot? {
         // 리턴용 배열 선언
         var result : [Card] = []
         // 입력받은만큼 카드를 빼서 추가한다
@@ -81,6 +81,11 @@ struct Deck {
         }
         // 결과배열 리턴
         return Slot(result)
-        
     }
+    
+    /// 전체 카드를 정보로 표현
+    func info() -> [CardInfo] {
+        return cardList
+    }
+    
 }
