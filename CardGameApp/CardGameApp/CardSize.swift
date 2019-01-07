@@ -54,9 +54,7 @@ class CardSize {
         self.widthPadding = self.originWidth * 0.1
         self.heightPadding = self.originHeight * 0.1
         
-        viewSize.width = originWidth
-        viewSize.height = originHeight
-        
-        
+        self.viewSize.width = originWidth
+        self.viewSize.height = originHeight
     }
 }
