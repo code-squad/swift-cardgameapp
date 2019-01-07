@@ -8,7 +8,7 @@
 
 import Foundation
 /// 카드게임 진행을 하는 보드
-struct GameBoard {
+class GameBoard {
     /// 덱 선언
     private var deck = Deck()
     /// 사용자가 오픈한 카드가 모이는 덱
@@ -16,14 +16,15 @@ struct GameBoard {
     /// 점수를 얻는 칸
     private var pointCardSlot : [Card] = []
     /// 펼쳐놓는 카드들
-    private var playingCard : [[Card]] = []
+    private var playCard : [[Card]] = []
     
     
     init(slotCount: Int){
         deck.reset()
+        deck.shuffle()
         for _ in 1...slotCount {
             let emptyCardSlot : [Card] = []
-            playingCard.append(emptyCardSlot)
+            playCard.append(emptyCardSlot)
         }
     }
     
@@ -42,23 +43,28 @@ struct GameBoard {
     }
     
     /// 게임을 초기화 한다
-    mutating func reset(){
+    func reset(){
         // 덱 초기화
         self.deck.reset()
         // 덱 섞기
         self.deck.shuffle()
         // 덱을 펼친다. 생성된 가로배열 만큼 반복
-        for x in 0..<playingCard.count {
+        setPlayCards()
+    }
+    
+    /// 플레이카드 초기배치
+    func setPlayCards(){
+        // 덱을 펼친다. 생성된 가로배열 만큼 반복
+        for x in 0..<playCard.count {
             // 1~ 가로배열 번호 만큼 카드를 추가
             for _ in 0...x {
                 // 덱에서 카드 한장 뽑는다
                 guard let popedCard = deck.removeOne() else { return () }
                 // 뽑은 카드를 플레이배열에 넣는다
-                playingCard[x].addCard(popedCard)
+                playCard[x].addCard(popedCard)
             }
         }
     }
-    
     
 //    /// 슬롯 배열을 받아서 문자형 배열로 리턴
 //    private func getInfo(slots: [Slot]) -> [String] {
