@@ -20,12 +20,11 @@ class GameBoard {
     
     
     init(slotCount: Int){
-        deck.reset()
-        deck.shuffle()
         for _ in 1...slotCount {
             let emptyCardSlot : [Card] = []
             playCard.append(emptyCardSlot)
         }
+        reset()
     }
     
     /// 랜덤한 카드 한장을 리턴한다
@@ -126,6 +125,8 @@ extension Array where Element : Card{
             // 마지막 카드를 뒤집는다.
             lastCard.flip()
         }
+        // 마지막 추가카드를 뒤집는다
+        newElement.flip()
         // 카드추가
         append(newElement)
     }
