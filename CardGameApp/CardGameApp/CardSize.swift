@@ -5,10 +5,10 @@
 //  Created by Yoda Codd on 2019. 1. 7..
 //  Copyright © 2019년 Drake. All rights reserved.
 //
-
 import UIKit
+import Foundation
 
-class CardSize: UIView {
+class CardSize {
     /// 최대 카드 장수
     var maxCardCount : Int = 1
     /// 입력받은 가로값
@@ -36,7 +36,7 @@ class CardSize: UIView {
     }
     
     /// 화면 가로사이즈를 받아서 필요한 사이즈들을 계산
-    mutating func calculateCardSize(screenWidth: CGFloat){
+    func calculateCardSize(screenWidth: CGFloat){
         // 입력값 원본
         self.screenWidth = screenWidth
         self.screenHeight = self.screenWidth * 1.25
@@ -59,5 +59,4 @@ class CardSize: UIView {
         
         
     }
-    
 }

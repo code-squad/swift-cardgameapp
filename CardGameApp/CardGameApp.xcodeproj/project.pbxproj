@@ -18,7 +18,7 @@
 		D536E56521D4BB64004B7014 /* Slot.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E56021D4BB63004B7014 /* Slot.swift */; };
 		D536E56621D4BB64004B7014 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E56121D4BB63004B7014 /* Deck.swift */; };
 		D536E56821D4BB64004B7014 /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E56321D4BB64004B7014 /* GameBoard.swift */; };
-		D541054F21E3319000FC7470 /* CardSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541054E21E3319000FC7470 /* CardSize.swift */; };
+		D541055121E3328B00FC7470 /* CardSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541055021E3328B00FC7470 /* CardSize.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +56,7 @@
 		D536E56021D4BB63004B7014 /* Slot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slot.swift; sourceTree = "<group>"; };
 		D536E56121D4BB63004B7014 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		D536E56321D4BB64004B7014 /* GameBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
-		D541054E21E3319000FC7470 /* CardSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSize.swift; sourceTree = "<group>"; };
+		D541055021E3328B00FC7470 /* CardSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSize.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,12 +109,12 @@
 			children = (
 				D536E55B21D4B4AB004B7014 /* model */,
 				D536E51B21D078E8004B7014 /* AppDelegate.swift */,
+				D541055021E3328B00FC7470 /* CardSize.swift */,
 				D536E51D21D078E8004B7014 /* ViewController.swift */,
 				D536E51F21D078E8004B7014 /* Main.storyboard */,
 				D536E52221D078E8004B7014 /* Assets.xcassets */,
 				D536E52421D078E8004B7014 /* LaunchScreen.storyboard */,
 				D536E52721D078E8004B7014 /* Info.plist */,
-				D541054E21E3319000FC7470 /* CardSize.swift */,
 			);
 			path = CardGameApp;
 			sourceTree = "<group>";
@@ -283,7 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D536E56521D4BB64004B7014 /* Slot.swift in Sources */,
-				D541054F21E3319000FC7470 /* CardSize.swift in Sources */,
+				D541055121E3328B00FC7470 /* CardSize.swift in Sources */,
 				D536E56621D4BB64004B7014 /* Deck.swift in Sources */,
 				D536E56821D4BB64004B7014 /* GameBoard.swift in Sources */,
 				D536E51E21D078E8004B7014 /* ViewController.swift in Sources */,
