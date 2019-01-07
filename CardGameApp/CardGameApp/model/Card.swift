@@ -43,13 +43,13 @@ enum Numbering : String {
     }
 }
 
-protocol CardImage {
+protocol CardInfo {
     func image() -> String
     func flip()
 }
 
 /// 카드 객체를 만든다
-class Card : CardImage {
+class Card : CardInfo {
     // 카드 정보 선언
     private let numbering : Numbering
     private let mark : Mark
