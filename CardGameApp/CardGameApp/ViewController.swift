@@ -8,46 +8,14 @@
 
 import UIKit
 
-struct CardSize {
-    /// 최대 카드 장수
-    var maxCardCount : Int = 1
-    /// 입력받은 가로값
-    var originWidth : CGFloat = 0
-    /// 입력받은 가로 * 1.25
-    var originHeight : CGFloat = 0
-    /// 카드 가로값. origin * 0.9
-    var width : CGFloat = 0
-    /// 카드 세로값
-    var height : CGFloat = 0
-    /// originWidth * 0.1
-    var widthPadding : CGFloat = 0
-    /// originHeight * 0.1
-    var heightPadding : CGFloat = 0
-    
-    init(maxCardCount: Int ){
-        // 최대 장수
-        self.maxCardCount = maxCardCount
-    }
-    
-    /// 화면 가로사이즈를 받아서 필요한 사이즈들을 계산
-    mutating func calculateCardSize(screenWidth: CGFloat){
-        // 입력값 원본
-        self.originWidth = screenWidth / CGFloat(self.maxCardCount)
-        self.originHeight = self.originWidth * 1.25
-        
-        // 패딩 좌우 0.1 * 2 를 제외한 0.8
-        self.width = self.originWidth * 0.8
-        // 가로세로 비율 1.25
-        self.height = self.width  * 1.25
-        
-        // 한쪽 패딩 사이즈 * 0.1
-        self.widthPadding = self.originWidth * 0.1
-        self.heightPadding = self.originHeight * 0.1
-    }
-}
-
 
 class ViewController: UIViewController {
+    /// 플레이카드가 들어가는 스택뷰
+    @IBOutlet weak var playCardMainStackView: UIStackView!
+    
+    
+    
+    
     /// 최대 카드 개수 장수로 카드사이즈 세팅
     private var cardSize = CardSize(maxCardCount: 7)
     
@@ -55,6 +23,11 @@ class ViewController: UIViewController {
     private var cardDeck = Deck()
     /// 카드 전체 위치 배열
     private var widthPositions : [CGFloat] = []
+    /// 플레이카드 Y 좌표
+    private var heightPositions : [CGFloat] = []
+    
+    /// 게임보드 생성
+    private var gameBoard = GameBoard(slotCount: 7)
     
     /// 앱 배경화면 설정
     private func setBackGroundImage() {
@@ -63,10 +36,17 @@ class ViewController: UIViewController {
     }
     
     /// 전체 위치를 설정
-    private func calculateRawPosition(cardSize: CardSize) {
+    private func calculateWidthPosition(cardSize: CardSize){
         // 0 ~ maxCardCount -1 추가
         for x in 0..<cardSize.maxCardCount {
             widthPositions.append(cardSize.originWidth * CGFloat(x))
+        }
+    }
+    private func calculateHeightPosition(cardSize: CardSize){
+        // 트럼프 카드의 종류는 13종
+        for x in 0..<13 {
+            // 시작지점 높이 100
+            heightPositions.append(cardSize.originHeight * 0.25 * CGFloat(x) + 100)
         }
     }
     
@@ -104,7 +84,7 @@ class ViewController: UIViewController {
             // slot 인덱스를 넘어가면 리턴
             guard let card = cards.pop() else { return () }
             // 카드 이름으로 카드이미지 연결
-            let cardImage = UIImage(named: card.name())
+            let cardImage = UIImage(named: card.image())
             // 이미지를 뷰로 출력
             addCardView(widthPosition: x, height: height, cardSize: cardSize, cardImage: cardImage)
         }
@@ -137,7 +117,7 @@ class ViewController: UIViewController {
     }
     
     /// 랜덤카드 7장 출력
-    private func drawFirstCards(){
+    private func drawFirstLineCards(){
         // 덱 초기화
         cardDeck.reset()
         // 섞기
@@ -150,13 +130,13 @@ class ViewController: UIViewController {
         for x in 1...randomCards.count() {
             // 뽑은
             guard let card = randomCards.pop() else { return () }
-            let cardImage = UIImage(named: card.name())
+            let cardImage = UIImage(named: card.image())
             addCardView(widthPosition: x, height: 100, cardSize: cardSize, cardImage: cardImage)
         }
     }
     
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-        drawFirstCards()
+//        drawFirstCards()
     }
     
     override func viewDidLoad() {
@@ -166,7 +146,7 @@ class ViewController: UIViewController {
         cardSize.calculateCardSize(screenWidth: UIScreen.main.bounds.width)
         
         // 화면 가로사이즈를 받아서 카드출력 기준점 계산
-        calculateRawPosition(cardSize: cardSize)
+        calculateWidthPosition(cardSize: cardSize)
         
         // 앱 배경 설정
         setBackGroundImage()
@@ -180,8 +160,11 @@ class ViewController: UIViewController {
         // 카드 뒷면 생성
         addCardView(widthPosition: 7, height: 20, cardSize: cardSize, cardImage: #imageLiteral(resourceName: "card-back"))
         
-        // 랜덤카드 7장 생성
-        drawFirstCards()
+        // 게임덱을 초기화
+        gameBoard.reset()
+        
+        
+//        super.view.addSubview(stackView.arrangedSubviews.first!)
     }
 
     override func didReceiveMemoryWarning() {
