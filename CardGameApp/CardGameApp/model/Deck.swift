@@ -88,4 +88,10 @@ class Deck {
         return cardList
     }
     
+    /// 카드배열을 받아서 추가
+    func addCards(cards: [Card]){
+        for card in cards {
+            cardList.append(card)
+        }
+    }
 }
