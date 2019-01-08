@@ -36,14 +36,16 @@ class ViewController: UIViewController {
     private func calculateWidthPosition(cardSize: CardSize){
         // 0 ~ maxCardCount -1 추가
         for x in 0..<cardSize.maxCardCount {
-            widthPositions.append(cardSize.originWidth * CGFloat(x))
+            widthPositions.append(cardSize.originWidth * CGFloat(x) + cardSize.widthPadding)
         }
     }
     private func calculateHeightPosition(cardSize: CardSize){
+        // 첫 지점은 20
+        heightPositions.append(20 + cardSize.heightPadding)
         // 트럼프 카드의 종류는 13종
         for x in 0..<13 {
             // 시작지점 높이 100
-            heightPositions.append(cardSize.originHeight * 0.25 * CGFloat(x) + 100)
+            heightPositions.append(cardSize.originHeight * 0.25 * CGFloat(x) + 100 + cardSize.heightPadding)
         }
     }
     
@@ -64,7 +66,8 @@ class ViewController: UIViewController {
         // 원하는 빈칸은 4칸
         for x in 1...4 {
         // 카드 빈자리 4장 출력
-            addCardView(widthPosition: x, height: 20, cardSize: cardSize, cardImage: nil)
+            let cardView = makeCardView(widthPosition: x, height: 20, cardSize: cardSize, cardImage: nil)
+            addViewToMain(view: cardView)
         }
     }
     
@@ -83,7 +86,8 @@ class ViewController: UIViewController {
             // 카드 이름으로 카드이미지 연결
             let cardImage = UIImage(named: card.image())
             // 이미지를 뷰로 출력
-            addCardView(widthPosition: x, height: height, cardSize: cardSize, cardImage: cardImage)
+            let cardView = makeCardView(widthPosition: x, height: height, cardSize: cardSize, cardImage: cardImage)
+            addViewToMain(view: cardView)
         }
     }
     
@@ -103,24 +107,33 @@ class ViewController: UIViewController {
     }
     
     /// 카드 이미지 출력
-    private func addCardView(widthPosition: Int, height: CGFloat, cardSize: CardSize, cardImage: UIImage?){
+    private func makeCardView(widthPosition: Int, height: CGFloat, cardSize: CardSize, cardImage: UIImage?) -> UIImageView {
         // 배경 뷰 생성
-        let cardView : UIImageView = UIImageView(frame: CGRect(x: widthPositions[widthPosition - 1], y: height, width: cardSize.originWidth, height: cardSize.originHeight))
+        let cardView : UIImageView = UIImageView(frame: CGRect(x: widthPositions[widthPosition - 1], y: height, width: cardSize.width, height: cardSize.height))
         // 카드사이즈로 뷰 생성
-        addSubImageVIew(superView: cardView, cardSize: cardSize, image: cardImage)
+//        addSubImageVIew(superView: cardView, cardSize: cardSize, image: cardImage)
         
+        // 이미지 삽입
+        cardView.image = cardImage
         // 서브뷰 추가
-        self.view.addSubview(cardView)
+        return cardView
     }
     
+    /// 뷰를 받아서 메인 뷰에 추가
+    func addViewToMain(view: UIView){
+        self.view.addSubview(view)
+        return ()
+    }
     
     /// 덱을 뷰와 함께 출력
-    func drawDeckView(){
+    func drawDeckView(gesture: UITapGestureRecognizer){
         // 덱을 카드객체가 아닌 프로토콜로 받는다
         let cardInfos : [CardInfo] = self.cardDeck.info()
         for cardInfo in cardInfos {
             let cardImage = UIImage(named: cardInfo.image())
-            addCardView(widthPosition: 7, height: 20, cardSize: cardSize, cardImage: cardImage)
+            let cardView = makeCardView(widthPosition: 7, height: 20, cardSize: cardSize, cardImage: cardImage)
+            cardView.addGestureRecognizer(gesture)
+            addViewToMain(view: cardView)
         }
     }
     
@@ -133,7 +146,8 @@ class ViewController: UIViewController {
         let cardInfos = gameBoard.getPlayCardLine(lineNumber: lineNumber)
         for x in 0..<cardInfos.count {
             let cardImage = UIImage(named: cardInfos[x].image())
-            addCardView(widthPosition: lineNumber, height: heightPositions[x], cardSize: cardSize, cardImage: cardImage)
+            let cardView = makeCardView(widthPosition: lineNumber, height: heightPositions[x + 1], cardSize: cardSize, cardImage: cardImage)
+            addViewToMain(view: cardView)
         }
     }
     
@@ -144,6 +158,11 @@ class ViewController: UIViewController {
         }
     }
     
+    /// 덱을 오픈한다
+    func openDeck(){
+        let openedCardInfo = gameBoard.deckToOpened()
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -159,18 +178,22 @@ class ViewController: UIViewController {
         // 앱 배경 설정
         setBackGroundImage()
         
-        // 카드덱 초기화
+        // 카드덱 초기화. 분배까지 진행.
         cardDeck.reset()
+        
+        // 탭 제스처 선언
+        let tapGesture = UITapGestureRecognizer()
+        
+        
         
         // 카드 빈자리 4장 출력
         setObjectPositions(height: 20, cardSize: cardSize)
         
         // 덱 출력
-        drawDeckView()
+        drawDeckView(gesture: tapGesture)
         
         // 플레이카드 출력
         drawAllPlayCard(cardSize: cardSize)
-        
     }
 
     override func didReceiveMemoryWarning() {
