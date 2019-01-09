@@ -46,6 +46,7 @@ enum Numbering : String {
 protocol CardInfo {
     func image() -> String
     func flip()
+    func name() -> String
 }
 
 /// 카드 객체를 만든다
@@ -80,7 +81,7 @@ class Card : CardInfo {
     }
     
     /// 카드정보 리턴
-    private func name() -> String {
+    func name() -> String {
         return mark.getValue() + numbering.getValue()
     }
     
