@@ -7,9 +7,39 @@
 //
 
 import UIKit
+import os
+
+
+class CardView : UIImageView {
+    var cardInfo : CardInfo
+    
+    init(cardInfo: CardInfo, frame: CGRect){
+        self.cardInfo = cardInfo
+        super.init(frame: frame)
+        self.image = UIImage(named: cardInfo.image())
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func flip(){
+        cardInfo.flip()
+        guard let flipedCardImage = UIImage(named: cardInfo.image()) else {
+            os_log("카드뷰 뒤집기 실패 : %@",cardInfo.name())
+            return ()
+            
+        }
+        self.image = flipedCardImage
+    }
+}
 
 
 class ViewController: UIViewController {
+    
+    var deckVardViews : [CardInfo] = []
+    
     /// 플레이카드가 들어가는 스택뷰
     @IBOutlet weak var playCardMainStackView: UIStackView!
     
@@ -17,7 +47,7 @@ class ViewController: UIViewController {
     private var cardSize = CardSize(maxCardCount: 7)
     
     /// 카드 덱
-    private var cardDeck = Deck()
+//    private var cardDeck = Deck()
     /// 카드 전체 위치 배열
     private var widthPositions : [CGFloat] = []
     /// 플레이카드 Y 좌표
@@ -61,60 +91,30 @@ class ViewController: UIViewController {
         return startNumber > cardSize.maxCardCount || cardCount > cardSize.maxCardCount
     }
     
+    
+    
+    
     /// 첫줄 카드배경 출력
-    private func setObjectPositions(height: CGFloat, cardSize: CardSize){
+    private func setObjectPositions(){
         // 원하는 빈칸은 4칸
         for x in 1...4 {
-        // 카드 빈자리 4장 출력
-            let cardView = makeCardView(widthPosition: x, height: 20, cardSize: cardSize, cardImage: nil)
-            addViewToMain(view: cardView)
+            // 카드 기준점 설정
+            let viewPoint = CGPoint(x: widthPositions[x - 1], y: heightPositions[0])
+            // 기준점에서 카드사이즈로 이미지뷰 생성
+            let emptyCardView = UIImageView(frame: CGRect(origin: viewPoint, size: cardSize.cardSize))
+            // 뷰 테두리 설정
+            makeViewBorder(imageView: emptyCardView)
+            // 뷰를 메인뷰에 추가
+            self.view.addSubview(emptyCardView)
         }
     }
     
-    
-    /// 카드 * cardCount 출력
-    private func addCardViews(startNumber: Int, cardCount: Int, height: CGFloat, cardSize: CardSize, cards: Slot){
-        // 최대 카드 수량을 넘어가면 강제리턴
-        if checkMaxCardCount(startNumber: startNumber, cardCount: startNumber) {
-            return ()
-        }
-        
-        // 0 ~ cardCount-1 까지
-        for x in startNumber..<(startNumber + cardCount) {
-            // slot 인덱스를 넘어가면 리턴
-            guard let card = cards.pop() else { return () }
-            // 카드 이름으로 카드이미지 연결
-            let cardImage = UIImage(named: card.image())
-            // 이미지를 뷰로 출력
-            let cardView = makeCardView(widthPosition: x, height: height, cardSize: cardSize, cardImage: cardImage)
-            addViewToMain(view: cardView)
-        }
-    }
-    
-    /// 뷰를 받아서 패딩 적용된 이미지뷰를 추가한다
-    private func addSubImageVIew(superView: UIView, cardSize: CardSize, image: UIImage?){
-        // 카드사이즈로 뷰 생성
-        let cardImageView : UIImageView = UIImageView(frame: CGRect(x: superView.bounds.origin.x + cardSize.widthPadding, y: superView.bounds.origin.y + cardSize.heightPadding, width: cardSize.width, height: cardSize.height))
-        
-        // 뒷 테두리 추가
-        makeViewBorder(imageView: cardImageView)
-        
-        // 카드사이즈 뷰에 이미지 생성
-        cardImageView.image = image
-        
-        // 카드사이즈 뷰를 배경뷰에 추가
-        superView.addSubview(cardImageView)
-    }
     
     /// 카드 이미지 출력
-    private func makeCardView(widthPosition: Int, height: CGFloat, cardSize: CardSize, cardImage: UIImage?) -> UIImageView {
+    private func makeCardView(widthPosition: Int, height: CGFloat, cardSize: CardSize, cardInfo: CardInfo) -> CardView {
         // 배경 뷰 생성
-        let cardView : UIImageView = UIImageView(frame: CGRect(x: widthPositions[widthPosition - 1], y: height, width: cardSize.width, height: cardSize.height))
-        // 카드사이즈로 뷰 생성
-//        addSubImageVIew(superView: cardView, cardSize: cardSize, image: cardImage)
-        
-        // 이미지 삽입
-        cardView.image = cardImage
+        let cardView = CardView(cardInfo: cardInfo, frame: CGRect(x: widthPositions[widthPosition - 1], y: height, width: cardSize.width, height: cardSize.height))
+        cardView.isUserInteractionEnabled = true
         // 서브뷰 추가
         return cardView
     }
@@ -126,43 +126,126 @@ class ViewController: UIViewController {
     }
     
     /// 덱을 뷰와 함께 출력
-    func drawDeckView(gesture: UITapGestureRecognizer){
+    func drawDeckView(){
         // 덱을 카드객체가 아닌 프로토콜로 받는다
-        let cardInfos : [CardInfo] = self.cardDeck.info()
+        let cardInfos : [CardInfo] = self.gameBoard.allDeckInfo()
+        
+        // 각 카드정보를 모두 카드뷰로 전환
         for cardInfo in cardInfos {
-            let cardImage = UIImage(named: cardInfo.image())
-            let cardView = makeCardView(widthPosition: 7, height: 20, cardSize: cardSize, cardImage: cardImage)
-            cardView.addGestureRecognizer(gesture)
+            // 카드뷰 생성
+            let cardView = makeCardView(widthPosition: 7, height: heightPositions[0], cardSize: cardSize, cardInfo: cardInfo)
+            // 덱을 위한 탭 제스쳐를 생성, 추가한다
+            cardView.addGestureRecognizer(makeTabGetstureForDeck())
+            // 메인뷰에 추가
             addViewToMain(view: cardView)
+            
         }
     }
     
+    /// shake 함수.
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+//        if motion == .motionShake {
+//
+//        }
         gameBoard.reset()
     }
     
     /// 라인번호와 카드배열을 받아서 해당 라인에 카드를 출력한다
-    func drawCardLine(lineNumber: Int, cardSize: CardSize){
+    func drawCardLine(lineNumber: Int){
+        // 게임보드에서 플레이카드를 카드인포 배열로 받는다
         let cardInfos = gameBoard.getPlayCardLine(lineNumber: lineNumber)
+        // 모든 카드인포가 목표
         for x in 0..<cardInfos.count {
-            let cardImage = UIImage(named: cardInfos[x].image())
-            let cardView = makeCardView(widthPosition: lineNumber, height: heightPositions[x + 1], cardSize: cardSize, cardImage: cardImage)
+            let cardView = makeCardView(widthPosition: lineNumber, height: heightPositions[x + 1], cardSize: cardSize, cardInfo: cardInfos[x])
+            // 유저와 상호작용 on
+            cardView.isUserInteractionEnabled = true
             addViewToMain(view: cardView)
         }
     }
     
     /// 맥스카드카운트로 모든 플레이카드 를 출력한다
-    func drawAllPlayCard(cardSize: CardSize) {
+    func drawAllPlayCard() {
         for x in 1...cardSize.maxCardCount {
-            drawCardLine(lineNumber: x, cardSize: cardSize)
+            drawCardLine(lineNumber: x)
         }
     }
     
-    /// 덱을 오픈한다
-    func openDeck(){
-        let openedCardInfo = gameBoard.deckToOpened()
+    
+    /// 덱 탭 제스처시 발생하는 이벤트
+    @objc func deckTapEvent(_ sender: UITapGestureRecognizer) {
+        // 이벤트발생 카드를 덱에서 오픈덱으로 이동
+        guard let openedCardInfo = openDeck() else { return () }
         
+        // 옮겨진 뷰가 카드뷰가 맞는지 체크
+        guard let openedCardView = sender.view as? CardView else { return () }
+        
+        // 옮기려는 카드뷰와 오픈된카드인포가 맞는지 체크
+        guard openedCardInfo.name() == openedCardView.cardInfo.name() else {
+            os_log("터치된 덱뷰와 오픈된 카드의 카드인포 불일치")
+            os_log("%@","\(openedCardInfo.name()) vs \(openedCardView.cardInfo.name())")
+            return ()
+        }
+        
+        
+        // 오픈된 카드뷰 위치 이동
+        openedCardView.frame.origin.x -= cardSize.width * 1.5
+        
+        // 카드뷰를 뒤집는다
+        openedCardView.flip()
+        
+        // 옮겨진 카드가 안보이니 맨 위로 올린다
+        self.view.bringSubview(toFront: openedCardView)
+        
+        // 상호작용 금지
+        openedCardView.isUserInteractionEnabled = false
     }
+    
+    /// 덱을 오픈한다
+    func openDeck() -> CardInfo? {
+        // 덱의 카드를 오픈덱으로 이동
+        guard let openedCardInfo = gameBoard.deckToOpened() else { return nil }
+        // 이동된 카드는 뒷면이니 뒤집는다
+//        openedCardInfo.flip()
+        // 카드인포 리턴
+        return openedCardInfo
+    }
+    
+    /// 덱을 위한 탭 제스처
+    func makeTabGetstureForDeck() -> UITapGestureRecognizer {
+        // 탭 제스처 선언
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.deckTapEvent(_:)))
+        // 작동에 필요한 탭 횟수
+        gesture.numberOfTapsRequired = 1
+        // 작동에 필요한 터치 횟수
+        gesture.numberOfTouchesRequired = 1
+        // 제스처를 리턴한다
+        return gesture
+    }
+    
+    /// 덱 가장 밑부분의 리프레시 아이콘뷰
+    func makeRefreshIconView(){
+        // 뷰 기준점 설정. 5번과 6번 사이. 둘을 더해서 /2 하면 가운데값이 나옴
+        let pointX = (widthPositions[4] + widthPositions[5]) / 2
+        let viewPoint = CGPoint(x: pointX, y: heightPositions[0])
+        // 기준점에서 카드사이즈로 이미지뷰 생성
+        let refreshIconView = UIImageView(frame: CGRect(origin: viewPoint, size: cardSize.cardSize))
+        // 리프레시 아이콘 적용
+        refreshIconView.image = #imageLiteral(resourceName: "cardgameapp-refresh-app")
+        // 뷰를 메인뷰에 추가
+        self.view.addSubview(refreshIconView)
+    }
+    
+    
+    /// 카드게임 시작시 카드뷰 전체 배치 함수
+    func gameStart(){
+        
+        // 덱 출력
+        drawDeckView()
+        
+        // 플레이카드 출력
+        drawAllPlayCard()
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -178,27 +261,24 @@ class ViewController: UIViewController {
         // 앱 배경 설정
         setBackGroundImage()
         
-        // 카드덱 초기화. 분배까지 진행.
-        cardDeck.reset()
-        
-        // 탭 제스처 선언
-        let tapGesture = UITapGestureRecognizer()
-        
-        
-        
         // 카드 빈자리 4장 출력
-        setObjectPositions(height: 20, cardSize: cardSize)
+        setObjectPositions()
         
-        // 덱 출력
-        drawDeckView(gesture: tapGesture)
+        // 리프레시 아이콘 뷰 생성
+        makeRefreshIconView()
         
-        // 플레이카드 출력
-        drawAllPlayCard(cardSize: cardSize)
+        // 카드배치 시작
+        gameStart()
+        
     }
 
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    
 }
 
 // Configure StatusBar
