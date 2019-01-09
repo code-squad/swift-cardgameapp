@@ -17,14 +17,21 @@ class GameBoard {
     private var pointCardSlot : [Card] = []
     /// 펼쳐놓는 카드들
     private var playCard : [[Card]] = []
+    /// 플레이 카드 맥스 라인
+    private let maxPlayCardLine : Int
     
     
     init(slotCount: Int){
+        self.maxPlayCardLine = slotCount
+        reset()
+    }
+    
+    /// 플레이카드 초기화 함수
+    func resetPlayCard(slotCount: Int){
         for _ in 1...slotCount {
             let emptyCardSlot : [Card] = []
             playCard.append(emptyCardSlot)
         }
-        reset()
     }
     
     /// 랜덤한 카드 한장을 리턴한다
@@ -43,7 +50,13 @@ class GameBoard {
     
     /// 게임을 초기화 한다
     func reset(){
-        // 덱 초기화
+        // 오픈덱 초기화
+        self.openedDeck = []
+        // 포인트덱 초기화
+        self.pointCardSlot = []
+        // 플레이카드슬롯 리셋
+        resetPlayCard(slotCount: self.maxPlayCardLine)
+        
         self.deck.reset()
         // 덱 섞기
         self.deck.shuffle()
@@ -88,6 +101,11 @@ class GameBoard {
         self.openedDeck = []
     }
     
+    /// 덱 전체 정보를 리턴
+    func allDeckInfo() -> [CardInfo] {
+        return deck.info()
+    }
+
 }
 
 /// 카드 배열의 경우를 위한 확장
