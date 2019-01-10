@@ -107,7 +107,7 @@ class GameBoard {
     }
 
     /// 오픈덱 > 덱 으로 카드전체이동. 순서 유지를 위해서 오픈덱 순서를 뒤집는다
-    func openDeckToDeck(){
+    func refreshDeck(){
         // 순서를 뒤집어줄 임시 배열
         var tempDeck : [Card] = []
         // 오픈덱의 모든 카드가 대상.

@@ -286,7 +286,7 @@ class ViewController: UIViewController {
         }
         
         // 게임보드도 이동해 준다
-        gameBoard.openDeckToDeck()
+        gameBoard.refreshDeck()
     }
     
     /// 리프레시 아이콘 용 제스처 생성
