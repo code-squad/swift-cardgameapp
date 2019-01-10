@@ -11,13 +11,13 @@ import Foundation
 class CardSize {
     /// 최대 카드 장수
     var maxCardCount : Int = 1
-    /// 입력받은 가로값
+    /// 패딩없는 뷰 가로값
     var originWidth : CGFloat = 0
-    /// 입력받은 가로 * 1.25
+    /// 패딩없는 뷰 세로값. 가로 * 1.25
     var originHeight : CGFloat = 0
-    /// 카드 가로값. origin * 0.9
+    /// 패딩 적용 카드 가로값. origin * 0.9
     var width : CGFloat = 0
-    /// 카드 세로값
+    /// 패딩 적용 카드 세로값
     var height : CGFloat = 0
     /// originWidth * 0.1
     var widthPadding : CGFloat = 0
@@ -56,5 +56,11 @@ class CardSize {
         
         self.viewSize.width = originWidth
         self.viewSize.height = originHeight
+        
+        self.viewSize = CGSize(width: self.originWidth, height: self.originHeight)
+        self.cardSize = CGSize(width: self.width, height: self.height)
+        
     }
+    
+    
 }
