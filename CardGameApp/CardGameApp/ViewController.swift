@@ -206,7 +206,6 @@ class ViewController: UIViewController {
             return ()
         }
         
-        
         // 오픈된 카드뷰 위치 이동.  5번과 6번 사이. 둘을 더해서 /2 하면 가운데값이 나옴
         openedCardView.frame.origin.x = (widthPositions[4] + widthPositions[5]) / 2
         
@@ -272,7 +271,22 @@ class ViewController: UIViewController {
             
             // 덱카드뷰 배열에 넣는다
             deckCardViews.append(lastCardView)
+            
+            // 위치 이동. 가로칸 7번째 위치로.
+            lastCardView.frame.origin.x = widthPositions[6]
         }
+    }
+    
+    /// 리프레시 아이콘 용 제스처 생성
+    @objc func makeRefreshGesture(_ sender: UITapGestureRecognizer) -> UITapGestureRecognizer {
+        // 탭 제스처 선언
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.makeRefreshGesture(_:)))
+        // 작동에 필요한 탭 횟수
+        gesture.numberOfTapsRequired = 1
+        // 작동에 필요한 터치 횟수
+        gesture.numberOfTouchesRequired = 1
+        // 제스처를 리턴한다
+        return gesture
     }
     
     /// 카드게임 시작시 카드뷰 전체 배치 함수
