@@ -255,12 +255,15 @@ class ViewController: UIViewController {
         let refreshIconView = UIImageView(frame: CGRect(origin: viewPoint, size: cardSize.cardSize))
         // 리프레시 아이콘 적용
         refreshIconView.image = #imageLiteral(resourceName: "cardgameapp-refresh-app")
+        // 제스처를 적용
+        let refreshGesture = makeRefreshGesture()
+        refreshIconView.addGestureRecognizer(refreshGesture)
         // 뷰를 메인뷰에 추가
         addViewToMain(view: refreshIconView)
     }
     
     /// 리프레시 아이콘 함수. 오픈덱 카드뷰를 역순으로 뒤집어서 덱뷰에 삽입
-    func refreshDeck(){
+    @objc func refreshDeck(_ sender: UITapGestureRecognizer){
         // 오픈카드뷰 전체가 대상
         for _ in 0..<openedCardViews.count {
             // 배열 마지막을 뽑느다
@@ -278,9 +281,9 @@ class ViewController: UIViewController {
     }
     
     /// 리프레시 아이콘 용 제스처 생성
-    @objc func makeRefreshGesture(_ sender: UITapGestureRecognizer) -> UITapGestureRecognizer {
+    func makeRefreshGesture() -> UITapGestureRecognizer {
         // 탭 제스처 선언
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.makeRefreshGesture(_:)))
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.refreshDeck(_:)))
         // 작동에 필요한 탭 횟수
         gesture.numberOfTapsRequired = 1
         // 작동에 필요한 터치 횟수
