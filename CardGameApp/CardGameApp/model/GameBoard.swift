@@ -114,8 +114,6 @@ class GameBoard {
         for _ in 0..<openedDeck.count {
             // 뒤에서부터 카드 추출
             guard let popedCard = openedDeck.popLast() else { return () }
-            // 추출된 카드를 뒤집는다
-            popedCard.flip()
             // 뒤집은 카드를 임시배열에 넣는다
             tempDeck.append(popedCard)
         }

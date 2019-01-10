@@ -258,6 +258,8 @@ class ViewController: UIViewController {
         // 제스처를 적용
         let refreshGesture = makeRefreshGesture()
         refreshIconView.addGestureRecognizer(refreshGesture)
+        // 뷰 인터랙션 허용
+        refreshIconView.isUserInteractionEnabled = true
         // 뷰를 메인뷰에 추가
         addViewToMain(view: refreshIconView)
     }
@@ -271,13 +273,20 @@ class ViewController: UIViewController {
             
             // 덱에 넣기 위해 뒤집는다
             lastCardView.flip()
+            // 유저 인터랙션 허용
+            lastCardView.isUserInteractionEnabled = true
             
             // 덱카드뷰 배열에 넣는다
             deckCardViews.append(lastCardView)
             
             // 위치 이동. 가로칸 7번째 위치로.
             lastCardView.frame.origin.x = widthPositions[6]
+            // 뷰를 앞으로 이동시킨다
+            self.view.bringSubview(toFront: lastCardView)
         }
+        
+        // 게임보드도 이동해 준다
+        gameBoard.openDeckToDeck()
     }
     
     /// 리프레시 아이콘 용 제스처 생성
