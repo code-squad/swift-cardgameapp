@@ -162,14 +162,6 @@ class ViewController: UIViewController {
         }
     }
     
-    /// shake 함수.
-    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-        // 게임보드 카드들 초기화
-        gameBoard.reset()
-        // 카드배치를 뷰로 생성
-        gameStart()
-    }
-    
     /// 라인번호와 카드배열을 받아서 해당 라인에 카드를 출력한다
     func drawCardLine(lineNumber: Int){
         // 게임보드에서 플레이카드를 카드인포 배열로 받는다
@@ -303,12 +295,29 @@ class ViewController: UIViewController {
     
     /// 카드게임 시작시 카드뷰 전체 배치 함수
     func gameStart(){
+        // 카드 빈자리 4장 출력
+        setObjectPositions()
+        
+        // 리프레시 아이콘 뷰 생성
+        makeRefreshIconView()
         
         // 덱 출력
         drawDeckView()
         
         // 플레이카드 출력
         drawAllPlayCard()
+    }
+    
+    /// shake 함수.
+    override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        // 뷰를 모두 지운다
+        for view in self.view.subviews {
+            view.removeFromSuperview()
+        }
+        // 게임보드 카드들 초기화
+        gameBoard.reset()
+        // 카드배치를 뷰로 생성
+        gameStart()
     }
     
     
@@ -326,11 +335,7 @@ class ViewController: UIViewController {
         // 앱 배경 설정
         setBackGroundImage()
         
-        // 카드 빈자리 4장 출력
-        setObjectPositions()
-        
-        // 리프레시 아이콘 뷰 생성
-        makeRefreshIconView()
+       
         
         // 카드배치 시작
         gameStart()
