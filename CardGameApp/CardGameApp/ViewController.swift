@@ -48,17 +48,11 @@ class CardView : UIImageView {
     }
 }
 
-
 class ViewController: UIViewController {
     /// 덱 카드들이 뷰로 생성되면 모이는 배열
     private var deckCardViews : [CardView] = []
     /// 오픈덱 카드들이 뷰로 생성되면 모이는 배열
     private var openedCardViews : [CardView] = []
-    /// 플레이 카드들이 뷰로 생성되면 모이는 배열
-    
-    private var playCardViews : [CardView] = [[]]
-    /// 점수 카드들이 뷰로 생성되면 모이는 배열
-    private var pointCardViews : [CardView] = [[]]
     
     
     /// 플레이카드가 들어가는 스택뷰
@@ -147,6 +141,10 @@ class ViewController: UIViewController {
     
     /// 덱을 카드뷰로 출력
     func drawDeckView(){
+        // 덱,오픈덱 카드뷰 배열을 초기화 한다. 게임 리셋 기능시 쓰인다.
+        deckCardViews = []
+        openedCardViews = []
+        
         // 덱을 카드객체가 아닌 프로토콜로 받는다
         let cardInfos : [CardInfo] = self.gameBoard.allDeckInfo()
         
@@ -158,14 +156,14 @@ class ViewController: UIViewController {
             cardView.addGestureRecognizer(makeTabGetstureForDeck())
             // 메인뷰에 추가
             addViewToMain(view: cardView)
+            
+            // 덱카드뷰 배열에 넣는다
+            deckCardViews.append(cardView)
         }
     }
     
     /// shake 함수.
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-//        if motion == .motionShake {
-//
-//        }
         // 게임보드 카드들 초기화
         gameBoard.reset()
         // 카드배치를 뷰로 생성
@@ -195,7 +193,7 @@ class ViewController: UIViewController {
     
     /// 덱 탭 제스처시 발생하는 이벤트
     @objc func deckTapEvent(_ sender: UITapGestureRecognizer) {
-        // 이벤트발생 카드를 덱에서 오픈덱으로 이동
+        // 이벤트발생시 게임보드안 카드를 덱에서 오픈덱으로 이동
         guard let openedCardInfo = openDeck() else { return () }
         
         // 옮겨진 뷰가 카드뷰가 맞는지 체크
@@ -220,14 +218,20 @@ class ViewController: UIViewController {
         
         // 상호작용 금지
         openedCardView.isUserInteractionEnabled = false
+        
+        // 해당 뷰를 덱>오픈덱 뷰 배열로 옮긴다
+        guard let popedDeckCardView = deckCardViews.popLast() else {
+            os_log("덱카드뷰 에서 뷰 추출 실패")
+            return ()
+        }
+        openedCardViews.append(popedDeckCardView)
+        
     }
     
     /// 덱을 오픈한다
     func openDeck() -> CardInfo? {
         // 덱의 카드를 오픈덱으로 이동
         guard let openedCardInfo = gameBoard.deckToOpened() else { return nil }
-        // 이동된 카드는 뒷면이니 뒤집는다
-//        openedCardInfo.flip()
         // 카드인포 리턴
         return openedCardInfo
     }
