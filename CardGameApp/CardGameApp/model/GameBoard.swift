@@ -28,7 +28,10 @@ class GameBoard {
     
     /// 플레이카드 초기화 함수
     func resetPlayCard(slotCount: Int){
-        for _ in 1...slotCount {
+        // 플레이 카드 초기화
+        playCard = [[]]
+        // 플레이카드 라인만큼 배열 추가 
+        for _ in 0..<slotCount {
             let emptyCardSlot : [Card] = []
             playCard.append(emptyCardSlot)
         }
