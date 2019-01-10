@@ -260,6 +260,20 @@ class ViewController: UIViewController {
         addViewToMain(view: refreshIconView)
     }
     
+    /// 리프레시 아이콘 함수. 오픈덱 카드뷰를 역순으로 뒤집어서 덱뷰에 삽입
+    func refreshDeck(){
+        // 오픈카드뷰 전체가 대상
+        for _ in 0..<openedCardViews.count {
+            // 배열 마지막을 뽑느다
+            guard let lastCardView = openedCardViews.popLast() else { return () }
+            
+            // 덱에 넣기 위해 뒤집는다
+            lastCardView.flip()
+            
+            // 덱카드뷰 배열에 넣는다
+            deckCardViews.append(lastCardView)
+        }
+    }
     
     /// 카드게임 시작시 카드뷰 전체 배치 함수
     func gameStart(){
