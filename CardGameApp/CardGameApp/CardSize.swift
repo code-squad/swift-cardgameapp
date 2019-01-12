@@ -10,25 +10,25 @@ import Foundation
 
 class CardSize {
     /// 최대 카드 장수
-    var maxCardCount : Int = 1
+    private (set) var maxCardCount : Int = 1
     /// 패딩없는 뷰 가로값
-    var originWidth : CGFloat = 0
+    private (set) var originWidth : CGFloat = 0
     /// 패딩없는 뷰 세로값. 가로 * 1.25
-    var originHeight : CGFloat = 0
+    private (set) var originHeight : CGFloat = 0
     /// 패딩 적용 카드 가로값. origin * 0.9
-    var width : CGFloat = 0
+    private (set) var width : CGFloat = 0
     /// 패딩 적용 카드 세로값
-    var height : CGFloat = 0
+    private (set) var height : CGFloat = 0
     /// originWidth * 0.1
-    var widthPadding : CGFloat = 0
+    private (set) var widthPadding : CGFloat = 0
     /// originHeight * 0.1
-    var heightPadding : CGFloat = 0
+    private (set) var heightPadding : CGFloat = 0
     /// screen width
-    var screenWidth : CGFloat = 0
-    var screenHeight : CGFloat = 0
+    private (set) var screenWidth : CGFloat = 0
+    private (set) var screenHeight : CGFloat = 0
     
-    var viewSize : CGSize = CGSize()
-    var cardSize : CGSize = CGSize()
+    private (set) var viewSize : CGSize = CGSize()
+    private (set) var cardSize : CGSize = CGSize()
     
     init(maxCardCount: Int ){
         // 최대 장수
