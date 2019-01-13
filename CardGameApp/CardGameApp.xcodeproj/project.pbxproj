@@ -113,7 +113,7 @@
 			children = (
 				D536E55B21D4B4AB004B7014 /* model */,
 				D536E51B21D078E8004B7014 /* AppDelegate.swift */,
-				D541055021E3328B00FC7470 /* CardSize.swift */,
+				D5063AEE21EAC4B2009CF325 /* CardView.swift */,
 				D536E51D21D078E8004B7014 /* ViewController.swift */,
 				D536E51F21D078E8004B7014 /* Main.storyboard */,
 				D536E52221D078E8004B7014 /* Assets.xcassets */,
@@ -149,7 +149,7 @@
 				D536E56321D4BB64004B7014 /* GameBoard.swift */,
 				D536E56021D4BB63004B7014 /* Slot.swift */,
 				D541055221E5D2D300FC7470 /* Error.swift */,
-				D5063AEE21EAC4B2009CF325 /* CardView.swift */,
+				D541055021E3328B00FC7470 /* CardSize.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
