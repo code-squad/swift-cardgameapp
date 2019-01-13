@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D5063AEF21EAC4B2009CF325 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5063AEE21EAC4B2009CF325 /* CardView.swift */; };
 		D536E51C21D078E8004B7014 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E51B21D078E8004B7014 /* AppDelegate.swift */; };
 		D536E51E21D078E8004B7014 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E51D21D078E8004B7014 /* ViewController.swift */; };
 		D536E52121D078E8004B7014 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D536E51F21D078E8004B7014 /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D5063AEE21EAC4B2009CF325 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D536E51821D078E8004B7014 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D536E51B21D078E8004B7014 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D536E51D21D078E8004B7014 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				D536E56321D4BB64004B7014 /* GameBoard.swift */,
 				D536E56021D4BB63004B7014 /* Slot.swift */,
 				D541055221E5D2D300FC7470 /* Error.swift */,
+				D5063AEE21EAC4B2009CF325 /* CardView.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D541055321E5D2D300FC7470 /* Error.swift in Sources */,
+				D5063AEF21EAC4B2009CF325 /* CardView.swift in Sources */,
 				D536E56521D4BB64004B7014 /* Slot.swift in Sources */,
 				D541055121E3328B00FC7470 /* CardSize.swift in Sources */,
 				D536E56621D4BB64004B7014 /* Deck.swift in Sources */,
