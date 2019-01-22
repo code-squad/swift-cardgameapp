@@ -19,6 +19,16 @@ enum Mark : String {
     func getValue() -> String {
         return self.rawValue
     }
+    
+    /// 전체값 출력
+    func allCases() -> [Mark] {
+        var result : [Mark] = []
+        result.append(.spade)
+        result.append(.clover)
+        result.append(.heart)
+        result.append(.diamond)
+        return result
+    }
 }
 
 /// 카드 넘버링
@@ -40,6 +50,25 @@ enum Numbering : String {
     /// 출력값 리턴용
     func getValue() -> String {
         return self.rawValue
+    }
+    
+    /// 전체 내용 출력
+    func allCases() -> [Numbering] {
+        var result : [Numbering] = []
+        result.append(.ace)
+        result.append(.two)
+        result.append(.three)
+        result.append(.four)
+        result.append(.five)
+        result.append(.six)
+        result.append(.seven)
+        result.append(.eight)
+        result.append(.nine)
+        result.append(.ten)
+        result.append(.jack)
+        result.append(.queen)
+        result.append(.king)
+        return result
     }
 }
 
