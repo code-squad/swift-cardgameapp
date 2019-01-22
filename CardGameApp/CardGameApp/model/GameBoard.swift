@@ -54,8 +54,8 @@ class GameBoard {
     /// 덱 초기화 함수. 외부에서 덱만 초기화 할수 없게 private
     private func newDeck() -> [Card]{
         // 모든 넘버링, 마크를 리스트로 만든다
-        let numberings = Numbering.ace.allCases()
-        let marks = Mark.spade.allCases()
+        let numberings = Numbering.allCases()
+        let marks = Mark.allCases()
         
         // 덱을 비운다
         var cardList : [Card] = []

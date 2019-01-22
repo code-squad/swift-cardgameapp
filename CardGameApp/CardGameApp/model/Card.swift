@@ -21,7 +21,7 @@ enum Mark : String {
     }
     
     /// 전체값 출력
-    func allCases() -> [Mark] {
+    static func allCases() -> [Mark] {
         var result : [Mark] = []
         result.append(.spade)
         result.append(.clover)
@@ -53,7 +53,7 @@ enum Numbering : String {
     }
     
     /// 전체 내용 출력
-    func allCases() -> [Numbering] {
+    static func allCases() -> [Numbering] {
         var result : [Numbering] = []
         result.append(.ace)
         result.append(.two)
