@@ -55,12 +55,7 @@ class ViewController: UIViewController {
         }
     }
     
-    /// 뷰 테두리 생성
-    private func makeViewBorder(imageView: UIView){
-        imageView.layer.masksToBounds = true
-        imageView.layer.borderWidth = 1.5
-        imageView.layer.borderColor = UIColor.white.cgColor
-    }
+   
     
     /// 최대 카드 수량 체크
     private func checkMaxCardCount(startNumber: Int, cardCount: Int) -> Bool {
@@ -79,7 +74,7 @@ class ViewController: UIViewController {
             // 기준점에서 카드사이즈로 이미지뷰 생성
             let emptyCardView = UIView(frame: CGRect(origin: viewPoint, size: cardSize.cardSize))
             // 뷰 테두리 설정
-            makeViewBorder(imageView: emptyCardView)
+            emptyCardView.makeBorder()
             // 뷰를 메인뷰에 추가
             self.view.addSubview(emptyCardView)
         }
@@ -309,5 +304,15 @@ class ViewController: UIViewController {
 extension ViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+}
+
+// 테두리 기능 확장
+extension UIView {
+    /// 뷰 테두리 생성
+    func makeBorder(){
+        self.layer.masksToBounds = true
+        self.layer.borderWidth = 1.5
+        self.layer.borderColor = UIColor.white.cgColor
     }
 }
