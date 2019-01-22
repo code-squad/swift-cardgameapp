@@ -49,7 +49,7 @@ class ViewController: UIViewController {
         // 첫 지점은 20
         heightPositions.append(20 + cardSize.heightPadding)
         // 트럼프 카드의 종류는 13종
-        for x in 0..<13 {
+        for x in 0..<Numbering.allCases().count {
             // 시작지점 높이 100
             heightPositions.append(cardSize.originHeight * 0.25 * CGFloat(x) + 100 + cardSize.heightPadding)
         }

@@ -39,9 +39,12 @@ class GameBoard {
     
     /// 랜덤한 카드 한장을 리턴한다
     func makeRandomCard() -> Card? {
+        // 랜덤정수 최대치 선언
+        let maxMarkCount = UInt32(Mark.allCases().count)
+        let maxNumberingCount = UInt32(Numbering.allCases().count)
         // 랜덤정수 생성
-        let randomMarkNumber = String(Int(arc4random_uniform(4)+1))
-        let randomNumberingNumber = String(Int(arc4random_uniform(13) + 1))
+        let randomMarkNumber = String(Int(arc4random_uniform(maxMarkCount)+1))
+        let randomNumberingNumber = String(Int(arc4random_uniform(maxNumberingCount) + 1))
         
         // 카드용 마크,숫자 생성. 생성 실패리 닐 리턴
         guard let randomMark = Mark(rawValue: randomMarkNumber),
