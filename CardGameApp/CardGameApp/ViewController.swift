@@ -148,18 +148,9 @@ class ViewController: UIViewController {
     
     /// 덱 탭 제스처시 발생하는 이벤트
     @objc func deckTapEvent(_ sender: UITapGestureRecognizer) {
-        // 이벤트발생시 게임보드안 카드를 덱에서 오픈덱으로 이동
-        guard let openedCardInfo = openDeck() else { return () }
         
         // 옮겨진 뷰가 카드뷰가 맞는지 체크
         guard let openedCardView = sender.view as? CardView else { return () }
-        
-        // 옮기려는 카드뷰와 오픈된카드인포가 맞는지 체크
-        guard openedCardInfo.name() == openedCardView.cardInfo.name() else {
-            os_log("터치된 덱뷰와 오픈된 카드의 카드인포 불일치")
-            os_log("%@","\(openedCardInfo.name()) vs \(openedCardView.cardInfo.name())")
-            return ()
-        }
         
         // 오픈된 카드뷰 위치 이동.  5번과 6번 사이. 둘을 더해서 /2 하면 가운데값이 나옴
         openedCardView.frame.origin.x = (widthPositions[4] + widthPositions[5]) / 2
