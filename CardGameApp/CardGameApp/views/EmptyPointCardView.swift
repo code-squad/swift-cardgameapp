@@ -8,14 +8,26 @@
 
 import UIKit
 
-class EmptyPointCardView_EmptyPointCardView_EmptyPointCardView_EmptyPointCardView_EmptyPointCardView_EmptyPointCardView_EmptyPointCardViewEmptyPointCardView_EmptyPointCardView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+class EmptyPointCardView: UIView {
+    
+    init(origin: CGPoint, size: CGSize){
+        let frame = CGRect(origin: origin, size: size)
+        super.init(frame: frame)
+        makeBorder()
     }
-    */
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        makeBorder()
+    }
+}
 
+// 테두리 기능 확장
+extension EmptyPointCardView {
+    /// 뷰 테두리 생성
+    func makeBorder(){
+        self.layer.masksToBounds = true
+        self.layer.borderWidth = 1.5
+        self.layer.borderColor = UIColor.white.cgColor
+    }
 }

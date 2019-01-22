@@ -68,13 +68,11 @@ class ViewController: UIViewController {
     /// 첫줄 카드배경 출력
     private func setObjectPositions(){
         // 원하는 빈칸은 4칸
-        for x in 0...3 {
+        for x in 0..<Mark.allCases().count {
             // 카드 기준점 설정
             let viewPoint = CGPoint(x: widthPositions[x], y: heightPositions[0])
             // 기준점에서 카드사이즈로 이미지뷰 생성
-            let emptyCardView = UIView(frame: CGRect(origin: viewPoint, size: cardSize.cardSize))
-            // 뷰 테두리 설정
-            emptyCardView.makeBorder()
+            let emptyCardView = EmptyPointCardView(origin: viewPoint, size: cardSize.cardSize)
             // 뷰를 메인뷰에 추가
             self.view.addSubview(emptyCardView)
         }
@@ -307,12 +305,3 @@ extension ViewController {
     }
 }
 
-// 테두리 기능 확장
-extension UIView {
-    /// 뷰 테두리 생성
-    func makeBorder(){
-        self.layer.masksToBounds = true
-        self.layer.borderWidth = 1.5
-        self.layer.borderColor = UIColor.white.cgColor
-    }
-}
