@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D528F7FC21F7118F00AAF80F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F7FB21F7118F00AAF80F /* AppDelegate.swift */; };
 		D528F7FE21F711F600AAF80F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F7FD21F711F600AAF80F /* CardView.swift */; };
+		D528F80321F7193100AAF80F /* EmptyPointCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80221F7193100AAF80F /* EmptyPointCardView.swift */; };
 		D536E51E21D078E8004B7014 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E51D21D078E8004B7014 /* ViewController.swift */; };
 		D536E52121D078E8004B7014 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D536E51F21D078E8004B7014 /* Main.storyboard */; };
 		D536E52321D078E8004B7014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D536E52221D078E8004B7014 /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		D528F7FB21F7118F00AAF80F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D528F7FD21F711F600AAF80F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		D528F80221F7193100AAF80F /* EmptyPointCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyPointCardView.swift; sourceTree = "<group>"; };
 		D536E51821D078E8004B7014 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D536E51D21D078E8004B7014 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D536E52021D078E8004B7014 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				D528F7FD21F711F600AAF80F /* CardView.swift */,
+				D528F80221F7193100AAF80F /* EmptyPointCardView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				D541055121E3328B00FC7470 /* CardSize.swift in Sources */,
 				D536E56621D4BB64004B7014 /* Deck.swift in Sources */,
 				D536E56821D4BB64004B7014 /* GameBoard.swift in Sources */,
+				D528F80321F7193100AAF80F /* EmptyPointCardView.swift in Sources */,
 				D536E51E21D078E8004B7014 /* ViewController.swift in Sources */,
 				D536E56421D4BB64004B7014 /* Card.swift in Sources */,
 			);
