@@ -51,7 +51,26 @@ class GameBoard {
         return Card(mark: randomMark, numbering: randomNumbering)
     }
     
-    /// 게임을 초기화 한다
+    /// 덱 초기화 함수. 외부에서 덱만 초기화 할수 없게 private
+    private func newDeck() -> [Card]{
+        // 모든 넘버링, 마크를 리스트로 만든다
+        let numberings = Numbering.ace.allCases()
+        let marks = Mark.spade.allCases()
+        
+        // 덱을 비운다
+        var cardList : [Card] = []
+        
+        // 모든종류의 카드를 덱에 추가한다
+        for numbering in numberings {
+            for mark in marks {
+                cardList.append(Card(mark: mark, numbering: numbering))
+            }
+        }
+        return cardList
+    }
+    
+    
+    /// 게임을 초기화 한다. 덱 한개만 초기화 불가능. 전체만 가능. 
     func reset(){
         // 오픈덱 초기화
         self.openedDeck = []
@@ -60,7 +79,7 @@ class GameBoard {
         // 플레이카드슬롯 리셋
         resetPlayCard(slotCount: self.maxPlayCardLine)
         
-        self.deck.reset()
+        self.deck = Deck(cardList: newDeck())
         // 덱 섞기
         self.deck.shuffle()
         // 덱을 펼친다. 생성된 가로배열 만큼 반복

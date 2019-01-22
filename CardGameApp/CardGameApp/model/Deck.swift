@@ -18,21 +18,6 @@ class Deck {
         self.cardList = cardList
     }
     
-    /// 덱 초기화 함수
-    func reset(){
-        // 모든 넘버링, 마크를 리스트로 만든다
-        let numberings = [Numbering.ace,.two,.three,.four,.five,.six,.seven,.eight,.nine,.ten,.jack,.queen,.king]
-        let marks = [Mark.spade,.clover,.heart,.diamond]
-        // 덱을 비운다
-        cardList = []
-        
-        // 모든종류의 카드를 덱에 추가한다
-        for numbering in numberings {
-            for mark in marks {
-                cardList.append(Card(mark: mark, numbering: numbering))
-            }
-        }
-    }
     
     /// 카드수 리턴
     func count() -> Int {
