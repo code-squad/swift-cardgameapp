@@ -197,14 +197,10 @@ class ViewController: UIViewController {
         // 뷰 기준점 설정.
         let viewPoint = CGPoint(x: widthPositions[6], y: heightPositions[0])
         // 기준점에서 카드사이즈로 이미지뷰 생성
-        let refreshIconView = UIImageView(frame: CGRect(origin: viewPoint, size: cardSize.cardSize))
-        // 리프레시 아이콘 적용
-        refreshIconView.image = #imageLiteral(resourceName: "cardgameapp-refresh-app")
+        let refreshIconView = RefreshIconView(origin: viewPoint, size: cardSize.cardSize)
         // 제스처를 적용
         let refreshGesture = makeRefreshGesture()
         refreshIconView.addGestureRecognizer(refreshGesture)
-        // 뷰 인터랙션 허용
-        refreshIconView.isUserInteractionEnabled = true
         // 뷰를 메인뷰에 추가
         addViewToMain(view: refreshIconView)
     }
