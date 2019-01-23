@@ -115,7 +115,7 @@ class ViewController: UIViewController {
             // 카드뷰 생성
             let cardView = makeCardView(widthPosition: 7, heightPosition: 1, cardSize: cardSize, cardInfo: cardInfo)
             // 덱을 위한 탭 제스쳐를 생성, 추가한다
-            cardView.addGestureRecognizer(makeTabGetstureForDeck())
+            cardView.addGestureRecognizer(makeTapGetstureForDeck())
             // 메인뷰에 추가
             addViewToMain(view: cardView)
             
@@ -181,7 +181,7 @@ class ViewController: UIViewController {
     }
     
     /// 덱을 위한 탭 제스처
-    func makeTabGetstureForDeck() -> UITapGestureRecognizer {
+    func makeTapGetstureForDeck() -> UITapGestureRecognizer {
         // 탭 제스처 선언
         let gesture = UITapGestureRecognizer(target: self, action: #selector(self.deckTapEvent(_:)))
         // 작동에 필요한 탭 횟수
