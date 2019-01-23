@@ -7,15 +7,25 @@
 //
 
 import UIKit
+/// 드로우뷰 맨 밑의 리프레시 뷰
+class RefreshIconView: UIImageView {
 
-class RefreshIconView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    init(origin: CGPoint, size: CGSize){
+        let frame = CGRect(origin: origin, size: size)
+        super.init(frame: frame)
+        // 생성시 이미지 설정
+        self.image = #imageLiteral(resourceName: "cardgameapp-refresh-app")
+        // 뷰 인터랙션 허용
+        self.isUserInteractionEnabled = true
     }
-    */
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        // 생성시 이미지 설정
+        self.image = #imageLiteral(resourceName: "cardgameapp-refresh-app")
+        // 뷰 인터랙션 허용
+        self.isUserInteractionEnabled = true
+    }
 
 }
+
