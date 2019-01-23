@@ -7,8 +7,16 @@
 //
 
 import Foundation
+
+/// 카드정보배열을 리턴하는 프로토콜
+protocol DeckInfo {
+    func allInfo() -> [CardInfo]
+}
+
+
+
 /// 카드게임 진행을 하는 보드
-class GameBoard {
+class GameBoard : DeckInfo {
     /// 덱 선언
     private var deck = Deck()
     /// 사용자가 오픈한 카드가 모이는 덱
@@ -20,7 +28,7 @@ class GameBoard {
     /// 플레이 카드 맥스 라인
     private let maxPlayCardLine : Int
     
-    
+    // 생성시 플레이카드가 몇열인지 받아서 생성
     init(slotCount: Int){
         self.maxPlayCardLine = slotCount
         reset()
@@ -127,7 +135,7 @@ class GameBoard {
     }
     
     /// 덱 전체 정보를 리턴
-    func allDeckInfo() -> [CardInfo] {
+    func allInfo() -> [CardInfo] {
         return deck.info()
     }
 
