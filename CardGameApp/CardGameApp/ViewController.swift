@@ -95,6 +95,12 @@ class ViewController: UIViewController {
         return ()
     }
     
+    /// 덱인포를 받아서 카드인포배열을 리턴
+    func getDeckInfo(deckInfo: DeckInfo) -> [CardInfo] {
+        return deckInfo.allInfo()
+    }
+    
+    
     /// 덱을 카드뷰로 출력
     func drawDeckView(){
         // 덱,오픈덱 카드뷰 배열을 초기화 한다. 게임 리셋 기능시 쓰인다.
@@ -102,7 +108,7 @@ class ViewController: UIViewController {
         openedCardViews = []
         
         // 덱을 카드객체가 아닌 프로토콜로 받는다
-        let cardInfos : [CardInfo] = self.gameBoard.allDeckInfo()
+        let cardInfos = getDeckInfo(deckInfo: self.gameBoard)
         
         // 각 카드정보를 모두 카드뷰로 전환
         for cardInfo in cardInfos {
