@@ -1,103 +1,67 @@
-# 진행 방법
+# 카드게임 앱
 
-- [카드게임 iOS 앱 요구사항](https://nextstep.camp/courses/-Kv6PmBDDnfeJOzqThWG/-KvWF39katDtAy2Sv9oh/lessons)을 파악한다.
-- [기존 레벨2 카드게임 요구사항](https://nextstep.camp/courses/-KuYS6VK-enZZ_F3Jgg8/-Kv0Q5WOa3z1Ng9zXtdE/lessons)을 구현한 소스 코드를 재사용한다.
-- 요구사항에 대한 구현을 완료한 후 자신의 github 아이디에 해당하는 브랜치에 Pull Request(이하 PR)를 통해 코드 리뷰 요청을 한다.
-- 코드 리뷰 피드백에 대한 개선 작업을 하고 다시 PUSH한다.
-- 모든 피드백을 완료하면 다음 단계를 도전하고 앞의 과정을 반복한다.
+1. <a href="#1-카드게임판-시작하기">카드게임판 시작하기</a>
 
-# 코드 리뷰 과정
-> 저장소 브랜치에 자신의 github 아이디에 해당하는 브랜치가 존재해야 한다.
->
-> 자신의 github 아이디에 해당하는 브랜치가 있는지 확인한다.
+<br>
 
-1. 자신의 github 아이디에 해당하는 브랜치가 없는 경우 브랜치 생성 요청 채널을 통해 브랜치 생성을 요청한다.
-프로젝트를 자신의 계정으로 fork한다. 저장소 우측 상단의 fork 버튼을 활용한다.
+## 1. 카드게임판 시작하기
 
-2. fork한 프로젝트를 자신의 컴퓨터로 clone한다.
-```
-git clone https://github.com/{본인_아이디}/{저장소 아이디}
-ex) https://github.com/godrm/swift-cardgameapp
-```
+### 요구사항
 
-3. clone한 프로젝트 이동
-```
-cd {저장소 아이디}
-ex) cd swift-cardgameapp
-```
+- StatusBar 스타일 변경
+- ViewController 루트 뷰 배경이미지 지정
+- 화면에서 카드가 적정 위치에 균등하게 보이도록 ViewController 에서 이미지 뷰 추가
 
-4. 본인 아이디로 브랜치를 만들기 위한 checkout
-```
-git checkout -t origin/본인_아이디
-ex) git checkout -t origin/godrm
-```
+<br>
 
-5. 기능 구현을 위한 브랜치 생성 (연속번호를 붙여나간다)
-```
-git checkout -b 브랜치이름
-ex) git checkout -b card-step1
+### 구현방법
+
+#### 1. StatusBar 스타일 변경
+
+처음에는 `AppDelegate` 에서 `UIApplication.shared` 의 `setStatusBarStyle()` 메소드로 스타일을 변경하려고했습니다. [공식문서](https://developer.apple.com/documentation/uikit/uiapplication/1622923-setstatusbarstyle)를 찾아보니 이 방법은 Deprecated되었으며, iOS 7 이후 부터는 status bar를 뷰 컨트롤러가 관리한다고 명시되어있었습니다. 
+
+따라서, `ViewController` 클래스에서 **preferredStatusBarStyle** 프로퍼티를 오버라이드하여 **UIStatusBarStyle.lightContent**로 지정했습니다.
+
+<br>
+
+#### 2. ViewController 루트 뷰 배경이미지 지정
+
+Assets.xcassets에 저장한 파일로 UIImage를 생성한 후, 이 이미지를 패턴으로 하는 [UIColor](https://developer.apple.com/documentation/uikit/uicolor/1621933-init)를 뷰 컨트롤러 루트 뷰의 `backgroundColor` 로 지정했습니다.
+
+```swift
+private func setBackground() {
+    guard let image = UIImage(named: "bg_pattern.png") else { return }
+    self.view.backgroundColor = UIColor(patternImage: image)
+}
 ```
 
-6. commit
+<br>
+
+#### 3. ViewController에서 화면에 균일하게 카드 이미지 뷰 추가
+
+`UIImageView` 를 상속받는 `CardImageView` 커스텀 뷰를 생성하여, 이미지 뷰 왼쪽 위 좌표**(origin: CGPoint)**와 가로 길이**(width: CGFloat)**로 생성초기화하는 convenience init 메소드를 구현했습니다.
+
+뷰 컨트롤러 내부에는 `CardImageViewCreater` 라는 구조체를 추가하여, 뷰 컨트롤러 루트 뷰의 **frame.width** 값을 바탕으로 `CardImageView` 의 좌표와 가로 길이를 계산하여 생성해주도록 구현했습니다. 이렇게 생성된 이미지 뷰는 루트 뷰의 서브 뷰로 추가되어 화면에 균등한 크기와 여백으로 나타나게됩니다.
+
+```swift
+class ViewController: UIViewController {
+    ...
+	private func addCardImageViews() {
+        let cardCreater = CardImageViewCreater(numberOfCards: 7, sideMargin: 5, topMargin: 40)
+        let cards = cardCreater.createHorizontally(within: self.view.frame.width)
+        cards.forEach { self.view.addSubview($0) }
+    }
+    ...
+}
 ```
-git status //확인
-git rm 파일명 //삭제된 파일
-git add 파일명(or * 모두) // 추가/변경 파일
-git commit -m "메세지" // 커밋
-```
 
-7. 본인 원격 저장소에 올리기
-```
-git push --set-upstream origin 브랜치이름
-ex) git push --set-upstream origin card-step1
-```
+<br>
 
-8. pull request
-	- pull request는 github 서비스에서 진행할 수 있다.
-	- pull request는 original 저장소의 브랜치(자신의 github 아이디)와 앞 단계에서 생성한 브랜치 이름을 기준으로 한다.
+### 실행화면
 
-	```
-	ex) code-squad/swift-cardgameapp godrm 브랜치 기준 => godrm/swift-cardgameapp card-step1
-	```
-	
-9. code review 및 push
-	- pull request를 통해 피드백을 받는다.
-	- 코드 리뷰 피드백에 대한 개선 작업을 하고 다시 PUSH한다.
+> 완성일자: 2019.01.23 18:32
 
-10. 기본(upstream) 브랜치 전환 및 base 저장소 추가하기(최초 시작하기 단계 한번만 하면 됨)
+![2019-01-23](./images/step1/2019-01-23.png)
 
-	```
-	git checkout 본인_아이디
-	git remote add upstream base_저장소_url
 
-	ex) git checkout godrm
-	ex) git remote add upstream https://github.com/code-squad/swift-cardgameapp.git
-	```
 
-	- 위와 같이 base 저장소 추가한 후 remote 브랜치 목록을 본다.
-
-	```
-	git remote -v
-	```
-
-11. 기본 base 저장소와 sync하기 (PR 보낸 내용을 자신의 기본 저장소와 합치기)
-
-	```
-	git fetch upstream
-	git rebase upstream/본인_아이디
-	git push
-
-	ex) 
-	git fetch upstream
-	git rebase upstream/godrm
-	git push
-	```
-
-12. 다음 미션을 해결할 경우 [5단계 브랜치 생성]부터 다시 진행
-
-## 동영상을 통한 코드 리뷰() 를 통해 참고 가능
-
-- [fork하여 코드 리뷰하기](https://www.youtube.com/watch?v=ZSZoaG0PqLg) 
-- [PR 보내고 다시 PR보낼 때 유의 사항](https://www.youtube.com/watch?v=CbLNbCUsh5c&feature=youtu.be)
-
-## 실습 중 모든 질문은 슬랙 채널에서...
