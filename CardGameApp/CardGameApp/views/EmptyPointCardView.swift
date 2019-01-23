@@ -25,7 +25,7 @@ class EmptyPointCardView: UIView {
 // 테두리 기능 확장
 extension EmptyPointCardView {
     /// 뷰 테두리 생성
-    func makeBorder(){
+    private func makeBorder(){
         self.layer.masksToBounds = true
         self.layer.borderWidth = 1.5
         self.layer.borderColor = UIColor.white.cgColor
