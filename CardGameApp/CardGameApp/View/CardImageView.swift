@@ -12,18 +12,23 @@ class CardImageView: UIImageView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        setUp()
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setImage()
-        roundCorners()
+        setUp()
     }
 
     convenience init(origin: CGPoint, width: CGFloat) {
         let size = CGSize(width: width, height: width * 1.27)
         let frame = CGRect(origin: origin, size: size)
         self.init(frame: frame)
+    }
+
+    private func setUp() {
+        setImage()
+        roundCorners()
     }
 
     private func setImage() {
