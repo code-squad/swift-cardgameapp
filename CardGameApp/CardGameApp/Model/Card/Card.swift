@@ -7,11 +7,11 @@
 //
 
 import Foundation
-import UIKit
 
 class Card: CustomStringConvertible {
     private let suit: Suit
     private let rank: Rank
+    private var isBack: Bool = false
 
     init(suit: Suit, rank: Rank) {
         self.suit = suit
@@ -30,9 +30,9 @@ class Card: CustomStringConvertible {
         return self.suit == suit
     }
 
-    var image: UIImage? {
+    var imageName: String? {
         guard let suit = self.suit.firstLetter else { return nil }
-        return UIImage(named: "\(suit)\(rank.value)")
+        return "\(suit)\(rank.value)"
     }
 
 }

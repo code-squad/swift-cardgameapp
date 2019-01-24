@@ -56,10 +56,10 @@ extension ViewController {
             var cardImageViews: [CardImageView] = []
             let width = calculateCardWidth(with: frameWidth)
             var positionX = sideMargin * 1.5
-            for image in cards.images {
+            for imageName in cards.imageNames {
                 let origin = CGPoint(x: positionX, y: topMargin)
                 let cardImageView = CardImageView(origin: origin, width: width)
-                cardImageView.image = image
+                cardImageView.setImage(named: imageName)
                 cardImageViews.append(cardImageView)
                 positionX += width + sideMargin
             }

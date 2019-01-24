@@ -31,8 +31,9 @@ class CardImageView: UIImageView {
         roundCorners()
     }
 
-    private func setImage() {
-        guard let image = UIImage(named: "card-back.png") else { return }
+    func setImage(named name: String? = nil) {
+        let name: String = name ?? "card-back.png"
+        guard let image = UIImage(named: name) else { return }
         self.image = image
     }
 
