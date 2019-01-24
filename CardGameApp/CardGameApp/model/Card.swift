@@ -76,6 +76,8 @@ protocol CardInfo {
     func image() -> String
     func flip()
     func name() -> String
+    func getMarkRank() -> Int
+    func getNumberingRank() -> Int
 }
 
 /// 카드 객체를 만든다
@@ -88,8 +90,8 @@ class Card : CardInfo {
     private var front = false
     
     // 카드정보의 순위
-    let numberingRank : Int
-    let markRank : Int
+    private let numberingRank : Int
+    private let markRank : Int
     
     /// 기본형 생성자
     init(mark: Mark, numbering: Numbering){
@@ -125,4 +127,24 @@ class Card : CardInfo {
     private let backImage : String = {
         return "card-back"
     }()
+    
+    /// 랭크값 리턴
+    func getMarkRank() -> Int {
+        return self.markRank
+    }
+    func getNumberingRank() -> Int {
+        return self.numberingRank
+    }
+    
+    
+    
+    /// 카드객체를 받아서 자신과의  마크랭크차이를 리턴한다. self - input
+    func markRankDefference(cardInfo: CardInfo) -> Int {
+        return self.markRank - cardInfo.getMarkRank()
+    }
+    
+    /// 카드객체를 받아서 자신과의 넘버링랭크차이를 리턴한다. self - input
+    func markNumberingDefference(cardInfo: CardInfo) -> Int {
+        return self.numberingRank - cardInfo.getNumberingRank()
+    }
 }
