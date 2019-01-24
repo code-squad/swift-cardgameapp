@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class CardStack: CustomStringConvertible {
     private var cards: [Card]
@@ -23,14 +24,23 @@ class CardStack: CustomStringConvertible {
         cards.removeAll()
     }
 
+    var count: Int {
+        return cards.count
+    }
+
+    var images: [UIImage?] {
+        return cards.map { $0.image }
+    }
+
     var description: String {
         let allCards = cards
             .map { "\($0)" }
             .joined(separator: ", ")
         return "[\(allCards)]"
     }
-    
+
     var bestHand: Hand? {
         return ScoreCalculator.getBestHand(from: cards)
     }
+
 }
