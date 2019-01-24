@@ -15,7 +15,7 @@ class CardGame {
 
     init(gameMode: GameMode, numberOfPlayers: Int) throws {
         self.gameMode = gameMode
-        guard numberOfPlayers > 0 else { throw GameInputError.noPlayer }
+        guard numberOfPlayers > 0 else { throw GameError.noPlayer }
         self.numberOfPlayers = numberOfPlayers
         self.gamePlayers = GamePlayers(numberOfPlayers: numberOfPlayers)
     }
@@ -35,4 +35,8 @@ class CardGame {
         return true
     }
 
+}
+
+enum GameError: String, Error {
+    case noPlayer = "1명 이상의 플레이어가 필요합니다."
 }
