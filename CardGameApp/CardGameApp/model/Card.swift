@@ -97,8 +97,9 @@ class Card : CardInfo {
     init(mark: Mark, numbering: Numbering){
         self.mark = mark
         self.numbering = numbering
-        self.markRank = Mark.allCases().index(of: mark)
-        self.numberingRank = Numbering.allCases().index(of: numbering)
+        self.markRank = Mark.allCases().index(of: mark)!
+        self.numberingRank = Numbering.allCases().index(of: numbering)!
+        // allCases 에 해당 값이 없으면 안되므로 ! 사용
     }
     
     /// 카드 뒤집기
@@ -140,11 +141,11 @@ class Card : CardInfo {
     
     /// 카드객체를 받아서 자신과의  마크랭크차이를 리턴한다. self - input
     func markRankDefference(cardInfo: CardInfo) -> Int {
-        return self.markRank - cardInfo.getMarkRank()
+        return cardInfo.getMarkRank() - self.markRank
     }
     
     /// 카드객체를 받아서 자신과의 넘버링랭크차이를 리턴한다. self - input
     func markNumberingDefference(cardInfo: CardInfo) -> Int {
-        return self.numberingRank - cardInfo.getNumberingRank()
+        return cardInfo.getNumberingRank() - self.numberingRank
     }
 }
