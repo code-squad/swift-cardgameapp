@@ -87,9 +87,16 @@ class Card : CardInfo {
     // 카드가 앞면인지
     private var front = false
     
+    // 카드정보의 순위
+    let numberingRank : Int
+    let markRank : Int
+    
+    /// 기본형 생성자
     init(mark: Mark, numbering: Numbering){
         self.mark = mark
         self.numbering = numbering
+        self.markRank = Mark.allCases().index(of: mark)
+        self.numberingRank = Numbering.allCases().index(of: numbering)
     }
     
     /// 카드 뒤집기
