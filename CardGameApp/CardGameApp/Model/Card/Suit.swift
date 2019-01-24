@@ -26,4 +26,10 @@ enum Suit: Int, CaseIterable {
             return "♠️"
         }
     }
+
+    var firstLetter: Character? {
+        let letters = "\(self)"
+        return letters.first
+    }
+
 }

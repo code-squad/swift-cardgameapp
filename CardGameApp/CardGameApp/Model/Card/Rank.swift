@@ -30,4 +30,5 @@ enum Rank: Int, CaseIterable {
             return "\(self.rawValue)"
         }
     }
+
 }

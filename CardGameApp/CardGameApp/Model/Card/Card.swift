@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Card: CustomStringConvertible {
     private let suit: Suit
@@ -28,6 +29,12 @@ class Card: CustomStringConvertible {
     func hasSame(_ suit: Suit) -> Bool {
         return self.suit == suit
     }
+
+    var image: UIImage? {
+        guard let suit = self.suit.firstLetter else { return nil }
+        return UIImage(named: "\(suit)\(rank.value)")
+    }
+
 }
 
 extension Card: Comparable {
