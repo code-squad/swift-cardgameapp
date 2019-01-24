@@ -9,16 +9,25 @@
 import UIKit
 import os
 
+/// 카드뷰의 정보를 넘겨줄 프로토콜
+protocol CardViewInfo {
+    func name() -> String
+}
+
+
 /// 카드 표현을 담당하는 이미지뷰
-class CardView : UIImageView {
+class CardView : UIImageView, CardViewInfo {
+    // 카드 이름
+    private var cardName = ""
     // 카드 앞면 이미지
-    var cardFrontImage = UIImage()
+    private var cardFrontImage = UIImage()
     // 뒷면 이미지는 공통
-    let cardBackImage = #imageLiteral(resourceName: "card-back")
+    private let cardBackImage = #imageLiteral(resourceName: "card-back")
     // 카드가 앞면인지 뒷면인지
-    var isFront = true
+    private var isFront = true
     
     init(cardInfo: CardInfo, frame: CGRect){
+        self.cardName = cardInfo.name()
         let cardImage = UIImage(named: cardInfo.name()) ?? UIImage()
         self.cardFrontImage = cardImage
         // 카드이름과 표시화면이 같으면 앞면
@@ -48,5 +57,10 @@ class CardView : UIImageView {
             
             self.image = self.cardBackImage
         }
+    }
+    
+    /// 프로토콜 준수
+    func name() -> String {
+        return self.cardName
     }
 }
