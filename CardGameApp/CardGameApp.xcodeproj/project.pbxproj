@@ -179,7 +179,10 @@
 			isa = PBXGroup;
 			children = (
 				A372F01521F95F8F004CEDE9 /* Game */,
+				A372F02821F9611B004CEDE9 /* Player */,
 				A372F00621F95F55004CEDE9 /* Card */,
+				A372F02721F960CB004CEDE9 /* Stack */,
+				A372F02621F9608B004CEDE9 /* Deck */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -188,12 +191,8 @@
 			isa = PBXGroup;
 			children = (
 				A372F00921F95F66004CEDE9 /* Card.swift */,
-				A372F00821F95F66004CEDE9 /* CardStack.swift */,
-				A372F00721F95F66004CEDE9 /* CardStacks.swift */,
 				A372F00A21F95F66004CEDE9 /* Rank.swift */,
 				A372F00B21F95F66004CEDE9 /* Suit.swift */,
-				A372F01121F95F82004CEDE9 /* CardDeck.swift */,
-				A372F01221F95F82004CEDE9 /* Playable.swift */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -203,14 +202,39 @@
 			children = (
 				A372F01621F95F98004CEDE9 /* GameMode.swift */,
 				A372F01A21F95F98004CEDE9 /* CardGame.swift */,
-				A372F01D21F95F98004CEDE9 /* GamePlayer.swift */,
-				A372F01721F95F98004CEDE9 /* GamePlayers.swift */,
-				A372F01C21F95F98004CEDE9 /* Player.swift */,
-				A372F01921F95F98004CEDE9 /* Dealer.swift */,
 				A372F01B21F95F98004CEDE9 /* ScoreCalculator.swift */,
 				A372F01821F95F98004CEDE9 /* Hand.swift */,
 			);
 			path = Game;
+			sourceTree = "<group>";
+		};
+		A372F02621F9608B004CEDE9 /* Deck */ = {
+			isa = PBXGroup;
+			children = (
+				A372F01121F95F82004CEDE9 /* CardDeck.swift */,
+				A372F01221F95F82004CEDE9 /* Playable.swift */,
+			);
+			path = Deck;
+			sourceTree = "<group>";
+		};
+		A372F02721F960CB004CEDE9 /* Stack */ = {
+			isa = PBXGroup;
+			children = (
+				A372F00821F95F66004CEDE9 /* CardStack.swift */,
+				A372F00721F95F66004CEDE9 /* CardStacks.swift */,
+			);
+			path = Stack;
+			sourceTree = "<group>";
+		};
+		A372F02821F9611B004CEDE9 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				A372F01D21F95F98004CEDE9 /* GamePlayer.swift */,
+				A372F01721F95F98004CEDE9 /* GamePlayers.swift */,
+				A372F01C21F95F98004CEDE9 /* Player.swift */,
+				A372F01921F95F98004CEDE9 /* Dealer.swift */,
+			);
+			path = Player;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
