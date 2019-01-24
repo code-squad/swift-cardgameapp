@@ -15,6 +15,21 @@
 		A372EFC621F71EF0004CEDE9 /* CardGameAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372EFC521F71EF0004CEDE9 /* CardGameAppTests.swift */; };
 		A372EFD121F71EF0004CEDE9 /* CardGameAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372EFD021F71EF0004CEDE9 /* CardGameAppUITests.swift */; };
 		A372EFE221F85B82004CEDE9 /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372EFE121F85B82004CEDE9 /* CardImageView.swift */; };
+		A372F00C21F95F67004CEDE9 /* CardStacks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F00721F95F66004CEDE9 /* CardStacks.swift */; };
+		A372F00D21F95F67004CEDE9 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F00821F95F66004CEDE9 /* CardStack.swift */; };
+		A372F00E21F95F67004CEDE9 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F00921F95F66004CEDE9 /* Card.swift */; };
+		A372F00F21F95F67004CEDE9 /* Rank.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F00A21F95F66004CEDE9 /* Rank.swift */; };
+		A372F01021F95F67004CEDE9 /* Suit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F00B21F95F66004CEDE9 /* Suit.swift */; };
+		A372F01321F95F82004CEDE9 /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F01121F95F82004CEDE9 /* CardDeck.swift */; };
+		A372F01421F95F82004CEDE9 /* Playable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F01221F95F82004CEDE9 /* Playable.swift */; };
+		A372F01E21F95F98004CEDE9 /* GameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F01621F95F98004CEDE9 /* GameMode.swift */; };
+		A372F01F21F95F98004CEDE9 /* GamePlayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F01721F95F98004CEDE9 /* GamePlayers.swift */; };
+		A372F02021F95F98004CEDE9 /* Hand.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F01821F95F98004CEDE9 /* Hand.swift */; };
+		A372F02121F95F98004CEDE9 /* Dealer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F01921F95F98004CEDE9 /* Dealer.swift */; };
+		A372F02221F95F98004CEDE9 /* CardGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F01A21F95F98004CEDE9 /* CardGame.swift */; };
+		A372F02321F95F98004CEDE9 /* ScoreCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F01B21F95F98004CEDE9 /* ScoreCalculator.swift */; };
+		A372F02421F95F98004CEDE9 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F01C21F95F98004CEDE9 /* Player.swift */; };
+		A372F02521F95F98004CEDE9 /* GamePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F01D21F95F98004CEDE9 /* GamePlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +64,21 @@
 		A372EFD021F71EF0004CEDE9 /* CardGameAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameAppUITests.swift; sourceTree = "<group>"; };
 		A372EFD221F71EF0004CEDE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A372EFE121F85B82004CEDE9 /* CardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
+		A372F00721F95F66004CEDE9 /* CardStacks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStacks.swift; sourceTree = "<group>"; };
+		A372F00821F95F66004CEDE9 /* CardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
+		A372F00921F95F66004CEDE9 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		A372F00A21F95F66004CEDE9 /* Rank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rank.swift; sourceTree = "<group>"; };
+		A372F00B21F95F66004CEDE9 /* Suit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suit.swift; sourceTree = "<group>"; };
+		A372F01121F95F82004CEDE9 /* CardDeck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
+		A372F01221F95F82004CEDE9 /* Playable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playable.swift; sourceTree = "<group>"; };
+		A372F01621F95F98004CEDE9 /* GameMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMode.swift; sourceTree = "<group>"; };
+		A372F01721F95F98004CEDE9 /* GamePlayers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePlayers.swift; sourceTree = "<group>"; };
+		A372F01821F95F98004CEDE9 /* Hand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Hand.swift; sourceTree = "<group>"; };
+		A372F01921F95F98004CEDE9 /* Dealer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dealer.swift; sourceTree = "<group>"; };
+		A372F01A21F95F98004CEDE9 /* CardGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardGame.swift; sourceTree = "<group>"; };
+		A372F01B21F95F98004CEDE9 /* ScoreCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreCalculator.swift; sourceTree = "<group>"; };
+		A372F01C21F95F98004CEDE9 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		A372F01D21F95F98004CEDE9 /* GamePlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamePlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +129,7 @@
 		A372EFAF21F71EEC004CEDE9 /* CardGameApp */ = {
 			isa = PBXGroup;
 			children = (
+				A372EFE421F95E82004CEDE9 /* Model */,
 				A372EFE021F85B70004CEDE9 /* View */,
 				A372EFE321F86B7F004CEDE9 /* Controller */,
 				A372EFB021F71EEC004CEDE9 /* AppDelegate.swift */,
@@ -142,6 +173,44 @@
 				A372EFB221F71EEC004CEDE9 /* ViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		A372EFE421F95E82004CEDE9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A372F01521F95F8F004CEDE9 /* Game */,
+				A372F00621F95F55004CEDE9 /* Card */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A372F00621F95F55004CEDE9 /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				A372F00921F95F66004CEDE9 /* Card.swift */,
+				A372F00821F95F66004CEDE9 /* CardStack.swift */,
+				A372F00721F95F66004CEDE9 /* CardStacks.swift */,
+				A372F00A21F95F66004CEDE9 /* Rank.swift */,
+				A372F00B21F95F66004CEDE9 /* Suit.swift */,
+				A372F01121F95F82004CEDE9 /* CardDeck.swift */,
+				A372F01221F95F82004CEDE9 /* Playable.swift */,
+			);
+			path = Card;
+			sourceTree = "<group>";
+		};
+		A372F01521F95F8F004CEDE9 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				A372F01621F95F98004CEDE9 /* GameMode.swift */,
+				A372F01A21F95F98004CEDE9 /* CardGame.swift */,
+				A372F01D21F95F98004CEDE9 /* GamePlayer.swift */,
+				A372F01721F95F98004CEDE9 /* GamePlayers.swift */,
+				A372F01C21F95F98004CEDE9 /* Player.swift */,
+				A372F01921F95F98004CEDE9 /* Dealer.swift */,
+				A372F01B21F95F98004CEDE9 /* ScoreCalculator.swift */,
+				A372F01821F95F98004CEDE9 /* Hand.swift */,
+			);
+			path = Game;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,8 +345,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				A372EFB321F71EEC004CEDE9 /* ViewController.swift in Sources */,
+				A372F00E21F95F67004CEDE9 /* Card.swift in Sources */,
+				A372F02121F95F98004CEDE9 /* Dealer.swift in Sources */,
+				A372F01021F95F67004CEDE9 /* Suit.swift in Sources */,
+				A372F01321F95F82004CEDE9 /* CardDeck.swift in Sources */,
+				A372F02021F95F98004CEDE9 /* Hand.swift in Sources */,
+				A372F02321F95F98004CEDE9 /* ScoreCalculator.swift in Sources */,
 				A372EFE221F85B82004CEDE9 /* CardImageView.swift in Sources */,
+				A372F02521F95F98004CEDE9 /* GamePlayer.swift in Sources */,
+				A372F00C21F95F67004CEDE9 /* CardStacks.swift in Sources */,
+				A372F01F21F95F98004CEDE9 /* GamePlayers.swift in Sources */,
 				A372EFB121F71EEC004CEDE9 /* AppDelegate.swift in Sources */,
+				A372F01E21F95F98004CEDE9 /* GameMode.swift in Sources */,
+				A372F01421F95F82004CEDE9 /* Playable.swift in Sources */,
+				A372F00F21F95F67004CEDE9 /* Rank.swift in Sources */,
+				A372F00D21F95F67004CEDE9 /* CardStack.swift in Sources */,
+				A372F02421F95F98004CEDE9 /* Player.swift in Sources */,
+				A372F02221F95F98004CEDE9 /* CardGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
