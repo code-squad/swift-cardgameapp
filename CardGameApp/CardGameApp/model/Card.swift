@@ -24,8 +24,8 @@ enum Mark : String {
     static func allCases() -> [Mark] {
         var result : [Mark] = []
         result.append(.spade)
-        result.append(.clover)
         result.append(.heart)
+        result.append(.clover)
         result.append(.diamond)
         return result
     }
@@ -140,12 +140,12 @@ class Card : CardInfo {
     
     
     /// 카드객체를 받아서 자신과의  마크랭크차이를 리턴한다. self - input
-    func markRankDefference(cardInfo: CardInfo) -> Int {
+    func markRankDifference(cardInfo: CardInfo) -> Int {
         return cardInfo.getMarkRank() - self.markRank
     }
     
     /// 카드객체를 받아서 자신과의 넘버링랭크차이를 리턴한다. self - input
-    func markNumberingDefference(cardInfo: CardInfo) -> Int {
+    func markNumberingDifference(cardInfo: CardInfo) -> Int {
         return cardInfo.getNumberingRank() - self.numberingRank
     }
 }
