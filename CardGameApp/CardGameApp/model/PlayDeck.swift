@@ -7,3 +7,35 @@
 //
 
 import Foundation
+
+/// 펼쳐진 카드들의 모임
+class PlayDeck {
+    // 카드들
+    private var cardList : [Card]
+    
+    
+    /// 비어있으면 아무마크 K 만
+    func checkAdd(card: Card) -> Bool {
+        // 카드리스트에 가드가 존재하는지 체크
+        guard let lastCard = cardList.last else {
+            // 한장도 없을경우 K = 마지막넘버링 만 추가가능하다.
+            return card.getNumberingRank() = Numbering.allCases().count - 1
+        }
+        // 카드리스트에 카드가 존재
+        
+        
+        return false
+    }
+    
+    
+    // 안비어있으면 마지막보다 -1 이고 다른색
+    
+    
+    
+    // 다른색인지 구분하는 함수. 플레이카드는 다른색,넘버링+1 만 들어올수 있다
+    func checkDifferentMarkColor(cardOne: Card, cardTwo: Card) -> Bool {
+        // 스페이드,클로버는 짝수. 하트,다이아는 홀수다. 2로 나눈 값이 달라야 추가 가능하다
+        return cardOne.getMarkRank() % 2 != cardTwo.getMarkRank() % 2
+        
+    }
+}
