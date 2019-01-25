@@ -46,8 +46,8 @@ class ViewController: UIViewController {
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         super.motionEnded(motion, with: event)
         if motion == .motionShake {
-            cardDeck.reset()
             cardImageViews.forEach { $0.removeFromSuperview() }
+            cardDeck.reset()
             addCardImageViews()
         }
     }
