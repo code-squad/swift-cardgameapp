@@ -59,7 +59,7 @@ extension ViewController {
 
     private func addCardSpaceViews() {
         let cardViewCreater = CardViewCreater(layout: cardViewLayout, frameWidth: view.frame.width)
-        let cardSpaceViews = cardViewCreater.createSpaceView(spaces: 4, line: 1)
+        let cardSpaceViews = cardViewCreater.createSpaceViews(spaces: 4, line: 1)
         cardSpaceViews.forEach { view.addSubview($0) }
     }
 
@@ -151,7 +151,7 @@ extension ViewController {
             return cardImageViews
         }
 
-        func createSpaceView(spaces: Int, line: Int, align: Align = .left) -> [CardSpaceView] {
+        func createSpaceViews(spaces: Int, line: Int, align: Align = .left) -> [CardSpaceView] {
             var cardSpaceViews: [CardSpaceView] = []
             let width = viewWidth
             let topMargin = calculateTopMargin(of: line)
