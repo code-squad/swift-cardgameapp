@@ -46,9 +46,8 @@ class ViewController: UIViewController {
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         super.motionEnded(motion, with: event)
         if motion == .motionShake {
-            cardImageViews.forEach { $0.removeFromSuperview() }
             cardDeck.reset()
-            addCardImageViews()
+            replaceImagesOfCardImageViews()
         }
     }
 
@@ -84,6 +83,14 @@ extension ViewController {
         let cardImageViews = cardViewCreater.createImageViews(of: cards, division: division)
         cardImageViews.forEach { view.addSubview($0) }
         self.cardImageViews = cardImageViews
+    }
+
+    private func replaceImagesOfCardImageViews() {
+        guard let cards = cardDeck.removeMultiple(by: 7) else { return }
+        for (index, imageName) in cards.imageNames.enumerated() {
+            guard index < cardImageViews.count else { return }
+            cardImageViews[index].setImage(named: imageName)
+        }
     }
 
     private struct CardViewCreater {
