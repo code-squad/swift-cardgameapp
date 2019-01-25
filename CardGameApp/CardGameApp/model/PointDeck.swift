@@ -24,20 +24,21 @@ class PointDeck {
     }
     
     /// 카드정보를 받아서 추가 가능한 객체인지 체크
-    func checkAdd(cardInfo: CardInfo) -> Bool {
+    func checkAdd(card: Card) -> Bool {
         // 마크가 같은지 체크. 다를경우 거짓 리턴
-        if cardInfo.getMarkRank() != self.markRank {
+        
+        if card.getMarkRank() != self.markRank {
             return false
         }
         
         // 기존카드가 없을경우
         guard let lastCard = cardList.last else {
             // 숫자랭크가 1등이여야한다 = 0
-            return cardInfo.getNumberingRank() == 0
+            return card.getNumberingRank() == 0
         }
         
         // 기존 카드들이 있을경우 넘버링 값 비교. 바로 다음카드값이여야함
-        if lastCard.markNumberingDefference(cardInfo: cardInfo) == 1 {
+        if lastCard.markNumberingDefference(cardInfo: card) == 1 {
             return true
         }
         else {

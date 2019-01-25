@@ -27,11 +27,11 @@ class PointDeckManager {
     }
     
     /// 카드정보를 받아서 추가 가능한지 체크
-    func checkAdd(cardInfo: CardInfo) -> Bool {
+    func checkAdd(card: Card) -> Bool {
         // 모든 덱을 체크
         for pointDeck in pointDeckList {
             // 추가가능 하다면 참
-            if pointDeck.checkAdd(cardInfo: cardInfo) {
+            if pointDeck.checkAdd(card: card) {
                 return true
             }
         }
@@ -41,7 +41,9 @@ class PointDeckManager {
     }
     
     /// 카드객체를 알맞는 곳에 추가
-    
+    func addCard(card: Card) {
+        
+    }
     
     
 }
