@@ -13,6 +13,7 @@
 		D528F80521F8565B00AAF80F /* RefreshIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80421F8565B00AAF80F /* RefreshIconView.swift */; };
 		D528F80721F9B32600AAF80F /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80621F9B32600AAF80F /* CardDeck.swift */; };
 		D528F80921F9CFA300AAF80F /* PointDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80821F9CFA300AAF80F /* PointDeck.swift */; };
+		D528F80B21FAA68600AAF80F /* PointDeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80A21FAA68600AAF80F /* PointDeckManager.swift */; };
 		D536E51E21D078E8004B7014 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E51D21D078E8004B7014 /* ViewController.swift */; };
 		D536E52121D078E8004B7014 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D536E51F21D078E8004B7014 /* Main.storyboard */; };
 		D536E52321D078E8004B7014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D536E52221D078E8004B7014 /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 		D528F80421F8565B00AAF80F /* RefreshIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshIconView.swift; sourceTree = "<group>"; };
 		D528F80621F9B32600AAF80F /* CardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
 		D528F80821F9CFA300AAF80F /* PointDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDeck.swift; sourceTree = "<group>"; };
+		D528F80A21FAA68600AAF80F /* PointDeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDeckManager.swift; sourceTree = "<group>"; };
 		D536E51821D078E8004B7014 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D536E51D21D078E8004B7014 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D536E52021D078E8004B7014 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				D541055021E3328B00FC7470 /* CardSize.swift */,
 				D528F80621F9B32600AAF80F /* CardDeck.swift */,
 				D528F80821F9CFA300AAF80F /* PointDeck.swift */,
+				D528F80A21FAA68600AAF80F /* PointDeckManager.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 				D528F80721F9B32600AAF80F /* CardDeck.swift in Sources */,
 				D536E56621D4BB64004B7014 /* Deck.swift in Sources */,
 				D536E56821D4BB64004B7014 /* GameBoard.swift in Sources */,
+				D528F80B21FAA68600AAF80F /* PointDeckManager.swift in Sources */,
 				D528F80321F7193100AAF80F /* EmptyPointCardView.swift in Sources */,
 				D536E51E21D078E8004B7014 /* ViewController.swift in Sources */,
 				D528F80921F9CFA300AAF80F /* PointDeck.swift in Sources */,
