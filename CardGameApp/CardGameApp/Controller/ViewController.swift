@@ -9,6 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
+    private var cardImages: [CardImageView]!
     private var cardDeck: CardDeck
 
     required init?(coder aDecoder: NSCoder) {
@@ -36,6 +37,16 @@ class ViewController: UIViewController {
         let cardImageViewCreater = CardImageViewCreater(cards: cards, sideMargin: 5, topMargin: 100)
         let cardImageViews = cardImageViewCreater.createHorizontally(within: self.view.frame.width)
         cardImageViews.forEach { self.view.addSubview($0) }
+        cardImages = cardImageViews
+    }
+
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        super.motionEnded(motion, with: event)
+        if motion == .motionShake {
+            cardDeck.reset()
+            cardImages.forEach { $0.removeFromSuperview() }
+            addCardImageViews()
+        }
     }
 
 }
