@@ -10,14 +10,15 @@ import UIKit
 
 class ViewController: UIViewController {
     private var cardImageViews: [CardImageView]!
+    private let cardViewLayout: CardViewLayout
     private var cardDeck: CardDeck
 
-    private let division: Int = 7
-    private let sideMargin: CGFloat = 5
-    private let firstTopMargin: CGFloat = 20
-    private let topMarginInterval: CGFloat = 80
-
     required init?(coder aDecoder: NSCoder) {
+        cardViewLayout = CardViewLayout(division: 7,
+                                        sideMargin: 5,
+                                        firstSideMarginRatio: 1.5,
+                                        firstTopMargin: 20,
+                                        topMarginInterval: 80)
         cardDeck = CardDeck()
         super.init(coder: aDecoder)
     }
@@ -57,30 +58,24 @@ class ViewController: UIViewController {
 extension ViewController {
 
     private func addCardSpaceViews() {
-        let cardViewCreater = CardViewCreater(frameWidth: view.frame.width,
-                                              sideMargin: sideMargin,
-                                              topMargin: firstTopMargin)
-        let cardSpaceViews = cardViewCreater.createSpaceView(spaces: 4, division: division)
+        let cardViewCreater = CardViewCreater(layout: cardViewLayout, frameWidth: view.frame.width)
+        let cardSpaceViews = cardViewCreater.createSpaceView(spaces: 4, line: 1)
         cardSpaceViews.forEach { view.addSubview($0) }
     }
 
     private func addCardDeckImageView() {
         guard let card = cardDeck.removeOne() else { return }
         card.flip()
-        let cardViewCreater = CardViewCreater(frameWidth: view.frame.width,
-                                              sideMargin: sideMargin,
-                                              topMargin: firstTopMargin)
-        let cardImageViews = cardViewCreater.createImageViews(of: CardStack(cards: [card]),
-                                                              division: division, align: .right)
+        let aCard = CardStack(cards: [card])
+        let cardViewCreater = CardViewCreater(layout: cardViewLayout, frameWidth: view.frame.width)
+        let cardImageViews = cardViewCreater.createImageViews(of: aCard, line: 1, align: .right)
         cardImageViews.forEach { view.addSubview($0) }
     }
 
     private func addCardImageViews() {
         guard let cards = cardDeck.removeMultiple(by: 7) else { return }
-        let cardViewCreater = CardViewCreater(frameWidth: view.frame.width,
-                                              sideMargin: sideMargin,
-                                              topMargin: firstTopMargin + topMarginInterval)
-        let cardImageViews = cardViewCreater.createImageViews(of: cards, division: division)
+        let cardViewCreater = CardViewCreater(layout: cardViewLayout, frameWidth: view.frame.width)
+        let cardImageViews = cardViewCreater.createImageViews(of: cards, line: 2)
         cardImageViews.forEach { view.addSubview($0) }
         self.cardImageViews = cardImageViews
     }
@@ -93,20 +88,43 @@ extension ViewController {
         }
     }
 
-    private struct CardViewCreater {
-        let frameWidth: CGFloat
+    struct CardViewLayout {
+        let division: Int
         let sideMargin: CGFloat
-        let topMargin: CGFloat
+        let firstSideMarginRatio: CGFloat
+        let firstTopMargin: CGFloat
+        let topMarginInterval: CGFloat
+    }
 
-        private let firstSideMarginRatio: CGFloat = 1.5
+    private struct CardViewCreater {
+        private let frameWidth: CGFloat
+        private let division: Int
+        private let sideMargin: CGFloat
+        private let firstSideMarginRatio: CGFloat
+        private let firstTopMargin: CGFloat
+        private let topMarginInterval: CGFloat
+
+        init(layout: CardViewLayout, frameWidth: CGFloat) {
+            self.frameWidth = frameWidth
+            division = layout.division
+            sideMargin = layout.sideMargin
+            firstSideMarginRatio = layout.firstSideMarginRatio
+            firstTopMargin = layout.firstTopMargin
+            topMarginInterval = layout.topMarginInterval
+        }
 
         enum Align: CGFloat {
             case left = 1
             case right = -1
         }
 
-        private func calculateViewWidth(of division: Int) -> CGFloat {
-            return (frameWidth - sideMargin * CGFloat(division + 2)) / CGFloat(division)
+        private var viewWidth: CGFloat {
+            let widthExceptMargin = frameWidth - sideMargin * CGFloat(division + 2)
+            return widthExceptMargin / CGFloat(division)
+        }
+
+        private func calculateTopMargin(of line: Int) -> CGFloat {
+            return firstTopMargin + topMarginInterval * CGFloat(line - 1)
         }
 
         private func positionXOfFirstView(of width: CGFloat, aligned align: Align) -> CGFloat {
@@ -117,9 +135,10 @@ extension ViewController {
             return positionX
         }
 
-        func createImageViews(of cards: CardStack, division: Int, align: Align = .left) -> [CardImageView] {
+        func createImageViews(of cards: CardStack, line: Int, align: Align = .left) -> [CardImageView] {
             var cardImageViews: [CardImageView] = []
-            let width = calculateViewWidth(of: division)
+            let width = viewWidth
+            let topMargin = calculateTopMargin(of: line)
             var positionX = positionXOfFirstView(of: width, aligned: align)
             let direction = align.rawValue
             for imageName in cards.imageNames {
@@ -132,9 +151,10 @@ extension ViewController {
             return cardImageViews
         }
 
-        func createSpaceView(spaces: Int, division: Int, align: Align = .left) -> [CardSpaceView] {
+        func createSpaceView(spaces: Int, line: Int, align: Align = .left) -> [CardSpaceView] {
             var cardSpaceViews: [CardSpaceView] = []
-            let width = calculateViewWidth(of: division)
+            let width = viewWidth
+            let topMargin = calculateTopMargin(of: line)
             var positionX = positionXOfFirstView(of: width, aligned: align)
             let direction = align.rawValue
             for _ in 0..<spaces {
