@@ -1,6 +1,7 @@
 # 카드게임 앱
 
 1. <a href="#1-카드게임판-시작하기">카드게임판 시작하기</a>
+2. <a href="#2-카드-UI">카드 UI</a>
 
 <br>
 
@@ -65,3 +66,74 @@ class ViewController: UIViewController {
 
 
 
+<br>
+
+## 2. 카드 UI
+
+### 요구사항
+
+- 레벨 2 CardGame 미션 프로젝트 코드 가져와서 사용
+- Card 객체 개선
+  - 해당 카드 이미지 매치
+  - 앞뒷면 처리
+- CardDeck 인스턴스 생성 후, 뽑은 카드를 바탕으로 주어진 화면과 동일하게 뷰 추가
+- Shake 모션 이벤트 발생 시, 카드를 새롭게 뽑아 뷰에 반영
+
+<br>
+
+### 구현방법
+
+#### 1. Card 클래스 객체 개선
+
+지난 [카드게임 프로젝트](https://github.com/popsmile/swift-cardgame/tree/popsmile)에서 Main, Input/OutputView와 관련된 파일을 제외한 나머지 코드를 그대로 가져와 추가했습니다. 카드에 활용할 이미지파일도 프로젝트에 추가해주었습니다.
+
+`Card` 클래스에 앞면인지, 뒷면인지 판단할 수 있는 프로퍼티 `isBack`과 뒤집는 메소드 `flip()`을 추가했습니다. 그리고 해당 카드와 매치되는 이미지 파일명을 프로퍼티로 추가했습니다. 만약 뒤집혀있다면 `nil` 을 리턴하도록 구현했습니다.
+
+```swift
+class Card {
+	...
+    private var isBack: Bool = true
+
+    ...
+    var imageName: String? {
+        guard isBack else { return nil }
+        guard let suit = self.suit.firstLetter else { return nil }
+        return "\(suit)\(rank.value)"
+    }
+    
+    func flip() {
+        isBack.toggle()
+    }
+}
+```
+
+<br>
+
+#### 2. CardDeck 에서 뽑은 카드로 화면에 뷰 추가
+
+기존의 `CardImageView` 외에 빈 공간을 나타내는 `CardSpaceView` 클래스를 추가했습니다. 두 뷰를 모두 다루기위해 뷰 컨트롤러 내의 `CardImageViewCreater` 구조체를  `CardViewCreater` 로 이름을 바꿔주었습니다. 그리고 `Align` 열거형을 추가하여 왼쪽, 오른쪽 정렬을 지원하도록 추가 구현했습니다.
+
+<br>
+
+#### 3. Shake 모션 이벤트 발생 시, 카드를 새롭게 뽑아 뷰에 반영
+
+Shake 모션 이벤트가 발생하여  뷰 컨트롤러의 `motionEnded()` 메소드가 호출되면, 기존 카드 이미지 뷰를 삭제하고 초기화한 `cardDeck` 에서 새롭게 뽑은 카드 뷰를 추가해주도록 구현했습니다.
+
+```swift
+override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+    super.motionEnded(motion, with: event)
+    if motion == .motionShake {
+        cardImageViews.forEach { $0.removeFromSuperview() }
+        cardDeck.reset()
+        addCardImageViews()
+    }
+}
+```
+
+<br>
+
+### 실행화면
+
+> 완성일자: 2019.01.25 14:35
+
+![Jan-25-2019](./images/step2/Jan-25-2019.gif)
