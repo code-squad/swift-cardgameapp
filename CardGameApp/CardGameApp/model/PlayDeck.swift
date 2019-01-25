@@ -11,20 +11,27 @@ import Foundation
 /// 펼쳐진 카드들의 모임
 class PlayDeck {
     // 카드들
-    private var cardList : [Card]
+    private var cardList : [Card] = []
     
     
-    /// 비어있으면 아무마크 K 만
+    /// 카드를 받아서 추가 가능한 카드인지 체크
     func checkAdd(card: Card) -> Bool {
         // 카드리스트에 가드가 존재하는지 체크
         guard let lastCard = cardList.last else {
             // 한장도 없을경우 K = 마지막넘버링 만 추가가능하다.
-            return card.getNumberingRank() = Numbering.allCases().count - 1
+            return card.getNumberingRank() == Numbering.allCases().count - 1
         }
-        // 카드리스트에 카드가 존재
+        // 카드리스트에 카드가 존재. 색이 다른지 체크
+        if checkDifferentMarkColor(cardOne: card, cardTwo: lastCard) {
+            // 색이 같으면 이전 넘버링인지 체크
+            if lastCard.markNumberingDifference(cardInfo: card) == -1 {
+                return true
+            }
+        }
         
-        
+        // 색이 같거나 이전 넘버링이 아니면 안됨
         return false
+        
     }
     
     
