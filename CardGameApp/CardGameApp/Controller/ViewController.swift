@@ -54,6 +54,7 @@ class ViewController: UIViewController {
 
 }
 
+/* MARK: Create View related to Card */
 extension ViewController {
 
     private func addCardSpaceViews() {
