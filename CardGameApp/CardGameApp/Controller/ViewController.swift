@@ -39,7 +39,7 @@ class ViewController: UIViewController {
 
     private func setCardViews() {
         addCardSpaceViews()
-        setCardDeckImageView()
+        addCardDeckImageView()
         addCardImageViews()
     }
 
@@ -65,7 +65,7 @@ extension ViewController {
         cardSpaceViews.forEach { view.addSubview($0) }
     }
 
-    private func setCardDeckImageView() {
+    private func addCardDeckImageView() {
         guard let card = cardDeck.removeOne() else { return }
         card.flip()
         let cardViewCreater = CardViewCreater(frameWidth: view.frame.width,
