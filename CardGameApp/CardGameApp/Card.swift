@@ -27,4 +27,9 @@ class Card : CustomStringConvertible {
     func score() -> Int {
         return self.rank.rawValue * 10 + self.suit.rawValue
     }
+    
+    func image() -> UIImage? {
+        let name: String = suit.firstLetter + rank.description
+        return UIImage(named: name)
+    }
 }
