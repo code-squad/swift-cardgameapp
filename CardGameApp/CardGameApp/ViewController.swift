@@ -10,6 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    //MARK: - Properties
+    //MARK: IBOutlet
+    
+    @IBOutlet weak var cardsStackView: UIStackView!
+    
     //MARK: - Methods
     //MARK: Setting
     
@@ -25,5 +30,10 @@ class ViewController: UIViewController {
         
         guard let image = UIImage(named: "bg_pattern") else { return }
         self.view.backgroundColor = UIColor(patternImage: image)
+        
+        var deck = Deck()
+        deck.shuffle()
+        
+        
     }
 }

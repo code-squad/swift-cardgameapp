@@ -33,7 +33,7 @@ struct Deck : CardGameDeck {
         self.cards = shuffle(cards: self.cards)
     }
     
-    func shuffle(cards:[Card]) -> [Card] {
+    private func shuffle(cards:[Card]) -> [Card] {
         var willSuffleCards = cards
         
         for index in 0..<willSuffleCards.count {
