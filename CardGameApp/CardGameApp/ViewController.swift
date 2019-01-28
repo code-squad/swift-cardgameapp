@@ -11,6 +11,9 @@ import UIKit
 class ViewController: UIViewController {
     
     //MARK: - Properties
+    
+    var deck: Deck?
+    
     //MARK: IBOutlet
     
     @IBOutlet weak var cardsStackView: UIStackView!
@@ -31,12 +34,16 @@ class ViewController: UIViewController {
         guard let image = UIImage(named: "bg_pattern") else { return }
         self.view.backgroundColor = UIColor(patternImage: image)
         
-        var deck = Deck()
-        deck.shuffle()
+        self.deck = Deck()
+        self.deck?.shuffle()
+        setCards()
+    }
+    
+    private func setCards() {
         
         for subview in cardsStackView.arrangedSubviews {
             guard let subImageView = subview as? UIImageView else { return }
-            guard let card = deck.draw(few: 1).pop() else { continue }
+            guard let card = self.deck?.draw(few: 1).pop() else { continue }
             subImageView.image = card.image()
         }
     }
