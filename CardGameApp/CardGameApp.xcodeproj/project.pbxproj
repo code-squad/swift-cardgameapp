@@ -83,6 +83,7 @@
 		A372F09021F968C0004CEDE9 /* c4.png in Resources */ = {isa = PBXBuildFile; fileRef = A372F05C21F968C0004CEDE9 /* c4.png */; };
 		A372F09121F968C0004CEDE9 /* c5.png in Resources */ = {isa = PBXBuildFile; fileRef = A372F05D21F968C0004CEDE9 /* c5.png */; };
 		A372F09621FACDDE004CEDE9 /* CardSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F09521FACDDD004CEDE9 /* CardSpaceView.swift */; };
+		A372F11821FEA479004CEDE9 /* CardViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F11721FEA479004CEDE9 /* CardViewFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +186,7 @@
 		A372F05C21F968C0004CEDE9 /* c4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c4.png; sourceTree = "<group>"; };
 		A372F05D21F968C0004CEDE9 /* c5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c5.png; sourceTree = "<group>"; };
 		A372F09521FACDDD004CEDE9 /* CardSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSpaceView.swift; sourceTree = "<group>"; };
+		A372F11721FEA479004CEDE9 /* CardViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				A372EFB221F71EEC004CEDE9 /* ViewController.swift */,
+				A372F11721FEA479004CEDE9 /* CardViewFactory.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -588,6 +591,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A372EFB321F71EEC004CEDE9 /* ViewController.swift in Sources */,
+				A372F11821FEA479004CEDE9 /* CardViewFactory.swift in Sources */,
 				A372F00E21F95F67004CEDE9 /* Card.swift in Sources */,
 				A372F02121F95F98004CEDE9 /* Dealer.swift in Sources */,
 				A372F01021F95F67004CEDE9 /* Suit.swift in Sources */,
