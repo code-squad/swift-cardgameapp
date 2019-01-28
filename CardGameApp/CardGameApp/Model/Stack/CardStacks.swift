@@ -9,7 +9,7 @@
 import Foundation
 
 class CardStacks: CustomStringConvertible {
-    private var cardStacks: [CardStack] = []
+    var cardStacks: [CardStack] = []
 
     init(from cardDeck: CardDeck, by num: Int = 7) {
         guard num > 0 else { return }

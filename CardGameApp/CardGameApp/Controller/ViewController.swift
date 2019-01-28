@@ -78,10 +78,11 @@ extension ViewController {
     }
 
     private func addCardImageViews() {
-        guard let cards = cardDeck.removeMultiple(by: 7) else { return }
-        if let cardImageViews = cardViewFactory?.createImageViews(of: cards, line: 2) {
-            cardImageViews.forEach { view.addSubview($0) }
-            self.cardImageViews = cardImageViews
+        let cardStacks = CardStacks(from: cardDeck).cardStacks
+        if let cardStackViews = cardViewFactory?.createStackViews(of: cardStacks, line: 2) {
+            cardStackViews.forEach {
+                $0.addAllSubviews { [unowned self] view in self.view.addSubview(view) }
+            }
         }
     }
 

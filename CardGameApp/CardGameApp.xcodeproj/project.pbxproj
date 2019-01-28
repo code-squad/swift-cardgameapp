@@ -84,6 +84,7 @@
 		A372F09121F968C0004CEDE9 /* c5.png in Resources */ = {isa = PBXBuildFile; fileRef = A372F05D21F968C0004CEDE9 /* c5.png */; };
 		A372F09621FACDDE004CEDE9 /* CardSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F09521FACDDD004CEDE9 /* CardSpaceView.swift */; };
 		A372F11821FEA479004CEDE9 /* CardViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F11721FEA479004CEDE9 /* CardViewFactory.swift */; };
+		A372F12021FEF453004CEDE9 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F11F21FEF453004CEDE9 /* CardStackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +188,7 @@
 		A372F05D21F968C0004CEDE9 /* c5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = c5.png; sourceTree = "<group>"; };
 		A372F09521FACDDD004CEDE9 /* CardSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSpaceView.swift; sourceTree = "<group>"; };
 		A372F11721FEA479004CEDE9 /* CardViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewFactory.swift; sourceTree = "<group>"; };
+		A372F11F21FEF453004CEDE9 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +274,7 @@
 			children = (
 				A372EFE121F85B82004CEDE9 /* CardImageView.swift */,
 				A372F09521FACDDD004CEDE9 /* CardSpaceView.swift */,
+				A372F11F21FEF453004CEDE9 /* CardStackView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -605,6 +608,7 @@
 				A372EFB121F71EEC004CEDE9 /* AppDelegate.swift in Sources */,
 				A372F01E21F95F98004CEDE9 /* GameMode.swift in Sources */,
 				A372F09621FACDDE004CEDE9 /* CardSpaceView.swift in Sources */,
+				A372F12021FEF453004CEDE9 /* CardStackView.swift in Sources */,
 				A372F01421F95F82004CEDE9 /* Playable.swift in Sources */,
 				A372F00F21F95F67004CEDE9 /* Rank.swift in Sources */,
 				A372F00D21F95F67004CEDE9 /* CardStack.swift in Sources */,

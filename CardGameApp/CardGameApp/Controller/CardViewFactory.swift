@@ -54,6 +54,33 @@ struct CardViewFactory {
         return positionX
     }
 
+    private func createStackView(of cards: CardStack, at point: CGPoint) -> CardStackView {
+        let cardStackView = CardStackView()
+        var positionY = point.y
+        for imageName in cards.imageNames {
+            let origin = CGPoint(x: point.x, y: positionY)
+            let cardImageView = CardImageView(origin: origin, width: viewWidth)
+            cardImageView.setImage(named: imageName)
+            cardStackView.addArrangedSubview(cardImageView)
+            positionY += 20
+        }
+        return cardStackView
+    }
+
+    func createStackViews(of stacks: [CardStack], line: Int, align: Align = .left) -> [CardStackView] {
+        var cardStackViews: [CardStackView] = []
+        let topMargin = calculateTopMargin(of: line)
+        var positionX = positionXOfFirstView(of: viewWidth, aligned: align)
+        let direction = align.rawValue
+        for stack in stacks {
+            let origin = CGPoint(x: positionX, y: topMargin)
+            let stackView = createStackView(of: stack, at: origin)
+            cardStackViews.append(stackView)
+            positionX += (viewWidth + sideMargin) * direction
+        }
+        return cardStackViews
+    }
+
     func createImageViews(of cards: CardStack, line: Int, align: Align = .left) -> [CardImageView] {
         var cardImageViews: [CardImageView] = []
         let topMargin = calculateTopMargin(of: line)
