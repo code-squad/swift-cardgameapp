@@ -9,16 +9,28 @@
 import UIKit
 
 class Card : CustomStringConvertible {
-    private let suit : Suit
-    private let rank : Rank
+    
+    //MARK: - Properties
+    
     var description: String {
         return "\(self.suit)\(self.rank)"
     }
+    
+    //MARK: Private
+    
+    private let suit: Suit
+    private let rank: Rank
+    private var isFront: Bool = true
+    
+    //MARK: - Methods
+    //MARK: Initialization
     
     init(suit:Suit, rank:Rank) {
         self.suit = suit
         self.rank = rank
     }
+    
+    //MARK: Instance
     
     func isSame(rank: Rank) -> Bool {
         return self.rank == rank
