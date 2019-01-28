@@ -59,9 +59,9 @@ struct CardViewFactory {
         var positionY = point.y
         for imageName in cards.imageNames {
             let origin = CGPoint(x: point.x, y: positionY)
-            let cardImageView = CardImageView(origin: origin, width: viewWidth)
-            cardImageView.setImage(named: imageName)
-            cardStackView.addArrangedSubview(cardImageView)
+            let cardView = CardView(origin: origin, width: viewWidth)
+            cardView.setImage(named: imageName)
+            cardStackView.addArrangedSubview(cardView)
             positionY += 20
         }
         return cardStackView
@@ -81,19 +81,19 @@ struct CardViewFactory {
         return cardStackViews
     }
 
-    func createImageViews(of cards: CardStack, line: Int, align: Align = .left) -> [CardImageView] {
-        var cardImageViews: [CardImageView] = []
+    func createViews(of cards: CardStack, line: Int, align: Align = .left) -> [CardView] {
+        var cardViews: [CardView] = []
         let topMargin = calculateTopMargin(of: line)
         var positionX = positionXOfFirstView(of: viewWidth, aligned: align)
         let direction = align.rawValue
         for imageName in cards.imageNames {
             let origin = CGPoint(x: positionX, y: topMargin)
-            let cardImageView = CardImageView(origin: origin, width: viewWidth)
-            cardImageView.setImage(named: imageName)
-            cardImageViews.append(cardImageView)
+            let cardView = CardView(origin: origin, width: viewWidth)
+            cardView.setImage(named: imageName)
+            cardViews.append(cardView)
             positionX += (viewWidth + sideMargin) * direction
         }
-        return cardImageViews
+        return cardViews
     }
 
     func createSpaceViews(spaces: Int, line: Int, align: Align = .left) -> [CardSpaceView] {

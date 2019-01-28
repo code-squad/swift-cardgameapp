@@ -1,5 +1,5 @@
 //
-//  CardImageView.swift
+//  CardView.swift
 //  CardGameApp
 //
 //  Created by 윤지영 on 23/01/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardImageView: UIImageView {
+class CardView: UIImageView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

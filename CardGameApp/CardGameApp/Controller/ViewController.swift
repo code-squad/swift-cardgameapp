@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-    private var cardImageViews: [CardImageView]!
+    private var cardViews: [CardView]!
     private var cardViewFactory: CardViewFactory?
     private var cardDeck: CardDeck
 
@@ -45,15 +45,15 @@ class ViewController: UIViewController {
 
     private func setCardViews() {
         addCardSpaceViews()
-        addCardDeckImageView()
-        addCardImageViews()
+        addCardDeckView()
+        addCardViews()
     }
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         super.motionEnded(motion, with: event)
         if motion == .motionShake {
             cardDeck.reset()
-            replaceImagesOfCardImageViews()
+            replaceImagesOfCardViews()
         }
     }
 
@@ -68,16 +68,16 @@ extension ViewController {
         }
     }
 
-    private func addCardDeckImageView() {
+    private func addCardDeckView() {
         guard let card = cardDeck.removeOne() else { return }
         card.flip()
         let aCard = CardStack(cards: [card])
-        if let cardImageViews = cardViewFactory?.createImageViews(of: aCard, line: 1, align: .right) {
-            cardImageViews.forEach { view.addSubview($0) }
+        if let cardViews = cardViewFactory?.createViews(of: aCard, line: 1, align: .right) {
+            cardViews.forEach { view.addSubview($0) }
         }
     }
 
-    private func addCardImageViews() {
+    private func addCardViews() {
         let cardStacks = CardStacks(from: cardDeck).cardStacks
         if let cardStackViews = cardViewFactory?.createStackViews(of: cardStacks, line: 2) {
             cardStackViews.forEach {
@@ -86,11 +86,11 @@ extension ViewController {
         }
     }
 
-    private func replaceImagesOfCardImageViews() {
+    private func replaceImagesOfCardViews() {
         guard let cards = cardDeck.removeMultiple(by: 7) else { return }
         for (index, imageName) in cards.imageNames.enumerated() {
-            guard index < cardImageViews.count else { return }
-            cardImageViews[index].setImage(named: imageName)
+            guard index < cardViews.count else { return }
+            cardViews[index].setImage(named: imageName)
         }
     }
 
