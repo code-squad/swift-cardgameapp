@@ -28,6 +28,7 @@
 		7D6E535B21FEEC1D00DFC342 /* NumberOfParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E534721FEEC1C00DFC342 /* NumberOfParticipant.swift */; };
 		7D6E535C21FEEC1D00DFC342 /* CardGameSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E534821FEEC1C00DFC342 /* CardGameSetter.swift */; };
 		7D6E535D21FEEC1D00DFC342 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E534921FEEC1C00DFC342 /* Deck.swift */; };
+		7D6E535F21FF541A00DFC342 /* BlankSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E535E21FF541A00DFC342 /* BlankSpaceView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		7D6E534721FEEC1C00DFC342 /* NumberOfParticipant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberOfParticipant.swift; sourceTree = "<group>"; };
 		7D6E534821FEEC1C00DFC342 /* CardGameSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardGameSetter.swift; sourceTree = "<group>"; };
 		7D6E534921FEEC1C00DFC342 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		7D6E535E21FF541A00DFC342 /* BlankSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankSpaceView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				7D6E52F721FEBCB500DFC342 /* Main.storyboard */,
 				7D6E52FA21FEBCB600DFC342 /* Assets.xcassets */,
 				7D6E534021FEEC1B00DFC342 /* CardGameDeck.swift */,
+				7D6E535E21FF541A00DFC342 /* BlankSpaceView.swift */,
 				7D6E534821FEEC1C00DFC342 /* CardGameSetter.swift */,
 				7D6E534921FEEC1C00DFC342 /* Deck.swift */,
 				7D6E533821FEEC1A00DFC342 /* CardStack.swift */,
@@ -207,6 +210,7 @@
 				7D6E534A21FEEC1D00DFC342 /* Rank.swift in Sources */,
 				7D6E534E21FEEC1D00DFC342 /* GameOperator.swift in Sources */,
 				7D6E535221FEEC1D00DFC342 /* Card.swift in Sources */,
+				7D6E535F21FF541A00DFC342 /* BlankSpaceView.swift in Sources */,
 				7D6E52F421FEBCB500DFC342 /* AppDelegate.swift in Sources */,
 				7D6E535721FEEC1D00DFC342 /* HandRanking.swift in Sources */,
 				7D6E535D21FEEC1D00DFC342 /* Deck.swift in Sources */,
