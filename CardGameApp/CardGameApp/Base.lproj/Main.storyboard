@@ -94,14 +94,24 @@
                                     <constraint firstItem="qD4-Ir-jwJ" firstAttribute="height" secondItem="dUz-kC-BxH" secondAttribute="height" id="ogG-Lg-ZGe"/>
                                 </constraints>
                             </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_back" translatesAutoresizingMaskIntoConstraints="NO" id="E3m-P1-6oO">
+                                <rect key="frame" x="355.33333333333331" y="20" width="54.666666666666686" height="69.333333333333329"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="E3m-P1-6oO" secondAttribute="height" multiplier="1:1.27" id="KXz-Oh-y6c"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="dUz-kC-BxH" firstAttribute="height" secondItem="aVu-yb-6aB" secondAttribute="height" id="0yX-Yw-EKp"/>
                             <constraint firstItem="b2p-zw-2jS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="2bg-Ab-pxR"/>
+                            <constraint firstItem="E3m-P1-6oO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="7LH-Bv-O4W"/>
                             <constraint firstItem="ojS-ki-UXn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="Bh9-E8-T3H"/>
                             <constraint firstItem="dUz-kC-BxH" firstAttribute="width" secondItem="aVu-yb-6aB" secondAttribute="width" id="DCf-bq-MJb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="b2p-zw-2jS" secondAttribute="trailing" constant="4" id="Hpx-q0-Q3f"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="E3m-P1-6oO" secondAttribute="trailing" constant="4" id="QcW-ie-sNh"/>
+                            <constraint firstItem="E3m-P1-6oO" firstAttribute="width" secondItem="Tgv-Ik-THq" secondAttribute="width" id="TPu-u6-2Rw"/>
+                            <constraint firstItem="E3m-P1-6oO" firstAttribute="height" secondItem="Tgv-Ik-THq" secondAttribute="height" id="bLJ-Ht-wl2"/>
                             <constraint firstItem="ojS-ki-UXn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cjZ-jQ-0Jy"/>
                             <constraint firstItem="b2p-zw-2jS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="des-2f-ngx"/>
                         </constraints>
