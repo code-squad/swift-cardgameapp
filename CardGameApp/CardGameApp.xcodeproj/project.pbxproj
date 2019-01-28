@@ -12,7 +12,6 @@
 		7D6E52F921FEBCB500DFC342 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E52F721FEBCB500DFC342 /* Main.storyboard */; };
 		7D6E52FB21FEBCB600DFC342 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E52FA21FEBCB600DFC342 /* Assets.xcassets */; };
 		7D6E52FE21FEBCB600DFC342 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E52FC21FEBCB600DFC342 /* LaunchScreen.storyboard */; };
-		7D6E530621FEE37F00DFC342 /* CardBackImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E530521FEE37F00DFC342 /* CardBackImageView.swift */; };
 		7D6E534A21FEEC1D00DFC342 /* Rank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E533521FEEC1900DFC342 /* Rank.swift */; };
 		7D6E534B21FEEC1D00DFC342 /* Suit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E533621FEEC1900DFC342 /* Suit.swift */; };
 		7D6E534C21FEEC1D00DFC342 /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E533721FEEC1A00DFC342 /* Participant.swift */; };
@@ -39,7 +38,6 @@
 		7D6E52FA21FEBCB600DFC342 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D6E52FD21FEBCB600DFC342 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D6E52FF21FEBCB600DFC342 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7D6E530521FEE37F00DFC342 /* CardBackImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackImageView.swift; sourceTree = "<group>"; };
 		7D6E533521FEEC1900DFC342 /* Rank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rank.swift; sourceTree = "<group>"; };
 		7D6E533621FEEC1900DFC342 /* Suit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Suit.swift; sourceTree = "<group>"; };
 		7D6E533721FEEC1A00DFC342 /* Participant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 			children = (
 				7D6E52F321FEBCB500DFC342 /* AppDelegate.swift */,
 				7D6E52F521FEBCB500DFC342 /* ViewController.swift */,
-				7D6E530521FEE37F00DFC342 /* CardBackImageView.swift */,
 				7D6E52F721FEBCB500DFC342 /* Main.storyboard */,
 				7D6E52FA21FEBCB600DFC342 /* Assets.xcassets */,
 				7D6E534021FEEC1B00DFC342 /* CardGameDeck.swift */,
@@ -216,7 +213,6 @@
 				7D6E535C21FEEC1D00DFC342 /* CardGameSetter.swift in Sources */,
 				7D6E535521FEEC1D00DFC342 /* CardGameDeck.swift in Sources */,
 				7D6E535A21FEEC1D00DFC342 /* GameType.swift in Sources */,
-				7D6E530621FEE37F00DFC342 /* CardBackImageView.swift in Sources */,
 				7D6E535B21FEEC1D00DFC342 /* NumberOfParticipant.swift in Sources */,
 				7D6E534C21FEEC1D00DFC342 /* Participant.swift in Sources */,
 				7D6E535321FEEC1D00DFC342 /* ScoreCalculator.swift in Sources */,
