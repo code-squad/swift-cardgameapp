@@ -12,6 +12,7 @@
 		7D6E52F921FEBCB500DFC342 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E52F721FEBCB500DFC342 /* Main.storyboard */; };
 		7D6E52FB21FEBCB600DFC342 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E52FA21FEBCB600DFC342 /* Assets.xcassets */; };
 		7D6E52FE21FEBCB600DFC342 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E52FC21FEBCB600DFC342 /* LaunchScreen.storyboard */; };
+		7D6E530621FEE37F00DFC342 /* CardBackImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E530521FEE37F00DFC342 /* CardBackImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		7D6E52FA21FEBCB600DFC342 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7D6E52FD21FEBCB600DFC342 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7D6E52FF21FEBCB600DFC342 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D6E530521FEE37F00DFC342 /* CardBackImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				7D6E52F321FEBCB500DFC342 /* AppDelegate.swift */,
 				7D6E52F521FEBCB500DFC342 /* ViewController.swift */,
+				7D6E530521FEE37F00DFC342 /* CardBackImageView.swift */,
 				7D6E52F721FEBCB500DFC342 /* Main.storyboard */,
 				7D6E52FA21FEBCB600DFC342 /* Assets.xcassets */,
 				7D6E52FC21FEBCB600DFC342 /* LaunchScreen.storyboard */,
@@ -137,6 +140,7 @@
 			files = (
 				7D6E52F621FEBCB500DFC342 /* ViewController.swift in Sources */,
 				7D6E52F421FEBCB500DFC342 /* AppDelegate.swift in Sources */,
+				7D6E530621FEE37F00DFC342 /* CardBackImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
