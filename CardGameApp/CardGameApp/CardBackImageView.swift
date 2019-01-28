@@ -9,7 +9,7 @@
 import UIKit
 
 class CardBackImageView: UIImageView {
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -18,4 +18,8 @@ class CardBackImageView: UIImageView {
         super.init(coder: aDecoder)
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.image = UIImage(named: "card_back")
+    }
 }

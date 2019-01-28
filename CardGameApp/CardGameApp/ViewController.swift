@@ -45,9 +45,11 @@ class ViewController: UIViewController {
         let cardPointY: CGFloat = 40
         
         for _ in 0..<numberOfCards {
-            let imageView = UIImageView()
-            imageView.image = UIImage(named: "card_back")
-            imageView.frame = .init(x: cardPointX, y: cardPointY, width: cardWidth, height: cardHeight)
+            let cardBackFrame = CGRect(x: cardPointX,
+                                       y: cardPointY,
+                                       width: cardWidth,
+                                       height: cardHeight)
+            let imageView = CardBackImageView(frame: cardBackFrame)
             cardPointX += cardWidth + space.cgFloat()
             self.view.addSubview(imageView)
         }
