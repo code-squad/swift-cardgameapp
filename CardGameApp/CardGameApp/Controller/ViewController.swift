@@ -10,15 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
     private var cardImageViews: [CardImageView]!
-    private let cardViewLayout: CardViewLayout
+    private var cardViewFactory: CardViewFactory?
     private var cardDeck: CardDeck
 
     required init?(coder aDecoder: NSCoder) {
-        cardViewLayout = CardViewLayout(division: 7,
-                                        sideMargin: 5,
-                                        firstSideMarginRatio: 1.5,
-                                        firstTopMargin: 20,
-                                        topMarginInterval: 80)
         cardDeck = CardDeck()
         super.init(coder: aDecoder)
     }
@@ -26,6 +21,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setBackground()
+        setCardViewFactory()
         setCardViews()
     }
 
@@ -36,6 +32,15 @@ class ViewController: UIViewController {
     private func setBackground() {
         guard let image = UIImage(named: "bg_pattern.png") else { return }
         self.view.backgroundColor = UIColor(patternImage: image)
+    }
+
+    private func setCardViewFactory() {
+        let layout = CardViewLayout(division: 7,
+                                    sideMargin: 5,
+                                    firstSideMarginRatio: 1.5,
+                                    firstTopMargin: 20,
+                                    topMarginInterval: 80)
+        cardViewFactory = CardViewFactory(layout: layout, frameWidth: view.frame.width)
     }
 
     private func setCardViews() {
@@ -58,26 +63,26 @@ class ViewController: UIViewController {
 extension ViewController {
 
     private func addCardSpaceViews() {
-        let cardViewCreater = CardViewFactory(layout: cardViewLayout, frameWidth: view.frame.width)
-        let cardSpaceViews = cardViewCreater.createSpaceViews(spaces: 4, line: 1)
-        cardSpaceViews.forEach { view.addSubview($0) }
+        if let cardSpaceViews = cardViewFactory?.createSpaceViews(spaces: 4, line: 1) {
+            cardSpaceViews.forEach { view.addSubview($0) }
+        }
     }
 
     private func addCardDeckImageView() {
         guard let card = cardDeck.removeOne() else { return }
         card.flip()
         let aCard = CardStack(cards: [card])
-        let cardViewCreater = CardViewFactory(layout: cardViewLayout, frameWidth: view.frame.width)
-        let cardImageViews = cardViewCreater.createImageViews(of: aCard, line: 1, align: .right)
-        cardImageViews.forEach { view.addSubview($0) }
+        if let cardImageViews = cardViewFactory?.createImageViews(of: aCard, line: 1, align: .right) {
+            cardImageViews.forEach { view.addSubview($0) }
+        }
     }
 
     private func addCardImageViews() {
         guard let cards = cardDeck.removeMultiple(by: 7) else { return }
-        let cardViewCreater = CardViewFactory(layout: cardViewLayout, frameWidth: view.frame.width)
-        let cardImageViews = cardViewCreater.createImageViews(of: cards, line: 2)
-        cardImageViews.forEach { view.addSubview($0) }
-        self.cardImageViews = cardImageViews
+        if let cardImageViews = cardViewFactory?.createImageViews(of: cards, line: 2) {
+            cardImageViews.forEach { view.addSubview($0) }
+            self.cardImageViews = cardImageViews
+        }
     }
 
     private func replaceImagesOfCardImageViews() {
