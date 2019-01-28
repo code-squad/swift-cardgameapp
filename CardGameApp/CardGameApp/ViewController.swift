@@ -34,6 +34,10 @@ class ViewController: UIViewController {
         var deck = Deck()
         deck.shuffle()
         
-        
+        for subview in cardsStackView.arrangedSubviews {
+            guard let subImageView = subview as? UIImageView else { return }
+            guard let card = deck.draw(few: 1).pop() else { continue }
+            subImageView.image = card.image()
+        }
     }
 }
