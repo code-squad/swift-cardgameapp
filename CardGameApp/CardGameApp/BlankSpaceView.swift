@@ -14,7 +14,7 @@ class BlankSpaceView: UIView {
     override func layoutSubviews() {
         
         super.layoutSubviews()
-        self.layer.cornerRadius = 5
+        self.layer.cornerRadius = 3
         self.backgroundColor = UIColor.clear
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.white.cgColor

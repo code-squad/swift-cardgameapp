@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="b2p-zw-2jS">
-                                <rect key="frame" x="4" y="120" width="406" height="69.333333333333314"/>
+                                <rect key="frame" x="4" y="100" width="406" height="69.333333333333314"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_back" translatesAutoresizingMaskIntoConstraints="NO" id="aVu-yb-6aB">
                                         <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="69.333333333333329"/>
@@ -65,11 +65,44 @@
                                     </imageView>
                                 </subviews>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ojS-ki-UXn">
+                                <rect key="frame" x="4" y="20" width="230.33333333333334" height="69.333333333333329"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dUz-kC-BxH" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RII-b4-bGG" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="58.666666666666657" y="0.0" width="54.333333333333343" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qD4-Ir-jwJ" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="117.00000000000001" y="0.0" width="54.666666666666671" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vFA-bF-B4Z" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="175.66666666666666" y="0.0" width="54.666666666666657" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="qD4-Ir-jwJ" firstAttribute="width" secondItem="dUz-kC-BxH" secondAttribute="width" id="9ze-Q9-ntc"/>
+                                    <constraint firstItem="RII-b4-bGG" firstAttribute="height" secondItem="dUz-kC-BxH" secondAttribute="height" id="Hcx-mR-PKa"/>
+                                    <constraint firstItem="RII-b4-bGG" firstAttribute="width" secondItem="dUz-kC-BxH" secondAttribute="width" id="Jod-h3-6Wu"/>
+                                    <constraint firstItem="vFA-bF-B4Z" firstAttribute="height" secondItem="dUz-kC-BxH" secondAttribute="height" id="Lf7-3F-085"/>
+                                    <constraint firstItem="vFA-bF-B4Z" firstAttribute="width" secondItem="dUz-kC-BxH" secondAttribute="width" id="m37-rw-9NU"/>
+                                    <constraint firstItem="qD4-Ir-jwJ" firstAttribute="height" secondItem="dUz-kC-BxH" secondAttribute="height" id="ogG-Lg-ZGe"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="b2p-zw-2jS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="2bg-Ab-pxR"/>
+                            <constraint firstItem="dUz-kC-BxH" firstAttribute="height" secondItem="aVu-yb-6aB" secondAttribute="height" id="0yX-Yw-EKp"/>
+                            <constraint firstItem="b2p-zw-2jS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="2bg-Ab-pxR"/>
+                            <constraint firstItem="ojS-ki-UXn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="Bh9-E8-T3H"/>
+                            <constraint firstItem="dUz-kC-BxH" firstAttribute="width" secondItem="aVu-yb-6aB" secondAttribute="width" id="DCf-bq-MJb"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="b2p-zw-2jS" secondAttribute="trailing" constant="4" id="Hpx-q0-Q3f"/>
+                            <constraint firstItem="ojS-ki-UXn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="cjZ-jQ-0Jy"/>
                             <constraint firstItem="b2p-zw-2jS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="des-2f-ngx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
