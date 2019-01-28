@@ -77,7 +77,7 @@ extension ViewController {
     }
 
     private func addCardViews() {
-        let cardStacks = CardStacks(from: cardDeck).cardStacks
+        let cardStacks = CardStacks(from: cardDeck)
         if let cardStackViews = cardViewFactory?.createStackViews(of: cardStacks, line: 2) {
             cardStackViews.forEach {
                 $0.addAllSubviews { [unowned self] view in self.view.addSubview(view) }

@@ -9,7 +9,7 @@
 import Foundation
 
 class CardStacks: CustomStringConvertible {
-    var cardStacks: [CardStack] = []
+    private var cardStacks: [CardStack] = []
 
     init(from cardDeck: CardDeck, by num: Int = 7) {
         guard num > 0 else { return }
@@ -19,6 +19,10 @@ class CardStacks: CustomStringConvertible {
             cardStack.flipLast()
             self.cardStacks.append(cardStack)
         }
+    }
+
+    var imageNames: [[String?]] {
+        return cardStacks.map { $0.imageNames }
     }
 
     var description: String {
