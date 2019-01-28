@@ -26,13 +26,12 @@ class ViewController: UIViewController {
         guard let image = UIImage(named: "bg_pattern") else { return }
         self.view.backgroundColor = UIColor(patternImage: image)
         
-        makeCards()
+        makeCardBackImageViews()
     }
     
     //MARK: Private
     
-    //TODO: 나중에 역할이 자세히 되면 메서드 이름 수정하기
-    private func makeCards() {
+    private func makeCardBackImageViews() {
         
         let numberOfCards = 7
         let bounds = UIScreen.main.bounds
