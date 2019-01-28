@@ -10,12 +10,29 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    //MARK: - Methods
+    //MARK: Setting
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    //MARK: Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         guard let image = UIImage(named: "bg_pattern") else { return }
         self.view.backgroundColor = UIColor(patternImage: image)
+        
+        makeCards()
+    }
+    
+    //MARK: Private
+    
+    //TODO: 나중에 역할이 자세히 되면 메서드 이름 수정하기
+    private func makeCards() {
         
         let numberOfCards = 7
         let bounds = UIScreen.main.bounds
@@ -34,10 +51,6 @@ class ViewController: UIViewController {
             cardPointX += cardWidth + space.cgFloat()
             self.view.addSubview(imageView)
         }
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
     }
 }
 
