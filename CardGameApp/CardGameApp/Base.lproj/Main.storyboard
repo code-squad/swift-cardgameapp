@@ -20,28 +20,49 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="b2p-zw-2jS">
-                                <rect key="frame" x="0.0" y="120" width="414" height="270"/>
+                                <rect key="frame" x="0.0" y="120" width="414" height="66.333333333333314"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_back" translatesAutoresizingMaskIntoConstraints="NO" id="aVu-yb-6aB">
-                                        <rect key="frame" x="0.0" y="0.0" width="52.333333333333336" height="270"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="52.333333333333336" height="66.333333333333329"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="aVu-yb-6aB" secondAttribute="height" multiplier="1:1.27" id="hPT-YW-2u6"/>
+                                        </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_back" translatesAutoresizingMaskIntoConstraints="NO" id="sTF-Ne-WQx">
-                                        <rect key="frame" x="60.333333333333329" y="0.0" width="52.333333333333329" height="270"/>
+                                        <rect key="frame" x="60.333333333333329" y="0.0" width="52.333333333333329" height="66.333333333333329"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="sTF-Ne-WQx" secondAttribute="height" multiplier="1:1.27" id="NNh-BA-sTt"/>
+                                        </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_back" translatesAutoresizingMaskIntoConstraints="NO" id="7jQ-tX-cqQ">
-                                        <rect key="frame" x="120.66666666666667" y="0.0" width="52.333333333333329" height="270"/>
+                                        <rect key="frame" x="120.66666666666667" y="0.0" width="52.333333333333329" height="66.333333333333329"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="7jQ-tX-cqQ" secondAttribute="height" multiplier="1:1.27" id="8og-Si-Xc3"/>
+                                        </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_back" translatesAutoresizingMaskIntoConstraints="NO" id="2OU-kX-Q8a">
-                                        <rect key="frame" x="181" y="0.0" width="52" height="270"/>
+                                        <rect key="frame" x="181" y="0.0" width="52" height="66.333333333333329"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="2OU-kX-Q8a" secondAttribute="height" multiplier="1:1.27" id="kPK-Ij-qMT"/>
+                                        </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_back" translatesAutoresizingMaskIntoConstraints="NO" id="cu9-bT-LIO">
-                                        <rect key="frame" x="241.00000000000003" y="0.0" width="52.333333333333343" height="270"/>
+                                        <rect key="frame" x="241.00000000000003" y="0.0" width="52.333333333333343" height="66.333333333333329"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="cu9-bT-LIO" secondAttribute="height" multiplier="1:1.27" id="K3U-Jd-zXd"/>
+                                        </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_back" translatesAutoresizingMaskIntoConstraints="NO" id="jzQ-cT-kGK">
-                                        <rect key="frame" x="301.33333333333331" y="0.0" width="52.333333333333314" height="270"/>
+                                        <rect key="frame" x="301.33333333333331" y="0.0" width="52.333333333333314" height="66.333333333333329"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="jzQ-cT-kGK" secondAttribute="height" multiplier="1:1.27" id="LmE-vA-rgT"/>
+                                        </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_back" translatesAutoresizingMaskIntoConstraints="NO" id="Tgv-Ik-THq">
-                                        <rect key="frame" x="361.66666666666669" y="0.0" width="52.333333333333314" height="270"/>
+                                        <rect key="frame" x="361.66666666666669" y="0.0" width="52.333333333333314" height="66.333333333333329"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Tgv-Ik-THq" secondAttribute="height" multiplier="1:1.27" id="HvL-mN-iVP"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                             </stackView>
