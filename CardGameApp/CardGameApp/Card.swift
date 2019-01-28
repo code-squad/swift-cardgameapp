@@ -6,7 +6,7 @@
 //  Copyright © 2018 JK. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class Card : CustomStringConvertible {
     private let suit : Suit

@@ -28,4 +28,17 @@ enum Suit : Int, CustomStringConvertible, CaseIterable {
             return "♠️"
         }
     }
+    
+    var firstLetter: String {
+        switch self {
+        case .clubs:
+            return "c"
+        case .hearts:
+            return "h"
+        case .diamonds:
+            return "d"
+        case .spades:
+            return "s"
+        }
+    }
 }
