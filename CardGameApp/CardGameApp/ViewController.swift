@@ -22,15 +22,16 @@ class ViewController: UIViewController {
         let ratio = 1.27
         let space = 4
         let totalSpace = (numberOfCards + 1) * space
-        let cardWidth = (bounds.width - CGFloat(totalSpace)) / CGFloat(numberOfCards)
-        let cardHeight = cardWidth * CGFloat(ratio)
-        var cardPointX: CGFloat = CGFloat(space)
+        let cardWidth: CGFloat = (bounds.width - totalSpace.cgFloat()) / numberOfCards.cgFloat()
+        let cardHeight: CGFloat = cardWidth * ratio.cgFloat()
+        var cardPointX: CGFloat = space.cgFloat()
+        let cardPointY: CGFloat = 40
         
         for _ in 0..<numberOfCards {
             let imageView = UIImageView()
             imageView.image = UIImage(named: "card_back")
-            imageView.frame = .init(x: cardPointX, y: 40, width: cardWidth, height: cardHeight)
-            cardPointX += cardWidth + CGFloat(space)
+            imageView.frame = .init(x: cardPointX, y: cardPointY, width: cardWidth, height: cardHeight)
+            cardPointX += cardWidth + space.cgFloat()
             self.view.addSubview(imageView)
         }
     }
@@ -40,3 +41,14 @@ class ViewController: UIViewController {
     }
 }
 
+extension Int {
+    func cgFloat() -> CGFloat {
+        return CGFloat(self)
+    }
+}
+
+extension Double {
+    func cgFloat() -> CGFloat {
+        return CGFloat(self)
+    }
+}
