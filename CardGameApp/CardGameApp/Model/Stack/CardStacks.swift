@@ -16,6 +16,7 @@ class CardStacks: CustomStringConvertible {
         var cardDeck = cardDeck
         for number in 1...num {
             guard let cardStack = cardDeck.removeMultiple(by: number) else { break }
+            cardStack.flipLast()
             self.cardStacks.append(cardStack)
         }
     }

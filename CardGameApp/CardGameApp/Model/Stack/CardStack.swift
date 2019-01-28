@@ -23,6 +23,11 @@ class CardStack: CustomStringConvertible {
         cards.removeAll()
     }
 
+    func flipLast() {
+        guard let lastCard = cards.last else { return }
+        lastCard.flip()
+    }
+
     var count: Int {
         return cards.count
     }

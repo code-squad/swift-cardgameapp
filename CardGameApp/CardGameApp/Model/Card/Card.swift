@@ -11,7 +11,7 @@ import Foundation
 class Card: CustomStringConvertible {
     private let suit: Suit
     private let rank: Rank
-    private var isBack: Bool = true
+    private var opened: Bool = false
 
     init(suit: Suit, rank: Rank) {
         self.suit = suit
@@ -31,13 +31,13 @@ class Card: CustomStringConvertible {
     }
 
     var imageName: String? {
-        guard isBack else { return nil }
+        guard opened else { return nil }
         guard let suit = self.suit.firstLetter else { return nil }
         return "\(suit)\(rank.value)"
     }
 
     func flip() {
-        isBack.toggle()
+        opened.toggle()
     }
 
 }

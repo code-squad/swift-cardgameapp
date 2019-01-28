@@ -70,7 +70,6 @@ extension ViewController {
 
     private func addCardDeckView() {
         guard let card = cardDeck.removeOne() else { return }
-        card.flip()
         let aCard = CardStack(cards: [card])
         if let cardViews = cardViewFactory?.createViews(of: aCard, line: 1, align: .right) {
             cardViews.forEach { view.addSubview($0) }
