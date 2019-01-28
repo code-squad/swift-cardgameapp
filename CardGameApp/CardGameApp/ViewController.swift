@@ -39,6 +39,8 @@ class ViewController: UIViewController {
         setCards()
     }
     
+    //MARK: Private
+    
     private func setCards() {
         
         for subview in cardsStackView.arrangedSubviews {
@@ -47,4 +49,15 @@ class ViewController: UIViewController {
             subImageView.image = card.image()
         }
     }
+    
+    //MARK: Motion
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        
+        super.motionEnded(motion, with: event)
+        if motion == .motionShake {
+            setCards()
+        }
+    }
+    
 }
