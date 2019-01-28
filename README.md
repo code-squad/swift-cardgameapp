@@ -137,3 +137,26 @@ override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) 
 > 완성일자: 2019.01.25 14:35
 
 ![Jan-25-2019](./images/step2/Jan-25-2019.gif)
+
+<br>
+
+### 수정내용
+
+- `CardViewLayout` 구조체를 추가로 생성하여, 뷰 컨트롤러 내부에 선언되어있던 프로퍼티를 분리해서 구조화했습니다.
+
+- 위 구현방법 3번의 뷰를 삭제하고 새로 추가하는 방식을 기존 뷰를 재사용해 이미지만 변경하는 방식으로 수정했습니다.
+
+  ```swift
+  override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+      super.motionEnded(motion, with: event)
+      if motion == .motionShake {
+          cardDeck.reset()
+          replaceImagesOfCardImageViews()
+      }
+  }
+  ```
+
+- 뷰 컨트롤러 내부에 nested 되어있던 `CardViewCreater` 구조체를 `CardViewFactory` 로 이름을 변경하고 별도의 객체로 분리하였습니다.
+
+<br>
+
