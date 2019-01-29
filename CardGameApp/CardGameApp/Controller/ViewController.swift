@@ -60,6 +60,7 @@ class ViewController: UIViewController {
         guard let touch = touches.first else { return }
         if touch.view == cardDeckView {
             guard let cardView = cardDeckView.removeLast() else { return }
+            cardView.flip()
             cardDeckOpenedView.addCardView(cardView)
         }
     }
