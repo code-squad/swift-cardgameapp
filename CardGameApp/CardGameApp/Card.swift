@@ -13,7 +13,7 @@ class Card : CustomStringConvertible {
     //MARK: - Properties
     
     var description: String {
-        return "\(self.suit)\(self.rank)"
+        return "\(self.suit.firstLetter)\(self.rank.description)"
     }
     
     //MARK: Private
@@ -38,9 +38,5 @@ class Card : CustomStringConvertible {
     
     func score() -> Int {
         return self.rank.rawValue * 10 + self.suit.rawValue
-    }
-    
-    func imageName() -> String {
-        return suit.firstLetter + rank.description
     }
 }

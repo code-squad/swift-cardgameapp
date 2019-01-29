@@ -64,7 +64,7 @@ class ViewController: UIViewController {
 
 extension Card {
     func image() -> UIImage? {
-        let name = imageName()
+        let name = description
         return UIImage(named: name)
     }
 }
