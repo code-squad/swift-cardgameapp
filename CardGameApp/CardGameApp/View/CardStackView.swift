@@ -37,4 +37,11 @@ class CardStackView: UIView {
         }
     }
 
+    func removeLast() -> CardView? {
+        if cardViews.isEmpty { return nil }
+        let cardView = cardViews.removeLast()
+        cardView.removeFromSuperview()
+        return cardViews.removeLast()
+    }
+
 }

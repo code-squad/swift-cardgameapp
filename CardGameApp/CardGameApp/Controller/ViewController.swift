@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     private var cardStackView: CardStacksView!
     private var cardDeckView: CardStackView!
+    private var cardDeckOpenedView: CardStackView!
     private var cardViewFactory: CardViewFactory?
 
     private var cardDeck: CardDeck
@@ -39,6 +40,7 @@ class ViewController: UIViewController {
     private func setCardViewFactory() {
         let layout = CardViewLayout(division: 7,
                                     sizeRatio: 1.27,
+                                    overlap: 20,
                                     sideMargin: 5,
                                     firstSideMarginRatio: 1.5,
                                     firstTopMargin: 20,
@@ -49,7 +51,17 @@ class ViewController: UIViewController {
     private func setCardViews() {
         addCardSpaceViews()
         addCardDeckView()
+        addCardDeckOpenedView()
         addCardStacksView()
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        guard let touch = touches.first else { return }
+        if touch.view == cardDeckView {
+            guard let cardView = cardDeckView.removeLast() else { return }
+            cardDeckOpenedView.addCardView(cardView)
+        }
     }
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
@@ -66,21 +78,28 @@ class ViewController: UIViewController {
 extension ViewController {
 
     private func addCardSpaceViews() {
-        if let cardSpaceViews = cardViewFactory?.createSpaceViews(spaces: 4, line: 1) {
+        if let cardSpaceViews = cardViewFactory?.createSpaceViews(spaces: 4) {
             cardSpaceViews.forEach { view.addSubview($0) }
         }
     }
 
     private func addCardDeckView() {
-        if let cardDeckView = cardViewFactory?.createDeckView(of: cardDeck, line: 1, align: .right) {
+        if let cardDeckView = cardViewFactory?.createDeckView(of: cardDeck, align: .right) {
             self.cardDeckView = cardDeckView
             view.addSubview(self.cardDeckView)
         }
     }
 
+    private func addCardDeckOpenedView() {
+        if let cardDeckOpenedView = cardViewFactory?.createDeckView(of: nil, at: 2, align: .right) {
+            self.cardDeckOpenedView = cardDeckOpenedView
+            view.addSubview(self.cardDeckOpenedView)
+        }
+    }
+
     private func addCardStacksView() {
         let cardStacks = CardStacks(from: cardDeck)
-        if let cardStackView = cardViewFactory?.createStackViews(of: cardStacks, line: 2) {
+        if let cardStackView = cardViewFactory?.createStackViews(of: cardStacks) {
             self.cardStackView = cardStackView
             view.addSubview(self.cardStackView)
         }
