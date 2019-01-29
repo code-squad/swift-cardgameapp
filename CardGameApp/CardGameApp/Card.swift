@@ -6,7 +6,7 @@
 //  Copyright © 2018 JK. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class Card : CustomStringConvertible {
     
@@ -40,8 +40,7 @@ class Card : CustomStringConvertible {
         return self.rank.rawValue * 10 + self.suit.rawValue
     }
     
-    func image() -> UIImage? {
-        let name: String = suit.firstLetter + rank.description
-        return UIImage(named: name)
+    func imageName() -> String {
+        return suit.firstLetter + rank.description
     }
 }

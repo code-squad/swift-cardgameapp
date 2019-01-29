@@ -61,3 +61,10 @@ class ViewController: UIViewController {
     }
     
 }
+
+extension Card {
+    func image() -> UIImage? {
+        let name = imageName()
+        return UIImage(named: name)
+    }
+}
