@@ -10,6 +10,14 @@ import UIKit
 
 class CardView: UIImageView {
 
+    var viewModel: CardViewModelDelegate! {
+        didSet {
+            viewModel.imageDidChange = { [unowned self] viewModel in
+                self.setImage(named: viewModel.imageName)
+            }
+        }
+    }
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUp()
@@ -39,6 +47,10 @@ class CardView: UIImageView {
     private func roundCorners() {
         layer.cornerRadius = 4
         layer.masksToBounds = true
+    }
+
+    func flip() {
+        viewModel.flip()
     }
 
 }

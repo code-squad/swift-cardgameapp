@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A332F1A622001A060098430D /* CardStacksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332F1A522001A060098430D /* CardStacksView.swift */; };
+		A332F1AF220068310098430D /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332F1AE220068310098430D /* CardViewModel.swift */; };
 		A372EFB121F71EEC004CEDE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372EFB021F71EEC004CEDE9 /* AppDelegate.swift */; };
 		A372EFB321F71EEC004CEDE9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372EFB221F71EEC004CEDE9 /* ViewController.swift */; };
 		A372EFB621F71EED004CEDE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A372EFB421F71EEC004CEDE9 /* Main.storyboard */; };
@@ -107,6 +108,7 @@
 
 /* Begin PBXFileReference section */
 		A332F1A522001A060098430D /* CardStacksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStacksView.swift; sourceTree = "<group>"; };
+		A332F1AE220068310098430D /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		A372EFAD21F71EEC004CEDE9 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A372EFB021F71EEC004CEDE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A372EFB221F71EEC004CEDE9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -226,6 +228,14 @@
 			path = ViewFactory;
 			sourceTree = "<group>";
 		};
+		A332F1AD2200681C0098430D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				A332F1AE220068310098430D /* CardViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		A372EFA421F71EEC004CEDE9 = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				A372EFE421F95E82004CEDE9 /* Model */,
+				A332F1AD2200681C0098430D /* ViewModel */,
 				A372EFE021F85B70004CEDE9 /* View */,
 				A332F1A922002F530098430D /* ViewFactory */,
 				A372EFE321F86B7F004CEDE9 /* Controller */,
@@ -617,6 +628,7 @@
 				A372F00C21F95F67004CEDE9 /* CardStacks.swift in Sources */,
 				A372F01F21F95F98004CEDE9 /* GamePlayers.swift in Sources */,
 				A372EFB121F71EEC004CEDE9 /* AppDelegate.swift in Sources */,
+				A332F1AF220068310098430D /* CardViewModel.swift in Sources */,
 				A372F01E21F95F98004CEDE9 /* GameMode.swift in Sources */,
 				A372F09621FACDDE004CEDE9 /* CardSpaceView.swift in Sources */,
 				A372F12021FEF453004CEDE9 /* CardStackView.swift in Sources */,
