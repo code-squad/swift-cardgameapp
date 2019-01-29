@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     private var cardDeckOpenedView: CardStackView!
     private var cardViewFactory: CardViewFactory?
 
-    private var cardDeck: CardDeck
+    private let cardDeck: CardDeck
 
     required init?(coder aDecoder: NSCoder) {
         cardDeck = CardDeck()
@@ -50,9 +50,9 @@ class ViewController: UIViewController {
 
     private func setCardViews() {
         addCardSpaceViews()
+        addCardStacksView()
         addCardDeckView()
         addCardDeckOpenedView()
-        addCardStacksView()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

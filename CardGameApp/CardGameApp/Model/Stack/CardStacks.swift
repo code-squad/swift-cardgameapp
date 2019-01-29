@@ -13,7 +13,7 @@ class CardStacks: CustomStringConvertible {
 
     init(from cardDeck: CardDeck, by num: Int = 7) {
         guard num > 0 else { return }
-        var cardDeck = cardDeck
+        let cardDeck = cardDeck
         for number in 1...num {
             guard let cardStack = cardDeck.removeMultiple(by: number) else { break }
             cardStack.flipLast()

@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct CardDeck: Playable {
+class CardDeck: Playable {
     private var cards: [Card] = []
 
     init() {
         reset()
     }
 
-    private mutating func fill() {
+    private func fill() {
         for suit in Suit.allCases {
             for rank in Rank.allCases {
                 self.cards.append(Card(suit: suit, rank: rank))
@@ -31,14 +31,14 @@ struct CardDeck: Playable {
         return cards.count
     }
 
-    mutating func removeOne() -> Card? {
+    func removeOne() -> Card? {
         if isEmpty {
             return nil
         }
         return cards.removeFirst()
     }
 
-    mutating func removeMultiple(by number: Int) -> CardStack? {
+    func removeMultiple(by number: Int) -> CardStack? {
         guard number > 0 else { return nil }
         var cardsRemoved: [Card] = []
         for _ in 0..<number {
@@ -48,11 +48,11 @@ struct CardDeck: Playable {
         return CardStack.init(cards: cardsRemoved)
     }
 
-    mutating func shuffle() {
+    func shuffle() {
         cards.shuffle()
     }
 
-    mutating func reset() {
+    func reset() {
         cards.removeAll()
         fill()
         shuffle()

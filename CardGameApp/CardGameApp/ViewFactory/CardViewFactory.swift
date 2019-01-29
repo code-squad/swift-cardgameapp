@@ -89,8 +89,7 @@ struct CardViewFactory {
         let frame = CGRect(origin: origin, size: viewSize)
         
         let cardStackView = CardStackView(frame: frame)
-        guard var cardDeck = cardDeck else { return cardStackView }
-        
+        guard let cardDeck = cardDeck else { return cardStackView }
         while !cardDeck.isEmpty {
             guard let card = cardDeck.removeOne() else { break }
             let cardViewModel = CardViewModel(card: card)

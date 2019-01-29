@@ -51,7 +51,7 @@ class CardStackView: UIView {
         if cardViews.isEmpty { return nil }
         let cardView = cardViews.removeLast()
         cardView.removeFromSuperview()
-        return cardViews.removeLast()
+        return cardView
     }
 
     func flipLast() {
