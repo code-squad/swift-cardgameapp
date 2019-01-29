@@ -20,8 +20,7 @@ class CardView: UIImageView {
         setUp()
     }
 
-    convenience init(origin: CGPoint, width: CGFloat) {
-        let size = CGSize(width: width, height: width * 1.27)
+    convenience init(origin: CGPoint = CGPoint(), size: CGSize) {
         let frame = CGRect(origin: origin, size: size)
         self.init(frame: frame)
     }

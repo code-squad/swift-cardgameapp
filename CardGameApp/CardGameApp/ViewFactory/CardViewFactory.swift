@@ -10,6 +10,7 @@ import UIKit
 
 struct CardViewLayout {
     let division: Int
+    let sizeRatio: CGFloat
     let sideMargin: CGFloat
     let firstSideMarginRatio: CGFloat
     let firstTopMargin: CGFloat
@@ -17,9 +18,8 @@ struct CardViewLayout {
 }
 
 struct CardViewFactory {
-    private let division: Int
     private let frameWidth: CGFloat
-    private let viewWidth: CGFloat
+    private let viewSize: CGSize
 
     private let sideMargin: CGFloat
     private let firstSideMarginRatio: CGFloat
@@ -27,14 +27,15 @@ struct CardViewFactory {
     private let topMarginInterval: CGFloat
 
     init(layout: CardViewLayout, frameWidth: CGFloat) {
-        self.frameWidth = frameWidth
-        division = layout.division
         sideMargin = layout.sideMargin
         firstSideMarginRatio = layout.firstSideMarginRatio
         firstTopMargin = layout.firstTopMargin
         topMarginInterval = layout.topMarginInterval
-        let widthExceptMargin = frameWidth - sideMargin * CGFloat(division + 2)
-        viewWidth = widthExceptMargin / CGFloat(division)
+        self.frameWidth = frameWidth
+        let widthExceptMargin = frameWidth - sideMargin * CGFloat(layout.division + 2)
+        let viewWidth = widthExceptMargin / CGFloat(layout.division)
+        let viewHeight = viewWidth * layout.sizeRatio
+        viewSize = CGSize(width: viewWidth, height: viewHeight)
     }
 
     enum Align: CGFloat {
@@ -46,10 +47,10 @@ struct CardViewFactory {
         return firstTopMargin + topMarginInterval * CGFloat(line - 1)
     }
 
-    private func positionXOfFirstView(of width: CGFloat, aligned align: Align) -> CGFloat {
+    private func positionXOfFirstView(aligned align: Align) -> CGFloat {
         var positionX = sideMargin * firstSideMarginRatio
         if align == .right {
-            positionX = frameWidth - width - positionX
+            positionX = frameWidth - viewSize.width - positionX
         }
         return positionX
     }
@@ -59,7 +60,7 @@ struct CardViewFactory {
         var positionY = point.y
         for imageName in imageNames {
             let origin = CGPoint(x: point.x, y: positionY)
-            let cardView = CardView(origin: origin, width: viewWidth)
+            let cardView = CardView(origin: origin, size: viewSize)
             cardView.setImage(named: imageName)
             cardStackView.addCardView(cardView)
             positionY += 20
@@ -70,24 +71,25 @@ struct CardViewFactory {
     func createStackViews(of stacks: CardStacks, line: Int, align: Align = .left) -> CardStacksView {
         let cardStacksView = CardStacksView()
         let topMargin = calculateTopMargin(of: line)
-        var positionX = positionXOfFirstView(of: viewWidth, aligned: align)
+        var positionX = positionXOfFirstView(aligned: align)
         let direction = align.rawValue
         for imageNames in stacks.imageNames {
             let origin = CGPoint(x: positionX, y: topMargin)
             let cardStackView = createStackView(by: imageNames, at: origin)
             cardStacksView.addCardStackView(cardStackView)
-            positionX += (viewWidth + sideMargin) * direction
+            positionX += (viewSize.width + sideMargin) * direction
         }
         return cardStacksView
     }
 
     func createDeckView(of cardDeck: CardDeck, line: Int, align: Align = .left) -> CardStackView {
-        let cardStackView = CardStackView()
         let topMargin = calculateTopMargin(of: line)
-        let positionX = positionXOfFirstView(of: viewWidth, aligned: align)
+        let positionX = positionXOfFirstView(aligned: align)
         let origin = CGPoint(x: positionX, y: topMargin)
+        let frame = CGRect(origin: origin, size: viewSize)
+        let cardStackView = CardStackView(frame: frame)
         for _ in 0..<cardDeck.count() {
-            let cardView = CardView(origin: origin, width: viewWidth)
+            let cardView = CardView(size: viewSize)
             cardStackView.addCardView(cardView)
         }
         return cardStackView
@@ -96,13 +98,13 @@ struct CardViewFactory {
     func createSpaceViews(spaces: Int, line: Int, align: Align = .left) -> [CardSpaceView] {
         var cardSpaceViews: [CardSpaceView] = []
         let topMargin = calculateTopMargin(of: line)
-        var positionX = positionXOfFirstView(of: viewWidth, aligned: align)
+        var positionX = positionXOfFirstView(aligned: align)
         let direction = align.rawValue
         for _ in 0..<spaces {
             let origin = CGPoint(x: positionX, y: topMargin)
-            let cardSpaceView = CardSpaceView(origin: origin, width: viewWidth)
+            let cardSpaceView = CardSpaceView(origin: origin, size: viewSize)
             cardSpaceViews.append(cardSpaceView)
-            positionX += (viewWidth + sideMargin) * direction
+            positionX += (viewSize.width + sideMargin) * direction
         }
         return cardSpaceViews
     }

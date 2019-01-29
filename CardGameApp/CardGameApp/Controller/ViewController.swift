@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     private var cardStackView: CardStacksView!
     private var cardDeckView: CardStackView!
     private var cardViewFactory: CardViewFactory?
+
     private var cardDeck: CardDeck
 
     required init?(coder aDecoder: NSCoder) {
@@ -37,6 +38,7 @@ class ViewController: UIViewController {
 
     private func setCardViewFactory() {
         let layout = CardViewLayout(division: 7,
+                                    sizeRatio: 1.27,
                                     sideMargin: 5,
                                     firstSideMarginRatio: 1.5,
                                     firstTopMargin: 20,

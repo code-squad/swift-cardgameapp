@@ -9,36 +9,35 @@
 import UIKit
 
 class CardSpaceView: UIView {
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setUp()
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
     }
-    
-    convenience init(origin: CGPoint, width: CGFloat) {
-        let size = CGSize(width: width, height: width * 1.27)
+
+    convenience init(origin: CGPoint = CGPoint(), size: CGSize) {
         let frame = CGRect(origin: origin, size: size)
         self.init(frame: frame)
     }
-    
+
     private func setUp() {
         colorBorder()
         roundCorners()
     }
-    
+
     private func colorBorder() {
         layer.borderColor = UIColor.white.cgColor
         layer.borderWidth = 0.5
     }
-    
+
     private func roundCorners() {
         layer.cornerRadius = 4
         layer.masksToBounds = true
     }
-    
+
 }

@@ -218,6 +218,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A332F1A922002F530098430D /* ViewFactory */ = {
+			isa = PBXGroup;
+			children = (
+				A372F11721FEA479004CEDE9 /* CardViewFactory.swift */,
+			);
+			path = ViewFactory;
+			sourceTree = "<group>";
+		};
 		A372EFA421F71EEC004CEDE9 = {
 			isa = PBXGroup;
 			children = (
@@ -243,6 +251,7 @@
 			children = (
 				A372EFE421F95E82004CEDE9 /* Model */,
 				A372EFE021F85B70004CEDE9 /* View */,
+				A332F1A922002F530098430D /* ViewFactory */,
 				A372EFE321F86B7F004CEDE9 /* Controller */,
 				A372EFB021F71EEC004CEDE9 /* AppDelegate.swift */,
 				A372EFB421F71EEC004CEDE9 /* Main.storyboard */,
@@ -286,7 +295,6 @@
 			isa = PBXGroup;
 			children = (
 				A372EFB221F71EEC004CEDE9 /* ViewController.swift */,
-				A372F11721FEA479004CEDE9 /* CardViewFactory.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
