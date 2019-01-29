@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         super.touchesBegan(touches, with: event)
         guard let touch = touches.first else { return }
         if touch.view == cardDeckView {
-            guard let cardView = cardDeckView.removeLast() else { return }
+            guard let cardView = cardDeckView.removeLastWithRefreshImage() else { return }
             cardView.flip()
             cardDeckOpenedView.addCardView(cardView)
         }
@@ -68,6 +68,7 @@ class ViewController: UIViewController {
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         super.motionEnded(motion, with: event)
         if motion == .motionShake {
+            resetCardDeckView()
             cardDeck.reset()
             replaceImagesOfCardViews()
         }
@@ -103,6 +104,14 @@ extension ViewController {
         if let cardStackView = cardViewFactory?.createStackViews(of: cardStacks) {
             self.cardStackView = cardStackView
             view.addSubview(self.cardStackView)
+        }
+    }
+
+    private func resetCardDeckView() {
+        while(!cardDeckOpenedView.isEmpty) {
+            guard let cardView = cardDeckOpenedView.removeLast() else { return }
+            cardView.flip()
+            cardDeckView.addCardView(cardView)
         }
     }
 

@@ -34,6 +34,10 @@ class CardStackView: UIImageView {
         self.init(frame: CGRect())
     }
 
+    var isEmpty: Bool {
+        return cardViews.isEmpty
+    }
+
     func willBeEmpty() -> Bool {
         if cardViews.count == 1 {
             return true

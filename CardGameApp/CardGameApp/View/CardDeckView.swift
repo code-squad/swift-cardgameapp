@@ -24,7 +24,7 @@ class CardDeckView: CardStackView {
         image = UIImage(named: "cardgameapp-refresh-app")
     }
 
-    override func removeLast() -> CardView? {
+    func removeLastWithRefreshImage() -> CardView? {
         if willBeEmpty() {
             setRefreshImage()
         }
