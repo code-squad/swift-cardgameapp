@@ -10,8 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     private var cardStackView: CardStacksView!
-    private var cardDeckView: CardStackView!
-    private var cardDeckOpenedView: CardStackView!
+    private var cardDeckView: CardDeckView!
+    private var cardDeckOpenedView: CardDeckView!
     private var cardViewFactory: CardViewFactory?
 
     private let cardDeck: CardDeck

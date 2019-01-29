@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CardStackView: UIView {
+class CardStackView: UIImageView {
     private var cardViews: [CardView]
 
     var viewModel: CardStackViewModelDelegate! {
@@ -32,6 +32,13 @@ class CardStackView: UIView {
 
     convenience init() {
         self.init(frame: CGRect())
+    }
+
+    func willBeEmpty() -> Bool {
+        if cardViews.count == 1 {
+            return true
+        }
+        return false
     }
 
     func addCardView(_ cardView: CardView) {

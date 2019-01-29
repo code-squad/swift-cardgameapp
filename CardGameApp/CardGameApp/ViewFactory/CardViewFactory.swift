@@ -82,23 +82,24 @@ struct CardViewFactory {
         return cardStacksView
     }
 
-    func createDeckView(of cardDeck: CardDeck?, at column: Int = 1, align: Align = .left) -> CardStackView {
+    func createDeckView(of cardDeck: CardDeck?, at column: Int = 1, align: Align = .left) -> CardDeckView {
         
         let positionX = positionXOfFirstView(at: column, aligned: align)
         let origin = CGPoint(x: positionX, y: firstTopMargin)
         let frame = CGRect(origin: origin, size: viewSize)
         
-        let cardStackView = CardStackView(frame: frame)
-        guard let cardDeck = cardDeck else { return cardStackView }
+        let cardDeckView = CardDeckView(frame: frame)
+        guard let cardDeck = cardDeck else { return cardDeckView }
+        
         while !cardDeck.isEmpty {
             guard let card = cardDeck.removeOne() else { break }
             let cardViewModel = CardViewModel(card: card)
             let cardView = CardView(size: viewSize)
             cardView.viewModel = cardViewModel
-            cardStackView.addCardView(cardView)
+            cardDeckView.addCardView(cardView)
         }
         
-        return cardStackView
+        return cardDeckView
     }
 
     func createSpaceViews(spaces: Int, align: Align = .left) -> [CardSpaceView] {

@@ -10,6 +10,7 @@
 		A332F1A622001A060098430D /* CardStacksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332F1A522001A060098430D /* CardStacksView.swift */; };
 		A332F1AF220068310098430D /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332F1AE220068310098430D /* CardViewModel.swift */; };
 		A332F1B122006F630098430D /* CardStackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332F1B022006F630098430D /* CardStackViewModel.swift */; };
+		A332F1B3220076590098430D /* CardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332F1B2220076590098430D /* CardDeckView.swift */; };
 		A372EFB121F71EEC004CEDE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372EFB021F71EEC004CEDE9 /* AppDelegate.swift */; };
 		A372EFB321F71EEC004CEDE9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372EFB221F71EEC004CEDE9 /* ViewController.swift */; };
 		A372EFB621F71EED004CEDE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A372EFB421F71EEC004CEDE9 /* Main.storyboard */; };
@@ -111,6 +112,7 @@
 		A332F1A522001A060098430D /* CardStacksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStacksView.swift; sourceTree = "<group>"; };
 		A332F1AE220068310098430D /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		A332F1B022006F630098430D /* CardStackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewModel.swift; sourceTree = "<group>"; };
+		A332F1B2220076590098430D /* CardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckView.swift; sourceTree = "<group>"; };
 		A372EFAD21F71EEC004CEDE9 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A372EFB021F71EEC004CEDE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A372EFB221F71EEC004CEDE9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 			children = (
 				A372EFE121F85B82004CEDE9 /* CardView.swift */,
 				A372F09521FACDDD004CEDE9 /* CardSpaceView.swift */,
+				A332F1B2220076590098430D /* CardDeckView.swift */,
 				A372F11F21FEF453004CEDE9 /* CardStackView.swift */,
 				A332F1A522001A060098430D /* CardStacksView.swift */,
 			);
@@ -379,58 +382,58 @@
 		A372F02921F968C0004CEDE9 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				A372F02A21F968C0004CEDE9 /* c8.png */,
-				A372F02B21F968C0004CEDE9 /* c9.png */,
-				A372F02C21F968C0004CEDE9 /* cK.png */,
-				A372F02D21F968C0004CEDE9 /* cJ.png */,
-				A372F02E21F968C0004CEDE9 /* s6.png */,
-				A372F02F21F968C0004CEDE9 /* hJ.png */,
-				A372F03021F968C0004CEDE9 /* hK.png */,
-				A372F03121F968C0004CEDE9 /* s7.png */,
-				A372F03221F968C0004CEDE9 /* sA.png */,
-				A372F03321F968C0004CEDE9 /* s5.png */,
-				A372F03421F968C0004CEDE9 /* s10.png */,
-				A372F03521F968C0004CEDE9 /* h10.png */,
-				A372F03621F968C0004CEDE9 /* dJ.png */,
-				A372F03721F968C0004CEDE9 /* dK.png */,
-				A372F03821F968C0004CEDE9 /* s4.png */,
-				A372F03921F968C0004CEDE9 /* sQ.png */,
-				A372F03A21F968C0004CEDE9 /* d9.png */,
-				A372F03B21F968C0004CEDE9 /* d8.png */,
-				A372F03C21F968C0004CEDE9 /* s3.png */,
-				A372F03D21F968C0004CEDE9 /* h9.png */,
-				A372F03E21F968C0004CEDE9 /* h8.png */,
-				A372F03F21F968C0004CEDE9 /* s2.png */,
-				A372F04021F968C0004CEDE9 /* h5.png */,
-				A372F04121F968C0004CEDE9 /* d6.png */,
-				A372F04221F968C0004CEDE9 /* d7.png */,
-				A372F04321F968C0004CEDE9 /* dA.png */,
-				A372F04421F968C0004CEDE9 /* h4.png */,
-				A372F04521F968C0004CEDE9 /* sJ.png */,
-				A372F04621F968C0004CEDE9 /* h6.png */,
-				A372F04721F968C0004CEDE9 /* d5.png */,
-				A372F04821F968C0004CEDE9 /* d4.png */,
-				A372F04921F968C0004CEDE9 /* h7.png */,
-				A372F04A21F968C0004CEDE9 /* hA.png */,
-				A372F04B21F968C0004CEDE9 /* sK.png */,
-				A372F04C21F968C0004CEDE9 /* s9.png */,
-				A372F04D21F968C0004CEDE9 /* h3.png */,
-				A372F04E21F968C0004CEDE9 /* dQ.png */,
-				A372F04F21F968C0004CEDE9 /* h2.png */,
-				A372F05021F968C0004CEDE9 /* d10.png */,
-				A372F05121F968C0004CEDE9 /* s8.png */,
-				A372F05221F968C0004CEDE9 /* hQ.png */,
-				A372F05321F968C0004CEDE9 /* d3.png */,
-				A372F05421F968C0004CEDE9 /* d2.png */,
-				A372F05521F968C0004CEDE9 /* cQ.png */,
 				A372F05621F968C0004CEDE9 /* c2.png */,
 				A372F05721F968C0004CEDE9 /* c3.png */,
-				A372F05821F968C0004CEDE9 /* c10.png */,
-				A372F05921F968C0004CEDE9 /* c7.png */,
-				A372F05A21F968C0004CEDE9 /* cA.png */,
-				A372F05B21F968C0004CEDE9 /* c6.png */,
 				A372F05C21F968C0004CEDE9 /* c4.png */,
 				A372F05D21F968C0004CEDE9 /* c5.png */,
+				A372F05B21F968C0004CEDE9 /* c6.png */,
+				A372F05921F968C0004CEDE9 /* c7.png */,
+				A372F02A21F968C0004CEDE9 /* c8.png */,
+				A372F02B21F968C0004CEDE9 /* c9.png */,
+				A372F05821F968C0004CEDE9 /* c10.png */,
+				A372F05A21F968C0004CEDE9 /* cA.png */,
+				A372F02D21F968C0004CEDE9 /* cJ.png */,
+				A372F02C21F968C0004CEDE9 /* cK.png */,
+				A372F05521F968C0004CEDE9 /* cQ.png */,
+				A372F05421F968C0004CEDE9 /* d2.png */,
+				A372F05321F968C0004CEDE9 /* d3.png */,
+				A372F04821F968C0004CEDE9 /* d4.png */,
+				A372F04721F968C0004CEDE9 /* d5.png */,
+				A372F04121F968C0004CEDE9 /* d6.png */,
+				A372F04221F968C0004CEDE9 /* d7.png */,
+				A372F03B21F968C0004CEDE9 /* d8.png */,
+				A372F03A21F968C0004CEDE9 /* d9.png */,
+				A372F05021F968C0004CEDE9 /* d10.png */,
+				A372F04321F968C0004CEDE9 /* dA.png */,
+				A372F03621F968C0004CEDE9 /* dJ.png */,
+				A372F03721F968C0004CEDE9 /* dK.png */,
+				A372F04E21F968C0004CEDE9 /* dQ.png */,
+				A372F04F21F968C0004CEDE9 /* h2.png */,
+				A372F04D21F968C0004CEDE9 /* h3.png */,
+				A372F04421F968C0004CEDE9 /* h4.png */,
+				A372F04021F968C0004CEDE9 /* h5.png */,
+				A372F04621F968C0004CEDE9 /* h6.png */,
+				A372F04921F968C0004CEDE9 /* h7.png */,
+				A372F03E21F968C0004CEDE9 /* h8.png */,
+				A372F03D21F968C0004CEDE9 /* h9.png */,
+				A372F03521F968C0004CEDE9 /* h10.png */,
+				A372F04A21F968C0004CEDE9 /* hA.png */,
+				A372F02F21F968C0004CEDE9 /* hJ.png */,
+				A372F03021F968C0004CEDE9 /* hK.png */,
+				A372F05221F968C0004CEDE9 /* hQ.png */,
+				A372F03F21F968C0004CEDE9 /* s2.png */,
+				A372F03C21F968C0004CEDE9 /* s3.png */,
+				A372F03821F968C0004CEDE9 /* s4.png */,
+				A372F03321F968C0004CEDE9 /* s5.png */,
+				A372F02E21F968C0004CEDE9 /* s6.png */,
+				A372F03121F968C0004CEDE9 /* s7.png */,
+				A372F05121F968C0004CEDE9 /* s8.png */,
+				A372F04C21F968C0004CEDE9 /* s9.png */,
+				A372F03421F968C0004CEDE9 /* s10.png */,
+				A372F03221F968C0004CEDE9 /* sA.png */,
+				A372F04521F968C0004CEDE9 /* sJ.png */,
+				A372F04B21F968C0004CEDE9 /* sK.png */,
+				A372F03921F968C0004CEDE9 /* sQ.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -639,6 +642,7 @@
 				A332F1A622001A060098430D /* CardStacksView.swift in Sources */,
 				A372F00F21F95F67004CEDE9 /* Rank.swift in Sources */,
 				A372F00D21F95F67004CEDE9 /* CardStack.swift in Sources */,
+				A332F1B3220076590098430D /* CardDeckView.swift in Sources */,
 				A372F02421F95F98004CEDE9 /* Player.swift in Sources */,
 				A372F02221F95F98004CEDE9 /* CardGame.swift in Sources */,
 				A332F1B122006F630098430D /* CardStackViewModel.swift in Sources */,
