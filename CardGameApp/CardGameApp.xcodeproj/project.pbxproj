@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A332F1A622001A060098430D /* CardStacksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332F1A522001A060098430D /* CardStacksView.swift */; };
 		A332F1AF220068310098430D /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332F1AE220068310098430D /* CardViewModel.swift */; };
+		A332F1B122006F630098430D /* CardStackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332F1B022006F630098430D /* CardStackViewModel.swift */; };
 		A372EFB121F71EEC004CEDE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372EFB021F71EEC004CEDE9 /* AppDelegate.swift */; };
 		A372EFB321F71EEC004CEDE9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372EFB221F71EEC004CEDE9 /* ViewController.swift */; };
 		A372EFB621F71EED004CEDE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A372EFB421F71EEC004CEDE9 /* Main.storyboard */; };
@@ -109,6 +110,7 @@
 /* Begin PBXFileReference section */
 		A332F1A522001A060098430D /* CardStacksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStacksView.swift; sourceTree = "<group>"; };
 		A332F1AE220068310098430D /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		A332F1B022006F630098430D /* CardStackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewModel.swift; sourceTree = "<group>"; };
 		A372EFAD21F71EEC004CEDE9 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A372EFB021F71EEC004CEDE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A372EFB221F71EEC004CEDE9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				A332F1AE220068310098430D /* CardViewModel.swift */,
+				A332F1B022006F630098430D /* CardStackViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				A372F00D21F95F67004CEDE9 /* CardStack.swift in Sources */,
 				A372F02421F95F98004CEDE9 /* Player.swift in Sources */,
 				A372F02221F95F98004CEDE9 /* CardGame.swift in Sources */,
+				A332F1B122006F630098430D /* CardStackViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
