@@ -8,10 +8,33 @@
 
 import UIKit
 
-class CardStackView: UIStackView {
+class CardStackView: UIView {
+    private var cardViews: [CardView]
 
-    func addAllSubviews(_ addSubview: (UIView) -> Void) {
-        arrangedSubviews.forEach { addSubview($0) }
+    required init?(coder aDecoder: NSCoder) {
+        cardViews = []
+        super.init(coder: aDecoder)
+    }
+
+    override init(frame: CGRect) {
+        cardViews = []
+        super.init(frame: frame)
+    }
+
+    convenience init() {
+        self.init(frame: CGRect())
+    }
+
+    func addCardView(_ cardView: CardView) {
+        cardViews.append(cardView)
+        addSubview(cardView)
+    }
+
+    func setImages(named names: [String?]) {
+        for (index, name) in names.enumerated() {
+            guard index < cardViews.count else { return }
+            cardViews[index].setImage(named: name)
+        }
     }
 
 }

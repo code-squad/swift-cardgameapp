@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A332F1A622001A060098430D /* CardStacksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A332F1A522001A060098430D /* CardStacksView.swift */; };
 		A372EFB121F71EEC004CEDE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372EFB021F71EEC004CEDE9 /* AppDelegate.swift */; };
 		A372EFB321F71EEC004CEDE9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372EFB221F71EEC004CEDE9 /* ViewController.swift */; };
 		A372EFB621F71EED004CEDE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A372EFB421F71EEC004CEDE9 /* Main.storyboard */; };
@@ -105,6 +106,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A332F1A522001A060098430D /* CardStacksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStacksView.swift; sourceTree = "<group>"; };
 		A372EFAD21F71EEC004CEDE9 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A372EFB021F71EEC004CEDE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A372EFB221F71EEC004CEDE9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 				A372EFE121F85B82004CEDE9 /* CardView.swift */,
 				A372F09521FACDDD004CEDE9 /* CardSpaceView.swift */,
 				A372F11F21FEF453004CEDE9 /* CardStackView.swift */,
+				A332F1A522001A060098430D /* CardStacksView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				A372F09621FACDDE004CEDE9 /* CardSpaceView.swift in Sources */,
 				A372F12021FEF453004CEDE9 /* CardStackView.swift in Sources */,
 				A372F01421F95F82004CEDE9 /* Playable.swift in Sources */,
+				A332F1A622001A060098430D /* CardStacksView.swift in Sources */,
 				A372F00F21F95F67004CEDE9 /* Rank.swift in Sources */,
 				A372F00D21F95F67004CEDE9 /* CardStack.swift in Sources */,
 				A372F02421F95F98004CEDE9 /* Player.swift in Sources */,

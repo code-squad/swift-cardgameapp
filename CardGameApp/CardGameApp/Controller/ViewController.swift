@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-    private var cardViews: [CardView]!
+    private var cardStackView: CardStacksView!
     private var cardViewFactory: CardViewFactory?
     private var cardDeck: CardDeck
 
@@ -46,7 +46,7 @@ class ViewController: UIViewController {
     private func setCardViews() {
         addCardSpaceViews()
         addCardDeckView()
-        addCardViews()
+        addCardStacksView()
     }
 
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
@@ -76,21 +76,17 @@ extension ViewController {
         }
     }
 
-    private func addCardViews() {
+    private func addCardStacksView() {
         let cardStacks = CardStacks(from: cardDeck)
-        if let cardStackViews = cardViewFactory?.createStackViews(of: cardStacks, line: 2) {
-            cardStackViews.forEach {
-                $0.addAllSubviews { [unowned self] view in self.view.addSubview(view) }
-            }
+        if let cardStackView = cardViewFactory?.createStackViews(of: cardStacks, line: 2) {
+            self.cardStackView = cardStackView
+            view.addSubview(self.cardStackView)
         }
     }
 
     private func replaceImagesOfCardViews() {
-        guard let cards = cardDeck.removeMultiple(by: 7) else { return }
-        for (index, imageName) in cards.imageNames.enumerated() {
-            guard index < cardViews.count else { return }
-            cardViews[index].setImage(named: imageName)
-        }
+        let cardStacks = CardStacks(from: cardDeck)
+        cardStackView.setImages(named: cardStacks.imageNames)
     }
 
 }
