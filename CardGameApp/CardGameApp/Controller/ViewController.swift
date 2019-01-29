@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     private var cardStackView: CardStacksView!
+    private var cardDeckView: CardStackView!
     private var cardViewFactory: CardViewFactory?
     private var cardDeck: CardDeck
 
@@ -69,10 +70,9 @@ extension ViewController {
     }
 
     private func addCardDeckView() {
-        guard let card = cardDeck.removeOne() else { return }
-        let aCard = CardStack(cards: [card])
-        if let cardViews = cardViewFactory?.createViews(of: aCard, line: 1, align: .right) {
-            cardViews.forEach { view.addSubview($0) }
+        if let cardDeckView = cardViewFactory?.createDeckView(of: cardDeck, line: 1, align: .right) {
+            self.cardDeckView = cardDeckView
+            view.addSubview(self.cardDeckView)
         }
     }
 

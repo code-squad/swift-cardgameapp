@@ -81,19 +81,16 @@ struct CardViewFactory {
         return cardStacksView
     }
 
-    func createViews(of cards: CardStack, line: Int, align: Align = .left) -> [CardView] {
-        var cardViews: [CardView] = []
+    func createDeckView(of cardDeck: CardDeck, line: Int, align: Align = .left) -> CardStackView {
+        let cardStackView = CardStackView()
         let topMargin = calculateTopMargin(of: line)
-        var positionX = positionXOfFirstView(of: viewWidth, aligned: align)
-        let direction = align.rawValue
-        for imageName in cards.imageNames {
-            let origin = CGPoint(x: positionX, y: topMargin)
+        let positionX = positionXOfFirstView(of: viewWidth, aligned: align)
+        let origin = CGPoint(x: positionX, y: topMargin)
+        for _ in 0..<cardDeck.count() {
             let cardView = CardView(origin: origin, width: viewWidth)
-            cardView.setImage(named: imageName)
-            cardViews.append(cardView)
-            positionX += (viewWidth + sideMargin) * direction
+            cardStackView.addCardView(cardView)
         }
-        return cardViews
+        return cardStackView
     }
 
     func createSpaceViews(spaces: Int, line: Int, align: Align = .left) -> [CardSpaceView] {
