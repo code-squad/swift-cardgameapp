@@ -100,6 +100,9 @@
                                     <constraint firstAttribute="width" secondItem="AQL-2f-fX4" secondAttribute="height" multiplier="1:1.27" id="auQ-rE-RFW"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="refresh" translatesAutoresizingMaskIntoConstraints="NO" id="7k6-7c-8nx">
+                                <rect key="frame" x="369" y="37.333333333333343" width="27.333333333333314" height="34.666666666666657"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -111,11 +114,15 @@
                             <constraint firstItem="O7l-RG-iyv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="CHF-i5-CTO"/>
                             <constraint firstItem="aX0-iJ-Fbg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="CLm-N9-e62"/>
                             <constraint firstItem="b2p-zw-2jS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="E6M-QA-3dh"/>
+                            <constraint firstItem="7k6-7c-8nx" firstAttribute="width" secondItem="O7l-RG-iyv" secondAttribute="width" multiplier="0.5" id="FIQ-Py-Ork"/>
+                            <constraint firstItem="7k6-7c-8nx" firstAttribute="centerX" secondItem="tpJ-hb-e9C" secondAttribute="centerX" id="Lyw-ju-x32"/>
                             <constraint firstItem="O7l-RG-iyv" firstAttribute="width" secondItem="ZhN-hA-deE" secondAttribute="width" id="Tzd-87-3M9"/>
                             <constraint firstItem="aX0-iJ-Fbg" firstAttribute="width" secondItem="5CJ-7Y-FUp" secondAttribute="width" id="avj-wN-TTx"/>
                             <constraint firstItem="O7l-RG-iyv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="eSa-ty-5bG"/>
+                            <constraint firstItem="7k6-7c-8nx" firstAttribute="centerY" secondItem="O7l-RG-iyv" secondAttribute="centerY" id="fH6-2o-R3u"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="b2p-zw-2jS" secondAttribute="trailing" constant="4" id="faP-Ng-caO"/>
                             <constraint firstItem="CfC-ea-G1Y" firstAttribute="width" secondItem="WeL-AH-uKl" secondAttribute="width" id="inC-1z-NWN"/>
+                            <constraint firstItem="7k6-7c-8nx" firstAttribute="height" secondItem="O7l-RG-iyv" secondAttribute="height" multiplier="0.5" id="isz-VB-bkd"/>
                             <constraint firstItem="AQL-2f-fX4" firstAttribute="width" secondItem="Yfn-th-Qzm" secondAttribute="width" id="pHq-um-FCG"/>
                             <constraint firstItem="AQL-2f-fX4" firstAttribute="leading" secondItem="aX0-iJ-Fbg" secondAttribute="trailing" constant="4" id="s4B-dl-ZAQ"/>
                         </constraints>
@@ -130,4 +137,7 @@
             <point key="canvasLocation" x="34.782608695652179" y="23.64130434782609"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="refresh" width="96" height="96"/>
+    </resources>
 </document>
