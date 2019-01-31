@@ -68,8 +68,8 @@ class ViewController: UIViewController {
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         super.motionEnded(motion, with: event)
         if motion == .motionShake {
-            resetCardDeckView()
             cardDeck.reset()
+            resetCardDeckView()
             replaceImagesOfCardViews()
         }
     }
@@ -110,7 +110,9 @@ extension ViewController {
     private func resetCardDeckView() {
         while(!cardDeckOpenedView.isEmpty) {
             guard let cardView = cardDeckOpenedView.pop() else { return }
+            guard let card = cardDeck.removeOne() else { return }
             cardView.flip()
+            cardView.viewModel = CardViewModel(card: card)
             cardDeckView.push(cardView)
         }
     }
