@@ -72,50 +72,77 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O7l-RG-iyv" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                            <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O7l-RG-iyv" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
                                 <rect key="frame" x="4" y="20" width="54.666666666666664" height="69.333333333333329"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="O7l-RG-iyv" secondAttribute="height" multiplier="1:1.27" id="2pq-zL-p5K"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CfC-ea-G1Y" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                            <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CfC-ea-G1Y" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
                                 <rect key="frame" x="62.666666666666657" y="20" width="54.333333333333343" height="69.333333333333329"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="CfC-ea-G1Y" secondAttribute="height" multiplier="1:1.27" id="xn6-Nz-qBy"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aX0-iJ-Fbg" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                            <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aX0-iJ-Fbg" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
                                 <rect key="frame" x="121.00000000000001" y="20" width="54.666666666666671" height="69.333333333333329"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="aX0-iJ-Fbg" secondAttribute="height" multiplier="1:1.27" id="jY9-jg-vmi"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQL-2f-fX4" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                            <view tag="4" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AQL-2f-fX4" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
                                 <rect key="frame" x="179.66666666666666" y="20" width="54.666666666666657" height="69.333333333333329"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="AQL-2f-fX4" secondAttribute="height" multiplier="1:1.27" id="auQ-rE-RFW"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ul2-Rk-fzr">
+                            <view tag="6" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ul2-Rk-fzr">
                                 <rect key="frame" x="355.33333333333331" y="20" width="54.666666666666686" height="69.333333333333329"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="refresh" translatesAutoresizingMaskIntoConstraints="NO" id="7k6-7c-8nx">
                                 <rect key="frame" x="369" y="37.333333333333343" width="27.333333333333314" height="34.666666666666657"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e3r-pT-kXv">
+                            <view tag="5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e3r-pT-kXv">
                                 <rect key="frame" x="267.66666666666669" y="20" width="54.666666666666686" height="69.333333333333329"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="q7U-w3-WSi">
+                                <rect key="frame" x="4" y="100" width="406" height="267"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="OWk-Jp-Ng8">
+                                        <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="69.333333333333329"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="qoc-WV-G6A">
+                                        <rect key="frame" x="58.666666666666657" y="0.0" width="54.333333333333343" height="267"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="2w5-dK-jOR">
+                                        <rect key="frame" x="117.00000000000001" y="0.0" width="54.666666666666671" height="50"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="Cgd-7s-eES">
+                                        <rect key="frame" x="175.66666666666666" y="0.0" width="54.666666666666657" height="50"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="yIg-M8-TlF">
+                                        <rect key="frame" x="234.33333333333334" y="0.0" width="54.666666666666657" height="50"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="PKG-ty-sCU">
+                                        <rect key="frame" x="293" y="0.0" width="54.333333333333314" height="50"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="vEV-Jz-wbB">
+                                        <rect key="frame" x="351.33333333333331" y="0.0" width="54.666666666666686" height="50"/>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="b2p-zw-2jS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="0Mz-jP-El8"/>
                             <constraint firstItem="aX0-iJ-Fbg" firstAttribute="leading" secondItem="CfC-ea-G1Y" secondAttribute="trailing" constant="4" id="1lF-oF-Lww"/>
+                            <constraint firstItem="q7U-w3-WSi" firstAttribute="top" secondItem="b2p-zw-2jS" secondAttribute="top" id="1oJ-zd-ZfN"/>
                             <constraint firstItem="CfC-ea-G1Y" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="2rc-Te-tNk"/>
                             <constraint firstItem="ul2-Rk-fzr" firstAttribute="centerX" secondItem="7k6-7c-8nx" secondAttribute="centerX" id="2xE-Zs-Nta"/>
                             <constraint firstItem="CfC-ea-G1Y" firstAttribute="leading" secondItem="O7l-RG-iyv" secondAttribute="trailing" constant="4" id="4MP-Qw-Woj"/>
@@ -129,6 +156,8 @@
                             <constraint firstItem="ul2-Rk-fzr" firstAttribute="width" secondItem="tpJ-hb-e9C" secondAttribute="width" id="RUq-l1-Rct"/>
                             <constraint firstItem="O7l-RG-iyv" firstAttribute="width" secondItem="ZhN-hA-deE" secondAttribute="width" id="Tzd-87-3M9"/>
                             <constraint firstItem="ul2-Rk-fzr" firstAttribute="centerY" secondItem="7k6-7c-8nx" secondAttribute="centerY" id="V22-ZX-JdK"/>
+                            <constraint firstItem="q7U-w3-WSi" firstAttribute="trailing" secondItem="b2p-zw-2jS" secondAttribute="trailing" id="XYg-PS-0JH"/>
+                            <constraint firstItem="q7U-w3-WSi" firstAttribute="leading" secondItem="b2p-zw-2jS" secondAttribute="leading" id="aRy-Ua-JFi"/>
                             <constraint firstItem="aX0-iJ-Fbg" firstAttribute="width" secondItem="5CJ-7Y-FUp" secondAttribute="width" id="avj-wN-TTx"/>
                             <constraint firstItem="O7l-RG-iyv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="eSa-ty-5bG"/>
                             <constraint firstItem="7k6-7c-8nx" firstAttribute="centerY" secondItem="O7l-RG-iyv" secondAttribute="centerY" id="fH6-2o-R3u"/>
@@ -145,7 +174,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="cardsStackView" destination="b2p-zw-2jS" id="dDY-sy-IQ9"/>
+                        <outlet property="cardsStackView" destination="q7U-w3-WSi" id="dac-aH-kAU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

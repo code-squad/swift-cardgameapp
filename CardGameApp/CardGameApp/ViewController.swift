@@ -34,8 +34,6 @@ class ViewController: UIViewController {
         guard let image = UIImage(named: "bg_pattern") else { return }
         self.view.backgroundColor = UIColor(patternImage: image)
         
-        self.deck = Deck()
-        self.deck?.shuffle()
         setCards()
     }
     
@@ -43,10 +41,13 @@ class ViewController: UIViewController {
     
     private func setCards() {
         
-        for subview in cardsStackView.arrangedSubviews {
-            guard let subImageView = subview as? UIImageView else { return }
-            guard let card = self.deck?.draw(few: 1).pop() else { continue }
-            subImageView.image = card.image()
+        self.deck = Deck()
+        self.deck?.shuffle()
+        let countOfArrangeViews = cardsStackView.arrangedSubviews.count
+        guard let cardStacks = self.deck?.willSetDeck(few: countOfArrangeViews) else { return }
+        for index in 0..<countOfArrangeViews {
+            guard let subStackView = cardsStackView.arrangedSubviews[index] as? UIStackView else { return }
+            subStackView.addCardViews(by: cardStacks[index])
         }
     }
     
@@ -66,5 +67,24 @@ extension Card {
     func image() -> UIImage? {
         let name = description
         return UIImage(named: name)
+    }
+}
+
+extension UIStackView {
+    func addCardViews(by cardStack: CardStack) {
+        
+        let addCardView = { [unowned self] (card: Card) -> Void in
+            let cardView = UIImageView(image: card.image())
+            let aspectRatioConstraint = NSLayoutConstraint(item: cardView,
+                                                           attribute: .height,
+                                                           relatedBy: .equal,
+                                                           toItem: cardView,
+                                                           attribute: .width,
+                                                           multiplier: 1.27,
+                                                           constant: 0)
+            cardView.addConstraint(aspectRatioConstraint)
+            self.addArrangedSubview(cardView)
+        }
+        cardStack.performByCards(addCardView)
     }
 }

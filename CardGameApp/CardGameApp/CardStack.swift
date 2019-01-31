@@ -62,4 +62,11 @@ class CardStack : CustomStringConvertible {
         let maxValuedCard = handRanking[0].max { cardA, cardB in cardA.score() < cardB.score()}
         return maxValuedCard?.score() ?? 0
     }
+    
+    func performByCards(_ addCardView: (Card) -> Void) {
+        
+        for card in cards {
+            addCardView(card)
+        }
+    }
 }

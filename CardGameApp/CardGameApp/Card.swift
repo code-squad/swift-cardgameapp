@@ -20,7 +20,7 @@ class Card : CustomStringConvertible {
     
     private let suit: Suit
     private let rank: Rank
-    private var isFront: Bool = true
+    private var isFront: Bool = false
     
     //MARK: - Methods
     //MARK: Initialization
