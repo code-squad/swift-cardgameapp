@@ -55,27 +55,35 @@ struct CardViewFactory {
         return positionX + move
     }
 
-    private func createStackView(by imageNames: [String?], at point: CGPoint) -> CardStackView {
+    private func createStackView(of cardStack: CardStack, at point: CGPoint) -> CardStackView {
         let cardStackView = CardStackView()
         var positionY = point.y
-        for imageName in imageNames {
+        
+        for card in cardStack {
             let origin = CGPoint(x: point.x, y: positionY)
+            
             let cardView = CardView(origin: origin, size: viewSize)
-            cardView.setImage(named: imageName)
+            cardView.setImage(named: card.imageName)
+            
             cardStackView.push(cardView)
             positionY += overlap
         }
         return cardStackView
     }
 
-    func createStackViews(of stacks: CardStacks, align: Align = .left) -> CardStacksView {
+    func createStackViews(of cardStacks: CardStacks, align: Align = .left) -> CardStacksView {
         let cardStacksView = CardStacksView()
+        
         let topMargin = firstTopMargin + topMarginInterval
         var positionX = positionXOfFirstView(aligned: align)
         let direction = align.rawValue
-        for imageNames in stacks.imageNames {
+        
+        for cardStack in cardStacks {
             let origin = CGPoint(x: positionX, y: topMargin)
-            let cardStackView = createStackView(by: imageNames, at: origin)
+            
+            let cardStackView = createStackView(of: cardStack, at: origin)
+            cardStackView.viewModel = CardStackViewModel(cardStack: cardStack)
+            
             cardStacksView.addCardStackView(cardStackView)
             positionX += (viewSize.width + sideMargin) * direction
         }

@@ -31,4 +31,23 @@ class CardStacks: CustomStringConvertible {
             .joined(separator: "\n")
         return allCardStacks
     }
+
+    /* MARK: Sequence, IteratorProtocol */
+    private var iterator = 0
+
+}
+
+extension CardStacks: Sequence, IteratorProtocol {
+
+    typealias Element = CardStack
+
+    func next() -> CardStacks.Element? {
+        if iterator < cardStacks.count {
+            defer { iterator += 1 }
+            return cardStacks[iterator]
+        }
+        iterator = 0
+        return nil
+    }
+
 }
