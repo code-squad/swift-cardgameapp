@@ -12,3 +12,16 @@ protocol CardImageViewDataSource: AnyObject {
     
     func image() -> UIImage?
 }
+
+extension Card: CardImageViewDataSource {
+    
+    func image() -> UIImage? {
+        
+        if isFront {
+            let name = description
+            return UIImage(named: name)
+        } else {
+            return UIImage(named: "card_back")
+        }
+    }
+}

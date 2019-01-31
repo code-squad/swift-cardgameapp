@@ -64,17 +64,11 @@ class ViewController: UIViewController {
     
 }
 
-extension Card {
-    func image() -> UIImage? {
-        let name = description
-        return UIImage(named: name)
-    }
-}
-
 extension UIStackView {
     func addCardViews(by cardStack: CardStack) {
         
         let addCardView = { [unowned self] (card: Card) -> Void in
+            
             let cardView = CardImageView(card: card)
             self.addArrangedSubview(cardView)
         }

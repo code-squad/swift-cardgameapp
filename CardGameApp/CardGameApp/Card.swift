@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Card : CustomStringConvertible, CardImageViewDataSource {
+class Card : CustomStringConvertible {
     
     //MARK: - Properties
     
@@ -20,7 +20,7 @@ class Card : CustomStringConvertible, CardImageViewDataSource {
     
     private let suit: Suit
     private let rank: Rank
-    private var isFront: Bool = false
+    private(set) var isFront: Bool = false
     
     //MARK: - Methods
     //MARK: Initialization
@@ -38,5 +38,15 @@ class Card : CustomStringConvertible, CardImageViewDataSource {
     
     func score() -> Int {
         return self.rank.rawValue * 10 + self.suit.rawValue
+    }
+    
+    func turnOver() {
+        self.isFront = !isFront
+    }
+    
+    static func ==(lhs: Card, rhs: Card?) -> Bool {
+        
+        guard let rhs = rhs else { return false }
+        return lhs.rank == rhs.rank && lhs.suit == rhs.suit
     }
 }

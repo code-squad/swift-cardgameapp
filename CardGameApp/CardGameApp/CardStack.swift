@@ -66,6 +66,9 @@ class CardStack : CustomStringConvertible {
     func performByCards(_ addCardView: (Card) -> Void) {
         
         for card in cards {
+            if card == cards.last {
+                card.turnOver()
+            }
             addCardView(card)
         }
     }
