@@ -75,7 +75,7 @@ extension UIStackView {
     func addCardViews(by cardStack: CardStack) {
         
         let addCardView = { [unowned self] (card: Card) -> Void in
-            let cardView = CardImageView(image: card.image())
+            let cardView = CardImageView(card: card)
             self.addArrangedSubview(cardView)
         }
         cardStack.performByCards(addCardView)

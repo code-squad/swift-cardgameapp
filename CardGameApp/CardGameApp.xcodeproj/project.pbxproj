@@ -30,6 +30,7 @@
 		7D6E535D21FEEC1D00DFC342 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E534921FEEC1C00DFC342 /* Deck.swift */; };
 		7D6E535F21FF541A00DFC342 /* BlankSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E535E21FF541A00DFC342 /* BlankSpaceView.swift */; };
 		7DF972B92202AC2A00E947B1 /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF972B82202AC2A00E947B1 /* CardImageView.swift */; };
+		7DF972BB2202B1B000E947B1 /* CardImageViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF972BA2202B1B000E947B1 /* CardImageViewDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		7D6E534921FEEC1C00DFC342 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		7D6E535E21FF541A00DFC342 /* BlankSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankSpaceView.swift; sourceTree = "<group>"; };
 		7DF972B82202AC2A00E947B1 /* CardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
+		7DF972BA2202B1B000E947B1 /* CardImageViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageViewDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				7D6E533821FEEC1A00DFC342 /* CardStack.swift */,
 				7D6E533D21FEEC1B00DFC342 /* Card.swift */,
 				7DF972B82202AC2A00E947B1 /* CardImageView.swift */,
+				7DF972BA2202B1B000E947B1 /* CardImageViewDataSource.swift */,
 				7D6E533421FEEC1900DFC342 /* CardProperty */,
 				7D6E534321FEEC1C00DFC342 /* Dealer.swift */,
 				7D6E533721FEEC1A00DFC342 /* Participant.swift */,
@@ -220,6 +223,7 @@
 				7D6E535D21FEEC1D00DFC342 /* Deck.swift in Sources */,
 				7D6E535C21FEEC1D00DFC342 /* CardGameSetter.swift in Sources */,
 				7D6E535521FEEC1D00DFC342 /* CardGameDeck.swift in Sources */,
+				7DF972BB2202B1B000E947B1 /* CardImageViewDataSource.swift in Sources */,
 				7D6E535A21FEEC1D00DFC342 /* GameType.swift in Sources */,
 				7D6E535B21FEEC1D00DFC342 /* NumberOfParticipant.swift in Sources */,
 				7D6E534C21FEEC1D00DFC342 /* Participant.swift in Sources */,

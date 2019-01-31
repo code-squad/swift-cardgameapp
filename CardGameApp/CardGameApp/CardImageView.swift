@@ -10,9 +10,30 @@ import UIKit
 
 class CardImageView: UIImageView {
 
-    override func layoutSubviews() {
+    //MARK: - Properties
+    
+    weak var dataSource: CardImageViewDataSource?
+    
+    //MARK: - Methods
+    //MARK: Initialization
+    
+    init(card: CardImageViewDataSource) {
         
-        super.layoutSubviews()
+        self.dataSource = card
+        super.init(image: dataSource?.image())
+        addAspectRatioConstraint()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        
+        super.init(coder: aDecoder)
+        addAspectRatioConstraint()
+    }
+    
+    //MARK: Private
+    
+    private func addAspectRatioConstraint() {
+        
         let aspectRatioConstraint = NSLayoutConstraint(item: self,
                                                        attribute: .height,
                                                        relatedBy: .equal,
@@ -22,6 +43,6 @@ class CardImageView: UIImageView {
                                                        constant: 0)
         self.addConstraint(aspectRatioConstraint)
     }
-    
-
 }
+
+

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Card : CustomStringConvertible {
+class Card : CustomStringConvertible, CardImageViewDataSource {
     
     //MARK: - Properties
     
