@@ -75,15 +75,7 @@ extension UIStackView {
     func addCardViews(by cardStack: CardStack) {
         
         let addCardView = { [unowned self] (card: Card) -> Void in
-            let cardView = UIImageView(image: card.image())
-            let aspectRatioConstraint = NSLayoutConstraint(item: cardView,
-                                                           attribute: .height,
-                                                           relatedBy: .equal,
-                                                           toItem: cardView,
-                                                           attribute: .width,
-                                                           multiplier: 1.27,
-                                                           constant: 0)
-            cardView.addConstraint(aspectRatioConstraint)
+            let cardView = CardImageView(image: card.image())
             self.addArrangedSubview(cardView)
         }
         cardStack.performByCards(addCardView)
