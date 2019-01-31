@@ -220,7 +220,64 @@ override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) 
 }
 ```
 
- <br>
+<br>
+
+ #### + ViewModel 클래스 추가
+
+`CardView` , `CardStackView` , `CardStacksView` 에 1:1로 대응하는 뷰 모델 클래스 `CardViewModel` , `CardStackViewModel` , `CardStacksViewModel` 을 구현했습니다. 아래는 그 중 **CardViewModel** 예시이고, 이 클래스가 **CardView** 에 어떤 방식으로 쓰였는지 나와있습니다.
+
+```swift
+protocol CardViewModelDelegate {
+    init(card: Card)
+    var imageName: String? { get }
+    var imageDidChange: ((CardViewModelDelegate) -> ())? { get set }
+    func flip()
+}
+
+class CardViewModel: CardViewModelDelegate {
+    private var card: Card
+
+    required init(card: Card) {
+        self.card = card
+    }
+
+    var imageName: String? {
+        didSet {
+            imageDidChange?(self)
+        }
+    }
+
+    var imageDidChange: ((CardViewModelDelegate) -> ())?
+
+    func flip() {
+        card.flip()
+        imageName = card.imageName
+    }
+
+}
+```
+
+`CardView` 는 프로퍼티로 `CardViewModelDelegate` 를 갖고있고, 이 뷰 모델의 클로저 프로퍼티를 카드 뷰 내부에서 지정해줍니다. 따라서 카드 뷰가 **flip()** 되면, 뷰 모델에서 해당 카드를 플립하고 뷰 모델의 **이미지 이름을 갱신**합니다. 뷰 모델의 이미지 이름은 **didSet** 될 때마다, **imageDidChage** 클로저를 실행하고 이 클로저는 카드 뷰 안에서 이미지를 갱신해줍니다.
+
+```swift
+class CardView: UIImageView {
+
+    var viewModel: CardViewModelDelegate! {
+        didSet {
+            viewModel.imageDidChange = { [unowned self] viewModel in
+                self.setImage(named: viewModel.imageName)
+            }
+        }
+    }
+    ...
+
+    func flip() {
+        viewModel.flip()
+    }
+}
+```
+
+<br>
 
 ### 실행화면
 
