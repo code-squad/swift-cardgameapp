@@ -55,11 +55,11 @@ struct CardViewFactory {
         return positionX + move
     }
 
-    private func createStackView(of cardStack: CardStack, at point: CGPoint) -> CardStackView {
+    private func createStackView(by imageNames: [String?], at point: CGPoint) -> CardStackView {
         let cardStackView = CardStackView()
         var positionY = point.y
         
-        for imageName in cardStack.imageNames {
+        for imageName in imageNames {
             let origin = CGPoint(x: point.x, y: positionY)
             
             let cardView = CardView(origin: origin, size: viewSize)
@@ -73,18 +73,18 @@ struct CardViewFactory {
 
     func createStackViews(of cardStacks: CardStacks, align: Align = .left) -> CardStacksView {
         let cardStacksView = CardStacksView()
+        cardStacksView.viewModel = CardStacksViewModel(cardStacks: cardStacks)
         
         let topMargin = firstTopMargin + topMarginInterval
         var positionX = positionXOfFirstView(aligned: align)
         let direction = align.rawValue
         
-        for cardStack in cardStacks {
+        for imageNames in cardStacks.imageNames {
             let origin = CGPoint(x: positionX, y: topMargin)
             
-            let cardStackView = createStackView(of: cardStack, at: origin)
-            cardStackView.viewModel = CardStackViewModel(cardStack: cardStack)
-            
+            let cardStackView = createStackView(by: imageNames, at: origin)
             cardStacksView.push(cardStackView)
+            
             positionX += (viewSize.width + sideMargin) * direction
         }
         return cardStacksView

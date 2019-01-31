@@ -110,16 +110,17 @@ extension ViewController {
     private func resetCardDeckView() {
         while(!cardDeckOpenedView.isEmpty) {
             guard let cardView = cardDeckOpenedView.pop() else { return }
-            guard let card = cardDeck.removeOne() else { return }
+            guard let newCard = cardDeck.removeOne() else { return }
             cardView.flip()
-            cardView.viewModel = CardViewModel(card: card)
+            cardView.viewModel = CardViewModel(card: newCard)
             cardDeckView.push(cardView)
         }
     }
 
     private func replaceImagesOfCardViews() {
-        let cardStacks = CardStacks(from: cardDeck)
-        cardStacksView.setImages(named: cardStacks.imageNames)
+        let newCardStacks = CardStacks(from: cardDeck)
+        cardStacksView.viewModel = CardStacksViewModel(cardStacks: newCardStacks)
+        cardStacksView.refresh()
     }
 
 }

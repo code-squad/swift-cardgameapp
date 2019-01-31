@@ -11,6 +11,14 @@ import UIKit
 class CardStacksView: UIView {
     private var cardStackViews: [CardStackView]
 
+    var viewModel: CardStacksViewModelDelegate! {
+        didSet {
+            viewModel.imagesDidChange = { [unowned self] viewModel in
+                self.setImages(named: viewModel.imageNames)
+            }
+        }
+    }
+
     required init?(coder aDecoder: NSCoder) {
         cardStackViews = []
         super.init(coder: aDecoder)
@@ -30,11 +38,15 @@ class CardStacksView: UIView {
         addSubview(cardStackView)
     }
 
-    func setImages(named imageNamesArray: [[String?]]) {
+    func setImages(named imageNamesArray: [[String?]?]?) {
+        guard let imageNamesArray = imageNamesArray else { return }
         for (index, imageNames) in imageNamesArray.enumerated() {
             guard index < cardStackViews.count else { return }
             cardStackViews[index].setImages(named: imageNames)
         }
     }
 
+    func refresh() {
+        viewModel.refresh()
+    }
 }
