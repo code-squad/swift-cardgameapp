@@ -71,7 +71,7 @@ struct CardViewFactory {
         return cardStackView
     }
 
-    func createStackViews(of cardStacks: CardStacks, align: Align = .left) -> CardStacksView {
+    func createStacksView(of cardStacks: CardStacks, align: Align = .left) -> CardStacksView {
         let cardStacksView = CardStacksView()
         cardStacksView.viewModel = CardStacksViewModel(cardStacks: cardStacks)
         
