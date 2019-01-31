@@ -17,11 +17,7 @@ extension Card: CardImageViewDataSource {
     
     func image() -> UIImage? {
         
-        if isFront {
-            let name = description
-            return UIImage(named: name)
-        } else {
-            return UIImage(named: "card_back")
-        }
+        let name = description
+        return isFront ? UIImage(named: name) : UIImage(named: "card_back")
     }
 }

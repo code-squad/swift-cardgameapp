@@ -175,6 +175,7 @@
                     </view>
                     <connections>
                         <outlet property="cardsStackView" destination="q7U-w3-WSi" id="dac-aH-kAU"/>
+                        <outlet property="deckView" destination="ul2-Rk-fzr" id="kbS-Kb-arj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

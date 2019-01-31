@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     //MARK: - Properties
     
     var deck: Deck?
+    @IBOutlet weak var deckView: UIView!
     
     //MARK: IBOutlet
     
@@ -43,6 +44,24 @@ class ViewController: UIViewController {
         
         self.deck = Deck()
         self.deck?.shuffle()
+        
+        addCardsStackViews()
+        addDeckView()
+    }
+    
+    private func addDeckView() {
+        
+        let addDeckView = { [unowned self] (card: Card) -> Void in
+            
+            let cardView = CardImageView(card: card)
+            cardView.frame = self.deckView.frame
+            self.view.addSubview(cardView)
+        }
+        deck?.performByDeck(addDeckView)
+    }
+    
+    private func addCardsStackViews() {
+        
         let countOfArrangeViews = cardsStackView.arrangedSubviews.count
         guard let cardStacks = self.deck?.willSetDeck(few: countOfArrangeViews) else { return }
         for index in 0..<countOfArrangeViews {
