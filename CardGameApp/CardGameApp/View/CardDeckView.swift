@@ -28,7 +28,7 @@ class CardDeckView: CardStackView {
         if willBeEmpty() {
             setRefreshImage()
         }
-        return super.removeLast()
+        return super.pop()
     }
 
 }

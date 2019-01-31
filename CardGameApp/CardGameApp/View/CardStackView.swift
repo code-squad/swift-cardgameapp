@@ -15,7 +15,6 @@ class CardStackView: UIImageView {
         didSet {
             viewModel.imagesDidChange = { [unowned self] viewModel in
                 self.setImages(named: viewModel.imageNames)
-                
             }
         }
     }
@@ -45,7 +44,7 @@ class CardStackView: UIImageView {
         return false
     }
 
-    func addCardView(_ cardView: CardView) {
+    func push(_ cardView: CardView) {
         cardViews.append(cardView)
         addSubview(cardView)
     }
@@ -58,7 +57,7 @@ class CardStackView: UIImageView {
         }
     }
 
-    func removeLast() -> CardView? {
+    func pop() -> CardView? {
         if cardViews.isEmpty { return nil }
         let cardView = cardViews.removeLast()
         cardView.removeFromSuperview()

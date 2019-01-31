@@ -32,6 +32,7 @@ class CardStackViewModel: CardStackViewModelDelegate {
 
     func flipLast() {
         cardStack.flipLast()
+        imageNames = cardStack.imageNames
     }
 
 }

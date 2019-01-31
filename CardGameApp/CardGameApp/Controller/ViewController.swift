@@ -61,7 +61,7 @@ class ViewController: UIViewController {
         if touch.view == cardDeckView {
             guard let cardView = cardDeckView.removeLastWithRefreshImage() else { return }
             cardView.flip()
-            cardDeckOpenedView.addCardView(cardView)
+            cardDeckOpenedView.push(cardView)
         }
     }
 
@@ -109,9 +109,9 @@ extension ViewController {
 
     private func resetCardDeckView() {
         while(!cardDeckOpenedView.isEmpty) {
-            guard let cardView = cardDeckOpenedView.removeLast() else { return }
+            guard let cardView = cardDeckOpenedView.pop() else { return }
             cardView.flip()
-            cardDeckView.addCardView(cardView)
+            cardDeckView.push(cardView)
         }
     }
 
