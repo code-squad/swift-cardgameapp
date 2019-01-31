@@ -2,6 +2,7 @@
 
 1. <a href="#1-카드게임판-시작하기">카드게임판 시작하기</a>
 2. <a href="#2-카드-UI">카드 UI</a>
+3. <a href="#3-카드스택-화면-표시">카드스택 화면 표시</a>
 
 <br>
 
@@ -160,3 +161,73 @@ override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) 
 
 <br>
 
+## 3. 카드스택 화면 표시
+
+### 요구사항
+
+- `CardDeck` 객체를 활용해 주어진 화면처럼 카드스택 형태의 뷰 구현하기
+  - 카드스택을 관리하는 모델 객체 설계
+  - 각 스택 맨 위 카드만 앞면으로 뒤집기
+- 카드스택에 표시한 카드를 제외한 나머지 카드를 우측 상단에 모두 뒤집어 쌓아놓기
+- 우측 상단 카드를 터치하면 카드를 뒤집어 좌측에 표시하기
+- 남은 카드가 없을 시, 리프레시 이미지 표시하기
+- Shake 이벤트 발생 시, `CardDeck` 을 초기화하고 처음 상태로 되돌리기
+
+### 구현방법
+
+#### 1. 카드스택 형태의 뷰 구현하기
+
+`CardStackView` 클래스를 추가해 서브 뷰로 `CardView` 를 갖도록 구현했습니다. `CardViewFactory` 객체에서 가로 방향으로 카드 뷰를 추가하는 과정을 카드 스택 뷰를 추가하도록 수정했습니다. 
+
+<br>
+
+#### 2. 카드 덱의 나머지 카드 우측 상단에 모두 쌓아놓기 / 터치 시, 카드 뒤집어 좌측에 표시
+
+`CardStackView` 를 상속받는 `CardDeckView` 클래스를 추가했고, 우측 상단에 해당 뷰를 추가하여 카드 덱의 나머지 카드 이미지 뷰를 쌓아놓았습니다.
+
+위 카드 덱 뷰의 좌측에 `CardDeckView` 를 하나 더 추가하여 cardDeckOpenedView라고 이름지었습니다. 위의 카드 덱 뷰를 터치 시에 좌측 덱 뷰로 뒤집혀 이동하도록 구현했습니다.
+
+#### + 남은 카드가 없을 시, 리프레시 이미지 표시하기
+
+그리고 카드 덱 뷰에 더 이상 터치할 카드 뷰가 남지 않았을 경우, 리프레시 이미지를 표시해주기 위한 메소드 `popWithRefreshImage()` 를 사용했습니다.
+
+```swift
+override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    super.touchesBegan(touches, with: event)
+    guard let touch = touches.first else { return }
+    if touch.view == cardDeckView {
+        guard let cardView = cardDeckView.popWithRefreshImage() else { return }
+        cardView.flip()
+        cardDeckOpenedView.push(cardView)
+    }
+}
+```
+
+<br>
+
+#### 3. Shake 이벤트 발생 시,  모두 초기 상태로 되돌리기
+
+전 단계에서 `resetCardDeckView()` 메소드를 추가해, 위 2번에서 터치 시에 우측 카드 덱 뷰에서 좌측 카드 덱 뷰로 이동한 모든 카드 뷰를 다시 원상복귀시켰습니다.
+
+```swift
+override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+    super.motionEnded(motion, with: event)
+    if motion == .motionShake {
+        cardDeck.reset()
+        resetCardDeckView() // 전 단계 이후에 추가된 메소드
+        replaceImagesOfCardViews()
+    }
+}
+```
+
+ <br>
+
+### 실행화면
+
+> 완성일자: 2019.01.29 22:35
+>
+> 추가수정 완료일자: 2019.02.01 00:32
+
+카드 덱 터치 시, 카드 한 장을 뒤집어 좌측에 표시하고 있습니다. 모든 카드를 뒤집어 소진되었을 시 리프레시 이미지가 표시되고, Shake 모션을 취하면 초기 상태로 되돌립니다.
+
+![Jan-29-2019](./images/step3/Jan-29-2019.gif)
