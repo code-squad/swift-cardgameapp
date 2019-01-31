@@ -16,16 +16,10 @@ protocol CardStackViewModelDelegate {
 }
 
 class CardStackViewModel: CardStackViewModelDelegate {
-    private let cardStack: CardStack
-    private var cardViewModels: [CardViewModel]
+    private var cardStack: CardStack
 
     required init(cardStack: CardStack) {
         self.cardStack = cardStack
-        self.cardViewModels = []
-        for card in cardStack {
-            let cardViewModel = CardViewModel(card: card)
-            cardViewModels.append(cardViewModel)
-        }
     }
 
     var imageNames: [String?]? {
@@ -37,8 +31,7 @@ class CardStackViewModel: CardStackViewModelDelegate {
     var imagesDidChange: ((CardStackViewModelDelegate) -> ())?
 
     func flipLast() {
-        guard let lastCard = cardViewModels.last else { return }
-        lastCard.flip()
+        cardStack.flipLast()
     }
 
 }

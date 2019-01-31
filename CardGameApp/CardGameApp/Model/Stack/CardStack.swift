@@ -47,22 +47,4 @@ class CardStack: CustomStringConvertible {
         return ScoreCalculator.getBestHand(from: cards)
     }
 
-    /* MARK: Sequence, IteratorProtocol */
-    private var iterator = 0
-
-}
-
-extension CardStack: Sequence, IteratorProtocol {
-
-    typealias Element = Card
-
-    func next() -> CardStack.Element? {
-        if iterator < cards.count {
-            defer { iterator += 1 }
-            return cards[iterator]
-        }
-        iterator = 0
-        return nil
-    }
-
 }

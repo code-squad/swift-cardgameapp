@@ -59,11 +59,11 @@ struct CardViewFactory {
         let cardStackView = CardStackView()
         var positionY = point.y
         
-        for card in cardStack {
+        for imageName in cardStack.imageNames {
             let origin = CGPoint(x: point.x, y: positionY)
             
             let cardView = CardView(origin: origin, size: viewSize)
-            cardView.setImage(named: card.imageName)
+            cardView.setImage(named: imageName)
             
             cardStackView.push(cardView)
             positionY += overlap
@@ -84,7 +84,7 @@ struct CardViewFactory {
             let cardStackView = createStackView(of: cardStack, at: origin)
             cardStackView.viewModel = CardStackViewModel(cardStack: cardStack)
             
-            cardStacksView.addCardStackView(cardStackView)
+            cardStacksView.push(cardStackView)
             positionX += (viewSize.width + sideMargin) * direction
         }
         return cardStacksView

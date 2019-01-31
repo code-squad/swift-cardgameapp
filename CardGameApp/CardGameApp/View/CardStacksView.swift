@@ -25,7 +25,7 @@ class CardStacksView: UIView {
         self.init(frame: CGRect())
     }
 
-    func addCardStackView(_ cardStackView: CardStackView) {
+    func push(_ cardStackView: CardStackView) {
         cardStackViews.append(cardStackView)
         addSubview(cardStackView)
     }

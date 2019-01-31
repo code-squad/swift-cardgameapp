@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-    private var cardStackView: CardStacksView!
+    private var cardStacksView: CardStacksView!
     private var cardDeckView: CardDeckView!
     private var cardDeckOpenedView: CardDeckView!
     private var cardViewFactory: CardViewFactory?
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         super.touchesBegan(touches, with: event)
         guard let touch = touches.first else { return }
         if touch.view == cardDeckView {
-            guard let cardView = cardDeckView.removeLastWithRefreshImage() else { return }
+            guard let cardView = cardDeckView.popWithRefreshImage() else { return }
             cardView.flip()
             cardDeckOpenedView.push(cardView)
         }
@@ -102,8 +102,8 @@ extension ViewController {
     private func addCardStacksView() {
         let cardStacks = CardStacks(from: cardDeck)
         if let cardStackView = cardViewFactory?.createStackViews(of: cardStacks) {
-            self.cardStackView = cardStackView
-            view.addSubview(self.cardStackView)
+            self.cardStacksView = cardStackView
+            view.addSubview(self.cardStacksView)
         }
     }
 
@@ -117,7 +117,7 @@ extension ViewController {
 
     private func replaceImagesOfCardViews() {
         let cardStacks = CardStacks(from: cardDeck)
-        cardStackView.setImages(named: cardStacks.imageNames)
+        cardStacksView.setImages(named: cardStacks.imageNames)
     }
 
 }

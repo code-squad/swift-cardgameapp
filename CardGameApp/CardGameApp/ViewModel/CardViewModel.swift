@@ -16,7 +16,7 @@ protocol CardViewModelDelegate {
 }
 
 class CardViewModel: CardViewModelDelegate {
-    private let card: Card
+    private var card: Card
 
     required init(card: Card) {
         self.card = card
