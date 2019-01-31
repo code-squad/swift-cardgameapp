@@ -11,3 +11,7 @@
 - preferredStatusBarStyle를 이용하면 StatusBar의 Style을 바꿀수 있다.
 
 ![step-02 실행화면](https://user-images.githubusercontent.com/38850628/51850829-ef010000-2365-11e9-9691-c909f212001d.gif)
+
+### 카드스택 화면 표시
+
+- UIStackView안에 있는 뷰들을 제거하려면 `.removeArrangedSubViews` 대신 `.removeFromSuperview` 을 사용해야한다는 것을 알았다.

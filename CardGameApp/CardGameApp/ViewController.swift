@@ -47,6 +47,7 @@ class ViewController: UIViewController {
         guard let cardStacks = self.deck?.willSetDeck(few: countOfArrangeViews) else { return }
         for index in 0..<countOfArrangeViews {
             guard let subStackView = cardsStackView.arrangedSubviews[index] as? UIStackView else { return }
+            subStackView.removeCardsViews()
             subStackView.addCardViews(by: cardStacks[index])
         }
     }
@@ -86,5 +87,12 @@ extension UIStackView {
             self.addArrangedSubview(cardView)
         }
         cardStack.performByCards(addCardView)
+    }
+    
+    func removeCardsViews() {
+        
+        for subView in arrangedSubviews {
+            subView.removeFromSuperview()
+        }
     }
 }
