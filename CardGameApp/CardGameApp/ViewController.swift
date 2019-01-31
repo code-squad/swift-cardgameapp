@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         let countOfArrangeViews = cardsStackView.arrangedSubviews.count
         guard let cardStacks = self.deck?.willSetDeck(few: countOfArrangeViews) else { return }
         for index in 0..<countOfArrangeViews {
-            guard let subStackView = cardsStackView.arrangedSubviews[index] as? UIStackView else { return }
+            guard let subStackView = cardsStackView.arrangedSubviews[index] as? CardStackView else { return }
             subStackView.removeCardsViews()
             subStackView.addCardViews(by: cardStacks[index])
         }
@@ -59,26 +59,6 @@ class ViewController: UIViewController {
         super.motionEnded(motion, with: event)
         if motion == .motionShake {
             setCards()
-        }
-    }
-    
-}
-
-extension UIStackView {
-    func addCardViews(by cardStack: CardStack) {
-        
-        let addCardView = { [unowned self] (card: Card) -> Void in
-            
-            let cardView = CardImageView(card: card)
-            self.addArrangedSubview(cardView)
-        }
-        cardStack.performByCards(addCardView)
-    }
-    
-    func removeCardsViews() {
-        
-        for subView in arrangedSubviews {
-            subView.removeFromSuperview()
         }
     }
 }

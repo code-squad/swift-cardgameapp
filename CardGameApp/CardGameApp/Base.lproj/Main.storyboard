@@ -114,25 +114,25 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="q7U-w3-WSi">
                                 <rect key="frame" x="4" y="100" width="406" height="267"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="OWk-Jp-Ng8">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="OWk-Jp-Ng8" customClass="CardStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="69.333333333333329"/>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="qoc-WV-G6A">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="qoc-WV-G6A" customClass="CardStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="58.666666666666657" y="0.0" width="54.333333333333343" height="267"/>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="2w5-dK-jOR">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="2w5-dK-jOR" customClass="CardStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="117.00000000000001" y="0.0" width="54.666666666666671" height="50"/>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="Cgd-7s-eES">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="Cgd-7s-eES" customClass="CardStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="175.66666666666666" y="0.0" width="54.666666666666657" height="50"/>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="yIg-M8-TlF">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="yIg-M8-TlF" customClass="CardStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="234.33333333333334" y="0.0" width="54.666666666666657" height="50"/>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="PKG-ty-sCU">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="PKG-ty-sCU" customClass="CardStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="293" y="0.0" width="54.333333333333314" height="50"/>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="vEV-Jz-wbB">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="-50" translatesAutoresizingMaskIntoConstraints="NO" id="vEV-Jz-wbB" customClass="CardStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="351.33333333333331" y="0.0" width="54.666666666666686" height="50"/>
                                     </stackView>
                                 </subviews>
