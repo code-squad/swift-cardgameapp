@@ -151,6 +151,6 @@ class Card : CardInfo {
     
     /// 문자열을 받아서 자기이름과 매칭
     func checkSameName(name: String) -> Bool{
-        return name == self.image() 
+        return name == self.name()
     }
 }
