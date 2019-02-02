@@ -17,7 +17,7 @@ class PlayDeck {
     /// 카드를 받아서 추가 가능한 카드인지 체크
     func checkAdd(card: Card) -> Bool {
         // 카드리스트에 가드가 존재하는지 체크
-        guard let lastCard = cardList.last else {
+        guard let lastCard = cardList.popLast() else {
             // 한장도 없을경우 K = 마지막넘버링 만 추가가능하다.
             return card.getNumberingRank() == Numbering.allCases().count - 1
         }
@@ -29,7 +29,8 @@ class PlayDeck {
             }
         }
         
-        // 색이 같거나 이전 넘버링이 아니면 안됨
+        // 색이 같거나 이전 넘버링이 아니면 안됨. 뽑은 카드 다시 리턴
+        cardList.append(lastCard)
         return false
         
     }
