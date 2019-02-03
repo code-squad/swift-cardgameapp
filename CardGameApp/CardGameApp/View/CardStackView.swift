@@ -38,10 +38,7 @@ class CardStackView: UIImageView {
     }
 
     func willBeEmpty() -> Bool {
-        if cardViews.count == 1 {
-            return true
-        }
-        return false
+        return cardViews.count == 1
     }
 
     func push(_ cardView: CardView) {
