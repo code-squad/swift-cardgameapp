@@ -13,7 +13,6 @@ class PlayDeck {
     // 카드들
     private var cardList : [Card] = []
     
-    
     /// 카드를 받아서 추가 가능한 카드인지 체크
     func checkAdd(card: Card) -> Bool {
         // 카드리스트에 가드가 존재하는지 체크
@@ -33,11 +32,6 @@ class PlayDeck {
         return false
     }
     
-    
-    // 안비어있으면 마지막보다 -1 이고 다른색
-    
-    
-    
     /// 다른색인지 구분하는 함수. 플레이카드는 다른색,넘버링+1 만 들어올수 있다
     func checkDifferentMarkColor(cardOne: Card, cardTwo: Card) -> Bool {
         // 스페이드,클로버는 짝수. 하트,다이아는 홀수다. 2로 나눈 값이 달라야 추가 가능하다
@@ -51,7 +45,5 @@ class PlayDeck {
             cardList.append(card)
         }
     }
-    
-    
     
 }
