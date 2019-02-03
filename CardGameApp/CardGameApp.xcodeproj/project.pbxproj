@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D50ECA372206BF34008AFD2B /* PlayDeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50ECA362206BF34008AFD2B /* PlayDeckManager.swift */; };
 		D528F7FC21F7118F00AAF80F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F7FB21F7118F00AAF80F /* AppDelegate.swift */; };
 		D528F7FE21F711F600AAF80F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F7FD21F711F600AAF80F /* CardView.swift */; };
 		D528F80321F7193100AAF80F /* EmptyPointCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80221F7193100AAF80F /* EmptyPointCardView.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D50ECA362206BF34008AFD2B /* PlayDeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayDeckManager.swift; sourceTree = "<group>"; };
 		D528F7FB21F7118F00AAF80F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D528F7FD21F711F600AAF80F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D528F80221F7193100AAF80F /* EmptyPointCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyPointCardView.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				D528F80821F9CFA300AAF80F /* PointDeck.swift */,
 				D528F80A21FAA68600AAF80F /* PointDeckManager.swift */,
 				D528F80E21FAE70F00AAF80F /* PlayDeck.swift */,
+				D50ECA362206BF34008AFD2B /* PlayDeckManager.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				D541055121E3328B00FC7470 /* CardSize.swift in Sources */,
 				D528F80F21FAE70F00AAF80F /* PlayDeck.swift in Sources */,
 				D528F80721F9B32600AAF80F /* CardDeck.swift in Sources */,
+				D50ECA372206BF34008AFD2B /* PlayDeckManager.swift in Sources */,
 				D536E56621D4BB64004B7014 /* Deck.swift in Sources */,
 				D536E56821D4BB64004B7014 /* GameBoard.swift in Sources */,
 				D528F80B21FAA68600AAF80F /* PointDeckManager.swift in Sources */,
