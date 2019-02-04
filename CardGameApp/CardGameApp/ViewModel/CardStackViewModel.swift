@@ -19,7 +19,8 @@ class CardStackViewModel {
     }
 
     private func makeCardViewModels() {
-        cardStack.makeCardViewModels{ [unowned self] cardViewModel in
+        cardStack.makeCardViewModels { [unowned self] card in
+            let cardViewModel = CardViewModel(card: card)
             self.cardViewModels.append(cardViewModel)
         }
     }

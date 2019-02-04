@@ -43,10 +43,9 @@ class CardStack: CustomStringConvertible {
 /* MARK: Make [CardViewModel] by CardStack in CardStackViewModel */
 extension CardStack {
 
-    func makeCardViewModels(_ make: (CardViewModel) -> Void) {
+    func makeCardViewModels(_ deliver: (Card) -> Void) {
         for card in cards {
-            let cardViewModel = CardViewModel(card: card)
-            make(cardViewModel)
+            deliver(card)
         }
     }
 
