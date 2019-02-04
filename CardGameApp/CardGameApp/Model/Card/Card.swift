@@ -11,7 +11,6 @@ import Foundation
 class Card: CustomStringConvertible {
     private let suit: Suit
     private let rank: Rank
-    private var opened: Bool = false
 
     init(suit: Suit, rank: Rank) {
         self.suit = suit
@@ -19,7 +18,7 @@ class Card: CustomStringConvertible {
     }
 
     var description: String {
-        return "\(suit.value) \(rank.value)"
+        return "\(suit.firstLetter)\(rank.value)"
     }
 
     func hasSame(_ rank: Rank) -> Bool {
@@ -28,16 +27,6 @@ class Card: CustomStringConvertible {
 
     func hasSame(_ suit: Suit) -> Bool {
         return self.suit == suit
-    }
-
-    var imageName: String? {
-        guard opened else { return nil }
-        guard let suit = self.suit.firstLetter else { return nil }
-        return "\(suit)\(rank.value)"
-    }
-
-    func flip() {
-        opened.toggle()
     }
 
 }

@@ -9,14 +9,7 @@
 import UIKit
 
 class CardView: UIImageView {
-
-    var viewModel: CardViewModelDelegate! {
-        didSet {
-            viewModel.imageDidChange = { [unowned self] viewModel in
-                self.setImage(named: viewModel.imageName)
-            }
-        }
-    }
+    private var viewModel: CardViewModel!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -28,29 +21,19 @@ class CardView: UIImageView {
         setUp()
     }
 
-    convenience init(origin: CGPoint = CGPoint(), size: CGSize) {
-        let frame = CGRect(origin: origin, size: size)
+    convenience init(frame: CGRect, viewModel: CardViewModel) {
         self.init(frame: frame)
+        self.viewModel = viewModel
+        image = UIImage(named: viewModel.imageName)
     }
 
     private func setUp() {
-        setImage()
         roundCorners()
-    }
-
-    func setImage(named name: String? = nil) {
-        let name: String = name ?? "card-back.png"
-        guard let image = UIImage(named: name) else { return }
-        self.image = image
     }
 
     private func roundCorners() {
         layer.cornerRadius = 4
         layer.masksToBounds = true
-    }
-
-    func flip() {
-        viewModel.flip()
     }
 
 }

@@ -27,9 +27,9 @@ enum Suit: Int, CaseIterable {
         }
     }
 
-    var firstLetter: Character? {
+    var firstLetter: Character {
         let letters = "\(self)"
-        return letters.first
+        return letters.first!
     }
 
 }

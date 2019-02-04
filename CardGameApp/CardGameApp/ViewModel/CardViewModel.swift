@@ -8,31 +8,21 @@
 
 import Foundation
 
-protocol CardViewModelDelegate {
-    init(card: Card)
-    var imageName: String? { get }
-    var imageDidChange: ((CardViewModelDelegate) -> ())? { get set }
-    func flip()
-}
-
-class CardViewModel: CardViewModelDelegate {
-    private var card: Card
+class CardViewModel {
+    private let card: Card
+    private var opened: Bool
 
     required init(card: Card) {
         self.card = card
+        self.opened = false
     }
-
-    var imageName: String? {
-        didSet {
-            imageDidChange?(self)
-        }
-    }
-
-    var imageDidChange: ((CardViewModelDelegate) -> ())?
 
     func flip() {
-        card.flip()
-        imageName = card.imageName
+        opened.toggle()
+    }
+
+    var imageName: String {
+        return opened ? "\(card)" : "card-back"
     }
 
 }
