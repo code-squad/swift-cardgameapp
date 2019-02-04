@@ -8,61 +8,42 @@
 
 import UIKit
 
-class CardStackView: UIImageView {
-    private var cardViews: [CardView]
-
-    var viewModel: CardStackViewModelDelegate! {
-        didSet {
-            viewModel.imagesDidChange = { [unowned self] viewModel in
-                self.setImages(named: viewModel.imageNames)
-            }
-        }
-    }
+class CardStackView: UIView {
+    private var viewModel: CardStackViewModel!
 
     required init?(coder aDecoder: NSCoder) {
-        cardViews = []
         super.init(coder: aDecoder)
     }
 
     override init(frame: CGRect) {
-        cardViews = []
         super.init(frame: frame)
     }
 
-    convenience init() {
-        self.init(frame: CGRect())
-    }
-
-    var isEmpty: Bool {
-        return cardViews.isEmpty
-    }
-
-    func willBeEmpty() -> Bool {
-        return cardViews.count == 1
+    convenience init(frame: CGRect, viewModel: CardStackViewModel) {
+        self.init(frame: frame)
+        self.viewModel = viewModel
+        makeCardViews()
     }
 
     func push(_ cardView: CardView) {
-        cardViews.append(cardView)
         addSubview(cardView)
     }
 
-    func setImages(named names: [String?]?) {
-        guard let names = names else { return }
-        for (index, name) in names.enumerated() {
-            guard index < cardViews.count else { return }
-            cardViews[index].setImage(named: name)
-        }
-    }
-
     func pop() -> CardView? {
-        if cardViews.isEmpty { return nil }
-        let cardView = cardViews.removeLast()
+        guard let cardView = subviews.last as? CardView else { return nil }
         cardView.removeFromSuperview()
         return cardView
     }
 
-    func flipLast() {
-        viewModel.flipLast()
+    private func makeCardViews() {
+        viewModel.iterateCardViewModels { [unowned self] cardViewModel in
+            var frame = CGRect()
+            if let lastCardView = subviews.last {
+                frame.origin.y = lastCardView.frame.origin.y + 20
+            }
+            let cardView = CardView(frame: frame, viewModel: cardViewModel)
+            self.addSubview(cardView)
+        }
     }
 
 }

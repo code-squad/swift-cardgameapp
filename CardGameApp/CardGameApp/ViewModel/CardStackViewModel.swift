@@ -12,7 +12,7 @@ class CardStackViewModel {
     private let cardStack: CardStack
     private var cardViewModels: [CardViewModel]
 
-    required init(cardStack: CardStack) {
+    init(cardStack: CardStack) {
         self.cardStack = cardStack
         self.cardViewModels = []
         makeCardViewModels()
@@ -22,6 +22,16 @@ class CardStackViewModel {
         cardStack.iterateCards { [unowned self] card in
             let cardViewModel = CardViewModel(card: card)
             self.cardViewModels.append(cardViewModel)
+        }
+    }
+
+}
+
+extension CardStackViewModel {
+
+    func iterateCardViewModels(_ deliver: (CardViewModel) -> Void) {
+        for cardViewModel in cardViewModels {
+            deliver(cardViewModel)
         }
     }
 
