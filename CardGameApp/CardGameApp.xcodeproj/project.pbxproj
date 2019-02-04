@@ -93,6 +93,7 @@
 		A3FE067722082C9C0028B570 /* CardGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE067622082C9C0028B570 /* CardGameView.swift */; };
 		A3FE06792208541D0028B570 /* CardDeckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE06782208541D0028B570 /* CardDeckViewModel.swift */; };
 		A3FE067D220858D90028B570 /* CardPileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE067C220858D90028B570 /* CardPileViewModel.swift */; };
+		A3FE068022085A1A0028B570 /* CardPileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE067F22085A1A0028B570 /* CardPileView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,6 +206,7 @@
 		A3FE067622082C9C0028B570 /* CardGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameView.swift; sourceTree = "<group>"; };
 		A3FE06782208541D0028B570 /* CardDeckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckViewModel.swift; sourceTree = "<group>"; };
 		A3FE067C220858D90028B570 /* CardPileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPileViewModel.swift; sourceTree = "<group>"; };
+		A3FE067F22085A1A0028B570 /* CardPileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPileView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,6 +318,7 @@
 				A372F11F21FEF453004CEDE9 /* CardStackView.swift */,
 				A332F1A522001A060098430D /* CardStacksView.swift */,
 				A3FE067622082C9C0028B570 /* CardGameView.swift */,
+				A3FE067F22085A1A0028B570 /* CardPileView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -661,6 +664,7 @@
 				A332F1B3220076590098430D /* CardDeckView.swift in Sources */,
 				A372F02421F95F98004CEDE9 /* Player.swift in Sources */,
 				A372F02221F95F98004CEDE9 /* CardGame.swift in Sources */,
+				A3FE068022085A1A0028B570 /* CardPileView.swift in Sources */,
 				A332F1B122006F630098430D /* CardStackViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
