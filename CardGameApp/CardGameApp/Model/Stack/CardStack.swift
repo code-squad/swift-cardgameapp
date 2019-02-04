@@ -34,10 +34,6 @@ class CardStack: CustomStringConvertible {
         return "[\(allCards)]"
     }
 
-    var bestHand: Hand? {
-        return ScoreCalculator.getBestHand(from: cards)
-    }
-
 }
 
 extension CardStack {
