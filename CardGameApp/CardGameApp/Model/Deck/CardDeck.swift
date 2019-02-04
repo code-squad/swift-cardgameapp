@@ -23,6 +23,16 @@ class CardDeck: Playable {
         }
     }
 
+    func shuffle() {
+        cards.shuffle()
+    }
+
+    func reset() {
+        cards.removeAll()
+        fill()
+        shuffle()
+    }
+
     var isEmpty: Bool {
         return cards.isEmpty
     }
@@ -32,9 +42,7 @@ class CardDeck: Playable {
     }
 
     func removeOne() -> Card? {
-        if isEmpty {
-            return nil
-        }
+        if isEmpty { return nil }
         return cards.removeFirst()
     }
 
@@ -46,16 +54,6 @@ class CardDeck: Playable {
             cardsRemoved.append(cardRemoved)
         }
         return CardStack.init(cards: cardsRemoved)
-    }
-
-    func shuffle() {
-        cards.shuffle()
-    }
-
-    func reset() {
-        cards.removeAll()
-        fill()
-        shuffle()
     }
 
 }

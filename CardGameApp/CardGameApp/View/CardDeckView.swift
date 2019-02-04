@@ -8,7 +8,8 @@
 
 import UIKit
 
-class CardDeckView: CardStackView {
+class CardDeckView: UIImageView {
+    private var viewModel: CardDeckViewModel!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -20,15 +21,13 @@ class CardDeckView: CardStackView {
         self.isUserInteractionEnabled = true
     }
 
-    private func setRefreshImage() {
-        image = UIImage(named: "cardgameapp-refresh-app")
+    convenience init(frame: CGRect, viewModel: CardDeckViewModel) {
+        self.init(frame: frame)
+        self.viewModel = viewModel
     }
 
-    func popWithRefreshImage() -> CardView? {
-        if willBeEmpty() {
-            setRefreshImage()
-        }
-        return super.pop()
+    private func setRefreshImage() {
+        image = UIImage(named: "cardgameapp-refresh-app")
     }
 
 }

@@ -91,6 +91,7 @@
 		A372F12021FEF453004CEDE9 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F11F21FEF453004CEDE9 /* CardStackView.swift */; };
 		A3D854B0220344A60021AB3F /* CardStacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D854AF220344A60021AB3F /* CardStacksViewModel.swift */; };
 		A3FE067722082C9C0028B570 /* CardGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE067622082C9C0028B570 /* CardGameView.swift */; };
+		A3FE06792208541D0028B570 /* CardDeckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE06782208541D0028B570 /* CardDeckViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,6 +202,7 @@
 		A372F11F21FEF453004CEDE9 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		A3D854AF220344A60021AB3F /* CardStacksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStacksViewModel.swift; sourceTree = "<group>"; };
 		A3FE067622082C9C0028B570 /* CardGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameView.swift; sourceTree = "<group>"; };
+		A3FE06782208541D0028B570 /* CardDeckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +244,7 @@
 				A332F1AE220068310098430D /* CardViewModel.swift */,
 				A332F1B022006F630098430D /* CardStackViewModel.swift */,
 				A3D854AF220344A60021AB3F /* CardStacksViewModel.swift */,
+				A3FE06782208541D0028B570 /* CardDeckViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				A372F01021F95F67004CEDE9 /* Suit.swift in Sources */,
 				A372F01321F95F82004CEDE9 /* CardDeck.swift in Sources */,
 				A372F02021F95F98004CEDE9 /* Hand.swift in Sources */,
+				A3FE06792208541D0028B570 /* CardDeckViewModel.swift in Sources */,
 				A372F02321F95F98004CEDE9 /* ScoreCalculator.swift in Sources */,
 				A372EFE221F85B82004CEDE9 /* CardView.swift in Sources */,
 				A372F02521F95F98004CEDE9 /* GamePlayer.swift in Sources */,
