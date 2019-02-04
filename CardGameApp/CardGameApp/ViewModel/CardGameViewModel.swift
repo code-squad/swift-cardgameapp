@@ -9,5 +9,17 @@
 import Foundation
 
 class CardGameViewModel {
+    private var cardGame: CardGame
     
+    var cardStacksViewModel: CardStacksViewModel
+    var cardDeckViewModel: CardDeckViewModel
+    var cardPileViewModel: CardPileViewModel
+
+    init() {
+        self.cardGame = CardGame()
+        self.cardStacksViewModel = CardStacksViewModel(cardStacks: cardGame.cardStacks)
+        self.cardDeckViewModel = CardDeckViewModel(cardDeck: cardGame.cardDeck)
+        self.cardPileViewModel = CardPileViewModel()
+    }
+
 }

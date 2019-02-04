@@ -9,13 +9,55 @@
 import UIKit
 
 class CardGameView: UIView {
+    private var viewModel: CardGameViewModel!
+    private let layout: CardGameViewLayout
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    private var cardStacksView: CardStacksView!
+    private var cardDeckView: CardDeckView!
+    private var cardPileView: CardPileView!
+    private var cardSpacesView: [CardSpaceView]!
+
+    required init?(coder aDecoder: NSCoder) {
+        self.layout = CardGameViewLayout(frame: UIScreen.main.bounds)
+        super.init(coder: aDecoder)
     }
-    */
+
+    override init(frame: CGRect) {
+        self.layout = CardGameViewLayout(frame: frame)
+        super.init(frame: frame)
+    }
+
+    convenience init(frame: CGRect, viewModel: CardGameViewModel) {
+        self.init(frame: frame)
+        self.viewModel = viewModel
+        setUp()
+    }
+
+    private func setUp() {
+        setUpViews()
+        addViews()
+        setUpViewModels()
+    }
+
+    private func setUpViews() {
+        cardStacksView = CardStacksView(frame: layout.frameOfCardStacksView)
+        cardDeckView = CardDeckView(frame: layout.frameOfCardDeckView)
+        cardPileView = CardPileView(frame: layout.frameOfCardPileView)
+        cardSpacesView = layout.createSpaceViews(spaces: 4)
+        addViews()
+    }
+
+    private func addViews() {
+        addSubview(cardStacksView)
+        addSubview(cardDeckView)
+        addSubview(cardPileView)
+        cardSpacesView.forEach { addSubview($0) }
+    }
+
+    private func setUpViewModels() {
+        cardStacksView.viewModel = viewModel.cardStacksViewModel
+        cardDeckView.viewModel = viewModel.cardDeckViewModel
+        cardPileView.viewModel = viewModel.cardPileViewModel
+    }
 
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 class CardPileView: UIView {
-    private var viewModel: CardPileViewModel!
+    var viewModel: CardPileViewModel!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
