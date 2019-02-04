@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CardDeck: Playable {
+class CardDeck {
     private var cards: [Card] = []
 
     init() {
