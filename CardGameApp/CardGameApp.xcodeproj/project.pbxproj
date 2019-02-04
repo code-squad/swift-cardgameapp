@@ -92,7 +92,7 @@
 		A3D854B0220344A60021AB3F /* CardStacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D854AF220344A60021AB3F /* CardStacksViewModel.swift */; };
 		A3FE067722082C9C0028B570 /* CardGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE067622082C9C0028B570 /* CardGameView.swift */; };
 		A3FE06792208541D0028B570 /* CardDeckViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE06782208541D0028B570 /* CardDeckViewModel.swift */; };
-		A3FE067B220858090028B570 /* CardPile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE067A220858090028B570 /* CardPile.swift */; };
+		A3FE067D220858D90028B570 /* CardPileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE067C220858D90028B570 /* CardPileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -204,7 +204,7 @@
 		A3D854AF220344A60021AB3F /* CardStacksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStacksViewModel.swift; sourceTree = "<group>"; };
 		A3FE067622082C9C0028B570 /* CardGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameView.swift; sourceTree = "<group>"; };
 		A3FE06782208541D0028B570 /* CardDeckViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckViewModel.swift; sourceTree = "<group>"; };
-		A3FE067A220858090028B570 /* CardPile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPile.swift; sourceTree = "<group>"; };
+		A3FE067C220858D90028B570 /* CardPileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPileViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,6 +247,7 @@
 				A332F1B022006F630098430D /* CardStackViewModel.swift */,
 				A3D854AF220344A60021AB3F /* CardStacksViewModel.swift */,
 				A3FE06782208541D0028B570 /* CardDeckViewModel.swift */,
+				A3FE067C220858D90028B570 /* CardPileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -366,7 +367,6 @@
 			children = (
 				A372F01121F95F82004CEDE9 /* CardDeck.swift */,
 				A372F01221F95F82004CEDE9 /* Playable.swift */,
-				A3FE067A220858090028B570 /* CardPile.swift */,
 			);
 			path = Deck;
 			sourceTree = "<group>";
@@ -634,7 +634,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A372EFB321F71EEC004CEDE9 /* ViewController.swift in Sources */,
-				A3FE067B220858090028B570 /* CardPile.swift in Sources */,
 				A372F11821FEA479004CEDE9 /* CardViewFactory.swift in Sources */,
 				A372F00E21F95F67004CEDE9 /* Card.swift in Sources */,
 				A372F02121F95F98004CEDE9 /* Dealer.swift in Sources */,
@@ -647,6 +646,7 @@
 				A372F02521F95F98004CEDE9 /* GamePlayer.swift in Sources */,
 				A372F00C21F95F67004CEDE9 /* CardStacks.swift in Sources */,
 				A372F01F21F95F98004CEDE9 /* GamePlayers.swift in Sources */,
+				A3FE067D220858D90028B570 /* CardPileViewModel.swift in Sources */,
 				A372EFB121F71EEC004CEDE9 /* AppDelegate.swift in Sources */,
 				A3D854B0220344A60021AB3F /* CardStacksViewModel.swift in Sources */,
 				A332F1AF220068310098430D /* CardViewModel.swift in Sources */,

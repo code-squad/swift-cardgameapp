@@ -15,6 +15,7 @@ class CardDeckViewModel {
     init(cardDeck: CardDeck) {
         self.cardDeck = cardDeck
         self.cardViewModels = []
+        makeCardViewModels()
     }
 
     private func makeCardViewModels() {
