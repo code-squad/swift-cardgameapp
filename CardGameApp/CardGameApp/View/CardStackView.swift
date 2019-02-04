@@ -37,7 +37,9 @@ class CardStackView: UIView {
 
     private func makeCardViews() {
         viewModel.iterateCardViewModels { [unowned self] cardViewModel in
-            var frame = CGRect()
+            let width = self.frame.width
+            let size = CGSize(width: width, height: width * 1.27)
+            var frame = CGRect(origin: CGPoint(), size: size)
             if let lastCardView = subviews.last {
                 frame.origin.y = lastCardView.frame.origin.y + 20
             }

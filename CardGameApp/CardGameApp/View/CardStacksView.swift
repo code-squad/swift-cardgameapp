@@ -8,45 +8,40 @@
 
 import UIKit
 
-class CardStacksView: UIView {
-    private var cardStackViews: [CardStackView]
+class CardStacksView: UIStackView {
+    private var viewModel: CardStacksViewModel!
 
-    var viewModel: CardStacksViewModelDelegate! {
-        didSet {
-            viewModel.imagesDidChange = { [unowned self] viewModel in
-                self.setImages(named: viewModel.imageNames)
-            }
-        }
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        cardStackViews = []
-        super.init(coder: aDecoder)
+    required init(coder: NSCoder) {
+        super.init(coder: coder)
+        configureLayout()
     }
 
     override init(frame: CGRect) {
-        cardStackViews = []
         super.init(frame: frame)
+        configureLayout()
     }
 
-    convenience init() {
-        self.init(frame: CGRect())
+    convenience init(frame: CGRect, viewModel: CardStacksViewModel) {
+        self.init(frame: frame)
+        self.viewModel = viewModel
+        configureLayout()
+        makeCardStackViews()
     }
 
     func push(_ cardStackView: CardStackView) {
-        cardStackViews.append(cardStackView)
-        addSubview(cardStackView)
+        addArrangedSubview(cardStackView)
     }
 
-    func setImages(named imageNamesArray: [[String?]?]?) {
-        guard let imageNamesArray = imageNamesArray else { return }
-        for (index, imageNames) in imageNamesArray.enumerated() {
-            guard index < cardStackViews.count else { return }
-            cardStackViews[index].setImages(named: imageNames)
+    private func configureLayout() {
+        spacing = UIStackView.spacingUseDefault
+        distribution = .fillEqually
+    }
+
+    private func makeCardStackViews() {
+        viewModel.iterateCardStackViewModels { [unowned self] cardStackViewModel in
+            let cardStackView = CardStackView(frame: CGRect(), viewModel: cardStackViewModel)
+            self.addArrangedSubview(cardStackView)
         }
     }
 
-    func refresh() {
-        viewModel.refresh()
-    }
 }

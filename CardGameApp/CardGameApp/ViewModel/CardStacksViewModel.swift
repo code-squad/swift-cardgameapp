@@ -26,3 +26,13 @@ class CardStacksViewModel {
     }
 
 }
+
+extension CardStacksViewModel {
+
+    func iterateCardStackViewModels(_ deliver: (CardStackViewModel) -> Void) {
+        for cardStackViewModel in cardStackViewModels {
+            deliver(cardStackViewModel)
+        }
+    }
+
+}
