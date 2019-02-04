@@ -16,13 +16,8 @@ class CardStacks: CustomStringConvertible {
         let cardDeck = cardDeck
         for number in 1...num {
             guard let cardStack = cardDeck.removeMultiple(by: number) else { break }
-            cardStack.flipLast()
             self.cardStacks.append(cardStack)
         }
-    }
-
-    var imageNames: [[String?]] {
-        return cardStacks.map { $0.imageNames }
     }
 
     var description: String {
@@ -30,6 +25,16 @@ class CardStacks: CustomStringConvertible {
             .map { "\($0)" }
             .joined(separator: "\n")
         return allCardStacks
+    }
+
+}
+
+extension CardStacks {
+
+    func iterateCardStack(_ deliver: (CardStack) -> Void) {
+        for cardStack in cardStacks {
+            deliver(cardStack)
+        }
     }
 
 }
