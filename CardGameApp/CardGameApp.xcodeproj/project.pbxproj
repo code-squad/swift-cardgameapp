@@ -90,6 +90,7 @@
 		A372F11821FEA479004CEDE9 /* CardViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F11721FEA479004CEDE9 /* CardViewFactory.swift */; };
 		A372F12021FEF453004CEDE9 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A372F11F21FEF453004CEDE9 /* CardStackView.swift */; };
 		A3D854B0220344A60021AB3F /* CardStacksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D854AF220344A60021AB3F /* CardStacksViewModel.swift */; };
+		A3FE067722082C9C0028B570 /* CardGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE067622082C9C0028B570 /* CardGameView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +200,7 @@
 		A372F11721FEA479004CEDE9 /* CardViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewFactory.swift; sourceTree = "<group>"; };
 		A372F11F21FEF453004CEDE9 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		A3D854AF220344A60021AB3F /* CardStacksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStacksViewModel.swift; sourceTree = "<group>"; };
+		A3FE067622082C9C0028B570 /* CardGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +309,7 @@
 				A332F1B2220076590098430D /* CardDeckView.swift */,
 				A372F11F21FEF453004CEDE9 /* CardStackView.swift */,
 				A332F1A522001A060098430D /* CardStacksView.swift */,
+				A3FE067622082C9C0028B570 /* CardGameView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -639,6 +642,7 @@
 				A372EFB121F71EEC004CEDE9 /* AppDelegate.swift in Sources */,
 				A3D854B0220344A60021AB3F /* CardStacksViewModel.swift in Sources */,
 				A332F1AF220068310098430D /* CardViewModel.swift in Sources */,
+				A3FE067722082C9C0028B570 /* CardGameView.swift in Sources */,
 				A372F01E21F95F98004CEDE9 /* GameMode.swift in Sources */,
 				A372F09621FACDDE004CEDE9 /* CardSpaceView.swift in Sources */,
 				A372F12021FEF453004CEDE9 /* CardStackView.swift in Sources */,
