@@ -31,7 +31,7 @@ struct CardGameViewLayout {
 
     var frameOfCardStacksView: CGRect {
         let origin = CGPoint(x: Margin.side, y: Margin.top + Margin.topInterval)
-        let size = CGSize(width: frame.width, height: cardViewSize.height * numberOfCardStacks)
+        let size = CGSize(width: frame.width - 2 * Margin.side, height: cardViewSize.height * numberOfCardStacks)
         return CGRect(origin: origin, size: size)
     }
 

@@ -15,7 +15,7 @@ class CardStacksViewModel {
     required init(cardStacks: CardStacks) {
         self.cardStacks = cardStacks
         self.cardStackViewModels = []
-        
+        makeCardStackViewModels()
     }
 
     private func makeCardStackViewModels() {

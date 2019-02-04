@@ -22,7 +22,7 @@ class CardStackView: UIView {
     convenience init(frame: CGRect, viewModel: CardStackViewModel) {
         self.init(frame: frame)
         self.viewModel = viewModel
-        makeCardViews()
+        createCardViews()
     }
 
     func push(_ cardView: CardView) {
@@ -35,9 +35,9 @@ class CardStackView: UIView {
         return cardView
     }
 
-    private func makeCardViews() {
+    private func createCardViews() {
         viewModel.iterateCardViewModels { [unowned self] cardViewModel in
-            let width = self.frame.width
+            let width: CGFloat = 53 // 수정
             let size = CGSize(width: width, height: width * 1.27)
             var frame = CGRect(origin: CGPoint(), size: size)
             if let lastCardView = subviews.last {

@@ -34,15 +34,14 @@ class CardGameView: UIView {
     }
 
     private func setUp() {
-        setUpViews()
+        createViews()
         addViews()
-        setUpViewModels()
     }
 
-    private func setUpViews() {
-        cardStacksView = CardStacksView(frame: layout.frameOfCardStacksView)
-        cardDeckView = CardDeckView(frame: layout.frameOfCardDeckView)
-        cardPileView = CardPileView(frame: layout.frameOfCardPileView)
+    private func createViews() {
+        cardStacksView = CardStacksView(frame: layout.frameOfCardStacksView, viewModel: viewModel.cardStacksViewModel)
+        cardDeckView = CardDeckView(frame: layout.frameOfCardDeckView, viewModel: viewModel.cardDeckViewModel)
+        cardPileView = CardPileView(frame: layout.frameOfCardPileView, viewModel: viewModel.cardPileViewModel)
         cardSpacesView = layout.createSpaceViews(spaces: 4)
         addViews()
     }
@@ -52,12 +51,6 @@ class CardGameView: UIView {
         addSubview(cardDeckView)
         addSubview(cardPileView)
         cardSpacesView.forEach { addSubview($0) }
-    }
-
-    private func setUpViewModels() {
-        cardStacksView.viewModel = viewModel.cardStacksViewModel
-        cardDeckView.viewModel = viewModel.cardDeckViewModel
-        cardPileView.viewModel = viewModel.cardPileViewModel
     }
 
 }

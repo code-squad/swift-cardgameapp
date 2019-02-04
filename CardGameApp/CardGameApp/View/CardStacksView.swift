@@ -25,7 +25,7 @@ class CardStacksView: UIStackView {
         self.init(frame: frame)
         self.viewModel = viewModel
         configureLayout()
-        makeCardStackViews()
+        createCardStackViews()
     }
 
     func push(_ cardStackView: CardStackView) {
@@ -33,11 +33,11 @@ class CardStacksView: UIStackView {
     }
 
     private func configureLayout() {
-        spacing = UIStackView.spacingUseDefault
+        spacing = 5
         distribution = .fillEqually
     }
 
-    private func makeCardStackViews() {
+    private func createCardStackViews() {
         viewModel.iterateCardStackViewModels { [unowned self] cardStackViewModel in
             let cardStackView = CardStackView(frame: CGRect(), viewModel: cardStackViewModel)
             self.addArrangedSubview(cardStackView)

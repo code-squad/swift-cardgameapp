@@ -16,12 +16,19 @@ class CardStackViewModel {
         self.cardStack = cardStack
         self.cardViewModels = []
         makeCardViewModels()
+        flipLastCard()
     }
 
     private func makeCardViewModels() {
         cardStack.iterateCards { [unowned self] card in
             let cardViewModel = CardViewModel(card: card)
             self.cardViewModels.append(cardViewModel)
+        }
+    }
+
+    private func flipLastCard() {
+        if let lastCardViewModel = cardViewModels.last {
+            lastCardViewModel.flip()
         }
     }
 
