@@ -15,7 +15,7 @@ class CardStack: CustomStringConvertible {
         self.cards = cards
     }
 
-    func add(_ card: Card) {
+    func push(_ card: Card) {
         cards.append(card)
     }
 
@@ -23,17 +23,8 @@ class CardStack: CustomStringConvertible {
         cards.removeAll()
     }
 
-    func flipLast() {
-        guard let lastCard = cards.last else { return }
-        lastCard.flip()
-    }
-
     var count: Int {
         return cards.count
-    }
-
-    var imageNames: [String?] {
-        return cards.map { $0.imageName }
     }
 
     var description: String {
@@ -45,6 +36,18 @@ class CardStack: CustomStringConvertible {
 
     var bestHand: Hand? {
         return ScoreCalculator.getBestHand(from: cards)
+    }
+
+}
+
+/* MARK: Make [CardViewModel] by CardStack in CardStackViewModel */
+extension CardStack {
+
+    func makeCardViewModels(_ make: (CardViewModel) -> Void) {
+        for card in cards {
+            let cardViewModel = CardViewModel(card: card)
+            make(cardViewModel)
+        }
     }
 
 }

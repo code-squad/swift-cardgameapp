@@ -8,31 +8,20 @@
 
 import Foundation
 
-protocol CardStackViewModelDelegate {
-    init(cardStack: CardStack)
-    var imageNames: [String?]? { get }
-    var imagesDidChange: ((CardStackViewModelDelegate) -> ())? { get set }
-    func flipLast()
-}
-
-class CardStackViewModel: CardStackViewModelDelegate {
-    private var cardStack: CardStack
+class CardStackViewModel {
+    private let cardStack: CardStack
+    private var cardViewModels: [CardViewModel]
 
     required init(cardStack: CardStack) {
         self.cardStack = cardStack
+        self.cardViewModels = []
+        makeCardViewModels()
     }
 
-    var imageNames: [String?]? {
-        didSet {
-            imagesDidChange?(self)
+    private func makeCardViewModels() {
+        cardStack.makeCardViewModels{ [unowned self] cardViewModel in
+            self.cardViewModels.append(cardViewModel)
         }
-    }
-
-    var imagesDidChange: ((CardStackViewModelDelegate) -> ())?
-
-    func flipLast() {
-        cardStack.flipLast()
-        imageNames = cardStack.imageNames
     }
 
 }

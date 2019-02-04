@@ -31,7 +31,7 @@ class Dealer{
 extension Dealer: GamePlayer {
 
     func take(card: Card) {
-        cards.add(card)
+        cards.push(card)
     }
 
     func showCards() -> String {

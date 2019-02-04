@@ -16,7 +16,7 @@ class Player: GamePlayer {
     }
 
     func take(card: Card) {
-        cards.add(card)
+        cards.push(card)
     }
 
     func showCards() -> String {
