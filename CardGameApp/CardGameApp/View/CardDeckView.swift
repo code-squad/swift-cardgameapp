@@ -24,10 +24,18 @@ class CardDeckView: UIImageView {
     convenience init(frame: CGRect, viewModel: CardDeckViewModel) {
         self.init(frame: frame)
         self.viewModel = viewModel
+        createCardViews()
     }
 
     private func setRefreshImage() {
         image = UIImage(named: "cardgameapp-refresh-app")
+    }
+
+    private func createCardViews() {
+        viewModel.iterateCardViewModels { [unowned self] cardViewModel in
+            let cardView = CardView(frame: self.bounds, viewModel: cardViewModel)
+            self.addSubview(cardView)
+        }
     }
 
 }

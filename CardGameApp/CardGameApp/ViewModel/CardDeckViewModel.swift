@@ -27,3 +27,13 @@ class CardDeckViewModel {
     }
 
 }
+
+extension CardDeckViewModel {
+
+    func iterateCardViewModels(_ deliver: (CardViewModel) -> Void) {
+        for cardViewModel in cardViewModels {
+            deliver(cardViewModel)
+        }
+    }
+
+}
