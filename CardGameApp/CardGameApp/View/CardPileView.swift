@@ -28,4 +28,10 @@ class CardPileView: UIView {
         addSubview(cardView)
     }
 
+    func pop() -> CardView? {
+        guard let cardView = subviews.last as? CardView else { return nil }
+        cardView.removeFromSuperview()
+        return cardView
+    }
+
 }

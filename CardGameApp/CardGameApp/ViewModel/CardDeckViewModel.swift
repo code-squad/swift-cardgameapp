@@ -9,7 +9,7 @@
 import Foundation
 
 class CardDeckViewModel {
-    private let cardDeck: CardDeck
+    private var cardDeck: CardDeck
     private var cardViewModels: [CardViewModel]
 
     init(cardDeck: CardDeck) {
@@ -31,6 +31,13 @@ class CardDeckViewModel {
         return cardViewModels.removeLast()
     }
 
+    func replace(cardDeck: CardDeck) {
+        self.cardDeck = cardDeck
+        cardViewModels.removeAll()
+        makeCardViewModels()
+        NotificationCenter.default.post(name: .cardDeckReset, object: self)
+    }
+
 }
 
 extension CardDeckViewModel {
@@ -41,4 +48,13 @@ extension CardDeckViewModel {
         }
     }
 
+    func accessCardViewModel(at index: Int, deliver: (CardViewModel) -> Void) {
+        guard index < cardViewModels.count else { return }
+        deliver(cardViewModels[index])
+    }
+
+}
+
+extension NSNotification.Name {
+    static let cardDeckReset = Notification.Name("cardDeckReset")
 }

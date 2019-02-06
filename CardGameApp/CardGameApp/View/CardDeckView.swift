@@ -25,6 +25,7 @@ class CardDeckView: UIImageView {
         self.init(frame: frame)
         self.viewModel = viewModel
         createCardViews()
+        registerAsObserver()
     }
 
     private func setRefreshImage() {
@@ -42,6 +43,24 @@ class CardDeckView: UIImageView {
         guard let cardView = subviews.last as? CardView else { return nil }
         cardView.removeFromSuperview()
         return cardView
+    }
+
+    func push(_ cardView: CardView) {
+        addSubview(cardView)
+    }
+
+    private func registerAsObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCardViews), name: .cardDeckReset, object: viewModel)
+    }
+
+    @objc private func updateCardViews() {
+        for index in subviews.indices {
+            viewModel.accessCardViewModel(at: index) { [unowned self] cardViewModel in
+                if let cardView = self.subviews[index] as? CardView {
+                    cardView.replace(viewModel: cardViewModel)
+                }
+            }
+        }
     }
 
 }

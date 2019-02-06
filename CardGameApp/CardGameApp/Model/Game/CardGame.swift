@@ -18,4 +18,9 @@ class CardGame {
     var cardStacks: CardStacks {
         return CardStacks(from: cardDeck)
     }
+
+    func reset() {
+        cardDeck.reset()
+    }
+
 }

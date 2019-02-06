@@ -19,11 +19,8 @@ class CardPileViewModel {
         cardViewModels.append(cardViewModel)
     }
 
-    func removeAll() -> [CardViewModel] {
-        defer {
-            cardViewModels.removeAll()
-        }
-        return cardViewModels
+    func removeAll() {
+        cardViewModels.removeAll()
     }
 
 }

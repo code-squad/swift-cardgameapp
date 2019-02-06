@@ -68,4 +68,16 @@ class CardGameView: UIView {
         cardPileView.push(cardView)
     }
 
+    func reset() {
+        moveCardViewsToCardDeckView()
+        viewModel.reset()
+    }
+
+    private func moveCardViewsToCardDeckView() {
+        while !cardPileView.subviews.isEmpty {
+            guard let cardView = cardPileView.pop() else { break }
+            cardDeckView.push(cardView)
+        }
+    }
+
 }

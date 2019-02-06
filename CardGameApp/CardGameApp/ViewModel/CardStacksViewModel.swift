@@ -9,7 +9,7 @@
 import Foundation
 
 class CardStacksViewModel {
-    private let cardStacks: CardStacks
+    private var cardStacks: CardStacks
     private var cardStackViewModels: [CardStackViewModel]
 
     required init(cardStacks: CardStacks) {
@@ -23,6 +23,12 @@ class CardStacksViewModel {
             let cardStackViewModel = CardStackViewModel(cardStack: cardStack)
             self.cardStackViewModels.append(cardStackViewModel)
         }
+    }
+
+    func replace(cardStacks: CardStacks) {
+        self.cardStacks = cardStacks
+        cardStackViewModels.removeAll()
+        makeCardStackViewModels()
     }
 
 }

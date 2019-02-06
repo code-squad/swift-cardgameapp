@@ -45,4 +45,9 @@ class CardView: UIImageView {
         image = UIImage(named: viewModel.imageName)
     }
 
+    func replace(viewModel: CardViewModel) {
+        self.viewModel = viewModel
+        updateImage()
+    }
+
 }
