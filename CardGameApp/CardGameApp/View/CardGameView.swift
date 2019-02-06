@@ -53,6 +53,12 @@ class CardGameView: UIView {
         cardSpacesView.forEach { addSubview($0) }
     }
 
+}
+
+/* MARK: User interaction events */
+extension CardGameView {
+
+    /* Touch */
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         guard let touch = touches.first else { return }
@@ -68,6 +74,7 @@ class CardGameView: UIView {
         cardPileView.push(cardView)
     }
 
+    /* Shake Motion */
     func reset() {
         moveCardViewsToCardDeckView()
         viewModel.reset()
