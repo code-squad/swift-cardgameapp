@@ -10,7 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
     private var cardGameView: CardGameView!
-    private var cardGameViewModel: CardGameViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +27,7 @@ class ViewController: UIViewController {
     }
 
     private func setCardGameView() {
-        cardGameViewModel = CardGameViewModel()
-        cardGameView = CardGameView(frame: view.frame, viewModel: cardGameViewModel)
+        cardGameView = CardGameView(frame: view.frame, viewModel: CardGameViewModel())
         view.addSubview(cardGameView)
     }
 
