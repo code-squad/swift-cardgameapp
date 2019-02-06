@@ -28,10 +28,6 @@ class CardDeckView: UIImageView {
         registerAsObserver()
     }
 
-    private func setRefreshImage() {
-        image = UIImage(named: "cardgameapp-refresh-app")
-    }
-
     private func createCardViews() {
         viewModel.iterateCardViewModels { [unowned self] cardViewModel in
             let cardView = CardView(frame: self.bounds, viewModel: cardViewModel)
@@ -51,6 +47,7 @@ class CardDeckView: UIImageView {
 
     private func registerAsObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(updateCardViews), name: .cardDeckReset, object: viewModel)
+        NotificationCenter.default.addObserver(self, selector: #selector(setRefreshImage), name: .cardDeckWillBeEmpty, object: viewModel)
     }
 
     @objc private func updateCardViews() {
@@ -61,6 +58,10 @@ class CardDeckView: UIImageView {
                 }
             }
         }
+    }
+
+    @objc private func setRefreshImage() {
+        image = UIImage(named: "cardgameapp-refresh-app")
     }
 
 }

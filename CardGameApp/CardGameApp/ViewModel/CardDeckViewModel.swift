@@ -28,6 +28,9 @@ class CardDeckViewModel {
 
     func pop() -> CardViewModel? {
         if cardViewModels.isEmpty { return nil }
+        if cardViewModels.oneLeft {
+            NotificationCenter.default.post(name: .cardDeckWillBeEmpty, object: self)
+        }
         return cardViewModels.removeLast()
     }
 
@@ -57,4 +60,13 @@ extension CardDeckViewModel {
 
 extension NSNotification.Name {
     static let cardDeckReset = Notification.Name("cardDeckReset")
+    static let cardDeckWillBeEmpty = Notification.Name("cardDeckWillBeEmpty")
+}
+
+extension Array {
+
+    var oneLeft: Bool {
+        return self.count == 1
+    }
+
 }
