@@ -26,6 +26,12 @@ class CardDeckViewModel {
         }
     }
 
+    func pop() -> CardViewModel? {
+        guard let lastCardViewModel = cardViewModels.last else { return nil }
+        lastCardViewModel.flip()
+        return lastCardViewModel
+    }
+
 }
 
 extension CardDeckViewModel {

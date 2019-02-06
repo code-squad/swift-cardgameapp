@@ -24,4 +24,8 @@ class CardPileView: UIView {
         self.viewModel = viewModel
     }
 
+    func push(_ cardView: CardView) {
+        addSubview(cardView)
+    }
+
 }

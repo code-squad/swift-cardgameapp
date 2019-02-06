@@ -38,4 +38,8 @@ class CardDeckView: UIImageView {
         }
     }
 
+    func pop() -> CardView? {
+        return subviews.last as? CardView
+    }
+
 }

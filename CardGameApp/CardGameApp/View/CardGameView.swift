@@ -53,4 +53,19 @@ class CardGameView: UIView {
         cardSpacesView.forEach { addSubview($0) }
     }
 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        guard let touch = touches.first else { return }
+        
+        if touch.view == cardDeckView {
+            viewModel.openCardFromCardDeck()
+            moveCardFromCardDeck()
+        }
+    }
+
+    private func moveCardFromCardDeck() {
+        guard let cardView = cardDeckView.pop() else { return }
+        cardPileView.push(cardView)
+    }
+
 }
