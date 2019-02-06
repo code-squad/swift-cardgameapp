@@ -27,9 +27,15 @@ class CardStacksViewModel {
 
     func replace(cardStacks: CardStacks) {
         self.cardStacks = cardStacks
-        cardStackViewModels.removeAll()
-        makeCardStackViewModels()
-        NotificationCenter.default.post(name: .cardStacksReset, object: self)
+        replaceCardStackViewModels()
+    }
+
+    private func replaceCardStackViewModels() {
+        for index in cardStackViewModels.indices {
+            cardStacks.accessCardStack(at: index) { [unowned self] cardStack in
+                self.cardStackViewModels[index].replace(cardStack: cardStack)
+            }
+        }
     }
 
 }
@@ -41,14 +47,5 @@ extension CardStacksViewModel {
             deliver(cardStackViewModel)
         }
     }
-
-    func accessCardStackViewModel(at index: Int, deliver: (CardStackViewModel) -> Void) {
-        guard index < cardStackViewModels.count else { return }
-        deliver(cardStackViewModels[index])
-    }
-
-}
-
-extension NSNotification.Name {
-    static let cardStacksReset = Notification.Name("cardStacksReset")
+ 
 }

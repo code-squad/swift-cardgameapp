@@ -39,15 +39,11 @@ class CardView: UIImageView {
 
     private func registerAsObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(updateImage), name: .cardDidFlip, object: viewModel)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateImage), name: .cardDidReset, object: viewModel)
     }
 
     @objc private func updateImage() {
         image = UIImage(named: viewModel.imageName)
-    }
-
-    func replace(viewModel: CardViewModel) {
-        self.viewModel = viewModel
-        updateImage()
     }
 
 }

@@ -35,33 +35,22 @@ class CardDeckView: UIImageView {
         }
     }
 
-    func pop() -> CardView? {
-        guard let cardView = subviews.last as? CardView else { return nil }
-        cardView.removeFromSuperview()
-        return cardView
+    private func registerAsObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(setRefreshImage), name: .cardDeckWillBeEmpty, object: viewModel)
+    }
+
+    @objc private func setRefreshImage() {
+        image = UIImage(named: "cardgameapp-refresh-app")
     }
 
     func push(_ cardView: CardView) {
         addSubview(cardView)
     }
 
-    private func registerAsObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateCardViews), name: .cardDeckReset, object: viewModel)
-        NotificationCenter.default.addObserver(self, selector: #selector(setRefreshImage), name: .cardDeckWillBeEmpty, object: viewModel)
-    }
-
-    @objc private func updateCardViews() {
-        for index in subviews.indices {
-            viewModel.accessCardViewModel(at: index) { [unowned self] cardViewModel in
-                if let cardView = self.subviews[index] as? CardView {
-                    cardView.replace(viewModel: cardViewModel)
-                }
-            }
-        }
-    }
-
-    @objc private func setRefreshImage() {
-        image = UIImage(named: "cardgameapp-refresh-app")
+    func pop() -> CardView? {
+        guard let cardView = subviews.last as? CardView else { return nil }
+        cardView.removeFromSuperview()
+        return cardView
     }
 
 }

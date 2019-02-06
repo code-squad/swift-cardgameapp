@@ -15,12 +15,17 @@ class CardPileViewModel {
         self.cardViewModels = []
     }
 
-    func pileUp(cardViewModel: CardViewModel) {
+    var isEmpty: Bool {
+        return cardViewModels.isEmpty
+    }
+
+    func push(_ cardViewModel: CardViewModel) {
         cardViewModels.append(cardViewModel)
     }
 
-    func removeAll() {
-        cardViewModels.removeAll()
+    func pop() -> CardViewModel? {
+        if cardViewModels.isEmpty { return nil }
+        return cardViewModels.removeLast()
     }
 
 }

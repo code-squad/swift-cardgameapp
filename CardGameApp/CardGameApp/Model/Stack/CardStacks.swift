@@ -37,4 +37,9 @@ extension CardStacks {
         }
     }
 
+    func accessCardStack(at index: Int, deliver: (CardStack) -> Void) {
+        guard index < cardStacks.count else { return }
+        deliver(cardStacks[index])
+    }
+
 }

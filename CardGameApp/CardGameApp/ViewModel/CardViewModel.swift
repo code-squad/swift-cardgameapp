@@ -9,7 +9,7 @@
 import Foundation
 
 class CardViewModel {
-    private let card: Card
+    private var card: Card
     private var opened: Bool
 
     required init(card: Card) {
@@ -26,8 +26,14 @@ class CardViewModel {
         return opened ? "\(card)" : "card-back"
     }
 
+    func replace(card: Card) {
+        self.card = card
+        NotificationCenter.default.post(name: .cardDidReset, object: self)
+    }
+
 }
 
 extension NSNotification.Name {
     static let cardDidFlip = NSNotification.Name("cardDidFlip")
+    static let cardDidReset = NSNotification.Name("cardDidReset")
 }

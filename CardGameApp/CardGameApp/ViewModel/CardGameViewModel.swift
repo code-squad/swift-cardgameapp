@@ -25,14 +25,22 @@ class CardGameViewModel {
     func openCardFromCardDeck() {
         guard let cardViewModel = cardDeckViewModel.pop() else { return }
         cardViewModel.flip()
-        cardPileViewModel.pileUp(cardViewModel: cardViewModel)
+        cardPileViewModel.push(cardViewModel)
     }
 
     func reset() {
         cardGame.reset()
         cardStacksViewModel.replace(cardStacks: cardGame.cardStacks)
+        moveCardViewModelsToCardDeckViewModel()
         cardDeckViewModel.replace(cardDeck: cardGame.cardDeck)
-        cardPileViewModel.removeAll()
+    }
+
+    private func moveCardViewModelsToCardDeckViewModel() {
+        while !cardPileViewModel.isEmpty {
+            guard let cardViewModel = cardPileViewModel.pop() else { return }
+            cardViewModel.flip()
+            cardDeckViewModel.push(cardViewModel)
+        }
     }
 
 }

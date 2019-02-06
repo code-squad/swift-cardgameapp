@@ -9,7 +9,7 @@
 import Foundation
 
 class CardStackViewModel {
-    private let cardStack: CardStack
+    private var cardStack: CardStack
     private var cardViewModels: [CardViewModel]
 
     init(cardStack: CardStack) {
@@ -32,6 +32,19 @@ class CardStackViewModel {
         }
     }
 
+    func replace(cardStack: CardStack) {
+        self.cardStack = cardStack
+        replaceCardViewModels()
+    }
+
+    private func replaceCardViewModels() {
+        for index in cardViewModels.indices {
+            cardStack.accessCard(at: index) { [unowned self] card in
+                self.cardViewModels[index].replace(card: card)
+            }
+        }
+    }
+
 }
 
 extension CardStackViewModel {
@@ -40,11 +53,6 @@ extension CardStackViewModel {
         for cardViewModel in cardViewModels {
             deliver(cardViewModel)
         }
-    }
-
-    func accessCardViewModel(at index: Int, deliver: (CardViewModel) -> Void) {
-        guard index < cardViewModels.count else { return }
-        deliver(cardViewModels[index])
     }
 
 }

@@ -25,16 +25,6 @@ class CardStackView: UIView {
         createCardViews()
     }
 
-    func push(_ cardView: CardView) {
-        addSubview(cardView)
-    }
-
-    func pop() -> CardView? {
-        guard let cardView = subviews.last as? CardView else { return nil }
-        cardView.removeFromSuperview()
-        return cardView
-    }
-
     private func createCardViews() {
         viewModel.iterateCardViewModels { [unowned self] cardViewModel in
             let width: CGFloat = 53 // 수정
@@ -45,21 +35,6 @@ class CardStackView: UIView {
             }
             let cardView = CardView(frame: frame, viewModel: cardViewModel)
             self.addSubview(cardView)
-        }
-    }
-
-    func replace(viewModel: CardStackViewModel) {
-        self.viewModel = viewModel
-        updateCardViews()
-    }
-
-    private func updateCardViews() {
-        for index in subviews.indices {
-            viewModel.accessCardViewModel(at: index) { [unowned self] cardViewModel in
-                if let cardView = self.subviews[index] as? CardView {
-                    cardView.replace(viewModel: cardViewModel)
-                }
-            }
         }
     }
 

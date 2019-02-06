@@ -26,19 +26,28 @@ class CardDeckViewModel {
         }
     }
 
+    func replace(cardDeck: CardDeck) {
+        self.cardDeck = cardDeck
+        replaceCardViewModels()
+    }
+
+    private func replaceCardViewModels() {
+        for cardViewModel in cardViewModels {
+            guard let card = cardDeck.removeOne() else { return }
+            cardViewModel.replace(card: card)
+        }
+    }
+
+    func push(_ cardViewModel: CardViewModel) {
+        cardViewModels.append(cardViewModel)
+    }
+
     func pop() -> CardViewModel? {
         if cardViewModels.isEmpty { return nil }
         if cardViewModels.oneLeft {
             NotificationCenter.default.post(name: .cardDeckWillBeEmpty, object: self)
         }
         return cardViewModels.removeLast()
-    }
-
-    func replace(cardDeck: CardDeck) {
-        self.cardDeck = cardDeck
-        cardViewModels.removeAll()
-        makeCardViewModels()
-        NotificationCenter.default.post(name: .cardDeckReset, object: self)
     }
 
 }
@@ -51,15 +60,9 @@ extension CardDeckViewModel {
         }
     }
 
-    func accessCardViewModel(at index: Int, deliver: (CardViewModel) -> Void) {
-        guard index < cardViewModels.count else { return }
-        deliver(cardViewModels[index])
-    }
-
 }
 
 extension NSNotification.Name {
-    static let cardDeckReset = Notification.Name("cardDeckReset")
     static let cardDeckWillBeEmpty = Notification.Name("cardDeckWillBeEmpty")
 }
 
