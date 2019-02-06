@@ -9,7 +9,7 @@
 import UIKit
 
 class CardDeckView: UIImageView {
-    var viewModel: CardDeckViewModel!
+    private var viewModel: CardDeckViewModel!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

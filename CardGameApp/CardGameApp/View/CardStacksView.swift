@@ -9,7 +9,7 @@
 import UIKit
 
 class CardStacksView: UIStackView {
-    var viewModel: CardStacksViewModel!
+    private var viewModel: CardStacksViewModel!
 
     required init(coder: NSCoder) {
         super.init(coder: coder)
