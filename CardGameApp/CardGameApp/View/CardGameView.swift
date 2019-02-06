@@ -59,11 +59,11 @@ class CardGameView: UIView {
         
         if touch.view == cardDeckView {
             viewModel.openCardFromCardDeck()
-            moveCardFromCardDeck()
+            moveCardViewFromCardDeckView()
         }
     }
 
-    private func moveCardFromCardDeck() {
+    private func moveCardViewFromCardDeckView() {
         guard let cardView = cardDeckView.pop() else { return }
         cardPileView.push(cardView)
     }

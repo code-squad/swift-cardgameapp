@@ -19,10 +19,15 @@ class CardViewModel {
 
     func flip() {
         opened.toggle()
+        NotificationCenter.default.post(name: .cardDidFlip, object: self)
     }
 
     var imageName: String {
         return opened ? "\(card)" : "card-back"
     }
 
+}
+
+extension NSNotification.Name {
+    static let cardDidFlip = NSNotification.Name("cardDidFlip")
 }

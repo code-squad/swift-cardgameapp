@@ -39,7 +39,9 @@ class CardDeckView: UIImageView {
     }
 
     func pop() -> CardView? {
-        return subviews.last as? CardView
+        guard let cardView = subviews.last as? CardView else { return nil }
+        cardView.removeFromSuperview()
+        return cardView
     }
 
 }

@@ -29,11 +29,20 @@ class CardView: UIImageView {
 
     private func setUp() {
         roundCorners()
+        registerAsObserver()
     }
 
     private func roundCorners() {
         layer.cornerRadius = 4
         layer.masksToBounds = true
+    }
+
+    private func registerAsObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateImage), name: .cardDidFlip, object: viewModel)
+    }
+
+    @objc private func updateImage() {
+        image = UIImage(named: viewModel.imageName)
     }
 
 }

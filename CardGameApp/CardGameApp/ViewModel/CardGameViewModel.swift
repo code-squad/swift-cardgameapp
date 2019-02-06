@@ -23,7 +23,7 @@ class CardGameViewModel {
     }
 
     func openCardFromCardDeck() {
-        guard let cardViewModel =  cardDeckViewModel.pop() else { return }
+        guard let cardViewModel = cardDeckViewModel.pop() else { return }
         cardViewModel.flip()
         cardPileViewModel.pileUp(cardViewModel: cardViewModel)
     }
