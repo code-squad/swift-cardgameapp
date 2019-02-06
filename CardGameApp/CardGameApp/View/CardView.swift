@@ -24,7 +24,7 @@ class CardView: UIImageView {
     convenience init(frame: CGRect, viewModel: CardViewModel) {
         self.init(frame: frame)
         self.viewModel = viewModel
-        image = UIImage(named: viewModel.imageName)
+        updateImage()
     }
 
     private func setUp() {

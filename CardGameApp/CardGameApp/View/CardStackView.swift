@@ -48,4 +48,19 @@ class CardStackView: UIView {
         }
     }
 
+    func replace(viewModel: CardStackViewModel) {
+        self.viewModel = viewModel
+        updateCardViews()
+    }
+
+    private func updateCardViews() {
+        for index in subviews.indices {
+            viewModel.accessCardViewModel(at: index) { [unowned self] cardViewModel in
+                if let cardView = self.subviews[index] as? CardView {
+                    cardView.replace(viewModel: cardViewModel)
+                }
+            }
+        }
+    }
+
 }

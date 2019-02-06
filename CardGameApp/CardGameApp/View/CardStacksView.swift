@@ -26,6 +26,7 @@ class CardStacksView: UIStackView {
         self.viewModel = viewModel
         configureLayout()
         createCardStackViews()
+        registerAsObserver()
     }
 
     func push(_ cardStackView: CardStackView) {
@@ -41,6 +42,20 @@ class CardStacksView: UIStackView {
         viewModel.iterateCardStackViewModels { [unowned self] cardStackViewModel in
             let cardStackView = CardStackView(frame: CGRect(), viewModel: cardStackViewModel)
             self.addArrangedSubview(cardStackView)
+        }
+    }
+
+    private func registerAsObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateCardStackViews), name: .cardStacksReset, object: viewModel)
+    }
+
+    @objc private func updateCardStackViews() {
+        for index in subviews.indices {
+            viewModel.accessCardStackViewModel(at: index) { [unowned self] cardStackViewModel in
+                if let cardStackView = self.subviews[index] as? CardStackView {
+                    cardStackView.replace(viewModel: cardStackViewModel)
+                }
+            }
         }
     }
 

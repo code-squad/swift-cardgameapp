@@ -29,6 +29,7 @@ class CardStacksViewModel {
         self.cardStacks = cardStacks
         cardStackViewModels.removeAll()
         makeCardStackViewModels()
+        NotificationCenter.default.post(name: .cardStacksReset, object: self)
     }
 
 }
@@ -41,4 +42,13 @@ extension CardStacksViewModel {
         }
     }
 
+    func accessCardStackViewModel(at index: Int, deliver: (CardStackViewModel) -> Void) {
+        guard index < cardStackViewModels.count else { return }
+        deliver(cardStackViewModels[index])
+    }
+
+}
+
+extension NSNotification.Name {
+    static let cardStacksReset = Notification.Name("cardStacksReset")
 }

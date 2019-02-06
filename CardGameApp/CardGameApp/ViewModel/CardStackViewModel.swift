@@ -42,4 +42,9 @@ extension CardStackViewModel {
         }
     }
 
+    func accessCardViewModel(at index: Int, deliver: (CardViewModel) -> Void) {
+        guard index < cardViewModels.count else { return }
+        deliver(cardViewModels[index])
+    }
+
 }
