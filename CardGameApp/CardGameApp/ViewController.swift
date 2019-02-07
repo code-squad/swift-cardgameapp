@@ -13,10 +13,10 @@ class ViewController: UIViewController {
     //MARK: - Properties
     
     var deck: Deck?
-    @IBOutlet weak var deckView: UIView!
     
     //MARK: IBOutlet
     
+    @IBOutlet weak var deckView: UIView!
     @IBOutlet weak var cardsStackView: UIStackView!
     
     //MARK: - Methods

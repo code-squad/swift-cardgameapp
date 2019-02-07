@@ -19,6 +19,4 @@ class BlankSpaceView: UIView {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.white.cgColor
     }
-
-
 }
