@@ -20,7 +20,7 @@ class Klondike {
     private var goals = Goals()
     private var preview = Preview()
     private var pile: Pile
-    private var columns: [CardStack]
+    private var columns: Columns
     
     //MARK: - Methods
     //MARK: Initialization

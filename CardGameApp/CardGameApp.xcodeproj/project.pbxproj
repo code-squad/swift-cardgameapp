@@ -34,6 +34,7 @@
 		7D7BD3B3220D6D29003B5656 /* Goals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7BD3B2220D6D29003B5656 /* Goals.swift */; };
 		7D7BD3B6220D6F49003B5656 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7BD3B5220D6F49003B5656 /* Preview.swift */; };
 		7D7BD3B8220D6FFF003B5656 /* Pile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7BD3B7220D6FFF003B5656 /* Pile.swift */; };
+		7D7BD3BA220D70EE003B5656 /* Columns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7BD3B9220D70EE003B5656 /* Columns.swift */; };
 		7DF972B92202AC2A00E947B1 /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF972B82202AC2A00E947B1 /* CardImageView.swift */; };
 		7DF972BB2202B1B000E947B1 /* CardImageViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF972BA2202B1B000E947B1 /* CardImageViewDataSource.swift */; };
 		7DF972BD2202CBCC00E947B1 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF972BC2202CBCC00E947B1 /* CardStackView.swift */; };
@@ -69,6 +70,7 @@
 		7D7BD3B2220D6D29003B5656 /* Goals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goals.swift; sourceTree = "<group>"; };
 		7D7BD3B5220D6F49003B5656 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		7D7BD3B7220D6FFF003B5656 /* Pile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pile.swift; sourceTree = "<group>"; };
+		7D7BD3B9220D70EE003B5656 /* Columns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Columns.swift; sourceTree = "<group>"; };
 		7DF972B82202AC2A00E947B1 /* CardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
 		7DF972BA2202B1B000E947B1 /* CardImageViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageViewDataSource.swift; sourceTree = "<group>"; };
 		7DF972BC2202CBCC00E947B1 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				7D7BD3B2220D6D29003B5656 /* Goals.swift */,
 				7D7BD3B5220D6F49003B5656 /* Preview.swift */,
 				7D7BD3B7220D6FFF003B5656 /* Pile.swift */,
+				7D7BD3B9220D70EE003B5656 /* Columns.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				7D6E535B21FEEC1D00DFC342 /* NumberOfParticipant.swift in Sources */,
 				7D6E534C21FEEC1D00DFC342 /* Participant.swift in Sources */,
 				7D7BD3B1220C3892003B5656 /* KlondikeDelegate.swift in Sources */,
+				7D7BD3BA220D70EE003B5656 /* Columns.swift in Sources */,
 				7D6E535321FEEC1D00DFC342 /* ScoreCalculator.swift in Sources */,
 				7D6E534D21FEEC1D00DFC342 /* CardStack.swift in Sources */,
 			);
