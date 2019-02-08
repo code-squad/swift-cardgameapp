@@ -70,6 +70,10 @@ struct Deck : CardGameDeck {
         return setDeck
     }
     
+    func remainingCards() -> CardStack {
+        return CardStack(cards: self.cards)
+    }
+    
     func performByDeck(_ addDeckView: (Card) -> Void) {
         
         for card in cards {

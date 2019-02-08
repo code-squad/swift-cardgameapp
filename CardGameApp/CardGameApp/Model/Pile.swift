@@ -13,12 +13,12 @@ class Pile {
     //MARK: - Properties
     //MARK: Private
     
-    private var pile: Deck
+    private var pile: CardStack
     
     //MARK: - Methods
     //MARK: Initialization
     
-    init(deck: Deck) {
-        self.pile = deck
+    init(cardStack: CardStack) {
+        self.pile = cardStack
     }
 }

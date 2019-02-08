@@ -33,6 +33,7 @@ class Klondike {
         deck.shuffle()
         let cardStacks: [CardStack] = deck.willSetDeck(few: 7)
         self.columns = Columns(cardStacks: cardStacks)
-        self.pile = Pile(deck: deck)
+        let remainingCardStack = deck.remainingCards()
+        self.pile = Pile(cardStack: remainingCardStack)
     }
 }
