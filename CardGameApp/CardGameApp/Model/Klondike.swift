@@ -11,10 +11,6 @@ import Foundation
 class Klondike {
     
     //MARK: - Properties
-    //MARK: Delegate
-    
-    private var delegate: KlondikeDelegate
-    
     //MARK: Private
     
     private var goals = Goals()
@@ -25,11 +21,9 @@ class Klondike {
     //MARK: - Methods
     //MARK: Initialization
     
-    init(delegate: KlondikeDelegate) {
+    init(deck: Deck) {
         
-        self.delegate = delegate
-        
-        var deck = Deck()
+        var deck = deck
         deck.shuffle()
         let cardStacks: [CardStack] = deck.willSetDeck(few: 7)
         self.columns = Columns(cardStacks: cardStacks)

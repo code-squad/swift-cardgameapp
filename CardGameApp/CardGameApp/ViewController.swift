@@ -8,12 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, KlondikeDelegate {
+class ViewController: UIViewController {
     
     //MARK: - Properties
     
     lazy var klondike: Klondike = {
-        let klondike = Klondike(delegate: self)
+        
+        let deck = Deck()
+        let klondike = Klondike(deck: deck)
         return klondike
     }()
     
@@ -30,7 +32,6 @@ class ViewController: UIViewController, KlondikeDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         guard let image = UIImage(named: "bg_pattern") else { return }
         self.view.backgroundColor = UIColor(patternImage: image)
