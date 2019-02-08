@@ -17,15 +17,18 @@ class Klondike {
     
     //MARK: Private
     
-    private var goals: [[Card]]
-    private var preview: [Card]
-    private var pile: [Card]
-    private var columns: [[Card]]
+    private var goals: Goals
+    private var preview: CardStack
+    private var pile: CardStack
+    private var columns: [CardStack]
     
     //MARK: - Methods
     //MARK: Initialization
     
     init(delegate: KlondikeDelegate) {
+        
         self.delegate = delegate
+        
+        self.goals = Goals()
     }
 }

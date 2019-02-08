@@ -17,7 +17,7 @@ class CardStack : CustomStringConvertible {
     private var pairs : [[Card]]?
     private var numberOfPair = [0,0,0,0,0]
     
-    init(cards:[Card]) {
+    init(cards:[Card] = []) {
         self.cards = cards
     }
     
