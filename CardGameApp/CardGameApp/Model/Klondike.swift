@@ -29,6 +29,10 @@ class Klondike {
         
         self.delegate = delegate
         
-        
+        var deck = Deck()
+        deck.shuffle()
+        let cardStacks: [CardStack] = deck.willSetDeck(few: 7)
+        self.columns = Columns(cardStacks: cardStacks)
+        self.pile = Pile(deck: deck)
     }
 }

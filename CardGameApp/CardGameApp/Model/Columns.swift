@@ -18,10 +18,7 @@ class Columns {
     //MARK: - Methods
     //MARK: Initialization
     
-    init?(cardStacks: [CardStack]) {
-        
-        guard cardStacks.count == 7 else { return nil }
-        
+    init(cardStacks: [CardStack]) {
         self.columns = cardStacks
     }
 }
