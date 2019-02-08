@@ -18,7 +18,7 @@ class Klondike {
     //MARK: Private
     
     private var goals: Goals
-    private var preview: CardStack
+    private var preview: Preview
     private var pile: CardStack
     private var columns: [CardStack]
     
@@ -30,5 +30,6 @@ class Klondike {
         self.delegate = delegate
         
         self.goals = Goals()
+        self.preview = Preview()
     }
 }
