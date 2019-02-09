@@ -113,6 +113,9 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="refresh" translatesAutoresizingMaskIntoConstraints="NO" id="Lyo-vn-L6q">
                                 <rect key="frame" x="369" y="37.333333333333343" width="27.333333333333314" height="34.666666666666657"/>
                             </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ccu-RL-hsO">
+                                <rect key="frame" x="355.33333333333331" y="20" width="54.666666666666686" height="69.333333333333329"/>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -122,10 +125,14 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Eif-8f-JQk" secondAttribute="trailing" constant="4" id="BlK-bx-ZPY"/>
                             <constraint firstItem="Ykt-KV-D4c" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="GIT-tO-tiq"/>
                             <constraint firstItem="Lyo-vn-L6q" firstAttribute="height" secondItem="FqM-Ke-weJ" secondAttribute="height" multiplier="0.5" id="GXm-Ve-iSY"/>
+                            <constraint firstItem="ccu-RL-hsO" firstAttribute="height" secondItem="FqM-Ke-weJ" secondAttribute="height" id="Oy2-k5-VHr"/>
                             <constraint firstItem="Eif-8f-JQk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="PbJ-rY-enC"/>
                             <constraint firstItem="Lyo-vn-L6q" firstAttribute="centerX" secondItem="Pkp-K3-Pqz" secondAttribute="centerX" id="TEN-8t-dsU"/>
+                            <constraint firstItem="Lyo-vn-L6q" firstAttribute="centerX" secondItem="ccu-RL-hsO" secondAttribute="centerX" id="XEK-IR-iDV"/>
                             <constraint firstItem="Ykt-KV-D4c" firstAttribute="trailing" secondItem="8Hb-UN-9FR" secondAttribute="trailing" id="jGr-lm-FDh"/>
                             <constraint firstItem="Eif-8f-JQk" firstAttribute="top" secondItem="Ykt-KV-D4c" secondAttribute="bottom" constant="10" id="pIj-zE-KZH"/>
+                            <constraint firstItem="Lyo-vn-L6q" firstAttribute="centerY" secondItem="ccu-RL-hsO" secondAttribute="centerY" id="tRi-0K-dRR"/>
+                            <constraint firstItem="ccu-RL-hsO" firstAttribute="width" secondItem="Pkp-K3-Pqz" secondAttribute="width" id="uKL-yl-zE6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

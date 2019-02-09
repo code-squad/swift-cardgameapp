@@ -1,5 +1,5 @@
 //
-//  StandStackView.swift
+//  PileStackView.swift
 //  CardGameApp
 //
 //  Created by 조재흥 on 19. 2. 9..
@@ -8,8 +8,7 @@
 
 import UIKit
 
-@IBDesignable
-class StandStackView: UIStackView {
+class PileStackView: UIStackView {
 
     override func layoutSubviews() {
         super.layoutSubviews()

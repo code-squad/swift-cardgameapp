@@ -34,7 +34,7 @@
 		7D7BD3B6220D6F49003B5656 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7BD3B5220D6F49003B5656 /* Preview.swift */; };
 		7D7BD3B8220D6FFF003B5656 /* Pile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7BD3B7220D6FFF003B5656 /* Pile.swift */; };
 		7D7BD3BA220D70EE003B5656 /* Columns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7BD3B9220D70EE003B5656 /* Columns.swift */; };
-		7DCF9625220E9AE2001474F1 /* StandStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCF9624220E9AE2001474F1 /* StandStackView.swift */; };
+		7DC47911220EA2CF0054B529 /* PileStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC47910220EA2CF0054B529 /* PileStackView.swift */; };
 		7DF972B92202AC2A00E947B1 /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF972B82202AC2A00E947B1 /* CardImageView.swift */; };
 		7DF972BB2202B1B000E947B1 /* CardImageViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF972BA2202B1B000E947B1 /* CardImageViewDataSource.swift */; };
 		7DF972BD2202CBCC00E947B1 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF972BC2202CBCC00E947B1 /* CardStackView.swift */; };
@@ -70,7 +70,7 @@
 		7D7BD3B5220D6F49003B5656 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		7D7BD3B7220D6FFF003B5656 /* Pile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pile.swift; sourceTree = "<group>"; };
 		7D7BD3B9220D70EE003B5656 /* Columns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Columns.swift; sourceTree = "<group>"; };
-		7DCF9624220E9AE2001474F1 /* StandStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandStackView.swift; sourceTree = "<group>"; };
+		7DC47910220EA2CF0054B529 /* PileStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PileStackView.swift; sourceTree = "<group>"; };
 		7DF972B82202AC2A00E947B1 /* CardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
 		7DF972BA2202B1B000E947B1 /* CardImageViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageViewDataSource.swift; sourceTree = "<group>"; };
 		7DF972BC2202CBCC00E947B1 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
@@ -169,7 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				7D6E535E21FF541A00DFC342 /* BlankSpaceView.swift */,
-				7DCF9624220E9AE2001474F1 /* StandStackView.swift */,
+				7DC47910220EA2CF0054B529 /* PileStackView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -253,6 +253,7 @@
 				7D7BD3B3220D6D29003B5656 /* Goals.swift in Sources */,
 				7D6E534B21FEEC1D00DFC342 /* Suit.swift in Sources */,
 				7D6E534A21FEEC1D00DFC342 /* Rank.swift in Sources */,
+				7DC47911220EA2CF0054B529 /* PileStackView.swift in Sources */,
 				7D6E534E21FEEC1D00DFC342 /* GameOperator.swift in Sources */,
 				7D6E535221FEEC1D00DFC342 /* Card.swift in Sources */,
 				7D6E535F21FF541A00DFC342 /* BlankSpaceView.swift in Sources */,
@@ -271,7 +272,6 @@
 				7D6E534C21FEEC1D00DFC342 /* Participant.swift in Sources */,
 				7D7BD3BA220D70EE003B5656 /* Columns.swift in Sources */,
 				7D6E535321FEEC1D00DFC342 /* ScoreCalculator.swift in Sources */,
-				7DCF9625220E9AE2001474F1 /* StandStackView.swift in Sources */,
 				7D6E534D21FEEC1D00DFC342 /* CardStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
