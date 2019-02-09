@@ -113,9 +113,9 @@
 				7D6E533821FEEC1A00DFC342 /* CardStack.swift */,
 				7DF972BC2202CBCC00E947B1 /* CardStackView.swift */,
 				7D6E533D21FEEC1B00DFC342 /* Card.swift */,
+				7D7BD3BB220E8D74003B5656 /* View */,
 				7DF972B82202AC2A00E947B1 /* CardImageView.swift */,
 				7DF972BA2202B1B000E947B1 /* CardImageViewDataSource.swift */,
-				7D6E535E21FF541A00DFC342 /* BlankSpaceView.swift */,
 				7D6E533421FEEC1900DFC342 /* CardProperty */,
 				7D6E534521FEEC1C00DFC342 /* GameSetValue */,
 				7D6E534221FEEC1C00DFC342 /* HandRanking.swift */,
@@ -161,6 +161,14 @@
 				7D7BD3B9220D70EE003B5656 /* Columns.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7D7BD3BB220E8D74003B5656 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7D6E535E21FF541A00DFC342 /* BlankSpaceView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

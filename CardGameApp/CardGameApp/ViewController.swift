@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     //MARK: - Properties
     
-    lazy var klondike: Klondike = {
+    var klondike: Klondike = {
         
         let deck = Deck()
         let klondike = Klondike(deck: deck)

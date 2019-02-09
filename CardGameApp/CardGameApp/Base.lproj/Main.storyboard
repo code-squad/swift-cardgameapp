@@ -17,7 +17,116 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Eif-8f-JQk">
+                                <rect key="frame" x="4" y="99.333333333333343" width="406" height="69.333333333333343"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5e5-mU-iu9" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="5e5-mU-iu9" secondAttribute="height" multiplier="1:1.27" id="BBg-vt-CFT"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qjx-cs-66T" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="58.666666666666657" y="0.0" width="54.333333333333343" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="qjx-cs-66T" secondAttribute="height" multiplier="1:1.27" id="bH0-n7-yuP"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QOU-RH-U3I" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="117.00000000000001" y="0.0" width="54.666666666666671" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="QOU-RH-U3I" secondAttribute="height" multiplier="1:1.27" id="bGR-uX-3JL"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Hb-UN-9FR" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="175.66666666666666" y="0.0" width="54.666666666666657" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="8Hb-UN-9FR" secondAttribute="height" multiplier="1:1.27" id="sfG-iw-MvG"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9x1-C0-C9A" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="234.33333333333334" y="0.0" width="54.666666666666657" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="9x1-C0-C9A" secondAttribute="height" multiplier="1:1.27" id="iTD-iT-Dcz"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZf-gU-jzP" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="293" y="0.0" width="54.333333333333314" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="bZf-gU-jzP" secondAttribute="height" multiplier="1:1.27" id="xyQ-TJ-nSI"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pkp-K3-Pqz" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="351.33333333333331" y="0.0" width="54.666666666666686" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Pkp-K3-Pqz" secondAttribute="height" multiplier="1:1.27" id="GoF-DV-j92"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Ykt-KV-D4c">
+                                <rect key="frame" x="4" y="20" width="230.33333333333334" height="69.333333333333329"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nw8-dO-GVZ" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="nw8-dO-GVZ" secondAttribute="height" multiplier="1:1.27" id="77L-BI-yed"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="riJ-wE-Faw" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="58.666666666666657" y="0.0" width="54.333333333333343" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="riJ-wE-Faw" secondAttribute="height" multiplier="1:1.27" id="uhk-fD-Vbe"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nvo-Io-Tw3" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="117.00000000000001" y="0.0" width="54.666666666666671" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Nvo-Io-Tw3" secondAttribute="height" multiplier="1:1.27" id="b9b-ay-qOj"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FqM-Ke-weJ" customClass="BlankSpaceView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="175.66666666666666" y="0.0" width="54.666666666666657" height="69.333333333333329"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="FqM-Ke-weJ" secondAttribute="height" multiplier="1:1.27" id="EE3-U7-HGD"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Nvo-Io-Tw3" firstAttribute="centerY" secondItem="FqM-Ke-weJ" secondAttribute="centerY" id="3Dg-ba-y64"/>
+                                    <constraint firstItem="riJ-wE-Faw" firstAttribute="bottom" secondItem="Nvo-Io-Tw3" secondAttribute="bottom" id="9TQ-Og-dae"/>
+                                    <constraint firstItem="nw8-dO-GVZ" firstAttribute="bottom" secondItem="riJ-wE-Faw" secondAttribute="bottom" id="DBK-xa-wjq"/>
+                                </constraints>
+                            </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="refresh" translatesAutoresizingMaskIntoConstraints="NO" id="Lyo-vn-L6q">
+                                <rect key="frame" x="369" y="37.333333333333343" width="27.333333333333314" height="34.666666666666657"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Lyo-vn-L6q" firstAttribute="centerY" secondItem="FqM-Ke-weJ" secondAttribute="centerY" id="6EW-DZ-Bol"/>
+                            <constraint firstItem="Lyo-vn-L6q" firstAttribute="width" secondItem="Pkp-K3-Pqz" secondAttribute="width" multiplier="0.5" id="849-G2-8Qh"/>
+                            <constraint firstItem="Ykt-KV-D4c" firstAttribute="leading" secondItem="5e5-mU-iu9" secondAttribute="leading" id="9oM-9W-9L7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Eif-8f-JQk" secondAttribute="trailing" constant="4" id="BlK-bx-ZPY"/>
+                            <constraint firstItem="Ykt-KV-D4c" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="GIT-tO-tiq"/>
+                            <constraint firstItem="Lyo-vn-L6q" firstAttribute="height" secondItem="FqM-Ke-weJ" secondAttribute="height" multiplier="0.5" id="GXm-Ve-iSY"/>
+                            <constraint firstItem="Eif-8f-JQk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="PbJ-rY-enC"/>
+                            <constraint firstItem="Lyo-vn-L6q" firstAttribute="centerX" secondItem="Pkp-K3-Pqz" secondAttribute="centerX" id="TEN-8t-dsU"/>
+                            <constraint firstItem="Ykt-KV-D4c" firstAttribute="trailing" secondItem="8Hb-UN-9FR" secondAttribute="trailing" id="jGr-lm-FDh"/>
+                            <constraint firstItem="Eif-8f-JQk" firstAttribute="top" secondItem="Ykt-KV-D4c" secondAttribute="bottom" constant="10" id="pIj-zE-KZH"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
@@ -26,4 +135,7 @@
             <point key="canvasLocation" x="34.782608695652179" y="23.64130434782609"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="refresh" width="96" height="96"/>
+    </resources>
 </document>
