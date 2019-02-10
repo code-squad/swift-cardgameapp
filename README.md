@@ -288,3 +288,31 @@ class CardView: UIImageView {
 카드 덱 터치 시, 카드 한 장을 뒤집어 좌측에 표시하고 있습니다. 모든 카드를 뒤집어 소진되었을 시 리프레시 이미지가 표시되고, Shake 모션을 취하면 초기 상태로 되돌립니다.
 
 ![Jan-29-2019](./images/step3/Jan-29-2019.gif)
+
+<br>
+
+### 수정내용
+
+CardView와 CardViewModel 관계를 중심으로 대폭 수정헀습니다.
+
+#### 1. 뷰 계층
+
+뷰는 아래와 같은 포함관계를 갖도록 수정했습니다. 뷰 모델과 모델 또한 동일한 포함관계를 갖도록 구현했습니다.
+
+- ViewController
+  - CardGameView
+    - CardSpacesView
+      - [CardSpaceView]
+    - CardPileView
+      - [CardView]
+    - CardDeckView
+      - [CardView]
+    - CardStacksView
+      - [CardStackView]
+        - [CardView]
+
+#### 2. NotificationCenter 활용
+
+`CardDeckView` 에 터치 이벤트가 발생할 경우, `CardDeckViewModel` 내부의 `CardViewModel` 배열 중 마지막 요소가 `flip` 됩니다. `CardViewModel` 에서 관리하는 `opened` 프로퍼티가 변경되는 경우 `.cardDidFlip` 노티피케이션이 포스트되고, 이 뷰 모델을 소유한 `CardView` 에서 노티피케이션을 받아 뷰를 다시 그리도록 구현했습니다.
+
+ShakeMotion이 발생하여 카드게임 판을 초기화시킬 경우에도 이와 같은 방식으로 구현했습니다.
