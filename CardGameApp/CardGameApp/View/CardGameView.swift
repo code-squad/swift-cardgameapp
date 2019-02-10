@@ -12,10 +12,10 @@ class CardGameView: UIView {
     private var viewModel: CardGameViewModel!
     private let layout: CardGameViewLayout
 
-    private var cardStacksView: CardStacksView!
-    private var cardDeckView: CardDeckView!
+    private var cardSpacesView: CardSpacesView!
     private var cardPileView: CardPileView!
-    private var cardSpacesView: [CardSpaceView]!
+    private var cardDeckView: CardDeckView!
+    private var cardStacksView: CardStacksView!
 
     required init?(coder aDecoder: NSCoder) {
         self.layout = CardGameViewLayout(frame: UIScreen.main.bounds)
@@ -39,18 +39,19 @@ class CardGameView: UIView {
     }
 
     private func createViews() {
-        cardStacksView = CardStacksView(frame: layout.frameOfCardStacksView, viewModel: viewModel.cardStacksViewModel)
-        cardDeckView = CardDeckView(frame: layout.frameOfCardDeckView, viewModel: viewModel.cardDeckViewModel)
+        let spaces = 4
+        cardSpacesView = CardSpacesView(frame: layout.getFrameOfCardSpacesView(spaces: spaces), spaces: spaces)
         cardPileView = CardPileView(frame: layout.frameOfCardPileView, viewModel: viewModel.cardPileViewModel)
-        cardSpacesView = layout.createSpaceViews(spaces: 4)
+        cardDeckView = CardDeckView(frame: layout.frameOfCardDeckView, viewModel: viewModel.cardDeckViewModel)
+        cardStacksView = CardStacksView(frame: layout.frameOfCardStacksView, viewModel: viewModel.cardStacksViewModel)
         addViews()
     }
 
     private func addViews() {
-        addSubview(cardStacksView)
-        addSubview(cardDeckView)
+        addSubview(cardSpacesView)
         addSubview(cardPileView)
-        cardSpacesView.forEach { addSubview($0) }
+        addSubview(cardDeckView)
+        addSubview(cardStacksView)
     }
 
 }
