@@ -54,16 +54,4 @@ struct CardGameViewLayout {
         return CGRect(origin: origin, size: size)
     }
 
-    func createSpaceViews(spaces: Int) -> [CardSpaceView] {
-        var cardSpaceViews: [CardSpaceView] = []
-        var positionX = Margin.side
-        for _ in 0..<spaces {
-            let origin = CGPoint(x: positionX, y: Margin.top)
-            let cardSpaceView = CardSpaceView(origin: origin, size: cardViewSize)
-            cardSpaceViews.append(cardSpaceView)
-            positionX += (cardViewSize.width + Margin.side)
-        }
-        return cardSpaceViews
-    }
-
 }

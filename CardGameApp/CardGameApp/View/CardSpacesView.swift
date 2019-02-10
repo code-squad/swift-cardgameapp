@@ -8,14 +8,16 @@
 
 import UIKit
 
-class CardSpacesView: UIView {
+class CardSpacesView: UIStackView {
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init(coder: NSCoder) {
+        super.init(coder: coder)
+        configureLayout()
     }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configureLayout()
     }
 
     convenience init(frame: CGRect, spaces: Int) {
@@ -23,14 +25,15 @@ class CardSpacesView: UIView {
         createCardSpaceViews(spaces: spaces)
     }
 
+    private func configureLayout() {
+        spacing = 5
+        distribution = .fillEqually
+    }
+
     private func createCardSpaceViews(spaces: Int) {
-        var positionX: CGFloat = 0
         for _ in 0..<spaces {
-            let origin = CGPoint(x: positionX, y: 0)
-            let size = CGSize(width: 53, height: frame.height) // 수정
-            let cardSpaceView = CardSpaceView(origin: origin, size: size)
-            addSubview(cardSpaceView)
-            positionX += cardSpaceView.frame.width + 5
+            let cardSpaceView = CardSpaceView(frame: .zero)
+            addArrangedSubview(cardSpaceView)
         }
     }
 
