@@ -8,6 +8,10 @@
 
 import UIKit
 
+struct CardViewLayout {
+    static var size: CGSize = .zero
+}
+
 struct CardGameViewLayout {
 
     private struct Margin {
@@ -27,6 +31,10 @@ struct CardGameViewLayout {
         let cardViewWidth = widthExceptMargin / self.numberOfCardStacks
         let cardViewHeight = cardViewWidth * 1.27
         self.cardViewSize = CGSize(width: cardViewWidth, height: cardViewHeight)
+    }
+
+    var sizeOfCardView: CGSize {
+        return cardViewSize
     }
 
     var frameOfCardStacksView: CGRect {

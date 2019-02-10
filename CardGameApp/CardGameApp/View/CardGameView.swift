@@ -34,6 +34,7 @@ class CardGameView: UIView {
     }
 
     private func setUp() {
+        CardViewLayout.size = self.layout.sizeOfCardView
         createViews()
         addViews()
     }
@@ -44,7 +45,6 @@ class CardGameView: UIView {
         cardPileView = CardPileView(frame: layout.frameOfCardPileView, viewModel: viewModel.cardPileViewModel)
         cardDeckView = CardDeckView(frame: layout.frameOfCardDeckView, viewModel: viewModel.cardDeckViewModel)
         cardStacksView = CardStacksView(frame: layout.frameOfCardStacksView, viewModel: viewModel.cardStacksViewModel)
-        addViews()
     }
 
     private func addViews() {
