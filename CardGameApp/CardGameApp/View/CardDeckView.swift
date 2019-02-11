@@ -9,7 +9,6 @@
 import UIKit
 
 class CardDeckView: UIImageView {
-    private var viewModel: CardDeckViewModel!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -23,19 +22,18 @@ class CardDeckView: UIImageView {
 
     convenience init(frame: CGRect, viewModel: CardDeckViewModel) {
         self.init(frame: frame)
-        self.viewModel = viewModel
-        createCardViews()
-        registerAsObserver()
+        createCardViews(with: viewModel)
+        registerAsObserver(of: viewModel)
     }
 
-    private func createCardViews() {
+    private func createCardViews(with viewModel: CardDeckViewModel) {
         viewModel.iterateCardViewModels { [unowned self] cardViewModel in
             let cardView = CardView(frame: self.bounds, viewModel: cardViewModel)
             self.addSubview(cardView)
         }
     }
 
-    private func registerAsObserver() {
+    private func registerAsObserver(of viewModel: CardDeckViewModel) {
         NotificationCenter.default.addObserver(self, selector: #selector(setRefreshImage), name: .cardDeckWillBeEmpty, object: viewModel)
     }
 

@@ -9,7 +9,6 @@
 import UIKit
 
 class CardPileView: UIView {
-    private var viewModel: CardPileViewModel!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -17,11 +16,6 @@ class CardPileView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-    }
-
-    convenience init(frame: CGRect, viewModel: CardPileViewModel) {
-        self.init(frame: frame)
-        self.viewModel = viewModel
     }
 
     func push(_ cardView: CardView) {

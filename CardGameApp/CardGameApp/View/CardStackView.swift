@@ -9,7 +9,6 @@
 import UIKit
 
 class CardStackView: UIView {
-    private var viewModel: CardStackViewModel!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -21,11 +20,10 @@ class CardStackView: UIView {
 
     convenience init(frame: CGRect, viewModel: CardStackViewModel) {
         self.init(frame: frame)
-        self.viewModel = viewModel
-        createCardViews()
+        createCardViews(with: viewModel)
     }
 
-    private func createCardViews() {
+    private func createCardViews(with viewModel: CardStackViewModel) {
         viewModel.iterateCardViewModels { [unowned self] cardViewModel in
             var frame = CGRect(origin: CGPoint(), size: CardViewLayout.size)
             if let lastCardView = subviews.last {

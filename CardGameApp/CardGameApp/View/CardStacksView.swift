@@ -9,7 +9,6 @@
 import UIKit
 
 class CardStacksView: UIStackView {
-    private var viewModel: CardStacksViewModel!
 
     required init(coder: NSCoder) {
         super.init(coder: coder)
@@ -23,9 +22,8 @@ class CardStacksView: UIStackView {
 
     convenience init(frame: CGRect, viewModel: CardStacksViewModel) {
         self.init(frame: frame)
-        self.viewModel = viewModel
         configureLayout()
-        createCardStackViews()
+        createCardStackViews(with: viewModel)
     }
 
     private func configureLayout() {
@@ -33,7 +31,7 @@ class CardStacksView: UIStackView {
         distribution = .fillEqually
     }
 
-    private func createCardStackViews() {
+    private func createCardStackViews(with viewModel: CardStacksViewModel) {
         viewModel.iterateCardStackViewModels { [unowned self] cardStackViewModel in
             let cardStackView = CardStackView(frame: CGRect(), viewModel: cardStackViewModel)
             self.addArrangedSubview(cardStackView)
