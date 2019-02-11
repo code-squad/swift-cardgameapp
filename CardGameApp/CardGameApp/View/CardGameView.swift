@@ -9,8 +9,7 @@
 import UIKit
 
 class CardGameView: UIView {
-    private var viewModel: CardGameViewModel!
-    private let layout: CardGameViewLayout
+    private var viewModel: CardGameViewModelProtocol!
 
     private var cardSpacesView: CardSpacesView!
     private var cardPileView: CardPileView!
@@ -18,31 +17,30 @@ class CardGameView: UIView {
     private var cardStacksView: CardStacksView!
 
     required init?(coder aDecoder: NSCoder) {
-        self.layout = CardGameViewLayout(frame: UIScreen.main.bounds)
         super.init(coder: aDecoder)
     }
 
     override init(frame: CGRect) {
-        self.layout = CardGameViewLayout(frame: frame)
         super.init(frame: frame)
     }
 
     convenience init(frame: CGRect, viewModel: CardGameViewModel) {
         self.init(frame: frame)
         self.viewModel = viewModel
-        setUp()
+        setUp(frame: frame, viewModel: viewModel)
     }
 
-    private func setUp() {
-        CardViewLayout.size = self.layout.sizeOfCardView
-        createViews()
+    private func setUp(frame: CGRect, viewModel: CardGameViewModel) {
+        let layout = CardGameViewLayout(frame: frame)
+        CardViewLayout.size = layout.sizeOfCardView
+        createViews(with: viewModel, in: layout)
         addViews()
     }
 
-    private func createViews() {
+    private func createViews(with viewModel: CardGameViewModel, in layout: CardGameViewLayout) {
         let spaces = 4
         cardSpacesView = CardSpacesView(frame: layout.getFrameOfCardSpacesView(spaces: spaces), spaces: spaces)
-        cardPileView = CardPileView(frame: layout.frameOfCardPileView, viewModel: viewModel.cardPileViewModel)
+        cardPileView = CardPileView(frame: layout.frameOfCardPileView)
         cardDeckView = CardDeckView(frame: layout.frameOfCardDeckView, viewModel: viewModel.cardDeckViewModel)
         cardStacksView = CardStacksView(frame: layout.frameOfCardStacksView, viewModel: viewModel.cardStacksViewModel)
     }
