@@ -20,7 +20,7 @@ class CardSpaceView: UIView {
         setUp()
     }
 
-    convenience init(origin: CGPoint = CGPoint(), size: CGSize) {
+    convenience init(origin: CGPoint = .zero, size: CGSize) {
         let frame = CGRect(origin: origin, size: size)
         self.init(frame: frame)
     }

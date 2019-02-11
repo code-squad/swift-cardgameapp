@@ -33,7 +33,7 @@ class CardStacksView: UIStackView {
 
     private func createCardStackViews(with viewModel: CardStacksViewModel) {
         viewModel.iterateCardStackViewModels { [unowned self] cardStackViewModel in
-            let cardStackView = CardStackView(frame: CGRect(), viewModel: cardStackViewModel)
+            let cardStackView = CardStackView(frame: .zero, viewModel: cardStackViewModel)
             self.addArrangedSubview(cardStackView)
         }
     }
