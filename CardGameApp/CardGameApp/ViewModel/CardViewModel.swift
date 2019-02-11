@@ -17,18 +17,20 @@ class CardViewModel {
         self.opened = false
     }
 
-    func flip() {
-        opened.toggle()
-        NotificationCenter.default.post(name: .cardDidFlip, object: self)
-    }
-
     var imageName: String {
         return opened ? "\(card)" : "card-back"
     }
 
+    func flip() {
+        opened.toggle()
+        let userInfo = [Notification.InfoKey.imageNameOfCard: imageName]
+        NotificationCenter.default.post(name: .cardDidFlip, object: self, userInfo: userInfo)
+    }
+
     func replace(card: Card) {
         self.card = card
-        NotificationCenter.default.post(name: .cardDidReset, object: self)
+        let userInfo = [Notification.InfoKey.imageNameOfCard: imageName]
+        NotificationCenter.default.post(name: .cardDidReset, object: self, userInfo: userInfo)
     }
 
 }
@@ -36,4 +38,10 @@ class CardViewModel {
 extension NSNotification.Name {
     static let cardDidFlip = NSNotification.Name("cardDidFlip")
     static let cardDidReset = NSNotification.Name("cardDidReset")
+}
+
+extension Notification {
+    struct InfoKey {
+        static let imageNameOfCard = "imageNameOfCard"
+    }
 }

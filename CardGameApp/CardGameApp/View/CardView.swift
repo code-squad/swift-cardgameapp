@@ -9,7 +9,6 @@
 import UIKit
 
 class CardView: UIImageView {
-    private var viewModel: CardViewModel!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -23,13 +22,12 @@ class CardView: UIImageView {
 
     convenience init(frame: CGRect, viewModel: CardViewModel) {
         self.init(frame: frame)
-        self.viewModel = viewModel
-        updateImage()
+        image = UIImage(named: viewModel.imageName)
+        registerAsObserver(of: viewModel)
     }
 
     private func setUp() {
         roundCorners()
-        registerAsObserver()
     }
 
     private func roundCorners() {
@@ -37,13 +35,15 @@ class CardView: UIImageView {
         layer.masksToBounds = true
     }
 
-    private func registerAsObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(updateImage), name: .cardDidFlip, object: viewModel)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateImage), name: .cardDidReset, object: viewModel)
+    private func registerAsObserver(of viewModel: CardViewModel) {
+        NotificationCenter.default.addObserver(self, selector: #selector(updateImage(_:)), name: .cardDidFlip, object: viewModel)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateImage(_:)), name: .cardDidReset, object: viewModel)
     }
 
-    @objc private func updateImage() {
-        image = UIImage(named: viewModel.imageName)
+    @objc private func updateImage(_ notification: Notification) {
+        if let imageName = notification.userInfo?[Notification.InfoKey.imageNameOfCard] as? String {
+            image = UIImage(named: imageName)
+        }
     }
 
 }
