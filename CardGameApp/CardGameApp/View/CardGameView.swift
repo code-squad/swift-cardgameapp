@@ -24,7 +24,7 @@ class CardGameView: UIView {
         super.init(frame: frame)
     }
 
-    convenience init(frame: CGRect, viewModel: CardGameViewModel) {
+    convenience required init(frame: CGRect, viewModel: CardGameViewModel) {
         self.init(frame: frame)
         self.viewModel = viewModel
         setUp(frame: frame, viewModel: viewModel)
