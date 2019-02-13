@@ -16,7 +16,7 @@ class Klondike {
     private var goals: [Suit: CardStack] = [:]
     private var preview = CardStack()
     private var pile = CardStack()
-    private var columns: [CardStack] = []
+    private var columns: Columns
     
     //MARK: - Methods
     //MARK: Initialization
@@ -32,9 +32,7 @@ class Klondike {
             self.goals[suit] = CardStack()
         }
         
-        for _ in 0..<7 {
-            self.columns.append(CardStack())
-        }
+        self.columns = Columns(cardStacks: cardStacks)
     }
     
     func start() {

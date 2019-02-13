@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D1533BB2214022900C63283 /* Columns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1533BA2214022900C63283 /* Columns.swift */; };
 		7D6E52F421FEBCB500DFC342 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E52F321FEBCB500DFC342 /* AppDelegate.swift */; };
 		7D6E52F621FEBCB500DFC342 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E52F521FEBCB500DFC342 /* ViewController.swift */; };
 		7D6E52F921FEBCB500DFC342 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E52F721FEBCB500DFC342 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7D1533BA2214022900C63283 /* Columns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Columns.swift; sourceTree = "<group>"; };
 		7D6E52F021FEBCB500DFC342 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D6E52F321FEBCB500DFC342 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D6E52F521FEBCB500DFC342 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				7D7BD3AE220C377F003B5656 /* Klondike.swift */,
+				7D1533BA2214022900C63283 /* Columns.swift */,
 				7D6E534921FEEC1C00DFC342 /* Deck.swift */,
 				7D6E533821FEEC1A00DFC342 /* CardStack.swift */,
 				7D6E533D21FEEC1B00DFC342 /* Card.swift */,
@@ -244,6 +247,7 @@
 				7D6E534F21FEEC1D00DFC342 /* ValidChecker.swift in Sources */,
 				7D6E52F621FEBCB500DFC342 /* ViewController.swift in Sources */,
 				7D6E535821FEEC1D00DFC342 /* Dealer.swift in Sources */,
+				7D1533BB2214022900C63283 /* Columns.swift in Sources */,
 				7D7BD3AF220C377F003B5656 /* Klondike.swift in Sources */,
 				7DC47916220EABD80054B529 /* UserInfoKey.swift in Sources */,
 				7D6E535021FEEC1D00DFC342 /* GamePlayer.swift in Sources */,
