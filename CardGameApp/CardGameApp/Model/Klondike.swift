@@ -21,7 +21,12 @@ class Klondike {
     //MARK: - Methods
     //MARK: Initialization
     
-    init() {
+    init(deck: Deck) {
+        
+        var deck = deck
+        
+        let cardStacks = deck.willSetDeck(few: 7)
+        let remainingCards = deck.remainingCards()
         
         for suit in Suit.allCases {
             self.goals[suit] = CardStack()
