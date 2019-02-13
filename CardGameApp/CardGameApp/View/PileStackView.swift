@@ -9,11 +9,24 @@
 import UIKit
 
 class PileStackView: UIStackView {
-
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    
+    required init(coder: NSCoder) {
+        super.init(coder: coder)
         
-        guard let subViewHeight = self.arrangedSubviews.last?.frame.height else { return }
-        self.spacing = -subViewHeight
+        self.spacing = -self.frame.height
+    }
+}
+
+extension UIStackView {
+    
+    func add(cardStack: CardStack) {
+        
+        let addSubview: (Card) -> Void = { (card: Card) -> Void in
+            
+            let cardView = CardImageView(card: card)
+            self.addArrangedSubview(cardView)
+        }
+        
+        cardStack.performWithCards(addSubview)
     }
 }

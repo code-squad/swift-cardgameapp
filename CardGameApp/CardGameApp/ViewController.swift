@@ -10,16 +10,18 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    //MARK: IBOutlet
+    
+    @IBOutlet weak var pileStackView: PileStackView!
+    
     //MARK: - Properties
     
-    var klondike: Klondike = {
-        
-        let deck = Deck()
-        let klondike = Klondike(deck: deck)
-        return klondike
+    lazy var klondike: Klondike = {
+    
+        return Klondike()
     }()
     
-    //MARK: IBOutlet
+
     
     //MARK: - Methods
     //MARK: Setting
@@ -35,11 +37,23 @@ class ViewController: UIViewController {
         
         guard let image = UIImage(named: "bg_pattern") else { return }
         self.view.backgroundColor = UIColor(patternImage: image)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updatePileStackView),
+                                               name: .cardStackDidChange,
+                                               object: nil)
+        klondike.start()
     }
     
     //MARK: Private
 
+    @objc private func updatePileStackView(_ noti: Notification) {
+        
+        guard let userInfo = noti.userInfo,
+              let pileStack = userInfo[UserInfoKey.cardStack] as? CardStack else { return }
+
+        pileStackView.add(cardStack: pileStack)
+    }
     
     //MARK: Motion
-
 }

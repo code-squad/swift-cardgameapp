@@ -13,21 +13,26 @@ class Klondike {
     //MARK: - Properties
     //MARK: Private
     
-    private var goals = Goals()
-    private var preview = Preview()
-    private var pile: Pile
-    private var columns: Columns
+    private var goals: [Suit: CardStack] = [:]
+    private var preview = CardStack()
+    private var pile = CardStack()
+    private var columns: [CardStack] = []
     
     //MARK: - Methods
     //MARK: Initialization
     
-    init(deck: Deck) {
+    init() {
         
-        var deck = deck
-        deck.shuffle()
-        let cardStacks: [CardStack] = deck.willSetDeck(few: 7)
-        self.columns = Columns(cardStacks: cardStacks)
-        let remainingCardStack = deck.remainingCards()
-        self.pile = Pile(cardStack: remainingCardStack)
+        for suit in Suit.allCases {
+            self.goals[suit] = CardStack()
+        }
+        
+        for _ in 0..<7 {
+            self.columns.append(CardStack())
+        }
+    }
+    
+    func start() {
+        
     }
 }

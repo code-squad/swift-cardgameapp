@@ -11,23 +11,29 @@ import UIKit
 class CardImageView: UIImageView {
 
     //MARK: - Properties
+    //MARK: Private
     
-    weak var dataSource: CardImageViewDataSource?
+    private var backImage: UIImage? = UIImage(named: "card_back")
+    private var isFront: Bool = false
     
     //MARK: - Methods
     //MARK: Initialization
     
-    init(card: CardImageViewDataSource) {
+    override init(image: UIImage?) {
+        super.init(image: image)
         
-        self.dataSource = card
-        super.init(image: dataSource?.image())
         addAspectRatioConstraint()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        
         super.init(coder: aDecoder)
+        
         addAspectRatioConstraint()
+    }
+    
+    convenience init(card: Card) {
+        let image = UIImage(named: card.description)
+        self.init(image: image)
     }
     
     //MARK: Private
@@ -43,6 +49,20 @@ class CardImageView: UIImageView {
                                                        constant: 0)
         self.addConstraint(aspectRatioConstraint)
     }
+    
+    //MARK: Instance
+    
+    func flip() {
+        self.isFront = !self.isFront
+        self.backImage <> self.image
+    }
 }
 
+infix operator <>
 
+func <>(lhs: inout UIImage?, rhs: inout UIImage?) {
+    
+    let temp = lhs
+    lhs = rhs
+    rhs = temp
+}

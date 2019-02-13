@@ -9,7 +9,16 @@
 import Foundation
 
 class CardStack : CustomStringConvertible {
-    private var cards : [Card]
+    
+    private var cards : [Card] {
+        didSet {
+            let userInfo: [String: [Card]] = [UserInfoKey.cardStack: self.cards]
+            NotificationCenter.default.post(name: .cardStackDidChange,
+                                            object: nil,
+                                            userInfo: userInfo)
+        }
+    }
+    
     var description: String {
         return "\(self.cards)"
     }
@@ -63,13 +72,10 @@ class CardStack : CustomStringConvertible {
         return maxValuedCard?.score() ?? 0
     }
     
-    func performByCards(_ addCardView: (Card) -> Void) {
+    func performWithCards(_ addSubview: (Card) -> Void) {
         
-        for card in cards {
-            if card == cards.last {
-                card.turnOver()
-            }
-            addCardView(card)
+        for card in self.cards {
+            addSubview(card)
         }
     }
 }

@@ -20,7 +20,6 @@ class Card : CustomStringConvertible {
     
     private let suit: Suit
     private let rank: Rank
-    private(set) var isFront: Bool = false
     
     //MARK: - Methods
     //MARK: Initialization
@@ -38,10 +37,6 @@ class Card : CustomStringConvertible {
     
     func score() -> Int {
         return self.rank.rawValue * 10 + self.suit.rawValue
-    }
-    
-    func turnOver() {
-        self.isFront = !isFront
     }
     
     static func ==(lhs: Card, rhs: Card?) -> Bool {
