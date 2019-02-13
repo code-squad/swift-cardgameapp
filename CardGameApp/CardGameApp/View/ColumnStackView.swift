@@ -13,6 +13,7 @@ class ColumnStackView: UIStackView {
     required init(coder: NSCoder) {
         super.init(coder: coder)
         
-        self.spacing = self.frame.width * 1.27 / 3
+        let heightOfCard = self.frame.width * 1.27
+        self.spacing = -heightOfCard * (7/10)
     }
 }
