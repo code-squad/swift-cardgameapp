@@ -15,9 +15,6 @@ class PositionStackView: UIStackView {
         
         self.spacing = -self.frame.height
     }
-}
-
-extension UIStackView {
     
     func add(cards: [Card]) {
         
