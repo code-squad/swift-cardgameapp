@@ -12,7 +12,10 @@ class ViewController: UIViewController {
     
     //MARK: IBOutlet
     
-    @IBOutlet weak var pileStackView: PositionStackView!
+    @IBOutlet weak var pileStackView: BackPositionStackView!
+    @IBOutlet weak var previewStackView: PositionStackView!
+    @IBOutlet weak var goalsStackView: UIStackView!
+    
     
     //MARK: - Properties
     

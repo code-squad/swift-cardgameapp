@@ -113,31 +113,80 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="refresh" translatesAutoresizingMaskIntoConstraints="NO" id="Lyo-vn-L6q">
                                 <rect key="frame" x="369" y="37.333333333333343" width="27.333333333333314" height="34.666666666666657"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ccu-RL-hsO" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ccu-RL-hsO" customClass="BackPositionStackView" customModule="CardGameApp" customModuleProvider="target">
                                 <rect key="frame" x="355.33333333333331" y="20" width="54.666666666666686" height="69.333333333333329"/>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ub9-cO-OgT">
+                                <rect key="frame" x="238.33333333333337" y="20" width="113" height="69.333333333333329"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0gx-FU-oXQ" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="29.333333333333346" y="0.0" width="54.333333333333343" height="69.333333333333329"/>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="0gx-FU-oXQ" firstAttribute="centerY" secondItem="ub9-cO-OgT" secondAttribute="centerY" id="Dy8-pM-iLi"/>
+                                    <constraint firstItem="0gx-FU-oXQ" firstAttribute="centerX" secondItem="ub9-cO-OgT" secondAttribute="centerX" id="M46-uA-rbo"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="B43-we-Ra9">
+                                <rect key="frame" x="4" y="20" width="230.33333333333334" height="69.333333333333329"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="F2k-us-I5l" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="59"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="SGw-LN-4q4" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="58.666666666666657" y="0.0" width="54.333333333333343" height="59"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="7sd-aE-EHD" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="117.00000000000001" y="0.0" width="54.666666666666671" height="59"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="HTu-Zf-98Z" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="175.66666666666666" y="0.0" width="54.666666666666657" height="59"/>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="yAd-XT-oIb">
+                                <rect key="frame" x="4" y="99.333333333333343" width="406" height="69.333333333333343"/>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="ub9-cO-OgT" firstAttribute="leading" secondItem="9x1-C0-C9A" secondAttribute="leading" id="3Jm-eV-dAi"/>
+                            <constraint firstItem="ub9-cO-OgT" firstAttribute="trailing" secondItem="bZf-gU-jzP" secondAttribute="trailing" id="5yv-GZ-7Q0"/>
                             <constraint firstItem="Lyo-vn-L6q" firstAttribute="centerY" secondItem="FqM-Ke-weJ" secondAttribute="centerY" id="6EW-DZ-Bol"/>
                             <constraint firstItem="Lyo-vn-L6q" firstAttribute="width" secondItem="Pkp-K3-Pqz" secondAttribute="width" multiplier="0.5" id="849-G2-8Qh"/>
+                            <constraint firstItem="0gx-FU-oXQ" firstAttribute="width" secondItem="ccu-RL-hsO" secondAttribute="width" id="9V0-AB-xf3"/>
                             <constraint firstItem="Ykt-KV-D4c" firstAttribute="leading" secondItem="5e5-mU-iu9" secondAttribute="leading" id="9oM-9W-9L7"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Eif-8f-JQk" secondAttribute="trailing" constant="4" id="BlK-bx-ZPY"/>
+                            <constraint firstItem="yAd-XT-oIb" firstAttribute="trailing" secondItem="Eif-8f-JQk" secondAttribute="trailing" id="F5I-Jd-LUH"/>
                             <constraint firstItem="Ykt-KV-D4c" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="GIT-tO-tiq"/>
                             <constraint firstItem="Lyo-vn-L6q" firstAttribute="height" secondItem="FqM-Ke-weJ" secondAttribute="height" multiplier="0.5" id="GXm-Ve-iSY"/>
+                            <constraint firstItem="B43-we-Ra9" firstAttribute="trailing" secondItem="Ykt-KV-D4c" secondAttribute="trailing" id="Hs9-c1-Bkx"/>
                             <constraint firstItem="ccu-RL-hsO" firstAttribute="height" secondItem="FqM-Ke-weJ" secondAttribute="height" id="Oy2-k5-VHr"/>
                             <constraint firstItem="Eif-8f-JQk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="4" id="PbJ-rY-enC"/>
                             <constraint firstItem="Lyo-vn-L6q" firstAttribute="centerX" secondItem="Pkp-K3-Pqz" secondAttribute="centerX" id="TEN-8t-dsU"/>
                             <constraint firstItem="Lyo-vn-L6q" firstAttribute="centerX" secondItem="ccu-RL-hsO" secondAttribute="centerX" id="XEK-IR-iDV"/>
+                            <constraint firstItem="B43-we-Ra9" firstAttribute="leading" secondItem="Ykt-KV-D4c" secondAttribute="leading" id="g8c-Rl-4kg"/>
                             <constraint firstItem="Ykt-KV-D4c" firstAttribute="trailing" secondItem="8Hb-UN-9FR" secondAttribute="trailing" id="jGr-lm-FDh"/>
+                            <constraint firstItem="yAd-XT-oIb" firstAttribute="bottom" secondItem="Eif-8f-JQk" secondAttribute="bottom" id="lrg-ef-k5e"/>
+                            <constraint firstItem="ub9-cO-OgT" firstAttribute="top" secondItem="ccu-RL-hsO" secondAttribute="top" id="mVz-rY-C4M"/>
                             <constraint firstItem="Eif-8f-JQk" firstAttribute="top" secondItem="Ykt-KV-D4c" secondAttribute="bottom" constant="10" id="pIj-zE-KZH"/>
+                            <constraint firstItem="B43-we-Ra9" firstAttribute="top" secondItem="Ykt-KV-D4c" secondAttribute="top" id="pgl-Hs-kbb"/>
+                            <constraint firstItem="0gx-FU-oXQ" firstAttribute="height" secondItem="ccu-RL-hsO" secondAttribute="height" id="rlT-0f-iaV"/>
+                            <constraint firstItem="ub9-cO-OgT" firstAttribute="bottom" secondItem="ccu-RL-hsO" secondAttribute="bottom" id="tJ4-UU-Kf5"/>
                             <constraint firstItem="Lyo-vn-L6q" firstAttribute="centerY" secondItem="ccu-RL-hsO" secondAttribute="centerY" id="tRi-0K-dRR"/>
+                            <constraint firstItem="B43-we-Ra9" firstAttribute="bottom" secondItem="Ykt-KV-D4c" secondAttribute="bottom" id="tgS-Jq-jz8"/>
+                            <constraint firstItem="yAd-XT-oIb" firstAttribute="leading" secondItem="Eif-8f-JQk" secondAttribute="leading" id="tic-ug-Voa"/>
                             <constraint firstItem="ccu-RL-hsO" firstAttribute="width" secondItem="Pkp-K3-Pqz" secondAttribute="width" id="uKL-yl-zE6"/>
+                            <constraint firstItem="yAd-XT-oIb" firstAttribute="top" secondItem="Eif-8f-JQk" secondAttribute="top" id="zrR-GB-MIp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="pileStackView" destination="ccu-RL-hsO" id="Ha4-TY-PEH"/>
+                        <outlet property="goalsStackView" destination="B43-we-Ra9" id="eE4-b5-T7A"/>
+                        <outlet property="pileStackView" destination="ccu-RL-hsO" id="zAx-XC-KaY"/>
+                        <outlet property="previewStackView" destination="0gx-FU-oXQ" id="LTB-Gl-quL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
