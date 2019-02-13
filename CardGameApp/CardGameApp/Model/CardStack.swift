@@ -10,12 +10,12 @@ import Foundation
 
 class CardStack : CustomStringConvertible {
     
+    //MARK: - Properties
+    //MARK: Private
+    
     private var cards : [Card] {
         didSet {
-            let userInfo: [String: [Card]] = [UserInfoKey.cards: self.cards]
-            NotificationCenter.default.post(name: .cardStackDidChange,
-                                            object: nil,
-                                            userInfo: userInfo)
+            postData()
         }
     }
     
@@ -26,9 +26,25 @@ class CardStack : CustomStringConvertible {
     private var pairs : [[Card]]?
     private var numberOfPair = [0,0,0,0,0]
     
+    //MARK: - Methods
+    //MARK: Initialization
+    
     init(cards:[Card] = []) {
         self.cards = cards
+        postData()
     }
+    
+    //MARK: Private
+    
+    private func postData() {
+        
+        let userInfo: [String: [Card]] = [UserInfoKey.cards: self.cards]
+        NotificationCenter.default.post(name: .cardStackDidChange,
+                                        object: nil,
+                                        userInfo: userInfo)
+    }
+    
+    //MARK: Instance
     
     func push(card:Card) {
         self.cards.append(card)
