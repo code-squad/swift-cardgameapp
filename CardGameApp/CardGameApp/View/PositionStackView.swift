@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PileStackView: UIStackView {
+class PositionStackView: UIStackView {
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
