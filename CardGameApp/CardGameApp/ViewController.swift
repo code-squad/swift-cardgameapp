@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var pileStackView: BackPositionStackView!
     @IBOutlet weak var previewStackView: PositionStackView!
     @IBOutlet weak var goalsStackView: UIStackView!
+    @IBOutlet weak var columnsStackView: UIStackView!
     
     
     //MARK: - Properties

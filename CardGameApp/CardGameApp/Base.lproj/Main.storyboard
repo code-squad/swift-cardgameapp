@@ -148,6 +148,29 @@
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="yAd-XT-oIb">
                                 <rect key="frame" x="4" y="99.333333333333343" width="406" height="69.333333333333343"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pfJ-kv-XFo" customClass="ColumnStackView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="60"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vpu-J9-2UL" customClass="ColumnStackView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="58.666666666666657" y="0.0" width="54.333333333333343" height="60"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oI4-uC-eE0" customClass="ColumnStackView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="117.00000000000001" y="0.0" width="54.666666666666671" height="60"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Oh1-Ld-ce6" customClass="ColumnStackView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="175.66666666666666" y="0.0" width="54.666666666666657" height="60"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Vty-ib-CZC" customClass="ColumnStackView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="234.33333333333334" y="0.0" width="54.666666666666657" height="60"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aEv-rg-YcF" customClass="ColumnStackView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="293" y="0.0" width="54.333333333333314" height="60"/>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kyt-ba-P2w" customClass="ColumnStackView" customModule="CardGameApp" customModuleProvider="target">
+                                        <rect key="frame" x="351.33333333333331" y="0.0" width="54.666666666666686" height="60"/>
+                                    </stackView>
+                                </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -184,6 +207,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="columnsStackView" destination="yAd-XT-oIb" id="bsj-ea-hCP"/>
                         <outlet property="goalsStackView" destination="B43-we-Ra9" id="eE4-b5-T7A"/>
                         <outlet property="pileStackView" destination="ccu-RL-hsO" id="zAx-XC-KaY"/>
                         <outlet property="previewStackView" destination="0gx-FU-oXQ" id="LTB-Gl-quL"/>

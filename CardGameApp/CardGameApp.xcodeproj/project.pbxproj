@@ -36,6 +36,7 @@
 		7DC47911220EA2CF0054B529 /* PositionStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC47910220EA2CF0054B529 /* PositionStackView.swift */; };
 		7DC47913220EA41C0054B529 /* ExtensionNotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC47912220EA41C0054B529 /* ExtensionNotificationName.swift */; };
 		7DC47916220EABD80054B529 /* UserInfoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC47915220EABD80054B529 /* UserInfoKey.swift */; };
+		7DD3FB7E2214693800107CB9 /* ColumnStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3FB7D2214693800107CB9 /* ColumnStackView.swift */; };
 		7DF972B92202AC2A00E947B1 /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF972B82202AC2A00E947B1 /* CardImageView.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		7DC47910220EA2CF0054B529 /* PositionStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionStackView.swift; sourceTree = "<group>"; };
 		7DC47912220EA41C0054B529 /* ExtensionNotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionNotificationName.swift; sourceTree = "<group>"; };
 		7DC47915220EABD80054B529 /* UserInfoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoKey.swift; sourceTree = "<group>"; };
+		7DD3FB7D2214693800107CB9 /* ColumnStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnStackView.swift; sourceTree = "<group>"; };
 		7DF972B82202AC2A00E947B1 /* CardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -166,6 +168,7 @@
 				7D6E535E21FF541A00DFC342 /* BlankSpaceView.swift */,
 				7DC47910220EA2CF0054B529 /* PositionStackView.swift */,
 				7D1533BE22145FA600C63283 /* BackPositionStackView.swift */,
+				7DD3FB7D2214693800107CB9 /* ColumnStackView.swift */,
 				7DF972B82202AC2A00E947B1 /* CardImageView.swift */,
 			);
 			path = View;
@@ -265,6 +268,7 @@
 				7D6E535221FEEC1D00DFC342 /* Card.swift in Sources */,
 				7D6E535F21FF541A00DFC342 /* BlankSpaceView.swift in Sources */,
 				7D6E52F421FEBCB500DFC342 /* AppDelegate.swift in Sources */,
+				7DD3FB7E2214693800107CB9 /* ColumnStackView.swift in Sources */,
 				7DF972B92202AC2A00E947B1 /* CardImageView.swift in Sources */,
 				7D6E535721FEEC1D00DFC342 /* HandRanking.swift in Sources */,
 				7D6E535D21FEEC1D00DFC342 /* Deck.swift in Sources */,
