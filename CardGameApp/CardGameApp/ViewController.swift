@@ -44,7 +44,6 @@ class ViewController: UIViewController {
                                                selector: #selector(updatePileStackView),
                                                name: .cardStackDidChange,
                                                object: nil)
-        klondike.start()
     }
     
     //MARK: Private
