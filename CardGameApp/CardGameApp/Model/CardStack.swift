@@ -12,7 +12,7 @@ class CardStack : CustomStringConvertible {
     
     private var cards : [Card] {
         didSet {
-            let userInfo: [String: [Card]] = [UserInfoKey.cardStack: self.cards]
+            let userInfo: [String: [Card]] = [UserInfoKey.cards: self.cards]
             NotificationCenter.default.post(name: .cardStackDidChange,
                                             object: nil,
                                             userInfo: userInfo)
@@ -70,12 +70,5 @@ class CardStack : CustomStringConvertible {
         let handRanking = pairs.filter(){$0.count == bundle}
         let maxValuedCard = handRanking[0].max { cardA, cardB in cardA.score() < cardB.score()}
         return maxValuedCard?.score() ?? 0
-    }
-    
-    func performWithCards(_ addSubview: (Card) -> Void) {
-        
-        for card in self.cards {
-            addSubview(card)
-        }
     }
 }

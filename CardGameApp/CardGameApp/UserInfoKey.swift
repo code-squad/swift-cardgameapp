@@ -10,5 +10,5 @@ import Foundation
 
 struct UserInfoKey {
     
-    static let cardStack = "cardStack"
+    static let cards = "cards"
 }

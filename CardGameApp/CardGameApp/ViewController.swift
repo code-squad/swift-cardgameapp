@@ -41,19 +41,19 @@ class ViewController: UIViewController {
         self.view.backgroundColor = UIColor(patternImage: image)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updatePileStackView),
+                                               selector: #selector(updateStackView),
                                                name: .cardStackDidChange,
                                                object: nil)
     }
     
     //MARK: Private
 
-    @objc private func updatePileStackView(_ noti: Notification) {
+    @objc private func updateStackView(_ noti: Notification) {
         
         guard let userInfo = noti.userInfo,
-              let pileStack = userInfo[UserInfoKey.cardStack] as? CardStack else { return }
+              let cards = userInfo[UserInfoKey.cards] as? [Card] else { return }
 
-        pileStackView.add(cardStack: pileStack)
+        pileStackView.add(cards: cards)
     }
     
     //MARK: Motion

@@ -19,14 +19,11 @@ class PileStackView: UIStackView {
 
 extension UIStackView {
     
-    func add(cardStack: CardStack) {
+    func add(cards: [Card]) {
         
-        let addSubview: (Card) -> Void = { (card: Card) -> Void in
-            
+        for card in cards {
             let cardView = CardImageView(card: card)
             self.addArrangedSubview(cardView)
         }
-        
-        cardStack.performWithCards(addSubview)
     }
 }
