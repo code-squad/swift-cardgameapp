@@ -40,10 +40,15 @@ class PlayDeck {
     }
     
     /// 카드를 받아서 추가함. 내부에서 체크함수 돌림
-    func addCard(card: Card) {
+    func addCard(card: Card) -> CardInfo?{
+        // 추가 가능한지 체크
         if checkAdd(card: card) {
+            // 추가성공하면 추가후 카드정로 리턴
             cardList.append(card)
+            return card
         }
+        // 추가실패시 닐리턴
+        return nil
     }
     
 }
