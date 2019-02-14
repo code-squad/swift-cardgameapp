@@ -44,23 +44,6 @@ class GameBoard : DeckInfo {
         }
     }
     
-    /// 랜덤한 카드 한장을 리턴한다
-    func makeRandomCard(deckType: DeckType) -> Card? {
-        // 랜덤정수 최대치 선언
-        let maxMarkCount = UInt32(Mark.allCases().count)
-        let maxNumberingCount = UInt32(Numbering.allCases().count)
-        // 랜덤정수 생성
-        let randomMarkNumber = String(Int(arc4random_uniform(maxMarkCount)+1))
-        let randomNumberingNumber = String(Int(arc4random_uniform(maxNumberingCount) + 1))
-        
-        // 카드용 마크,숫자 생성. 생성 실패리 닐 리턴
-        guard let randomMark = Mark(rawValue: randomMarkNumber),
-            let randomNumbering = Numbering(rawValue: randomNumberingNumber) else { return nil }
-        
-        // 카드 리턴
-        return Card(mark: randomMark, numbering: randomNumbering, deckType: deckType)
-    }
-    
     /// 덱 초기화 함수. 외부에서 덱만 초기화 할수 없게 private
     private func newDeck(deckType: DeckType) -> [Card]{
         // 모든 넘버링, 마크를 리스트로 만든다
