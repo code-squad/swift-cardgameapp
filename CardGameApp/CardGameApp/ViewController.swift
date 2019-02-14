@@ -284,8 +284,6 @@ class ViewController: UIViewController {
         // 앱 배경 설정
         setBackGroundImage()
         
-       
-        
         // 카드배치 시작
         gameStart()
         

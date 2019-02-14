@@ -76,6 +76,7 @@ class Deck {
     /// 카드배열을 받아서 추가
     func addCards(cards: [Card]){
         for card in cards {
+            card.deckType = .deck
             cardList.append(card)
         }
     }

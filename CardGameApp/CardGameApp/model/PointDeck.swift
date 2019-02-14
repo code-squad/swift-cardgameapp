@@ -49,10 +49,11 @@ class PointDeck {
     func addCard(card: Card) -> CardInfo?{
         // 카드가 추가 가느한지 검사
         if checkAdd(card: card) {
-            // 추가 가능하면 추가 후 카드정보 객체 리턴
+            // 추가 가능하면 덱타입을 변경
+            card.deckType = .pointDeck
+            //후 추가, 카드정보 객체 리턴
             cardList.append(card)
-            // 덱타입을 변경
-            cardList.last!.deckType = .pointDeck
+            // 카드정보 리턴
             return card
         }
         // 추가 불가능시 닐리턴

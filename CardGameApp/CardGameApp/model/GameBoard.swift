@@ -103,6 +103,8 @@ class GameBoard : DeckInfo {
     func deckToOpened() -> CardInfo? {
         // 덱에서 한장 추출. 없으면 닐 리턴
         guard let popedCard = deck.removeOne() else { return nil }
+        // 카드 덱타입 수정
+        popedCard.deckType = .openedDeck
         // 추출한 카드를 열은덱 에 추가
         openedDeck.append(popedCard)
         // 추출한 카드의 정보를 리턴

@@ -43,10 +43,12 @@ class PlayDeck {
     func addCard(card: Card) -> CardInfo?{
         // 추가 가능한지 체크
         if checkAdd(card: card) {
-            // 추가성공하면 추가후 카드정로 리턴
+            // 추가가능하면 덱타입 변경
+            card.deckType = .playDeck
+            
+            // 추가후 카드정로 리턴
             cardList.append(card)
-            // 덱타입을 변경
-            cardList.last!.deckType = .playDeck
+            // 카드정보 리턴
             return card
         }
         // 추가실패시 닐리턴
