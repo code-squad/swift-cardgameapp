@@ -12,7 +12,6 @@
 		D528F7FE21F711F600AAF80F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F7FD21F711F600AAF80F /* CardView.swift */; };
 		D528F80321F7193100AAF80F /* EmptyPointCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80221F7193100AAF80F /* EmptyPointCardView.swift */; };
 		D528F80521F8565B00AAF80F /* RefreshIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80421F8565B00AAF80F /* RefreshIconView.swift */; };
-		D528F80721F9B32600AAF80F /* CardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80621F9B32600AAF80F /* CardDeck.swift */; };
 		D528F80921F9CFA300AAF80F /* PointDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80821F9CFA300AAF80F /* PointDeck.swift */; };
 		D528F80B21FAA68600AAF80F /* PointDeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80A21FAA68600AAF80F /* PointDeckManager.swift */; };
 		D528F80F21FAE70F00AAF80F /* PlayDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80E21FAE70F00AAF80F /* PlayDeck.swift */; };
@@ -53,7 +52,6 @@
 		D528F7FD21F711F600AAF80F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D528F80221F7193100AAF80F /* EmptyPointCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyPointCardView.swift; sourceTree = "<group>"; };
 		D528F80421F8565B00AAF80F /* RefreshIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshIconView.swift; sourceTree = "<group>"; };
-		D528F80621F9B32600AAF80F /* CardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeck.swift; sourceTree = "<group>"; };
 		D528F80821F9CFA300AAF80F /* PointDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDeck.swift; sourceTree = "<group>"; };
 		D528F80A21FAA68600AAF80F /* PointDeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDeckManager.swift; sourceTree = "<group>"; };
 		D528F80E21FAE70F00AAF80F /* PlayDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayDeck.swift; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 				D536E56021D4BB63004B7014 /* Slot.swift */,
 				D541055221E5D2D300FC7470 /* Error.swift */,
 				D541055021E3328B00FC7470 /* CardSize.swift */,
-				D528F80621F9B32600AAF80F /* CardDeck.swift */,
 				D528F80821F9CFA300AAF80F /* PointDeck.swift */,
 				D528F80A21FAA68600AAF80F /* PointDeckManager.swift */,
 				D528F80E21FAE70F00AAF80F /* PlayDeck.swift */,
@@ -324,7 +321,6 @@
 				D528F80521F8565B00AAF80F /* RefreshIconView.swift in Sources */,
 				D541055121E3328B00FC7470 /* CardSize.swift in Sources */,
 				D528F80F21FAE70F00AAF80F /* PlayDeck.swift in Sources */,
-				D528F80721F9B32600AAF80F /* CardDeck.swift in Sources */,
 				D50ECA372206BF34008AFD2B /* PlayDeckManager.swift in Sources */,
 				D536E56621D4BB64004B7014 /* Deck.swift in Sources */,
 				D536E56821D4BB64004B7014 /* GameBoard.swift in Sources */,
