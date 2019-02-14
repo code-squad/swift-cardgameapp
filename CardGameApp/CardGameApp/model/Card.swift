@@ -72,12 +72,22 @@ enum Numbering : String {
     }
 }
 
+/// 카드가 속해있는 덱의 정보
+enum DeckType : String{
+    case deck = "deck"
+    case openedDeck = "openedDeck"
+    case pointDeck = "pointDeck"
+    case playDeck = "playDeck"
+    
+}
+
 protocol CardInfo {
     func image() -> String
     func flip()
     func name() -> String
     func getMarkRank() -> Int
     func getNumberingRank() -> Int
+    func getDeckType() -> DeckType
 }
 
 /// 카드 객체를 만든다
@@ -93,13 +103,17 @@ class Card : CardInfo {
     private let numberingRank : Int
     private let markRank : Int
     
+    // 카드가 위치한 덱 타입
+    var deckType : DeckType
+    
     /// 기본형 생성자
-    init(mark: Mark, numbering: Numbering){
+    init(mark: Mark, numbering: Numbering, deckType: DeckType){
         self.mark = mark
         self.numbering = numbering
         self.markRank = Mark.allCases().index(of: mark)!
         self.numberingRank = Numbering.allCases().index(of: numbering)!
         // allCases 에 해당 값이 없으면 안되므로 ! 사용
+        self.deckType = deckType
     }
     
     /// 카드 뒤집기
@@ -152,5 +166,10 @@ class Card : CardInfo {
     /// 문자열을 받아서 자기이름과 매칭
     func checkSameName(name: String) -> Bool{
         return name == self.name()
+    }
+    
+    /// 덱타입 리턴
+    func getDeckType() -> DeckType {
+        return self.deckType
     }
 }
