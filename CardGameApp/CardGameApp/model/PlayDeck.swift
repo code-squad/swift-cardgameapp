@@ -45,6 +45,8 @@ class PlayDeck {
         if checkAdd(card: card) {
             // 추가성공하면 추가후 카드정로 리턴
             cardList.append(card)
+            // 덱타입을 변경
+            cardList.last!.deckType = .playDeck
             return card
         }
         // 추가실패시 닐리턴
