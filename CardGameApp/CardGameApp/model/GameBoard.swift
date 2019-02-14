@@ -14,7 +14,6 @@ protocol DeckInfo {
 }
 
 
-
 /// 카드게임 진행을 하는 보드
 class GameBoard : DeckInfo {
     /// 덱 선언
@@ -46,7 +45,7 @@ class GameBoard : DeckInfo {
     }
     
     /// 랜덤한 카드 한장을 리턴한다
-    func makeRandomCard() -> Card? {
+    func makeRandomCard(deckType: DeckType) -> Card? {
         // 랜덤정수 최대치 선언
         let maxMarkCount = UInt32(Mark.allCases().count)
         let maxNumberingCount = UInt32(Numbering.allCases().count)
@@ -59,11 +58,11 @@ class GameBoard : DeckInfo {
             let randomNumbering = Numbering(rawValue: randomNumberingNumber) else { return nil }
         
         // 카드 리턴
-        return Card(mark: randomMark, numbering: randomNumbering)
+        return Card(mark: randomMark, numbering: randomNumbering, deckType: deckType)
     }
     
     /// 덱 초기화 함수. 외부에서 덱만 초기화 할수 없게 private
-    private func newDeck() -> [Card]{
+    private func newDeck(deckType: DeckType) -> [Card]{
         // 모든 넘버링, 마크를 리스트로 만든다
         let numberings = Numbering.allCases()
         let marks = Mark.allCases()
@@ -74,7 +73,7 @@ class GameBoard : DeckInfo {
         // 모든종류의 카드를 덱에 추가한다
         for numbering in numberings {
             for mark in marks {
-                cardList.append(Card(mark: mark, numbering: numbering))
+                cardList.append(Card(mark: mark, numbering: numbering, deckType: deckType))
             }
         }
         return cardList
@@ -90,7 +89,8 @@ class GameBoard : DeckInfo {
         // 플레이카드슬롯 리셋
         resetPlayCard(slotCount: self.maxPlayCardLine)
         
-        self.deck = Deck(cardList: newDeck())
+        // 덱에 전체 카드를 생성, 넣는다
+        self.deck = Deck(cardList: newDeck(deckType: .deck))
         // 덱 섞기
         self.deck.shuffle()
         // 덱을 펼친다. 생성된 가로배열 만큼 반복
