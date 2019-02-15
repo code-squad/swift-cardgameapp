@@ -88,6 +88,7 @@ protocol CardInfo {
     func getMarkRank() -> Int
     func getNumberingRank() -> Int
     func getDeckType() -> DeckType
+    func getDeckLine() -> Int
 }
 
 /// 카드 객체를 만든다
@@ -105,6 +106,8 @@ class Card : CardInfo {
     
     // 카드가 위치한 덱 타입
     var deckType : DeckType
+    // 카드가 위치란 라인
+    var deckLine : Int = 0
     
     /// 기본형 생성자
     init(mark: Mark, numbering: Numbering, deckType: DeckType){
@@ -171,5 +174,10 @@ class Card : CardInfo {
     /// 덱타입 리턴
     func getDeckType() -> DeckType {
         return self.deckType
+    }
+    
+    /// 덱 라인 리턴
+    func getDeckLine() -> Int {
+        return self.deckLine
     }
 }
