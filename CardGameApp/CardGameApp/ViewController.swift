@@ -9,6 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     @IBOutlet var cards: [UIImageView]!
     
