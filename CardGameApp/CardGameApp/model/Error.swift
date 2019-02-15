@@ -8,6 +8,7 @@
 
 import Foundation
 
-enum errorMessage : String, Error {
+enum ErrorMessage : String, Error {
     case wrongCardInfo = "잘못된 카드정보입니다."
+    case playDeckSettingFail = "플레이덱 세팅 실패"
 }
