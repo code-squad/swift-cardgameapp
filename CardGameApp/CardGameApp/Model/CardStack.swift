@@ -13,6 +13,8 @@ class CardStack : CustomStringConvertible {
     //MARK: - Properties
     //MARK: Private
     
+    private var type: CardStackType?
+    
     private var cards : [Card] {
         didSet {
             postData()
@@ -86,5 +88,9 @@ class CardStack : CustomStringConvertible {
         let handRanking = pairs.filter(){$0.count == bundle}
         let maxValuedCard = handRanking[0].max { cardA, cardB in cardA.score() < cardB.score()}
         return maxValuedCard?.score() ?? 0
+    }
+    
+    func setType(_ type: CardStackType) {
+        self.type = type
     }
 }
