@@ -16,13 +16,13 @@ enum CardShape : CustomStringConvertible, CaseIterable {
     var description: String {
         switch self {
         case .spade:
-            return "♠️"
+            return "s"
         case .clover:
-            return "♣️"
+            return "c"
         case .heart:
-            return "♥️"
+            return "h"
         case .diamond:
-            return "♦️"
+            return "d"
         }
     }
 }

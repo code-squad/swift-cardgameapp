@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ChoiceMenu : String {
-    case sevenCard = "1"
-    case fiveCard = "2"
+enum ChoiceMenu : Int {
+    case sevenCard = 7
+    case fiveCard = 5
 }
