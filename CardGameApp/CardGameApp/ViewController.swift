@@ -9,10 +9,22 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet var cards: [UIImageView]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        initialBackground()
+        initialCards()
+    }
+    
+    private func initialBackground() {
+        self.view.backgroundColor = UIColor.init(patternImage: UIImage(named: "bg_pattern")!)
+    }
+    
+    private func initialCards() {
+        for card in cards { card.image = UIImage(named: "card-back") }
     }
 }
 
