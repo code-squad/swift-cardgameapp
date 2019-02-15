@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D50A33B322169B8700E318B5 /* OpendedDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A33B222169B8700E318B5 /* OpendedDeck.swift */; };
 		D50ECA372206BF34008AFD2B /* PlayDeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50ECA362206BF34008AFD2B /* PlayDeckManager.swift */; };
 		D528F7FC21F7118F00AAF80F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F7FB21F7118F00AAF80F /* AppDelegate.swift */; };
 		D528F7FE21F711F600AAF80F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F7FD21F711F600AAF80F /* CardView.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D50A33B222169B8700E318B5 /* OpendedDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpendedDeck.swift; sourceTree = "<group>"; };
 		D50ECA362206BF34008AFD2B /* PlayDeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayDeckManager.swift; sourceTree = "<group>"; };
 		D528F7FB21F7118F00AAF80F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D528F7FD21F711F600AAF80F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				D528F80A21FAA68600AAF80F /* PointDeckManager.swift */,
 				D528F80E21FAE70F00AAF80F /* PlayDeck.swift */,
 				D50ECA362206BF34008AFD2B /* PlayDeckManager.swift */,
+				D50A33B222169B8700E318B5 /* OpendedDeck.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 			files = (
 				D541055321E5D2D300FC7470 /* Error.swift in Sources */,
 				D528F7FE21F711F600AAF80F /* CardView.swift in Sources */,
+				D50A33B322169B8700E318B5 /* OpendedDeck.swift in Sources */,
 				D536E56521D4BB64004B7014 /* Slot.swift in Sources */,
 				D528F7FC21F7118F00AAF80F /* AppDelegate.swift in Sources */,
 				D528F80521F8565B00AAF80F /* RefreshIconView.swift in Sources */,
