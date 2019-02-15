@@ -10,6 +10,7 @@
 		7D1533BB2214022900C63283 /* Columns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1533BA2214022900C63283 /* Columns.swift */; };
 		7D1533BD2214036900C63283 /* Goals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1533BC2214036900C63283 /* Goals.swift */; };
 		7D1533BF22145FA600C63283 /* BackPositionStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1533BE22145FA600C63283 /* BackPositionStackView.swift */; };
+		7D46E3F922168AAF009B14A1 /* CardStackType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D46E3F822168AAF009B14A1 /* CardStackType.swift */; };
 		7D6E52F421FEBCB500DFC342 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E52F321FEBCB500DFC342 /* AppDelegate.swift */; };
 		7D6E52F621FEBCB500DFC342 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E52F521FEBCB500DFC342 /* ViewController.swift */; };
 		7D6E52F921FEBCB500DFC342 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E52F721FEBCB500DFC342 /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 		7D1533BA2214022900C63283 /* Columns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Columns.swift; sourceTree = "<group>"; };
 		7D1533BC2214036900C63283 /* Goals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goals.swift; sourceTree = "<group>"; };
 		7D1533BE22145FA600C63283 /* BackPositionStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackPositionStackView.swift; sourceTree = "<group>"; };
+		7D46E3F822168AAF009B14A1 /* CardStackType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackType.swift; sourceTree = "<group>"; };
 		7D6E52F021FEBCB500DFC342 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D6E52F321FEBCB500DFC342 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D6E52F521FEBCB500DFC342 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				7D6E52F521FEBCB500DFC342 /* ViewController.swift */,
 				7D6E52F721FEBCB500DFC342 /* Main.storyboard */,
 				7D6E52FA21FEBCB600DFC342 /* Assets.xcassets */,
+				7D46E3F822168AAF009B14A1 /* CardStackType.swift */,
 				7D7BD3B4220D6F2F003B5656 /* Model */,
 				7D7BD3BB220E8D74003B5656 /* View */,
 				7DC47914220EAB220054B529 /* Extension */,
@@ -263,6 +266,7 @@
 				7D6E535021FEEC1D00DFC342 /* GamePlayer.swift in Sources */,
 				7D6E534B21FEEC1D00DFC342 /* Suit.swift in Sources */,
 				7D6E534A21FEEC1D00DFC342 /* Rank.swift in Sources */,
+				7D46E3F922168AAF009B14A1 /* CardStackType.swift in Sources */,
 				7DC47911220EA2CF0054B529 /* PositionStackView.swift in Sources */,
 				7D6E534E21FEEC1D00DFC342 /* GameOperator.swift in Sources */,
 				7D6E535221FEEC1D00DFC342 /* Card.swift in Sources */,

@@ -40,7 +40,7 @@ class CardStack : CustomStringConvertible {
         
         let userInfo: [String: [Card]] = [UserInfoKey.cards: self.cards]
         NotificationCenter.default.post(name: .cardStackDidChange,
-                                        object: nil,
+                                        object: self,
                                         userInfo: userInfo)
     }
     

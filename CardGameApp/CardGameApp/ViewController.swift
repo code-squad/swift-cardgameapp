@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    //MARK: - Properties
     //MARK: IBOutlet
     
     @IBOutlet weak var pileStackView: BackPositionStackView!
@@ -17,17 +18,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var goalsStackView: UIStackView!
     @IBOutlet weak var columnsStackView: UIStackView!
     
-    
-    //MARK: - Properties
+    //MARK: Instance
     
     lazy var klondike: Klondike = {
-    
+        
         let deck = Deck()
         let klondike = Klondike(deck: deck)
         return klondike
     }()
-    
-
     
     //MARK: - Methods
     //MARK: Setting
@@ -45,18 +43,18 @@ class ViewController: UIViewController {
         self.view.backgroundColor = UIColor(patternImage: image)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateStackView),
+                                               selector: #selector(updatePileStackView),
                                                name: .cardStackDidChange,
                                                object: nil)
     }
     
     //MARK: Private
-
-    @objc private func updateStackView(_ noti: Notification) {
+    
+    @objc private func updatePileStackView(_ noti: Notification) {
         
         guard let userInfo = noti.userInfo,
               let cards = userInfo[UserInfoKey.cards] as? [Card] else { return }
-
+        
         pileStackView.add(cards: cards)
     }
     
