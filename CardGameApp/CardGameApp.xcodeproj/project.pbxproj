@@ -174,11 +174,11 @@
 				D536E56021D4BB63004B7014 /* Slot.swift */,
 				D541055221E5D2D300FC7470 /* Error.swift */,
 				D541055021E3328B00FC7470 /* CardSize.swift */,
+				D50A33B222169B8700E318B5 /* OpendedDeck.swift */,
 				D528F80821F9CFA300AAF80F /* PointDeck.swift */,
 				D528F80A21FAA68600AAF80F /* PointDeckManager.swift */,
 				D528F80E21FAE70F00AAF80F /* PlayDeck.swift */,
 				D50ECA362206BF34008AFD2B /* PlayDeckManager.swift */,
-				D50A33B222169B8700E318B5 /* OpendedDeck.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
