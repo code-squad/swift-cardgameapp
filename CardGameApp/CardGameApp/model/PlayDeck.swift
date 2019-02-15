@@ -55,4 +55,13 @@ class PlayDeck {
         return nil
     }
     
+    /// 초기 세팅을 위한 카드추가
+    func setting(card: Card){
+        self.cardList.append(card)
+    }
+    
+    /// 초기세팅을 위한 카드배열 추가
+    func seting(cards: [Card]){
+        self.cardList = cards
+    }
 }
