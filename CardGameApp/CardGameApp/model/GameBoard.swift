@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os
 
 /// 카드정보배열을 리턴하는 프로토콜
 protocol DeckInfo {
@@ -21,27 +22,17 @@ class GameBoard : DeckInfo {
     /// 사용자가 오픈한 카드가 모이는 덱
     private var openedDeck : [Card] = []
     /// 점수를 얻는 칸
-    private var pointCardSlot : [Card] = []
+    private var pointDeck = PointDeckManager()
     /// 펼쳐놓는 카드들
-    private var playCard : [[Card]] = []
+    private var playDeck : PlayDeckManager
     /// 플레이 카드 맥스 라인
     private let maxPlayCardLine : Int
     
     // 생성시 플레이카드가 몇열인지 받아서 생성
     init(slotCount: Int){
         self.maxPlayCardLine = slotCount
+        self.playDeck = PlayDeckManager(playLineCount: self.maxPlayCardLine)
         reset()
-    }
-    
-    /// 플레이카드 초기화 함수
-    func resetPlayCard(slotCount: Int){
-        // 플레이 카드 초기화
-        playCard = [[]]
-        // 플레이카드 라인만큼 배열 추가 
-        for _ in 0..<slotCount {
-            let emptyCardSlot : [Card] = []
-            playCard.append(emptyCardSlot)
-        }
     }
     
     /// 덱 초기화 함수. 외부에서 덱만 초기화 할수 없게 private
@@ -68,31 +59,60 @@ class GameBoard : DeckInfo {
         // 오픈덱 초기화
         self.openedDeck = []
         // 포인트덱 초기화
-        self.pointCardSlot = []
+        self.pointDeck = PointDeckManager()
         // 플레이카드슬롯 리셋
-        resetPlayCard(slotCount: self.maxPlayCardLine)
+        self.playDeck.resetPlayCard(playLineCount: self.maxPlayCardLine)
         
         // 덱에 전체 카드를 생성, 넣는다
         self.deck = Deck(cardList: newDeck(deckType: .deck))
         // 덱 섞기
         self.deck.shuffle()
-        // 덱을 펼친다. 생성된 가로배열 만큼 반복
-        setPlayCards()
+        // 플레이덱 세팅
+        do {
+            // 플레이덱에 보낼 카드배열 생성
+            let playDeck = try setPlayCards()
+            // 생성된 덱 플레이덱에 삽입
+            try self.playDeck.setting(playDeck: playDeck)
+        }
+        catch {
+            os_log("플레이덱 생성실패")
+        }
+        
     }
     
     /// 플레이카드 초기배치
-    func setPlayCards(){
+    func setPlayCards() throws -> [[Card]] {
+        // 플레이덱에 전달할 배열 선언
+        var popedDeck : [[Card]] = []
+        
         // 덱을 펼친다. 생성된 가로배열 만큼 반복
-        for x in 0..<playCard.count {
-            // 1~ 가로배열 번호 만큼 카드를 추가
-            for _ in 0...x {
-                // 덱에서 카드 한장 뽑는다
-                guard let popedCard = deck.removeOne() else { return () }
-                // 뽑은 카드를 플레이배열에 넣는다
-                playCard[x].addCard(popedCard)
-            }
+        for x in 0..<self.maxPlayCardLine {
+            // 1~ 가로배열 번호 만큼 카드를 추가. 실패시 닐 리턴
+            let popedLine = try setPlayCardLine(lineNumber: x)
+            // 뽑은 라인 추가
+            popedDeck.append(popedLine)
         }
+        // 덱을 전달
+        return popedDeck
     }
+    
+    /// 플레이카드 한줄 세팅
+    func setPlayCardLine(lineNumber: Int) throws -> [Card] {
+        // 결과출력용 변수
+        var result : [Card] = []
+        
+        // 횟수만큼 반복
+        for _ in 0...lineNumber {
+            // 덱에서 카드 한장 뽑는다
+            guard let popedCard = deck.removeOne() else { throw ErrorMessage.notEnoughCardForPlayDeck }
+            // 뽑은 카드를 플레이배열에 넣는다
+            result.append(popedCard)
+        }
+        
+        // 결과 리턴
+        return result
+    }
+    
     
     /// 플레이카드 열번호로 카드정보 배열 리턴
     func getPlayCardLine(lineNumber: Int) -> [CardInfo] {
@@ -138,7 +158,17 @@ class GameBoard : DeckInfo {
         // 임시배열을 덱에 추가
         deck.addCards(cards: tempDeck)
     }
+    
+    
+    /// 카드정보를 받아서 해당 카드를 이동 가능한 위치로 이동시킨다. 이동할 곳이 없으면 이동 안함.
+    func moveCard(){
+        
+    }
+    
+    /// 
 }
+
+
 
 /// 카드 배열의 경우를 위한 확장
 extension Array where Element : Card{
