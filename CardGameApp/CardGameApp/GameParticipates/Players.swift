@@ -16,10 +16,16 @@ class Players {
     private var players: [GameParticipate] = []
     
     func makePlayer(by count: ChoiceParticipate, _ dealerPlayer: Dealer) {
+        removeAll()
         for playerNumber in 0..<count.rawValue {
             players.append(Player(name: "참가자#\(playerNumber+1)"))
         }
         players.append(dealerPlayer)
+        print(players)
+    }
+    
+    private func removeAll() {
+        players.removeAll()
     }
     
     func countPlayers() -> Int {

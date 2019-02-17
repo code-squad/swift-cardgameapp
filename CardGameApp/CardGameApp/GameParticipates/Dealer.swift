@@ -43,5 +43,6 @@ class Dealer : GameParticipate {
             }
             return playerCards
         }
+        NotificationCenter.default.post(name: .distributedCardToPlayers, object: nil)
     }
 }
