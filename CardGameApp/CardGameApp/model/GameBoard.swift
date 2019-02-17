@@ -169,17 +169,20 @@ class GameBoard : DeckInfo {
     }
     
     /// 카드인포를 받아서 해당되는 카드를 추출한다
-//    func pickCard(cardInfo: CardInfo) -> Card {
-//        // 대상카드 체크를 위한 카드인포변수
-//        var checkedCardInfo : CardInfo
-//        switch CardInfo.getDeckType(CardInfo) {
-//        case DeckType.openedDeck : checkedCardInfo = self.
-//
-//        }
-//    }
-    
-    /// 카드인포를 받아서 해당라인의 마지막 카드와 일치하는지 체크
-    
+    func pickCard(cardInfo: CardInfo) -> Card? {
+        // 대상카드 체크를 위한 카드인포변수
+        var pickedCard : Card?
+        let cardDeckType = cardInfo.getDeckType()
+        switch cardDeckType {
+        case .openedDeck : pickedCard = self.openedDeck.pickCard(cardInfo: cardInfo)
+        case .playDeck : pickedCard = self.playDeck.pickCard(cardInfo: cardInfo)
+        // 오픈덱,플레이덱 이외의 경우 움직일수 없어야 하므로 닐 리턴 : 덱, 포인트덱 등
+        default : return nil
+        }
+        
+        // 카드픽 결과가 있으면 카드리턴, 없으면 닐 리턴
+        return pickedCard
+    }    
 }
 
 

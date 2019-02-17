@@ -37,4 +37,14 @@ class OpenedDeck {
     func count() -> Int {
         return self.cardList.count
     }
+    
+    /// 카드인포를 받아서 맞는 카드가 있으면 리턴
+    func pickCard(cardInfo: CardInfo) -> Card? {
+        if cardInfo.name() == self.cardList.last?.name() {
+            return self.cardList.last
+        }
+        else {
+            return nil
+        }
+    }
 }
