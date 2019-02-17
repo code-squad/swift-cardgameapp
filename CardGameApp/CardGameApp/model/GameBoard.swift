@@ -20,7 +20,7 @@ class GameBoard : DeckInfo {
     /// 덱 선언
     private var deck = Deck()
     /// 사용자가 오픈한 카드가 모이는 덱
-    private var openedDeck : [Card] = []
+    private var openedDeck = OpenedDeck()
     /// 점수를 얻는 칸
     private var pointDeck = PointDeckManager()
     /// 펼쳐놓는 카드들
@@ -57,7 +57,7 @@ class GameBoard : DeckInfo {
     /// 게임을 초기화 한다. 덱 한개만 초기화 불가능. 전체만 가능. 
     func reset(){
         // 오픈덱 초기화
-        self.openedDeck = []
+        self.openedDeck.reset()
         // 포인트덱 초기화
         self.pointDeck = PointDeckManager()
         // 플레이카드슬롯 리셋
@@ -114,11 +114,6 @@ class GameBoard : DeckInfo {
     }
     
     
-    /// 플레이카드 열번호로 카드정보 배열 리턴
-    func getPlayCardLine(lineNumber: Int) -> [CardInfo] {
-        return playCard[lineNumber-1]
-    }
-    
     /// 덱을 오픈
     func deckToOpened() -> CardInfo? {
         // 덱에서 한장 추출. 없으면 닐 리턴
@@ -126,7 +121,7 @@ class GameBoard : DeckInfo {
         // 카드 덱타입 수정
         popedCard.deckType = .openedDeck
         // 추출한 카드를 열은덱 에 추가
-        openedDeck.append(popedCard)
+        openedDeck.addCard(card: popedCard)
         // 추출한 카드의 정보를 리턴
         return popedCard
     }
@@ -134,9 +129,9 @@ class GameBoard : DeckInfo {
     /// 오픈된 덱 전부를 다시 덱에 포함
     func openedToDeck(){
         // 오픈덱 전부를 덱에 추가한다
-        deck.addCards(cards: openedDeck)
+        deck.addCards(cards: openedDeck.pickAllCard())
         // 오픈덱을 비운다
-        self.openedDeck = []
+        self.openedDeck.reset()
     }
     
     /// 덱 전체 정보를 리턴
@@ -162,10 +157,27 @@ class GameBoard : DeckInfo {
     
     /// 카드정보를 받아서 해당 카드를 이동 가능한 위치로 이동시킨다. 이동할 곳이 없으면 이동 안함.
     func moveCard(){
+        // 카드인포를 받아서 해당 카드를 추출한다
         
+        
+        // 추출한 카드가 갈수있는 곳이 있는지 체크
+        
+        
+        // 추출한 카드를 보낸다
     }
     
-    /// 
+    /// 카드인포를 받아서 해당되는 카드를 추출한다
+//    func pickCard(cardInfo: CardInfo) -> Card {
+//        // 대상카드 체크를 위한 카드인포변수
+//        var checkedCardInfo : CardInfo
+//        switch CardInfo.getDeckType(CardInfo) {
+//        case DeckType.openedDeck : checkedCardInfo = self.
+//
+//        }
+//    }
+    
+    /// 카드인포를 받아서 해당라인의 마지막 카드와 일치하는지 체크
+    
 }
 
 
