@@ -139,16 +139,18 @@ class GameBoard : DeckInfo {
         return deck.info()
     }
 
-    /// 오픈덱 > 덱 으로 카드전체이동. 순서 유지를 위해서 오픈덱 순서를 뒤집는다
+    /// 오픈덱 -> 덱 으로 카드전체이동. 순서 유지를 위해서 오픈덱 순서를 뒤집는다
     func refreshDeck(){
         // 순서를 뒤집어줄 임시 배열
         var tempDeck : [Card] = []
+        // 오픈덱 전체 리턴
+        var poppedDeck = self.openedDeck.pickAllCard()
         // 오픈덱의 모든 카드가 대상.
-        for _ in 0..<openedDeck.count {
+        for _ in 0..<poppedDeck.count {
             // 뒤에서부터 카드 추출
-            guard let popedCard = openedDeck.popLast() else { return () }
+            guard let poppedCard = poppedDeck.popLast() else { return () }
             // 뒤집은 카드를 임시배열에 넣는다
-            tempDeck.append(popedCard)
+            tempDeck.append(poppedCard)
         }
         // 임시배열을 덱에 추가
         deck.addCards(cards: tempDeck)
