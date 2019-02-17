@@ -10,6 +10,7 @@ import UIKit
 
 extension NSNotification.Name {
     static let distributedCardToPlayers = NSNotification.Name("cardChanged")
+    static let notEnoughCard = NSNotification.Name("notEnoughCard")
 }
 
 class ViewController: UIViewController {
@@ -30,6 +31,7 @@ class ViewController: UIViewController {
         initialButton()
         initialGame()
         NotificationCenter.default.addObserver(self, selector: #selector(setView), name: .distributedCardToPlayers, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(appearWarning), name: .notEnoughCard, object: nil)
     }
     
     private func initialBackground() {
@@ -65,6 +67,13 @@ class ViewController: UIViewController {
     private func appearView() {
         for cardImage in cardImages { self.view.addSubview(cardImage) }
         for player in playerLabels { self.view.addSubview(player) }
+    }
+    
+    @objc func appearWarning() {
+        let warningWindow = UIAlertController(title: "Wanring", message: "Card Deck is Not Enough", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        warningWindow.addAction(okAction)
+        present(warningWindow, animated: true, completion: nil)
     }
     
     @IBAction func playGame(_ sender: Any) {
@@ -136,6 +145,15 @@ class ViewController: UIViewController {
         playerLabel.text = playerName
         playerLabel.textColor = UIColor.white
         return playerLabel
+    }
+}
+
+extension ViewController {
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            clearView()
+            dealer.resetGame()
+        }
     }
 }
 

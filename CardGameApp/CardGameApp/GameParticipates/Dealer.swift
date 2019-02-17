@@ -32,17 +32,27 @@ class Dealer : GameParticipate {
         return true
     }
     
+    func resetGame() {
+        deck.reset()
+        deck.shuffle()
+    }
+    
     // 카드패를 사용자들에게 나누어줌
     func distributeCardToPlayer(to players: Players) {
+        var isEnoughCard: Bool = true
         guard let cardMenu = self.cardsMenu else { return }
         players.distributeCard(cardCount: cardMenu.rawValue) { (cardCount : Int) -> [Card] in
             var playerCards : [Card] = []
             for _ in 0..<cardCount {
-                guard let pickCard = deck.removeOne() else { return [] }
+                guard let pickCard = deck.removeOne() else {
+                    isEnoughCard = false
+                    return []
+                }
                 playerCards.append(pickCard)
             }
             return playerCards
         }
-        NotificationCenter.default.post(name: .distributedCardToPlayers, object: nil)
+        if isEnoughCard { NotificationCenter.default.post(name: .distributedCardToPlayers, object: nil) }
+        else { NotificationCenter.default.post(name: .notEnoughCard, object: nil) }
     }
 }
