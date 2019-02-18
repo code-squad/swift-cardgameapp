@@ -20,18 +20,20 @@ class PointDeckManager {
         // 모든 마크 생성
         let allMarks = Mark.allCases()
         
-        // 마크별로 추가
-        for mark in allMarks {
-            pointDeckList.append(PointDeck(mark: mark))
+        // 마크개수로 추가
+        for _ in allMarks {
+            pointDeckList.append(PointDeck())
         }
     }
     
     /// 카드객체와 마크를 받아서 맞는 포인트덱에 카드 추가
     func addCard(card: Card) -> CardInfo? {
         // 모든 포인트덱이 대상
-        for pointDeck in pointDeckList {
+        for count in 0..<pointDeckList.count {
             // 추가성공시 추가된 카드 정보를 리턴
-            if let addedCard = pointDeck.addCard(card: card) {
+            if let addedCard = self.pointDeckList[count].addCard(card: card) {
+                // 추가된 카드의 덱라인 변경
+                card.deckLine = count
                 return addedCard
             }
         }

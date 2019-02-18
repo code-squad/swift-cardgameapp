@@ -9,25 +9,21 @@
 import Foundation
 
 class PointDeck {
-    /// 전용 마크가 필요함
-    let mark : Mark
-    /// 마크랭크
-    let markRank : Int
     /// 카드배열
     private var cardList : [Card] = []
     
-    
-    // allCases 에 해당 값이 없으면 안되므로 ! 사용
-    init(mark: Mark){
-        self.mark = mark
-        self.markRank = Mark.allCases().index(of: mark)!
+    // init
+    init(){
     }
     
     /// 카드정보를 받아서 추가 가능한 객체인지 체크
     func checkAdd(card: CardInfo) -> Bool {
-        // 마크가 같은지 체크. 다를경우 거짓 리턴
-        if card.getMarkRank() != self.markRank {
-            return false
+        // 카드가 없다면 패스, 있다면 마지막 카드와 마크가 같아야 한다
+        if self.cardList.last != nil {
+            // 마크가 같은지 체크. 다를경우 거짓 리턴
+            if card.getMarkRank() != self.cardList.last?.getMarkRank() {
+                return false
+            }
         }
         
         // 기존카드가 없는지 체크
