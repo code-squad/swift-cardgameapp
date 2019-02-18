@@ -8,7 +8,7 @@
 
 import UIKit
 /// 드로우뷰 맨 밑의 리프레시 뷰
-class RefreshIconView: UIImageView {
+class DeckView: UIImageView {
 
     init(origin: CGPoint, size: CGSize){
         let frame = CGRect(origin: origin, size: size)

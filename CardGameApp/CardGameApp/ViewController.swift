@@ -29,6 +29,8 @@ class ViewController: UIViewController {
     /// 플레이카드 Y 좌표
     private var heightPositions : [CGFloat] = []
     
+    
+    
     /// 게임보드 생성
     private var gameBoard = GameBoard(slotCount: 7)
     
@@ -108,7 +110,8 @@ class ViewController: UIViewController {
         // 각 카드정보를 모두 카드뷰로 전환
         for cardInfo in cardInfos {
             // 카드뷰 생성
-            let cardView = makeCardView(widthPosition: 7, heightPosition: 1, cardSize: cardSize, cardInfo: cardInfo)
+//            let cardView = makeCardView(widthPosition: 7, heightPosition: 1, cardSize: cardSize, cardInfo: cardInfo)
+            let cardView = CardView(cardInfo: cardInfo, frame: self.ref)
             // 덱을 위한 탭 제스쳐를 생성, 추가한다
             cardView.addGestureRecognizer(makeTapGetstureForDeck())
             // 메인뷰에 추가
@@ -192,7 +195,7 @@ class ViewController: UIViewController {
         // 뷰 기준점 설정.
         let viewPoint = CGPoint(x: widthPositions[6], y: heightPositions[0])
         // 기준점에서 카드사이즈로 이미지뷰 생성
-        let refreshIconView = RefreshIconView(origin: viewPoint, size: cardSize.cardSize)
+        let refreshIconView = DeckView(origin: viewPoint, size: cardSize.cardSize)
         // 제스처를 적용
         let refreshGesture = makeRefreshGesture()
         refreshIconView.addGestureRecognizer(refreshGesture)
