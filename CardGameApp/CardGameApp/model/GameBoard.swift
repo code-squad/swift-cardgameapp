@@ -158,14 +158,22 @@ class GameBoard : DeckInfo {
     
     
     /// 카드정보를 받아서 해당 카드를 이동 가능한 위치로 이동시킨다. 이동할 곳이 없으면 이동 안함.
-    func moveCard(){
+    func moveCard(cardInfo: CardInfo) -> CardInfo? {
         // 카드인포를 받아서 해당 카드를 추출한다
-        
-        
-        // 추출한 카드가 갈수있는 곳이 있는지 체크
-        
-        
-        // 추출한 카드를 보낸다
+        guard let pickedCard = self.pickCard(cardInfo: cardInfo) else { return nil }
+    
+        // 추출한 카드를 추가. 실패시 닐리턴, 성공시 카드인포 리턴
+        return addCard(card: pickedCard)
+    }
+    
+    /// 카드를 받아서 우선순위에 따라 추가시도한다.
+    func addCard(card: Card) -> CardInfo? {
+        switch card.getDeckType() {
+        // 우선순위 : 포인트덱 - 플레이덱. 그 이외는 이동불가
+        case .pointDeck : return self.pointDeck.addCard(card: card)
+        case .playDeck : return self.pointDeck.addCard(card: card)
+        default : return nil
+        }
     }
     
     /// 카드인포를 받아서 해당되는 카드를 추출한다
