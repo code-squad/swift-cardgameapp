@@ -13,12 +13,20 @@ class Columns {
     //MARK: - Properties
     //MARK: Pirvate
     
-    private var columns: [CardStack]
+    private var columns: [CardStack] = {
+        
+        var columns = [CardStack]()
+        
+        for position in 0..<7 {
+            let position = CardStackType.columns(position: position)
+            let cardStack = CardStack(type: position)
+            columns.append(cardStack)
+        }
+        
+        return columns
+    }()
     
     //MARK: - Methods
     //MARK: Initialization
-    
-    init(cardStacks: [CardStack]) {
-        self.columns = cardStacks
-    }
+
 }

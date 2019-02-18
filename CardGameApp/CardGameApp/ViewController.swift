@@ -22,8 +22,7 @@ class ViewController: UIViewController {
     
     lazy var klondike: Klondike = {
         
-        let deck = Deck()
-        let klondike = Klondike(deck: deck)
+        let klondike = Klondike()
         return klondike
     }()
     
