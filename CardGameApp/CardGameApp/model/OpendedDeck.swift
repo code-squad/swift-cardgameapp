@@ -41,6 +41,16 @@ class OpenedDeck {
     /// 카드인포를 받아서 맞는 카드가 있으면 리턴
     func pickCard(cardInfo: CardInfo) -> Card? {
         if cardInfo.name() == self.cardList.last?.name() {
+            return self.cardList.popLast()
+        }
+        else {
+            return nil
+        }
+    }
+    
+    /// 카드인포를 받아서 맞는 카드가 있으면 카드인포 리턴
+    func checkPickable(cardInfo: CardInfo) -> CardInfo? {
+        if cardInfo.name() == self.cardList.last?.name() {
             return self.cardList.last
         }
         else {
