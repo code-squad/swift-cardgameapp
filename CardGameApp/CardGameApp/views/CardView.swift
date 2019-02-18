@@ -31,6 +31,8 @@ class CardView : UIImageView, CardViewInfo {
         super.init(frame: frame)
         // 앞뒷면 상태에 따라 이미지 표시
         self.refreshImage()
+        // 유저인터랙션 허용
+        self.isUserInteractionEnabled = true
     }
     
     /// required init

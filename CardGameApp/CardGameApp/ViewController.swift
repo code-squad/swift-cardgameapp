@@ -80,8 +80,6 @@ class ViewController: UIViewController {
     private func makeCardView(widthPosition: Int, heightPosition: Int, cardSize: CardSize, cardInfo: CardInfo) -> CardView {
         // 배경 뷰 생성
         let cardView = CardView(cardInfo: cardInfo, frame: CGRect(origin: CGPoint(x: widthPositions[widthPosition - 1], y: heightPositions[heightPosition - 1]), size: cardSize.cardSize))
-            
-        cardView.isUserInteractionEnabled = true
         // 서브뷰 추가
         return cardView
     }
