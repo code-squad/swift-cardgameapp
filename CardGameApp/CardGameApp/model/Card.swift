@@ -82,13 +82,17 @@ enum DeckType : String{
 }
 
 protocol CardInfo {
+    /// 윗면 이름
     func image() -> String
+    /// 카드 뒤집기
     func flip()
+    /// 카드앞면 이름
     func name() -> String
     func getMarkRank() -> Int
     func getNumberingRank() -> Int
     func getDeckType() -> DeckType
     func getDeckLine() -> Int
+    func isFront() -> Bool
 }
 
 /// 카드 객체를 만든다
@@ -179,5 +183,10 @@ class Card : CardInfo {
     /// 덱 라인 리턴
     func getDeckLine() -> Int {
         return self.deckLine
+    }
+    
+    /// 카드가 앞면인지 확인
+    func isFront() -> Bool {
+        return self.name() == self.image()
     }
 }
