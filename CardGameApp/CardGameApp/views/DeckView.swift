@@ -9,7 +9,9 @@
 import UIKit
 /// 드로우뷰 맨 밑의 리프레시 뷰
 class DeckView: UIImageView {
-
+    init(){
+        super.init(image: #imageLiteral(resourceName: "cardgameapp-refresh-app"))
+    }
     init(origin: CGPoint, size: CGSize){
         let frame = CGRect(origin: origin, size: size)
         super.init(frame: frame)
