@@ -53,4 +53,5 @@ class PointDeckManager {
         // 추가 실패시 닐리턴
         return false
     }
+    
 }

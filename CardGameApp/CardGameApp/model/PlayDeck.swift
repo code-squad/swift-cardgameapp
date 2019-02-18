@@ -86,4 +86,9 @@ class PlayDeck {
         // 다른카드면 닐 리턴
         return nil
     }
+    
+    /// 모든 카드의 카드정보를 리턴한다
+    func getAllCardInfo() -> [CardInfo] {
+        return self.cardList
+    }
 }

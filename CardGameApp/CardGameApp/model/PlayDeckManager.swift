@@ -59,5 +59,8 @@ class PlayDeckManager {
         return self.playDeckList[cardInfo.getDeckLine()].pickCard(cardInfo:cardInfo)
     }
     
-    /// 
+    /// 라인을 받아서 플레이덱 라인의 카드인포 배열 리턴
+    func getLineCardInfos(line: Int) -> [CardInfo] {
+        return self.playDeckList[line].getAllCardInfo()
+    }
 }
