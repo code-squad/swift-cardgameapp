@@ -70,7 +70,7 @@ class GameBoard : DeckInfo {
     
     
     /// 덱에서 플레이덱으로 카드를 뽑는다
-    func setBoard(){
+    func pickPlayCards(){
         // 플레이덱 세팅
         do {
             // 플레이덱에 보낼 카드배열 생성
