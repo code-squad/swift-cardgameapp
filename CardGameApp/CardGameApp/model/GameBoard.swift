@@ -53,8 +53,7 @@ class GameBoard : DeckInfo {
         return cardList
     }
     
-    
-    /// 게임을 초기화 한다. 덱 한개만 초기화 불가능. 전체만 가능. 
+    /// 모든카드를 삭제하고 새 덱을 만드고 섞는다.
     func reset(){
         // 오픈덱 초기화
         self.openedDeck.reset()
@@ -67,6 +66,11 @@ class GameBoard : DeckInfo {
         self.deck = Deck(cardList: newDeck(deckType: .deck))
         // 덱 섞기
         self.deck.shuffle()
+    }
+    
+    
+    /// 덱에서 플레이덱으로 카드를 뽑는다
+    func setBoard(){
         // 플레이덱 세팅
         do {
             // 플레이덱에 보낼 카드배열 생성
@@ -203,6 +207,11 @@ class GameBoard : DeckInfo {
         case .pointDeck : return self.pointDeck.checkAddable(cardInfo: cardInfo)
         default : return false
         }
+    }
+    
+    /// 라인을 받아서 플레이덱 라인의 카드인포 배열 리턴
+    func getPlayDeckLineCardInfos(line: Int) -> [CardInfo] {
+        return self.playDeck.getLineCardInfos(line: line)
     }
 }
 
