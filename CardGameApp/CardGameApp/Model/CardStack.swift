@@ -31,7 +31,8 @@ class CardStack : CustomStringConvertible {
     //MARK: - Methods
     //MARK: Initialization
     
-    init(cards:[Card] = []) {
+    init(cards:[Card] = [], type: CardStackType? = nil) {
+        self.type = type
         self.cards = cards
         postData()
     }
@@ -40,7 +41,10 @@ class CardStack : CustomStringConvertible {
     
     private func postData() {
         
-        let userInfo: [String: [Card]] = [UserInfoKey.cards: self.cards]
+        var userInfo: [String: Any] = [UserInfoKey.cards: self.cards]
+        if let type = self.type {
+            userInfo[UserInfoKey.stackType] = type
+        }
         NotificationCenter.default.post(name: .cardStackDidChange,
                                         object: self,
                                         userInfo: userInfo)

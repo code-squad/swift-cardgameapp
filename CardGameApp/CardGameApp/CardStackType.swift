@@ -12,23 +12,6 @@ enum CardStackType {
     
     case pile
     case preview
-    
-    enum goals {
-        
-        case clubs
-        case hearts
-        case diamonds
-        case spades
-    }
-    
-    enum columns {
-        
-        case one
-        case two
-        case three
-        case four
-        case five
-        case six
-        case seven
-    }
+    case goals(type: Suit)
+    case columns(position: Int)
 }

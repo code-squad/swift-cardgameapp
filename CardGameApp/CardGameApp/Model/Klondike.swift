@@ -23,6 +23,7 @@ class Klondike {
     
     init(deck: Deck) {
         
+        self.preview.setType(.preview)
         var deck = deck
 
         let cardStacks = deck.willSetDeck(few: 7)

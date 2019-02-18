@@ -22,6 +22,8 @@ class Goals {
         
         for suit in Suit.allCases {
             self.goals[suit] = CardStack()
+            let stackType = CardStackType.goals(type: suit)
+            self.goals[suit]?.setType(stackType)
         }
     }
 }

@@ -53,10 +53,20 @@ class ViewController: UIViewController {
     @objc private func updatePileStackView(_ noti: Notification) {
         
         guard let userInfo = noti.userInfo,
-              let cards = userInfo[UserInfoKey.cards] as? [Card] else { return }
+              let cards = userInfo[UserInfoKey.cards] as? [Card],
+              let stackType = userInfo[UserInfoKey.stackType] as? CardStackType else { return }
         
-        pileStackView.add(cards: cards)
+        switch stackType {
+        case .pile:
+            pileStackView.add(cards: cards)
+        case .preview:
+            previewStackView.add(cards: cards)
+        case let .goals(type):
+            let goalStackView = goalsStackView.arrangedSubviews[type.rawValue - 1] as? PositionStackView
+            goalStackView?.add(cards: cards)
+        case let .columns(position):
+            let columnStackView = columnsStackView.arrangedSubviews[position - 1] as? ColumnStackView
+            columnStackView?.add(cards: cards)
+        }
     }
-    
-    //MARK: Motion
 }

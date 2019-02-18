@@ -16,4 +16,16 @@ class ColumnStackView: UIStackView {
         let heightOfCard = self.frame.width * 1.27
         self.spacing = -heightOfCard * (7/10)
     }
+    
+    func add(cards: [Card]) {
+        
+        for card in cards {
+            let cardView = CardImageView(card: card)
+            cardView.flip()
+            if card === cards.last {
+                cardView.flip()
+            }
+            self.addArrangedSubview(cardView)
+        }
+    }
 }

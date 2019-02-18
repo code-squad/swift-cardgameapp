@@ -59,7 +59,7 @@ struct Deck : CardGameDeck {
             drawnCards.append(drawnCard)
         }
         
-        return CardStack.init(cards: drawnCards)
+        return CardStack.init(cards: drawnCards, type: .columns(position: few))
     }
     
     mutating func willSetDeck(few:Int) -> [CardStack] {
@@ -71,7 +71,7 @@ struct Deck : CardGameDeck {
     }
     
     func remainingCards() -> CardStack {
-        return CardStack(cards: self.cards)
+        return CardStack(cards: self.cards, type: .pile)
     }
     
     func performByDeck(_ addDeckView: (Card) -> Void) {
