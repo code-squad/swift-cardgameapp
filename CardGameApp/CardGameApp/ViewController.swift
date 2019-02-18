@@ -55,7 +55,6 @@ class ViewController: UIViewController {
         }
     }
     
-   
     
     /// 최대 카드 수량 체크
     private func checkMaxCardCount(startNumber: Int, cardCount: Int) -> Bool {
@@ -63,10 +62,8 @@ class ViewController: UIViewController {
     }
     
     
-    
-    
     /// 첫줄 카드배경 출력
-    private func setObjectPositions(){
+    private func setPointDeckPosition(){
         // 원하는 빈칸은 4칸
         for x in 0..<Mark.allCases().count {
             // 카드 기준점 설정
@@ -127,7 +124,7 @@ class ViewController: UIViewController {
     /// 라인번호와 카드배열을 받아서 해당 라인에 카드를 출력한다
     func drawCardLine(lineNumber: Int){
         // 게임보드에서 플레이카드를 카드인포 배열로 받는다
-        let cardInfos = gameBoard.getPlayCardLine(lineNumber: lineNumber)
+        let cardInfos = gameBoard.getPlayDeckLineCardInfos(line: lineNumber)
         // 모든 카드인포가 목표
         for x in 0..<cardInfos.count {
             let cardView = makeCardView(widthPosition: lineNumber, heightPosition: x + 2, cardSize: cardSize, cardInfo: cardInfos[x])
@@ -139,7 +136,7 @@ class ViewController: UIViewController {
     
     /// 맥스카드카운트로 모든 플레이카드 를 출력한다
     func drawAllPlayCard() {
-        for x in 1...cardSize.maxCardCount {
+        for x in 0..<cardSize.maxCardCount {
             drawCardLine(lineNumber: x)
         }
     }
@@ -245,16 +242,19 @@ class ViewController: UIViewController {
     /// 카드게임 시작시 카드뷰 전체 배치 함수
     func gameStart(){
         // 카드 빈자리 4장 출력
-        setObjectPositions()
+        setPointDeckPosition()
         
         // 리프레시 아이콘 뷰 생성
         makeRefreshIconView()
+        
+        // 오픈덱뷰 생성
+        makeOpenedDeckView()
         
         // 덱 출력
         drawDeckView()
         
         // 플레이카드 출력
-        drawAllPlayCard()
+//        drawAllPlayCard()
     }
     
     /// shake 함수.
@@ -267,6 +267,17 @@ class ViewController: UIViewController {
         gameBoard.reset()
         // 카드배치를 뷰로 생성
         gameStart()
+    }
+    
+    /// 오픈덱뷰 생성
+    func makeOpenedDeckView(){
+        // 뷰 기준점 설정. 5,6번째 카드 중간값 위치
+        let xPosition = (widthPositions[4] + widthPositions[5]) / 2
+        let viewPoint = CGPoint(x: xPosition, y: heightPositions[0])
+        // 기준점에서 카드사이즈로 이미지뷰 생성
+        let opendedDeckView = UIView(frame: CGRect(origin: viewPoint, size: cardSize.cardSize))
+        // 뷰를 메인뷰에 추가
+        addViewToMain(view: opendedDeckView)
     }
     
     
