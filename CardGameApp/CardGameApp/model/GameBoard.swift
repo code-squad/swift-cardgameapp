@@ -159,10 +159,13 @@ class GameBoard : DeckInfo {
     
     /// 카드정보를 받아서 해당 카드를 이동 가능한 위치로 이동시킨다. 이동할 곳이 없으면 이동 안함.
     func moveCard(cardInfo: CardInfo) -> CardInfo? {
+        // 카드를 옮길 곳이 있는지 체크
+        guard checkAddable(cardInfo: cardInfo) == true else { return nil }
+        
         // 카드인포를 받아서 해당 카드를 추출한다
         guard let pickedCard = self.pickCard(cardInfo: cardInfo) else { return nil }
     
-        // 추출한 카드를 추가. 실패시 닐리턴, 성공시 카드인포 리턴
+        // 추출한 카드를 추가 성공시 카드인포 리턴
         return addCard(card: pickedCard)
     }
     
@@ -190,7 +193,17 @@ class GameBoard : DeckInfo {
         
         // 카드픽 결과가 있으면 카드리턴, 없으면 닐 리턴
         return pickedCard
-    }    
+    }
+    
+    /// 카드 인포를 받아서 추가 가능한지 체크
+    func checkAddable(cardInfo: CardInfo) -> Bool {
+        switch cardInfo.getDeckType() {
+            // 추가 가능 대상은 오픈덱, 포인트덱. 이외에는 불가능
+        case .openedDeck : return self.openedDeck.checkPickable(cardInfo: cardInfo)
+        case .pointDeck : return self.pointDeck.checkAddable(cardInfo: cardInfo)
+        default : return false
+        }
+    }
 }
 
 

@@ -48,13 +48,14 @@ class OpenedDeck {
         }
     }
     
-    /// 카드인포를 받아서 맞는 카드가 있으면 카드인포 리턴
-    func checkPickable(cardInfo: CardInfo) -> CardInfo? {
+    /// 카드인포를 받아서 추가가능한지 체크
+    func checkPickable(cardInfo: CardInfo) -> Bool {
         if cardInfo.name() == self.cardList.last?.name() {
-            return self.cardList.last
+            return true
         }
         else {
-            return nil
+            return false
         }
     }
+    
 }

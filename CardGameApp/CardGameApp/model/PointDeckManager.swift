@@ -38,4 +38,17 @@ class PointDeckManager {
         // 추가 실패시 닐리턴
         return nil
     }
+    
+    /// 카드인포를 받아서 추가가능한지 체크
+    func checkAddable(cardInfo: CardInfo) -> Bool {
+        // 모든 포인트덱이 대상
+        for pointDeck in pointDeckList {
+            // 추가성공시 추가된 카드 정보를 리턴
+            if pointDeck.checkAdd(card: cardInfo) {
+                return true
+            }
+        }
+        // 추가 실패시 닐리턴
+        return false
+    }
 }
