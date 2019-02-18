@@ -8,14 +8,6 @@
 
 import Foundation
 
-enum CardRule: Int {
-    case noPair = 0
-    case onePair = 1
-    case twoPair = 2
-    case tripple = 3
-    case fourCard = 4
-}
-
 extension GameParticipate: Comparable {
     static func < (lhs: GameParticipate, rhs: GameParticipate) -> Bool {
         if lhs.state.rawValue < rhs.state.rawValue { return true }
@@ -43,8 +35,8 @@ class GameParticipate {
         self.cards = cards
     }
     
-    func judgeMyCard(method: ([Card]) -> CardRule) {
-        state = method(cards)
+    func judgeMyCard(with logic: ([Card]) -> CardRule) {
+        state = logic(cards)
     }
     
     func searchHighNumberCard() -> Int {

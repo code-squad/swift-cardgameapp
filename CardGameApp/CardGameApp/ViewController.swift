@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     
     var cardImages: [UIImageView] = []
     var playerLabels: [UILabel] = []
+    var medalImage: UIImageView?
     
     let dealer = Dealer(of: CardDeck())
     let players = Players()
@@ -60,6 +61,7 @@ class ViewController: UIViewController {
     private func clearView() {
         for cardImage in cardImages { cardImage.removeFromSuperview() }
         for playerLabel in playerLabels { playerLabel.removeFromSuperview() }
+        medalImage?.removeFromSuperview()
         cardImages.removeAll()
         playerLabels.removeAll()
     }
@@ -76,9 +78,32 @@ class ViewController: UIViewController {
         present(warningWindow, animated: true, completion: nil)
     }
     
+    @objc func markWinner() {
+        
+    }
+    
     @IBAction func playGame(_ sender: Any) {
         if dealer.isSetMenu() {
-            dealer.distributeCardToPlayer(to: players)
+            if dealer.distributeCardToPlayer(to: players) {
+                dealer.judgeLogic(to: players)
+                let name = players.judgeWinner()
+                markWinner(of: name)
+            }
+        }
+    }
+    
+    private func markWinner(of name: String) {
+        for label in playerLabels {
+            if name == label.text {
+                let perPersonCards = cardImages.count / players.countPlayers()
+                let positionY = label.frame.minY + label.frame.height + 5
+                let positionX = label.frame.minX + CGFloat(40 * perPersonCards + 10)
+                
+                medalImage = UIImageView(frame: CGRect(x: positionX, y: positionY, width: 45, height: 57.15))
+                medalImage?.image = UIImage(named: "medal.png")
+                guard let medalImage = self.medalImage else { return }
+                self.view.addSubview(medalImage)
+            }
         }
     }
     

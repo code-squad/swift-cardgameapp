@@ -36,18 +36,9 @@ class Players {
         for player in players { player.receiveCard(makeStack(cardCount)) }
     }
     
-//    func judgePlayersState() {
-//        let judgeLogic = {(cards: [Card]) -> CardRule in
-//            let tempCard = cards.sorted(by: {$0.number.rawValue < $1.number.rawValue})
-//            guard !PlayCardGame.judgeFourCard(of: tempCard) else { return .fourCard }
-//            guard !PlayCardGame.judgeTripple(of: tempCard) else { return .tripple }
-//            guard !PlayCardGame.judgeTwoPair(of: tempCard) else { return .twoPair }
-//            guard !PlayCardGame.judgeOnePair(of: tempCard) else { return .onePair }
-//            return .noPair
-//        }
-//
-//        for player in players { player.judgeMyCard(method: judgeLogic) }
-//    }
+    func judgePlayersState(logic: ([Card]) -> CardRule) {
+        for player in players { player.judgeMyCard(with: logic) }
+    }
     
     func judgeWinner() -> String {
         var rankInPlayers = players.sorted(by: {$0 > $1})

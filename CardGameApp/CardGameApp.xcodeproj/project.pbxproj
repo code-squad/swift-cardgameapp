@@ -22,6 +22,7 @@
 		9D4C304C221697C900C3890E /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4C3043221697C900C3890E /* Card.swift */; };
 		9D4C304D221697C900C3890E /* ChoiceMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4C3044221697C900C3890E /* ChoiceMenu.swift */; };
 		9D4C304F2216982B00C3890E /* GameParticiapte.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4C304E2216982B00C3890E /* GameParticiapte.swift */; };
+		9D77FBDB221A88B300F853EB /* CardRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77FBDA221A88B300F853EB /* CardRule.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		9D4C3043221697C900C3890E /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		9D4C3044221697C900C3890E /* ChoiceMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoiceMenu.swift; sourceTree = "<group>"; };
 		9D4C304E2216982B00C3890E /* GameParticiapte.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameParticiapte.swift; sourceTree = "<group>"; };
+		9D77FBDA221A88B300F853EB /* CardRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +96,7 @@
 				9D4C303F221697C900C3890E /* CardShape.swift */,
 				9D4C3044221697C900C3890E /* ChoiceMenu.swift */,
 				9D4C3041221697C900C3890E /* ChoiceParticipate.swift */,
+				9D77FBDA221A88B300F853EB /* CardRule.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			files = (
 				9D4C304F2216982B00C3890E /* GameParticiapte.swift in Sources */,
 				9D4C302D2216841F00C3890E /* ViewController.swift in Sources */,
+				9D77FBDB221A88B300F853EB /* CardRule.swift in Sources */,
 				9D4C3045221697C900C3890E /* Player.swift in Sources */,
 				9D4C304B221697C900C3890E /* Dealer.swift in Sources */,
 				9D4C3046221697C900C3890E /* CardDeck.swift in Sources */,
