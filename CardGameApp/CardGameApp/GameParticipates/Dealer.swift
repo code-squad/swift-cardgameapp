@@ -9,6 +9,8 @@
 import Foundation
 
 class Dealer : GameParticipate {
+    static let sharedInstance: Dealer = Dealer(of: CardDeck())
+    
     private var deck: CardDeck
     private var cardsMenu: ChoiceMenu?
     private var playersMenu: ChoiceParticipate?

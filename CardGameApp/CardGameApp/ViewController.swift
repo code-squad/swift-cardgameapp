@@ -22,9 +22,6 @@ class ViewController: UIViewController {
     var playerLabels: [UILabel] = []
     var medalImage: UIImageView?
     
-    let dealer = Dealer(of: CardDeck())
-    let players = Players()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -47,9 +44,9 @@ class ViewController: UIViewController {
     }
     
     private func initialGame() {
-        dealer.setGameMenu(.sevenCard)
-        dealer.setPlayersMenu(.two)
-        players.makePlayer(by: .two, dealer)
+        Dealer.sharedInstance.setGameMenu(.sevenCard)
+        Dealer.sharedInstance.setPlayersMenu(.two)
+        Players.sharedInstance.makePlayer(by: .two, Dealer.sharedInstance)
     }
     
     @objc func setView() {
@@ -83,19 +80,20 @@ class ViewController: UIViewController {
     }
     
     @IBAction func playGame(_ sender: Any) {
-        if dealer.isSetMenu() {
-            if dealer.distributeCardToPlayer(to: players) {
-                dealer.judgeLogic(to: players)
-                let name = players.judgeWinner()
+        if Dealer.sharedInstance.isSetMenu() {
+            if Dealer.sharedInstance.distributeCardToPlayer(to: Players.sharedInstance) {
+                Dealer.sharedInstance.judgeLogic(to: Players.sharedInstance)
+                let name = Players.sharedInstance.judgeWinner()
                 markWinner(of: name)
             }
         }
+
     }
     
     private func markWinner(of name: String) {
         for label in playerLabels {
             if name == label.text {
-                let perPersonCards = cardImages.count / players.countPlayers()
+                let perPersonCards = cardImages.count / Players.sharedInstance.countPlayers()
                 let positionY = label.frame.minY + label.frame.height + 5
                 let positionX = label.frame.minX + CGFloat(40 * perPersonCards + 10)
                 
@@ -105,6 +103,7 @@ class ViewController: UIViewController {
                 self.view.addSubview(medalImage)
             }
         }
+
     }
     
     @IBAction func setCardCount(_ sender: Any) {
@@ -115,7 +114,7 @@ class ViewController: UIViewController {
         case 1: cardCount = .fiveCard
         default: return
         }
-        dealer.setGameMenu(cardCount)
+        Dealer.sharedInstance.setGameMenu(cardCount)
     }
     
     @IBAction func setPlayersCount(_ sender: Any) {
@@ -127,8 +126,8 @@ class ViewController: UIViewController {
         case 2: playersCount = .four
         default: return
         }
-        dealer.setPlayersMenu(playersCount)
-        players.makePlayer(by: playersCount, dealer)
+        Dealer.sharedInstance.setPlayersMenu(playersCount)
+        Players.sharedInstance.makePlayer(by: playersCount, Dealer.sharedInstance)
     }
     
     private func createSubView() {
@@ -137,8 +136,8 @@ class ViewController: UIViewController {
         let labelPositionX: CGFloat = 40
         var labelPositionY: CGFloat = 115
         
-        for index in 0..<players.countPlayers() {
-            players.iterate(at: index) { name, cards in
+        for index in 0..<Players.sharedInstance.countPlayers() {
+            Players.sharedInstance.iterate(at: index) { name, cards in
                 let playerTextLabel = createPlayerLabel(name, labelPositionX, labelPositionY)
                 playerLabels.append(playerTextLabel)
                 
@@ -177,7 +176,7 @@ extension ViewController {
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             clearView()
-            dealer.resetGame()
+            Dealer.sharedInstance.resetGame()
         }
     }
 }

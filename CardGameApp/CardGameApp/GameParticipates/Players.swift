@@ -13,6 +13,8 @@ protocol PlayersPrintable {
 }
 
 class Players {
+    static let sharedInstance: Players = Players()
+    
     private var players: [GameParticipate] = []
     
     func makePlayer(by count: ChoiceParticipate, _ dealerPlayer: Dealer) {
@@ -21,7 +23,6 @@ class Players {
             players.append(Player(name: "참가자#\(playerNumber+1)"))
         }
         players.append(dealerPlayer)
-        print(players)
     }
     
     private func removeAll() {
