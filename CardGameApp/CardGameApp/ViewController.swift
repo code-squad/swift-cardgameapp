@@ -14,6 +14,8 @@ import os
 class ViewController: UIViewController {
     /// 덱 카드들이 뷰로 생성되면 모이는 배열
     private var deckCardViews : [CardView] = []
+    /// 덱뷰 생성
+    var deckView = DeckView()
     /// 오픈덱 카드들이 뷰로 생성되면 모이는 배열
     private var openedCardViews : [CardView] = []
     
@@ -110,15 +112,12 @@ class ViewController: UIViewController {
         // 각 카드정보를 모두 카드뷰로 전환
         for cardInfo in cardInfos {
             // 카드뷰 생성
-//            let cardView = makeCardView(widthPosition: 7, heightPosition: 1, cardSize: cardSize, cardInfo: cardInfo)
-            let cardView = CardView(cardInfo: cardInfo, frame: self.ref)
+            let cardView = CardView(cardInfo: cardInfo, size: cardSize.cardSize)
             // 덱을 위한 탭 제스쳐를 생성, 추가한다
             cardView.addGestureRecognizer(makeTapGetstureForDeck())
-            // 메인뷰에 추가
-            addViewToMain(view: cardView)
             
-            // 덱카드뷰 배열에 넣는다
-            deckCardViews.append(cardView)
+            // 덱카드뷰에 넣는다
+            self.deckView.addSubview(cardView)
         }
     }
     
@@ -161,7 +160,7 @@ class ViewController: UIViewController {
         // 상호작용 금지
         openedCardView.isUserInteractionEnabled = false
         
-        // 해당 뷰를 덱>오픈덱 뷰 배열로 옮긴다
+        // 해당 뷰를 덱 -> 오픈덱 뷰 배열로 옮긴다
         guard let popedDeckCardView = deckCardViews.popLast() else {
             os_log("덱카드뷰 에서 뷰 추출 실패")
             return ()
@@ -199,8 +198,10 @@ class ViewController: UIViewController {
         // 제스처를 적용
         let refreshGesture = makeRefreshGesture()
         refreshIconView.addGestureRecognizer(refreshGesture)
+        // 덱뷰를 변경
+        self.deckView = refreshIconView
         // 뷰를 메인뷰에 추가
-        addViewToMain(view: refreshIconView)
+        addViewToMain(view: self.deckView)
     }
     
     /// 리프레시 아이콘 함수. 오픈덱 카드뷰를 역순으로 뒤집어서 덱뷰에 삽입
