@@ -19,5 +19,16 @@ class Klondike {
     private var columns = Columns()
     
     //MARK: - Methods
-    //MARK: Initialization
+    
+    func setUp() {
+        
+        var deck = Deck()
+        deck.shuffle()
+        
+        for few in 1...7 {
+            let stack = deck.draw(few: few)
+            let position = few - 1
+            self.columns.add(stack: stack, to: position)
+        }
+    }
 }

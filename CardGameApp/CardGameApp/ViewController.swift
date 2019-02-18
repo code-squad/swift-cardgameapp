@@ -20,11 +20,7 @@ class ViewController: UIViewController {
     
     //MARK: Instance
     
-    lazy var klondike: Klondike = {
-        
-        let klondike = Klondike()
-        return klondike
-    }()
+    var klondike: Klondike = Klondike()
     
     //MARK: - Methods
     //MARK: Setting

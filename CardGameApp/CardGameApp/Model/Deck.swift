@@ -59,7 +59,7 @@ struct Deck : CardGameDeck {
             drawnCards.append(drawnCard)
         }
         
-        return CardStack.init(cards: drawnCards, type: .columns(position: few))
+        return CardStack.init(cards: drawnCards)
     }
     
     mutating func willSetDeck(few:Int) -> [CardStack] {

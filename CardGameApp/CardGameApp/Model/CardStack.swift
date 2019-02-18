@@ -34,7 +34,6 @@ class CardStack : CustomStringConvertible {
     init(cards:[Card] = [], type: CardStackType? = nil) {
         self.type = type
         self.cards = cards
-        postData()
     }
     
     //MARK: Private
@@ -96,5 +95,10 @@ class CardStack : CustomStringConvertible {
     
     func setType(_ type: CardStackType) {
         self.type = type
+    }
+    
+    func put(stack: CardStack) {
+        let cards = stack.cards
+        self.cards.append(contentsOf: cards)
     }
 }

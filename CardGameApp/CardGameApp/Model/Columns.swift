@@ -27,6 +27,8 @@ class Columns {
     }()
     
     //MARK: - Methods
-    //MARK: Initialization
-
+    
+    func add(stack: CardStack, to position: Int) {
+        self.columns[position].put(stack: stack)
+    }
 }
