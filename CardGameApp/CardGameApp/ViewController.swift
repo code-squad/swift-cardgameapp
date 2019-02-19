@@ -155,25 +155,8 @@ class ViewController: UIViewController {
         
         let movedCardInfo = openDeck(cardInfo: openedCardView.cardInfo)
         
-        if movedCardInfo?.name() == openedCardView.cardInfo.name() {
-            os_log("이동된 카드와 카드뷰 의 카드인포 연결됨")
-        } else {
-            os_log("이동된 카드와 카드뷰 의 카드인포 연결 안됨")
-        }
-        
-//        // 덱뷰에서 해당 뷰 삭제
-//        openedCardView.removeFromSuperview()
-//        
-//        // 위치이동
-//        self.openedDeckView.addSubview(openedCardView)
-//        
-//        
-//        
-//        // 카드뷰를 뒤집는다
-//        openedCardView.flip()
-        
         // 옮겨진 카드가 안보이니 맨 위로 올린다
-        self.view.bringSubview(toFront: openedCardView)
+//        self.view.bringSubview(toFront: openedCardView)
     }
     
     /// 덱을 오픈한다

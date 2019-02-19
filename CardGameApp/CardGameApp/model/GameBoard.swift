@@ -17,6 +17,7 @@ protocol DeckInfo {
 
 /// 카드게임 진행을 하는 보드
 class GameBoard : DeckInfo {
+    
     /// 덱 선언
     private var deck = Deck()
     /// 사용자가 오픈한 카드가 모이는 덱
@@ -119,24 +120,33 @@ class GameBoard : DeckInfo {
     
     
     /// 덱을 오픈
-    func deckToOpened() -> CardInfo? {
+    func deckToOpened(cardInfo: CardInfo) -> CardInfo? {
+        // 입력받은 카드인포가 덱의 마지막 카드와 같은지 체크
+        guard cardInfo.name() == deck.info().last?.name() else { return nil}
         // 덱에서 한장 추출. 없으면 닐 리턴
-        guard let popedCard = deck.removeOne() else { return nil }
+        guard let popedCard = deck.removeOne()  else { return nil }
         // 카드 덱타입 수정
         popedCard.deckType = .openedDeck
+        // 오픈덱은 뒤집혀야한다. 뒤집기
+        popedCard.flip()
         // 추출한 카드를 열은덱 에 추가
         openedDeck.addCard(card: popedCard)
+        
+        
+        // 카드가 떠난 덱타입 노티
+        NotificationCenter.default.post(name: .cardMoved, object: DeckType.deck)
+        
         // 추출한 카드의 정보를 리턴
         return popedCard
     }
     
-    /// 오픈된 덱 전부를 다시 덱에 포함
-    func openedToDeck(){
-        // 오픈덱 전부를 덱에 추가한다
-        deck.addCards(cards: openedDeck.pickAllCard())
-        // 오픈덱을 비운다
-        self.openedDeck.reset()
-    }
+//    /// 오픈된 덱 전부를 다시 덱에 포함. 삭제예정
+//    func openedToDeck(){
+//        // 오픈덱 전부를 덱에 추가한다
+//        deck.addCards(cards: openedDeck.pickAllCard())
+//        // 오픈덱을 비운다
+//        self.openedDeck.reset()
+//    }
     
     /// 덱 전체 정보를 리턴
     func allInfo() -> [CardInfo] {
@@ -144,7 +154,7 @@ class GameBoard : DeckInfo {
     }
 
     /// 오픈덱 -> 덱 으로 카드전체이동. 순서 유지를 위해서 오픈덱 순서를 뒤집는다
-    func refreshDeck(){
+    func openedDeckToDeck(){
         // 순서를 뒤집어줄 임시 배열
         var tempDeck : [Card] = []
         // 오픈덱 전체 리턴
@@ -153,7 +163,9 @@ class GameBoard : DeckInfo {
         for _ in 0..<poppedDeck.count {
             // 뒤에서부터 카드 추출
             guard let poppedCard = poppedDeck.popLast() else { return () }
-            // 뒤집은 카드를 임시배열에 넣는다
+            // 카드를 뒤집는다
+            poppedCard.flip()
+            // 카드를 임시배열에 넣는다
             tempDeck.append(poppedCard)
         }
         // 임시배열을 덱에 추가
@@ -169,6 +181,9 @@ class GameBoard : DeckInfo {
         // 카드인포를 받아서 해당 카드를 추출한다
         guard let pickedCard = self.pickCard(cardInfo: cardInfo) else { return nil }
     
+        // 이동된 카드 정보 노티 포스트
+        NotificationCenter.default.post(name: .cardMoved, object: pickedCard.getDeckType())
+        
         // 추출한 카드를 추가 성공시 카드인포 리턴
         return addCard(card: pickedCard)
     }
@@ -212,6 +227,10 @@ class GameBoard : DeckInfo {
     /// 라인을 받아서 플레이덱 라인의 카드인포 배열 리턴
     func getPlayDeckLineCardInfos(line: Int) -> [CardInfo] {
         return self.playDeck.getLineCardInfos(line: line)
+    }
+    
+    func lastCardInfosInOpenedDeck() -> [CardInfo] {
+        return self.openedDeck.cardList
     }
 }
 
