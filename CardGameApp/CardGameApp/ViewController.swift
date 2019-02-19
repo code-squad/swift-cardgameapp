@@ -153,18 +153,24 @@ class ViewController: UIViewController {
             return ()
         }
         
-        openDeck()
+        let movedCardInfo = openDeck(cardInfo: openedCardView.cardInfo)
         
-        // 덱뷰에서 해당 뷰 삭제
-        openedCardView.removeFromSuperview()
+        if movedCardInfo?.name() == openedCardView.cardInfo.name() {
+            os_log("이동된 카드와 카드뷰 의 카드인포 연결됨")
+        } else {
+            os_log("이동된 카드와 카드뷰 의 카드인포 연결 안됨")
+        }
         
-        // 위치이동
-        self.openedDeckView.addSubview(openedCardView)
-        
-        
-        
-        // 카드뷰를 뒤집는다
-        openedCardView.flip()
+//        // 덱뷰에서 해당 뷰 삭제
+//        openedCardView.removeFromSuperview()
+//        
+//        // 위치이동
+//        self.openedDeckView.addSubview(openedCardView)
+//        
+//        
+//        
+//        // 카드뷰를 뒤집는다
+//        openedCardView.flip()
         
         // 옮겨진 카드가 안보이니 맨 위로 올린다
         self.view.bringSubview(toFront: openedCardView)
@@ -173,7 +179,7 @@ class ViewController: UIViewController {
     /// 덱을 오픈한다
     func openDeck(cardInfo: CardInfo) -> CardInfo? {
         // 덱의 카드를 오픈덱으로 이동
-        guard let openedCardInfo = gameBoard.deckToOpened() else { return nil }
+        guard let openedCardInfo = gameBoard.deckToOpened(cardInfo: cardInfo) else { return nil }
         
         // 카드인포 리턴
         return openedCardInfo
@@ -206,24 +212,24 @@ class ViewController: UIViewController {
     
     /// 리프레시 아이콘 함수. 오픈덱 카드뷰를 역순으로 뒤집어서 덱뷰에 삽입
     @objc func refreshDeck(_ sender: UITapGestureRecognizer){
-        // 오픈카드뷰 전체가 대상
-        for _ in 0..<self.openedDeckView.subviews.count {
-            // 배열 마지막을 뽑느다
-            guard let lastCardView = self.openedDeckView.subviews.last as? CardView else { return () }
-            
-            // 덱에 넣기 위해 뒤집는다
-            lastCardView.cardInfo.flip()
-            // 유저 인터랙션 허용
-            lastCardView.isUserInteractionEnabled = true
-            
-            // 위치 이동. 가로칸 7번째 위치로.
-            lastCardView.frame.origin.x = widthPositions[6]
-            // 뷰를 앞으로 이동시킨다
-            self.view.bringSubview(toFront: lastCardView)
-        }
+//        // 오픈카드뷰 전체가 대상
+//        for _ in 0..<self.openedDeckView.subviews.count {
+//            // 배열 마지막을 뽑느다
+//            guard let lastCardView = self.openedDeckView.subviews.last as? CardView else { return () }
+//
+//            // 덱에 넣기 위해 뒤집는다
+//            lastCardView.cardInfo.flip()
+//            // 유저 인터랙션 허용
+//            lastCardView.isUserInteractionEnabled = true
+//
+//            // 위치 이동. 가로칸 7번째 위치로.
+//            lastCardView.frame.origin.x = widthPositions[6]
+//            // 뷰를 앞으로 이동시킨다
+//            self.view.bringSubview(toFront: lastCardView)
+//        }
         
         // 게임보드도 이동해 준다
-        gameBoard.refreshDeck()
+        gameBoard.openedDeckToDeck()
     }
     
     /// 리프레시 아이콘 용 제스처 생성
@@ -286,10 +292,60 @@ class ViewController: UIViewController {
     /// 카드 이동 노티를 받으면 뷰이동 함수를 실행
     @objc func afterCardMovedNoti(notification: Notification){
         /// 이동된 카드에 맞게 카드뷰를 이동시킨다
-        if let cardInfo = notification.object as! CardInfo? {
-            os_log("moved card : %@", cardInfo.name())
+        if let deckType = notification.object as! DeckType? {
+            /// 덱타입을 넣어서 이동해야되는 뷰 추출
+            guard let cardView = getCardView(deckType: deckType) as? CardView else { return () }
+            
+            /// 이전덱타입과 뷰를 넣어서 뷰 이동
+            rePositinoCardView(pastDeckType: deckType, cardView: cardView)
+            
         }
     }
+    
+    /// 덱타입을 받아서 맞는 카드뷰를 리턴
+    func getCardView(deckType: DeckType) -> UIView? {
+        switch deckType {
+        case .deck : return self.deckView.subviews.last
+        case .openedDeck : return self.openedDeckView.subviews.last
+//        case .playDeck : return self.pla
+        default : return nil
+        }
+    }
+    
+    /// 덱타입, 카드뷰를 받아서 카드뷰 타입과 다르면 위치이동 함수 실행
+    func rePositinoCardView(pastDeckType: DeckType, cardView: CardView){
+        // 노티가 온 덱타입과 받은 카드뷰 덱타입이 다르면 이동시켜준다
+        if pastDeckType != cardView.cardInfo.getDeckType() {
+            // 이동함수 실행
+            moveCardView(cardView: cardView)
+        }
+    }
+    
+    /// 뷰를 받아서 덱타입에 맞는 위치로 이동
+    func moveCardView(cardView: CardView){
+        // 수퍼뷰에서 제거하고
+        cardView.removeFromSuperview()
+        // 가야할 위치를 받는다
+        guard let deckView = getDeck(deckType: cardView.cardInfo.getDeckType()) else { return () }
+        // 위치를 재조정 한다
+        deckView.addSubview(cardView)
+        // 이동후 맞는 이미지로 변경
+        cardView.refreshImage()
+    }
+    
+    /// 덱타입을 받아서 맞는 덱뷰를 리턴
+    func getDeck(deckType: DeckType) -> UIView? {
+        switch deckType {
+        case .deck : return self.deckView
+        case .openedDeck : return self.openedDeckView
+            // 이부분 로직 아직 구상중
+//        case .playDeck : return self.plaDeck
+//        case .pointDeck : return self.pointDeck????
+        default : return nil
+        }
+    }
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
