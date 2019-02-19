@@ -9,15 +9,16 @@
 import UIKit
 import os
 
+extension Notification.Name {
+    static let cardMoved = Notification.Name("cardMoved")
+}
 
 
 class ViewController: UIViewController {
-    /// 덱 카드들이 뷰로 생성되면 모이는 배열
-    private var deckCardViews : [CardView] = []
     /// 덱뷰 생성
     var deckView = DeckView()
-    /// 오픈덱 카드들이 뷰로 생성되면 모이는 배열
-    private var openedCardViews : [CardView] = []
+    /// 오픈덱뷰 생성
+    var openedDeckView = OpenedDeckView()
     
     
     /// 플레이카드가 들어가는 스택뷰
@@ -102,10 +103,6 @@ class ViewController: UIViewController {
     
     /// 덱을 카드뷰로 출력
     func drawDeckView(){
-        // 덱,오픈덱 카드뷰 배열을 초기화 한다. 게임 리셋 기능시 쓰인다.
-        deckCardViews = []
-        openedCardViews = []
-        
         // 덱을 카드객체가 아닌 프로토콜로 받는다
         let cardInfos = getDeckInfo(deckInfo: self.gameBoard)
         
@@ -144,12 +141,23 @@ class ViewController: UIViewController {
     
     /// 덱 탭 제스처시 발생하는 이벤트
     @objc func deckTapEvent(_ sender: UITapGestureRecognizer) {
-        
+        os_log("tap event started")
         // 옮겨진 뷰가 카드뷰가 맞는지 체크
         guard let openedCardView = sender.view as? CardView else { return () }
         
-        // 오픈된 카드뷰 위치 이동.  5번과 6번 사이. 둘을 더해서 /2 하면 가운데값이 나옴
-        openedCardView.frame.origin.x = (widthPositions[4] + widthPositions[5]) / 2
+        // 꺼낸 카드가 덱뷰의 마지막 카드가 맞는지 체크
+        guard openedCardView == self.deckView.subviews.last else {
+            os_log("덱뷰의 마지막 카드가 아닙니다")
+            return ()
+        }
+        
+        // 덱뷰에서 해당 뷰 삭제
+        openedCardView.removeFromSuperview()
+        
+        // 위치이동
+        self.openedDeckView.addSubview(openedCardView)
+        
+        
         
         // 카드뷰를 뒤집는다
         openedCardView.flip()
@@ -158,15 +166,9 @@ class ViewController: UIViewController {
         self.view.bringSubview(toFront: openedCardView)
         
         // 상호작용 금지
-        openedCardView.isUserInteractionEnabled = false
+//        openedCardView.isUserInteractionEnabled = false
         
-        // 해당 뷰를 덱 -> 오픈덱 뷰 배열로 옮긴다
-        guard let popedDeckCardView = deckCardViews.popLast() else {
-            os_log("덱카드뷰 에서 뷰 추출 실패")
-            return ()
-        }
-        openedCardViews.append(popedDeckCardView)
-        
+        os_log("tap event ended")
     }
     
     /// 덱을 오픈한다
@@ -194,12 +196,10 @@ class ViewController: UIViewController {
         // 뷰 기준점 설정.
         let viewPoint = CGPoint(x: widthPositions[6], y: heightPositions[0])
         // 기준점에서 카드사이즈로 이미지뷰 생성
-        let refreshIconView = DeckView(origin: viewPoint, size: cardSize.cardSize)
+        self.deckView.setPosotion(origin: viewPoint, size: cardSize.cardSize)
         // 제스처를 적용
         let refreshGesture = makeRefreshGesture()
-        refreshIconView.addGestureRecognizer(refreshGesture)
-        // 덱뷰를 변경
-        self.deckView = refreshIconView
+        self.deckView.addGestureRecognizer(refreshGesture)
         // 뷰를 메인뷰에 추가
         addViewToMain(view: self.deckView)
     }
@@ -207,17 +207,14 @@ class ViewController: UIViewController {
     /// 리프레시 아이콘 함수. 오픈덱 카드뷰를 역순으로 뒤집어서 덱뷰에 삽입
     @objc func refreshDeck(_ sender: UITapGestureRecognizer){
         // 오픈카드뷰 전체가 대상
-        for _ in 0..<openedCardViews.count {
+        for _ in 0..<self.openedDeckView.subviews.count {
             // 배열 마지막을 뽑느다
-            guard let lastCardView = openedCardViews.popLast() else { return () }
+            guard let lastCardView = self.openedDeckView.subviews.last as? CardView else { return () }
             
             // 덱에 넣기 위해 뒤집는다
-            lastCardView.flip()
+            lastCardView.cardInfo.flip()
             // 유저 인터랙션 허용
             lastCardView.isUserInteractionEnabled = true
-            
-            // 덱카드뷰 배열에 넣는다
-            deckCardViews.append(lastCardView)
             
             // 위치 이동. 가로칸 7번째 위치로.
             lastCardView.frame.origin.x = widthPositions[6]
@@ -277,15 +274,19 @@ class ViewController: UIViewController {
         let xPosition = (widthPositions[4] + widthPositions[5]) / 2
         let viewPoint = CGPoint(x: xPosition, y: heightPositions[0])
         // 기준점에서 카드사이즈로 이미지뷰 생성
-        let opendedDeckView = UIView(frame: CGRect(origin: viewPoint, size: cardSize.cardSize))
-        // 뷰를 메인뷰에 추가
-        addViewToMain(view: opendedDeckView)
+        self.openedDeckView.setPosotion(origin: viewPoint, size: cardSize.cardSize)
+        addViewToMain(view: self.openedDeckView)
     }
     
+    /// 노티 생성 함수
+    func makeNoti(){
+        NotificationCenter.default.addObserver(self, selector: #selector(setToPeru(notification:)), name: .cardMoved, object: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // 노티 생성
+        makeNoti()
         // 카드 사이즈 계산
         cardSize.calculateCardSize(screenWidth: UIScreen.main.bounds.width)
         
