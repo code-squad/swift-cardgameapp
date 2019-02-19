@@ -22,6 +22,8 @@ class ViewController: UIViewController {
     var playerLabels: [UILabel] = []
     var medalImage: UIImageView?
     
+    var cardGame: PlayCardGame?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -44,9 +46,7 @@ class ViewController: UIViewController {
     }
     
     private func initialGame() {
-        Dealer.sharedInstance.setGameMenu(.sevenCard)
-        Dealer.sharedInstance.setPlayersMenu(.two)
-        Players.sharedInstance.makePlayer(by: .two, Dealer.sharedInstance)
+        cardGame = PlayCardGame()
     }
     
     @objc func setView() {
@@ -76,17 +76,18 @@ class ViewController: UIViewController {
     }
     
     @IBAction func playGame(_ sender: Any) {
-        guard Dealer.sharedInstance.isSetMenu() else { return }
-        guard Dealer.sharedInstance.distributeCardToPlayer(to: Players.sharedInstance) else { return }
-        Players.sharedInstance.judgePlayersState()
-        let name = Players.sharedInstance.judgeWinner()
+        guard let cardGame = self.cardGame else { return }
+        guard cardGame.gameStart() else { return }
+        let name = cardGame.getWinnerName()
         markWinner(of: name)
     }
     
     private func markWinner(of name: String) {
+        guard let cardGame = self.cardGame else { return }
+        
         for label in playerLabels {
             if name == label.text {
-                let perPersonCards = cardImages.count / Players.sharedInstance.countPlayers()
+                let perPersonCards = cardImages.count / cardGame.getPlayersCount()
                 let positionY = label.frame.minY + label.frame.height + 5
                 let positionX = label.frame.minX + CGFloat(40 * perPersonCards + 10)
                 
@@ -100,22 +101,23 @@ class ViewController: UIViewController {
     
     @IBAction func setCardCount(_ sender: Any) {
         let segmentIndex = cardsSegment.selectedSegmentIndex
-        PlayCardGame.selectCard(menu: segmentIndex)
+        cardGame?.selectCard(menu: segmentIndex)
     }
     
     @IBAction func setPlayersCount(_ sender: Any) {
         let segmentIndex = playersSegment.selectedSegmentIndex
-        PlayCardGame.selectPlayer(menu: segmentIndex)
+        cardGame?.selectPlayer(menu: segmentIndex)
     }
     
     private func createSubView() {
+        guard let cardGame = self.cardGame else { return }
         var cardPositionX: CGFloat = 40
         var cardPositionY: CGFloat = 140
         let labelPositionX: CGFloat = 40
         var labelPositionY: CGFloat = 115
         
-        for index in 0..<Players.sharedInstance.countPlayers() {
-            Players.sharedInstance.iterate(at: index) { name, cards in
+        for index in 0..<cardGame.getPlayersCount() {
+            cardGame.iteratePlayer(at: index) { name, cards in
                 let playerTextLabel = createPlayerLabel(name, labelPositionX, labelPositionY)
                 playerLabels.append(playerTextLabel)
                 
@@ -154,7 +156,7 @@ extension ViewController {
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             clearView()
-            Dealer.sharedInstance.resetGame()
+            cardGame?.resetGame()
         }
     }
 }

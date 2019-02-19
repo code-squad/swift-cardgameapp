@@ -9,18 +9,44 @@
 import Foundation
 
 struct PlayCardGame {
+    private var dealer: Dealer
+    private var players: Players
     
-    static func selectCard(menu: Int) {
+    init() {
+        dealer = Dealer(of: CardDeck())
+        players = Players()
+        
+        dealer.setGameMenu(.sevenCard)
+        dealer.setPlayersMenu(.two)
+        players.makePlayer(by: .two, dealer)
+    }
+    
+    func gameStart() -> Bool {
+        guard dealer.isSetMenu() else { return false }
+        guard dealer.distributeCardToPlayer(to: players) else { return false }
+        return true
+    }
+    
+    func getWinnerName() -> String {
+        players.judgePlayersState()
+        return players.judgeWinner()
+    }
+    
+    func getPlayersCount() -> Int {
+        return players.countPlayers()
+    }
+    
+    func selectCard(menu: Int) {
         let cardCount: ChoiceMenu
         switch menu {
         case 0: cardCount = .sevenCard
         case 1: cardCount = .fiveCard
         default: return
         }
-        Dealer.sharedInstance.setGameMenu(cardCount)
+        dealer.setGameMenu(cardCount)
     }
     
-    static func selectPlayer(menu: Int) {
+    func selectPlayer(menu: Int) {
         let playersCount: ChoiceParticipate
         switch menu {
         case 0: playersCount = .two
@@ -28,10 +54,18 @@ struct PlayCardGame {
         case 2: playersCount = .four
         default: return
         }
-        Dealer.sharedInstance.setPlayersMenu(playersCount)
-        Players.sharedInstance.makePlayer(by: playersCount, Dealer.sharedInstance)
+        dealer.setPlayersMenu(playersCount)
+        players.makePlayer(by: playersCount, dealer)
     }
-
+    
+    func iteratePlayer(at playerNumber: Int, form: (String, [Card]) -> Void) {
+        players.iterate(at: playerNumber, form: form)
+    }
+    
+    func resetGame() {
+        dealer.resetGame()
+    }
+    
     static func judgeFourCard(of sortedCard: [Card]) -> Bool {
         for index in 0..<sortedCard.count-3 {
             if sortedCard[index].number == sortedCard[index+1].number && sortedCard[index+1].number == sortedCard[index+2].number && sortedCard[index+2].number == sortedCard[index+3].number { return true }

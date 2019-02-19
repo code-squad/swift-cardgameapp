@@ -12,9 +12,7 @@ protocol PlayersPrintable {
     func iterate(at playerNumber: Int, form: (String, [Card]) -> Void)
 }
 
-class Players {
-    static let sharedInstance: Players = Players()
-    
+class Players {    
     private var players: [GameParticipate] = []
     
     func makePlayer(by count: ChoiceParticipate, _ dealerPlayer: Dealer) {
