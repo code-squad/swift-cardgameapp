@@ -34,4 +34,8 @@ class Klondike {
         let stack = deck.remainingCards()
         self.pile.put(stack: stack)
     }
+    
+    func reset() {
+        
+    }
 }
