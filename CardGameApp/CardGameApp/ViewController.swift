@@ -15,14 +15,19 @@ extension Notification.Name {
 
 
 class ViewController: UIViewController {
+    /// 플레이카드가 들어가는 스택뷰
+    @IBOutlet weak var playCardMainStackView: UIStackView!
+    
+    /// 포인트덱뷰
+    var pointDeckView = PointDeckView()
+    
+    
     /// 덱뷰 생성
     var deckView = DeckView()
     /// 오픈덱뷰 생성
     var openedDeckView = OpenedDeckView()
     
     
-    /// 플레이카드가 들어가는 스택뷰
-    @IBOutlet weak var playCardMainStackView: UIStackView!
     
     /// 최대 카드 개수 장수로 카드사이즈 세팅
     private var cardSize = CardSize(maxCardCount: 7)
@@ -68,17 +73,17 @@ class ViewController: UIViewController {
     
     
     /// 첫줄 카드배경 출력
-    private func setPointDeckPosition(){
-        // 원하는 빈칸은 4칸
-        for x in 0..<Mark.allCases().count {
-            // 카드 기준점 설정
-            let viewPoint = CGPoint(x: widthPositions[x], y: heightPositions[0])
-            // 기준점에서 카드사이즈로 이미지뷰 생성
-            let emptyCardView = EmptyPointCardView(origin: viewPoint, size: cardSize.cardSize)
-            // 뷰를 메인뷰에 추가
-            self.view.addSubview(emptyCardView)
-        }
-    }
+//    private func setPointDeckPosition(){
+//        // 원하는 빈칸은 4칸
+//        for x in 0..<Mark.allCases().count {
+//            // 카드 기준점 설정
+//            let viewPoint = CGPoint(x: widthPositions[x], y: heightPositions[0])
+//            // 기준점에서 카드사이즈로 이미지뷰 생성
+//            let emptyCardView = EmptyPointCardView(origin: viewPoint, size: cardSize.cardSize)
+//            // 뷰를 메인뷰에 추가
+//            self.view.addSubview(emptyCardView)
+//        }
+//    }
     
     
     /// 카드 이미지 출력
@@ -153,10 +158,7 @@ class ViewController: UIViewController {
             return ()
         }
         
-        let movedCardInfo = openDeck(cardInfo: openedCardView.cardInfo)
-        
-        // 옮겨진 카드가 안보이니 맨 위로 올린다
-//        self.view.bringSubview(toFront: openedCardView)
+        let _ = openDeck(cardInfo: openedCardView.cardInfo)
     }
     
     /// 덱을 오픈한다
@@ -195,22 +197,6 @@ class ViewController: UIViewController {
     
     /// 리프레시 아이콘 함수. 오픈덱 카드뷰를 역순으로 뒤집어서 덱뷰에 삽입
     @objc func refreshDeck(_ sender: UITapGestureRecognizer){
-//        // 오픈카드뷰 전체가 대상
-//        for _ in 0..<self.openedDeckView.subviews.count {
-//            // 배열 마지막을 뽑느다
-//            guard let lastCardView = self.openedDeckView.subviews.last as? CardView else { return () }
-//
-//            // 덱에 넣기 위해 뒤집는다
-//            lastCardView.cardInfo.flip()
-//            // 유저 인터랙션 허용
-//            lastCardView.isUserInteractionEnabled = true
-//
-//            // 위치 이동. 가로칸 7번째 위치로.
-//            lastCardView.frame.origin.x = widthPositions[6]
-//            // 뷰를 앞으로 이동시킨다
-//            self.view.bringSubview(toFront: lastCardView)
-//        }
-        
         // 게임보드도 이동해 준다
         gameBoard.openedDeckToDeck()
     }
@@ -230,13 +216,16 @@ class ViewController: UIViewController {
     /// 카드게임 시작시 카드뷰 전체 배치 함수
     func gameStart(){
         // 카드 빈자리 4장 출력
-        setPointDeckPosition()
+//        setPointDeckPosition()
         
         // 리프레시 아이콘 뷰 생성
         makeRefreshIconView()
         
         // 오픈덱뷰 생성
         makeOpenedDeckView()
+        
+        // 포인트덱뷰 생성
+        setPointDeckView()
         
         // 덱 출력
         drawDeckView()
@@ -328,6 +317,13 @@ class ViewController: UIViewController {
         }
     }
 
+    /// 포인트덱뷰 위치 설정
+    func setPointDeckView(){
+        // 시작점은 1첫번쨰 카드 기준
+        let viewPoint = CGPoint(x: widthPositions[0], y: heightPositions[0])
+        self.pointDeckView.setPointDeckView(origin: viewPoint, cardSize: self.cardSize)
+        addViewToMain(view: self.pointDeckView)
+    }
     
     
     override func viewDidLoad() {
