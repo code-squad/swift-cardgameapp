@@ -31,4 +31,11 @@ class Columns {
     func add(stack: CardStack, to position: Int) {
         self.columns[position].put(stack: stack)
     }
+    
+    func emptyAll() {
+        
+        for stack in columns {
+            stack.empty()
+        }
+    }
 }

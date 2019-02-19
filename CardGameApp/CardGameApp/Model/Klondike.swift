@@ -38,5 +38,10 @@ class Klondike {
     func reset() {
         
         goals.emptyAll()
+        preview.empty()
+        pile.empty()
+        columns.emptyAll()
+        
+        setUp()
     }
 }
