@@ -11,6 +11,8 @@ import UIKit
 class DeckView: UIImageView {
     init(){
         super.init(image: #imageLiteral(resourceName: "cardgameapp-refresh-app"))
+        // 뷰 인터랙션 허용
+        self.isUserInteractionEnabled = true
     }
     init(origin: CGPoint, size: CGSize){
         let frame = CGRect(origin: origin, size: size)
@@ -28,6 +30,14 @@ class DeckView: UIImageView {
         // 뷰 인터랙션 허용
         self.isUserInteractionEnabled = true
     }
-
+    
+    
 }
 
+extension UIView {
+    /// 위치 변경
+    func setPosotion(origin: CGPoint, size: CGSize){
+        self.frame.origin = origin
+        self.frame.size = size
+    }
+}
