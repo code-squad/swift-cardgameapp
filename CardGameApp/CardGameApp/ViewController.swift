@@ -75,19 +75,12 @@ class ViewController: UIViewController {
         present(warningWindow, animated: true, completion: nil)
     }
     
-    @objc func markWinner() {
-        
-    }
-    
     @IBAction func playGame(_ sender: Any) {
-        if Dealer.sharedInstance.isSetMenu() {
-            if Dealer.sharedInstance.distributeCardToPlayer(to: Players.sharedInstance) {
-                Dealer.sharedInstance.judgeLogic(to: Players.sharedInstance)
-                let name = Players.sharedInstance.judgeWinner()
-                markWinner(of: name)
-            }
-        }
-
+        guard Dealer.sharedInstance.isSetMenu() else { return }
+        guard Dealer.sharedInstance.distributeCardToPlayer(to: Players.sharedInstance) else { return }
+        Players.sharedInstance.judgePlayersState()
+        let name = Players.sharedInstance.judgeWinner()
+        markWinner(of: name)
     }
     
     private func markWinner(of name: String) {
@@ -103,31 +96,16 @@ class ViewController: UIViewController {
                 self.view.addSubview(medalImage)
             }
         }
-
     }
     
     @IBAction func setCardCount(_ sender: Any) {
         let segmentIndex = cardsSegment.selectedSegmentIndex
-        let cardCount: ChoiceMenu
-        switch segmentIndex {
-        case 0: cardCount = .sevenCard
-        case 1: cardCount = .fiveCard
-        default: return
-        }
-        Dealer.sharedInstance.setGameMenu(cardCount)
+        PlayCardGame.selectCard(menu: segmentIndex)
     }
     
     @IBAction func setPlayersCount(_ sender: Any) {
         let segmentIndex = playersSegment.selectedSegmentIndex
-        let playersCount: ChoiceParticipate
-        switch segmentIndex {
-        case 0: playersCount = .two
-        case 1: playersCount = .three
-        case 2: playersCount = .four
-        default: return
-        }
-        Dealer.sharedInstance.setPlayersMenu(playersCount)
-        Players.sharedInstance.makePlayer(by: playersCount, Dealer.sharedInstance)
+        PlayCardGame.selectPlayer(menu: segmentIndex)
     }
     
     private func createSubView() {
