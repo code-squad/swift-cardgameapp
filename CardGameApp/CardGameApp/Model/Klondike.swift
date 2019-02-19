@@ -44,4 +44,10 @@ class Klondike {
         
         setUp()
     }
+    
+    func flipCardsFromPileToPreview() {
+        
+        guard let card = self.pile.pop() else { return }
+        self.preview.push(card: card)
+    }
 }

@@ -230,7 +230,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="uqy-3p-vnc">
                     <connections>
-                        <action selector="flipCardsFromPileToPreview:" destination="BYZ-38-t0r" id="cVZ-9t-gnk"/>
+                        <action selector="tapPileStackView:" destination="BYZ-38-t0r" id="cVZ-9t-gnk"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

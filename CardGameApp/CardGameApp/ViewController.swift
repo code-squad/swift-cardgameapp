@@ -70,8 +70,8 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func flipCardsFromPileToPreview(_ sender: Any) {
-        
+    @IBAction func tapPileStackView(_ sender: Any) {
+        self.klondike.flipCardsFromPileToPreview()
     }
     
     //MARK: Motion
