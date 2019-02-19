@@ -141,15 +141,19 @@ class ViewController: UIViewController {
     
     /// 덱 탭 제스처시 발생하는 이벤트
     @objc func deckTapEvent(_ sender: UITapGestureRecognizer) {
-        os_log("tap event started")
         // 옮겨진 뷰가 카드뷰가 맞는지 체크
-        guard let openedCardView = sender.view as? CardView else { return () }
+        guard let openedCardView = sender.view as? CardView else {
+            os_log("터치된 객체가 카드뷰가 아닙니다.")
+            return ()
+        }
         
         // 꺼낸 카드가 덱뷰의 마지막 카드가 맞는지 체크
         guard openedCardView == self.deckView.subviews.last else {
             os_log("덱뷰의 마지막 카드가 아닙니다")
             return ()
         }
+        
+        openDeck()
         
         // 덱뷰에서 해당 뷰 삭제
         openedCardView.removeFromSuperview()
@@ -164,17 +168,13 @@ class ViewController: UIViewController {
         
         // 옮겨진 카드가 안보이니 맨 위로 올린다
         self.view.bringSubview(toFront: openedCardView)
-        
-        // 상호작용 금지
-//        openedCardView.isUserInteractionEnabled = false
-        
-        os_log("tap event ended")
     }
     
     /// 덱을 오픈한다
-    func openDeck() -> CardInfo? {
+    func openDeck(cardInfo: CardInfo) -> CardInfo? {
         // 덱의 카드를 오픈덱으로 이동
         guard let openedCardInfo = gameBoard.deckToOpened() else { return nil }
+        
         // 카드인포 리턴
         return openedCardInfo
     }
@@ -280,7 +280,15 @@ class ViewController: UIViewController {
     
     /// 노티 생성 함수
     func makeNoti(){
-        NotificationCenter.default.addObserver(self, selector: #selector(setToPeru(notification:)), name: .cardMoved, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(afterCardMovedNoti(notification:)), name: .cardMoved, object: nil)
+    }
+    
+    /// 카드 이동 노티를 받으면 뷰이동 함수를 실행
+    @objc func afterCardMovedNoti(notification: Notification){
+        /// 이동된 카드에 맞게 카드뷰를 이동시킨다
+        if let cardInfo = notification.object as! CardInfo? {
+            os_log("moved card : %@", cardInfo.name())
+        }
     }
     
     override func viewDidLoad() {
