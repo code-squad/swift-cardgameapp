@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D50A33B322169B8700E318B5 /* OpendedDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A33B222169B8700E318B5 /* OpendedDeck.swift */; };
 		D50A33B5221AE52800E318B5 /* OpenedDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A33B4221AE52800E318B5 /* OpenedDeckView.swift */; };
+		D50A33B9221BE33100E318B5 /* PointDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A33B8221BE33100E318B5 /* PointDeckView.swift */; };
 		D50ECA372206BF34008AFD2B /* PlayDeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50ECA362206BF34008AFD2B /* PlayDeckManager.swift */; };
 		D528F7FC21F7118F00AAF80F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F7FB21F7118F00AAF80F /* AppDelegate.swift */; };
 		D528F7FE21F711F600AAF80F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F7FD21F711F600AAF80F /* CardView.swift */; };
@@ -51,6 +52,7 @@
 /* Begin PBXFileReference section */
 		D50A33B222169B8700E318B5 /* OpendedDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpendedDeck.swift; sourceTree = "<group>"; };
 		D50A33B4221AE52800E318B5 /* OpenedDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenedDeckView.swift; sourceTree = "<group>"; };
+		D50A33B8221BE33100E318B5 /* PointDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDeckView.swift; sourceTree = "<group>"; };
 		D50ECA362206BF34008AFD2B /* PlayDeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayDeckManager.swift; sourceTree = "<group>"; };
 		D528F7FB21F7118F00AAF80F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D528F7FD21F711F600AAF80F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				D528F80221F7193100AAF80F /* EmptyPointCardView.swift */,
 				D528F80421F8565B00AAF80F /* DeckView.swift */,
 				D50A33B4221AE52800E318B5 /* OpenedDeckView.swift */,
+				D50A33B8221BE33100E318B5 /* PointDeckView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				D528F7FC21F7118F00AAF80F /* AppDelegate.swift in Sources */,
 				D528F80521F8565B00AAF80F /* DeckView.swift in Sources */,
 				D541055121E3328B00FC7470 /* CardSize.swift in Sources */,
+				D50A33B9221BE33100E318B5 /* PointDeckView.swift in Sources */,
 				D528F80F21FAE70F00AAF80F /* PlayDeck.swift in Sources */,
 				D50ECA372206BF34008AFD2B /* PlayDeckManager.swift in Sources */,
 				D536E56621D4BB64004B7014 /* Deck.swift in Sources */,
