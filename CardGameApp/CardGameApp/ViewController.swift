@@ -49,19 +49,23 @@ class ViewController: UIViewController {
     @objc private func updatePileStackView(_ noti: Notification) {
         
         guard let userInfo = noti.userInfo,
-              let cards = userInfo[UserInfoKey.cards] as? [Card],
-              let stackType = userInfo[UserInfoKey.stackType] as? CardStackType else { return }
+            let cards = userInfo[UserInfoKey.cards] as? [Card],
+            let stackType = userInfo[UserInfoKey.stackType] as? CardStackType else { return }
         
         switch stackType {
         case .pile:
+            pileStackView.removeAllSubviews()
             pileStackView.add(cards: cards)
         case .preview:
+            previewStackView.removeAllSubviews()
             previewStackView.add(cards: cards)
         case let .goals(type):
             let goalStackView = goalsStackView.arrangedSubviews[type.rawValue - 1] as? PositionStackView
+            goalStackView?.removeAllSubviews()
             goalStackView?.add(cards: cards)
         case let .columns(position):
             let columnStackView = columnsStackView.arrangedSubviews[position] as? ColumnStackView
+            columnStackView?.removeAllSubviews()
             columnStackView?.add(cards: cards)
         }
     }
@@ -71,6 +75,15 @@ class ViewController: UIViewController {
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             klondike.reset()
+        }
+    }
+}
+
+extension UIStackView {
+    
+    func removeAllSubviews() {
+        for subview in self.arrangedSubviews {
+            subview.removeFromSuperview()
         }
     }
 }
