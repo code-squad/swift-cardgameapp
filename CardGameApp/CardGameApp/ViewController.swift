@@ -65,4 +65,12 @@ class ViewController: UIViewController {
             columnStackView?.add(cards: cards)
         }
     }
+    
+    //MARK: Motion
+    
+    override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        if motion == .motionShake {
+            klondike.reset()
+        }
+    }
 }
