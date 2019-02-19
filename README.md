@@ -12,6 +12,26 @@
 
 ![step-02 실행화면](https://user-images.githubusercontent.com/38850628/51850829-ef010000-2365-11e9-9691-c909f212001d.gif)
 
-### 카드스택 화면 표시
+### 카드스택 화면 표시(step-03)
 
 - UIStackView안에 있는 뷰들을 제거하려면 `.removeArrangedSubViews` 대신 `.removeFromSuperview` 을 사용해야한다는 것을 알았다.
+
+- enum을 Pattern Matching하는 방법을 배웠다.
+
+`case let` 을 사용하면 된다.
+
+ex)
+```Swift
+for e in entities() {
+switch e {
+case let .Soldier(x, y):
+drawImage("soldier.png", x, y)
+case let .Tank(x, y):
+drawImage("tank.png", x, y)
+case let .Player(x, y):
+drawImage("player.png", x, y)
+}
+}
+```
+
+![step-03 실행화면](https://user-images.githubusercontent.com/38850628/52999633-a242ad80-3469-11e9-994c-07f63f860f9b.gif)
