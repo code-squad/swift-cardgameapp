@@ -101,4 +101,8 @@ class CardStack : CustomStringConvertible {
         let cards = stack.cards
         self.cards.append(contentsOf: cards)
     }
+    
+    func empty() {
+        self.cards.removeAll()
+    }
 }

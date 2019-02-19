@@ -37,5 +37,6 @@ class Klondike {
     
     func reset() {
         
+        goals.emptyAll()
     }
 }

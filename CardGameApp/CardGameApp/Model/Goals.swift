@@ -26,4 +26,11 @@ class Goals {
             self.goals[suit]?.setType(stackType)
         }
     }
+    
+    func emptyAll() {
+        
+        for stack in goals.values {
+            stack.empty()
+        }
+    }
 }
