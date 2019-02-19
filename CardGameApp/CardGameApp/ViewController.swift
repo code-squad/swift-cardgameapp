@@ -41,6 +41,7 @@ class ViewController: UIViewController {
                                                selector: #selector(updatePileStackView),
                                                name: .cardStackDidChange,
                                                object: nil)
+        klondike.setUp()
     }
     
     //MARK: Private
@@ -60,7 +61,7 @@ class ViewController: UIViewController {
             let goalStackView = goalsStackView.arrangedSubviews[type.rawValue - 1] as? PositionStackView
             goalStackView?.add(cards: cards)
         case let .columns(position):
-            let columnStackView = columnsStackView.arrangedSubviews[position - 1] as? ColumnStackView
+            let columnStackView = columnsStackView.arrangedSubviews[position] as? ColumnStackView
             columnStackView?.add(cards: cards)
         }
     }

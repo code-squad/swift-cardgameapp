@@ -71,7 +71,7 @@ struct Deck : CardGameDeck {
     }
     
     func remainingCards() -> CardStack {
-        return CardStack(cards: self.cards, type: .pile)
+        return CardStack(cards: self.cards)
     }
     
     func performByDeck(_ addDeckView: (Card) -> Void) {

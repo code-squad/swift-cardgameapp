@@ -30,5 +30,8 @@ class Klondike {
             let position = few - 1
             self.columns.add(stack: stack, to: position)
         }
+        
+        let stack = deck.remainingCards()
+        self.pile.put(stack: stack)
     }
 }
