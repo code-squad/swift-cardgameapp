@@ -115,6 +115,10 @@
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ccu-RL-hsO" customClass="BackPositionStackView" customModule="CardGameApp" customModuleProvider="target">
                                 <rect key="frame" x="355.33333333333331" y="20" width="54.666666666666686" height="69.333333333333329"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="uqy-3p-vnc" appends="YES" id="UQ5-8T-5FK"/>
+                                </connections>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ub9-cO-OgT">
                                 <rect key="frame" x="238.33333333333337" y="20" width="113" height="69.333333333333329"/>
@@ -224,6 +228,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="uqy-3p-vnc">
+                    <connections>
+                        <action selector="flipCardsFromPileToPreview:" destination="BYZ-38-t0r" id="cVZ-9t-gnk"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="34.782608695652179" y="23.64130434782609"/>
         </scene>

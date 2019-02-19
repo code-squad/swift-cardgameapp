@@ -70,6 +70,10 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func flipCardsFromPileToPreview(_ sender: Any) {
+        
+    }
+    
     //MARK: Motion
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
