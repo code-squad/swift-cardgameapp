@@ -13,18 +13,22 @@ class Goals {
     //MARK: - Properties
     //MARK: Private
     
-    private var goals: [Suit: CardStack] = [:]
+    private var goals: [Suit: CardStack]
     
     //MARK: - Methods
     //MARK: Initialization
     
     init() {
         
+        var goals: [Suit: CardStack] = [:]
+        
         for suit in Suit.allCases {
-            self.goals[suit] = CardStack()
+            goals[suit] = CardStack()
             let stackType = CardStackType.goals(type: suit)
-            self.goals[suit]?.setType(stackType)
+            goals[suit]?.setType(stackType)
         }
+        
+        self.goals = goals
     }
     
     func emptyAll() {
