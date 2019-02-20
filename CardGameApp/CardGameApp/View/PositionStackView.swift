@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PositionStackView: UIStackView, CardGameView {
+class PositionStackView: UIStackView, CardGameStackView {
     
     //MARK: - Methods
     //MARK: Initialization

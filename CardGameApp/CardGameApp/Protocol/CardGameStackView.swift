@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol CardGameView {
+protocol CardGameStackView {
     func update(cards: [Card])
 }
