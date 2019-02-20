@@ -9,7 +9,7 @@
 import Foundation
 
 /// 카드 이동전의 데이터가 모이는 객체
-class Past {
+class PastCardData {
     let deckType : DeckType
     let deckLine : Int
     
