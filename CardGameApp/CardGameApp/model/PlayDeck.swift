@@ -77,18 +77,22 @@ class PlayDeck {
     }
     
     /// 카드인포를 받아서 마지막 카드와 맞는지 체크. 맞으면 카드인포 리턴
-    func checkPickable(cardInfo: CardInfo) -> CardInfo? {
+    func checkPickable(cardInfo: CardInfo) -> Card? {
         // 같은 카드가 맞다면
         if cardInfo.name() == self.cardList.last?.name() {
-            // 카드 리턴
             return self.cardList.last
+        } else {
+            return nil
         }
-        // 다른카드면 닐 리턴
-        return nil
     }
     
     /// 모든 카드의 카드정보를 리턴한다
     func getAllCardInfo() -> [CardInfo] {
         return self.cardList
+    }
+    
+    /// 카드 강제추가. 카드를 되돌리는 역할
+    func undoCard(card: Card){
+        self.cardList.append(card)
     }
 }

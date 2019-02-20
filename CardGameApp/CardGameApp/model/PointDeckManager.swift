@@ -54,4 +54,13 @@ class PointDeckManager {
         return false
     }
     
+    /// 체크용 전카드이름 리턴
+    func allLastCardName() -> [String] {
+        var result : [String] = []
+        for card in  self.pointDeckList {
+            result.append(card.lastCardName())
+        }
+        return result
+    }
+    
 }

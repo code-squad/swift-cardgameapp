@@ -49,13 +49,18 @@ class OpenedDeck {
     }
     
     /// 카드인포를 받아서 추가가능한지 체크
-    func checkPickable(cardInfo: CardInfo) -> Bool {
+    func checkPickable(cardInfo: CardInfo) -> Card? {
         if cardInfo.name() == self.cardList.last?.name() {
-            return true
+            return self.cardList.last
         }
         else {
-            return false
+            return nil
         }
+    }
+    
+    /// 카드 강제추가. 카드를 되돌리는 역할
+    func undoCard(card: Card){
+        self.cardList.append(card)
     }
     
 }

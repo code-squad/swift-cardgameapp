@@ -56,4 +56,11 @@ class PointDeck {
         return nil
     }
     
+    /// 체크용 전카드 이름 리턴
+    func lastCardName() -> String {
+        if let card = self.cardList.last {
+            return card.name()
+        }
+        return "none"
+    }
 }

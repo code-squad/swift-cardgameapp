@@ -63,4 +63,16 @@ class PlayDeckManager {
     func getLineCardInfos(line: Int) -> [CardInfo] {
         return self.playDeckList[line].getAllCardInfo()
     }
+    
+    /// 카드인포를 받아서 뽑을수 있는 카드인지 체크
+    func checkPickable(cardInfo: CardInfo) -> Card? {
+        // 덱 라인을 받아서 배열에 매칭한다
+        let count = cardInfo.getDeckLine()
+        return self.playDeckList[count].checkPickable(cardInfo: cardInfo)
+    }
+    
+    /// 카드 강제추가. 카드를 되돌리는 역할
+    func undoCard(card: Card){
+        self.playDeckList[card.getDeckLine()].undoCard(card: card)
+    }
 }

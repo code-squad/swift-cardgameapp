@@ -140,14 +140,6 @@ class GameBoard : DeckInfo {
         return popedCard
     }
     
-//    /// 오픈된 덱 전부를 다시 덱에 포함. 삭제예정
-//    func openedToDeck(){
-//        // 오픈덱 전부를 덱에 추가한다
-//        deck.addCards(cards: openedDeck.pickAllCard())
-//        // 오픈덱을 비운다
-//        self.openedDeck.reset()
-//    }
-    
     /// 덱 전체 정보를 리턴
     func allInfo() -> [CardInfo] {
         return deck.info()
@@ -174,28 +166,47 @@ class GameBoard : DeckInfo {
     
     
     /// 카드정보를 받아서 해당 카드를 이동 가능한 위치로 이동시킨다. 이동할 곳이 없으면 이동 안함.
-    func moveCard(cardInfo: CardInfo) -> CardInfo? {
-        // 카드를 옮길 곳이 있는지 체크
-        guard checkAddable(cardInfo: cardInfo) == true else { return nil }
+    func moveCard(cardInfo: CardInfo) throws -> CardInfo? {
+        // 옮기기전 덱타입 저장
+        let pastDeckType = cardInfo.getDeckType()
         
         // 카드인포를 받아서 해당 카드를 추출한다
         guard let pickedCard = self.pickCard(cardInfo: cardInfo) else { return nil }
-    
-        // 이동된 카드 정보 노티 포스트
-        NotificationCenter.default.post(name: .cardMoved, object: pickedCard.getDeckType())
         
-        // 추출한 카드를 추가 성공시 카드인포 리턴
-        return addCard(card: pickedCard)
+        // 추출한 카드를 추가
+        guard let result = addCard(card: pickedCard) else {
+            // 실패시 카드 다시 원복 시도
+            try undoCard(card: pickedCard)
+            return nil
+        }
+        
+        // 이동된 카드 정보 노티 포스트
+        NotificationCenter.default.post(name: .cardMoved, object: pastDeckType)
+        
+        // 성공 카드인포 리턴
+        return result
+    }
+    
+    /// 카드 강제추가. 카드를 되돌리는 역할
+    func undoCard(card: Card) throws {
+        switch card.getDeckType() {
+        case .openedDeck : self.openedDeck.undoCard(card: card)
+        case .playDeck : self.playDeck.undoCard(card: card)
+        default : throw ErrorMessage.failedUndoCard
+        }
     }
     
     /// 카드를 받아서 우선순위에 따라 추가시도한다.
     func addCard(card: Card) -> CardInfo? {
-        switch card.getDeckType() {
         // 우선순위 : 포인트덱 - 플레이덱. 그 이외는 이동불가
-        case .pointDeck : return self.pointDeck.addCard(card: card)
-        case .playDeck : return self.pointDeck.addCard(card: card)
-        default : return nil
+        if let result =  self.pointDeck.addCard(card: card) {
+            return result
         }
+        if let result = self.pointDeck.addCard(card: card) {
+            return result
+        }
+        // 실패시
+        return nil
     }
     
     /// 카드인포를 받아서 해당되는 카드를 추출한다
@@ -215,12 +226,13 @@ class GameBoard : DeckInfo {
     }
     
     /// 카드 인포를 받아서 추가 가능한지 체크
-    func checkAddable(cardInfo: CardInfo) -> Bool {
-        switch cardInfo.getDeckType() {
-            // 추가 가능 대상은 오픈덱, 포인트덱. 이외에는 불가능
+    func checkPickable(cardInfo: CardInfo) -> Card? {
+        let deckType = cardInfo.getDeckType()
+        switch deckType {
+            // 뽑기 가능 대상은 오픈덱, 플레이덱. 이외에는 불가능
         case .openedDeck : return self.openedDeck.checkPickable(cardInfo: cardInfo)
-        case .pointDeck : return self.pointDeck.checkAddable(cardInfo: cardInfo)
-        default : return false
+        case .playDeck : return self.playDeck.checkPickable(cardInfo: cardInfo)
+        default : return nil
         }
     }
     
@@ -229,9 +241,16 @@ class GameBoard : DeckInfo {
         return self.playDeck.getLineCardInfos(line: line)
     }
     
-    func lastCardInfosInOpenedDeck() -> [CardInfo] {
-        return self.openedDeck.cardList
+    
+    /// 디버깅용 전체체크
+    func allCheck() -> String {
+        var result = ""
+        result += "deck count : " + String(self.deck.count())
+        result += "opendedDeck count : " + String(self.openedDeck.cardList.count)
+        return result
     }
+    
+    
 }
 
 

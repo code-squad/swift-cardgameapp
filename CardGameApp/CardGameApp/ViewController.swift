@@ -71,21 +71,6 @@ class ViewController: UIViewController {
         return startNumber > cardSize.maxCardCount || cardCount > cardSize.maxCardCount
     }
     
-    
-    /// 첫줄 카드배경 출력
-//    private func setPointDeckPosition(){
-//        // 원하는 빈칸은 4칸
-//        for x in 0..<Mark.allCases().count {
-//            // 카드 기준점 설정
-//            let viewPoint = CGPoint(x: widthPositions[x], y: heightPositions[0])
-//            // 기준점에서 카드사이즈로 이미지뷰 생성
-//            let emptyCardView = EmptyPointCardView(origin: viewPoint, size: cardSize.cardSize)
-//            // 뷰를 메인뷰에 추가
-//            self.view.addSubview(emptyCardView)
-//        }
-//    }
-    
-    
     /// 카드 이미지 출력
     private func makeCardView(widthPosition: Int, heightPosition: Int, cardSize: CardSize, cardInfo: CardInfo) -> CardView {
         // 배경 뷰 생성
@@ -117,6 +102,8 @@ class ViewController: UIViewController {
             let cardView = CardView(cardInfo: cardInfo, size: cardSize.cardSize)
             // 덱을 위한 탭 제스쳐를 생성, 추가한다
             cardView.addGestureRecognizer(makeTapGetstureForDeck())
+            // 더블탭 이벤트도 추가한다
+            cardView.addGestureRecognizer(makeDoubleTapGetstureForCardView())
             
             // 덱카드뷰에 넣는다
             self.deckView.addSubview(cardView)
@@ -158,7 +145,16 @@ class ViewController: UIViewController {
             return ()
         }
         
+        // 카드가 뒷면인지 체크
+        if openedCardView.cardInfo.isFront() {
+            // 앞면이면 종료
+            return ()
+        }
+        
         let _ = openDeck(cardInfo: openedCardView.cardInfo)
+        
+        // 이동 성공 로그
+        os_log("%@",self.gameBoard.allCheck())
     }
     
     /// 덱을 오픈한다
@@ -215,9 +211,6 @@ class ViewController: UIViewController {
     
     /// 카드게임 시작시 카드뷰 전체 배치 함수
     func gameStart(){
-        // 카드 빈자리 4장 출력
-//        setPointDeckPosition()
-        
         // 리프레시 아이콘 뷰 생성
         makeRefreshIconView()
         
@@ -297,24 +290,17 @@ class ViewController: UIViewController {
     func moveCardView(cardView: CardView){
         // 수퍼뷰에서 제거하고
         cardView.removeFromSuperview()
-        // 가야할 위치를 받는다
-        guard let deckView = getDeck(deckType: cardView.cardInfo.getDeckType()) else { return () }
-        // 위치를 재조정 한다
-        deckView.addSubview(cardView)
-        // 이동후 맞는 이미지로 변경
-        cardView.refreshImage()
-    }
-    
-    /// 덱타입을 받아서 맞는 덱뷰를 리턴
-    func getDeck(deckType: DeckType) -> UIView? {
-        switch deckType {
-        case .deck : return self.deckView
-        case .openedDeck : return self.openedDeckView
-            // 이부분 로직 아직 구상중
-//        case .playDeck : return self.plaDeck
-//        case .pointDeck : return self.pointDeck????
-        default : return nil
+        
+        // 덱타입에 따라 다른 덱에 넣는다
+        switch cardView.cardInfo.getDeckType() {
+        case .deck : self.deckView.addSubview(cardView)
+        case .openedDeck : self.openedDeckView.addSubview(cardView)
+        case .pointDeck : return self.pointDeckView.addPointCardView(view: cardView)
+        //        case .playDeck : return self.plaDeck
+        default : return ()
         }
+        
+        cardView.refreshImage()
     }
 
     /// 포인트덱뷰 위치 설정
@@ -325,6 +311,46 @@ class ViewController: UIViewController {
         addViewToMain(view: self.pointDeckView)
     }
     
+    /// 덱 탭 제스처시 발생하는 이벤트
+    @objc func doubleTapEvent(_ sender: UITapGestureRecognizer) {
+        // 옮겨진 뷰가 카드뷰가 맞는지 체크
+        guard let openedCardView = sender.view as? CardView else {
+            os_log("터치된 객체가 카드뷰가 아닙니다.")
+            return ()
+        }
+        
+        // 카드가 앞면인지 체크
+        if openedCardView.cardInfo.isFront() == false {
+            // 뒷면이면 종료
+            return ()
+        }
+        
+        // 더블클릭된 카드의 카드인포를 게임보드로 전달
+        cardViewTryMove(cardInfo: openedCardView.cardInfo)
+        
+    }
+    
+    /// 덱을 위한 탭 제스처
+    func makeDoubleTapGetstureForCardView() -> UITapGestureRecognizer {
+        // 탭 제스처 선언
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.doubleTapEvent(_:)))
+        // 작동에 필요한 탭 횟수
+        gesture.numberOfTapsRequired = 2
+        // 제스처를 리턴한다
+        return gesture
+    }
+    
+    /// 터치에 연결되어 선택된 카드뷰의 카드인포를 게임보드에 전달
+    func cardViewTryMove(cardInfo: CardInfo){
+        do {
+            let _ = try self.gameBoard.moveCard(cardInfo: cardInfo)
+        } catch let error as ErrorMessage{
+            os_log("%@", error.rawValue)
+        } catch {
+            os_log("카드 언도 실패 ")
+        }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
