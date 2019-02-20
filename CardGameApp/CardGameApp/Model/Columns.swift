@@ -13,20 +13,25 @@ class Columns {
     //MARK: - Properties
     //MARK: Pirvate
     
-    private var columns: [CardStack] = {
+    private var columns: [CardStack]
+    
+    //MARK: - Methods
+    //MARK: Initialization
+    
+    init(countOfColumns: Int = 7) {
         
         var columns = [CardStack]()
         
-        for position in 0..<7 {
+        for position in 0..<countOfColumns {
             let position = CardStackType.columns(position: position)
             let cardStack = CardStack(type: position)
             columns.append(cardStack)
         }
         
-        return columns
-    }()
+        self.columns = columns
+    }
     
-    //MARK: - Methods
+    //MARK: Instance
     
     func add(stack: CardStack, to position: Int) {
         self.columns[position].put(stack: stack)
