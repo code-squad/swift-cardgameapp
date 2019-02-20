@@ -257,9 +257,9 @@ class ViewController: UIViewController {
     /// 카드 이동 노티를 받으면 뷰이동 함수를 실행
     @objc func afterCardMovedNoti(notification: Notification){
         /// 이동된 카드에 맞게 카드뷰를 이동시킨다
-        if let deckType = notification.object as! DeckType? {
+        if let pastCardData = notification.object as! PastCardData? {
             /// 덱타입을 넣어서 이동해야되는 뷰 추출
-            guard let cardView = getCardView(deckType: deckType) as? CardView else { return () }
+            guard let cardView = getCardView(deckType: pastCardData.deckType) as? CardView else { return () }
             
             /// 이전덱타입과 뷰를 넣어서 뷰 이동
             rePositinoCardView(pastDeckType: deckType, cardView: cardView)

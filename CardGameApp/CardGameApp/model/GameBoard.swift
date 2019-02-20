@@ -121,6 +121,9 @@ class GameBoard : DeckInfo {
     
     /// 덱을 오픈
     func deckToOpened(cardInfo: CardInfo) -> CardInfo? {
+        // 카드 이동전 데이터 저장
+        let pastCardData = PastCardData(cardInfo: cardInfo)
+        
         // 입력받은 카드인포가 덱의 마지막 카드와 같은지 체크
         guard cardInfo.name() == deck.info().last?.name() else { return nil}
         // 덱에서 한장 추출. 없으면 닐 리턴
@@ -134,7 +137,7 @@ class GameBoard : DeckInfo {
         
         
         // 카드가 떠난 덱타입 노티
-        NotificationCenter.default.post(name: .cardMoved, object: DeckType.deck)
+        NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
         
         // 추출한 카드의 정보를 리턴
         return popedCard
@@ -167,8 +170,8 @@ class GameBoard : DeckInfo {
     
     /// 카드정보를 받아서 해당 카드를 이동 가능한 위치로 이동시킨다. 이동할 곳이 없으면 이동 안함.
     func moveCard(cardInfo: CardInfo) throws -> CardInfo? {
-        // 옮기기전 덱타입 저장
-        let pastDeckType = cardInfo.getDeckType()
+        // 옮기기전 덱타입,덱라인 저장
+        let pastCardData = PastCardData(cardInfo: cardInfo)
         
         // 카드인포를 받아서 해당 카드를 추출한다
         guard let pickedCard = self.pickCard(cardInfo: cardInfo) else { return nil }
@@ -181,7 +184,7 @@ class GameBoard : DeckInfo {
         }
         
         // 이동된 카드 정보 노티 포스트
-        NotificationCenter.default.post(name: .cardMoved, object: pastDeckType)
+        NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
         
         // 성공 카드인포 리턴
         return result
