@@ -25,7 +25,8 @@ class Klondike {
         var deck = Deck()
         deck.shuffle()
         
-        for few in 1...7 {
+        let rangeOfStack = 1...7
+        for few in rangeOfStack {
             let stack = deck.draw(few: few)
             let position = few - 1
             self.columns.add(stack: stack, to: position)
