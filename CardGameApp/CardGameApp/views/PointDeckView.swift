@@ -63,5 +63,10 @@ class PointDeckView: UIStackView {
         let superView = self.subviews[cardView.cardInfo.getDeckLine()]
         superView.addSubview(cardView)
     }
+    
+    /// 과거카드데이터 를 받아서 해당 뷰 리턴
+    func getCardView(pastCardData: PastCardData) -> UIView? {
+        // 덱라인의 마지막 카드를 뽑아서 리턴
+        return self.subviews[pastCardData.deckLine].subviews.last 
 }
 
