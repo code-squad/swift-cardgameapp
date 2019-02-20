@@ -20,13 +20,6 @@ class PositionStackView: UIStackView, CardGameStackView {
     }
     
     //MARK: Instance
-    
-    func update(cards: [Card]) {
-        
-        self.removeAllSubviews()
-        add(cards: cards)
-    }
-    
     func add(cards: [Card]) {
         
         for card in cards {

@@ -8,8 +8,11 @@
 
 import UIKit
 
-class ColumnStackView: UIStackView {
+class ColumnStackView: UIStackView, CardGameStackView {
 
+    //MARK: - Methods
+    //MARK: Initialization
+    
     required init(coder: NSCoder) {
         super.init(coder: coder)
         
@@ -17,6 +20,7 @@ class ColumnStackView: UIStackView {
         self.spacing = -heightOfCard * (7/10)
     }
     
+    //MARK: Instance
     func add(cards: [Card]) {
         
         for card in cards {

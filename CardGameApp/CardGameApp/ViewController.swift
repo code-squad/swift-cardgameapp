@@ -54,19 +54,15 @@ class ViewController: UIViewController {
         
         switch stackType {
         case .pile:
-            pileStackView.removeAllSubviews()
-            pileStackView.add(cards: cards)
+            pileStackView.update(cards: cards)
         case .preview:
-            previewStackView.removeAllSubviews()
-            previewStackView.add(cards: cards)
+            previewStackView.update(cards: cards)
         case let .goals(type):
             let goalStackView = goalsStackView.arrangedSubviews[type.rawValue - 1] as? PositionStackView
-            goalStackView?.removeAllSubviews()
-            goalStackView?.add(cards: cards)
+            goalStackView?.update(cards: cards)
         case let .columns(position):
             let columnStackView = columnsStackView.arrangedSubviews[position] as? ColumnStackView
-            columnStackView?.removeAllSubviews()
-            columnStackView?.add(cards: cards)
+            columnStackView?.update(cards: cards)
         }
     }
     
@@ -83,11 +79,21 @@ class ViewController: UIViewController {
     }
 }
 
-extension UIStackView {
+protocol CardGameStackView where Self: UIStackView {
+    
+    func add(cards: [Card])
+}
+
+extension CardGameStackView {
     
     func removeAllSubviews() {
         for subview in self.arrangedSubviews {
             subview.removeFromSuperview()
         }
+    }
+    
+    func update(cards: [Card]) {
+        removeAllSubviews()
+        add(cards: cards)
     }
 }
