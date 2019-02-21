@@ -42,7 +42,15 @@ class CardDeckView: UIView {
 
 extension CardDeckView {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard deckView.count != 0 else { return }
         deckView.remove(at: deckView.count-1).removeFromSuperview()
         NotificationCenter.default.post(name: .touchedDeck, object: nil)
+        
+        
+        if deckView.count == 0 {
+            let refreshImage = UIImageView(frame: CGRect(x: Sizes.originX, y: Sizes.originY, width: Sizes.cardWitdh, height: Sizes.cardHeight))
+            refreshImage.image = UIImage(named: "cardgameapp-refresh-app")
+            addSubview(refreshImage)
+        }
     }
 }
