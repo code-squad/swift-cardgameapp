@@ -54,9 +54,4 @@ class CardStackView: UIView {
         removeView.removeFromSuperview()
         return removeView
     }
-    
-    func clearView() {
-        for view in cardViews { view.removeFromSuperview() }
-        cardViews.removeAll()
-    }
 }

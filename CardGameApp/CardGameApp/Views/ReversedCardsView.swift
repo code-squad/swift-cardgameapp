@@ -27,9 +27,4 @@ class ReversedCardsView: UIView {
         reversedViews.append(reversedCardImage)
         addSubview(reversedCardImage)
     }
-    
-    func clearView() {
-        for view in reversedViews { view.removeFromSuperview() }
-        reversedViews.removeAll()
-    }
 }

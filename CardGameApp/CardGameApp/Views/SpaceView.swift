@@ -26,8 +26,4 @@ class SpaceView: UIView {
         self.layer.cornerRadius = 7
         self.clipsToBounds = false
     }
-    
-    func clearView() {
-        
-    }
 }
