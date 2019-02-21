@@ -8,14 +8,25 @@
 
 import UIKit
 
-class PlayDeckViewManager: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+/// 플레이덱뷰 를 가지는 객체
+class PlayDeckViewManager : UIView{
+    
+    /// 카드사이즈와 좌표를 받아서 스택뷰 구성
+    private func makeDeckViews(cardSize: CardSize, xPositions: [CGFloat], yPositions: [CGFloat]){
+        for count in 0..<cardSize.maxCardCount {
+            // 스택뷰 구성
+            let stackView = PlayDeckView(cardSize: cardSize, x: xPositions[count], y: yPositions[count])
+            self.addSubview(stackView)
+        }
     }
-    */
-
+    
+    /// 플레이덱매니저 초기세팅함수
+    func setting(cardSize: CardSize, xPositions: [CGFloat], yPositions: [CGFloat]){
+        self.frame.origin.x = 0
+        self.frame.origin.y = yPositions[1]
+        self.frame.size.width = cardSize.screenWidth
+        self.frame.size.height = cardSize.screenHeight - yPositions[1]
+        
+        makeDeckViews(cardSize: cardSize, xPositions: xPositions, yPositions: yPositions)
+    }
 }
