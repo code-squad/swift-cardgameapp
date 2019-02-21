@@ -18,26 +18,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eQ9-TC-hsn">
-                                <rect key="frame" x="16" y="20" width="50" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CGC-pO-0RJ">
-                                <rect key="frame" x="71" y="20" width="50" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wjP-B2-dKy">
-                                <rect key="frame" x="126" y="20" width="50" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iDp-Dp-qdV">
-                                <rect key="frame" x="181" y="20" width="50" height="70"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eIn-ea-3BY">
                                 <rect key="frame" x="346" y="20" width="50" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -48,10 +28,6 @@
                     </view>
                     <connections>
                         <outlet property="cardBack" destination="eIn-ea-3BY" id="oYz-ax-hSs"/>
-                        <outletCollection property="spaceViews" destination="eQ9-TC-hsn" collectionClass="NSMutableArray" id="2WU-F9-IZm"/>
-                        <outletCollection property="spaceViews" destination="CGC-pO-0RJ" collectionClass="NSMutableArray" id="sLa-Ca-n0L"/>
-                        <outletCollection property="spaceViews" destination="wjP-B2-dKy" collectionClass="NSMutableArray" id="kdg-5e-sLn"/>
-                        <outletCollection property="spaceViews" destination="iDp-Dp-qdV" collectionClass="NSMutableArray" id="Ag3-Tk-uY5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

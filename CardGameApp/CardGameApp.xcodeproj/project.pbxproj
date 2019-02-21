@@ -28,6 +28,8 @@
 		9D77FC1E221D8A9000F853EB /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77FC1D221D8A9000F853EB /* CardStackView.swift */; };
 		9D77FC20221D8B2A00F853EB /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77FC1F221D8B2A00F853EB /* CardView.swift */; };
 		9D77FC24221D94A000F853EB /* CardStacksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77FC23221D94A000F853EB /* CardStacksView.swift */; };
+		9D77FC27221E690200F853EB /* SpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77FC26221E690200F853EB /* SpaceView.swift */; };
+		9D77FC29221E7D8100F853EB /* Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77FC28221E7D8100F853EB /* Sizes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		9D77FC1D221D8A9000F853EB /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		9D77FC1F221D8B2A00F853EB /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		9D77FC23221D94A000F853EB /* CardStacksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStacksView.swift; sourceTree = "<group>"; };
+		9D77FC26221E690200F853EB /* SpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceView.swift; sourceTree = "<group>"; };
+		9D77FC28221E7D8100F853EB /* Sizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,7 @@
 				9D77FBFC221BE84500F853EB /* Enum */,
 				9D77FC02221BE84500F853EB /* GameParticipates */,
 				9D77FC07221BE84500F853EB /* PlayCardGame.swift */,
+				9D77FC28221E7D8100F853EB /* Sizes.swift */,
 				9D77FBEA221BE37B00F853EB /* AppDelegate.swift */,
 				9D77FBEC221BE37B00F853EB /* ViewController.swift */,
 				9D77FBEE221BE37B00F853EB /* Main.storyboard */,
@@ -140,6 +145,7 @@
 				9D77FC1D221D8A9000F853EB /* CardStackView.swift */,
 				9D77FC1F221D8B2A00F853EB /* CardView.swift */,
 				9D77FC23221D94A000F853EB /* CardStacksView.swift */,
+				9D77FC26221E690200F853EB /* SpaceView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -222,6 +228,7 @@
 				9D77FC16221BE84600F853EB /* CardDeck.swift in Sources */,
 				9D77FC15221BE84600F853EB /* Card.swift in Sources */,
 				9D77FC11221BE84600F853EB /* GameParticiapte.swift in Sources */,
+				9D77FC27221E690200F853EB /* SpaceView.swift in Sources */,
 				9D77FC0B221BE84600F853EB /* ChoiceMenu.swift in Sources */,
 				9D77FC10221BE84600F853EB /* Dealer.swift in Sources */,
 				9D77FC1E221D8A9000F853EB /* CardStackView.swift in Sources */,
@@ -230,6 +237,7 @@
 				9D77FBEB221BE37B00F853EB /* AppDelegate.swift in Sources */,
 				9D77FC24221D94A000F853EB /* CardStacksView.swift in Sources */,
 				9D77FC0C221BE84600F853EB /* ChoiceParticipate.swift in Sources */,
+				9D77FC29221E7D8100F853EB /* Sizes.swift in Sources */,
 				9D77FC0D221BE84600F853EB /* CardRule.swift in Sources */,
 				9D77FC20221D8B2A00F853EB /* CardView.swift in Sources */,
 				9D77FC18221C07F400F853EB /* CardStack.swift in Sources */,

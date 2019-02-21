@@ -23,6 +23,11 @@ class CardStacksView: UIStackView {
         self.init(frame: frame)
         initialCardStacks(cardStacks)
     }
+    
+    convenience init(frame: CGRect, _ spacesView: [SpaceView]) {
+        self.init(frame: frame)
+        for spaceView in spacesView { addArrangedSubview(spaceView) }
+    }
 
     private func initialSetting() {
         self.spacing = 5

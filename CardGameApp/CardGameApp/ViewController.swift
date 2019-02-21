@@ -9,27 +9,27 @@
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet var spaceViews: [UIView]!
     @IBOutlet weak var cardBack: UIImageView!
     
-    var cardStacksView: CardStacksView?
+    var cardStacksView: CardStacksView?     // 카드 스택들 뷰
+    var spacesView: CardStacksView?         // 카드 빈공간들 뷰
     
-    var cardDeck: CardDeck = CardDeck()
-    var cardStacks: [CardStack] = []        // 모델 카드스택
+    var cardDeck: CardDeck = CardDeck()     // 모델 카드 덱
+    var cardStacks: [CardStack] = []        // 모델 카드 스택들
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         setBackgroundPattern()
-        setSpaceView()
-        cardBack.image = UIImage(named: "card-back")
         initialCardStacks()
+        initialSpacesView()
         initialViews()
+        
+        cardBack.image = UIImage(named: "card-back")
     }
     
-    private func initialViews() {
-        cardStacksView = CardStacksView(frame: CGRect(x: 16, y: 100, width: 378, height: 620), cardStacks)
-        self.view.addSubview(cardStacksView!)
+    private func setBackgroundPattern() {
+        self.view.backgroundColor = UIColor.init(patternImage: UIImage(named: "bg_pattern")!)
     }
     
     private func initialCardStacks() {
@@ -43,31 +43,21 @@ class ViewController: UIViewController {
         }
     }
     
-    private func setBackgroundPattern() {
-        self.view.backgroundColor = UIColor.init(patternImage: UIImage(named: "bg_pattern")!)
-    }
-
-    private func setSpaceView() {
-        for view in spaceViews {
-            view.backgroundColor = UIColor.clear
-            view.layer.borderColor = UIColor.white.cgColor
-            view.layer.borderWidth = 1
-            view.layer.cornerRadius = 7
-            view.clipsToBounds = false
+    private func initialSpacesView() {
+        var spaces: [SpaceView] = []
+        for _ in 0...3 {
+            let spaceView = SpaceView(frame: CGRect(x: Sizes.originX, y: Sizes.originY, width: Sizes.cardWitdh, height: Sizes.cardHeight))
+            spaces.append(spaceView)
         }
+        let spacesViewWidth = Sizes.cardWitdh * spaces.count + (spaces.count-1) * 5
+        spacesView = CardStacksView(frame: CGRect(x: 16, y: 20, width: spacesViewWidth, height: Sizes.cardHeight), spaces)
+        self.view.addSubview(spacesView!)
     }
     
-//    private func constraintCardStacks() {
-//        let cardWidth: CGFloat = 50
-//        let cardHeight: CGFloat = 70
-//
-//        for stackView in stackViews {
-//            let constraintHeight = cardHeight + (cardHeight+stackView.spacing) * CGFloat(stackView.arrangedSubviews.count-1)
-//            stackView.heightAnchor.constraint(equalToConstant: constraintHeight).isActive = true
-//            stackView.widthAnchor.constraint(equalToConstant: cardWidth).isActive = true
-//        }
-//
-//    }
+    private func initialViews() {
+        cardStacksView = CardStacksView(frame: CGRect(x: 16, y: 100, width: 378, height: 620), cardStacks)
+        self.view.addSubview(cardStacksView!)
+    }
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
