@@ -22,20 +22,17 @@ class CardStackView: UIView {
     
     convenience init(frame: CGRect, _ cardStack: CardStack) {
         self.init(frame: frame)
-        self.drawStack(cardStack)
+        drawStack(cardStack)
     }
     
     func drawStack(_ cardStack: CardStack) {
-        let positionX: CGFloat = 0
-        var positionY: CGFloat = 0
-        let cardWidth: CGFloat = 50
-        let cardHeight: CGFloat = 70
-        
+        var positionY = 0
+    
         cardStack.accessCard { stack in
             var cardImage: CardView
             
             for index in 0..<stack.count {
-                cardImage = CardView(frame: CGRect(x: positionX, y: positionY, width: cardWidth, height: cardHeight))
+                cardImage = CardView(frame: CGRect(x: Sizes.originX, y: positionY, width: Sizes.cardWitdh, height: Sizes.cardHeight))
                 if index == stack.count-1 { cardImage.setCardImage(name: stack[index].description) }
                 else { cardImage.setBackImage() }
                 stackView.append(cardImage)
@@ -44,7 +41,6 @@ class CardStackView: UIView {
             }
         }
     }
-    
     
     // View들을 관리하는 배열에 넣고 화면에 추가
     func addCardView(cardView: CardView) {

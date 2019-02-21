@@ -9,13 +9,13 @@
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet weak var cardBack: UIImageView!
+    var cardStacksView: CardStacksView?         // 카드 스택들 뷰
+    var spacesView: CardStacksView?             // 카드 빈공간들 뷰
+    var deckView: CardDeckView?
     
-    var cardStacksView: CardStacksView?     // 카드 스택들 뷰
-    var spacesView: CardStacksView?         // 카드 빈공간들 뷰
-    
-    var cardDeck: CardDeck = CardDeck()     // 모델 카드 덱
-    var cardStacks: [CardStack] = []        // 모델 카드 스택들
+    var cardDeck: CardDeck = CardDeck()         // 모델 카드 덱
+    var reversedCards: CardStack = CardStack()  // 모델 뒤집힌 카드
+    var cardStacks: [CardStack] = []            // 모델 카드 스택들
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +24,14 @@ class ViewController: UIViewController {
         initialCardStacks()
         initialSpacesView()
         initialViews()
-        
-        cardBack.image = UIImage(named: "card-back")
+        initialDeckView()
+    }
+    
+    private func initialDeckView() {
+        let positionX = 16 + Sizes.cardWitdh * 6 + 5 * 6
+        let positionY = 20
+        deckView = CardDeckView(frame: CGRect(x: positionX, y: positionY, width: Sizes.cardWitdh, height: Sizes.cardHeight), cardDeck)
+        self.view.addSubview(deckView!)
     }
     
     private func setBackgroundPattern() {

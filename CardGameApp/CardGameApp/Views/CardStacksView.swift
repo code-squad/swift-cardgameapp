@@ -28,7 +28,7 @@ class CardStacksView: UIStackView {
         self.init(frame: frame)
         for spaceView in spacesView { addArrangedSubview(spaceView) }
     }
-
+    
     private func initialSetting() {
         self.spacing = 5
         self.axis = .horizontal
