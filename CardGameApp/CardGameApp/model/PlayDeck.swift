@@ -58,11 +58,17 @@ class PlayDeck {
     /// 초기 세팅을 위한 카드추가
     func setting(card: Card){
         self.cardList.append(card)
+        // 카드가 이동했으니 과거카드정보 생성후 노티 포스트
+        let pastCardData = PastCardData(cardInfo: card)
+        NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
     }
     
     /// 초기세팅을 위한 카드배열 추가
     func seting(cards: [Card]){
-        self.cardList = cards
+        for card in cards {
+            setting(card: card)
+        }
+//        self.cardList = cards
     }
     
     /// 카드인포를 받아서 마지막 카드와 맞는지 체크. 맞으면 카드리턴
