@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		D506CBEF221E4A8300DA87C5 /* PlayDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D506CBEE221E4A8300DA87C5 /* PlayDeckView.swift */; };
+		D506CBF1221E4D0800DA87C5 /* PlayDeckViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D506CBF0221E4D0800DA87C5 /* PlayDeckViewManager.swift */; };
 		D50A33B322169B8700E318B5 /* OpendedDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A33B222169B8700E318B5 /* OpendedDeck.swift */; };
 		D50A33B5221AE52800E318B5 /* OpenedDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A33B4221AE52800E318B5 /* OpenedDeckView.swift */; };
 		D50A33B9221BE33100E318B5 /* PointDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A33B8221BE33100E318B5 /* PointDeckView.swift */; };
 		D50ECA372206BF34008AFD2B /* PlayDeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50ECA362206BF34008AFD2B /* PlayDeckManager.swift */; };
 		D517FD92221D6F61009FF7A6 /* PastCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D517FD91221D6F61009FF7A6 /* PastCardData.swift */; };
-		D517FD94221D784F009FF7A6 /* PlayDeckViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D517FD93221D784F009FF7A6 /* PlayDeckViewManager.swift */; };
 		D528F7FC21F7118F00AAF80F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F7FB21F7118F00AAF80F /* AppDelegate.swift */; };
 		D528F7FE21F711F600AAF80F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F7FD21F711F600AAF80F /* CardView.swift */; };
 		D528F80321F7193100AAF80F /* EmptyPointCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80221F7193100AAF80F /* EmptyPointCardView.swift */; };
@@ -54,12 +54,12 @@
 
 /* Begin PBXFileReference section */
 		D506CBEE221E4A8300DA87C5 /* PlayDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayDeckView.swift; sourceTree = "<group>"; };
+		D506CBF0221E4D0800DA87C5 /* PlayDeckViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayDeckViewManager.swift; sourceTree = "<group>"; };
 		D50A33B222169B8700E318B5 /* OpendedDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpendedDeck.swift; sourceTree = "<group>"; };
 		D50A33B4221AE52800E318B5 /* OpenedDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenedDeckView.swift; sourceTree = "<group>"; };
 		D50A33B8221BE33100E318B5 /* PointDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDeckView.swift; sourceTree = "<group>"; };
 		D50ECA362206BF34008AFD2B /* PlayDeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayDeckManager.swift; sourceTree = "<group>"; };
 		D517FD91221D6F61009FF7A6 /* PastCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastCardData.swift; sourceTree = "<group>"; };
-		D517FD93221D784F009FF7A6 /* PlayDeckViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayDeckViewManager.swift; sourceTree = "<group>"; };
 		D528F7FB21F7118F00AAF80F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D528F7FD21F711F600AAF80F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D528F80221F7193100AAF80F /* EmptyPointCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyPointCardView.swift; sourceTree = "<group>"; };
@@ -115,7 +115,6 @@
 		D50A33BA221BFD6000E318B5 /* viewModel */ = {
 			isa = PBXGroup;
 			children = (
-				D517FD93221D784F009FF7A6 /* PlayDeckViewManager.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -129,6 +128,7 @@
 				D50A33B4221AE52800E318B5 /* OpenedDeckView.swift */,
 				D50A33B8221BE33100E318B5 /* PointDeckView.swift */,
 				D506CBEE221E4A8300DA87C5 /* PlayDeckView.swift */,
+				D506CBF0221E4D0800DA87C5 /* PlayDeckViewManager.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -343,7 +343,6 @@
 				D541055321E5D2D300FC7470 /* Error.swift in Sources */,
 				D528F7FE21F711F600AAF80F /* CardView.swift in Sources */,
 				D50A33B5221AE52800E318B5 /* OpenedDeckView.swift in Sources */,
-				D517FD94221D784F009FF7A6 /* PlayDeckViewManager.swift in Sources */,
 				D50A33B322169B8700E318B5 /* OpendedDeck.swift in Sources */,
 				D536E56521D4BB64004B7014 /* Slot.swift in Sources */,
 				D528F7FC21F7118F00AAF80F /* AppDelegate.swift in Sources */,
@@ -361,6 +360,7 @@
 				D528F80921F9CFA300AAF80F /* PointDeck.swift in Sources */,
 				D506CBEF221E4A8300DA87C5 /* PlayDeckView.swift in Sources */,
 				D536E56421D4BB64004B7014 /* Card.swift in Sources */,
+				D506CBF1221E4D0800DA87C5 /* PlayDeckViewManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
