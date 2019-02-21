@@ -277,7 +277,7 @@ class ViewController: UIViewController {
         switch pastCardData.deckType {
         case .deck : return self.deckView.subviews.last
         case .openedDeck : return self.openedDeckView.subviews.last
-//        case .playDeck : return self.playCardDeckView
+        case .playDeck : return self.playDeckView.getView(pastCardData: pastCardData)
         default : return nil
         }
     }
@@ -293,7 +293,7 @@ class ViewController: UIViewController {
     
     /// 뷰를 받아서 덱타입에 맞는 위치로 이동
     func moveCardView(cardView: CardView){
-        // 수퍼뷰에서 제거하고
+        // 수퍼뷰에서 제거
         cardView.removeFromSuperview()
         
         // 덱타입에 따라 다른 덱에 넣는다
@@ -301,8 +301,7 @@ class ViewController: UIViewController {
         case .deck : self.deckView.addSubview(cardView)
         case .openedDeck : self.openedDeckView.addSubview(cardView)
         case .pointDeck : return self.pointDeckView.addPointCardView(view: cardView)
-        //        case .playDeck : return self.plaDeck
-        default : return ()
+        case .playDeck : return self.playDeckView.addView(view: view, deckLine: cardView.cardInfo.getDeckLine())
         }
         
         cardView.refreshImage()
