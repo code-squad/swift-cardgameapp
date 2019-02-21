@@ -43,4 +43,18 @@ class CardStacksView: UIStackView {
             addArrangedSubview(stackView)
         }
     }
+    
+    func clearView() {
+        for subView in arrangedSubviews {
+            switch subView {
+            case is SpaceView:
+                guard let spaceView = subView as? SpaceView else { return }
+                spaceView.clearView()
+            case is CardStackView:
+                guard let stackView = subView as? CardStackView else { return }
+                stackView.clearView()
+            default: return
+            }
+        }
+    }
 }

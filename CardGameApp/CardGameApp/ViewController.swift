@@ -33,6 +33,7 @@ class ViewController: UIViewController {
     
     @objc func removeOneCardFromDeck() {
         guard let pickedCard = cardDeck.removeOne() else { return }
+        reversedCards.add(pickedCard)
         reversedCardsView?.addViewFromDeck(card: pickedCard)
     }
     
@@ -79,11 +80,26 @@ class ViewController: UIViewController {
         cardStacksView = CardStacksView(frame: CGRect(x: 16, y: 100, width: 378, height: 620), cardStacks)
         self.view.addSubview(cardStacksView!)
     }
-    
+}
+
+extension ViewController {
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
+            cardStacksView?.removeFromSuperview()
+            spacesView?.removeFromSuperview()
+            deckView?.removeFromSuperview()
+            reversedCardsView?.removeFromSuperview()
+
             cardDeck.reset()
             cardDeck.shuffle()
+            cardStacks.removeAll()
+            initialCardStacks()
+            reversedCards.removeAll()
+    
+            initialSpacesView()
+            initialViews()
+            initialDeckView()
+            initialReversedView()
         }
     }
 }

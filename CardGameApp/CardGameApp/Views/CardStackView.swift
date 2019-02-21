@@ -9,14 +9,14 @@
 import UIKit
 
 class CardStackView: UIView {
-    var stackView: [CardView]
+    var cardViews: [CardView]
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     override init(frame: CGRect) {
-        stackView = []
+        cardViews = []
         super.init(frame: frame)
     }
     
@@ -35,7 +35,7 @@ class CardStackView: UIView {
                 cardImage = CardView(frame: CGRect(x: Sizes.originX, y: positionY, width: Sizes.cardWitdh, height: Sizes.cardHeight))
                 if index == stack.count-1 { cardImage.setCardImage(name: stack[index].description) }
                 else { cardImage.setBackImage() }
-                stackView.append(cardImage)
+                cardViews.append(cardImage)
                 addSubview(cardImage)
                 positionY += 20
             }
@@ -44,14 +44,19 @@ class CardStackView: UIView {
     
     // View들을 관리하는 배열에 넣고 화면에 추가
     func addCardView(cardView: CardView) {
-        stackView.append(cardView)
+        cardViews.append(cardView)
         addSubview(cardView)
     }
     
     // View들을 관리하는 배열에서 뺴주고 화면에서 제거
     func removeFromStack() -> CardView {
-        let removeView: CardView = stackView.remove(at: stackView.count-1)
+        let removeView: CardView = cardViews.remove(at: cardViews.count-1)
         removeView.removeFromSuperview()
         return removeView
+    }
+    
+    func clearView() {
+        for view in cardViews { view.removeFromSuperview() }
+        cardViews.removeAll()
     }
 }

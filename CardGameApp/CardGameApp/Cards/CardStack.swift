@@ -27,4 +27,8 @@ class CardStack {
     func accessCard(form: ([Card]) -> Void) {
         form(stack)
     }
+    
+    func removeAll() {
+        stack.removeAll()
+    }
 }

@@ -38,6 +38,11 @@ class CardDeckView: UIView {
             addSubview(deckImage)
         }
     }
+    
+    func clearView() {
+        for view in deckView { view.removeFromSuperview() }
+        deckView.removeAll()
+    }
 }
 
 extension CardDeckView {
