@@ -29,4 +29,14 @@ class PlayDeckViewManager : UIView{
         
         makeDeckViews(cardSize: cardSize, xPositions: xPositions, yPositions: yPositions)
     }
+    
+    /// 뷰를 받아서 추가
+    func addView(view: UIView, dekcLine: Int){
+        self.subviews[dekcLine].addSubview(view)
+    }
+    
+    /// 과거카드데이터를 받아서 해당 뷰 리턴
+    func getView(pastCardData: PastCardData) -> UIView? {
+        return self.subviews[pastCardData.deckLine].subviews.last
+    }
 }
