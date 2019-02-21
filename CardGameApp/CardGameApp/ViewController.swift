@@ -11,8 +11,9 @@ import UIKit
 class ViewController: UIViewController {
     var cardStacksView: CardStacksView?         // 카드 스택들 뷰
     var spacesView: CardStacksView?             // 카드 빈공간들 뷰
-    var deckView: CardDeckView?
-    
+    var deckView: CardDeckView?                 // 카드 덱 뷰
+    var reversedCardsView: ReversedCardsView?   // 뒤집힌 카드 뷰
+
     var cardDeck: CardDeck = CardDeck()         // 모델 카드 덱
     var reversedCards: CardStack = CardStack()  // 모델 뒤집힌 카드
     var cardStacks: [CardStack] = []            // 모델 카드 스택들
@@ -25,6 +26,20 @@ class ViewController: UIViewController {
         initialSpacesView()
         initialViews()
         initialDeckView()
+        initialReversedView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(removeOneCardFromDeck), name: .touchedDeck, object: nil)
+    }
+    
+    @objc func removeOneCardFromDeck() {
+        guard let pickedCard = cardDeck.removeOne() else { return }
+        reversedCardsView?.addViewFromDeck(card: pickedCard)
+    }
+    
+    private func initialReversedView() {
+        let positionX = Int(spacesView!.frame.maxX) + Int((deckView!.frame.minX - spacesView!.frame.maxX)) / 2 - Sizes.cardWitdh / 2
+        reversedCardsView = ReversedCardsView(frame: CGRect(x: positionX, y: 20, width: Sizes.cardWitdh, height: Sizes.cardHeight))
+        self.view.addSubview(reversedCardsView!)
     }
     
     private func initialDeckView() {

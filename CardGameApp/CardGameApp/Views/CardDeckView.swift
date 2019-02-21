@@ -8,6 +8,10 @@
 
 import UIKit
 
+extension NSNotification.Name {
+    static let touchedDeck = NSNotification.Name(rawValue: "touchedDeck")
+}
+
 class CardDeckView: UIView {
     var deckView: [CardView]
     
@@ -33,5 +37,12 @@ class CardDeckView: UIView {
             deckView.append(deckImage)
             addSubview(deckImage)
         }
+    }
+}
+
+extension CardDeckView {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        deckView.remove(at: deckView.count-1).removeFromSuperview()
+        NotificationCenter.default.post(name: .touchedDeck, object: nil)
     }
 }

@@ -31,6 +31,7 @@
 		9D77FC27221E690200F853EB /* SpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77FC26221E690200F853EB /* SpaceView.swift */; };
 		9D77FC29221E7D8100F853EB /* Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77FC28221E7D8100F853EB /* Sizes.swift */; };
 		9D77FC2B221E8C2300F853EB /* CardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77FC2A221E8C2300F853EB /* CardDeckView.swift */; };
+		9D77FC2D221E90D900F853EB /* ReversedCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77FC2C221E90D900F853EB /* ReversedCardsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		9D77FC26221E690200F853EB /* SpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceView.swift; sourceTree = "<group>"; };
 		9D77FC28221E7D8100F853EB /* Sizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		9D77FC2A221E8C2300F853EB /* CardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckView.swift; sourceTree = "<group>"; };
+		9D77FC2C221E90D900F853EB /* ReversedCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversedCardsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 				9D77FC23221D94A000F853EB /* CardStacksView.swift */,
 				9D77FC26221E690200F853EB /* SpaceView.swift */,
 				9D77FC2A221E8C2300F853EB /* CardDeckView.swift */,
+				9D77FC2C221E90D900F853EB /* ReversedCardsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				9D77FBED221BE37B00F853EB /* ViewController.swift in Sources */,
 				9D77FC16221BE84600F853EB /* CardDeck.swift in Sources */,
 				9D77FC15221BE84600F853EB /* Card.swift in Sources */,
+				9D77FC2D221E90D900F853EB /* ReversedCardsView.swift in Sources */,
 				9D77FC11221BE84600F853EB /* GameParticiapte.swift in Sources */,
 				9D77FC27221E690200F853EB /* SpaceView.swift in Sources */,
 				9D77FC0B221BE84600F853EB /* ChoiceMenu.swift in Sources */,
