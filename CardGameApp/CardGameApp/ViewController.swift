@@ -16,7 +16,7 @@ extension Notification.Name {
 
 class ViewController: UIViewController {
     /// 플레이카드가 들어가는 스택뷰
-    @IBOutlet weak var playCardMainStackView: UIStackView!
+    var playDeckView = PlayDeckViewManager()
     
     /// 포인트덱뷰
     var pointDeckView = PointDeckView()
@@ -220,8 +220,13 @@ class ViewController: UIViewController {
         // 포인트덱뷰 생성
         setPointDeckView()
         
+        // 플레이덱뷰 생성
+        settingPlayDeckViewManager()
+        
         // 덱 출력
         drawDeckView()
+        
+        
         
         // 플레이카드 출력
 //        drawAllPlayCard()
@@ -259,20 +264,20 @@ class ViewController: UIViewController {
         /// 이동된 카드에 맞게 카드뷰를 이동시킨다
         if let pastCardData = notification.object as! PastCardData? {
             /// 덱타입을 넣어서 이동해야되는 뷰 추출
-            guard let cardView = getCardView(deckType: pastCardData.deckType) as? CardView else { return () }
+            guard let cardView = getCardView(pastCardData: pastCardData) as? CardView else { return () }
             
             /// 이전덱타입과 뷰를 넣어서 뷰 이동
-            rePositinoCardView(pastDeckType: deckType, cardView: cardView)
+            rePositinoCardView(pastDeckType: pastCardData.deckType, cardView: cardView)
             
         }
     }
     
     /// 덱타입을 받아서 맞는 카드뷰를 리턴
-    func getCardView(deckType: DeckType) -> UIView? {
-        switch deckType {
+    func getCardView(pastCardData: PastCardData) -> UIView? {
+        switch pastCardData.deckType {
         case .deck : return self.deckView.subviews.last
         case .openedDeck : return self.openedDeckView.subviews.last
-//        case .playDeck : return self.pla
+//        case .playDeck : return self.playCardDeckView
         default : return nil
         }
     }
@@ -350,6 +355,12 @@ class ViewController: UIViewController {
             os_log("카드 언도 실패 ")
         }
         
+    }
+    
+    /// 플레이덱뷰매니저 초기세팅
+    func settingPlayDeckViewManager(){
+        self.playDeckView.setting(cardSize: self.cardSize, xPositions: self.widthPositions, yPositions: self.heightPositions)
+        addViewToMain(view: self.playDeckView)
     }
     
     override func viewDidLoad() {

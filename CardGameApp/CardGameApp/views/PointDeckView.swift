@@ -10,12 +10,12 @@ import UIKit
 import os
 
 class PointDeckView: UIStackView {
-
+    
     // 기본 생성자
     init(){
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     }
-
+    
     required init(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -68,5 +68,5 @@ class PointDeckView: UIStackView {
     func getCardView(pastCardData: PastCardData) -> UIView? {
         // 덱라인의 마지막 카드를 뽑아서 리턴
         return self.subviews[pastCardData.deckLine].subviews.last 
+    }
 }
-
