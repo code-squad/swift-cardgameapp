@@ -71,7 +71,8 @@ class GameBoard : DeckInfo {
             card.deckLine = 0
             card.deckType = .deck
             
-            if card.isFront() == false {
+            // 앞면인 카드는 돌려준다
+            if card.isFront() {
                 card.flip()
             }
         }
