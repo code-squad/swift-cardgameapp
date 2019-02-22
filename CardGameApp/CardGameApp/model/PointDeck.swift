@@ -48,7 +48,7 @@ class PointDeck {
     
     /// 카드를 추가한다
     func addCard(card: Card) -> CardInfo?{
-        // 카드가 추가 가느한지 검사
+        // 카드가 추가 가능한지 검사
         if checkAdd(cardInfo: card) {
             // 추가 가능하면 덱타입을 변경
             card.deckType = .pointDeck
