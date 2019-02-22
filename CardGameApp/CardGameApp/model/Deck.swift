@@ -81,6 +81,7 @@ class Deck {
             let pastCardData = PastCardData(cardInfo: card)
             // 덱 타입 수정
             card.deckType = .deck
+            card.deckLine = 0
             // 카드 추가
             cardList.append(card)
             // 카드가 추가되었음을 알리는 노티

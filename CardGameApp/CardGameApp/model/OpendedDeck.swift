@@ -14,8 +14,10 @@ class OpenedDeck {
     
     
     /// 리셋
-    func reset(){
+    func reset() -> [Card]{
+        let allCard = self.cardList
         self.cardList = []
+        return allCard
     }
     
     /// 카드추가

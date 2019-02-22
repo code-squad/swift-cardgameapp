@@ -63,4 +63,12 @@ class PointDeckManager {
         return result
     }
     
+    /// 모든 카드를 리턴하고 난 후 비운다
+    func reset() -> [Card] {
+        var allCard : [Card] = []
+        for cards in self.pointDeckList {
+            allCard.append(contentsOf: cards.reset())
+        }
+        return allCard
+    }
 }

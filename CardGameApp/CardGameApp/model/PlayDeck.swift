@@ -32,13 +32,6 @@ class PlayDeck {
         return false
     }
     
-//    /// 다른색인지 구분하는 함수. 플레이카드는 다른색,넘버링+1 만 들어올수 있다
-//    func checkDifferentMarkColor(cardOne: Card, cardTwo: Card) -> Bool {
-//        // 스페이드,클로버는 짝수. 하트,다이아는 홀수다. 2로 나눈 값이 달라야 추가 가능하다
-//        return cardOne.getMarkRank() % 2 != cardTwo.getMarkRank() % 2
-//
-//    }
-    
     /// 카드를 받아서 추가함. 내부에서 체크함수 돌림
     func addCard(card: Card) -> CardInfo?{
         // 추가 가능한지 체크
@@ -105,5 +98,12 @@ class PlayDeck {
     /// 카드 강제추가. 카드를 되돌리는 역할
     func undoCard(card: Card){
         self.cardList.append(card)
+    }
+    
+    /// 카드를 모두 리턴하고 배열을 비운다
+    func reset() -> [Card] {
+        let allCard = self.cardList
+        self.cardList = []
+        return allCard
     }
 }

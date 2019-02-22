@@ -33,11 +33,11 @@ class GameBoard : DeckInfo {
     init(slotCount: Int){
         self.maxPlayCardLine = slotCount
         self.playDeck = PlayDeckManager(playLineCount: self.maxPlayCardLine)
-        reset()
+        self.deck = Deck(cardList: self.newDeck())
     }
     
     /// 덱 초기화 함수. 외부에서 덱만 초기화 할수 없게 private
-    private func newDeck(deckType: DeckType) -> [Card]{
+    private func newDeck() -> [Card]{
         // 모든 넘버링, 마크를 리스트로 만든다
         let numberings = Numbering.allCases()
         let marks = Mark.allCases()
@@ -48,28 +48,28 @@ class GameBoard : DeckInfo {
         // 모든종류의 카드를 덱에 추가한다
         for numbering in numberings {
             for mark in marks {
-                cardList.append(Card(mark: mark, numbering: numbering, deckType: deckType))
+                cardList.append(Card(mark: mark, numbering: numbering, deckType: .deck))
             }
         }
         return cardList
     }
     
-    /// 모든카드를 삭제하고 새 덱을 만드고 섞는다.
+    /// 모든카드를 덱으로 옮기고 섞는다.
     func reset(){
+        // 각 덱을 초기화 하면서 나온 카드들
+        var allCard : [Card] = []
         // 오픈덱 초기화
-        self.openedDeck.reset()
+        allCard.append(contentsOf: self.openedDeck.reset())
         // 포인트덱 초기화
-        self.pointDeck = PointDeckManager()
-        // 플레이카드슬롯 리셋
-        self.playDeck.resetPlayCard(playLineCount: self.maxPlayCardLine)
+        allCard.append(contentsOf: self.pointDeck.reset())
+        // 플레이카드덱 리셋
+        allCard.append(contentsOf: self.playDeck.resetPlayCard(playLineCount: self.maxPlayCardLine))
         
-        // 덱에 전체 카드를 생성, 넣는다
-        self.deck = Deck(cardList: newDeck(deckType: .deck))
+        // 덱에 전체 카드를 넣는다
+        self.deck.addCards(cards: allCard)
         // 덱 섞기
         self.deck.shuffle()
         
-        // 드로우 플레이카드
-//        self.pickPlayCards()
     }
     
     
@@ -188,6 +188,8 @@ class GameBoard : DeckInfo {
             return nil
         }
         
+        os_log("모델 카드이동 완료 :%@ %d 에 %@", result.getDeckType().rawValue, result.getDeckLine(), result.name())
+        
         // 이동된 카드 정보 노티 포스트
         NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
         
@@ -233,16 +235,16 @@ class GameBoard : DeckInfo {
         return pickedCard
     }
     
-    /// 카드 인포를 받아서 추가 가능한지 체크
-    func checkPickable(cardInfo: CardInfo) -> Card? {
-        let deckType = cardInfo.getDeckType()
-        switch deckType {
-            // 뽑기 가능 대상은 오픈덱, 플레이덱. 이외에는 불가능
-        case .openedDeck : return self.openedDeck.checkPickable(cardInfo: cardInfo)
-        case .playDeck : return self.playDeck.checkPickable(cardInfo: cardInfo)
-        default : return nil
-        }
-    }
+//    /// 카드 인포를 받아서 추가 가능한지 체크
+//    func checkPickable(cardInfo: CardInfo) -> Card? {
+//        let deckType = cardInfo.getDeckType()
+//        switch deckType {
+//            // 뽑기 가능 대상은 오픈덱, 플레이덱. 이외에는 불가능
+//        case .openedDeck : return self.openedDeck.checkPickable(cardInfo: cardInfo)
+//        case .playDeck : return self.playDeck.checkPickable(cardInfo: cardInfo)
+//        default : return nil
+//        }
+//    }
     
     /// 라인을 받아서 플레이덱 라인의 카드인포 배열 리턴
     func getPlayDeckLineCardInfos(line: Int) -> [CardInfo] {

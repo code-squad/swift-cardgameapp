@@ -14,7 +14,9 @@ class PlayDeckManager {
     
     /// 플레이카드 열을 받아서 생성
     init(playLineCount: Int){
-        resetPlayCard(playLineCount: playLineCount)
+        for _ in 0..<playLineCount {
+            self.playDeckList.append(PlayDeck())
+        }
     }
     
     /// 카드를 받아서 추가
@@ -34,13 +36,12 @@ class PlayDeckManager {
     }
     
     /// 플레이카드 초기화 함수
-    func resetPlayCard(playLineCount: Int){
-        // 플레이 카드 초기화
-        self.playDeckList = []
-        // 플레이카드 라인만큼 배열 추가
-        for _ in 0..<playLineCount {
-            self.playDeckList.append(PlayDeck())
+    func resetPlayCard(playLineCount: Int) -> [Card]{
+        var allCard : [Card] = []
+        for playDeck in self.playDeckList {
+            allCard.append(contentsOf: playDeck.reset())
         }
+        return allCard
     }
     
     /// 게임시작시 카드배열을 받아서 플레이덱 세팅을 한다

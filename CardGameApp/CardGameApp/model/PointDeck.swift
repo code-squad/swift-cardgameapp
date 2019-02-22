@@ -68,4 +68,11 @@ class PointDeck {
         }
         return "none"
     }
+    
+    /// 모든카드를 리턴하고 배열은 비운다
+    func reset() -> [Card] {
+        let allCard = self.cardList
+        self.cardList = []
+        return allCard
+    }
 }
