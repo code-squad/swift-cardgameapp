@@ -46,7 +46,7 @@ class PointDeckManager {
         // 모든 포인트덱이 대상
         for pointDeck in pointDeckList {
             // 추가성공시 추가된 카드 정보를 리턴
-            if pointDeck.checkAdd(card: cardInfo) {
+            if pointDeck.checkAdd(cardInfo: cardInfo) {
                 return true
             }
         }

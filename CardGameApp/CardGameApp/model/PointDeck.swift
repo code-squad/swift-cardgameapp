@@ -17,23 +17,28 @@ class PointDeck {
     }
     
     /// 카드정보를 받아서 추가 가능한 객체인지 체크
-    func checkAdd(card: CardInfo) -> Bool {
-        // 카드가 없다면 패스, 있다면 마지막 카드와 마크가 같아야 한다
-        if self.cardList.last != nil {
-            // 마크가 같은지 체크. 다를경우 거짓 리턴
-            if card.getMarkRank() != self.cardList.last?.getMarkRank() {
-                return false
-            }
-        }
+    func checkAdd(cardInfo: CardInfo) -> Bool {
+//        // 카드가 없다면 패스, 있다면 마지막 카드와 마크색이 같아야 한다
+//        if self.cardList.last != nil {
+//            // 마크색이 같은지 체크. 다를경우 거짓 리턴
+//            if card.getMarkRank(). % 2 != self.cardList.last?.getMarkRank() % 2 {
+//                return false
+//            }
+//        }
         
         // 기존카드가 없는지 체크
         guard let lastCard = cardList.last else {
             // 없다면 숫자랭크가 1등이여야한다 == 0
-            return card.getNumberingRank() == 0
+            return cardInfo.getNumberingRank() == 0
+        }
+        
+        // 마크색이 같은지 체크. 다를경우 거짓 리턴
+        if lastCard.checkDifferentMarkColor(cardInfo: cardInfo) == false {
+            return false
         }
         
         // 기존 카드들이 있을경우 넘버링 값 비교. 바로 다음카드값이여야함
-        if lastCard.markNumberingDifference(cardInfo: card) == 1 {
+        if lastCard.markNumberingDifference(cardInfo: cardInfo) == 1 {
             return true
         }
         else {
@@ -44,7 +49,7 @@ class PointDeck {
     /// 카드를 추가한다
     func addCard(card: Card) -> CardInfo?{
         // 카드가 추가 가느한지 검사
-        if checkAdd(card: card) {
+        if checkAdd(cardInfo: card) {
             // 추가 가능하면 덱타입을 변경
             card.deckType = .pointDeck
             //후 추가, 카드정보 객체 리턴
