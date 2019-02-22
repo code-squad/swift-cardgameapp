@@ -20,9 +20,12 @@ class PlayDeckManager {
     /// 카드를 받아서 추가
     func addCard(card: Card) -> CardInfo? {
         // 모든 덱 대상
-        for playDeck in playDeckList {
+        for count in 0..<playDeckList.count {
             // 추가성공시 추가된 카드 정보를 리턴
-            if let addedCard = playDeck.addCard(card: card) {
+            if let addedCard = playDeckList[count].addCard(card: card) {
+                // 라인변경 적용
+                card.deckLine = count
+                // 카드인포 리턴
                 return addedCard
             }
         }
