@@ -11,7 +11,7 @@ import UIKit
 class PlayDeckView: UIStackView {
 
     init(cardSize: CardSize, x: CGFloat, y: CGFloat){
-        super.init(frame: CGRect(origin: CGPoint(x: x, y: y), size: cardSize.cardSize))
+        super.init(frame: CGRect(origin: CGPoint(x: x, y: y), size: CGSize(width: cardSize.width, height: cardSize.height * 5)))
     }
     
     required init(coder: NSCoder) {
@@ -30,6 +30,15 @@ class PlayDeckView: UIStackView {
         }
         // 서브뷰로 추가
         self.addSubview(view)
+    }
+    
+    /// 뷰 리턴
+    func getLastView() -> UIView? {
+        // 마지막 카드가 나가면 그전 카드는 뒤집는다
+        let aheadOfLastView = self.subviews[self.subviews.count - 2] as! CardView
+        aheadOfLastView.flip()
+        aheadOfLastView.refreshImage()
+        return self.subviews.last
     }
 }
 
