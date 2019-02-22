@@ -34,6 +34,7 @@ class GameBoard : DeckInfo {
         self.maxPlayCardLine = slotCount
         self.playDeck = PlayDeckManager(playLineCount: self.maxPlayCardLine)
         self.deck = Deck(cardList: self.newDeck())
+        self.deck.shuffle()
     }
     
     /// 덱 초기화 함수. 외부에서 덱만 초기화 할수 없게 private
