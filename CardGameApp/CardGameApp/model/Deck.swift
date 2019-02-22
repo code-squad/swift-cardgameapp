@@ -77,14 +77,14 @@ class Deck {
     func addCards(cards: [Card]){
         // 모든 카드가 대상
         for card in cards {
-            // 이동 전의 덱타입
-            let pastDeckType = card.deckType
+            // 이동 전의 과거카드데이터 생성
+            let pastCardData = PastCardData(cardInfo: card)
             // 덱 타입 수정
             card.deckType = .deck
             // 카드 추가
             cardList.append(card)
             // 카드가 추가되었음을 알리는 노티
-            NotificationCenter.default.post(name: .cardMoved, object: pastDeckType)
+            NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
         }
     }
 }
