@@ -37,8 +37,11 @@ class PlayDeckView: UIStackView {
         // 카드가 2장 이상이면 뒤집어준다
         if self.subviews.count > 1 {
             let aheadOfLastView = self.subviews[self.subviews.count - 2] as! CardView
-            aheadOfLastView.flip()
-            aheadOfLastView.refreshImage()
+            
+            if aheadOfLastView.isFront() == false {
+                aheadOfLastView.flip()
+                aheadOfLastView.refreshImage()
+            }
         }
         
         // 마지막뷰 리턴 
