@@ -37,6 +37,8 @@ class PointDeckView: UIStackView {
         
         self.distribution = .fillEqually
         
+        self.isUserInteractionEnabled = false
+        
         setSubView(cardSize: cardSize)
     }
     
@@ -62,6 +64,9 @@ class PointDeckView: UIStackView {
         // 라인에 따라 추가위치 변경
         let superView = self.subviews[cardView.cardInfo.getDeckLine()]
         superView.addSubview(cardView)
+        // 카드위치 0,0 으로 조정
+        cardView.frame.origin.x = 0
+        cardView.frame.origin.y = 0
     }
     
     /// 과거카드데이터 를 받아서 해당 뷰 리턴
