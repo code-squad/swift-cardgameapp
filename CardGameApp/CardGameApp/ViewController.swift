@@ -9,14 +9,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var cardStacksView: CardStacksView?         // 카드 스택들 뷰
-    var spacesView: CardStacksView?             // 카드 빈공간들 뷰
-    var deckView: CardDeckView?                 // 카드 덱 뷰
-    var reversedCardsView: ReversedCardsView?   // 뒤집힌 카드 뷰
+    private var cardStacksView: CardStacksView?         // 카드 스택들 뷰
+    private var spacesView: CardStacksView?             // 카드 빈공간들 뷰
+    private var deckView: CardDeckView?                 // 카드 덱 뷰
+    private var reversedCardsView: ReversedCardsView?   // 뒤집힌 카드 뷰
 
-    var cardDeck: CardDeck = CardDeck()         // 모델 카드 덱
-    var reversedCards: CardStack = CardStack()  // 모델 뒤집힌 카드
-    var cardStacks: [CardStack] = []            // 모델 카드 스택들
+    private var cardDeck: CardDeck = CardDeck()         // 모델 카드 덱
+    private var reversedCards: CardStack = CardStack()  // 모델 뒤집힌 카드
+    private var cardStacks: [CardStack] = []            // 모델 카드 스택들
     
     override func viewDidLoad() {
         super.viewDidLoad()
