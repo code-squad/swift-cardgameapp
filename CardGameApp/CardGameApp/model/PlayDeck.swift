@@ -21,7 +21,7 @@ class PlayDeck {
             return card.getNumberingRank() == Numbering.allCases().count - 1
         }
         // 카드리스트에 카드가 존재. 색이 다른지 체크
-        if checkDifferentMarkColor(cardOne: card, cardTwo: lastCard) {
+        if card.checkDifferentMarkColor(card: lastCard) {
             // 색이 같음, 이전 넘버링인지 체크
             if lastCard.markNumberingDifference(cardInfo: card) == -1 {
                 return true
@@ -32,12 +32,12 @@ class PlayDeck {
         return false
     }
     
-    /// 다른색인지 구분하는 함수. 플레이카드는 다른색,넘버링+1 만 들어올수 있다
-    func checkDifferentMarkColor(cardOne: Card, cardTwo: Card) -> Bool {
-        // 스페이드,클로버는 짝수. 하트,다이아는 홀수다. 2로 나눈 값이 달라야 추가 가능하다
-        return cardOne.getMarkRank() % 2 != cardTwo.getMarkRank() % 2
-        
-    }
+//    /// 다른색인지 구분하는 함수. 플레이카드는 다른색,넘버링+1 만 들어올수 있다
+//    func checkDifferentMarkColor(cardOne: Card, cardTwo: Card) -> Bool {
+//        // 스페이드,클로버는 짝수. 하트,다이아는 홀수다. 2로 나눈 값이 달라야 추가 가능하다
+//        return cardOne.getMarkRank() % 2 != cardTwo.getMarkRank() % 2
+//
+//    }
     
     /// 카드를 받아서 추가함. 내부에서 체크함수 돌림
     func addCard(card: Card) -> CardInfo?{

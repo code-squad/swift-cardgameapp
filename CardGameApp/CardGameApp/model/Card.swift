@@ -29,6 +29,7 @@ enum Mark : String {
         result.append(.diamond)
         return result
     }
+    
 }
 
 /// 카드 넘버링
@@ -188,5 +189,11 @@ class Card : CardInfo {
     /// 카드가 앞면인지 확인
     func isFront() -> Bool {
         return self.name() == self.image()
+    }
+    
+    /// 다른색인지 구분하는 함수. 플레이카드는 다른색,넘버링+1 만 들어올수 있다
+    func checkDifferentMarkColor(card: Card) -> Bool {
+        // 스페이드,클로버는 짝수. 하트,다이아는 홀수다. 2로 나눈 값이 달라야 추가 가능하다
+        return self.getMarkRank() % 2 != card.getMarkRank() % 2
     }
 }
