@@ -21,7 +21,7 @@ class PlayDeck {
             return card.getNumberingRank() == Numbering.allCases().count - 1
         }
         // 카드리스트에 카드가 존재. 색이 다른지 체크
-        if card.checkDifferentMarkColor(card: lastCard) {
+        if card.checkDifferentMarkColor(cardInfo: lastCard) {
             // 색이 같음, 이전 넘버링인지 체크
             if lastCard.markNumberingDifference(cardInfo: card) == -1 {
                 return true

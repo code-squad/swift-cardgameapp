@@ -210,7 +210,7 @@ class GameBoard : DeckInfo {
         if let result =  self.pointDeck.addCard(card: card) {
             return result
         }
-        if let result = self.pointDeck.addCard(card: card) {
+        if let result = self.playDeck.addCard(card: card) {
             return result
         }
         // 실패시
