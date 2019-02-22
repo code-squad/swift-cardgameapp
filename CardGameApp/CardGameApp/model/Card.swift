@@ -194,6 +194,6 @@ class Card : CardInfo {
     /// 다른색인지 구분하는 함수. 플레이카드는 다른색,넘버링+1 만 들어올수 있다
     func checkDifferentMarkColor(cardInfo: CardInfo) -> Bool {
         // 스페이드,클로버는 짝수. 하트,다이아는 홀수다. 2로 나눈 값이 달라야 추가 가능하다
-        return self.getMarkRank() % 2 != cardInfo.getMarkRank() % 2
+        return self.getMarkRank() % 2 == cardInfo.getMarkRank() % 2
     }
 }
