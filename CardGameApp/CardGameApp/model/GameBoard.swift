@@ -67,10 +67,15 @@ class GameBoard : DeckInfo {
         self.deck = Deck(cardList: newDeck(deckType: .deck))
         // 덱 섞기
         self.deck.shuffle()
+        
+        // 드로우 플레이카드
+//        self.pickPlayCards()
     }
     
     
-    /// 덱에서 플레이덱으로 카드를 뽑는다
+    
+    
+    /// 게임 시작시 덱에서 플레이덱으로 카드를 뽑는다
     func pickPlayCards(){
         // 플레이덱 세팅
         do {
@@ -253,6 +258,20 @@ class GameBoard : DeckInfo {
         return result
     }
     
+    /// 플레이덱 체크
+    func checkPlayDeck() -> [String] {
+        // 결과 저장
+        var result : [String] = []
+        for count in 0..<7 {
+            let cardInfoArr = self.getPlayDeckLineCardInfos(line: count)
+            var result2 = "\(count)번덱 : "
+            for card in cardInfoArr {
+                result2.append("\(card.name()), ")
+            }
+            result.append(result2)
+        }
+        return result
+    }
     
 }
 
@@ -267,8 +286,11 @@ extension Array where Element : Card{
             // 마지막 카드를 뒤집는다.
             lastCard.flip()
         }
-        // 마지막 추가카드를 뒤집는다
-        newElement.flip()
+        // 마지막 추가카드가 뒷면이면 뒤집는다
+        if newElement.isFront() == false {
+            newElement.flip()
+        }
+        
         // 카드추가
         append(newElement)
     }
