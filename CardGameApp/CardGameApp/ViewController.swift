@@ -37,6 +37,8 @@ class ViewController: UIViewController {
     /// 플레이카드 Y 좌표
     private var heightPositions : [CGFloat] = []
     
+    /// 카드뷰 전체 배열
+    private var allCardView : [CardView] = []
     
     
     /// 게임보드 생성
@@ -107,6 +109,7 @@ class ViewController: UIViewController {
             
             // 덱카드뷰에 넣는다
             self.deckView.addSubview(cardView)
+            self.allCardView.append(cardView)
         }
     }
     
@@ -212,18 +215,23 @@ class ViewController: UIViewController {
     
     /// 카드게임 시작시 카드뷰 전체 배치 함수
     func gameStart(){
+        // 덱뷰들 출력
+        drawDeckView()
+        
         // 덱 드로우
         self.gameBoard.pickPlayCards()
         }
     
     /// shake 함수.
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
-        // 뷰를 모두 지운다
-        for view in self.view.subviews {
-            view.removeFromSuperview()
-        }
-        // 게임보드 카드들 초기화
+        // 모든 카드뷰 삭제
+        self.allCardView.forEach { $0.removeFromSuperview() }
+        
+        
+        // 게임보드 카드들제초기화 - 카드를 덱으로 모음
         gameBoard.reset()
+        
+        
         // 카드배치를 뷰로 생성
         gameStart()
     }
@@ -386,9 +394,6 @@ class ViewController: UIViewController {
         
         // 플레이덱뷰 생성
         settingPlayDeckViewManager()
-        
-        // 덱 출력
-        drawDeckView()
         
         // 카드배치 시작
         gameStart()
