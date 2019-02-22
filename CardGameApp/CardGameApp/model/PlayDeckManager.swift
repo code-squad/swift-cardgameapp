@@ -40,7 +40,7 @@ class PlayDeckManager {
         }
     }
     
-    /// 카드배열을 받아서 플레이덱 세팅을 한다
+    /// 게임시작시 카드배열을 받아서 플레이덱 세팅을 한다
     func setting(playDeck: [[Card]]) throws {
         // 들어온 덱 라인과 이미 생성된 라인이 맞는지 체크
         if playDeck.count != self.playDeckList.count {
@@ -50,7 +50,8 @@ class PlayDeckManager {
         
         // 라인이 같으면 받아서 생성
         for count in 0..<self.playDeckList.count {
-            self.playDeckList[count].seting(cards: playDeck[count])
+            // 카드배열과 덱라인을 보낸다
+            self.playDeckList[count].seting(cards: playDeck[count], deckLine: count)
         }
     }
     

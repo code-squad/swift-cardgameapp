@@ -46,7 +46,7 @@ class PlayDeck {
             // 추가가능하면 덱타입 변경
             card.deckType = .playDeck
             
-            // 추가후 카드정로 리턴
+            // 추가후 카드정보 리턴
             cardList.append(card)
             // 카드정보 리턴
             return card
@@ -57,18 +57,23 @@ class PlayDeck {
     
     /// 초기 세팅을 위한 카드추가
     func setting(card: Card){
-        self.cardList.append(card)
-        // 카드가 이동했으니 과거카드정보 생성후 노티 포스트
+        // 과거카드정보 생성
         let pastCardData = PastCardData(cardInfo: card)
+        self.cardList.addCard(card)
+        
+        // 카드 이동 후 덱타입 변경
+        card.deckType = .playDeck
+        // 카드가 이동했으니 과거카드정보 노티 포스트
         NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
     }
     
     /// 초기세팅을 위한 카드배열 추가
-    func seting(cards: [Card]){
+    func seting(cards: [Card], deckLine: Int){
         for card in cards {
+            // 덱 라인을 변경
+            card.deckLine = deckLine
             setting(card: card)
         }
-//        self.cardList = cards
     }
     
     /// 카드인포를 받아서 마지막 카드와 맞는지 체크. 맞으면 카드리턴
