@@ -226,7 +226,8 @@ class ViewController: UIViewController {
         // 덱 출력
         drawDeckView()
         
-        
+        // 덱 드로우
+        self.gameBoard.pickPlayCards()
         
         // 플레이카드 출력
 //        drawAllPlayCard()
@@ -301,10 +302,14 @@ class ViewController: UIViewController {
         case .deck : self.deckView.addSubview(cardView)
         case .openedDeck : self.openedDeckView.addSubview(cardView)
         case .pointDeck : return self.pointDeckView.addPointCardView(view: cardView)
-        case .playDeck : return self.playDeckView.addView(view: view, deckLine: cardView.cardInfo.getDeckLine())
+        case .playDeck : self.playDeckView.addView(view: cardView, deckLine: cardView.cardInfo.getDeckLine())
         }
         
+        // 카드 이미지 갱신
         cardView.refreshImage()
+        
+        // 이동 완료된 뷰 로깅
+        os_log("뷰 이동완료. %@ 로 %@ , 앞뒷면 : %@", cardView.cardInfo.getDeckType().rawValue, cardView.cardInfo.name(), cardView.cardInfo.isFront() as CVarArg)
     }
 
     /// 포인트덱뷰 위치 설정
@@ -361,6 +366,7 @@ class ViewController: UIViewController {
         self.playDeckView.setting(cardSize: self.cardSize, xPositions: self.widthPositions, yPositions: self.heightPositions)
         addViewToMain(view: self.playDeckView)
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
