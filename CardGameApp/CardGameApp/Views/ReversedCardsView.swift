@@ -12,7 +12,9 @@ class ReversedCardsView: UIView {
     var reversedViews: [CardView]
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        reversedViews = []
+        super.init(coder: aDecoder)
+        self.backgroundColor = UIColor.clear
     }
     
     override init(frame: CGRect) {

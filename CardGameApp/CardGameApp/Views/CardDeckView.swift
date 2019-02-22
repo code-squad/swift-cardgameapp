@@ -16,7 +16,8 @@ class CardDeckView: UIView {
     var deckView: [CardView]
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        deckView = []
+        super.init(coder: aDecoder)
     }
     
     override init(frame: CGRect) {
@@ -27,9 +28,10 @@ class CardDeckView: UIView {
     convenience init(frame: CGRect, _ cardDeck: CardDeck) {
         self.init(frame: frame)
         drawDeck(cardDeck)
+        drawRefresh()
     }
     
-    func drawDeck(_ cardDeck: CardDeck) {
+    private func drawDeck(_ cardDeck: CardDeck) {
         var deckImage: CardView
         for _ in 0..<cardDeck.count() {
             deckImage = CardView(frame: CGRect(x: Sizes.originX, y: Sizes.originY, width: Sizes.cardWitdh, height: Sizes.cardHeight))
@@ -38,6 +40,12 @@ class CardDeckView: UIView {
             addSubview(deckImage)
         }
     }
+    
+    private func drawRefresh() {
+        let refreshImage = UIImageView(frame: CGRect(x: Sizes.originX, y: Sizes.originY, width: Sizes.cardWitdh, height: Sizes.cardHeight))
+        refreshImage.image = UIImage(named: "cardgameapp-refresh-app")
+        addSubview(refreshImage)
+    }
 }
 
 extension CardDeckView {
@@ -45,12 +53,5 @@ extension CardDeckView {
         guard deckView.count != 0 else { return }
         deckView.remove(at: deckView.count-1).removeFromSuperview()
         NotificationCenter.default.post(name: .touchedDeck, object: nil)
-        
-        
-        if deckView.count == 0 {
-            let refreshImage = UIImageView(frame: CGRect(x: Sizes.originX, y: Sizes.originY, width: Sizes.cardWitdh, height: Sizes.cardHeight))
-            refreshImage.image = UIImage(named: "cardgameapp-refresh-app")
-            addSubview(refreshImage)
-        }
     }
 }

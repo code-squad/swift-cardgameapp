@@ -12,7 +12,8 @@ class CardStackView: UIView {
     var cardViews: [CardView]
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        cardViews = []
+        super.init(coder: aDecoder)
     }
     
     override init(frame: CGRect) {

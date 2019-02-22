@@ -55,15 +55,17 @@ class ViewController: UIViewController {
 
 ```swift
 class CardStacksView: UIStackView {
-    required init(coder: NSCoder) {
-        super.init(coder: coder)
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         initialSetting()
     }
+    // 스토리보드에 초기화할 때 사용되는 코드
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetting()
     }
+    // 코드로서 초기화할 때 사용되는 코드
     
     private func initialSetting() {
         self.spacing = 5
