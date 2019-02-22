@@ -65,15 +65,26 @@ class GameBoard : DeckInfo {
         // 플레이카드덱 리셋
         allCard.append(contentsOf: self.playDeck.resetPlayCard(playLineCount: self.maxPlayCardLine))
         
-        // 덱에 전체 카드를 넣는다
-        self.deck.addCards(cards: allCard)
-        // 덱 섞기
-        self.deck.shuffle()
+        // 모은 카드 정보를 덱으로 통일한다
+        for card in allCard {
+            card.deckLine = 0
+            card.deckType = .deck
+            
+            if card.isFront() == false {
+                card.flip()
+            }
+        }
         
+        // 셔플을 위한 임시덱
+        let tempDeck = Deck(cardList: allCard)
+        
+        // 덱 섞기
+        tempDeck.shuffle()
+        
+        
+        // 덱에 전체 카드를 넣는다
+        self.deck.addCards(cards: tempDeck.getAllCard())
     }
-    
-    
-    
     
     /// 게임 시작시 덱에서 플레이덱으로 카드를 뽑는다
     func pickPlayCards(){
