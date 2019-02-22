@@ -13,15 +13,11 @@ extension Notification.Name {
     static let cardMoved = Notification.Name("cardMoved")
 }
 
-
 class ViewController: UIViewController {
     /// 플레이카드가 들어가는 스택뷰
     var playDeckView = PlayDeckViewManager()
-    
     /// 포인트덱뷰
     var pointDeckView = PointDeckView()
-    
-    
     /// 덱뷰 생성
     var deckView = DeckView()
     /// 오픈덱뷰 생성
@@ -113,28 +109,7 @@ class ViewController: UIViewController {
         }
     }
     
-//    /// 라인번호와 카드배열을 받아서 해당 라인에 카드를 출력한다
-//    func drawCardLine(lineNumber: Int){
-//        // 게임보드에서 플레이카드를 카드인포 배열로 받는다
-//        let cardInfos = gameBoard.getPlayDeckLineCardInfos(line: lineNumber)
-//        // 모든 카드인포가 목표
-//        for x in 0..<cardInfos.count {
-//            let cardView = makeCardView(widthPosition: lineNumber, heightPosition: x + 2, cardSize: cardSize, cardInfo: cardInfos[x])
-//            // 유저와 상호작용 on
-//            cardView.isUserInteractionEnabled = true
-//            addViewToMain(view: cardView)
-//        }
-//    }
-//
-//    /// 맥스카드카운트로 모든 플레이카드 를 출력한다
-//    func drawAllPlayCard() {
-//        for x in 0..<cardSize.maxCardCount {
-//            drawCardLine(lineNumber: x)
-//        }
-//    }
-    
-    
-    /// 덱 탭 제스처시 발생하는 이벤트
+    /// 카드뷰 1탭 제스처시 발생하는 이벤트
     @objc func deckTapEvent(_ sender: UITapGestureRecognizer) {
         // 옮겨진 뷰가 카드뷰가 맞는지 체크
         guard let openedCardView = sender.view as? CardView else {
@@ -227,10 +202,8 @@ class ViewController: UIViewController {
         // 모든 카드뷰 삭제
         self.allCardView.forEach { $0.removeFromSuperview() }
         
-        
         // 게임보드 카드들제초기화 - 카드를 덱으로 모음
         gameBoard.reset()
-        
         
         // 카드배치를 뷰로 생성
         gameStart()
@@ -397,16 +370,11 @@ class ViewController: UIViewController {
         
         // 카드배치 시작
         gameStart()
-        
     }
-
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    
 }
 
 // Configure StatusBar

@@ -56,10 +56,13 @@ class PointDeckManager {
     
     /// 체크용 전카드이름 리턴
     func allLastCardName() -> [String] {
+        // 결과출력용 배열
         var result : [String] = []
         for card in  self.pointDeckList {
+            // 모든카드 이름 추가
             result.append(card.lastCardName())
         }
+        // 리턴
         return result
     }
     

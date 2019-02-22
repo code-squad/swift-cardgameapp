@@ -12,19 +12,8 @@ class PointDeck {
     /// 카드배열
     private var cardList : [Card] = []
     
-    // init
-    init(){
-    }
-    
     /// 카드정보를 받아서 추가 가능한 객체인지 체크
     func checkAdd(cardInfo: CardInfo) -> Bool {
-//        // 카드가 없다면 패스, 있다면 마지막 카드와 마크색이 같아야 한다
-//        if self.cardList.last != nil {
-//            // 마크색이 같은지 체크. 다를경우 거짓 리턴
-//            if card.getMarkRank(). % 2 != self.cardList.last?.getMarkRank() % 2 {
-//                return false
-//            }
-//        }
         
         // 기존카드가 없는지 체크
         guard let lastCard = cardList.last else {
