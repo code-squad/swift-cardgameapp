@@ -12,9 +12,7 @@ class CardStack : CustomStringConvertible {
     
     //MARK: - Properties
     //MARK: Private
-    
-    private var type: CardStackType?
-    
+
     private var cards : [Card] {
         didSet {
             postData()
@@ -31,8 +29,7 @@ class CardStack : CustomStringConvertible {
     //MARK: - Methods
     //MARK: Initialization
     
-    init(cards:[Card] = [], type: CardStackType? = nil) {
-        self.type = type
+    init(cards:[Card] = []) {
         self.cards = cards
     }
     
@@ -40,10 +37,9 @@ class CardStack : CustomStringConvertible {
     
     private func postData() {
         
-        var userInfo: [String: Any] = [UserInfoKey.cards: self.cards]
-        if let type = self.type {
-            userInfo[UserInfoKey.stackType] = type
-        }
+        let selfType = type(of: self)
+        let userInfo: [String: Any] = [UserInfoKey.cards: self.cards,
+                                       UserInfoKey.stackType: ObjectIdentifier(selfType),]
         NotificationCenter.default.post(name: .cardStackDidChange,
                                         object: self,
                                         userInfo: userInfo)
@@ -92,11 +88,7 @@ class CardStack : CustomStringConvertible {
         let maxValuedCard = handRanking[0].max { cardA, cardB in cardA.score() < cardB.score()}
         return maxValuedCard?.score() ?? 0
     }
-    
-    func setType(_ type: CardStackType) {
-        self.type = type
-    }
-    
+
     func put(stack: CardStack) {
         let cards = stack.cards
         self.cards.append(contentsOf: cards)

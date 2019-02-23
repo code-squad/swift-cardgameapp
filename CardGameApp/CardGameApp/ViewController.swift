@@ -41,30 +41,24 @@ class ViewController: UIViewController {
                                                selector: #selector(updatePileStackView),
                                                name: .cardStackDidChange,
                                                object: nil)
+        
+        mapping()
         klondike.setUp()
     }
     
-    //MARK: Private
+    //MARK: Notification
     
     @objc private func updatePileStackView(_ noti: Notification) {
-        
         guard let userInfo = noti.userInfo,
             let cards = userInfo[UserInfoKey.cards] as? [Card],
-            let stackType = userInfo[UserInfoKey.stackType] as? CardStackType else { return }
+            let stackType = userInfo[UserInfoKey.stackType] as? ObjectIdentifier,
+            let tag = Mapper.map[stackType],
+            let cardGameStackView = self.view.viewWithTag(tag) as? CardGameStackView & UIStackView else { return }
         
-        switch stackType {
-        case .pile:
-            pileStackView.update(cards: cards)
-        case .preview:
-            previewStackView.update(cards: cards)
-        case let .goals(type):
-            let goalStackView = goalsStackView.arrangedSubviews[type.rawValue - 1] as? PositionStackView
-            goalStackView?.update(cards: cards)
-        case let .columns(position):
-            let columnStackView = columnsStackView.arrangedSubviews[position] as? ColumnStackView
-            columnStackView?.update(cards: cards)
-        }
+        cardGameStackView.update(cards: cards)
     }
+    
+    //MARK: IBAction
     
     @IBAction func tapPileStackView(_ sender: Any) {
         self.klondike.flipCardsFromPileToPreview()
@@ -77,22 +71,39 @@ class ViewController: UIViewController {
             klondike.reset()
         }
     }
+    
+    //MARK: Private
+    
+    private func mapping() {
+        
+        guard let pileTag = Mapper.map[ObjectIdentifier(Pile.self)],
+            let previewTag = Mapper.map[ObjectIdentifier(Preview.self)],
+            let goalTag = Mapper.map[ObjectIdentifier(Goal.self)],
+            let columnTag = Mapper.map[ObjectIdentifier(Column.self)] else { return }
+        
+        pileStackView.tag = pileTag
+        previewStackView.tag = previewTag
+        goalsStackView.tag = goalTag
+        columnsStackView.tag = columnTag
+    }
 }
 
-protocol CardGameStackView where Self: UIStackView {
+protocol CardGameStackView {
     
     func add(cards: [Card])
 }
 
-extension CardGameStackView {
+extension CardGameStackView where Self: UIStackView {
     
-    func removeAllSubviews() {
+    private func removeAllSubviews() {
+        
         for subview in self.arrangedSubviews {
             subview.removeFromSuperview()
         }
     }
     
     func update(cards: [Card]) {
+        
         removeAllSubviews()
         add(cards: cards)
     }

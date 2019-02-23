@@ -10,7 +10,6 @@
 		7D1533BB2214022900C63283 /* Columns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1533BA2214022900C63283 /* Columns.swift */; };
 		7D1533BD2214036900C63283 /* Goals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1533BC2214036900C63283 /* Goals.swift */; };
 		7D1533BF22145FA600C63283 /* BackPositionStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1533BE22145FA600C63283 /* BackPositionStackView.swift */; };
-		7D46E3F922168AAF009B14A1 /* CardStackType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D46E3F822168AAF009B14A1 /* CardStackType.swift */; };
 		7D6E52F421FEBCB500DFC342 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E52F321FEBCB500DFC342 /* AppDelegate.swift */; };
 		7D6E52F621FEBCB500DFC342 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E52F521FEBCB500DFC342 /* ViewController.swift */; };
 		7D6E52F921FEBCB500DFC342 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E52F721FEBCB500DFC342 /* Main.storyboard */; };
@@ -33,6 +32,11 @@
 		7D6E535C21FEEC1D00DFC342 /* CardGameSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E534821FEEC1C00DFC342 /* CardGameSetter.swift */; };
 		7D6E535D21FEEC1D00DFC342 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E534921FEEC1C00DFC342 /* Deck.swift */; };
 		7D6E535F21FF541A00DFC342 /* BlankSpaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E535E21FF541A00DFC342 /* BlankSpaceView.swift */; };
+		7D713BDD221E489D00D7A240 /* Pile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D713BDC221E489D00D7A240 /* Pile.swift */; };
+		7D713BDF221E4A1900D7A240 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D713BDE221E4A1900D7A240 /* Preview.swift */; };
+		7D713BE1221E4AE200D7A240 /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D713BE0221E4AE200D7A240 /* Mapper.swift */; };
+		7D713BE3221E4B3C00D7A240 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D713BE2221E4B3C00D7A240 /* Goal.swift */; };
+		7D713BE5221E4B4F00D7A240 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D713BE4221E4B4F00D7A240 /* Column.swift */; };
 		7D7BD3AF220C377F003B5656 /* Klondike.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D7BD3AE220C377F003B5656 /* Klondike.swift */; };
 		7DC47911220EA2CF0054B529 /* PositionStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC47910220EA2CF0054B529 /* PositionStackView.swift */; };
 		7DC47913220EA41C0054B529 /* ExtensionNotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC47912220EA41C0054B529 /* ExtensionNotificationName.swift */; };
@@ -45,7 +49,6 @@
 		7D1533BA2214022900C63283 /* Columns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Columns.swift; sourceTree = "<group>"; };
 		7D1533BC2214036900C63283 /* Goals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goals.swift; sourceTree = "<group>"; };
 		7D1533BE22145FA600C63283 /* BackPositionStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackPositionStackView.swift; sourceTree = "<group>"; };
-		7D46E3F822168AAF009B14A1 /* CardStackType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackType.swift; sourceTree = "<group>"; };
 		7D6E52F021FEBCB500DFC342 /* CardGameApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGameApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D6E52F321FEBCB500DFC342 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D6E52F521FEBCB500DFC342 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +73,11 @@
 		7D6E534821FEEC1C00DFC342 /* CardGameSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardGameSetter.swift; sourceTree = "<group>"; };
 		7D6E534921FEEC1C00DFC342 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		7D6E535E21FF541A00DFC342 /* BlankSpaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankSpaceView.swift; sourceTree = "<group>"; };
+		7D713BDC221E489D00D7A240 /* Pile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pile.swift; sourceTree = "<group>"; };
+		7D713BDE221E4A1900D7A240 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
+		7D713BE0221E4AE200D7A240 /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		7D713BE2221E4B3C00D7A240 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		7D713BE4221E4B4F00D7A240 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		7D7BD3AE220C377F003B5656 /* Klondike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Klondike.swift; sourceTree = "<group>"; };
 		7DC47910220EA2CF0054B529 /* PositionStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionStackView.swift; sourceTree = "<group>"; };
 		7DC47912220EA41C0054B529 /* ExtensionNotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionNotificationName.swift; sourceTree = "<group>"; };
@@ -89,6 +97,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7D41AE1622211B6E00D3C988 /* CardStack */ = {
+			isa = PBXGroup;
+			children = (
+				7D6E533821FEEC1A00DFC342 /* CardStack.swift */,
+				7D713BE2221E4B3C00D7A240 /* Goal.swift */,
+				7D713BE4221E4B4F00D7A240 /* Column.swift */,
+				7D713BDC221E489D00D7A240 /* Pile.swift */,
+				7D713BDE221E4A1900D7A240 /* Preview.swift */,
+			);
+			path = CardStack;
+			sourceTree = "<group>";
+		};
 		7D6E52E721FEBCB500DFC342 = {
 			isa = PBXGroup;
 			children = (
@@ -112,7 +132,7 @@
 				7D6E52F521FEBCB500DFC342 /* ViewController.swift */,
 				7D6E52F721FEBCB500DFC342 /* Main.storyboard */,
 				7D6E52FA21FEBCB600DFC342 /* Assets.xcassets */,
-				7D46E3F822168AAF009B14A1 /* CardStackType.swift */,
+				7D713BE0221E4AE200D7A240 /* Mapper.swift */,
 				7D7BD3B4220D6F2F003B5656 /* Model */,
 				7D7BD3BB220E8D74003B5656 /* View */,
 				7DC47914220EAB220054B529 /* Extension */,
@@ -159,7 +179,7 @@
 				7D1533BC2214036900C63283 /* Goals.swift */,
 				7D1533BA2214022900C63283 /* Columns.swift */,
 				7D6E534921FEEC1C00DFC342 /* Deck.swift */,
-				7D6E533821FEEC1A00DFC342 /* CardStack.swift */,
+				7D41AE1622211B6E00D3C988 /* CardStack */,
 				7D6E533D21FEEC1B00DFC342 /* Card.swift */,
 			);
 			path = Model;
@@ -263,10 +283,12 @@
 				7D1533BB2214022900C63283 /* Columns.swift in Sources */,
 				7D7BD3AF220C377F003B5656 /* Klondike.swift in Sources */,
 				7DC47916220EABD80054B529 /* UserInfoKey.swift in Sources */,
+				7D713BDD221E489D00D7A240 /* Pile.swift in Sources */,
+				7D713BE3221E4B3C00D7A240 /* Goal.swift in Sources */,
+				7D713BE1221E4AE200D7A240 /* Mapper.swift in Sources */,
 				7D6E535021FEEC1D00DFC342 /* GamePlayer.swift in Sources */,
 				7D6E534B21FEEC1D00DFC342 /* Suit.swift in Sources */,
 				7D6E534A21FEEC1D00DFC342 /* Rank.swift in Sources */,
-				7D46E3F922168AAF009B14A1 /* CardStackType.swift in Sources */,
 				7DC47911220EA2CF0054B529 /* PositionStackView.swift in Sources */,
 				7D6E534E21FEEC1D00DFC342 /* GameOperator.swift in Sources */,
 				7D6E535221FEEC1D00DFC342 /* Card.swift in Sources */,
@@ -278,7 +300,9 @@
 				7D6E535D21FEEC1D00DFC342 /* Deck.swift in Sources */,
 				7D6E535C21FEEC1D00DFC342 /* CardGameSetter.swift in Sources */,
 				7D1533BD2214036900C63283 /* Goals.swift in Sources */,
+				7D713BDF221E4A1900D7A240 /* Preview.swift in Sources */,
 				7D6E535521FEEC1D00DFC342 /* CardGameDeck.swift in Sources */,
+				7D713BE5221E4B4F00D7A240 /* Column.swift in Sources */,
 				7DC47913220EA41C0054B529 /* ExtensionNotificationName.swift in Sources */,
 				7D6E535A21FEEC1D00DFC342 /* GameType.swift in Sources */,
 				7D6E535B21FEEC1D00DFC342 /* NumberOfParticipant.swift in Sources */,

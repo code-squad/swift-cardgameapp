@@ -14,8 +14,8 @@ class Klondike {
     //MARK: Private
     
     private var goals = Goals()
-    private var preview = CardStack(type: .preview)
-    private var pile = CardStack(type: .pile)
+    private var preview = Preview()
+    private var pile = Pile()
     private var columns = Columns()
     
     //MARK: - Methods
