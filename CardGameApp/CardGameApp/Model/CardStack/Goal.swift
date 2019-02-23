@@ -10,4 +10,9 @@ import Foundation
 
 class Goal: CardStack {
     
+    private let position: Suit
+    
+    init(suit: Suit) {
+        self.position = suit
+    }
 }

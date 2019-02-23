@@ -19,18 +19,16 @@ class Goals {
     //MARK: Initialization
     
     init() {
-        
         var goals: [Suit: Goal] = [:]
         
         for suit in Suit.allCases {
-            goals[suit] = Goal()
+            goals[suit] = Goal(suit: suit)
         }
         
         self.goals = goals
     }
     
     func emptyAll() {
-        
         for stack in goals.values {
             stack.empty()
         }

@@ -21,7 +21,6 @@ class Klondike {
     //MARK: - Methods
     
     func setUp() {
-        
         var deck = Deck()
         deck.shuffle()
         
@@ -37,7 +36,6 @@ class Klondike {
     }
     
     func reset() {
-        
         goals.emptyAll()
         preview.empty()
         pile.empty()
@@ -47,7 +45,6 @@ class Klondike {
     }
     
     func flipCardsFromPileToPreview() {
-        
         guard let card = self.pile.pop() else { return }
         self.preview.push(card: card)
     }

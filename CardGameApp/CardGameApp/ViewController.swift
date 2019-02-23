@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     }
     
     //MARK: Life Cycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -38,17 +38,17 @@ class ViewController: UIViewController {
         self.view.backgroundColor = UIColor(patternImage: image)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updatePileStackView),
+                                               selector: #selector(updateCardGameStackView),
                                                name: .cardStackDidChange,
                                                object: nil)
         
-        mapping()
+        mappingViewsAndTags()
         klondike.setUp()
     }
     
     //MARK: Notification
     
-    @objc private func updatePileStackView(_ noti: Notification) {
+    @objc private func updateCardGameStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
             let cards = userInfo[UserInfoKey.cards] as? [Card],
             let stackType = userInfo[UserInfoKey.stackType] as? ObjectIdentifier,
@@ -74,8 +74,7 @@ class ViewController: UIViewController {
     
     //MARK: Private
     
-    private func mapping() {
-        
+    private func mappingViewsAndTags() {
         guard let pileTag = Mapper.map[ObjectIdentifier(Pile.self)],
             let previewTag = Mapper.map[ObjectIdentifier(Preview.self)],
             let goalTag = Mapper.map[ObjectIdentifier(Goal.self)],
@@ -83,27 +82,34 @@ class ViewController: UIViewController {
         
         pileStackView.tag = pileTag
         previewStackView.tag = previewTag
-        goalsStackView.tag = goalTag
-        columnsStackView.tag = columnTag
+        goalsStackView.addTagToArrangedSubviews(goalTag)
+        columnsStackView.addTagToArrangedSubviews(columnTag)
+    }
+}
+
+extension UIStackView {
+    
+    func addTagToArrangedSubviews(_ superTag: Int) {
+        for index in arrangedSubviews.startIndex..<arrangedSubviews.endIndex {
+            let position = index + 1
+            arrangedSubviews[index].tag = superTag + position
+        }
     }
 }
 
 protocol CardGameStackView {
-    
     func add(cards: [Card])
 }
 
 extension CardGameStackView where Self: UIStackView {
     
     private func removeAllSubviews() {
-        
         for subview in self.arrangedSubviews {
             subview.removeFromSuperview()
         }
     }
     
     func update(cards: [Card]) {
-        
         removeAllSubviews()
         add(cards: cards)
     }

@@ -19,11 +19,11 @@ class Columns {
     //MARK: Initialization
     
     init(countOfColumns: Int = 7) {
-        
         var columns = [Column]()
         
-        for _ in 0..<countOfColumns {
-            columns.append(Column())
+        for index in 0..<countOfColumns {
+            let position = index + 1
+            columns.append(Column(position: position))
         }
         
         self.columns = columns
@@ -32,12 +32,10 @@ class Columns {
     //MARK: Instance
     
     func add(stack: CardStack, to position: Int) {
-        
         self.columns[position].put(stack: stack)
     }
     
     func emptyAll() {
-        
         for stack in columns {
             stack.empty()
         }

@@ -10,8 +10,8 @@ import Foundation
 
 struct Mapper {
     
-    static let map: [ObjectIdentifier: Int] = [ObjectIdentifier(Goal.self): 1,
-                                               ObjectIdentifier(Preview.self): 2,
-                                               ObjectIdentifier(Pile.self): 3,
-                                               ObjectIdentifier(Column.self): 4,]
+    static let map: [ObjectIdentifier: Int] = [ObjectIdentifier(Goal.self): 10,
+                                               ObjectIdentifier(Preview.self): 20,
+                                               ObjectIdentifier(Pile.self): 30,
+                                               ObjectIdentifier(Column.self): 40,]
 }

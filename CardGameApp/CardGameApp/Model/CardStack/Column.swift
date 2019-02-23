@@ -10,4 +10,9 @@ import Foundation
 
 class Column: CardStack {
     
+    private let position: Int
+    
+    init(position: Int) {
+        self.position = position
+    }
 }
