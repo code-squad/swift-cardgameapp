@@ -15,4 +15,5 @@ class Goal: CardStack {
     init(suit: Suit) {
         self.position = suit
     }
+    
 }

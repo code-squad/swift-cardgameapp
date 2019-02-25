@@ -33,16 +33,18 @@ class CardStack : CustomStringConvertible {
         self.cards = cards
     }
     
-    //MARK: Private
+    func postData() {
+        NotificationCenter.default.post(name: .cardStackDidChange,
+                                        object: self,
+                                        userInfo: self.userInfo())
+    }
     
-    private func postData() {
-        
+    func userInfo() -> [AnyHashable: Any] {
         let selfType = type(of: self)
         let userInfo: [String: Any] = [UserInfoKey.cards: self.cards,
                                        UserInfoKey.stackType: ObjectIdentifier(selfType),]
-        NotificationCenter.default.post(name: .cardStackDidChange,
-                                        object: self,
-                                        userInfo: userInfo)
+        
+        return userInfo
     }
     
     //MARK: Instance
