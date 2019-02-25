@@ -52,8 +52,10 @@ class ViewController: UIViewController {
         guard let userInfo = noti.userInfo,
             let cards = userInfo[UserInfoKey.cards] as? [Card],
             let stackType = userInfo[UserInfoKey.stackType] as? ObjectIdentifier,
-            let tag = Mapper.map[stackType],
-            let cardGameStackView = self.view.viewWithTag(tag) as? CardGameStackView & UIStackView else { return }
+            let typeTag = Mapper.map[stackType] else { return }
+        let position = (userInfo[UserInfoKey.position] as? Int) ?? 0
+        let tag = typeTag + position
+        guard let cardGameStackView = self.view.viewWithTag(tag) as? CardGameStackView & UIStackView else { return }
         
         cardGameStackView.update(cards: cards)
     }

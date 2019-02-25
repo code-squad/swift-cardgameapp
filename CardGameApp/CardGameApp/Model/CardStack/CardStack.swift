@@ -15,7 +15,7 @@ class CardStack : CustomStringConvertible {
 
     private var cards : [Card] {
         didSet {
-            postData()
+            postInfo()
         }
     }
     
@@ -33,7 +33,7 @@ class CardStack : CustomStringConvertible {
         self.cards = cards
     }
     
-    func postData() {
+    func postInfo() {
         NotificationCenter.default.post(name: .cardStackDidChange,
                                         object: self,
                                         userInfo: self.userInfo())

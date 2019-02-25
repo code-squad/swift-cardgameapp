@@ -8,11 +8,18 @@
 
 import Foundation
 
-class Column: CardStack {
+class Column: CardStackOfStack {
     
     private let position: Int
     
     init(position: Int) {
         self.position = position
+    }
+    
+    override func postInfo() {
+        let userInfo = self.userInfo(position: position)
+        NotificationCenter.default.post(name: .cardStackDidChange,
+                                        object: self,
+                                        userInfo: userInfo)
     }
 }

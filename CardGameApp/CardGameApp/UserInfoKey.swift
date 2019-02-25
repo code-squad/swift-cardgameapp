@@ -12,4 +12,5 @@ struct UserInfoKey {
     
     static let cards = "cards"
     static let stackType = "stackType"
+    static let position = "position"
 }

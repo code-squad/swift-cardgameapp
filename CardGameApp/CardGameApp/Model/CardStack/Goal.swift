@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Goal: CardStack {
+class Goal: CardStackOfStack {
     
     private let position: Suit
     
@@ -16,4 +16,10 @@ class Goal: CardStack {
         self.position = suit
     }
     
+    override func postInfo() {
+        let userInfo = self.userInfo(position: position.rawValue)
+        NotificationCenter.default.post(name: .cardStackDidChange,
+                                        object: self,
+                                        userInfo: userInfo)
+    }
 }
