@@ -14,4 +14,9 @@ extension Notification.Name {
     static let pileDidChange = Notification.Name("pileDidChange")
     static let previewDidChange = Notification.Name("previewDidChange")
     static let columnDidChange = Notification.Name("columnDidChange")
+    
+    static let doubleTapCardView = Notification.Name("doubleTapCardView")
+    static let doubleTapPreviewView = Notification.Name("doubleTapPreviewView")
+    static let doubleTapGoalView = Notification.Name("doubleTapGoalView")
+    static let doubleTapColumnView = Notification.Name("doubleTapColumnView")
 }

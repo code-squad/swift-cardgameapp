@@ -51,6 +51,21 @@ class ViewController: UIViewController {
                                                name: .columnDidChange,
                                                object: nil)
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(movePreview),
+                                               name: .doubleTapPreviewView,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(moveGoal),
+                                               name: .doubleTapGoalView,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(moveColumn),
+                                               name: .doubleTapColumnView,
+                                               object: nil)
+        
         klondike.setUp()
     }
     
@@ -78,6 +93,21 @@ class ViewController: UIViewController {
             let stackView = columnsStackView.arrangedSubviews[position] as? CardGameStackView & UIStackView else { return }
 
         stackView.update(cards: cards)
+    }
+    
+    @objc private func movePreview(_ noti: Notification) {
+        guard let cardView = noti.object as? CardImageView else { return }
+        
+    }
+    
+    @objc private func moveGoal(_ noti: Notification) {
+        guard let cardView = noti.object as? CardImageView else { return }
+        
+    }
+    
+    @objc private func moveColumn(_ noti: Notification) {
+        guard let cardView = noti.object as? CardImageView else { return }
+        
     }
     
     //MARK: IBAction

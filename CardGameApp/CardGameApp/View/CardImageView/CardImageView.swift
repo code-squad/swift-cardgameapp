@@ -58,9 +58,16 @@ class CardImageView: UIImageView {
         self.addGestureRecognizer(tap)
     }
     
+    //MARK: Private
+    
     @objc private func doubleTapCardView() {
         guard isFront else { return }
-        
+        postInfo()
+    }
+    
+    func postInfo() {
+        NotificationCenter.default.post(name: .doubleTapCardView,
+                                        object: self)
     }
     
     //MARK: Instance

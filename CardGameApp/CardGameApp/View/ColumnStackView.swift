@@ -24,7 +24,7 @@ class ColumnStackView: UIStackView, CardGameStackView {
     func add(cards: [Card]) {
         
         for card in cards {
-            let cardView = CardImageView(card: card)
+            let cardView = ColumnView(card: card)
             cardView.flip()
             if card === cards.last {
                 cardView.flip()
