@@ -10,4 +10,9 @@ import Foundation
 
 class Goal: CardStack {
 
+    override func postInfo() {
+        NotificationCenter.default.post(name: .goalDidChange,
+                                        object: self,
+                                        userInfo: self.userInfo())
+    }
 }

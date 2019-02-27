@@ -55,6 +55,10 @@ class Klondike {
         return self.columns.position(of: column)
     }
     
+    func position(of goal: Goal) -> Int? {
+        return self.goals.position(of: goal)
+    }
+    
     func movePreviewTopCard() {
         guard let topCardOfPreview = self.preview.peek() else { return }
         if topCardOfPreview.isA() {

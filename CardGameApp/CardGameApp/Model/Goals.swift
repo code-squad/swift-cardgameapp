@@ -37,4 +37,8 @@ class Goals {
     func add(card: Card) {
         goals.first?.push(card: card)
     }
+    
+    func position(of cardStack: CardStack) -> Int? {
+        return self.goals.firstIndex(where: {$0===cardStack})
+    }
 }

@@ -52,6 +52,11 @@ class ViewController: UIViewController {
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateGoalsStackView),
+                                               name: .goalDidChange,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
                                                selector: #selector(movePreview),
                                                name: .doubleTapPreviewView,
                                                object: nil)
@@ -92,6 +97,16 @@ class ViewController: UIViewController {
             let position = klondike.position(of: sender),
             let stackView = columnsStackView.arrangedSubviews[position] as? CardGameStackView & UIStackView else { return }
 
+        stackView.update(cards: cards)
+    }
+    
+    @objc private func updateGoalsStackView(_ noti: Notification) {
+        guard let userInfo = noti.userInfo,
+            let cards = userInfo[UserInfoKey.cards] as? [Card],
+            let sender = noti.object as? Goal,
+            let position = klondike.position(of: sender),
+            let stackView = goalsStackView.arrangedSubviews[position] as? CardGameStackView & UIStackView else { return }
+        
         stackView.update(cards: cards)
     }
     
