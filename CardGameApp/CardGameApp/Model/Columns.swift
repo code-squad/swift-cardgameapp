@@ -13,7 +13,7 @@ class Columns {
     //MARK: - Properties
     //MARK: Pirvate
     
-    private var columns: [CardStack]
+    private var columns: [Column]
     
     //MARK: - Methods
     //MARK: Initialization
@@ -38,5 +38,9 @@ class Columns {
         for stack in columns {
             stack.empty()
         }
+    }
+    
+    func position(of cardStack: CardStack) -> Int? {
+        return self.columns.firstIndex(where: {$0===cardStack})
     }
 }

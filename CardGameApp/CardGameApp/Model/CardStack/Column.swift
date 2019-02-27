@@ -10,4 +10,9 @@ import Foundation
 
 class Column: CardStack {
 
+    override func postInfo() {
+        NotificationCenter.default.post(name: .columnDidChange,
+                                        object: self,
+                                        userInfo: self.userInfo())
+    }
 }

@@ -20,9 +20,9 @@ class ViewController: UIViewController {
     
     //MARK: Instance
     
-    private var goals = Goals()
-    private var preview = Preview()
     private var pile = Pile()
+    private var preview = Preview()
+    private var goals = Goals()
     private var columns = Columns()
     
     //MARK: - Methods
@@ -41,19 +41,47 @@ class ViewController: UIViewController {
         self.view.backgroundColor = UIColor(patternImage: image)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateCardGameStackView),
+                                               selector: #selector(updatePileStackView),
                                                name: .cardStackDidChange,
                                                object: self.pile)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updatePreviewStackView),
+                                               name: .cardStackDidChange,
+                                               object: self.preview)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateColumnsStackView),
+                                               name: .columnDidChange,
+                                               object: nil)
+        
         self.setUp()
     }
     
     //MARK: Notification
     
-    @objc private func updateCardGameStackView(_ noti: Notification) {
+    @objc private func updatePileStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
             let cards = userInfo[UserInfoKey.cards] as? [Card] else { return }
         
         self.pileStackView.update(cards: cards)
+    }
+    
+    @objc private func updatePreviewStackView(_ noti: Notification) {
+        guard let userInfo = noti.userInfo,
+            let cards = userInfo[UserInfoKey.cards] as? [Card] else { return }
+        
+        self.previewStackView.update(cards: cards)
+    }
+    
+    @objc private func updateColumnsStackView(_ noti: Notification) {
+        guard let userInfo = noti.userInfo,
+            let cards = userInfo[UserInfoKey.cards] as? [Card],
+            let sender = noti.object as? CardStack,
+            let position = columns.position(of: sender),
+            let stackView = columnsStackView.arrangedSubviews[position] as? CardGameStackView & UIStackView else { return }
+
+        stackView.update(cards: cards)
     }
     
     //MARK: IBAction

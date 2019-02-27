@@ -11,4 +11,5 @@ import Foundation
 extension Notification.Name {
     
     static let cardStackDidChange = Notification.Name("cardStackDidChange")
+    static let columnDidChange = Notification.Name("columnDidChange")
 }
