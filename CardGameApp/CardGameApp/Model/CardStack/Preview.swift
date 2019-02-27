@@ -10,4 +10,9 @@ import Foundation
 
 class Preview: CardStack {
     
+    override func postInfo() {
+        NotificationCenter.default.post(name: .previewDidChange,
+                                        object: self,
+                                        userInfo: self.userInfo())
+    }
 }

@@ -19,11 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var columnsStackView: UIStackView!
     
     //MARK: Instance
-    
-    private var pile = Pile()
-    private var preview = Preview()
-    private var goals = Goals()
-    private var columns = Columns()
+    private let klondike = Klondike()
     
     //MARK: - Methods
     //MARK: Setting
@@ -42,20 +38,20 @@ class ViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updatePileStackView),
-                                               name: .cardStackDidChange,
-                                               object: self.pile)
+                                               name: .pileDidChange,
+                                               object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updatePreviewStackView),
-                                               name: .cardStackDidChange,
-                                               object: self.preview)
+                                               name: .previewDidChange,
+                                               object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateColumnsStackView),
                                                name: .columnDidChange,
                                                object: nil)
         
-        self.setUp()
+        klondike.setUp()
     }
     
     //MARK: Notification
@@ -77,8 +73,8 @@ class ViewController: UIViewController {
     @objc private func updateColumnsStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
             let cards = userInfo[UserInfoKey.cards] as? [Card],
-            let sender = noti.object as? CardStack,
-            let position = columns.position(of: sender),
+            let sender = noti.object as? Column,
+            let position = klondike.position(of: sender),
             let stackView = columnsStackView.arrangedSubviews[position] as? CardGameStackView & UIStackView else { return }
 
         stackView.update(cards: cards)
@@ -87,50 +83,14 @@ class ViewController: UIViewController {
     //MARK: IBAction
     
     @IBAction func tapPileStackView(_ sender: Any) {
-        guard let card = self.pile.pop() else {
-            pile.putWithReverse(stack: preview)
-            return
-        }
-        self.preview.push(card: card)
+        klondike.flipCardsFromThePileToPreview()
     }
     
     //MARK: Motion
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            goals.emptyAll()
-            preview.empty()
-            pile.empty()
-            columns.emptyAll()
-            
-            setUp()
-        }
-    }
-    
-    //MARK: Private
-    
-   private func setUp() {
-        var deck = Deck()
-        deck.shuffle()
-        
-        let rangeOfStack = 1...7
-        for few in rangeOfStack {
-            let stack = deck.draw(few: few)
-            let position = few - 1
-            self.columns.add(stack: stack, to: position)
-        }
-        
-        let stack = deck.remainingCards()
-        self.pile.put(stack: stack)
-    }
-}
-
-extension UIStackView {
-    
-    func addTagToArrangedSubviews(_ superTag: Int) {
-        for index in arrangedSubviews.startIndex..<arrangedSubviews.endIndex {
-            let position = index + 1
-            arrangedSubviews[index].tag = superTag + position
+            klondike.reset()
         }
     }
 }
