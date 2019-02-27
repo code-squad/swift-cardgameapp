@@ -94,6 +94,12 @@ class CardStack : CustomStringConvertible {
         self.cards.append(contentsOf: cards)
     }
     
+    func putWithReverse(stack: CardStack) {
+        let cards = stack.cards.reversed()
+        stack.cards.removeAll()
+        self.cards.append(contentsOf: cards)
+    }
+    
     func empty() {
         self.cards.removeAll()
     }

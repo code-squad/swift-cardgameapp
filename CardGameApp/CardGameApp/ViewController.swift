@@ -87,7 +87,10 @@ class ViewController: UIViewController {
     //MARK: IBAction
     
     @IBAction func tapPileStackView(_ sender: Any) {
-        guard let card = self.pile.pop() else { return }
+        guard let card = self.pile.pop() else {
+            pile.putWithReverse(stack: preview)
+            return
+        }
         self.preview.push(card: card)
     }
     
