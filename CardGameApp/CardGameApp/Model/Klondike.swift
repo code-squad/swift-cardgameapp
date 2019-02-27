@@ -54,4 +54,9 @@ class Klondike {
     func position(of column: Column) -> Int? {
         return self.columns.position(of: column)
     }
+    
+    func movePreviewTopCard() {
+        
+    }
+
 }

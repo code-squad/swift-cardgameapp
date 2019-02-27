@@ -96,8 +96,7 @@ class ViewController: UIViewController {
     }
     
     @objc private func movePreview(_ noti: Notification) {
-        guard let cardView = noti.object as? CardImageView else { return }
-        
+        klondike.movePreviewTopCard()
     }
     
     @objc private func moveGoal(_ noti: Notification) {

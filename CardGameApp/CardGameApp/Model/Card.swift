@@ -44,4 +44,32 @@ class Card : CustomStringConvertible {
         guard let rhs = rhs else { return false }
         return lhs.rank == rhs.rank && lhs.suit == rhs.suit
     }
+    
+    func isA() -> Bool {
+        return self.rank == .A
+    }
+    
+    func isK() -> Bool {
+        return self.rank == .K
+    }
+    
+    func isMoveableToGoals(_ card: Card) -> Bool {
+        return isOneStepDownRank(card: card) && isDifferentColor(card: card)
+    }
+    
+    func isMoveableToColumns(_ card: Card) -> Bool {
+        return isOneStepUpRank(card: card) && isDifferentColor(card: card)
+    }
+    
+    private func isOneStepDownRank(card: Card) -> Bool {
+        return card.rank.rawValue == self.rank.rawValue - 1
+    }
+    
+    private func isOneStepUpRank(card: Card) -> Bool {
+        return card.rank.rawValue == self.rank.rawValue + 1
+    }
+    
+    private func isDifferentColor(card: Card) -> Bool {
+        return card.suit.color() != self.suit.color()
+    }
 }

@@ -13,23 +13,23 @@ class Goals {
     //MARK: - Properties
     //MARK: Private
     
-    private var goals: [Suit: Goal]
+    private var goals: [Goal]
     
     //MARK: - Methods
     //MARK: Initialization
     
     init() {
-        var goals: [Suit: Goal] = [:]
+        var goals = [Goal]()
         
-        for suit in Suit.allCases {
-            goals[suit] = Goal()
+        for _ in Suit.allCases {
+            goals.append(Goal())
         }
         
         self.goals = goals
     }
     
     func emptyAll() {
-        for stack in goals.values {
+        for stack in goals {
             stack.empty()
         }
     }

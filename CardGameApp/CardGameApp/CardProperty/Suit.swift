@@ -41,4 +41,18 @@ enum Suit : Int, CustomStringConvertible, CaseIterable {
             return "s"
         }
     }
+    
+    func color() -> SuitColor {
+        switch self {
+        case .clubs, .spades:
+            return .black
+        case .diamonds, .hearts:
+            return .red
+        }
+    }
+}
+
+enum SuitColor {
+    case black
+    case red
 }
