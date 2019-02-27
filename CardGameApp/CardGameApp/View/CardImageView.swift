@@ -52,13 +52,13 @@ class CardImageView: UIImageView {
     }
     
     private func addTapGesture() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTappedCardView))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTapCardView))
         tap.numberOfTapsRequired = 2
         self.isUserInteractionEnabled = true
         self.addGestureRecognizer(tap)
     }
     
-    @objc private func doubleTappedCardView() {
+    @objc private func doubleTapCardView() {
         guard isFront else { return }
         
     }
