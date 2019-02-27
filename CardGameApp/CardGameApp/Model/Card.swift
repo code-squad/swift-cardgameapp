@@ -72,4 +72,8 @@ class Card : CustomStringConvertible {
     private func isDifferentColor(card: Card) -> Bool {
         return card.suit.color() != self.suit.color()
     }
+    
+    func isSameSuit(_ card: Card) -> Bool {
+        return card.suit == self.suit
+    }
 }

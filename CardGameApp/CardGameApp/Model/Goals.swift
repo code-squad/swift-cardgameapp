@@ -33,4 +33,8 @@ class Goals {
             stack.empty()
         }
     }
+    
+    func add(card: Card) {
+        goals.first?.push(card: card)
+    }
 }
