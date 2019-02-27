@@ -14,21 +14,19 @@ class CardImageView: UIImageView {
     //MARK: Private
     
     private var backImage: UIImage? = UIImage(named: "card_back")
-    private var isFront: Bool = false
+    private var isFront: Bool = true
     
     //MARK: - Methods
     //MARK: Initialization
     
     override init(image: UIImage?) {
         super.init(image: image)
-        
-        addAspectRatioConstraint()
+        addSetting()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        addAspectRatioConstraint()
+        addSetting()
     }
     
     convenience init(card: Card) {
@@ -37,9 +35,12 @@ class CardImageView: UIImageView {
     }
     
     //MARK: Private
+    private func addSetting() {
+        addAspectRatioConstraint()
+        addTapGesture()
+    }
     
     private func addAspectRatioConstraint() {
-        
         let aspectRatioConstraint = NSLayoutConstraint(item: self,
                                                        attribute: .height,
                                                        relatedBy: .equal,
@@ -48,6 +49,18 @@ class CardImageView: UIImageView {
                                                        multiplier: 1.27,
                                                        constant: 0)
         self.addConstraint(aspectRatioConstraint)
+    }
+    
+    private func addTapGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(doubleTappedCardView))
+        tap.numberOfTapsRequired = 2
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(tap)
+    }
+    
+    @objc private func doubleTappedCardView() {
+        guard isFront else { return }
+        
     }
     
     //MARK: Instance
@@ -61,7 +74,6 @@ class CardImageView: UIImageView {
 infix operator <>
 
 func <>(lhs: inout UIImage?, rhs: inout UIImage?) {
-    
     let temp = lhs
     lhs = rhs
     rhs = temp
