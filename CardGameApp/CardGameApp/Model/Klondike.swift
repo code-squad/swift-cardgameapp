@@ -60,11 +60,14 @@ class Klondike {
     }
     
     func movePreviewTopCard() {
-        guard let topCardOfPreview = self.preview.peek() else { return }
-        if topCardOfPreview.isA() {
+        guard let card = self.preview.peek() else { return }
+        if card.isA() {
             guard let card = self.preview.pop() else { return }
             goals.add(card: card)
+        } else if card.isK() {
+            
         }
+        
     }
 
 }

@@ -103,4 +103,8 @@ class CardStack : CustomStringConvertible {
     func empty() {
         self.cards.removeAll()
     }
+    
+    func isEmpty() -> Bool {
+        return self.cards.isEmpty
+    }
 }
