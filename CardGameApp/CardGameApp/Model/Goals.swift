@@ -22,7 +22,7 @@ class Goals {
         var goals: [Suit: Goal] = [:]
         
         for suit in Suit.allCases {
-            goals[suit] = Goal(suit: suit)
+            goals[suit] = Goal()
         }
         
         self.goals = goals

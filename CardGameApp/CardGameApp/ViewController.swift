@@ -20,7 +20,10 @@ class ViewController: UIViewController {
     
     //MARK: Instance
     
-    var klondike: Klondike = Klondike()
+    private var goals = Goals()
+    private var preview = Preview()
+    private var pile = Pile()
+    private var columns = Columns()
     
     //MARK: - Methods
     //MARK: Setting
@@ -40,52 +43,54 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateCardGameStackView),
                                                name: .cardStackDidChange,
-                                               object: nil)
-        
-        mappingViewsAndTags()
-        klondike.setUp()
+                                               object: self.pile)
+        self.setUp()
     }
     
     //MARK: Notification
     
     @objc private func updateCardGameStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
-            let cards = userInfo[UserInfoKey.cards] as? [Card],
-            let stackType = userInfo[UserInfoKey.stackType] as? ObjectIdentifier,
-            let typeTag = Mapper.map[stackType] else { return }
-        let position = (userInfo[UserInfoKey.position] as? Int) ?? 0
-        let tag = typeTag + position
-        guard let cardGameStackView = self.view.viewWithTag(tag) as? CardGameStackView & UIStackView else { return }
+            let cards = userInfo[UserInfoKey.cards] as? [Card] else { return }
         
-        cardGameStackView.update(cards: cards)
+        self.pileStackView.update(cards: cards)
     }
     
     //MARK: IBAction
     
     @IBAction func tapPileStackView(_ sender: Any) {
-        self.klondike.flipCardsFromPileToPreview()
+        guard let card = self.pile.pop() else { return }
+        self.preview.push(card: card)
     }
     
     //MARK: Motion
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            klondike.reset()
+            goals.emptyAll()
+            preview.empty()
+            pile.empty()
+            columns.emptyAll()
+            
+            setUp()
         }
     }
     
     //MARK: Private
     
-    private func mappingViewsAndTags() {
-        guard let pileTag = Mapper.map[ObjectIdentifier(Pile.self)],
-            let previewTag = Mapper.map[ObjectIdentifier(Preview.self)],
-            let goalTag = Mapper.map[ObjectIdentifier(Goal.self)],
-            let columnTag = Mapper.map[ObjectIdentifier(Column.self)] else { return }
+   private func setUp() {
+        var deck = Deck()
+        deck.shuffle()
         
-        pileStackView.tag = pileTag
-        previewStackView.tag = previewTag
-        goalsStackView.addTagToArrangedSubviews(goalTag)
-        columnsStackView.addTagToArrangedSubviews(columnTag)
+        let rangeOfStack = 1...7
+        for few in rangeOfStack {
+            let stack = deck.draw(few: few)
+            let position = few - 1
+            self.columns.add(stack: stack, to: position)
+        }
+        
+        let stack = deck.remainingCards()
+        self.pile.put(stack: stack)
     }
 }
 

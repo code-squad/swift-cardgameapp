@@ -40,9 +40,7 @@ class CardStack : CustomStringConvertible {
     }
     
     func userInfo() -> [AnyHashable: Any] {
-        let selfType = type(of: self)
-        let userInfo: [String: Any] = [UserInfoKey.cards: self.cards,
-                                       UserInfoKey.stackType: ObjectIdentifier(selfType),]
+        let userInfo: [String: Any] = [UserInfoKey.cards: self.cards,]
         
         return userInfo
     }

@@ -21,9 +21,8 @@ class Columns {
     init(countOfColumns: Int = 7) {
         var columns = [Column]()
         
-        for index in 0..<countOfColumns {
-            let position = index + 1
-            columns.append(Column(position: position))
+        for _ in 0..<countOfColumns {
+            columns.append(Column())
         }
         
         self.columns = columns
