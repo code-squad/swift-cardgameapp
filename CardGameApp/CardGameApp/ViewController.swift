@@ -39,13 +39,13 @@ class ViewController: UIViewController {
     
     private func initialReversedView() {
         let positionX = Int(spacesView!.frame.maxX) + Int((deckView!.frame.minX - spacesView!.frame.maxX)) / 2 - Sizes.cardWitdh / 2
-        reversedCardsView = ReversedCardsView(frame: CGRect(x: positionX, y: 20, width: Sizes.cardWitdh, height: Sizes.cardHeight))
+        reversedCardsView = ReversedCardsView(frame: CGRect(x: positionX, y: Sizes.viewFirstY, width: Sizes.cardWitdh, height: Sizes.cardHeight))
         self.view.addSubview(reversedCardsView!)
     }
     
     private func initialDeckView() {
-        let positionX = 16 + Sizes.cardWitdh * 6 + 5 * 6
-        let positionY = 20
+        let positionX = Sizes.viewFirstX + Sizes.cardWitdh * 6 + 5 * 6
+        let positionY = Sizes.viewFirstY
         deckView = CardDeckView(frame: CGRect(x: positionX, y: positionY, width: Sizes.cardWitdh, height: Sizes.cardHeight), cardDeck)
         self.view.addSubview(deckView!)
     }
@@ -72,12 +72,14 @@ class ViewController: UIViewController {
             spaces.append(spaceView)
         }
         let spacesViewWidth = Sizes.cardWitdh * spaces.count + (spaces.count-1) * 5
-        spacesView = CardStacksView(frame: CGRect(x: 16, y: 20, width: spacesViewWidth, height: Sizes.cardHeight), spaces)
+        spacesView = CardStacksView(frame: CGRect(x: Sizes.viewFirstX, y: Sizes.viewFirstY, width: spacesViewWidth, height: Sizes.cardHeight), spaces)
         self.view.addSubview(spacesView!)
     }
     
     private func initialViews() {
-        cardStacksView = CardStacksView(frame: CGRect(x: 16, y: 100, width: 378, height: 620), cardStacks)
+        let width = Int(UIScreen.main.bounds.width) - Sizes.viewFirstX * 2
+        let height = Int(UIScreen.main.bounds.height) - Sizes.viewSecondY
+        cardStacksView = CardStacksView(frame: CGRect(x: Sizes.viewFirstX, y: Sizes.viewSecondY, width: width, height: height), cardStacks)
         self.view.addSubview(cardStacksView!)
     }
 }

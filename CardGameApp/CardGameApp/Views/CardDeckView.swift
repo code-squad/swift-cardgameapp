@@ -25,10 +25,11 @@ class CardDeckView: UIView {
         super.init(frame: frame)
     }
     
-    convenience init(frame: CGRect, _ cardDeck: CardDeck) {
-        self.init(frame: frame)
-        drawDeck(cardDeck)
+    init(frame: CGRect, _ cardDeck: CardDeck) {
+        deckView = []
+        super.init(frame: frame)
         drawRefresh()
+        drawDeck(cardDeck)
     }
     
     private func drawDeck(_ cardDeck: CardDeck) {
@@ -53,5 +54,6 @@ extension CardDeckView {
         guard deckView.count != 0 else { return }
         deckView.remove(at: deckView.count-1).removeFromSuperview()
         NotificationCenter.default.post(name: .touchedDeck, object: nil)
+        super.touchesEnded(touches, with: event)
     }
 }
