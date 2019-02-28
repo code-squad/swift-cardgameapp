@@ -46,7 +46,7 @@ class PlayDeckViewManager : UIView{
     
     /// 과거카드데이터를 받아서 해당 뷰 리턴
     func getView(pastCardData: PastCardData) -> UIView? {
-        return self.deckList[pastCardData.deckLine].getLastView()
+        return self.deckList[pastCardData.deckLine].lastView()
         
     }
 }
