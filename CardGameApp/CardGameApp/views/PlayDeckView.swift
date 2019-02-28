@@ -9,14 +9,6 @@
 import UIKit
 
 class PlayDeckView: UIStackView {
-
-    init(cardSize: CardSize, x: CGFloat, y: CGFloat){
-        super.init(frame: CGRect(origin: CGPoint(x: x, y: y), size: CGSize(width: cardSize.width, height: cardSize.height * 5)))
-    }
-    
-    required init(coder: NSCoder) {
-        super.init(coder: coder)
-    }
     
     /// 카드를 겹쳐보이게 뷰 추가시 세로위치를 조정해서 추가
     func addPlayCardview(_ view: UIView) {
@@ -48,6 +40,14 @@ class PlayDeckView: UIStackView {
         
         // 마지막뷰 리턴 
         return self.subviews.last
+    }
+    
+    /// 생성 후 세팅
+    func setting(cardSize: CardSize, x: CGFloat, y: CGFloat){
+        
+        self.frame.origin.x = x
+        self.frame.origin.y = y
+        self.frame.size = CGSize(width: cardSize.width, height: cardSize.height * 5)
     }
 }
 

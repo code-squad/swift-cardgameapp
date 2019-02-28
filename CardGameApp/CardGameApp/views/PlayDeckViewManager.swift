@@ -17,7 +17,8 @@ class PlayDeckViewManager : UIView{
     private func makeDeckViews(cardSize: CardSize, xPositions: [CGFloat], yPositions: [CGFloat]){
         for count in 0..<cardSize.maxCardCount {
             // 스택뷰 구성
-            let stackView = PlayDeckView(cardSize: cardSize, x: xPositions[count], y: yPositions[0])
+            let stackView = PlayDeckView()
+            stackView.setting(cardSize: cardSize, x: xPositions[count], y: yPositions[0])
             
             // 일반추가함
             self.addSubview(stackView)
