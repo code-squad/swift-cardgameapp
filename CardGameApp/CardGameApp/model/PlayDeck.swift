@@ -80,16 +80,6 @@ class PlayDeck {
         return nil
     }
     
-    /// 카드인포를 받아서 마지막 카드와 맞는지 체크. 맞으면 카드인포 리턴
-    func checkPickable(cardInfo: CardInfo) -> Card? {
-        // 같은 카드가 맞다면
-        if cardInfo.name() == self.cardList.last?.name() {
-            return self.cardList.last
-        } else {
-            return nil
-        }
-    }
-    
     /// 모든 카드의 카드정보를 리턴한다
     func getAllCardInfo() -> [CardInfo] {
         return self.cardList

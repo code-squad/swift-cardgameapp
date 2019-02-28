@@ -110,7 +110,7 @@ class GameBoard : DeckInfo {
         
         // 덱을 펼친다. 생성된 가로배열 만큼 반복
         for x in 0..<self.maxPlayCardLine {
-            // 1~ 가로배열 번호 만큼 카드를 추가. 실패시 닐 리턴
+            // 1~ 가로배열 번호 만큼 카드를 추가. 실패시 에러
             let popedLine = try setPlayCardLine(lineNumber: x)
             // 뽑은 라인 추가
             popedDeck.append(popedLine)
@@ -247,17 +247,6 @@ class GameBoard : DeckInfo {
         // 카드픽 결과가 있으면 카드리턴, 없으면 닐 리턴
         return pickedCard
     }
-    
-//    /// 카드 인포를 받아서 추가 가능한지 체크
-//    func checkPickable(cardInfo: CardInfo) -> Card? {
-//        let deckType = cardInfo.getDeckType()
-//        switch deckType {
-//            // 뽑기 가능 대상은 오픈덱, 플레이덱. 이외에는 불가능
-//        case .openedDeck : return self.openedDeck.checkPickable(cardInfo: cardInfo)
-//        case .playDeck : return self.playDeck.checkPickable(cardInfo: cardInfo)
-//        default : return nil
-//        }
-//    }
     
     /// 라인을 받아서 플레이덱 라인의 카드인포 배열 리턴
     func getPlayDeckLineCardInfos(line: Int) -> [CardInfo] {
