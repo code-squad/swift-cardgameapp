@@ -21,8 +21,9 @@ class CardStackView: UIView {
         super.init(frame: frame)
     }
     
-    convenience init(frame: CGRect, _ cardStack: CardStack) {
-        self.init(frame: frame)
+    init(frame: CGRect, _ cardStack: CardStack) {
+        cardViews = []
+        super.init(frame: frame)
         drawStack(cardStack)
     }
     
