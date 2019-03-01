@@ -25,10 +25,8 @@ class CardView : UIImageView, CardViewInfo {
     private let cardBackImage = #imageLiteral(resourceName: "card-back")
     /// 프레임 받아서 생성
     init(cardInfo: CardInfo, frame: CGRect){
-//        self.cardInfo = cardInfo
         self.cardViewModel = CardViewModel(cardInfo: cardInfo)
-//        let cardImage = UIImage(named: cardInfo.name()) ?? UIImage()
-//        self.cardFrontImage = cardImage
+        
         super.init(frame: frame)
         // 앞뒷면 상태에 따라 이미지 표시
         self.refreshImage()
@@ -37,9 +35,6 @@ class CardView : UIImageView, CardViewInfo {
     }
     /// 사이즈를 받아서 0,0 에 생성
     init(cardInfo: CardInfo, size: CGSize){
-//        self.cardInfo = cardInfo
-//        let cardImage = UIImage(named: cardInfo.name()) ?? UIImage()
-//        self.cardFrontImage = cardImage
         
         self.cardViewModel = CardViewModel(cardInfo: cardInfo)
         

@@ -28,7 +28,7 @@ class CardViewModel : CardInfo{
         self.cardFrontImage = cardImage
         self.currentImage = cardImage
         // 앞뒷면에 따라 이미지 변경
-        self.refreshImage()
+        let _ = self.refreshImage()
     }
     
     
@@ -40,7 +40,7 @@ class CardViewModel : CardInfo{
     /// 카드뷰를 뒤집을 경우 뒤집은 후의 이미지로 교체한다
     func flip(){
         self.cardInfo.flip()
-        refreshImage()
+        let _ = refreshImage()
     }
     
     /// 카드인포 내부에서 카드가 뒤집힐 경우를 위한 이미지 갱신
