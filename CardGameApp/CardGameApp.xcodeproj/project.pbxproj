@@ -33,6 +33,7 @@
 		D536E56821D4BB64004B7014 /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E56321D4BB64004B7014 /* GameBoard.swift */; };
 		D541055121E3328B00FC7470 /* CardSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541055021E3328B00FC7470 /* CardSize.swift */; };
 		D541055321E5D2D300FC7470 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541055221E5D2D300FC7470 /* Error.swift */; };
+		D55ADB312229106F004B4B92 /* PlayDeckViewManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55ADB302229106F004B4B92 /* PlayDeckViewManagerModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		D536E56321D4BB64004B7014 /* GameBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
 		D541055021E3328B00FC7470 /* CardSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSize.swift; sourceTree = "<group>"; };
 		D541055221E5D2D300FC7470 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		D55ADB302229106F004B4B92 /* PlayDeckViewManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayDeckViewManagerModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				D5297B642227EF8000452319 /* CardViewModel.swift */,
+				D55ADB302229106F004B4B92 /* PlayDeckViewManagerModel.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				D528F80F21FAE70F00AAF80F /* PlayDeck.swift in Sources */,
 				D50ECA372206BF34008AFD2B /* PlayDeckManager.swift in Sources */,
 				D536E56621D4BB64004B7014 /* Deck.swift in Sources */,
+				D55ADB312229106F004B4B92 /* PlayDeckViewManagerModel.swift in Sources */,
 				D536E56821D4BB64004B7014 /* GameBoard.swift in Sources */,
 				D517FD92221D6F61009FF7A6 /* PastCardData.swift in Sources */,
 				D528F80B21FAA68600AAF80F /* PointDeckManager.swift in Sources */,
