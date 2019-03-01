@@ -124,13 +124,13 @@ class ViewController: UIViewController {
         }
         
         // 카드가 뒷면인지 체크
-        if openedCardView.cardInfo.isFront() {
+        if openedCardView.cardViewModel.isFront() {
             // 앞면이면 종료
-            os_log("카드가 앞면입니다. %@", openedCardView.cardInfo.name() )
+            os_log("카드가 앞면입니다. %@", openedCardView.cardViewModel.name() )
             return ()
         }
         
-        let _ = openDeck(cardInfo: openedCardView.cardInfo)
+        let _ = openDeck(cardInfo: openedCardView.cardViewModel)
         
         // 이동 성공 로그
         os_log("%@",self.gameBoard.allCheck())
@@ -250,13 +250,13 @@ class ViewController: UIViewController {
     /// 덱타입, 카드뷰를 받아서 카드뷰 타입과 다르면 위치이동 함수 실행
     func rePositinoCardView(pastCardData: PastCardData, cardView: CardView){
         // 노티가 온 덱타입과 받은 카드뷰 덱타입이 다르면 이동시켜준다
-        if pastCardData.deckType != cardView.cardInfo.getDeckType() {
+        if pastCardData.deckType != cardView.cardViewModel.getDeckType() {
             // 이동함수 실행
             moveCardView(cardView: cardView)
         }
         
         // 이동전과 이동후가 같은데 덱타입이 플레이덱이고 라인이 다르면 이동
-        else if pastCardData.deckType == .playDeck && pastCardData.deckLine != cardView.cardInfo.getDeckLine() {
+        else if pastCardData.deckType == .playDeck && pastCardData.deckLine != cardView.cardViewModel.getDeckLine() {
             moveCardView(cardView: cardView)
         }
     }
@@ -269,18 +269,18 @@ class ViewController: UIViewController {
         cardView.frame.origin = CGPoint()
         
         // 덱타입에 따라 다른 덱에 넣는다
-        switch cardView.cardInfo.getDeckType() {
+        switch cardView.cardViewModel.getDeckType() {
         case .deck : self.deckView.addSubview(cardView)
         case .openedDeck : self.openedDeckView.addSubview(cardView)
         case .pointDeck : return self.pointDeckView.addPointCardView(view: cardView)
-        case .playDeck : self.playDeckView.addView(view: cardView, deckLine: cardView.cardInfo.getDeckLine())
+        case .playDeck : self.playDeckView.addView(view: cardView, deckLine: cardView.cardViewModel.getDeckLine())
         }
         
         // 카드 이미지 갱신
         cardView.refreshImage()
         
         // 이동 완료된 뷰 로깅
-        os_log("뷰 이동완료. 위치 : %@ , 카드이름 : %@", cardView.cardInfo.getDeckType().rawValue, cardView.cardInfo.name())
+        os_log("뷰 이동완료. 위치 : %@ , 카드이름 : %@", cardView.cardViewModel.getDeckType().rawValue, cardView.cardViewModel.name())
     }
 
     /// 포인트덱뷰 위치 설정
@@ -300,15 +300,15 @@ class ViewController: UIViewController {
         }
         
         // 카드가 앞면인지 체크
-        if openedCardView.cardInfo.isFront() == false {
+        if openedCardView.cardViewModel.isFront() == false {
             os_log("더블탭 대상이 뒷면입니다.")
             // 뒷면이면 종료
             return ()
         }
         
         // 더블클릭된 카드의 카드인포를 게임보드로 전달
-        os_log("더블탭 대상 카드인포 전달했습니다. %@ 의 %@", openedCardView.cardInfo.getDeckType().rawValue, openedCardView.cardInfo.name())
-        cardViewTryMove(cardInfo: openedCardView.cardInfo)
+        os_log("더블탭 대상 카드인포 전달했습니다. %@ 의 %@", openedCardView.cardViewModel.getDeckType().rawValue, openedCardView.cardViewModel.name())
+        cardViewTryMove(cardInfo: openedCardView.cardViewModel)
         
     }
     
