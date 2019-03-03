@@ -82,7 +82,7 @@ class ViewController: UIViewController {
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(moveGoal),
+                                               selector: #selector(moveGoalTopCard),
                                                name: .doubleTapGoalView,
                                                object: nil)
         
@@ -155,7 +155,7 @@ class ViewController: UIViewController {
             let count = userInfo[UserInfoKey.countOfPoppedCards] as? Int,
             let sender = noti.object as? Goal,
             let position = klondike.position(of: sender),
-            let stackView = columnsStackView.arrangedSubviews[position] as? CardGameStackView else { return }
+            let stackView = goalsStackView.arrangedSubviews[position] as? CardGameStackView else { return }
         
         stackView.remove(count: count)
     }
@@ -164,9 +164,11 @@ class ViewController: UIViewController {
         klondike.movePreviewTopCard()
     }
     
-    @objc private func moveGoal(_ noti: Notification) {
-        guard let cardView = noti.object as? CardImageView else { return }
+    @objc private func moveGoalTopCard(_ noti: Notification) {
+        guard let cardView = noti.object as? CardImageView,
+           let position = goalsStackView.PositionOfStackViewWith(cardView: cardView) else { return }
         
+        klondike.moveGoalTopCard(position: position)
     }
     
     @objc private func moveColumn(_ noti: Notification) {
@@ -192,4 +194,10 @@ class ViewController: UIViewController {
 protocol CardGameStackView {
     func add(cards: [Card])
     func remove(count: Int)
+}
+
+extension UIStackView {
+    func PositionOfStackViewWith(cardView: CardImageView) -> Int? {
+        return arrangedSubviews.firstIndex(of: cardView)
+    }
 }

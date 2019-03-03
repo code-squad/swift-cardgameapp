@@ -76,4 +76,13 @@ class Klondike {
             columns.addToColumns(card: card, position: moveablePositionOfColumns)
         }
     }
+    
+    func moveGoalTopCard(position: Int) {
+        guard let card = self.goals.topCardPeek(with: position) else { return }
+        
+        if let moveablePositionOfColumns = columns.positionOfMoveableToColumns(card) {
+            guard let card = self.goals.topCardPop(with: position) else { return }
+            columns.addToColumns(card: card, position: moveablePositionOfColumns)
+        }
+    }
 }

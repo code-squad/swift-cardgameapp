@@ -34,7 +34,7 @@ class Card : CustomStringConvertible {
     func isSame(rank: Rank) -> Bool {
         return self.rank == rank
     }
-    
+
     func score() -> Int {
         return self.rank.rawValue * 10 + self.suit.rawValue
     }
@@ -55,7 +55,7 @@ class Card : CustomStringConvertible {
     
     func isMoveableToGoal(_ card: Card?) -> Bool {
         guard let card = card else { return false }
-        return isOneStepDownRank(card: card) && isDifferentColor(card: card)
+        return isOneStepDownRank(card: card) && isSameSuit(card)
     }
     
     func isMoveableToColumn(_ card: Card?) -> Bool {

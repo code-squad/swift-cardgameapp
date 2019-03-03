@@ -49,4 +49,12 @@ class Goals {
     func addToGoal(card: Card, position: Int) {
         goals[position].push(card: card)
     }
+    
+    func topCardPeek(with position: Int) -> Card? {
+        return self.goals[position].peek()
+    }
+    
+    func topCardPop(with position: Int) -> Card? {
+        return self.goals[position].pop()
+    }
 }
