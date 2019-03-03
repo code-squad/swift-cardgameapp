@@ -10,9 +10,11 @@ import Foundation
 
 class Preview: CardStack {
     
-    override func postInfo() {
-        NotificationCenter.default.post(name: .previewDidChange,
-                                        object: self,
-                                        userInfo: self.userInfo())
+    override func addedCardsNotificationName() -> Notification.Name {
+        return .previewDidAdd
+    }
+    
+    override func poppedCountNotificationName() -> Notification.Name {
+        return .previewDidPop
     }
 }

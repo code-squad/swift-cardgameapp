@@ -10,9 +10,11 @@ import Foundation
 
 class Column: CardStack {
 
-    override func postInfo() {
-        NotificationCenter.default.post(name: .columnDidChange,
-                                        object: self,
-                                        userInfo: self.userInfo())
+    override func addedCardsNotificationName() -> Notification.Name {
+        return .columnDidAdd
+    }
+    
+    override func poppedCountNotificationName() -> Notification.Name {
+        return .columnDidPop
     }
 }

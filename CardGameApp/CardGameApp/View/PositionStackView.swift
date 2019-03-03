@@ -27,4 +27,10 @@ class PositionStackView: UIStackView, CardGameStackView {
             self.addArrangedSubview(cardView)
         }
     }
+    
+    func remove(count: Int) {
+        for subview in arrangedSubviews.suffix(count) {
+            subview.removeFromSuperview()
+        }
+    }
 }

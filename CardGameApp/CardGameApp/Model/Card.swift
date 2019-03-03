@@ -53,11 +53,13 @@ class Card : CustomStringConvertible {
         return self.rank == .K
     }
     
-    func isMoveableToGoals(_ card: Card) -> Bool {
+    func isMoveableToGoal(_ card: Card?) -> Bool {
+        guard let card = card else { return false }
         return isOneStepDownRank(card: card) && isDifferentColor(card: card)
     }
     
-    func isMoveableToColumns(_ card: Card) -> Bool {
+    func isMoveableToColumn(_ card: Card?) -> Bool {
+        guard let card = card else { return false }
         return isOneStepUpRank(card: card) && isDifferentColor(card: card)
     }
     

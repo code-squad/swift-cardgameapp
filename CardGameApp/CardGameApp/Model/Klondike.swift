@@ -61,13 +61,20 @@ class Klondike {
     
     func movePreviewTopCard() {
         guard let card = self.preview.peek() else { return }
+        let moveablePositionOfGoals = goals.positionOfMoveableToGoals(card)
+        let moveablePositionOfColumns = columns.positionOfMoveableToColumns(card)
         if card.isA() {
             guard let card = self.preview.pop() else { return }
-            goals.add(card: card)
+            goals.addToEmptyGoal(card: card)
         } else if card.isK() {
-            
+            guard let card = self.preview.pop() else { return }
+            columns.addToEmptyColumn(card: card)
+        } else if moveablePositionOfGoals >= 0 {
+            guard let card = self.preview.pop() else { return }
+            goals.addToGoal(card: card, position: moveablePositionOfGoals)
+        } else if moveablePositionOfColumns >= 0 {
+            guard let card = self.preview.pop() else { return }
+            columns.addToColumns(card: card, position: moveablePositionOfColumns)
         }
-        
     }
-
 }

@@ -10,9 +10,11 @@ import Foundation
 
 class Pile: CardStack {
     
-    override func postInfo() {
-        NotificationCenter.default.post(name: .pileDidChange,
-                                        object: self,
-                                        userInfo: self.userInfo())
+    override func addedCardsNotificationName() -> Notification.Name {
+        return .pileDidAdd
+    }
+    
+    override func poppedCountNotificationName() -> Notification.Name {
+        return .pileDidPop
     }
 }

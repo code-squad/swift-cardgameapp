@@ -10,5 +10,6 @@ import Foundation
 
 struct UserInfoKey {
     
-    static let cards = "cards"
+    static let addedCards = "addedCards"
+    static let countOfPoppedCards = "countOfPoppedCards"
 }

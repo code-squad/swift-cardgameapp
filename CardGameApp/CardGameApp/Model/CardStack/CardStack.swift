@@ -15,10 +15,38 @@ class CardStack : CustomStringConvertible {
 
     private var cards : [Card] {
         didSet {
-            postInfo()
+            let countOfLatestCards = cards.count - oldValue.count
+            if countOfLatestCards > 0 {
+                postAddedCardsInfo(countOfLatestCards)
+            }
+            if countOfLatestCards < 0 {
+                postPoppedCountInfo(countOfLatestCards)
+            }
         }
     }
     
+    private func postAddedCardsInfo(_ count: Int) {
+        let addedCards = cards.suffix(count)
+        NotificationCenter.default.post(name: addedCardsNotificationName(),
+                                        object: self,
+                                        userInfo: [UserInfoKey.addedCards: Array(addedCards)])
+    }
+    
+    func addedCardsNotificationName() -> Notification.Name {
+        return .cardStackDidAdd
+    }
+    
+    private func postPoppedCountInfo(_ count: Int) {
+        let countOfPoppedCards = abs(count)
+        NotificationCenter.default.post(name: poppedCountNotificationName(),
+                                        object: self,
+                                        userInfo: [UserInfoKey.countOfPoppedCards: countOfPoppedCards])
+    }
+    
+    func poppedCountNotificationName() -> Notification.Name {
+        return .cardStackDidPop
+    }
+
     var description: String {
         return "\(self.cards)"
     }
@@ -31,18 +59,6 @@ class CardStack : CustomStringConvertible {
     
     init(cards:[Card] = []) {
         self.cards = cards
-    }
-    
-    func postInfo() {
-        NotificationCenter.default.post(name: .cardStackDidChange,
-                                        object: self,
-                                        userInfo: self.userInfo())
-    }
-    
-    func userInfo() -> [AnyHashable: Any] {
-        let userInfo: [String: Any] = [UserInfoKey.cards: self.cards,]
-        
-        return userInfo
     }
     
     //MARK: Instance

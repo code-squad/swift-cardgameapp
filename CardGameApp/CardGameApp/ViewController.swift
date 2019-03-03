@@ -37,23 +37,43 @@ class ViewController: UIViewController {
         self.view.backgroundColor = UIColor(patternImage: image)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updatePileStackView),
-                                               name: .pileDidChange,
+                                               selector: #selector(addPileStackView),
+                                               name: .pileDidAdd,
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updatePreviewStackView),
-                                               name: .previewDidChange,
+                                               selector: #selector(removePileStackView),
+                                               name: .pileDidPop,
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateColumnsStackView),
-                                               name: .columnDidChange,
+                                               selector: #selector(addPreviewStackView),
+                                               name: .previewDidAdd,
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateGoalsStackView),
-                                               name: .goalDidChange,
+                                               selector: #selector(removePreviewStackView),
+                                               name: .previewDidPop,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(addColumnsStackView),
+                                               name: .columnDidAdd,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(removeColumnsStackView),
+                                               name: .columnDidPop,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(addGoalsStackView),
+                                               name: .goalDidAdd,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(removeGoalsStackView),
+                                               name: .goalDidPop,
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
@@ -76,38 +96,68 @@ class ViewController: UIViewController {
     
     //MARK: Notification
     
-    @objc private func updatePileStackView(_ noti: Notification) {
+    @objc private func addPileStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
-            let cards = userInfo[UserInfoKey.cards] as? [Card] else { return }
-        
-        self.pileStackView.update(cards: cards)
+            let cards = userInfo[UserInfoKey.addedCards] as? [Card] else { return }
+        self.pileStackView.add(cards: cards)
     }
     
-    @objc private func updatePreviewStackView(_ noti: Notification) {
+    @objc private func removePileStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
-            let cards = userInfo[UserInfoKey.cards] as? [Card] else { return }
-        
-        self.previewStackView.update(cards: cards)
+            let count = userInfo[UserInfoKey.countOfPoppedCards] as? Int else { return }
+        self.pileStackView.remove(count: count)
     }
     
-    @objc private func updateColumnsStackView(_ noti: Notification) {
+    @objc private func addPreviewStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
-            let cards = userInfo[UserInfoKey.cards] as? [Card],
+            let cards = userInfo[UserInfoKey.addedCards] as? [Card] else { return }
+        self.previewStackView.add(cards: cards)
+    }
+    
+    @objc private func removePreviewStackView(_ noti: Notification) {
+        guard let userInfo = noti.userInfo,
+            let count = userInfo[UserInfoKey.countOfPoppedCards] as? Int else { return }
+        self.previewStackView.remove(count: count)
+    }
+    
+    @objc private func addColumnsStackView(_ noti: Notification) {
+        guard let userInfo = noti.userInfo,
+            let cards = userInfo[UserInfoKey.addedCards] as? [Card],
             let sender = noti.object as? Column,
             let position = klondike.position(of: sender),
-            let stackView = columnsStackView.arrangedSubviews[position] as? CardGameStackView & UIStackView else { return }
+            let stackView = columnsStackView.arrangedSubviews[position] as? CardGameStackView else { return }
 
-        stackView.update(cards: cards)
+        stackView.add(cards: cards)
     }
     
-    @objc private func updateGoalsStackView(_ noti: Notification) {
+    @objc private func removeColumnsStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
-            let cards = userInfo[UserInfoKey.cards] as? [Card],
+            let count = userInfo[UserInfoKey.countOfPoppedCards] as? Int,
+            let sender = noti.object as? Column,
+            let position = klondike.position(of: sender),
+            let stackView = columnsStackView.arrangedSubviews[position] as? CardGameStackView else { return }
+        
+        stackView.remove(count: count)
+    }
+    
+    @objc private func addGoalsStackView(_ noti: Notification) {
+        guard let userInfo = noti.userInfo,
+            let cards = userInfo[UserInfoKey.addedCards] as? [Card],
             let sender = noti.object as? Goal,
             let position = klondike.position(of: sender),
-            let stackView = goalsStackView.arrangedSubviews[position] as? CardGameStackView & UIStackView else { return }
+            let stackView = goalsStackView.arrangedSubviews[position] as? CardGameStackView else { return }
         
-        stackView.update(cards: cards)
+        stackView.add(cards: cards)
+    }
+    
+    @objc private func removeGoalsStackView(_ noti: Notification) {
+        guard let userInfo = noti.userInfo,
+            let count = userInfo[UserInfoKey.countOfPoppedCards] as? Int,
+            let sender = noti.object as? Goal,
+            let position = klondike.position(of: sender),
+            let stackView = columnsStackView.arrangedSubviews[position] as? CardGameStackView else { return }
+        
+        stackView.remove(count: count)
     }
     
     @objc private func movePreview(_ noti: Notification) {
@@ -141,18 +191,5 @@ class ViewController: UIViewController {
 
 protocol CardGameStackView {
     func add(cards: [Card])
-}
-
-extension CardGameStackView where Self: UIStackView {
-    
-    private func removeAllSubviews() {
-        for subview in self.arrangedSubviews {
-            subview.removeFromSuperview()
-        }
-    }
-    
-    func update(cards: [Card]) {
-        removeAllSubviews()
-        add(cards: cards)
-    }
+    func remove(count: Int)
 }
