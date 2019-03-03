@@ -166,7 +166,7 @@ class ViewController: UIViewController {
     
     @objc private func moveGoalTopCard(_ noti: Notification) {
         guard let cardView = noti.object as? CardImageView,
-           let position = goalsStackView.PositionOfStackViewWith(cardView: cardView) else { return }
+           let position = goalsStackView.positionOfStackViewWith(cardView: cardView) else { return }
         
         klondike.moveGoalTopCard(position: position)
     }
@@ -197,7 +197,8 @@ protocol CardGameStackView {
 }
 
 extension UIStackView {
-    func PositionOfStackViewWith(cardView: CardImageView) -> Int? {
-        return arrangedSubviews.firstIndex(of: cardView)
+    func positionOfStackViewWith(cardView: CardImageView) -> Int? {
+        guard let stackViews = arrangedSubviews as? [UIStackView] else { return nil }
+        return stackViews.firstIndex(where: {$0.arrangedSubviews.contains(cardView)})
     }
 }

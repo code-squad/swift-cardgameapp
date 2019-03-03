@@ -64,16 +64,16 @@ class Klondike {
         
         if card.isA(), let index = goals.indexOfEmptyGoal() {
             guard let card = self.preview.pop() else { return }
-            goals.addToGoal(card: card, position: index)
+            goals.add(card: card, position: index)
         } else if card.isK(), let index = columns.indexOfEmptyColumn() {
             guard let card = self.preview.pop() else { return }
-            columns.addToColumns(card: card, position: index)
+            columns.add(card: card, position: index)
         } else if let moveablePositionOfGoals = goals.positionOfMoveableToGoals(card) {
             guard let card = self.preview.pop() else { return }
-            goals.addToGoal(card: card, position: moveablePositionOfGoals)
+            goals.add(card: card, position: moveablePositionOfGoals)
         } else if let moveablePositionOfColumns = columns.positionOfMoveableToColumns(card) {
             guard let card = self.preview.pop() else { return }
-            columns.addToColumns(card: card, position: moveablePositionOfColumns)
+            columns.add(card: card, position: moveablePositionOfColumns)
         }
     }
     
@@ -82,7 +82,7 @@ class Klondike {
         
         if let moveablePositionOfColumns = columns.positionOfMoveableToColumns(card) {
             guard let card = self.goals.topCardPop(with: position) else { return }
-            columns.addToColumns(card: card, position: moveablePositionOfColumns)
+            columns.add(card: card, position: moveablePositionOfColumns)
         }
     }
 }

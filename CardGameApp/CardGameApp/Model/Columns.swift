@@ -52,7 +52,7 @@ class Columns {
         return self.columns.firstIndex(where: {card.isMoveableToColumn($0.peek())})
     }
     
-    func addToColumns(card: Card, position: Int) {
+    func add(card: Card, position: Int) {
         columns[position].push(card: card)
     }
 }

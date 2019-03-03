@@ -46,7 +46,7 @@ class Goals {
         return self.goals.firstIndex(where: {card.isMoveableToGoal($0.peek())})
     }
     
-    func addToGoal(card: Card, position: Int) {
+    func add(card: Card, position: Int) {
         goals[position].push(card: card)
     }
     
