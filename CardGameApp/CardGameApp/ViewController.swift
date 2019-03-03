@@ -77,7 +77,7 @@ class ViewController: UIViewController {
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(movePreview),
+                                               selector: #selector(movePreviewTopCard),
                                                name: .doubleTapPreviewView,
                                                object: nil)
         
@@ -160,7 +160,7 @@ class ViewController: UIViewController {
         stackView.remove(count: count)
     }
     
-    @objc private func movePreview(_ noti: Notification) {
+    @objc private func movePreviewTopCard(_ noti: Notification) {
         klondike.movePreviewTopCard()
     }
     

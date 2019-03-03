@@ -44,13 +44,12 @@ class Columns {
         return self.columns.firstIndex(where: {$0===cardStack})
     }
     
-    func addToEmptyColumn(card: Card) {
-        columns.first(where: {$0.isEmpty()})?.push(card: card)
+    func indexOfEmptyColumn() -> Int? {
+        return columns.firstIndex(where: {$0.isEmpty()})
     }
     
-    func positionOfMoveableToColumns(_ card: Card) -> Int {
-        let fail = -1
-        return self.columns.firstIndex(where: {card.isMoveableToColumn($0.peek())}) ?? fail
+    func positionOfMoveableToColumns(_ card: Card) -> Int? {
+        return self.columns.firstIndex(where: {card.isMoveableToColumn($0.peek())})
     }
     
     func addToColumns(card: Card, position: Int) {

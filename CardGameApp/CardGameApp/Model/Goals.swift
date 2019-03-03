@@ -34,17 +34,16 @@ class Goals {
         }
     }
     
-    func addToEmptyGoal(card: Card) {
-        goals.first(where: {$0.isEmpty()})?.push(card: card)
+    func indexOfEmptyGoal() -> Int? {
+        return goals.firstIndex(where: {$0.isEmpty()})
     }
     
     func position(of cardStack: CardStack) -> Int? {
         return self.goals.firstIndex(where: {$0===cardStack})
     }
     
-    func positionOfMoveableToGoals(_ card: Card) -> Int {
-        let fail = -1
-        return self.goals.firstIndex(where: {card.isMoveableToGoal($0.peek())}) ?? fail
+    func positionOfMoveableToGoals(_ card: Card) -> Int? {
+        return self.goals.firstIndex(where: {card.isMoveableToGoal($0.peek())})
     }
     
     func addToGoal(card: Card, position: Int) {
