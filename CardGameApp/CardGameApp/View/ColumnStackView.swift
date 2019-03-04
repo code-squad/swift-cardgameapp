@@ -38,6 +38,6 @@ class ColumnStackView: UIStackView, CardGameStackView {
             subview.removeFromSuperview()
         }
         guard let cardView = arrangedSubviews.last as? CardImageView else { return }
-        cardView.flip()
+        cardView.flipToFront()
     }
 }

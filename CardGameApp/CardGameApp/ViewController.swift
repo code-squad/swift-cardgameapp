@@ -172,8 +172,10 @@ class ViewController: UIViewController {
     }
     
     @objc private func moveColumn(_ noti: Notification) {
-        guard let cardView = noti.object as? CardImageView else { return }
+        guard let cardView = noti.object as? CardImageView,
+            let position = columnsStackView.columnAndRowOfStackViewWith(cardView: cardView) else { return }
         
+        klondike.moveColumnCardIn(position: position)
     }
     
     //MARK: IBAction
@@ -201,4 +203,16 @@ extension UIStackView {
         guard let stackViews = arrangedSubviews as? [UIStackView] else { return nil }
         return stackViews.firstIndex(where: {$0.arrangedSubviews.contains(cardView)})
     }
+    
+    func columnAndRowOfStackViewWith(cardView: CardImageView) -> (Int, Int)? {
+        guard let stackViews = arrangedSubviews as? [UIStackView] else { return nil }
+        
+        for stackView in stackViews {
+            guard let row = stackView.arrangedSubviews.firstIndex(of: cardView),
+                let column = stackViews.firstIndex(of: stackView) else { continue }
+            return (column, row)
+        }
+        return nil
+    }
 }
+

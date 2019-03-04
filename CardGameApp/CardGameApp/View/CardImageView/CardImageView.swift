@@ -76,6 +76,12 @@ class CardImageView: UIImageView {
         self.isFront = !self.isFront
         self.backImage <> self.image
     }
+    
+    func flipToFront() {
+        if !isFront {
+            self.flip()
+        }
+    }
 }
 
 infix operator <>

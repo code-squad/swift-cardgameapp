@@ -55,4 +55,27 @@ class Columns {
     func add(card: Card, position: Int) {
         columns[position].push(card: card)
     }
+    
+    func peekCardIn(position: (Int, Int)) -> Card? {
+        let column = position.0
+        let row = position.1
+        guard let card = columns[column].cardIn(position: row) else { return nil }
+        return card
+    }
+    
+    func isTop(card: Card, in position: Int) -> Bool {
+        guard let cardInColumn = self.columns[position].peek() else { return false }
+        return cardInColumn == card
+    }
+    
+    func popTopCard(position: Int) -> Card? {
+        return columns[position].pop()
+    }
+    
+    func popStackIn(position: (Int, Int)) -> CardStack {
+        let column = position.0
+        let row = position.1
+        let cards = columns[column].cardsIn(position: row)
+        return CardStack(cards: cards)
+    }
 }

@@ -85,4 +85,23 @@ class Klondike {
             columns.add(card: card, position: moveablePositionOfColumns)
         }
     }
+    
+    func moveColumnCardIn(position: (Int, Int)) {
+        guard let card = self.columns.peekCardIn(position: position) else { return }
+        let column = position.0
+        
+        if card.isA(), let index = goals.indexOfEmptyGoal(), columns.isTop(card: card, in: column) {
+            guard let card = columns.popTopCard(position: column) else { return }
+            goals.add(card: card, position: index)
+        } else if card.isK(), let index = columns.indexOfEmptyColumn() {
+            let stack = columns.popStackIn(position: position)
+            columns.add(stack: stack, to: index)
+        } else if let moveablePositionOfGoals = goals.positionOfMoveableToGoals(card), columns.isTop(card: card, in: column) {
+            guard let card = columns.popTopCard(position: column) else { return }
+            goals.add(card: card, position: moveablePositionOfGoals)
+        } else if let moveablePositionOfColumns = columns.positionOfMoveableToColumns(card) {
+            let stack = columns.popStackIn(position: position)
+            columns.add(stack: stack, to: moveablePositionOfColumns)
+        }
+    }
 }

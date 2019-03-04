@@ -123,4 +123,16 @@ class CardStack : CustomStringConvertible {
     func isEmpty() -> Bool {
         return self.cards.isEmpty
     }
+    
+    func cardIn(position: Int) -> Card? {
+        guard cards[position] != nil else { return nil }
+        return cards[position]
+    }
+    
+    func cardsIn(position: Int) -> [Card] {
+        let range = position..<self.cards.count
+        let cards = self.cards[range]
+        self.cards.removeSubrange(range)
+        return Array(cards)
+    }
 }
