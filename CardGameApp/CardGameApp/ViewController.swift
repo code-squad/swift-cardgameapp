@@ -252,32 +252,72 @@ class ViewController: UIViewController {
         // 노티가 온 덱타입과 받은 카드뷰 덱타입이 다르면 이동시켜준다
         if pastCardData.deckType != cardView.cardViewModel.getDeckType() {
             // 이동함수 실행
-            moveCardView(cardView: cardView)
+            moveCardView(pastCardData: pastCardData, cardView: cardView)
         }
         
         // 이동전과 이동후가 같은데 덱타입이 플레이덱이고 라인이 다르면 이동
         else if pastCardData.deckType == .playDeck && pastCardData.deckLine != cardView.cardViewModel.getDeckLine() {
-            moveCardView(cardView: cardView)
+            moveCardView(pastCardData: pastCardData, cardView: cardView)
         }
     }
     
     /// 뷰를 받아서 덱타입에 맞는 위치로 이동
-    func moveCardView(cardView: CardView){
-        // 수퍼뷰에서 제거
-        cardView.removeFromSuperview()
+    func moveCardView(pastCardData: PastCardData, cardView: CardView){
+        // 임제뷰 선언
+        let tempCardView = UIImageView(image: UIImage(named: cardView.name()))
+        tempCardView.frame.size = cardView.frame.size
+        
+        // 임시뷰 용 좌표선언
+        var tempPoint = cardView.origin()
+        tempCardView.frame.origin = tempPoint
+        
+        // 임시뷰 위치 계산
+        switch pastCardData.deckType {
+        case .playDeck : tempPoint.addPosition(point: self.playDeckView.origin(deckLine: pastCardData.deckLine))
+        case .pointDeck : tempPoint.addPosition(point: self.pointDeckView.origin(deckLine: pastCardData.deckLine))
+            
+        default : tempPoint.addPosition(point: cardView.superview!.frame.origin)
+        }
+        
+        // 임시뷰 메인뷰에 추가
+        addViewToMain(view: tempCardView)
+        
+        
+        // 카드뷰 히든설정
+        cardView.isHidden = true
+        
+        // 임시뷰 목적지 좌표 계산
+        let goalPosition : CGPoint
+        
+        
         // 좌표 초기화
         cardView.frame.origin = CGPoint()
         
         // 덱타입에 따라 다른 덱에 넣는다
         switch cardView.cardViewModel.getDeckType() {
-        case .deck : self.deckView.addSubview(cardView)
-        case .openedDeck : self.openedDeckView.addSubview(cardView)
-        case .pointDeck : return self.pointDeckView.addPointCardView(view: cardView)
-        case .playDeck : self.playDeckView.addView(view: cardView, deckLine: cardView.cardViewModel.getDeckLine())
+        case .deck : goalPosition = self.deckView.addView(cardView: cardView)
+        case .openedDeck : goalPosition = self.openedDeckView.addView(cardView: cardView)
+        case .pointDeck : goalPosition = self.pointDeckView.addView(cardView: cardView)
+        case .playDeck : goalPosition = self.playDeckView.addView(view: cardView, deckLine: cardView.cardViewModel.getDeckLine())
         }
+        
+        
+        // 임시뷰 이동 애니메이션
+        UIView.animate(withDuration: 0.5, animations: {
+            tempCardView.frame.origin.x = goalPosition.x
+            tempCardView.frame.origin.y = goalPosition.y
+        }, completion: { (true) in
+            
+            // 임시뷰 삭제
+            tempCardView.removeFromSuperview()
+        })
+        
+        
         
         // 카드 이미지 갱신
         cardView.refreshImage()
+        cardView.isHidden = false
+        
         
         // 이동 완료된 뷰 로깅
         os_log("뷰 이동완료. 위치 : %@ , 카드이름 : %@", cardView.cardViewModel.getDeckType().rawValue, cardView.cardViewModel.name())
@@ -338,6 +378,25 @@ class ViewController: UIViewController {
     func settingPlayDeckViewManager(){
         self.playDeckView.setting(cardSize: self.cardSize, xPositions: self.widthPositions, yPositions: self.heightPositions)
         addViewToMain(view: self.playDeckView)
+    }
+    
+    /// 뷰 드래그시 실행할 함수
+    @objc func dragCardView(_ sender: UIPanGestureRecognizer){
+        
+    }
+    
+    
+    /// 카드뷰 드래깅을 위한 pan 제스처 생성함수
+    func makeCardViewPanGetsture() -> UIPanGestureRecognizer {
+        // 제스처 선언
+//        let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.dragCardView(_:)))
+        let gesture = UIPanGestureRecognizer(target: self, action: nil)
+        
+        
+        
+        
+        // 제스처를 리턴한다
+        return gesture
     }
     
     

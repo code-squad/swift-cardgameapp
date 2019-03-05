@@ -55,23 +55,27 @@ class PointDeckView: UIStackView {
     }
     
     /// 카드뷰를 받아서 알맞은 위치에 추가한다
-    func addPointCardView(view: UIView){
-        // 카드뷰 변환 가능한지 체크
-        guard let cardView = view as? CardView else {
-            os_log("포인트뷰덱에 추가 실패")
-            return ()
-        }
+    func addView(cardView: CardView) -> CGPoint{
         // 라인에 따라 추가위치 변경
         let superView = self.subviews[cardView.cardViewModel.getDeckLine()]
         superView.addSubview(cardView)
         // 카드위치 0,0 으로 조정
         cardView.frame.origin.x = 0
         cardView.frame.origin.y = 0
+        
+        return origin(deckLine: cardView.cardViewModel.getDeckLine())
     }
     
     /// 과거카드데이터 를 받아서 해당 뷰 리턴
     func getCardView(pastCardData: PastCardData) -> UIView? {
         // 덱라인의 마지막 카드를 뽑아서 리턴
         return self.subviews[pastCardData.deckLine].subviews.last 
+    }
+    
+    /// 덱라인 받아서 위치 리턴
+    func origin(deckLine: Int) -> CGPoint {
+        let point = self.frame.origin.getPlusedPoint(point: self.subviews[deckLine].frame.origin)
+        
+        return point
     }
 }

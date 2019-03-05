@@ -17,4 +17,13 @@ class OpenedDeckView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    
+    /// 카드를 받아서 추가하고, 추가된 위치를 리턴한다
+    func addView(cardView: UIView) -> CGPoint {
+        // 카드를 서브뷰에 추가하고
+        self.addSubview(cardView)
+        // 추가된 카드의 위치 = 자신의 위치를 리턴한다
+        return self.frame.origin
+    }
 }

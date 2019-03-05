@@ -34,23 +34,33 @@ class PlayDeckViewManager : UIView{
     }
     
     /// 덱라인을 받아서 해당 플레이덱뷰를 리턴
-    private func getPlayDeckViewFrom(deckLine: Int) -> PlayDeckView?{
-        return subviews[deckLine] as? PlayDeckView
+    private func getPlayDeckViewFrom(deckLine: Int) -> PlayDeckView{
+        return subviews[deckLine] as! PlayDeckView
     }
     
     
     /// 덱라인, 뷰를 받아서 추가
-    func addView(view: UIView, deckLine: Int){
+    func addView(view: UIView, deckLine: Int) -> CGPoint{
         // 덱 라인에 맞는 스택뷰 추출
-        guard let playDeckView = getPlayDeckViewFrom(deckLine: deckLine)  else { return () }
+        let playDeckView = getPlayDeckViewFrom(deckLine: deckLine) //  else { return nil }
         // 맞는 스택뷰에 추가
         playDeckView.addPlayCardview(view)
+        
+        // 추가된 위치값 리턴
+        return origin(deckLine: deckLine)
     }
     
     /// 과거카드데이터를 받아서 해당 뷰 리턴
     func getView(pastCardData: PastCardData) -> UIView? {
         // 덱 라인에 맞는 스택뷰 추출
-        guard let playDeckView = getPlayDeckViewFrom(deckLine: pastCardData.deckLine)  else { return nil }
+        let playDeckView = getPlayDeckViewFrom(deckLine: pastCardData.deckLine) // else { return nil }
         return playDeckView.lastView()
+    }
+    
+    
+    /// 덱라인 받아서 위치 리턴
+    func origin(deckLine: Int) -> CGPoint {
+        let point = self.frame.origin.getPlusedPoint(point: self.subviews[deckLine].frame.origin)
+        return point
     }
 }
