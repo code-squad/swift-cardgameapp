@@ -40,6 +40,10 @@ class ViewController: UIViewController {
     /// 게임보드 생성
     private var gameBoard = GameBoard(slotCount: 7)
     
+    /// 더블탭 이벤트 플래그
+    var isDoubleTap = false
+    
+    
     /// 앱 배경화면 설정
     private func setBackGroundImage() {
         // 배경이미지 바둑판식으로 출력
@@ -263,37 +267,45 @@ class ViewController: UIViewController {
     
     /// 뷰를 받아서 덱타입에 맞는 위치로 이동
     func moveCardView(pastCardData: PastCardData, cardView: CardView){
-        // 임제뷰 선언
-        let tempCardView = UIImageView(image: UIImage(named: cardView.name()))
+        // 임시뷰 선언
+        let tempCardView = UIImageView()
+        
+        // 임시뷰 이미지 설정. 더블탭이면 카드를 보여주고, 이외에는 뒷면
+        if self.isDoubleTap {
+            tempCardView.image = UIImage(named: cardView.name())
+        }
+        else {
+            tempCardView.image = #imageLiteral(resourceName: "card-back")
+        }
+        
+        // 사이즈는 카드와 동일
         tempCardView.frame.size = cardView.frame.size
         
-        // 임시뷰 용 좌표선언
-        var tempPoint = cardView.origin()
-        tempCardView.frame.origin = tempPoint
+        // 출발점이 플레이덱 인 경우 y 좌표를 초기화 한다
+        if cardView.cardViewModel.getDeckType() == .playDeck {
+            tempCardView.frame.origin.y = 0
+        }
         
         // 임시뷰 위치 계산
-        switch pastCardData.deckType {
-        case .playDeck : tempPoint.addPosition(point: self.playDeckView.origin(deckLine: pastCardData.deckLine))
-        case .pointDeck : tempPoint.addPosition(point: self.pointDeckView.origin(deckLine: pastCardData.deckLine))
+        switch pastCardData.deckType {case .playDeck : tempCardView.frame.origin.addPosition(point: self.playDeckView.origin(deckLine: pastCardData.deckLine))
+        case .pointDeck : tempCardView.frame.origin.addPosition(point: self.pointDeckView.origin(deckLine: pastCardData.deckLine))
             
-        default : tempPoint.addPosition(point: cardView.superview!.frame.origin)
+        default : tempCardView.frame.origin.addPosition(point: cardView.superview!.frame.origin)
         }
         
         // 임시뷰 메인뷰에 추가
         addViewToMain(view: tempCardView)
         
-        
         // 카드뷰 히든설정
         cardView.isHidden = true
         
-        // 임시뷰 목적지 좌표 계산
+        // 임시뷰 목적지 좌표 선언
         let goalPosition : CGPoint
         
-        
-        // 좌표 초기화
+        // 카드뷰 좌표 초기화
         cardView.frame.origin = CGPoint()
         
-        // 덱타입에 따라 다른 덱에 넣는다
+        // 덱타입에 따라 다른 덱에 넣는다. 결과값으로 도착지점 위치를 구한다
         switch cardView.cardViewModel.getDeckType() {
         case .deck : goalPosition = self.deckView.addView(cardView: cardView)
         case .openedDeck : goalPosition = self.openedDeckView.addView(cardView: cardView)
@@ -310,13 +322,11 @@ class ViewController: UIViewController {
             
             // 임시뷰 삭제
             tempCardView.removeFromSuperview()
+            cardView.isHidden = false
         })
-        
-        
         
         // 카드 이미지 갱신
         cardView.refreshImage()
-        cardView.isHidden = false
         
         
         // 이동 완료된 뷰 로깅
@@ -346,9 +356,15 @@ class ViewController: UIViewController {
             return ()
         }
         
+        // 더블탭 플래그 온
+        self.isDoubleTap = true
+        
         // 더블클릭된 카드의 카드인포를 게임보드로 전달
         os_log("더블탭 대상 카드인포 전달했습니다. %@ 의 %@", openedCardView.cardViewModel.getDeckType().rawValue, openedCardView.cardViewModel.name())
         cardViewTryMove(cardInfo: openedCardView.cardViewModel)
+        
+        // 이벤트 종료. 플래그 오프
+        self.isDoubleTap = false
         
     }
     
