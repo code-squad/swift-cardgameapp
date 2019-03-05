@@ -70,4 +70,9 @@ class CardView : UIImageView, CardViewInfo {
     func name() -> String {
         return self.cardViewModel.name()
     }
+    
+    /// 오리진 리턴
+    func origin() -> CGPoint {
+        return self.frame.origin
+    }
 }
