@@ -29,7 +29,7 @@ class CardStackView: UIView {
     
     func drawStack(_ cardStack: CardStack) {
         var positionY = 0
-    
+
         cardStack.accessCard { stack in
             var cardImage: CardView
             

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Sizes {
+struct Sizes {
     static let originX = 0
     static let originY = 0
     static let cardWitdh = 50

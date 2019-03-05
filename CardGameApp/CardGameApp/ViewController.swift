@@ -21,14 +21,28 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        NotificationCenter.default.addObserver(self, selector: #selector(addDoubleTapRecognizer(_:)), name: .createdCardView, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(removeOneCardFromDeck), name: .touchedDeck, object: nil)
+        
         setBackgroundPattern()
         initialCardStacks()
         initialSpacesView()
         initialViews()
         initialDeckView()
         initialReversedView()
+    }
+    
+    @objc func addDoubleTapRecognizer(_ notification: NSNotification) {
+        let recog = UITapGestureRecognizer(target: self, action: #selector(tapCard(_:)))
+        recog.numberOfTapsRequired = 2
         
-        NotificationCenter.default.addObserver(self, selector: #selector(removeOneCardFromDeck), name: .touchedDeck, object: nil)
+        guard let cardView = notification.userInfo?["card"] as? CardView else { return }
+        cardView.addGestureRecognizer(recog)
+        cardView.isUserInteractionEnabled = true
+    }
+    
+    @objc func tapCard(_ gesture: UIGestureRecognizer) {
+        print("Tapped")
     }
     
     @objc func removeOneCardFromDeck() {

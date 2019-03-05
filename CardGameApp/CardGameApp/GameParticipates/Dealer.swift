@@ -41,8 +41,8 @@ class Dealer : GameParticipate {
     func distributeCardToPlayer(to players: Players) -> Bool {
         var isEnoughCard: Bool = true
         guard let cardMenu = self.cardsMenu else { return false }
-        players.distributeCard(cardCount: cardMenu.rawValue) { (cardCount : Int) -> [Card] in
-            var playerCards : [Card] = []
+        players.distributeCard(cardCount: cardMenu.rawValue) { (cardCount: Int) -> [Card] in
+            var playerCards: [Card] = []
             for _ in 0..<cardCount {
                 guard let pickCard = deck.removeOne() else {
                     isEnoughCard = false
@@ -52,12 +52,11 @@ class Dealer : GameParticipate {
             }
             return playerCards
         }
+        
         if isEnoughCard {
-//            NotificationCenter.default.post(name: .distributedCardToPlayers, object: nil)
             return true
         }
         else {
-//            NotificationCenter.default.post(name: .notEnoughCard, object: nil)
             return false
         }
     }

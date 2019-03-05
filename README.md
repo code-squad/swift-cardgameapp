@@ -99,3 +99,29 @@ class CardStacksView: UIStackView {
 3. Deck에 카드가 없을 시
 
 <img src="6.png" height="500px"/>
+
+
+
+
+
+### Step3
+
+![awd](./7.png)
+
+* UIGestureRecognizer을 이용하여 더블탭 인식 기능을 구현한다.
+
+
+
+
+
+**UIGestureRecognizer**
+
+* 7가지 기능
+
+1. Tap Gesture Recognizer
+2. Swipe gesture Recognizer
+3. Pan Gesture Recognizer
+4. Pinch Gesture Recognizer
+5. Rotation Gesture Recognizer
+6. Screen Gesture Recognizer
+7. LongPress Gesture Recognizer
