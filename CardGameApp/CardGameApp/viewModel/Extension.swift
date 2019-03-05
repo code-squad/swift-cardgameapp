@@ -19,7 +19,7 @@ extension CGPoint {
     
     /// 다른 포인트를 받아서 x,y 만큼 추가한다
     mutating func addPosition(point: CGPoint){
-        self.x = point.x
-        self.y = point.y
+        self.x += point.x
+        self.y += point.y
     }
 }
