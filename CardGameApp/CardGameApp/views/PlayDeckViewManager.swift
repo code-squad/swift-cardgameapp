@@ -60,7 +60,17 @@ class PlayDeckViewManager : UIView{
     
     /// 덱라인 받아서 위치 리턴
     func origin(deckLine: Int) -> CGPoint {
-        let point = self.frame.origin.getPlusedPoint(point: self.subviews[deckLine].frame.origin)
+        // 결과 리턴용 변수
+        var point = CGPoint()
+        // 서브뷰가 있다면 플레이덱뷰를 뽑아내서
+        if let lastView = self.subviews[deckLine] as? PlayDeckView {
+            // 결과변수에 추가한다
+            point.addPosition(point: lastView.origin())
+        }
+        // 결과변수에 자신의 오리진도 추가한다
+        point.addPosition(point: self.frame.origin)
+       
+        // 결과리턴
         return point
     }
 }
