@@ -44,10 +44,23 @@ class PlayDeckView: UIStackView {
     
     /// 생성 후 세팅
     func setting(cardSize: CardSize, x: CGFloat, y: CGFloat){
-        
         self.frame.origin.x = x
         self.frame.origin.y = y
         self.frame.size = CGSize(width: cardSize.width, height: cardSize.height * 5)
+    }
+    
+    /// origin + 마지막 카드 위치 리턴
+    func origin() -> CGPoint {
+        // 결과 리턴용 변수
+        var point = CGPoint()
+        // 서브뷰가 있다면 마지막 뷰를 뽑아내서
+        if let lastView = self.subviews.last {
+            // 결과변수에 추가한다
+            point.addPosition(point: lastView.frame.origin)
+        }
+        // 결과변수에 자신의 오리진도 추가한다
+        point.addPosition(point: self.frame.origin)
+        return point
     }
 }
 
