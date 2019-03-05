@@ -34,6 +34,7 @@
 		D541055121E3328B00FC7470 /* CardSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541055021E3328B00FC7470 /* CardSize.swift */; };
 		D541055321E5D2D300FC7470 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541055221E5D2D300FC7470 /* Error.swift */; };
 		D55ADB312229106F004B4B92 /* PlayDeckViewManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55ADB302229106F004B4B92 /* PlayDeckViewManagerModel.swift */; };
+		D59033EF222E117D0023CDD4 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59033EE222E117D0023CDD4 /* Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		D541055021E3328B00FC7470 /* CardSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSize.swift; sourceTree = "<group>"; };
 		D541055221E5D2D300FC7470 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		D55ADB302229106F004B4B92 /* PlayDeckViewManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayDeckViewManagerModel.swift; sourceTree = "<group>"; };
+		D59033EE222E117D0023CDD4 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 			children = (
 				D5297B642227EF8000452319 /* CardViewModel.swift */,
 				D55ADB302229106F004B4B92 /* PlayDeckViewManagerModel.swift */,
+				D59033EE222E117D0023CDD4 /* Extension.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D59033EF222E117D0023CDD4 /* Extension.swift in Sources */,
 				D541055321E5D2D300FC7470 /* Error.swift in Sources */,
 				D528F7FE21F711F600AAF80F /* CardView.swift in Sources */,
 				D50A33B5221AE52800E318B5 /* OpenedDeckView.swift in Sources */,
