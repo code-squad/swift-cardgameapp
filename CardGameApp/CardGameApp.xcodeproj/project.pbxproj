@@ -32,6 +32,7 @@
 		9D77FC29221E7D8100F853EB /* Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77FC28221E7D8100F853EB /* Sizes.swift */; };
 		9D77FC2B221E8C2300F853EB /* CardDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77FC2A221E8C2300F853EB /* CardDeckView.swift */; };
 		9D77FC2D221E90D900F853EB /* ReversedCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77FC2C221E90D900F853EB /* ReversedCardsView.swift */; };
+		9DCBEC30222E6D240030D07F /* CardSpacesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCBEC2F222E6D240030D07F /* CardSpacesView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		9D77FC28221E7D8100F853EB /* Sizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		9D77FC2A221E8C2300F853EB /* CardDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDeckView.swift; sourceTree = "<group>"; };
 		9D77FC2C221E90D900F853EB /* ReversedCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReversedCardsView.swift; sourceTree = "<group>"; };
+		9DCBEC2F222E6D240030D07F /* CardSpacesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSpacesView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 				9D77FC26221E690200F853EB /* SpaceView.swift */,
 				9D77FC2A221E8C2300F853EB /* CardDeckView.swift */,
 				9D77FC2C221E90D900F853EB /* ReversedCardsView.swift */,
+				9DCBEC2F222E6D240030D07F /* CardSpacesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				9D77FC10221BE84600F853EB /* Dealer.swift in Sources */,
 				9D77FC1E221D8A9000F853EB /* CardStackView.swift in Sources */,
 				9D77FC2B221E8C2300F853EB /* CardDeckView.swift in Sources */,
+				9DCBEC30222E6D240030D07F /* CardSpacesView.swift in Sources */,
 				9D77FC14221BE84600F853EB /* PlayCardGame.swift in Sources */,
 				9D77FC12221BE84600F853EB /* Players.swift in Sources */,
 				9D77FBEB221BE37B00F853EB /* AppDelegate.swift in Sources */,

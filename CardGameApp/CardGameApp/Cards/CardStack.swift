@@ -31,4 +31,12 @@ class CardStack {
     func removeAll() {
         stack.removeAll()
     }
+    
+    func isEmpty() -> Bool {
+        return stack.isEmpty
+    }
+    
+    func isLastCardOne() -> Bool {
+        return stack[stack.count-1].number == .one
+    }
 }

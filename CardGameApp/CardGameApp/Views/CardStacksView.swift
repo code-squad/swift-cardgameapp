@@ -23,12 +23,7 @@ class CardStacksView: UIStackView {
         self.init(frame: frame)
         initialCardStacks(cardStacks)
     }
-    
-    convenience init(frame: CGRect, _ spacesView: [SpaceView]) {
-        self.init(frame: frame)
-        for spaceView in spacesView { addArrangedSubview(spaceView) }
-    }
-    
+
     private func initialSetting() {
         self.spacing = 5
         self.axis = .horizontal
@@ -38,9 +33,19 @@ class CardStacksView: UIStackView {
     private func initialCardStacks(_ cardStacks: [CardStack]) {
         var stackView: CardStackView
         for cardStack in cardStacks {
-            stackView = CardStackView(frame: CGRect(x: 0, y: 0, width: 40, height: 500),  cardStack)
+            stackView = CardStackView(frame: CGRect(x: 0, y: 0, width: Sizes.cardWitdh, height: 500),  cardStack)
             stackView.backgroundColor = UIColor.clear
             addArrangedSubview(stackView)
         }
+    }
+    
+    func removeCardView(at stackNumber: Int) {
+        guard let stackView = self.arrangedSubviews[stackNumber] as? CardStackView else { return }
+        stackView.removeFromStack()
+    }
+    
+    func turnLastCard(at stackNumber: Int, stackModel: CardStack) {
+        guard let stackView = self.arrangedSubviews[stackNumber] as? CardStackView else { return }
+        stackView.turnLastCard(stackModel)
     }
 }

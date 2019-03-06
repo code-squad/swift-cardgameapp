@@ -10,13 +10,14 @@ import UIKit
 
 class ViewController: UIViewController {
     private var cardStacksView: CardStacksView?         // 카드 스택들 뷰
-    private var spacesView: CardStacksView?             // 카드 빈공간들 뷰
+    private var spacesView: CardSpacesView?             // 카드 빈공간들 뷰
     private var deckView: CardDeckView?                 // 카드 덱 뷰
     private var reversedCardsView: ReversedCardsView?   // 뒤집힌 카드 뷰
 
+    private var cardStacks: [CardStack] = []            // 모델 카드 스택들
+    private var spacesCardStacks: [CardStack] = []      // 모델 카드 빈공간
     private var cardDeck: CardDeck = CardDeck()         // 모델 카드 덱
     private var reversedCards: CardStack = CardStack()  // 모델 뒤집힌 카드
-    private var cardStacks: [CardStack] = []            // 모델 카드 스택들
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,23 +27,11 @@ class ViewController: UIViewController {
         
         setBackgroundPattern()
         initialCardStacks()
+        initialSpacesStacks()
         initialSpacesView()
         initialViews()
         initialDeckView()
         initialReversedView()
-    }
-    
-    @objc func addDoubleTapRecognizer(_ notification: NSNotification) {
-        let recog = UITapGestureRecognizer(target: self, action: #selector(tapCard(_:)))
-        recog.numberOfTapsRequired = 2
-        
-        guard let cardView = notification.userInfo?["card"] as? CardView else { return }
-        cardView.addGestureRecognizer(recog)
-        cardView.isUserInteractionEnabled = true
-    }
-    
-    @objc func tapCard(_ gesture: UIGestureRecognizer) {
-        print("Tapped")
     }
     
     @objc func removeOneCardFromDeck() {
@@ -79,14 +68,21 @@ class ViewController: UIViewController {
         }
     }
     
+    private func initialSpacesStacks() {
+        for _ in 1...4 {
+            let cardStack: CardStack = CardStack()
+            spacesCardStacks.append(cardStack)
+        }
+    }
+    
     private func initialSpacesView() {
         var spaces: [SpaceView] = []
-        for _ in 0...3 {
+        for _ in 1...4 {
             let spaceView = SpaceView(frame: CGRect(x: Sizes.originX, y: Sizes.originY, width: Sizes.cardWitdh, height: Sizes.cardHeight))
             spaces.append(spaceView)
         }
         let spacesViewWidth = Sizes.cardWitdh * spaces.count + (spaces.count-1) * 5
-        spacesView = CardStacksView(frame: CGRect(x: Sizes.viewFirstX, y: Sizes.viewFirstY, width: spacesViewWidth, height: Sizes.cardHeight), spaces)
+        spacesView = CardSpacesView(frame: CGRect(x: Sizes.viewFirstX, y: Sizes.viewFirstY, width: spacesViewWidth, height: Sizes.cardHeight), spaces)
         self.view.addSubview(spacesView!)
     }
     
@@ -111,11 +107,56 @@ extension ViewController {
             cardStacks.removeAll()
             initialCardStacks()
             reversedCards.removeAll()
+            spacesCardStacks.removeAll()
+            initialSpacesStacks()
     
             initialSpacesView()
             initialViews()
             initialDeckView()
             initialReversedView()
+        }
+    }
+}
+
+// CardView Tap시 일어나는 동작 구현
+extension ViewController {
+    @objc func addDoubleTapRecognizer(_ notification: NSNotification) {
+        let recog = UITapGestureRecognizer(target: self, action: #selector(tapCard(_:)))
+        recog.numberOfTapsRequired = 2
+        
+        guard let cardView = notification.userInfo?["card"] as? CardView else { return }
+        cardView.addGestureRecognizer(recog)
+        cardView.isUserInteractionEnabled = true
+    }
+    
+    @objc func tapCard(_ gesture: UIGestureRecognizer) {
+        var touchedStackNum: Int = 0
+        let touchedX = gesture.location(in: self.view).x
+        for stackNumber in 1...7 {
+            if touchedX >= CGFloat(Sizes.viewFirstX + Sizes.cardWitdh * (stackNumber-1) + 5 * (stackNumber-1))
+                && touchedX <= CGFloat(Sizes.viewFirstX + Sizes.cardWitdh * stackNumber + 5 * (stackNumber-1)) {
+                touchedStackNum = stackNumber
+                break
+            }
+        }
+        animateCardByRule(touchedStackNum)
+    }
+    
+    private func animateCardByRule(_ number: Int) {
+        if cardStacks[number-1].isLastCardOne() { animateOneCard(number) }
+    }
+    
+    private func animateOneCard(_ number: Int) {
+        guard let removeCard = cardStacks[number-1].removeOne() else { return }
+        cardStacksView?.removeCardView(at: number-1)
+        cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1])
+        
+        for index in 0..<spacesCardStacks.count {
+            if spacesCardStacks[index].isEmpty() {
+                spacesCardStacks[index].add(removeCard)
+                spacesView?.addCardView(at: index, card: removeCard)
+                break
+            }
         }
     }
 }

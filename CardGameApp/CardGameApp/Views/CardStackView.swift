@@ -27,7 +27,7 @@ class CardStackView: UIView {
         drawStack(cardStack)
     }
     
-    func drawStack(_ cardStack: CardStack) {
+    private func drawStack(_ cardStack: CardStack) {
         var positionY = 0
 
         cardStack.accessCard { stack in
@@ -51,9 +51,15 @@ class CardStackView: UIView {
     }
     
     // View들을 관리하는 배열에서 뺴주고 화면에서 제거
-    func removeFromStack() -> CardView {
+    func removeFromStack() {
         let removeView: CardView = cardViews.remove(at: cardViews.count-1)
         removeView.removeFromSuperview()
-        return removeView
+    }
+    
+    // Stack의 마지막 카드를 앞면으로 뒤집는다.
+    func turnLastCard(_ model: CardStack) {
+        model.accessCard { cards in
+            cardViews[cardViews.count-1].setCardImage(name: cards[cards.count-1].description)
+        }
     }
 }
