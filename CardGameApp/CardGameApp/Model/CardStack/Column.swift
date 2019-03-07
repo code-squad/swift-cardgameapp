@@ -18,3 +18,8 @@ class Column: CardStack {
         return .columnDidPop
     }
 }
+
+extension Notification.Name {
+    static let columnDidAdd = Notification.Name("columnDidAdd")
+    static let columnDidPop = Notification.Name("columnDidPop")
+}

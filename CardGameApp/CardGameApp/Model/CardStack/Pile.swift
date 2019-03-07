@@ -18,3 +18,8 @@ class Pile: CardStack {
         return .pileDidPop
     }
 }
+
+extension Notification.Name {
+    static let pileDidAdd = Notification.Name("pileDidAdd")
+    static let pileDidPop = Notification.Name("pileDidPop")
+}

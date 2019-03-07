@@ -18,3 +18,8 @@ class Preview: CardStack {
         return .previewDidPop
     }
 }
+
+extension Notification.Name {
+    static let previewDidAdd = Notification.Name("previewDidAdd")
+    static let previewDidPop = Notification.Name("previewDidPop")
+}

@@ -136,3 +136,8 @@ class CardStack : CustomStringConvertible {
         return Array(cards)
     }
 }
+
+extension Notification.Name {
+    static let cardStackDidAdd = Notification.Name("cardStackDidAdd")
+    static let cardStackDidPop = Notification.Name("cardStackDidPop")
+}

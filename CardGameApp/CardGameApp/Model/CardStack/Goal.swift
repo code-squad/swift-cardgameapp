@@ -18,3 +18,8 @@ class Goal: CardStack {
         return .goalDidPop
     }
 }
+
+extension Notification.Name {
+    static let goalDidAdd = Notification.Name("goalDidAdd")
+    static let goalDidPop = Notification.Name("goalDidPop")
+}
