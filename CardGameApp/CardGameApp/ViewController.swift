@@ -332,16 +332,28 @@ class ViewController: UIViewController {
             tempCardView.frame.origin.y = 0
         }
         
-        // 임시뷰 위치 계산
-        switch pastCardData.deckType {
-        case .playDeck : tempCardView.frame.origin.addPosition(point: self.playDeckView.origin(deckLine: pastCardData.deckLine))
-        case .pointDeck : tempCardView.frame.origin.addPosition(point: self.pointDeckView.origin(deckLine: pastCardData.deckLine))
-            
-        default : tempCardView.frame.origin.addPosition(point: cardView.superview!.frame.origin)
-        }
+        // 임시뷰 위치 계산후 적용
+        tempCardView.frame.origin.addPosition(point: calculateMainPosition(pastCardData: pastCardData, cardView: cardView))
         
         // 생성된 임시뷰 리턴
         return tempCardView
+    }
+    
+    /// 임시뷰 위치를 계산해서 리턴한다
+    func calculateMainPosition(pastCardData: PastCardData, cardView: CardView) -> CGPoint {
+        // 결과 리턴용 함수
+        var point = CGPoint()
+        
+        // 임시뷰 위치 계산
+        switch pastCardData.deckType {
+        case .playDeck : point = self.playDeckView.origin(deckLine: pastCardData.deckLine)
+        case .pointDeck : point = self.pointDeckView.origin(deckLine: pastCardData.deckLine)
+            
+        default : point =  cardView.superview!.frame.origin
+        }
+        
+        // 결과 리턴
+        return point
     }
     
     /// 원본뷰 와 임시뷰를 받아서 도착지점으로 임시뷰를 이동시킨 후 임시뷰 삭제,원본뷰 히든 해제
