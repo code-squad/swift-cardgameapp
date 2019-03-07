@@ -287,7 +287,8 @@ class ViewController: UIViewController {
         }
         
         // 임시뷰 위치 계산
-        switch pastCardData.deckType {case .playDeck : tempCardView.frame.origin.addPosition(point: self.playDeckView.origin(deckLine: pastCardData.deckLine))
+        switch pastCardData.deckType {
+        case .playDeck : tempCardView.frame.origin.addPosition(point: self.playDeckView.origin(deckLine: pastCardData.deckLine))
         case .pointDeck : tempCardView.frame.origin.addPosition(point: self.pointDeckView.origin(deckLine: pastCardData.deckLine))
             
         default : tempCardView.frame.origin.addPosition(point: cardView.superview!.frame.origin)
@@ -333,6 +334,8 @@ class ViewController: UIViewController {
         os_log("뷰 이동완료. 위치 : %@ , 카드이름 : %@", cardView.cardViewModel.getDeckType().rawValue, cardView.cardViewModel.name())
     }
 
+    ///
+    
     /// 포인트덱뷰 위치 설정
     func setPointDeckView(){
         // 시작점은 1첫번쨰 카드 기준
