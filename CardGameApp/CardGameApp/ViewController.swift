@@ -298,7 +298,7 @@ class ViewController: UIViewController {
         let tempCardView = makeTempViewWithoutPosition(cardView: cardView)
             
         // 임시뷰 위치 계산후 적용
-        tempCardView.frame.origin.addPosition(point: calculateMainPosition(pastCardData: pastCardData, cardView: cardView))
+        tempCardView.frame.origin.addPosition(point: calculatePositionInMain(pastCardData: pastCardData, cardView: cardView))
         
         // 생성된 임시뷰 리턴
         return tempCardView
@@ -326,7 +326,7 @@ class ViewController: UIViewController {
     
     
     /// 임시뷰 위치를 계산해서 리턴한다
-    func calculateMainPosition(pastCardData: PastCardData, cardView: CardView) -> CGPoint {
+    func calculatePositionInMain(pastCardData: PastCardData, cardView: CardView) -> CGPoint {
         // 결과 리턴용 함수
         var point = CGPoint()
         
