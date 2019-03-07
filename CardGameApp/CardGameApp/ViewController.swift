@@ -268,31 +268,7 @@ class ViewController: UIViewController {
     /// 뷰를 받아서 덱타입에 맞는 위치로 이동
     func moveCardView(pastCardData: PastCardData, cardView: CardView){
         // 임시뷰 선언
-        let tempCardView = UIImageView()
-        
-        // 임시뷰 이미지 설정. 더블탭이면 카드를 보여주고, 이외에는 뒷면
-        if self.isDoubleTap {
-            tempCardView.image = UIImage(named: cardView.name())
-        }
-        else {
-            tempCardView.image = #imageLiteral(resourceName: "card-back")
-        }
-        
-        // 사이즈는 카드와 동일
-        tempCardView.frame.size = cardView.frame.size
-        
-        // 출발점이 플레이덱 인 경우 y 좌표를 초기화 한다
-        if cardView.cardViewModel.getDeckType() == .playDeck {
-            tempCardView.frame.origin.y = 0
-        }
-        
-        // 임시뷰 위치 계산
-        switch pastCardData.deckType {
-        case .playDeck : tempCardView.frame.origin.addPosition(point: self.playDeckView.origin(deckLine: pastCardData.deckLine))
-        case .pointDeck : tempCardView.frame.origin.addPosition(point: self.pointDeckView.origin(deckLine: pastCardData.deckLine))
-            
-        default : tempCardView.frame.origin.addPosition(point: cardView.superview!.frame.origin)
-        }
+        let tempCardView = makeTempView(pastCardData: pastCardData, cardView: cardView)
         
         // 임시뷰 메인뷰에 추가
         addViewToMain(view: tempCardView)
@@ -300,11 +276,11 @@ class ViewController: UIViewController {
         // 카드뷰 히든설정
         cardView.isHidden = true
         
-        // 임시뷰 목적지 좌표 선언
-        let goalPosition : CGPoint
-        
         // 카드뷰 좌표 초기화
         cardView.frame.origin = CGPoint()
+        
+        // 임시뷰 목적지 좌표 선언
+        let goalPosition : CGPoint
         
         // 덱타입에 따라 다른 덱에 넣는다. 결과값으로 도착지점 위치를 구한다
         switch cardView.cardViewModel.getDeckType() {
@@ -334,7 +310,38 @@ class ViewController: UIViewController {
         os_log("뷰 이동완료. 위치 : %@ , 카드이름 : %@", cardView.cardViewModel.getDeckType().rawValue, cardView.cardViewModel.name())
     }
 
-    ///
+    /// 과거카드데이터, 뷰를 받아서 메인뷰 기준 같은 위치에 같은 모양의 뷰를 생성,추가한 후 리턴한다.
+    func makeTempView(pastCardData: PastCardData, cardView: CardView) -> UIImageView {
+        // 임시뷰 선언
+        let tempCardView = UIImageView()
+        
+        // 임시뷰 이미지 설정. 더블탭이면 카드를 보여주고, 이외에는 뒷면
+        if self.isDoubleTap {
+            tempCardView.image = UIImage(named: cardView.name())
+        }
+        else {
+            tempCardView.image = #imageLiteral(resourceName: "card-back")
+        }
+        
+        // 사이즈는 카드와 동일
+        tempCardView.frame.size = cardView.frame.size
+        
+        // 출발점이 플레이덱 인 경우 y 좌표를 초기화 한다
+        if cardView.cardViewModel.getDeckType() == .playDeck {
+            tempCardView.frame.origin.y = 0
+        }
+        
+        // 임시뷰 위치 계산
+        switch pastCardData.deckType {
+        case .playDeck : tempCardView.frame.origin.addPosition(point: self.playDeckView.origin(deckLine: pastCardData.deckLine))
+        case .pointDeck : tempCardView.frame.origin.addPosition(point: self.pointDeckView.origin(deckLine: pastCardData.deckLine))
+            
+        default : tempCardView.frame.origin.addPosition(point: cardView.superview!.frame.origin)
+        }
+        
+        return tempCardView
+        
+    }
     
     /// 포인트덱뷰 위치 설정
     func setPointDeckView(){
@@ -417,6 +424,9 @@ class ViewController: UIViewController {
         // 제스처를 리턴한다
         return gesture
     }
+    
+    ///
+    
     
     
     override func viewDidLoad() {
