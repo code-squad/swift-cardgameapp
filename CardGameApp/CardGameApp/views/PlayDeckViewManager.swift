@@ -17,8 +17,9 @@ class PlayDeckViewManager : UIView{
         self.frame.origin.y = yPositions[1]
         self.frame.size.width = cardSize.screenWidth
         self.frame.size.height = cardSize.screenHeight - yPositions[1]
+        
         // 내부 덱뷰를 생성한다
-            makeDeckViews(cardSize: cardSize, xPositions: xPositions, yPositions: yPositions)
+        makeDeckViews(cardSize: cardSize, xPositions: xPositions, yPositions: yPositions)
     }
     
     /// 카드사이즈와 좌표를 받아서 스택뷰 구성
@@ -30,14 +31,6 @@ class PlayDeckViewManager : UIView{
             
             // 추가
             self.addSubview(playDeckView)
-        }
-        
-        for count in 0..<cardSize.maxCardCount {
-            // 빈카드 모양 생성
-            let emptyCardView = EmptyPointCardView(origin: CGPoint(x: xPositions[count], y: yPositions[0]), size: cardSize.cardSize)
-            
-            // 추가
-            self.addSubview(emptyCardView)
         }
     }
     

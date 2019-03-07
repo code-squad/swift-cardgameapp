@@ -273,7 +273,7 @@ class ViewController: UIViewController {
         // 임시뷰 메인뷰에 추가
         addViewToMain(view: tempCardView)
         
-        // 카드뷰 히든설정
+        // 카드뷰 히든
         cardView.isHidden = true
         
         // 카드뷰 좌표 초기화
@@ -290,7 +290,6 @@ class ViewController: UIViewController {
         case .playDeck : goalPosition = self.playDeckView.addView(view: cardView, deckLine: cardView.cardViewModel.getDeckLine())
         }
         
-        
         // 임시뷰 이동 애니메이션
         UIView.animate(withDuration: 0.5, animations: {
             tempCardView.frame.origin.x = goalPosition.x
@@ -299,6 +298,8 @@ class ViewController: UIViewController {
             
             // 임시뷰 삭제
             tempCardView.removeFromSuperview()
+            
+            // 원본뷰 히든 해제
             cardView.isHidden = false
         })
         
@@ -339,8 +340,35 @@ class ViewController: UIViewController {
         default : tempCardView.frame.origin.addPosition(point: cardView.superview!.frame.origin)
         }
         
+        // 생성된 임시뷰 리턴
         return tempCardView
+    }
+    
+    /// 원본뷰 와 임시뷰를 받아서 도착지점으로 임시뷰를 이동시킨 후 임시뷰 삭제,원본뷰 히든 해제
+    func moveTempView(cardView: CardView, tempCardView: UIImageView){
+        // 임시뷰 목적지 좌표 선언
+        let goalPosition : CGPoint
         
+        // 덱타입에 따라 다른 덱에 넣는다. 결과값으로 도착지점 위치를 구한다
+        switch cardView.cardViewModel.getDeckType() {
+        case .deck : goalPosition = self.deckView.addView(cardView: cardView)
+        case .openedDeck : goalPosition = self.openedDeckView.addView(cardView: cardView)
+        case .pointDeck : goalPosition = self.pointDeckView.addView(cardView: cardView)
+        case .playDeck : goalPosition = self.playDeckView.addView(view: cardView, deckLine: cardView.cardViewModel.getDeckLine())
+        }
+        
+        // 임시뷰 이동 애니메이션
+        UIView.animate(withDuration: 0.5, animations: {
+            tempCardView.frame.origin.x = goalPosition.x
+            tempCardView.frame.origin.y = goalPosition.y
+        }, completion: { (true) in
+            
+            // 임시뷰 삭제
+            tempCardView.removeFromSuperview()
+            
+            // 원본뷰 히든 해제
+            cardView.isHidden = false
+        })
     }
     
     /// 포인트덱뷰 위치 설정
@@ -427,6 +455,18 @@ class ViewController: UIViewController {
     
     ///
     
+    /// 빈카드 모양을 덱뷰마다 추가해준다
+    private func makeEmptyDeckViews(cardSize: CardSize, xPositions: [CGFloat], yPositions: [CGFloat]){
+        // 빈 카드 모양 추가
+        for count in 0..<cardSize.maxCardCount {
+            // 빈카드 모양 생성
+            let emptyCardView = EmptyPointCardView(origin: CGPoint(x: xPositions[count], y: yPositions[1] + yPositions[0]), size: cardSize.cardSize)
+            
+            // 추가
+            addViewToMain(view: emptyCardView)
+        }
+    }
+    
     
     
     override func viewDidLoad() {
@@ -452,6 +492,9 @@ class ViewController: UIViewController {
         
         // 포인트덱뷰 생성
         setPointDeckView()
+        
+        // 플레이덱뷰 배경 빈카드뷰 생성
+        makeEmptyDeckViews(cardSize: self.cardSize, xPositions: self.widthPositions, yPositions: self.heightPositions)
         
         // 플레이덱뷰 생성
         settingPlayDeckViewManager()
