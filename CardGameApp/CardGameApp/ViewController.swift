@@ -106,6 +106,8 @@ class ViewController: UIViewController {
             cardView.addGestureRecognizer(makeTapGetstureForDeck())
             // 더블탭 이벤트도 추가한다
             cardView.addGestureRecognizer(makeDoubleTapGetstureForCardView())
+            // 드래그 이벤트도 추가한다
+            cardView.addGestureRecognizer(makePanGetstureForCardView())
             
             // 덱카드뷰에 넣는다
             self.deckView.addSubview(cardView)
@@ -306,11 +308,6 @@ class ViewController: UIViewController {
         // 사이즈는 카드와 동일
         tempCardView.frame.size = cardView.frame.size
         
-        // 출발점이 플레이덱 인 경우 y 좌표를 초기화 한다
-        if cardView.cardViewModel.getDeckType() == .playDeck {
-            tempCardView.frame.origin.y = 0
-        }
-        
         // 임시뷰 위치 계산후 적용
         tempCardView.frame.origin.addPosition(point: calculateMainPosition(pastCardData: pastCardData, cardView: cardView))
         
@@ -318,10 +315,19 @@ class ViewController: UIViewController {
         return tempCardView
     }
     
+    /// 카드뷰를 받아서 좌표를 제외한 나머지 세팅을 한다
+//    func settingTempView(){
+    
+    
     /// 임시뷰 위치를 계산해서 리턴한다
     func calculateMainPosition(pastCardData: PastCardData, cardView: CardView) -> CGPoint {
         // 결과 리턴용 함수
         var point = CGPoint()
+        
+        // 출발점이 플레이덱 인 경우 y 좌표를 초기화 하기위해 y - 카드높이 해준다
+        if cardView.cardViewModel.getDeckType() == .playDeck {
+            point.y -= cardView.frame.size.height
+        }
         
         // 임시뷰 위치 계산
         switch pastCardData.deckType {
@@ -427,18 +433,24 @@ class ViewController: UIViewController {
     
     /// 뷰 드래그시 실행할 함수
     @objc func dragCardView(_ sender: UIPanGestureRecognizer){
+        // 임시카드뷰를 생선한다
+//        var tempView = makeT
         
+        
+        if sender.state == .began {
+            os_log("카드 드래그 시작")
+        }
+        
+        if sender.state == .ended || sender.state == .cancelled {
+            os_log("카드 드래그 끝")
+        }
     }
     
     
     /// 카드뷰 드래깅을 위한 pan 제스처 생성함수
-    func makeCardViewPanGetsture() -> UIPanGestureRecognizer {
+    func makePanGetstureForCardView() -> UIPanGestureRecognizer {
         // 제스처 선언
-//        let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.dragCardView(_:)))
-        let gesture = UIPanGestureRecognizer(target: self, action: nil)
-        
-        
-        
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(self.dragCardView(_:)))
         
         // 제스처를 리턴한다
         return gesture
