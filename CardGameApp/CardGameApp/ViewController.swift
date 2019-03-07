@@ -295,6 +295,19 @@ class ViewController: UIViewController {
     /// 과거카드데이터, 뷰를 받아서 메인뷰 기준 같은 위치에 같은 모양의 뷰를 생성,추가한 후 리턴한다.
     func makeTempView(pastCardData: PastCardData, cardView: CardView) -> UIImageView {
         // 임시뷰 선언
+        let tempCardView = makeTempViewWithoutPosition(cardView: cardView)
+            
+        // 임시뷰 위치 계산후 적용
+        tempCardView.frame.origin.addPosition(point: calculateMainPosition(pastCardData: pastCardData, cardView: cardView))
+        
+        // 생성된 임시뷰 리턴
+        return tempCardView
+    }
+    
+    /// 카드뷰를 받아서 좌표를 제외한 나머지 세팅을 한다
+    func makeTempViewWithoutPosition(cardView: CardView) -> UIImageView{
+        
+        // 임시뷰 선언
         let tempCardView = UIImageView()
         
         // 임시뷰 이미지 설정. 더블탭이면 카드를 보여주고, 이외에는 뒷면
@@ -308,15 +321,8 @@ class ViewController: UIViewController {
         // 사이즈는 카드와 동일
         tempCardView.frame.size = cardView.frame.size
         
-        // 임시뷰 위치 계산후 적용
-        tempCardView.frame.origin.addPosition(point: calculateMainPosition(pastCardData: pastCardData, cardView: cardView))
-        
-        // 생성된 임시뷰 리턴
         return tempCardView
     }
-    
-    /// 카드뷰를 받아서 좌표를 제외한 나머지 세팅을 한다
-//    func settingTempView(){
     
     
     /// 임시뷰 위치를 계산해서 리턴한다
