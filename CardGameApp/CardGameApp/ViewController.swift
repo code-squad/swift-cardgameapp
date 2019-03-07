@@ -279,29 +279,8 @@ class ViewController: UIViewController {
         // 카드뷰 좌표 초기화
         cardView.frame.origin = CGPoint()
         
-        // 임시뷰 목적지 좌표 선언
-        let goalPosition : CGPoint
-        
-        // 덱타입에 따라 다른 덱에 넣는다. 결과값으로 도착지점 위치를 구한다
-        switch cardView.cardViewModel.getDeckType() {
-        case .deck : goalPosition = self.deckView.addView(cardView: cardView)
-        case .openedDeck : goalPosition = self.openedDeckView.addView(cardView: cardView)
-        case .pointDeck : goalPosition = self.pointDeckView.addView(cardView: cardView)
-        case .playDeck : goalPosition = self.playDeckView.addView(view: cardView, deckLine: cardView.cardViewModel.getDeckLine())
-        }
-        
-        // 임시뷰 이동 애니메이션
-        UIView.animate(withDuration: 0.5, animations: {
-            tempCardView.frame.origin.x = goalPosition.x
-            tempCardView.frame.origin.y = goalPosition.y
-        }, completion: { (true) in
-            
-            // 임시뷰 삭제
-            tempCardView.removeFromSuperview()
-            
-            // 원본뷰 히든 해제
-            cardView.isHidden = false
-        })
+        // 임시뷰 목적지로 이동 후 삭제, 카드뷰 히든 해제
+        moveTempView(cardView: cardView, tempCardView: tempCardView)
         
         // 카드 이미지 갱신
         cardView.refreshImage()
