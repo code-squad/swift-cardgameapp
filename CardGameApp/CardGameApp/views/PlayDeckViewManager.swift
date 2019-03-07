@@ -31,6 +31,14 @@ class PlayDeckViewManager : UIView{
             // 추가
             self.addSubview(playDeckView)
         }
+        
+        for count in 0..<cardSize.maxCardCount {
+            // 빈카드 모양 생성
+            let emptyCardView = EmptyPointCardView(origin: CGPoint(x: xPositions[count], y: yPositions[0]), size: cardSize.cardSize)
+            
+            // 추가
+            self.addSubview(emptyCardView)
+        }
     }
     
     /// 덱라인을 받아서 해당 플레이덱뷰를 리턴
