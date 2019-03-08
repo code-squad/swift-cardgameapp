@@ -525,6 +525,9 @@ class ViewController: UIViewController {
             os_log("카드 드래그 시작")
             addViewToMain(view: self.dragView)
             self.dragView.isUserInteractionEnabled = true
+            
+            // 원본카드를 안보이게 처리한다
+            cardView.isHidden = true
         }
         
         if sender.state == .changed {
