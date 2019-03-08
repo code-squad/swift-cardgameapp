@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     //MARK: - Properties
     //MARK: IBOutlet
     
-    @IBOutlet weak var pileStackView: BackPositionStackView!
+    @IBOutlet weak var pileStackView: PositionStackView!
     @IBOutlet weak var previewStackView: PositionStackView!
     @IBOutlet weak var goalsStackView: UIStackView!
     @IBOutlet weak var columnsStackView: UIStackView!
@@ -76,21 +76,6 @@ class ViewController: UIViewController {
                                                name: .goalDidPop,
                                                object: nil)
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(movePreviewTopCard),
-                                               name: .doubleTapPreviewView,
-                                               object: nil)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(moveGoalTopCard),
-                                               name: .doubleTapGoalView,
-                                               object: nil)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(moveColumn),
-                                               name: .doubleTapColumnView,
-                                               object: nil)
-        
         klondike.setUp()
     }
     
@@ -99,25 +84,39 @@ class ViewController: UIViewController {
     @objc private func addPileStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
             let cards = userInfo[UserInfoKey.addedCards] as? [Card] else { return }
-        self.pileStackView.add(cards: cards)
+        for _ in cards {
+            let cardBackImageView = CardBackImageView()
+            self.pileStackView.addArrangedSubview(cardBackImageView)
+        }
     }
     
     @objc private func removePileStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
             let count = userInfo[UserInfoKey.countOfPoppedCards] as? Int else { return }
-        self.pileStackView.remove(count: count)
+        for subview in self.pileStackView.arrangedSubviews.suffix(count) {
+            subview.removeFromSuperview()
+        }
     }
     
     @objc private func addPreviewStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
             let cards = userInfo[UserInfoKey.addedCards] as? [Card] else { return }
-        self.previewStackView.add(cards: cards)
+        for card in cards {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(movePreviewTopCard))
+            tap.numberOfTapsRequired = 2
+            let cardImageView = CardImageView(card: card)
+            cardImageView.isUserInteractionEnabled = true
+            cardImageView.addGestureRecognizer(tap)
+            self.previewStackView.addArrangedSubview(cardImageView)
+        }
     }
     
     @objc private func removePreviewStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
             let count = userInfo[UserInfoKey.countOfPoppedCards] as? Int else { return }
-        self.previewStackView.remove(count: count)
+        for subview in self.previewStackView.arrangedSubviews.suffix(count) {
+            subview.removeFromSuperview()
+        }
     }
     
     @objc private func addColumnsStackView(_ noti: Notification) {
@@ -125,9 +124,16 @@ class ViewController: UIViewController {
             let cards = userInfo[UserInfoKey.addedCards] as? [Card],
             let sender = noti.object as? Column,
             let position = klondike.position(of: sender),
-            let stackView = columnsStackView.arrangedSubviews[position] as? CardGameStackView else { return }
+            let stackView = columnsStackView.arrangedSubviews[position] as? UIStackView else { return }
 
-        stackView.add(cards: cards)
+        for card in cards {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(moveColumn))
+            tap.numberOfTapsRequired = 2
+            let cardImageView = CardImageView(card: card)
+            cardImageView.isUserInteractionEnabled = true
+            cardImageView.addGestureRecognizer(tap)
+            stackView.addArrangedSubview(cardImageView)
+        }
     }
     
     @objc private func removeColumnsStackView(_ noti: Notification) {
@@ -135,9 +141,10 @@ class ViewController: UIViewController {
             let count = userInfo[UserInfoKey.countOfPoppedCards] as? Int,
             let sender = noti.object as? Column,
             let position = klondike.position(of: sender),
-            let stackView = columnsStackView.arrangedSubviews[position] as? CardGameStackView else { return }
-        
-        stackView.remove(count: count)
+            let stackView = columnsStackView.arrangedSubviews[position] as? UIStackView else { return }
+        for subview in stackView.arrangedSubviews.suffix(count) {
+            subview.removeFromSuperview()
+        }
     }
     
     @objc private func addGoalsStackView(_ noti: Notification) {
@@ -145,9 +152,16 @@ class ViewController: UIViewController {
             let cards = userInfo[UserInfoKey.addedCards] as? [Card],
             let sender = noti.object as? Goal,
             let position = klondike.position(of: sender),
-            let stackView = goalsStackView.arrangedSubviews[position] as? CardGameStackView else { return }
+            let stackView = goalsStackView.arrangedSubviews[position] as? UIStackView else { return }
         
-        stackView.add(cards: cards)
+        for card in cards {
+            let tap = UITapGestureRecognizer(target: self, action: #selector(moveGoalTopCard))
+            tap.numberOfTapsRequired = 2
+            let cardImageView = CardImageView(card: card)
+            cardImageView.isUserInteractionEnabled = true
+            cardImageView.addGestureRecognizer(tap)
+            stackView.addArrangedSubview(cardImageView)
+        }
     }
     
     @objc private func removeGoalsStackView(_ noti: Notification) {
@@ -155,26 +169,27 @@ class ViewController: UIViewController {
             let count = userInfo[UserInfoKey.countOfPoppedCards] as? Int,
             let sender = noti.object as? Goal,
             let position = klondike.position(of: sender),
-            let stackView = goalsStackView.arrangedSubviews[position] as? CardGameStackView else { return }
-        
-        stackView.remove(count: count)
+            let stackView = goalsStackView.arrangedSubviews[position] as? UIStackView else { return }
+        for subview in stackView.arrangedSubviews.suffix(count) {
+            subview.removeFromSuperview()
+        }
     }
-    
-    @objc private func movePreviewTopCard(_ noti: Notification) {
+
+    @objc private func movePreviewTopCard() {
         klondike.movePreviewTopCard()
     }
     
-    @objc private func moveGoalTopCard(_ noti: Notification) {
-        guard let cardView = noti.object as? CardImageView,
+    @objc private func moveGoalTopCard(sender: UITapGestureRecognizer) {
+        guard let cardView = sender.view as? CardImageView,
            let position = goalsStackView.positionOfStackViewWith(cardView: cardView) else { return }
-        
+
         klondike.moveGoalTopCard(position: position)
     }
     
-    @objc private func moveColumn(_ noti: Notification) {
-        guard let cardView = noti.object as? CardImageView,
+    @objc private func moveColumn(sender: UITapGestureRecognizer) {
+        guard let cardView = sender.view as? CardImageView,
             let position = columnsStackView.columnAndRowOfStackViewWith(cardView: cardView) else { return }
-        
+
         klondike.moveColumnCardIn(position: position)
     }
     
@@ -191,11 +206,6 @@ class ViewController: UIViewController {
             klondike.reset()
         }
     }
-}
-
-protocol CardGameStackView {
-    func add(cards: [Card])
-    func remove(count: Int)
 }
 
 extension UIStackView {

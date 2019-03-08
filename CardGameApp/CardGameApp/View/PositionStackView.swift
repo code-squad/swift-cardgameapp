@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PositionStackView: UIStackView, CardGameStackView {
+class PositionStackView: UIStackView {
     
     //MARK: - Methods
     //MARK: Initialization
@@ -17,20 +17,5 @@ class PositionStackView: UIStackView, CardGameStackView {
         super.init(coder: coder)
         
         self.spacing = -self.frame.height
-    }
-    
-    //MARK: Instance
-    func add(cards: [Card]) {
-        
-        for card in cards {
-            let cardView = CardImageView(card: card)
-            self.addArrangedSubview(cardView)
-        }
-    }
-    
-    func remove(count: Int) {
-        for subview in arrangedSubviews.suffix(count) {
-            subview.removeFromSuperview()
-        }
     }
 }

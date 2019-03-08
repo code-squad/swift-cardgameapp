@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ColumnStackView: UIStackView, CardGameStackView {
+class ColumnStackView: UIStackView {
 
     //MARK: - Methods
     //MARK: Initialization
@@ -18,26 +18,5 @@ class ColumnStackView: UIStackView, CardGameStackView {
         
         let heightOfCard = self.frame.width * 1.27
         self.spacing = -heightOfCard * (7/10)
-    }
-    
-    //MARK: Instance
-    func add(cards: [Card]) {
-        
-        for card in cards {
-            let cardView = ColumnView(card: card)
-            cardView.flip()
-            if card === cards.last {
-                cardView.flip()
-            }
-            self.addArrangedSubview(cardView)
-        }
-    }
-    
-    func remove(count: Int) {
-        for subview in arrangedSubviews.suffix(count) {
-            subview.removeFromSuperview()
-        }
-        guard let cardView = arrangedSubviews.last as? CardImageView else { return }
-        cardView.flipToFront()
     }
 }

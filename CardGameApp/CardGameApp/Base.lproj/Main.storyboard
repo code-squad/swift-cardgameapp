@@ -113,7 +113,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="refresh" translatesAutoresizingMaskIntoConstraints="NO" id="Lyo-vn-L6q">
                                 <rect key="frame" x="369" y="37.333333333333343" width="27.333333333333314" height="34.666666666666657"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ccu-RL-hsO" customClass="BackPositionStackView" customModule="CardGameApp" customModuleProvider="target">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="ccu-RL-hsO" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
                                 <rect key="frame" x="355.33333333333331" y="20" width="54.666666666666686" height="69.333333333333329"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -123,7 +123,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ub9-cO-OgT">
                                 <rect key="frame" x="238.33333333333337" y="20" width="113" height="69.333333333333329"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0gx-FU-oXQ" customClass="PreviewStackView" customModule="CardGameApp" customModuleProvider="target">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0gx-FU-oXQ" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="29.333333333333346" y="0.0" width="54.333333333333343" height="69.333333333333329"/>
                                     </stackView>
                                 </subviews>
@@ -136,16 +136,16 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="B43-we-Ra9">
                                 <rect key="frame" x="4" y="20" width="230.33333333333334" height="69.333333333333329"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="F2k-us-I5l" customClass="GoalsStackView" customModule="CardGameApp" customModuleProvider="target">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="F2k-us-I5l" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="69.333333333333329"/>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="SGw-LN-4q4" customClass="GoalsStackView" customModule="CardGameApp" customModuleProvider="target">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="SGw-LN-4q4" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="58.666666666666657" y="0.0" width="54.333333333333343" height="69.333333333333329"/>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="7sd-aE-EHD" customClass="GoalsStackView" customModule="CardGameApp" customModuleProvider="target">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="7sd-aE-EHD" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="117.00000000000001" y="0.0" width="54.666666666666671" height="69.333333333333329"/>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="HTu-Zf-98Z" customClass="GoalsStackView" customModule="CardGameApp" customModuleProvider="target">
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="HTu-Zf-98Z" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="175.66666666666666" y="0.0" width="54.666666666666657" height="69.333333333333329"/>
                                     </stackView>
                                 </subviews>
