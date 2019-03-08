@@ -43,6 +43,8 @@ class ViewController: UIViewController {
     /// 더블탭 이벤트 플래그
     var isDoubleTap = false
     
+    /// 드래그 이벤트용 이미지뷰
+    private var dragView = UIImageView()
     
     /// 앱 배경화면 설정
     private func setBackGroundImage() {
@@ -408,16 +410,22 @@ class ViewController: UIViewController {
         }
         
         // 임시뷰 이동 애니메이션
+        animate(tempView: tempCardView, originalView: cardView, goalPosition: goalPosition)
+    }
+    
+    /// 임시뷰를 목표지점으로 이동시킨후 제거하고, 원본뷰 히든 오프 하는 함수
+    func animate(tempView: UIView, originalView: UIView, goalPosition: CGPoint){
+        // 임시뷰 이동 애니메이션
         UIView.animate(withDuration: 0.5, animations: {
-            tempCardView.frame.origin.x = goalPosition.x
-            tempCardView.frame.origin.y = goalPosition.y
+            tempView.frame.origin.x = goalPosition.x
+            tempView.frame.origin.y = goalPosition.y
         }, completion: { (true) in
             
             // 임시뷰 삭제
-            tempCardView.removeFromSuperview()
+            tempView.removeFromSuperview()
             
             // 원본뷰 히든 해제
-            cardView.isHidden = false
+            originalView.isHidden = false
         })
     }
     
@@ -492,31 +500,44 @@ class ViewController: UIViewController {
             return ()
         }
         
-        // 임시카드뷰를 생선한다
-        let tempView = makeTempViewWithoutPosition(cardView: cardView)
+        // 드래그뷰의 센터
+        let initialCenter = self.dragView.center
         
-        // 임시카드뷰 위치를 설정한다
-        
-        
-        var initialCenter = tempView.center
-        
+        // 이벤트가 일어나는 뷰 기준점 이동 상태
         let translation = sender.translation(in: cardView.superview)
         
         if sender.state == .began {
+            // 카드 이동 플래그 온
+            self.isDoubleTap = true
+            
+            // 드래그 뷰 선언
+            self.dragView = makeTempViewWithoutPosition(cardView: cardView)
+            
+            // 임시카드뷰 위치를 설정한다
+            self.dragView.frame.origin = calculatePositionInMain(cardView: cardView)
+            
             os_log("카드 드래그 시작")
-            addViewToMain(view: tempView)
-            os_log("메인뷰 대비 좌표 : %@ , %@",translation.x, translation.y)
+            addViewToMain(view: self.dragView)
+            self.dragView.isUserInteractionEnabled = true
         }
         
         if sender.state == .changed {
             let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
-            tempView.center = newCenter
+            self.dragView.center = newCenter
         }
         
         if sender.state == .ended || sender.state == .cancelled {
             os_log("카드 드래그 끝")
-            tempView.removeFromSuperview()
+            
+            
+            
+            self.dragView.removeFromSuperview()
+            
+            // 카드 이동 플래그 false
+            self.isDoubleTap = false
         }
+        
+        sender.setTranslation(CGPoint.zero, in: self.view)
     }
     
     
