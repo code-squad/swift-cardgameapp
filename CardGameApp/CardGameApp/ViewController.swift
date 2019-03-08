@@ -324,8 +324,7 @@ class ViewController: UIViewController {
         return tempCardView
     }
     
-    
-    /// 임시뷰 위치를 계산해서 리턴한다
+    /// 임시뷰 위치를 과거위치에 기반 계산해서 리턴한다
     func calculatePositionInMain(pastCardData: PastCardData, cardView: CardView) -> CGPoint {
         // 결과 리턴용 함수
         var point = CGPoint()
@@ -356,6 +355,25 @@ class ViewController: UIViewController {
         }
         
         // 결과리턴
+        return point
+    }
+    
+    
+    
+    /// 임시뷰 위치를 현재뷰에 기반 계산해서 리턴한다
+    func calculatePositionInMain(cardView: CardView) -> CGPoint {
+        // 결과 리턴용 함수
+        var point = CGPoint()
+        
+        // 출발점이 플레이덱 인 경우 y 좌표를 초기화 하기위해 y - 카드높이 해준다
+        if cardView.cardViewModel.getDeckType() == .playDeck {
+            point.y -= cardView.frame.size.height
+        }
+        
+        // 임시뷰 위치 계산
+        point = calculatePresentCardViewPosition(cardView: cardView)
+        
+        // 결과 리턴
         return point
     }
     
