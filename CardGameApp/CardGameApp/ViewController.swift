@@ -500,6 +500,12 @@ class ViewController: UIViewController {
             return ()
         }
         
+        // 카드가 앞면인지 체크
+        guard cardView.isFront() == false {
+            os_log("드래그된 뷰가 앞면입니다")
+            return ()
+        }
+        
         // 드래그뷰의 센터
         let initialCenter = self.dragView.center
         
@@ -529,9 +535,8 @@ class ViewController: UIViewController {
         if sender.state == .ended || sender.state == .cancelled {
             os_log("카드 드래그 끝")
             
-            
-            
-            self.dragView.removeFromSuperview()
+            // 임시뷰 다시 원위치 후 제거
+            animate(tempView: dragView, originalView: cardView, goalPosition: calculatePositionInMain(cardView: cardView))
             
             // 카드 이동 플래그 false
             self.isDoubleTap = false
