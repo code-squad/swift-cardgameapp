@@ -336,6 +336,18 @@ class ViewController: UIViewController {
         }
         
         // 임시뷰 위치 계산
+        point = calculatePastCardViewPosition(pastCardData: pastCardData, cardView: cardView)
+        
+        // 결과 리턴
+        return point
+    }
+    
+    /// 카드뷰와 과거카드데이터를 받아서 과거위치를 리턴한다
+    func calculatePastCardViewPosition(pastCardData: PastCardData, cardView: CardView) -> CGPoint {
+        // 결과 리턴용 함수
+        var point = CGPoint()
+        
+        // 임시뷰 위치 계산
         switch pastCardData.deckType {
         case .playDeck : point = self.playDeckView.origin(deckLine: pastCardData.deckLine)
         case .pointDeck : point = self.pointDeckView.origin(deckLine: pastCardData.deckLine)
@@ -343,7 +355,7 @@ class ViewController: UIViewController {
         default : point =  cardView.superview!.frame.origin
         }
         
-        // 결과 리턴
+        // 결과리턴
         return point
     }
     
@@ -439,16 +451,36 @@ class ViewController: UIViewController {
     
     /// 뷰 드래그시 실행할 함수
     @objc func dragCardView(_ sender: UIPanGestureRecognizer){
-        // 임시카드뷰를 생선한다
-//        var tempView = makeT
+        // 이벤트 실행된 뷰 확인
+        guard let cardView = sender.view as? CardView else {
+            os_log("드래그된 뷰가 카드뷰가 아닙니다")
+            return ()
+        }
         
+        // 임시카드뷰를 생선한다
+        let tempView = makeTempViewWithoutPosition(cardView: cardView)
+        
+        // 임시카드뷰 위치를 설정한다
+        
+        
+        var initialCenter = tempView.center
+        
+        let translation = sender.translation(in: cardView.superview)
         
         if sender.state == .began {
             os_log("카드 드래그 시작")
+            addViewToMain(view: tempView)
+            os_log("메인뷰 대비 좌표 : %@ , %@",translation.x, translation.y)
+        }
+        
+        if sender.state == .changed {
+            let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
+            tempView.center = newCenter
         }
         
         if sender.state == .ended || sender.state == .cancelled {
             os_log("카드 드래그 끝")
+            tempView.removeFromSuperview()
         }
     }
     
