@@ -410,13 +410,13 @@ class ViewController: UIViewController {
         }
         
         // 임시뷰 이동 애니메이션
-        animate(tempView: tempCardView, originalView: cardView, goalPosition: goalPosition)
+        animate(tempView: tempCardView, originalView: cardView, goalPosition: goalPosition, duration: 0.5)
     }
     
     /// 임시뷰를 목표지점으로 이동시킨후 제거하고, 원본뷰 히든 오프 하는 함수
-    func animate(tempView: UIView, originalView: UIView, goalPosition: CGPoint){
+    func animate(tempView: UIView, originalView: UIView, goalPosition: CGPoint, duration: Double){
         // 임시뷰 이동 애니메이션
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: duration, animations: {
             tempView.frame.origin.x = goalPosition.x
             tempView.frame.origin.y = goalPosition.y
         }, completion: { (true) in
@@ -501,8 +501,8 @@ class ViewController: UIViewController {
         }
         
         // 카드가 앞면인지 체크
-        guard cardView.isFront() == false {
-            os_log("드래그된 뷰가 앞면입니다")
+        guard cardView.isFront() == true else {
+            os_log("드래그된 뷰가 뒷면입니다")
             return ()
         }
         
@@ -536,7 +536,7 @@ class ViewController: UIViewController {
             os_log("카드 드래그 끝")
             
             // 임시뷰 다시 원위치 후 제거
-            animate(tempView: dragView, originalView: cardView, goalPosition: calculatePositionInMain(cardView: cardView))
+            animate(tempView: dragView, originalView: cardView, goalPosition: calculatePositionInMain(cardView: cardView), duration: 0.1)
             
             // 카드 이동 플래그 false
             self.isDoubleTap = false
