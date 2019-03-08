@@ -359,6 +359,23 @@ class ViewController: UIViewController {
         return point
     }
     
+    /// 카드뷰를 받아서 현재위치를 리턴한다
+    func calculatePresentCardViewPosition(cardView: CardView) -> CGPoint {
+        // 결과 리턴용 함수
+        var point = CGPoint()
+        
+        // 임시뷰 위치 계산
+        switch cardView.cardViewModel.getDeckType() {
+        case .playDeck : point = self.playDeckView.origin(deckLine: cardView.cardViewModel.getDeckLine())
+        case .pointDeck : point = self.pointDeckView.origin(deckLine: cardView.cardViewModel.getDeckLine())
+            
+        default : point =  cardView.superview!.frame.origin
+        }
+        
+        // 결과리턴
+        return point
+    }
+    
     /// 원본뷰 와 임시뷰를 받아서 도착지점으로 임시뷰를 이동시킨 후 임시뷰 삭제,원본뷰 히든 해제
     func moveTempView(cardView: CardView, tempCardView: UIImageView){
         // 임시뷰 목적지 좌표 선언
