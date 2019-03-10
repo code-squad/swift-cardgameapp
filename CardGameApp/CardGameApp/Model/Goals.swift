@@ -53,19 +53,7 @@ class Goals {
         return self.goals.firstIndex(where: {$0===cardStack})
     }
     
-    func positionOfMoveableToGoals(_ card: Card) -> Int? {
+    func indexOfMoveableToGoals(_ card: Card) -> Int? {
         return self.goals.firstIndex(where: {card.isMoveableToGoal($0.peek())})
-    }
-    
-    func add(card: Card, position: Int) {
-        goals[position].push(card: card)
-    }
-    
-    func topCardPeek(with position: Int) -> Card? {
-        return self.goals[position].peek()
-    }
-    
-    func topCardPop(with position: Int) -> Card? {
-        return self.goals[position].pop()
     }
 }

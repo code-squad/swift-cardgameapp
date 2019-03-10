@@ -141,6 +141,10 @@ class CardStack : CustomStringConvertible {
     func count() -> Int {
         return self.cards.count
     }
+    
+    func removeTopCard() {
+        self.cards.removeLast()
+    }
 }
 
 extension Notification.Name {

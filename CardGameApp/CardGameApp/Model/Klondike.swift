@@ -38,7 +38,7 @@ class Klondike {
         goals.emptyAll()
         preview.empty()
         pile.empty()
-        columns.removeAll()
+        columns.emptyAll()
         
         setUp()
     }
@@ -63,45 +63,44 @@ class Klondike {
         guard let card = self.preview.peek() else { return }
         
         if card.isA(), let index = goals.indexOfEmptyGoal() {
-            guard let card = self.preview.pop() else { return }
-            goals.add(card: card, position: index)
+            self.preview.removeTopCard()
+            goals[index]?.push(card: card)
         } else if card.isK(), let index = columns.indexOfEmptyColumn() {
-            guard let card = self.preview.pop() else { return }
-            columns.add(card: card, position: index)
-        } else if let moveablePositionOfGoals = goals.positionOfMoveableToGoals(card) {
-            guard let card = self.preview.pop() else { return }
-            goals.add(card: card, position: moveablePositionOfGoals)
-        } else if let moveablePositionOfColumns = columns.positionOfMoveableToColumns(card) {
-            guard let card = self.preview.pop() else { return }
-            columns.add(card: card, position: moveablePositionOfColumns)
+            self.preview.removeTopCard()
+            columns[index]?.push(card: card)
+        } else if let moveableIndexOfGoals = goals.indexOfMoveableToGoals(card) {
+            self.preview.removeTopCard()
+            goals[moveableIndexOfGoals]?.push(card: card)
+        } else if let moveableIndexOfColumns = columns.indexOfMoveableToColumns(card) {
+            self.preview.removeTopCard()
+            columns[moveableIndexOfColumns]?.push(card: card)
         }
     }
     
-    func moveGoalTopCard(position: Int) {
-        guard let card = self.goals.topCardPeek(with: position) else { return }
+    func moveGoalTopCard(index: Int) {
+        guard let card = self.goals[index]?.peek() else { return }
         
-        if let moveablePositionOfColumns = columns.positionOfMoveableToColumns(card) {
-            guard let card = self.goals.topCardPop(with: position) else { return }
-            columns.add(card: card, position: moveablePositionOfColumns)
+        if let moveableIndexOfColumns = columns.indexOfMoveableToColumns(card) {
+            self.goals[index]?.removeTopCard()
+            columns[moveableIndexOfColumns]?.push(card: card)
         }
     }
     
-    func moveColumnCardIn(position: (Int, Int)) {
-        guard let card = self.columns.peekCardIn(position: position) else { return }
-        let column = position.0
+    func moveColumnCardIn(position: Position) {
+        let column = position.column
+        let row = position.row
+        guard let card = columns[column]?.cardIn(position: row) else { return }
         
-        if card.isA(), let index = goals.indexOfEmptyGoal(), columns.isTop(card: card, in: column) {
-            guard let card = columns.popTopCard(position: column) else { return }
-            goals.add(card: card, position: index)
-        } else if let moveablePositionOfGoals = goals.positionOfMoveableToGoals(card), columns.isTop(card: card, in: column) {
-            guard let card = columns.popTopCard(position: column) else { return }
-            goals.add(card: card, position: moveablePositionOfGoals)
-        } else if let moveablePositionOfColumns = columns.positionOfMoveableToColumns(card) {
-            let stack = columns.popStackIn(position: position)
-            columns.add(stack: stack, to: moveablePositionOfColumns)
-        } else if card.isK(), let index = columns.indexOfEmptyColumn() {
-            let stack = columns.popStackIn(position: position)
-            columns.add(stack: stack, to: index)
+        if card.isA(), let index = goals.indexOfEmptyGoal(), card == columns[column]?.peek() {
+            columns[column]?.removeTopCard()
+            goals[index]?.push(card: card)
+        } else if let moveableIndexOfGoals = goals.indexOfMoveableToGoals(card), card == columns[column]?.peek() {
+            columns[column]?.removeTopCard()
+            goals[moveableIndexOfGoals]?.push(card: card)
+        } else if let moveableIndexOfColumns = columns.indexOfMoveableToColumns(card), let cards = columns[column]?.cardsIn(position: row) {
+            columns[moveableIndexOfColumns]?.put(stack: CardStack(cards: cards))
+        } else if card.isK(), let index = columns.indexOfEmptyColumn(), let cards = columns[column]?.cardsIn(position: row) {
+            columns[index]?.put(stack: CardStack(cards: cards))
         }
     }
 }

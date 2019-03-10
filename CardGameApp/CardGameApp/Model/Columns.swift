@@ -53,7 +53,7 @@ class Columns {
         self.columns[position].put(stack: stack)
     }
     
-    func removeAll() {
+    func emptyAll() {
         for column in columns {
             column.empty()
         }
@@ -67,35 +67,8 @@ class Columns {
         return columns.firstIndex(where: {$0.isEmpty()})
     }
     
-    func positionOfMoveableToColumns(_ card: Card) -> Int? {
+    func indexOfMoveableToColumns(_ card: Card) -> Int? {
         return self.columns.firstIndex(where: {card.isMoveableToColumn($0.peek())})
-    }
-    
-    func add(card: Card, position: Int) {
-        columns[position].push(card: card)
-    }
-    
-    func peekCardIn(position: (Int, Int)) -> Card? {
-        let column = position.0
-        let row = position.1
-        guard let card = columns[column].cardIn(position: row) else { return nil }
-        return card
-    }
-    
-    func isTop(card: Card, in position: Int) -> Bool {
-        guard let cardInColumn = self.columns[position].peek() else { return false }
-        return cardInColumn == card
-    }
-    
-    func popTopCard(position: Int) -> Card? {
-        return columns[position].pop()
-    }
-    
-    func popStackIn(position: (Int, Int)) -> CardStack {
-        let column = position.0
-        let row = position.1
-        let cards = columns[column].cardsIn(position: row)
-        return CardStack(cards: cards)
     }
 }
 

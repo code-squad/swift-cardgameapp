@@ -214,14 +214,14 @@ class ViewController: UIViewController {
     
     @objc private func moveGoalTopCard(sender: UITapGestureRecognizer) {
         guard let cardView = sender.view as? CardImageView,
-           let position = goalsStackView.positionOfStackViewWith(cardView: cardView) else { return }
+           let index = goalsStackView.indexOfStackViewWith(cardView: cardView) else { return }
 
-        klondike.moveGoalTopCard(position: position)
+        klondike.moveGoalTopCard(index: index)
     }
     
     @objc private func moveColumn(sender: UITapGestureRecognizer) {
         guard let cardView = sender.view as? CardImageView,
-            let position = columnsStackView.columnAndRowOfStackViewWith(cardView: cardView) else { return }
+            let position = columnsStackView.positionOfStackViewWith(cardView: cardView) else { return }
 
         klondike.moveColumnCardIn(position: position)
     }
@@ -242,18 +242,18 @@ class ViewController: UIViewController {
 }
 
 extension UIStackView {
-    func positionOfStackViewWith(cardView: CardImageView) -> Int? {
+    func indexOfStackViewWith(cardView: CardImageView) -> Int? {
         guard let stackViews = arrangedSubviews as? [UIStackView] else { return nil }
         return stackViews.firstIndex(where: {$0.arrangedSubviews.contains(cardView)})
     }
     
-    func columnAndRowOfStackViewWith(cardView: CardImageView) -> (Int, Int)? {
+    func positionOfStackViewWith(cardView: CardImageView) -> Position? {
         guard let stackViews = arrangedSubviews as? [UIStackView] else { return nil }
         
         for stackView in stackViews {
             guard let row = stackView.arrangedSubviews.firstIndex(of: cardView),
                 let column = stackViews.firstIndex(of: stackView) else { continue }
-            return (column, row)
+            return Position(column: column, row: row)
         }
         return nil
     }
