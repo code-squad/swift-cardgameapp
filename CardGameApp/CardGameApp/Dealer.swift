@@ -23,9 +23,9 @@ struct Dealer: GamePlayer, GameOperator {
         var gamePlayers = [GamePlayer]()
         self.deck.shuffle()
         for number in 1...numberOfParticipant {
-            gamePlayers.append(Participant.init(name: "참가자#\(number)",cards: deck.draw(few: gameType)))
+            gamePlayers.append(Participant.init(name: "참가자#\(number)",cards: CardStack(cards: deck.draw(few: gameType))))
         }
-        self.cards = deck.draw(few: gameType)
+        self.cards = CardStack(cards: deck.draw(few: gameType))
         gamePlayers.append(self)
         return gamePlayers
     }

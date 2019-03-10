@@ -13,6 +13,6 @@ protocol CardGameDeck {
     mutating func shuffle()
     mutating func removeOne() -> Card?
     mutating func reset()
-    mutating func draw(few:Int) -> CardStack
+    mutating func draw(few:Int) -> [Card]
     mutating func willSetDeck(few:Int) -> [CardStack]
 }

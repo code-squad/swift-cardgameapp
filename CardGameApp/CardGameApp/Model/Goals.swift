@@ -28,6 +28,17 @@ class Goals {
         self.goals = goals
     }
     
+    subscript(index: Int) -> Goal? {
+        get {
+            guard 0 <= index && index < goals.count else { return nil }
+            return goals[index]
+        }
+        set {
+            guard let goal = newValue else { return }
+            goals[index] = goal
+        }
+    }
+    
     func emptyAll() {
         for stack in goals {
             stack.empty()

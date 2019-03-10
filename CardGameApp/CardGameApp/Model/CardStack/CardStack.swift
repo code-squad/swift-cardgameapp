@@ -17,27 +17,27 @@ class CardStack : CustomStringConvertible {
         didSet {
             let countOfLatestCards = cards.count - oldValue.count
             if countOfLatestCards > 0 {
-                postAddedCardsInfo(countOfLatestCards)
+                let addedCards = cards.suffix(countOfLatestCards)
+                postAddedCardsInfo(addedCards: Array(addedCards))
             }
             if countOfLatestCards < 0 {
-                postPoppedCountInfo(countOfLatestCards)
+                let countOfPoppedCards = abs(countOfLatestCards)
+                postPoppedCountInfo(countOfPoppedCards: countOfPoppedCards)
             }
         }
     }
     
-    private func postAddedCardsInfo(_ count: Int) {
-        let addedCards = cards.suffix(count)
+    func postAddedCardsInfo(addedCards: [Card]) {
         NotificationCenter.default.post(name: addedCardsNotificationName(),
                                         object: self,
-                                        userInfo: [UserInfoKey.addedCards: Array(addedCards)])
+                                        userInfo: [UserInfoKey.addedCards: addedCards])
     }
     
     func addedCardsNotificationName() -> Notification.Name {
         return .cardStackDidAdd
     }
     
-    private func postPoppedCountInfo(_ count: Int) {
-        let countOfPoppedCards = abs(count)
+    func postPoppedCountInfo(countOfPoppedCards: Int) {
         NotificationCenter.default.post(name: poppedCountNotificationName(),
                                         object: self,
                                         userInfo: [UserInfoKey.countOfPoppedCards: countOfPoppedCards])
@@ -125,7 +125,9 @@ class CardStack : CustomStringConvertible {
     }
     
     func cardIn(position: Int) -> Card? {
-        guard cards[position] != nil else { return nil }
+        guard 0 <= position && position < cards.count else {
+            return nil
+        }
         return cards[position]
     }
     
@@ -134,6 +136,10 @@ class CardStack : CustomStringConvertible {
         let cards = self.cards[range]
         self.cards.removeSubrange(range)
         return Array(cards)
+    }
+    
+    func count() -> Int {
+        return self.cards.count
     }
 }
 

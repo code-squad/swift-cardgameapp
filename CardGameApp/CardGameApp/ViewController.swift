@@ -62,6 +62,11 @@ class ViewController: UIViewController {
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
+                                               selector: #selector(initialSettingColumns),
+                                               name: .columnDidCreate,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self,
                                                selector: #selector(removeColumnsStackView),
                                                name: .columnDidPop,
                                                object: nil)
@@ -145,6 +150,15 @@ class ViewController: UIViewController {
         for subview in stackView.arrangedSubviews.suffix(count) {
             subview.removeFromSuperview()
         }
+        if let topCardOfStack = userInfo[UserInfoKey.topCardOfStack] as? Card {
+            stackView.arrangedSubviews.last?.removeFromSuperview()
+            let tap = UITapGestureRecognizer(target: self, action: #selector(moveColumn))
+            tap.numberOfTapsRequired = 2
+            let cardImageView = CardImageView(card: topCardOfStack)
+            cardImageView.isUserInteractionEnabled = true
+            cardImageView.addGestureRecognizer(tap)
+            stackView.addArrangedSubview(cardImageView)
+        }
     }
     
     @objc private func addGoalsStackView(_ noti: Notification) {
@@ -173,6 +187,25 @@ class ViewController: UIViewController {
         for subview in stackView.arrangedSubviews.suffix(count) {
             subview.removeFromSuperview()
         }
+    }
+    
+    @objc private func initialSettingColumns(_ noti: Notification) {
+        guard let userInfo = noti.userInfo,
+            let countOfBackCard = userInfo[UserInfoKey.countOfBackCards] as? Int,
+            let topCardOfColumn = userInfo[UserInfoKey.topCardOfStack] as? Card,
+            let index = userInfo[UserInfoKey.index] as? Int,
+            let subview = columnsStackView.arrangedSubviews[index] as? UIStackView else { return }
+        for _ in 0..<countOfBackCard {
+            let cardBackImageView = CardBackImageView()
+            subview.addArrangedSubview(cardBackImageView)
+        }
+        let cardView = CardImageView(card: topCardOfColumn)
+        subview.addArrangedSubview(cardView)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(moveColumn))
+        tap.numberOfTapsRequired = 2
+        cardView.isUserInteractionEnabled = true
+        cardView.addGestureRecognizer(tap)
+        subview.addArrangedSubview(cardView)
     }
 
     @objc private func movePreviewTopCard() {

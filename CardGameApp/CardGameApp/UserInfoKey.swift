@@ -12,4 +12,8 @@ struct UserInfoKey {
     
     static let addedCards = "addedCards"
     static let countOfPoppedCards = "countOfPoppedCards"
+    
+    static let countOfBackCards = "countOfBackCards"
+    static let topCardOfStack = "topCardOfStack"
+    static let index = "index"
 }

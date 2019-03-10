@@ -14,6 +14,13 @@ class Column: CardStack {
         return .columnDidAdd
     }
     
+    override func postPoppedCountInfo(countOfPoppedCards: Int) {
+        NotificationCenter.default.post(name: poppedCountNotificationName(),
+                                        object: self,
+                                        userInfo: [UserInfoKey.countOfPoppedCards: countOfPoppedCards,
+                                                   UserInfoKey.topCardOfStack: self.peek()])
+    }
+    
     override func poppedCountNotificationName() -> Notification.Name {
         return .columnDidPop
     }

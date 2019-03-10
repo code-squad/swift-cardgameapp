@@ -30,13 +30,32 @@ class Columns {
     
     //MARK: Instance
     
+    subscript(index: Int) -> Column? {
+        get {
+            guard 0 <= index && index < columns.count else { return nil }
+            return columns[index]
+        }
+        set {
+            guard let column = newValue,
+                let topCardOfColunm = column.peek() else { return }
+            columns[index] = column
+            let countOfBackCards = column.count() - 1
+            
+            NotificationCenter.default.post(name: .columnDidCreate,
+                                            object: self,
+                                            userInfo: [UserInfoKey.countOfBackCards: countOfBackCards,
+                                                       UserInfoKey.topCardOfStack: topCardOfColunm,
+                                                       UserInfoKey.index: index])
+        }
+    }
+    
     func add(stack: CardStack, to position: Int) {
         self.columns[position].put(stack: stack)
     }
     
-    func emptyAll() {
-        for stack in columns {
-            stack.empty()
+    func removeAll() {
+        for column in columns {
+            column.empty()
         }
     }
     
@@ -78,4 +97,8 @@ class Columns {
         let cards = columns[column].cardsIn(position: row)
         return CardStack(cards: cards)
     }
+}
+
+extension Notification.Name {
+    static let columnDidCreate = Notification.Name("columnDidCreate")
 }

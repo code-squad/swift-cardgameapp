@@ -25,9 +25,9 @@ class Klondike {
         
         let rangeOfStack = 1...7
         for few in rangeOfStack {
-            let stack = deck.draw(few: few)
+            let cards = deck.draw(few: few)
             let position = few - 1
-            self.columns.add(stack: stack, to: position)
+            self.columns[position] = Column(cards: cards)
         }
         
         let stack = deck.remainingCards()
@@ -38,7 +38,7 @@ class Klondike {
         goals.emptyAll()
         preview.empty()
         pile.empty()
-        columns.emptyAll()
+        columns.removeAll()
         
         setUp()
     }
@@ -93,15 +93,15 @@ class Klondike {
         if card.isA(), let index = goals.indexOfEmptyGoal(), columns.isTop(card: card, in: column) {
             guard let card = columns.popTopCard(position: column) else { return }
             goals.add(card: card, position: index)
-        } else if card.isK(), let index = columns.indexOfEmptyColumn() {
-            let stack = columns.popStackIn(position: position)
-            columns.add(stack: stack, to: index)
         } else if let moveablePositionOfGoals = goals.positionOfMoveableToGoals(card), columns.isTop(card: card, in: column) {
             guard let card = columns.popTopCard(position: column) else { return }
             goals.add(card: card, position: moveablePositionOfGoals)
         } else if let moveablePositionOfColumns = columns.positionOfMoveableToColumns(card) {
             let stack = columns.popStackIn(position: position)
             columns.add(stack: stack, to: moveablePositionOfColumns)
+        } else if card.isK(), let index = columns.indexOfEmptyColumn() {
+            let stack = columns.popStackIn(position: position)
+            columns.add(stack: stack, to: index)
         }
     }
 }
