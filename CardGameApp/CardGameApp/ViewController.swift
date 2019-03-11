@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var columnsStackView: UIStackView!
     
     //MARK: Instance
-    private var klondikePresenter: KlondikePresenter?
+    private var klondikePresenter = KlondikePresenter()
     
     //MARK: - Methods
     //MARK: Setting
@@ -36,40 +36,41 @@ class ViewController: UIViewController {
         guard let image = UIImage(named: "bg_pattern") else { return }
         self.view.backgroundColor = UIColor(patternImage: image)
         
-        self.klondikePresenter = KlondikePresenter(view: self)
+        self.klondikePresenter.attach(view: self)
+        self.klondikePresenter.setUp()
     }
     
     //MARK: Gesture Actions
 
     @objc private func movePreviewTopCard() {
-        klondikePresenter?.movePreviewTopCard()
+        klondikePresenter.movePreviewTopCard()
     }
     
     @objc private func moveGoalTopCard(sender: UITapGestureRecognizer) {
         guard let cardView = sender.view as? CardImageView,
            let index = goalsStackView.indexOfStackViewWith(cardView: cardView) else { return }
 
-        klondikePresenter?.moveGoalTopCard(index: index)
+        klondikePresenter.moveGoalTopCard(index: index)
     }
     
     @objc private func moveColumn(sender: UITapGestureRecognizer) {
         guard let cardView = sender.view as? CardImageView,
             let position = columnsStackView.positionOfStackViewWith(cardView: cardView) else { return }
 
-        klondikePresenter?.moveColumn(position: position)
+        klondikePresenter.moveColumn(position: position)
     }
     
     //MARK: IBAction
     
     @IBAction func tapPileStackView(_ sender: Any) {
-        klondikePresenter?.flipCardsFromThePileToPreview()
+        klondikePresenter.flipCardsFromThePileToPreview()
     }
     
     //MARK: Motion
     
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
-            klondikePresenter?.reset()
+            klondikePresenter.reset()
         }
     }
 }
