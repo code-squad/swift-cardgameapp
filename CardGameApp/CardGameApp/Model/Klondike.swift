@@ -51,11 +51,11 @@ class Klondike {
         self.preview.push(card: card)
     }
     
-    func position(of column: Column) -> Int? {
+    func index(of column: Column) -> Int? {
         return self.columns.position(of: column)
     }
     
-    func position(of goal: Goal) -> Int? {
+    func index(of goal: Goal) -> Int? {
         return self.goals.position(of: goal)
     }
     
