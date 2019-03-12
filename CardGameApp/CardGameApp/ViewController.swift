@@ -84,9 +84,7 @@ extension ViewController: KlondikeView {
     }
     
     func removePileStackView(count: Int) {
-        for subview in self.pileStackView.arrangedSubviews.suffix(count) {
-            subview.removeFromSuperview()
-        }
+        self.pileStackView.removeSubviews(count: count)
     }
     
     func addPreviewStackView(cards: [Card]) {
@@ -98,9 +96,7 @@ extension ViewController: KlondikeView {
     }
     
     func removePreviewStackView(count: Int) {
-        for subview in self.previewStackView.arrangedSubviews.suffix(count) {
-            subview.removeFromSuperview()
-        }
+        self.previewStackView.removeSubviews(count: count)
     }
     
     func addColumnsStackView(cards: [Card], index: Int) {
@@ -114,9 +110,7 @@ extension ViewController: KlondikeView {
     
     func removeColumnsStackView(count: Int, index: Int, card: Card?) {
         guard let stackView = columnsStackView.arrangedSubviews[index] as? UIStackView else { return }
-        for subview in stackView.arrangedSubviews.suffix(count) {
-            subview.removeFromSuperview()
-        }
+        stackView.removeSubviews(count: count)
         if let card = card {
             stackView.arrangedSubviews.last?.removeFromSuperview()
             let cardImageView = cardImageViewWithDoubleTapGesture(card: card,
@@ -147,9 +141,7 @@ extension ViewController: KlondikeView {
     
     func removeGoalsStackView(count: Int, index: Int) {
         guard let stackView = goalsStackView.arrangedSubviews[index] as? UIStackView else { return }
-        for subview in stackView.arrangedSubviews.suffix(count) {
-            subview.removeFromSuperview()
-        }
+        stackView.removeSubviews(count: count)
     }
     
     private func cardImageViewWithDoubleTapGesture(card: Card, action: Selector) -> UIImageView {
@@ -163,6 +155,7 @@ extension ViewController: KlondikeView {
 }
 
 extension UIStackView {
+    
     func indexOfStackViewWith(cardView: CardImageView) -> Int? {
         guard let stackViews = arrangedSubviews as? [UIStackView] else { return nil }
         return stackViews.firstIndex(where: {$0.arrangedSubviews.contains(cardView)})
@@ -177,6 +170,12 @@ extension UIStackView {
             return Position(column: column, row: row)
         }
         return nil
+    }
+    
+    func removeSubviews(count: Int) {
+        for subview in self.arrangedSubviews.suffix(count) {
+            subview.removeFromSuperview()
+        }
     }
 }
 
