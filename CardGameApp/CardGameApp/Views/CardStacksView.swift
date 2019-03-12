@@ -39,9 +39,14 @@ class CardStacksView: UIStackView {
         }
     }
     
-    func removeCardView(at stackNumber: Int) {
+    func addCardView(at stackNumber: Int, view: CardView) {
         guard let stackView = self.arrangedSubviews[stackNumber] as? CardStackView else { return }
-        stackView.removeFromStack()
+        stackView.addCardView(cardView: view)
+    }
+    
+    func removeCardView(at stackNumber: Int) -> CardView? {
+        guard let stackView = self.arrangedSubviews[stackNumber] as? CardStackView else { return nil }
+        return stackView.removeFromStack()
     }
     
     func turnLastCard(at stackNumber: Int, stackModel: CardStack) {

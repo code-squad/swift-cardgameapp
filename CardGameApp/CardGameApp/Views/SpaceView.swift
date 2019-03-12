@@ -34,5 +34,6 @@ class SpaceView: UIView {
     func addCardView(_ cardView: CardView) {
         cardViews.append(cardView)
         self.addSubview(cardView)
+        print(cardViews.count)
     }
 }

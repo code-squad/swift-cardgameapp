@@ -30,10 +30,8 @@ class CardSpacesView: UIStackView {
         self.distribution = .fillEqually
     }
     
-    func addCardView(at number: Int, card: Card) {
+    func addCardView(at number: Int, view: CardView) {
         guard let spaceView = arrangedSubviews[number] as? SpaceView else { return }
-        let cardView = CardView(frame: CGRect(x: Sizes.originX, y: Sizes.originY, width: Sizes.cardWitdh, height: Sizes.cardHeight))
-        cardView.setCardImage(name: card.description)
-        spaceView.addCardView(cardView)
+        spaceView.addCardView(view)
     }
 }

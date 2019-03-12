@@ -51,9 +51,12 @@ class CardStackView: UIView {
     }
     
     // View들을 관리하는 배열에서 뺴주고 화면에서 제거
-    func removeFromStack() {
+    func removeFromStack() -> CardView? {
+        guard cardViews.count != 0 else { return nil }
         let removeView: CardView = cardViews.remove(at: cardViews.count-1)
         removeView.removeFromSuperview()
+        removeView.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
+        return removeView
     }
     
     // Stack의 마지막 카드를 앞면으로 뒤집는다.
