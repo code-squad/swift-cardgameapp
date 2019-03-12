@@ -37,7 +37,7 @@ class ViewController: UIViewController {
     @objc func removeOneCardFromDeck() {
         guard let pickedCard = cardDeck.removeOne() else { return }
         reversedCards.add(pickedCard)
-        reversedCardsView?.addViewFromDeck(card: pickedCard)
+        reversedCardsView?.addView(card: pickedCard)
     }
     
     private func initialReversedView() {
@@ -118,6 +118,11 @@ extension ViewController {
     }
 }
 
+enum TappedCard {
+    case reversed
+    case stack(Int)
+}
+
 // CardView Tap시 일어나는 동작 구현
 extension ViewController {
     @objc func addDoubleTapRecognizer(_ notification: NSNotification) {
@@ -130,23 +135,23 @@ extension ViewController {
     }
     
     @objc func tapCard(_ gesture: UIGestureRecognizer) {
-        var touchedStackNum: Int = 0
-        let touchedX = gesture.location(in: self.view).x
-        for stackNumber in 1...7 {
-            if touchedX >= CGFloat(Sizes.viewFirstX + Sizes.cardWitdh * (stackNumber-1) + 5 * (stackNumber-1))
-                && touchedX <= CGFloat(Sizes.viewFirstX + Sizes.cardWitdh * stackNumber + 5 * (stackNumber-1)) {
-                touchedStackNum = stackNumber
-                break
-            }
+        let tappedView: TappedCard = searchTappedCardView(touched: gesture.location(in: self.view))
+        
+        switch tappedView {
+        case .reversed: animateFromReversed()
+        case .stack(let number): animateFromStack(number: number)
         }
-        animateCardByRule(touchedStackNum)
     }
     
-    private func animateCardByRule(_ number: Int) {
-        if cardStacks[number-1].isLastCardOne() { animateOneCard(number) }
+    private func animateFromReversed() {
+        if reversedCards.isLastCardOne() { animateOneCardReversed() }
     }
     
-    private func animateOneCard(_ number: Int) {
+    private func animateFromStack(number: Int) {
+        if cardStacks[number-1].isLastCardOne() { animateOneCardStack(number) }
+    }
+    
+    private func animateOneCardStack(_ number: Int) {
         guard let removeCard = cardStacks[number-1].removeOne() else { return }
         cardStacksView?.removeCardView(at: number-1)
         cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1])
@@ -158,6 +163,32 @@ extension ViewController {
                 break
             }
         }
+    }
+    
+    private func animateOneCardReversed() {
+        guard let removeCard = reversedCards.removeOne() else { return }
+        reversedCardsView?.removeView()
+        
+        for index in 0..<spacesCardStacks.count {
+            if spacesCardStacks[index].isEmpty() {
+                spacesCardStacks[index].add(removeCard)
+                spacesView?.addCardView(at: index, card: removeCard)
+                break
+            }
+        }
+    }
+    
+    private func searchTappedCardView(touched: CGPoint) -> TappedCard {
+        if touched.y >= CGFloat(Sizes.viewFirstY) && touched.y <= CGFloat(Sizes.cardHeight + Sizes.viewFirstY) { return .reversed }
+        else {
+            for stackNumber in 1...7 {
+                if touched.x >= CGFloat(Sizes.viewFirstX + Sizes.cardWitdh * (stackNumber-1) + 5 * (stackNumber-1))
+                    && touched.x <= CGFloat(Sizes.viewFirstX + Sizes.cardWitdh * stackNumber + 5 * (stackNumber-1)) {
+                    return .stack(stackNumber)
+                }
+            }
+        }
+        return .stack(1)
     }
 }
 
