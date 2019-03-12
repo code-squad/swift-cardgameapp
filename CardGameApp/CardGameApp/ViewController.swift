@@ -155,6 +155,22 @@ extension ViewController {
         }
         return .stack(1)
     }
+    
+    private func isMoveToSpace(cardOnTop: Card) -> Bool {
+        var isMove: Bool = false
+        
+        for index in 0..<spacesCardStacks.count {
+            spacesCardStacks[index].accessCard { spaceCards in
+                guard !spaceCards.isEmpty else { return }
+                let spaceCardOnTop = spaceCards[spaceCards.count-1]
+                
+                guard cardOnTop.shape == spaceCardOnTop.shape && cardOnTop.number.rawValue == spaceCardOnTop.number.rawValue+1 else { return }
+                isMove = true
+            }
+            if isMove { break }
+        }
+        return isMove
+    }
 }
 
 // Reversed View에서 일어나는 동작 구현
@@ -165,20 +181,22 @@ extension ViewController {
             
             if reversedCardsOnTop.number == .one { animateOneCardFromReversed() }
             else if reversedCardsOnTop.number == .thirteen { animateKCardFromRevered() }
-            else {
-                for index in 0..<spacesCardStacks.count {
-                    spacesCardStacks[index].accessCard { spaceCards in
-                        guard !spaceCards.isEmpty else { return }
-                        let spaceCardOnTop = spaceCards[spaceCards.count-1]
-
-                        guard reversedCardsOnTop.shape == spaceCardOnTop.shape && reversedCardsOnTop.number.rawValue == spaceCardOnTop.number.rawValue+1 else { return }
-
-                        guard let removeCard = reversedCards.removeOne() else { return }
-                        guard let removeCardView = reversedCardsView?.removeView() else { return }
-                        spacesCardStacks[index].add(removeCard)
-                        spacesView?.addCardView(at: index, view: removeCardView)
-                    }
-                }
+            else if isMoveToSpace(cardOnTop: reversedCardsOnTop) { animateReversedToSpace(cardOnTop: reversedCardsOnTop) }
+        }
+    }
+    
+    private func animateReversedToSpace(cardOnTop: Card) {
+        for index in 0..<spacesCardStacks.count {
+            spacesCardStacks[index].accessCard { spaceCards in
+                guard !spaceCards.isEmpty else { return }
+                let spaceCardOnTop = spaceCards[spaceCards.count-1]
+                
+                guard cardOnTop.shape == spaceCardOnTop.shape else { return }
+                
+                guard let removeCard = reversedCards.removeOne() else { return }
+                guard let removeCardView = reversedCardsView?.removeView() else { return }
+                spacesCardStacks[index].add(removeCard)
+                spacesView?.addCardView(at: index, view: removeCardView)
             }
         }
     }
@@ -217,21 +235,23 @@ extension ViewController {
             
             if cardStackOnTop.number == .one { animateOneCardFromStack(number) }
             else if cardStackOnTop.number == .thirteen { animateKCardFromStack(number) }
-            else {
-                for index in 0..<spacesCardStacks.count {
-                    spacesCardStacks[index].accessCard { spaceCards in
-                        guard !spaceCards.isEmpty else { return }
-                        let spaceCardOnTop = spaceCards[spaceCards.count-1]
-
-                        guard cardStackOnTop.shape == spaceCardOnTop.shape && cardStackOnTop.number.rawValue == spaceCardOnTop.number.rawValue+1 else { return }
-
-                        guard let removeCard = cardStacks[number-1].removeOne() else { return }
-                        guard let removeCardView = cardStacksView?.removeCardView(at: number-1) else { return }
-                        cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1])
-                        spacesCardStacks[index].add(removeCard)
-                        spacesView?.addCardView(at: index, view: removeCardView)
-                    }
-                }
+            else if isMoveToSpace(cardOnTop: cardStackOnTop) { animateStackToSpace(from: number, cardOnTop: cardStackOnTop) }
+        }
+    }
+    
+    private func animateStackToSpace(from number: Int, cardOnTop: Card) {
+        for index in 0..<spacesCardStacks.count {
+            spacesCardStacks[index].accessCard { spaceCards in
+                guard !spaceCards.isEmpty else { return }
+                let spaceCardOnTop = spaceCards[spaceCards.count-1]
+                
+                guard cardOnTop.shape == spaceCardOnTop.shape else { return }
+                
+                guard let removeCard = cardStacks[number-1].removeOne() else { return }
+                guard let removeCardView = cardStacksView?.removeCardView(at: number-1) else { return }
+                cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1])
+                spacesCardStacks[index].add(removeCard)
+                spacesView?.addCardView(at: index, view: removeCardView)
             }
         }
     }
