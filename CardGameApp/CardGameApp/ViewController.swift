@@ -267,7 +267,7 @@ extension ViewController {
     private func animateOneCardFromStack(_ number: Int) {
         guard let removeCard = cardStacks[number-1].removeOne() else { return }
         guard let removeCardView = cardStacksView?.removeCardView(at: number-1) else { return }
-        cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1])
+        if !cardStacks[number-1].isEmpty() { cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1]) }
         
         for index in 0..<spacesCardStacks.count {
             if spacesCardStacks[index].isEmpty() {
@@ -280,9 +280,10 @@ extension ViewController {
 
     private func animateKCardFromStack(_ number: Int) {
         for index in 0..<cardStacks.count {
-            if cardStacks[index].isEmpty() {
+            if cardStacks[index].isEmpty() && index != number-1 {
                 guard let removeCard = cardStacks[number-1].removeOne() else { return }
                 guard let removeCardView = cardStacksView?.removeCardView(at: number-1) else { return }
+                if !cardStacks[number-1].isEmpty() { cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1]) }
                 cardStacks[index].add(removeCard)
                 cardStacksView?.addCardView(at: index, view: removeCardView)
                 break
@@ -300,7 +301,7 @@ extension ViewController {
                 
                 guard let removeCard = cardStacks[number-1].removeOne() else { return }
                 guard let removeCardView = cardStacksView?.removeCardView(at: number-1) else { return }
-                cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1])
+                if !cardStacks[number-1].isEmpty() { cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1]) }
                 spacesCardStacks[index].add(removeCard)
                 spacesView?.addCardView(at: index, view: removeCardView)
             }
@@ -322,7 +323,7 @@ extension ViewController {
                         (stackCardOnTop.shape == .spade || stackCardOnTop.shape == .clover)) {
                     guard let removeCard = cardStacks[number-1].removeOne() else { return }
                     guard let removeCardView = cardStacksView?.removeCardView(at: number-1) else { return }
-                    cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1])
+                    if !cardStacks[number-1].isEmpty() { cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1]) }
                     cardStacks[index].add(removeCard)
                     cardStacksView?.addCardView(at: index, view: removeCardView)
                     isOver = true

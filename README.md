@@ -125,3 +125,75 @@ class CardStacksView: UIStackView {
 5. Rotation Gesture Recognizer
 6. Screen Gesture Recognizer
 7. LongPress Gesture Recognizer
+
+
+
+ 일반적으로 `UITapGestureRecognizer` 을 추가하기 위해서는 밑의 코드와 같이 해주면 된다.
+
+```swift
+class ViewController: UIViewController {
+    @IBOutlet var redView: UIView!
+    
+    override func viewDidLoad() {
+		super.viewDidLoad()
+
+		var taps = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+		self.redView.addGestureRecognizer(taps)
+	}
+}
+
+extension ViewController {
+	@objc func handleTapGesture(recognizer: UITapGestureRecognizer) {
+		print("Touch RedView")
+	}
+}
+```
+
+
+
+ 이번 스텝에서는 더블 탭을 구현하고 `CustomView`에  추가해주기 때문에, 조금 다른 방식으로 해주었다. 여기서 `NotificationCenter` 을 활용하였다.
+
+```swift
+extension NSNotification.Name {
+    static let createdCardView = NSNotification.Name(rawValue: "createdCardView")
+}
+
+class CardView: UIImageView {
+    func setCardImage(name: String) {
+        self.image = UIImage(named: name)
+        NotificationCenter.default.post(name: .createdCardView, object: nil, userInfo: ["card" : self])
+    }
+}
+
+class ViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    NotificationCenter.default.addObserver(self, selector: 							#selector(addDoubleTapRecognizer(_:)), name: .createdCardView, object: nil)
+    }
+    
+    @objc func addDoubleTapRecognizer(_ notification: NSNotification) {
+        let recog = UITapGestureRecognizer(target: self, action: #selector(tapCard(_:)))
+        recog.numberOfTapsRequired = 2				// 더블 탭을 인식하기 위한 기능
+        
+        guard let cardView = notification.userInfo?["card"] as? CardView else { return }
+        cardView.addGestureRecognizer(recog)
+        cardView.isUserInteractionEnabled = true	// True를 해주어야 인식이 가능
+    }
+}
+```
+
+
+
+**실행화면** 
+
+1. A카드인 경우 좌측 상단 화면으로 이동
+
+<img src="8.png" height="500px"/>
+
+2. 왼쪽 상단에 같은모양 -1이 있는 경우 이동
+
+<img src="9.png" height="500px"/>
+
+3. 상단으로 이동할 수 없는 경우, 스택 중에서 좌측부터 앞면으로 된 카드 중 가장 위에 있는 카드와 다음 조건을 확인하고 조건에 맞으면 그 위로 이동
+
+<img src="10.png" height="500px"/>
