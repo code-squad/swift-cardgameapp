@@ -41,10 +41,13 @@ class ViewController: UIViewController {
     private var gameBoard = GameBoard(slotCount: 7)
     
     /// 더블탭 이벤트 플래그
-    var isDoubleTap = false
+    private var isDoubleTap = false
     
     /// 드래그 이벤트용 이미지뷰
     private var dragView = UIImageView()
+    
+    /// 카드 이동 애니메이션 하든 플래그
+    private var isAnimationShowing = true
     
     /// 앱 배경화면 설정
     private func setBackGroundImage() {
@@ -241,7 +244,6 @@ class ViewController: UIViewController {
             
             /// 이전덱타입과 뷰를 넣어서 뷰 이동
             rePositinoCardView(pastCardData: pastCardData, cardView: cardView)
-            
         }
     }
     
@@ -410,23 +412,32 @@ class ViewController: UIViewController {
         }
         
         // 임시뷰 이동 애니메이션
-        animate(tempView: tempCardView, originalView: cardView, goalPosition: goalPosition, duration: 0.5)
+        animate(tempView: tempCardView, originalView: cardView, goalPosition: goalPosition, duration: 0.2)
     }
     
     /// 임시뷰를 목표지점으로 이동시킨후 제거하고, 원본뷰 히든 오프 하는 함수
     func animate(tempView: UIView, originalView: UIView, goalPosition: CGPoint, duration: Double){
-        // 임시뷰 이동 애니메이션
-        UIView.animate(withDuration: duration, animations: {
-            tempView.frame.origin.x = goalPosition.x
-            tempView.frame.origin.y = goalPosition.y
-        }, completion: { (true) in
-            
+        // 애니메이션 쇼 플래그가 온이면
+        if self.isAnimationShowing {
+            // 임시뷰 이동 애니메이션
+            UIView.animate(withDuration: duration, animations: {
+                tempView.frame.origin.x = goalPosition.x
+                tempView.frame.origin.y = goalPosition.y
+            }, completion: { (true) in
+                
+                // 임시뷰 삭제
+                tempView.removeFromSuperview()
+                
+                // 원본뷰 히든 해제
+                originalView.isHidden = false
+            })
+        }
+        // 애니메이션 쇼 플래그가 오프면 애니메이션 없음.
+        else {
             // 임시뷰 삭제
             tempView.removeFromSuperview()
             
-            // 원본뷰 히든 해제
-            originalView.isHidden = false
-        })
+        }
     }
     
     /// 포인트덱뷰 위치 설정
@@ -537,6 +548,30 @@ class ViewController: UIViewController {
         
         if sender.state == .ended || sender.state == .cancelled {
             os_log("카드 드래그 끝")
+            
+            // 임시뷰가 힛 테스트에 걸리기 때문에 유저 인터렉션 차단
+            dragView.isUserInteractionEnabled = false
+            
+            // 드래그 종료 위치가 카드뷰인지 체크
+            if let endPositionView = self.view.hitTest(self.dragView.center, with: nil) as? CardView  {
+//                os_log("드래그 종료 위치 : %@", self.dragView.center as CVarArg)
+//                os_log("드래그 종료 위치 카드 : %@",endPositionView.description)
+                os_log("드래그 종료 위치 카드 : %@",endPositionView.name())
+                
+                // 원본카드뷰가 이동하는 애니메이션이 보이지 않도록 애니메이션 쇼 플래그 오프
+                self.isAnimationShowing = false
+                
+                let _ = self.gameBoard.addCard(targetCardInfo: endPositionView.cardViewModel.cardInfo, newCardInfo: cardView.cardViewModel.cardInfo)
+                
+                // 애니메이션 이후 복구
+                self.isAnimationShowing = true
+                
+            }
+            
+            
+            // 임시뷰 설정 원복
+            dragView.isUserInteractionEnabled = true
+            
             
             // 임시뷰 다시 원위치 후 제거
             animate(tempView: dragView, originalView: cardView, goalPosition: calculatePositionInMain(cardView: cardView), duration: 0.1)

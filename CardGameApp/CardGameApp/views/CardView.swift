@@ -43,6 +43,7 @@ class CardView : UIImageView, CardViewInfo {
         self.refreshImage()
         // 유저인터랙션 허용
         self.isUserInteractionEnabled = true
+        self.isMultipleTouchEnabled = true
     }
     
     /// required init
@@ -76,3 +77,4 @@ class CardView : UIImageView, CardViewInfo {
         return self.frame.origin
     }
 }
+
