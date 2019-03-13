@@ -96,4 +96,14 @@ class PlayDeck {
         self.cardList = []
         return allCard
     }
+    
+    /// 카드인포를 받아서 마지막 카드가 맞는지 체크
+    func checklastCard(cardInfo: CardInfo) -> Bool {
+        // 마지막 카드가 있는지 체크
+        guard let lastCard = self.cardList.last else {
+            return false
+        }
+        // 있으면 비교
+        return lastCard.checkSameName(name: cardInfo.name())
+    }
 }
