@@ -9,21 +9,37 @@
 import UIKit
 
 extension NSNotification.Name {
-    static let createdCardView = NSNotification.Name(rawValue: "createdCardView")
+    static let tappedCardView = NSNotification.Name(rawValue: "TappedCardView")
 }
 
 class CardView: UIImageView {
+    private var recog: UITapGestureRecognizer?
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        createRecognizer()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        createRecognizer()
+    }
+    
+    private func createRecognizer() {
+        recog = UITapGestureRecognizer(target: self, action: #selector(tappedCardView(_:)))
+        recog?.numberOfTapsRequired = 2
     }
     
     func setCardImage(name: String) {
         self.image = UIImage(named: name)
-        NotificationCenter.default.post(name: .createdCardView, object: nil, userInfo: ["card" : self])
+
+        self.addGestureRecognizer(recog!)
+        self.isUserInteractionEnabled = true
+    }
+    
+    @objc func tappedCardView(_ recognizer: UITapGestureRecognizer) {
+        guard let rootViewController = UIApplication.shared.keyWindow?.rootViewController else { return }
+        NotificationCenter.default.post(name: .tappedCardView, object: nil, userInfo: ["touchedPoint": recognizer.location(in: rootViewController.view)])
     }
     
     func setBackImage() {

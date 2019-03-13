@@ -22,8 +22,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        NotificationCenter.default.addObserver(self, selector: #selector(addDoubleTapRecognizer(_:)), name: .createdCardView, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(removeOneCardFromDeck), name: .touchedDeck, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(excuteWhenTapped(_:)), name: .tappedCardView, object: nil)
         
         setBackgroundPattern()
         initialCardStacks()
@@ -125,18 +125,10 @@ enum TappedCard {
 
 // CardView Tap시 일어나는 동작 구현
 extension ViewController {
-    @objc func addDoubleTapRecognizer(_ notification: NSNotification) {
-        let recog = UITapGestureRecognizer(target: self, action: #selector(tapCard(_:)))
-        recog.numberOfTapsRequired = 2
-        
-        guard let cardView = notification.userInfo?["card"] as? CardView else { return }
-        cardView.addGestureRecognizer(recog)
-        cardView.isUserInteractionEnabled = true
-    }
-    
-    @objc func tapCard(_ gesture: UIGestureRecognizer) {
-        let tappedView: TappedCard = searchTappedCardView(touched: gesture.location(in: self.view))
-                
+    @objc func excuteWhenTapped(_ notification: NSNotification) {
+        guard let touchedPoint = notification.userInfo?["touchedPoint"] as? CGPoint else { return }
+        let tappedView: TappedCard = searchTappedCardView(touched: touchedPoint)
+
         switch tappedView {
         case .reversed: checkRuleFromReversed()
         case .stack(let number): checkRuleFromStack(number: number)
@@ -275,7 +267,7 @@ extension ViewController {
             }
         }
     }
-
+    
     private func animateKCardFromStack(_ number: Int) {
         for index in 0..<cardStacks.count {
             if cardStacks[index].isEmpty() && index != number-1 {

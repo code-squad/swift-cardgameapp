@@ -46,8 +46,12 @@ class CardStackView: UIView {
     
     // View들을 관리하는 배열에 넣고 화면에 추가
     func addCardView(cardView: CardView) {
-        let prosuccesorY = cardViews[cardViews.count-1].frame.minY
-        cardView.frame.origin = CGPoint(x: CGFloat(Sizes.originX), y: prosuccesorY + 20)
+        if cardViews.isEmpty {
+            cardView.frame.origin = CGPoint(x: CGFloat(Sizes.originX), y: CGFloat(Sizes.originY))
+        } else {
+            let prosuccesorY = cardViews[cardViews.count-1].frame.minY
+            cardView.frame.origin = CGPoint(x: CGFloat(Sizes.originX), y: prosuccesorY + 20)
+        }
         cardViews.append(cardView)
         addSubview(cardView)
     }
