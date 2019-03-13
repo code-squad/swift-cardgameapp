@@ -214,7 +214,7 @@ extension ViewController {
     private func animateReversedToSpace(_ cardOnTop: Card) {
         for index in 0..<spaceCardStacks.count {
             spaceCardStacks[index].accessCard { spaceCards in
-                guard !spaceCards.isEmpty else { return }
+                if spaceCards.isEmpty { return }
                 let spaceCardOnTop = spaceCards[spaceCards.count-1]
                 
                 guard cardOnTop.shape == spaceCardOnTop.shape else { return }
@@ -294,7 +294,7 @@ extension ViewController {
     private func animateStackToSpace(from number: Int, _ cardOnTop: Card) {
         for index in 0..<spaceCardStacks.count {
             spaceCardStacks[index].accessCard { spaceCards in
-                guard !spaceCards.isEmpty else { return }
+                if spaceCards.isEmpty { return }
                 let spaceCardOnTop = spaceCards[spaceCards.count-1]
                 
                 guard cardOnTop.shape == spaceCardOnTop.shape else { return }
