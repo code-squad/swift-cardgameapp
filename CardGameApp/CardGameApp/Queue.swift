@@ -9,7 +9,8 @@
 import Foundation
 
 struct Queue<T> {
-    private var pool: [T]
+    private var pool: [T?]
+    private var head = 0
     
     init(pool: [T]) {
         self.pool = pool
@@ -20,10 +21,18 @@ struct Queue<T> {
     }
     
     mutating func dequeue() -> T? {
-        if pool.count == 0 {
-            return nil
+        guard head < pool.count, let element = pool[head] else { return nil }
+        
+        pool[head] = nil
+        head += 1
+        
+        let percentage = Double(head)/Double(pool.count)
+        if pool.count > 20 && percentage < 0.5 {
+            pool.removeFirst(head)
+            head = 0
         }
-        return pool.removeFirst()
+        
+        return element
     }
     
     mutating func reset() {
