@@ -73,4 +73,9 @@ class PlayDeckManager {
     func undoCard(card: Card){
         self.playDeckList[card.getDeckLine()].undoCard(card: card)
     }
+    
+    /// 카드인포를 받아서 마지막 카드인지 체크
+    func checklastCard(cardInfo: CardInfo) -> Bool {
+        return self.playDeckList[cardInfo.getDeckLine()].checklastCard(cardInfo: cardInfo)
+    }
 }
