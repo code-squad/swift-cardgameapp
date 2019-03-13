@@ -279,20 +279,33 @@ class GameBoard : DeckInfo {
     
     /// 카드인포 둘을 받아서 목표자 위에 추가자를 추가한다
     func addCard(targetCardInfo: CardInfo, newCardInfo: CardInfo) -> CardInfo? {
+        // 옮기기전 덱타입,덱라인 저장
+        let pastCardData = PastCardData(cardInfo: newCardInfo)
+        
         // 추가카드를 추출시도
         guard let newCard = pickCard(cardInfo: newCardInfo) else { return nil }
         
         // 체크 결과 확인
         if checkLastCard(cardInfo: targetCardInfo) != true { return nil }
         
+        // 결과용 함수
+        var result : CardInfo?
+        
         // 타겟에 따라 추가시도
         switch targetCardInfo.getDeckType() {
-        case .pointDeck : return self.pointDeck.addCard(card: newCard)
-        case .playDeck : return self.playDeck.addCard(card: newCard)
+        case .pointDeck : result = self.pointDeck.addCard(card: newCard)
+        case .playDeck : result = self.playDeck.addCard(card: newCard)
         
         // 나머지는 실패처리
-        default : return nil
+        default : result = nil
         }
+        
+        // 이동된 카드 정보 노티 포스트
+        NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
+        
+        // 성공 카드인포 리턴
+        return result
+        
     }
     
     /// 카드인포 받아서 마지막 카드가 맞는지 확인
