@@ -19,8 +19,21 @@ class Card {
 }
 
 // CustomStringConvertible 프로토콜 채택 -> 인스턴스의 고유 String 표현법으로 만들 수 있다.
-extension Card : CustomStringConvertible {
+extension Card: CustomStringConvertible {
     var description: String {
         return "\(shape)\(number)"
+    }
+}
+
+extension Card: Equatable {
+    static func == (lhs: Card, rhs: Card) -> Bool {
+        if ((lhs.shape == .clover || lhs.shape == .spade) &&
+            (rhs.shape == .diamond || rhs.shape == .heart)) ||
+            ((lhs.shape == .diamond || lhs.shape == .heart) &&
+                (rhs.shape == .spade || rhs.shape == .clover)) {
+            return true
+        } else {
+            return false
+        }
     }
 }

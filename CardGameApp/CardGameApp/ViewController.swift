@@ -235,10 +235,8 @@ extension ViewController {
                 let stackCardOnTop = cards[cards.count-1]
                 
                 guard cardOnTop.number.rawValue+1 == stackCardOnTop.number.rawValue else { return }
-                if ((cardOnTop.shape == .clover || cardOnTop.shape == .spade) &&
-                    (stackCardOnTop.shape == .diamond || stackCardOnTop.shape == .heart)) ||
-                    ((cardOnTop.shape == .diamond || cardOnTop.shape == .heart) &&
-                        (stackCardOnTop.shape == .spade || stackCardOnTop.shape == .clover)) {
+                
+                if cardOnTop == stackCardOnTop {
                     guard let removeCard = reversedCards.removeOne() else { return }
                     guard let removeCardView = reversedCardsView?.removeView() else { return }
                     cardStacks[index].add(removeCard)
@@ -317,10 +315,8 @@ extension ViewController {
                 guard cardOnTop !== stackCardOnTop else { return }
                 
                 guard cardOnTop.number.rawValue+1 == stackCardOnTop.number.rawValue else { return }
-                if ((cardOnTop.shape == .clover || cardOnTop.shape == .spade) &&
-                    (stackCardOnTop.shape == .diamond || stackCardOnTop.shape == .heart)) ||
-                    ((cardOnTop.shape == .diamond || cardOnTop.shape == .heart) &&
-                        (stackCardOnTop.shape == .spade || stackCardOnTop.shape == .clover)) {
+                
+                if cardOnTop == stackCardOnTop {
                     guard let removeCard = cardStacks[number-1].removeOne() else { return }
                     guard let removeCardView = cardStacksView?.removeCardView(at: number-1) else { return }
                     if !cardStacks[number-1].isEmpty() { cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1]) }
