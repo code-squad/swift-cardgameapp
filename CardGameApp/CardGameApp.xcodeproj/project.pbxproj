@@ -44,6 +44,7 @@
 		7DC47916220EABD80054B529 /* UserInfoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC47915220EABD80054B529 /* UserInfoKey.swift */; };
 		7DD3FB7E2214693800107CB9 /* ColumnStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3FB7D2214693800107CB9 /* ColumnStackView.swift */; };
 		7DF972B92202AC2A00E947B1 /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF972B82202AC2A00E947B1 /* CardImageView.swift */; };
+		7DF99AFB2239418100442F3B /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF99AFA2239418100442F3B /* Queue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		7DC47915220EABD80054B529 /* UserInfoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoKey.swift; sourceTree = "<group>"; };
 		7DD3FB7D2214693800107CB9 /* ColumnStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnStackView.swift; sourceTree = "<group>"; };
 		7DF972B82202AC2A00E947B1 /* CardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
+		7DF99AFA2239418100442F3B /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 				7D6E52F721FEBCB500DFC342 /* Main.storyboard */,
 				7D6E52FA21FEBCB600DFC342 /* Assets.xcassets */,
 				7D0BE51D2234FA9300AD559F /* KlondikeView.swift */,
+				7DF99AFA2239418100442F3B /* Queue.swift */,
 				7D0BE5212234FACF00AD559F /* Presenter */,
 				7D7BD3B4220D6F2F003B5656 /* Model */,
 				7D7BD3BB220E8D74003B5656 /* View */,
@@ -318,6 +321,7 @@
 				7D0BE51E2234FA9300AD559F /* KlondikeView.swift in Sources */,
 				7D6E534C21FEEC1D00DFC342 /* Participant.swift in Sources */,
 				7D6E535321FEEC1D00DFC342 /* ScoreCalculator.swift in Sources */,
+				7DF99AFB2239418100442F3B /* Queue.swift in Sources */,
 				7D0BE51C2234EFC300AD559F /* Position.swift in Sources */,
 				7D6E534D21FEEC1D00DFC342 /* CardStack.swift in Sources */,
 				7D0BE5202234FA9E00AD559F /* KlondikePresenter.swift in Sources */,
