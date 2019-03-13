@@ -300,8 +300,22 @@ class GameBoard : DeckInfo {
         default : result = nil
         }
         
-        // 이동된 카드 정보 노티 포스트
-        NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
+        // 추가 실패시 뽑은 카드 원복
+        if result == nil {
+            do {
+                try undoCard(card: newCard)
+            }
+            catch let error as ErrorMessage{
+                os_log("%@", error.rawValue)
+            }
+            catch {
+                os_log("카드 원복 실패 : %@", newCard.name())
+            }
+        }
+        // 추가 성공시 이동된 카드 정보 노티 포스트
+        else {
+            NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
+        }
         
         // 성공 카드인포 리턴
         return result
