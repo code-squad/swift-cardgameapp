@@ -128,6 +128,12 @@ class ViewController: UIViewController {
             return ()
         }
         
+        // 로깅용 덱라인 문자로 변경
+        let deckLine : String = String(openedCardView.cardViewModel.getDeckLine())
+        
+        // 터치된 카드 정보 로깅
+        os_log("터치된 카드 : %@ 구역 %@ 라인 %@",openedCardView.cardViewModel.getDeckType().rawValue, deckLine, openedCardView.name())
+        
         // 꺼낸 카드가 덱뷰의 마지막 카드가 맞는지 체크
         guard openedCardView == self.deckView.subviews.last else {
             os_log("덱뷰의 마지막 카드가 아닙니다")
@@ -554,8 +560,6 @@ class ViewController: UIViewController {
             
             // 드래그 종료 위치가 카드뷰인지 체크
             if let endPositionView = self.view.hitTest(self.dragView.center, with: nil) as? CardView  {
-//                os_log("드래그 종료 위치 : %@", self.dragView.center as CVarArg)
-//                os_log("드래그 종료 위치 카드 : %@",endPositionView.description)
                 os_log("드래그 종료 위치 카드 : %@",endPositionView.name())
                 
                 // 원본카드뷰가 이동하는 애니메이션이 보이지 않도록 애니메이션 쇼 플래그 오프
@@ -565,13 +569,10 @@ class ViewController: UIViewController {
                 
                 // 애니메이션 이후 복구
                 self.isAnimationShowing = true
-                
             }
-            
             
             // 임시뷰 설정 원복
             dragView.isUserInteractionEnabled = true
-            
             
             // 임시뷰 다시 원위치 후 제거
             animate(tempView: dragView, originalView: cardView, goalPosition: calculatePositionInMain(cardView: cardView), duration: 0.1)

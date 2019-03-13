@@ -26,7 +26,7 @@ class PointDeckManager {
         }
     }
     
-    /// 카드객체와 마크를 받아서 맞는 포인트덱에 카드 추가
+    /// 카드를 받아서 맞는 포인트덱에 카드 추가
     func addCard(card: Card) -> CardInfo? {
         // 모든 포인트덱이 대상
         for count in 0..<pointDeckList.count {
@@ -78,5 +78,12 @@ class PointDeckManager {
     /// 카드인포를 받아서 마지막 카드인지 체크
     func checklastCard(cardInfo: CardInfo) -> Bool {
         return self.pointDeckList[cardInfo.getDeckLine()].checklastCard(cardInfo: cardInfo)
+    }
+    
+    /// 추가목표와 카드를 받아서 맞는 포인트덱에 카드 추가
+    func addCard(targetCardInfo: CardInfo, card: Card) -> CardInfo? {
+        // 목표에 추가
+        return self.pointDeckList[targetCardInfo.getDeckLine()].addCard(card: card)
+        
     }
 }

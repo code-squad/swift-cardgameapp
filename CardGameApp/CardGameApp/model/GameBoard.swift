@@ -293,8 +293,8 @@ class GameBoard : DeckInfo {
         
         // 타겟에 따라 추가시도
         switch targetCardInfo.getDeckType() {
-        case .pointDeck : result = self.pointDeck.addCard(card: newCard)
-        case .playDeck : result = self.playDeck.addCard(card: newCard)
+        case .pointDeck : result = self.pointDeck.addCard(targetCardInfo: targetCardInfo, card: newCard)
+        case .playDeck : result = self.playDeck.addCard(targetCardInfo: targetCardInfo, card: newCard)
         
         // 나머지는 실패처리
         default : result = nil

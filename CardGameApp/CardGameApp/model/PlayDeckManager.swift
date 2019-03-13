@@ -78,4 +78,11 @@ class PlayDeckManager {
     func checklastCard(cardInfo: CardInfo) -> Bool {
         return self.playDeckList[cardInfo.getDeckLine()].checklastCard(cardInfo: cardInfo)
     }
+    
+    /// 추가목표와 카드를 받아서 맞는 포인트덱에 카드 추가
+    func addCard(targetCardInfo: CardInfo, card: Card) -> CardInfo? {
+        // 목표에 추가
+        return self.playDeckList[targetCardInfo.getDeckLine()].addCard(card: card)
+    }
+    
 }
