@@ -41,6 +41,7 @@ class PlayDeck {
             
             // 추가후 카드정보 리턴
             cardList.append(card)
+            
             // 카드정보 리턴
             return card
         }

@@ -562,13 +562,16 @@ class ViewController: UIViewController {
             if let endPositionView = self.view.hitTest(self.dragView.center, with: nil) as? CardView  {
                 os_log("드래그 종료 위치 카드 : %@",endPositionView.name())
                 
-                // 원본카드뷰가 이동하는 애니메이션이 보이지 않도록 애니메이션 쇼 플래그 오프
-                self.isAnimationShowing = false
-                
-                let _ = self.gameBoard.addCard(targetCardInfo: endPositionView.cardViewModel.cardInfo, newCardInfo: cardView.cardViewModel.cardInfo)
-                
-                // 애니메이션 이후 복구
-                self.isAnimationShowing = true
+                // 대상 카드가 앞면일 경우에만 작업진행
+                if endPositionView.isFront() == true {
+                    // 원본카드뷰가 이동하는 애니메이션이 보이지 않도록 애니메이션 쇼 플래그 오프
+                    self.isAnimationShowing = false
+                    
+                    let _ = self.gameBoard.addCard(targetCardInfo: endPositionView.cardViewModel.cardInfo, newCardInfo: cardView.cardViewModel.cardInfo)
+                    
+                    // 애니메이션 이후 복구
+                    self.isAnimationShowing = true
+                }
             }
             
             // 임시뷰 설정 원복
