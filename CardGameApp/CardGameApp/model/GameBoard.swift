@@ -277,6 +277,39 @@ class GameBoard : DeckInfo {
         return result
     }
     
+    /// 카드인포 둘을 받아서 목표자 위에 추가자를 추가한다
+    func addCard(targetCardInfo: CardInfo, newCardInfo: CardInfo) -> CardInfo? {
+        // 추가카드를 추출시도
+        guard let newCard = pickCard(cardInfo: newCardInfo) else { return nil }
+        
+        // 체크 결과 확인
+        if checkLastCard(cardInfo: targetCardInfo) != true { return nil }
+        
+        // 타겟에 따라 추가시도
+        switch targetCardInfo.getDeckType() {
+        case .pointDeck : return self.pointDeck.addCard(card: newCard)
+        case .playDeck : return self.playDeck.addCard(card: newCard)
+        
+        // 나머지는 실패처리
+        default : return nil
+        }
+    }
+    
+    /// 카드인포 받아서 마지막 카드가 맞는지 확인
+    private func checkLastCard(cardInfo: CardInfo) -> Bool {
+        // 체크 결과용 변수
+        var checkResult = false
+        
+        // 마지막 카드인지 체크
+        switch cardInfo.getDeckType() {
+        case .pointDeck : checkResult = self.pointDeck.checklastCard(cardInfo: cardInfo)
+        case .playDeck : checkResult = self.playDeck.checklastCard(cardInfo: cardInfo)
+        default : checkResult = false
+        }
+        
+        // 체크 결과 확인
+        return checkResult
+    }
 }
 
 
