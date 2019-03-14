@@ -37,7 +37,7 @@ class PointDeckView: UIStackView {
         
         self.distribution = .fillEqually
         
-        self.isUserInteractionEnabled = false
+        self.isUserInteractionEnabled = true
         
         setSubView(cardSize: cardSize)
     }
