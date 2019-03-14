@@ -37,5 +37,6 @@ struct Queue<T> {
     
     mutating func reset() {
         self.pool.removeAll()
+        self.head = 0
     }
 }

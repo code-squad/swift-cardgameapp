@@ -74,6 +74,7 @@ class ViewController: UIViewController {
         if motion == .motionShake {
             klondikePresenter.reset()
             framePool.reset()
+
         }
     }
 }
@@ -190,13 +191,44 @@ extension ViewController: KlondikeView {
     }
     
     func initialSettingColumns(count: Int, index: Int, card: Card) {
-        guard let subview = columnsStackView.arrangedSubviews[index] as? UIStackView else { return }
+        guard let stackView = columnsStackView.arrangedSubviews[index] as? UIStackView else { return }
         for _ in 0..<count {
-            subview.addArrangedSubview(CardBackImageView())
+            stackView.addArrangedSubview(CardBackImageView())
         }
         let cardImageView = cardImageViewWithDoubleTapGesture(card: card,
                                                               action: #selector(moveColumn))
-        subview.addArrangedSubview(cardImageView)
+        stackView.addArrangedSubview(cardImageView)
+
+        stackView.isHidden = true
+        let animationView = UIView()
+        animationView.frame = self.pileStackView.frame
+        var cardImageViews: [UIView] = []
+        for _ in 0..<count {
+            cardImageViews.append(CardBackImageView())
+        }
+        cardImageViews.append(CardImageView(card: card))
+        let cardStackView = animationStackView(views: cardImageViews)
+        animationView.addSubview(cardStackView)
+
+        cardStackView.leadingAnchor.constraint(equalTo: animationView.leadingAnchor, constant: 0).isActive = true
+        cardStackView.trailingAnchor.constraint(equalTo: animationView.trailingAnchor, constant: 0).isActive = true
+        cardStackView.topAnchor.constraint(equalTo: animationView.topAnchor, constant: 0).isActive = true
+        cardStackView.bottomAnchor.constraint(equalTo: animationView.bottomAnchor, constant: 0).isActive = true
+
+        let heightOfCard = animationView.frame.width * 1.27
+        cardStackView.spacing = -heightOfCard * (7/10)
+
+        self.view.addSubview(animationView)
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       options: .curveEaseOut,
+                       animations: {
+                        animationView.frame = self.view.convert(stackView.frame, from: self.columnsStackView)
+        }, completion: {(_) in
+            stackView.isHidden = false
+            animationView.removeFromSuperview()
+        })
+
     }
     
     func addGoalsStackView(cards: [Card], index: Int) {
@@ -261,11 +293,7 @@ extension ViewController: KlondikeView {
             let cardImageView = CardImageView(card: card)
             cardImageViews.append(cardImageView)
         }
-        let cardStackView = UIStackView(arrangedSubviews: cardImageViews)
-        cardStackView.translatesAutoresizingMaskIntoConstraints = false
-        cardStackView.axis = .vertical
-        cardStackView.alignment = .leading
-        cardStackView.distribution = .fill
+        let cardStackView = animationStackView(views: cardImageViews)
         animationView.addSubview(cardStackView)
         
         cardStackView.leadingAnchor.constraint(equalTo: animationView.leadingAnchor, constant: 0).isActive = true
@@ -277,6 +305,15 @@ extension ViewController: KlondikeView {
         cardStackView.spacing = -heightOfCard * (7/10)
         
         return animationView
+    }
+    
+    private func animationStackView(views: [UIView]) -> UIStackView {
+        let cardStackView = UIStackView(arrangedSubviews: views)
+        cardStackView.translatesAutoresizingMaskIntoConstraints = false
+        cardStackView.axis = .vertical
+        cardStackView.alignment = .leading
+        cardStackView.distribution = .fill
+        return cardStackView
     }
 }
 
