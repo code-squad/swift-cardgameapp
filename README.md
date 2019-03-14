@@ -41,4 +41,5 @@ drawImage("player.png", x, y)
 - `isUserInteractionEnabled` 속성에 대하여 view의 기본값은 true지만, image views와 labels의 기본값은 false이기 때문에 Tap Gesture를 사용할땐 유의해야한다.
 
 ![step-04 실행화면](https://user-images.githubusercontent.com/38850628/53711063-b03df880-3e83-11e9-8fe3-d66b13c66c6a.gif)
-
+![step-04 애니메이션1](https://user-images.githubusercontent.com/38850628/54326872-6a372080-464b-11e9-9177-7b795929a90e.gif)
+![step-04 애니메이션2](https://user-images.githubusercontent.com/38850628/54326873-6acfb700-464b-11e9-8079-2cf0ee3bf5f0.gif)
