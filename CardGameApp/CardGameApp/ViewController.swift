@@ -259,7 +259,7 @@ class ViewController: UIViewController {
         case .deck : return self.deckView.subviews.last
         case .openedDeck : return self.openedDeckView.subviews.last
         case .playDeck : return self.playDeckView.getView(pastCardData: pastCardData)
-        default : return nil
+        case .pointDeck : return self.pointDeckView.getCardView(pastCardData: pastCardData)
         }
     }
     
