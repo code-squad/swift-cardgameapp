@@ -84,6 +84,10 @@ class PointDeckManager {
     func addCard(targetCardInfo: CardInfo, card: Card) -> CardInfo? {
         // 목표에 추가
         return self.pointDeckList[targetCardInfo.getDeckLine()].addCard(card: card)
-        
+    }
+    
+    /// 카드인포를 받아서 해당 라인의 마지막 카드가 인포와 맞는지 체크. 맞으면 카드 리턴
+    func pickCard(cardInfo: CardInfo) -> Card? {
+        return self.pointDeckList[cardInfo.getDeckLine()].pickCard(cardInfo:cardInfo)
     }
 }
