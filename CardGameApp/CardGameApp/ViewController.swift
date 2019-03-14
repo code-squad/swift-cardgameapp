@@ -539,7 +539,7 @@ class ViewController: UIViewController {
             // 임시카드뷰 위치를 설정한다
             self.dragView.frame.origin = calculatePositionInMain(cardView: cardView)
             
-            os_log("카드 드래그 시작")
+            os_log("카드 드래그 시작 : %@", cardView.name())
             addViewToMain(view: self.dragView)
             self.dragView.isUserInteractionEnabled = true
             
