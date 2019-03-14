@@ -15,15 +15,16 @@ class ViewController: UIViewController {
     private var reversedCardsView: ReversedCardsView?   // 뒤집힌 카드 뷰
 
     private var cardStacks: [CardStack] = []            // 모델 카드 스택들
-    private var spaceCardStacks: [CardStack] = []      // 모델 카드 빈공간
+    private var spaceCardStacks: [CardStack] = []       // 모델 카드 빈공간
     private var cardDeck: CardDeck = CardDeck()         // 모델 카드 덱
-    private var reversedCards: CardStack = CardStack()  // 모델 뒤집힌 카드
+    private var reversedCards: CardStack = ReversedCardStack() // 모델 뒤집힌 카드
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         NotificationCenter.default.addObserver(self, selector: #selector(removeOneCardFromDeck), name: .touchedDeck, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(excuteWhenTapped(_:)), name: .tappedCardView, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(addReversedCardView(_:)), name: .addReversedCard, object: nil)
         
         setBackgroundPattern()
         initialCardStacks()
@@ -37,7 +38,11 @@ class ViewController: UIViewController {
     @objc func removeOneCardFromDeck() {
         guard let pickedCard = cardDeck.removeOne() else { return }
         reversedCards.add(pickedCard)
-        reversedCardsView?.addView(card: pickedCard)
+    }
+    
+    @objc func addReversedCardView(_ notification: NSNotification) {
+        guard let card = notification.userInfo?["card"] as? Card else { return }
+        reversedCardsView?.addView(card: card)
     }
     
     private func initialReversedView() {
@@ -156,12 +161,12 @@ extension ViewController {
                 guard !spaceCards.isEmpty else { return }
                 let spaceCardOnTop = spaceCards[spaceCards.count-1]
                 
-                guard cardOnTop.shape == spaceCardOnTop.shape && cardOnTop.number.rawValue == spaceCardOnTop.number.rawValue+1 else { return }
+                guard cardOnTop < spaceCardOnTop else { return }
                 isMove = true
             }
-            if isMove { break }
+            if isMove { return true }
         }
-        return isMove
+        return false
     }
 }
 

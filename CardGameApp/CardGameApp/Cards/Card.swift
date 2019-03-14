@@ -9,10 +9,10 @@
 import Foundation
 
 class Card {
-    private(set) var shape : CardShape
-    private(set) var number : CardNumber
+    private(set) var shape: CardShape
+    private(set) var number: CardNumber
     
-    init(_ shape : CardShape, _ number : CardNumber) {
+    init(_ shape: CardShape, _ number: CardNumber) {
         self.shape = shape
         self.number = number
     }
@@ -25,7 +25,12 @@ extension Card: CustomStringConvertible {
     }
 }
 
-extension Card: Equatable {
+extension Card: Equatable, Comparable {
+    static func < (lhs: Card, rhs: Card) -> Bool {
+        guard lhs.number.rawValue == rhs.number.rawValue + 1 && lhs.shape == rhs.shape else { return false }
+        return true
+    }
+    
     static func == (lhs: Card, rhs: Card) -> Bool {
         if ((lhs.shape == .clover || lhs.shape == .spade) &&
             (rhs.shape == .diamond || rhs.shape == .heart)) ||
