@@ -240,6 +240,7 @@ class GameBoard : DeckInfo {
         switch cardDeckType {
         case .openedDeck : pickedCard = self.openedDeck.pickCard(cardInfo: cardInfo)
         case .playDeck : pickedCard = self.playDeck.pickCard(cardInfo: cardInfo)
+        case .pointDeck : pickedCard = self.pointDeck.pickCard(cardInfo: cardInfo)
         // 오픈덱,플레이덱 이외의 경우 움직일수 없어야 하므로 닐 리턴 : 덱, 포인트덱 등
         default : return nil
         }
