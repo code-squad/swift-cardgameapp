@@ -62,5 +62,26 @@ class PlayDeckView: UIStackView {
         point.addPosition(point: self.frame.origin)
         return point
     }
+    
+    /// 카드뷰를 받아서 마지막 뷰가 아니면 해당뷰와 이후의 모든 카드뷰의 이미지를 배열로 리턴
+    func AllCardImagesAfter(cardView: CardView) -> [CardView]? {
+        // 배열에 있는지 체크. 없으면 바로 리턴
+        guard let cardViewIndex = self.subviews.index(of: cardView) else { return nil }
+        
+        // 해당카드가 마지막 카드인지 체크
+        guard cardViewIndex != (self.subviews.count - 1) else { return nil }
+        
+        // 해당카드와 이후의 모든 카드의 이미지를 배열로 만들어서 리턴
+        var cards : [CardView] = []
+        
+        for count in cardViewIndex..<self.subviews.count {
+            if let selectedCardVIew = self.subviews[count] as? CardView {
+                cards.append(selectedCardVIew)
+            }
+        }
+        
+        // return
+        return cards
+    }
 }
 

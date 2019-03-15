@@ -74,4 +74,12 @@ class PlayDeckViewManager : UIView{
         // 결과리턴
         return point
     }
+    
+    /// 카드뷰를 받아서 마지막 뷰가 아니면 해당뷰와 이후의 모든 카드뷰의 이미지를 배열로 리턴
+    func AllCardImagesAfter(cardView: CardView) -> [CardView]? {
+        guard let playDeckView = self.subviews[cardView.cardViewModel.getDeckLine()] as? PlayDeckView else {
+            return nil
+        }
+        return playDeckView.AllCardImagesAfter(cardView: cardView)
+    }
 }
