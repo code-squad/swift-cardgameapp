@@ -10,6 +10,8 @@ import UIKit
 
 class EmptyCardView: UIView {
     
+    let model = EmptyCardViewModel()
+    
     init(origin: CGPoint, size: CGSize){
         let frame = CGRect(origin: origin, size: size)
         super.init(frame: frame)
