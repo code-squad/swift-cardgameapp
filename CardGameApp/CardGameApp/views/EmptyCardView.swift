@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EmptyPointCardView: UIView {
+class EmptyCardView: UIView {
     
     init(origin: CGPoint, size: CGSize){
         let frame = CGRect(origin: origin, size: size)
@@ -23,7 +23,7 @@ class EmptyPointCardView: UIView {
 }
 
 // 테두리 기능 확장
-extension EmptyPointCardView {
+extension EmptyCardView {
     /// 뷰 테두리 생성
     private func makeBorder(){
         self.layer.masksToBounds = true

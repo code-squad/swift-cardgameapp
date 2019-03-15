@@ -16,7 +16,7 @@
 		D517FD92221D6F61009FF7A6 /* PastCardData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D517FD91221D6F61009FF7A6 /* PastCardData.swift */; };
 		D528F7FC21F7118F00AAF80F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F7FB21F7118F00AAF80F /* AppDelegate.swift */; };
 		D528F7FE21F711F600AAF80F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F7FD21F711F600AAF80F /* CardView.swift */; };
-		D528F80321F7193100AAF80F /* EmptyPointCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80221F7193100AAF80F /* EmptyPointCardView.swift */; };
+		D528F80321F7193100AAF80F /* EmptyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80221F7193100AAF80F /* EmptyCardView.swift */; };
 		D528F80521F8565B00AAF80F /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80421F8565B00AAF80F /* DeckView.swift */; };
 		D528F80921F9CFA300AAF80F /* PointDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80821F9CFA300AAF80F /* PointDeck.swift */; };
 		D528F80B21FAA68600AAF80F /* PointDeckManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D528F80A21FAA68600AAF80F /* PointDeckManager.swift */; };
@@ -31,6 +31,7 @@
 		D536E56421D4BB64004B7014 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E55F21D4BB63004B7014 /* Card.swift */; };
 		D536E56621D4BB64004B7014 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E56121D4BB63004B7014 /* Deck.swift */; };
 		D536E56821D4BB64004B7014 /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D536E56321D4BB64004B7014 /* GameBoard.swift */; };
+		D53F4641223B97D700E0F0CF /* EmptyCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53F4640223B97D700E0F0CF /* EmptyCardViewModel.swift */; };
 		D541055121E3328B00FC7470 /* CardSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541055021E3328B00FC7470 /* CardSize.swift */; };
 		D541055321E5D2D300FC7470 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541055221E5D2D300FC7470 /* Error.swift */; };
 		D55ADB312229106F004B4B92 /* PlayDeckViewManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55ADB302229106F004B4B92 /* PlayDeckViewManagerModel.swift */; };
@@ -64,7 +65,7 @@
 		D517FD91221D6F61009FF7A6 /* PastCardData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastCardData.swift; sourceTree = "<group>"; };
 		D528F7FB21F7118F00AAF80F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D528F7FD21F711F600AAF80F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		D528F80221F7193100AAF80F /* EmptyPointCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyPointCardView.swift; sourceTree = "<group>"; };
+		D528F80221F7193100AAF80F /* EmptyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCardView.swift; sourceTree = "<group>"; };
 		D528F80421F8565B00AAF80F /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
 		D528F80821F9CFA300AAF80F /* PointDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDeck.swift; sourceTree = "<group>"; };
 		D528F80A21FAA68600AAF80F /* PointDeckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointDeckManager.swift; sourceTree = "<group>"; };
@@ -85,6 +86,7 @@
 		D536E55F21D4BB63004B7014 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		D536E56121D4BB63004B7014 /* Deck.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		D536E56321D4BB64004B7014 /* GameBoard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
+		D53F4640223B97D700E0F0CF /* EmptyCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyCardViewModel.swift; sourceTree = "<group>"; };
 		D541055021E3328B00FC7470 /* CardSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSize.swift; sourceTree = "<group>"; };
 		D541055221E5D2D300FC7470 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		D55ADB302229106F004B4B92 /* PlayDeckViewManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayDeckViewManagerModel.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				D5297B642227EF8000452319 /* CardViewModel.swift */,
 				D55ADB302229106F004B4B92 /* PlayDeckViewManagerModel.swift */,
 				D59033EE222E117D0023CDD4 /* Extension.swift */,
+				D53F4640223B97D700E0F0CF /* EmptyCardViewModel.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -130,7 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				D528F7FD21F711F600AAF80F /* CardView.swift */,
-				D528F80221F7193100AAF80F /* EmptyPointCardView.swift */,
+				D528F80221F7193100AAF80F /* EmptyCardView.swift */,
 				D528F80421F8565B00AAF80F /* DeckView.swift */,
 				D50A33B4221AE52800E318B5 /* OpenedDeckView.swift */,
 				D50A33B8221BE33100E318B5 /* PointDeckView.swift */,
@@ -346,6 +349,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D53F4641223B97D700E0F0CF /* EmptyCardViewModel.swift in Sources */,
 				D59033EF222E117D0023CDD4 /* Extension.swift in Sources */,
 				D541055321E5D2D300FC7470 /* Error.swift in Sources */,
 				D528F7FE21F711F600AAF80F /* CardView.swift in Sources */,
@@ -362,7 +366,7 @@
 				D536E56821D4BB64004B7014 /* GameBoard.swift in Sources */,
 				D517FD92221D6F61009FF7A6 /* PastCardData.swift in Sources */,
 				D528F80B21FAA68600AAF80F /* PointDeckManager.swift in Sources */,
-				D528F80321F7193100AAF80F /* EmptyPointCardView.swift in Sources */,
+				D528F80321F7193100AAF80F /* EmptyCardView.swift in Sources */,
 				D536E51E21D078E8004B7014 /* ViewController.swift in Sources */,
 				D528F80921F9CFA300AAF80F /* PointDeck.swift in Sources */,
 				D506CBEF221E4A8300DA87C5 /* PlayDeckView.swift in Sources */,
