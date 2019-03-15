@@ -30,6 +30,10 @@ class ReversedCardsView: UIView {
         addSubview(reversedCardImage)
     }
     
+    func acceesTopView(form: (CardView) -> Void) {
+        form(reversedViews[reversedViews.count-1])
+    }
+    
     func removeView() -> CardView? {
         guard reversedViews.count != 0 else { return nil }
         let removeView = reversedViews.remove(at: reversedViews.count-1)

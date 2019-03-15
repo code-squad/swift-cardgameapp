@@ -53,4 +53,9 @@ class CardStacksView: UIStackView {
         guard let stackView = self.arrangedSubviews[stackNumber] as? CardStackView else { return }
         stackView.turnLastCard(stackModel)
     }
+    
+    func accessTopView(at stackNumber: Int, form: (CardView) -> Void) {
+        guard let stackView = self.arrangedSubviews[stackNumber] as? CardStackView else { return }
+        stackView.accessTopView(form)
+    }
 }

@@ -18,11 +18,13 @@ class CardView: UIImageView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         createRecognizer()
+        self.addGestureRecognizer(recog!)
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         createRecognizer()
+        self.addGestureRecognizer(recog!)
     }
     
     private func createRecognizer() {
@@ -32,8 +34,6 @@ class CardView: UIImageView {
     
     func setCardImage(name: String) {
         self.image = UIImage(named: name)
-
-        self.addGestureRecognizer(recog!)
         self.isUserInteractionEnabled = true
     }
     
@@ -44,12 +44,7 @@ class CardView: UIImageView {
     
     func setBackImage() {
         self.image = UIImage(named: "card-back")
-        removeRecognizer()
-    }
-    
-    private func removeRecognizer() {
-        guard let recognizers = self.gestureRecognizers else { return }
-        for recognizer in recognizers { self.removeGestureRecognizer(recognizer) }
+        self.isUserInteractionEnabled = false
     }
 }
 

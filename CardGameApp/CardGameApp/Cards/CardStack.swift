@@ -43,4 +43,8 @@ class CardStack {
     func isLastCardK() -> Bool {
         return stack[stack.count-1].number == .thirteen
     }
+    
+    func count() -> Int {
+        return stack.count
+    }
 }

@@ -71,4 +71,8 @@ class CardStackView: UIView {
             cardViews[cardViews.count-1].setCardImage(name: cards[cards.count-1].description)
         }
     }
+    
+    func accessTopView(_ form: (CardView) -> Void) {
+        form(cardViews[cardViews.count-1])
+    }
 }

@@ -184,13 +184,22 @@ extension ViewController {
     }
     
     private func animateOneCardFromReversed() {
-        guard let removeCard = reversedCards.removeOne() else { return }
-        guard let removeCardView = reversedCardsView?.removeView() else { return }
-        
         for index in 0..<spaceCardStacks.count {
             if spaceCardStacks[index].isEmpty() {
-                spaceCardStacks[index].add(removeCard)
-                spacesView?.addCardView(at: index, view: removeCardView)
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                    let distance: CGFloat = (self.reversedCardsView?.frame.origin.x)! - CGFloat((Sizes.viewFirstX + 5*index + Sizes.cardWitdh*index))
+                    self.reversedCardsView?.acceesTopView { topView in
+                        topView.transform = CGAffineTransform(translationX: -distance, y: 0)
+                    }
+                }, completion: { isTrue in
+                    self.reversedCardsView?.acceesTopView { topView in
+                        topView.transform = CGAffineTransform(translationX: 0, y: 0)
+                    }
+                    guard let removeCard = self.reversedCards.removeOne() else { return }
+                    guard let removeCardView = self.reversedCardsView?.removeView() else { return }
+                    self.spaceCardStacks[index].add(removeCard)
+                    self.spacesView?.addCardView(at: index, view: removeCardView)
+                })
                 break
             }
         }
@@ -199,10 +208,21 @@ extension ViewController {
     private func animateKCardFromRevered() {
         for index in 0..<cardStacks.count {
             if cardStacks[index].isEmpty() {
-                guard let removeCard = reversedCards.removeOne() else { return }
-                guard let removeCardView = reversedCardsView?.removeView() else { return }
-                cardStacks[index].add(removeCard)
-                cardStacksView?.addCardView(at: index, view: removeCardView)
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                    let distanceX = (self.reversedCardsView?.frame.origin.x)! - CGFloat((Sizes.viewFirstX + 5*index + Sizes.cardWitdh*index))
+                    let distanceY = CGFloat(Sizes.viewSecondY - Sizes.viewFirstY)
+                    self.reversedCardsView?.acceesTopView { topView in
+                        topView.transform = CGAffineTransform(translationX: -distanceX, y: distanceY)
+                    }
+                }, completion: { isTrue in
+                    self.reversedCardsView?.acceesTopView { topView in
+                        topView.transform = CGAffineTransform(translationX: 0, y: 0)
+                    }
+                    guard let removeCard = self.reversedCards.removeOne() else { return }
+                    guard let removeCardView = self.reversedCardsView?.removeView() else { return }
+                    self.cardStacks[index].add(removeCard)
+                    self.cardStacksView?.addCardView(at: index, view: removeCardView)
+                })
                 break
             }
         }
@@ -216,10 +236,20 @@ extension ViewController {
                 
                 guard cardOnTop.shape == spaceCardOnTop.shape else { return }
                 
-                guard let removeCard = reversedCards.removeOne() else { return }
-                guard let removeCardView = reversedCardsView?.removeView() else { return }
-                spaceCardStacks[index].add(removeCard)
-                spacesView?.addCardView(at: index, view: removeCardView)
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                    self.reversedCardsView?.acceesTopView { topView in
+                        let distanceX = (self.reversedCardsView?.frame.origin.x)! - CGFloat((Sizes.viewFirstX + 5*index + Sizes.cardWitdh*index))
+                        topView.transform = CGAffineTransform(translationX: -distanceX, y: 0)
+                    }
+                }, completion: { isTrue in
+                    self.reversedCardsView?.acceesTopView { topView in
+                        topView.transform = CGAffineTransform(translationX: 0, y: 0)
+                    }
+                    guard let removeCard = self.reversedCards.removeOne() else { return }
+                    guard let removeCardView = self.reversedCardsView?.removeView() else { return }
+                    self.spaceCardStacks[index].add(removeCard)
+                    self.spacesView?.addCardView(at: index, view: removeCardView)
+                })
             }
         }
     }
@@ -227,19 +257,29 @@ extension ViewController {
     private func animateReversedToStack(_ cardOnTop: Card) {
         var isOver = false
         for index in 0..<cardStacks.count {
-            cardStacks[index].accessCard { cards in
-                guard !cards.isEmpty else { return }
-                let stackCardOnTop = cards[cards.count-1]
+            cardStacks[index].accessCard { stackCards in
+                guard !stackCards.isEmpty else { return }
+                let stackCardOnTop = stackCards[stackCards.count-1]
                 
                 guard cardOnTop.number.rawValue+1 == stackCardOnTop.number.rawValue else { return }
+                guard cardOnTop == stackCardOnTop else { return }
                 
-                if cardOnTop == stackCardOnTop {
-                    guard let removeCard = reversedCards.removeOne() else { return }
-                    guard let removeCardView = reversedCardsView?.removeView() else { return }
-                    cardStacks[index].add(removeCard)
-                    cardStacksView?.addCardView(at: index, view: removeCardView)
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                    self.reversedCardsView?.acceesTopView { topView in
+                        let distanceX = (self.reversedCardsView?.frame.origin.x)! - CGFloat((Sizes.viewFirstX + 5*index + Sizes.cardWitdh*index))
+                        let distanceY = CGFloat(Sizes.viewSecondY + Sizes.stackCardsSpace*stackCards.count - Sizes.viewFirstY)
+                        topView.transform = CGAffineTransform(translationX: -distanceX, y: distanceY)
+                    }
+                }, completion: { isTrue in
+                    self.reversedCardsView?.acceesTopView { topView in
+                        topView.transform = CGAffineTransform(translationX: 0, y: 0)
+                    }
+                    guard let removeCard = self.reversedCards.removeOne() else { return }
+                    guard let removeCardView = self.reversedCardsView?.removeView() else { return }
+                    self.cardStacks[index].add(removeCard)
+                    self.cardStacksView?.addCardView(at: index, view: removeCardView)
                     isOver = true
-                }
+                })
             }
             if isOver { return }
         }
@@ -260,14 +300,21 @@ extension ViewController {
     }
     
     private func animateOneCardFromStack(_ number: Int) {
-        guard let removeCard = cardStacks[number-1].removeOne() else { return }
-        guard let removeCardView = cardStacksView?.removeCardView(at: number-1) else { return }
-        if !cardStacks[number-1].isEmpty() { cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1]) }
-        
         for index in 0..<spaceCardStacks.count {
             if spaceCardStacks[index].isEmpty() {
-                spaceCardStacks[index].add(removeCard)
-                spacesView?.addCardView(at: index, view: removeCardView)
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                    self.cardStacksView?.accessTopView(at: number-1) { topView in
+                        let distanceX = CGFloat((number-1-index)*Sizes.cardWitdh + (number-1-index)*5)
+                        let distanceY = CGFloat(Sizes.viewSecondY + Sizes.stackCardsSpace*(self.cardStacks[number-1].count()-1) - Sizes.viewFirstY)
+                        topView.transform = CGAffineTransform(translationX: -distanceX, y: -distanceY)
+                    }
+                }, completion: { isTrue in
+                    guard let removeCard = self.cardStacks[number-1].removeOne() else { return }
+                    guard let removeCardView = self.cardStacksView?.removeCardView(at: number-1) else { return }
+                    if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
+                    self.spaceCardStacks[index].add(removeCard)
+                    self.spacesView?.addCardView(at: index, view: removeCardView)
+                })
                 break
             }
         }
@@ -276,11 +323,19 @@ extension ViewController {
     private func animateKCardFromStack(_ number: Int) {
         for index in 0..<cardStacks.count {
             if cardStacks[index].isEmpty() && index != number-1 {
-                guard let removeCard = cardStacks[number-1].removeOne() else { return }
-                guard let removeCardView = cardStacksView?.removeCardView(at: number-1) else { return }
-                if !cardStacks[number-1].isEmpty() { cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1]) }
-                cardStacks[index].add(removeCard)
-                cardStacksView?.addCardView(at: index, view: removeCardView)
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                    self.cardStacksView?.accessTopView(at: number-1) { topView in
+                        let distanceX = CGFloat((number-1-index)*Sizes.cardWitdh + (number-1-index)*5)
+                        let distanceY = CGFloat((self.cardStacks[number-1].count() - self.cardStacks[index].count()) * Sizes.stackCardsSpace)
+                        topView.transform = CGAffineTransform(translationX: -distanceX, y: -distanceY)
+                    }
+                }, completion: { isTrue in
+                    guard let removeCard = self.cardStacks[number-1].removeOne() else { return }
+                    guard let removeCardView = self.cardStacksView?.removeCardView(at: number-1) else { return }
+                    if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
+                    self.cardStacks[index].add(removeCard)
+                    self.cardStacksView?.addCardView(at: index, view: removeCardView)
+                })
                 break
             }
         }
@@ -294,11 +349,19 @@ extension ViewController {
                 
                 guard cardOnTop.shape == spaceCardOnTop.shape else { return }
                 
-                guard let removeCard = cardStacks[number-1].removeOne() else { return }
-                guard let removeCardView = cardStacksView?.removeCardView(at: number-1) else { return }
-                if !cardStacks[number-1].isEmpty() { cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1]) }
-                spaceCardStacks[index].add(removeCard)
-                spacesView?.addCardView(at: index, view: removeCardView)
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                    self.cardStacksView?.accessTopView(at: number-1) { topView in
+                        let distanceX = CGFloat((number-1-index)*Sizes.cardWitdh + (number-1-index)*5)
+                        let distanceY = CGFloat(Sizes.viewSecondY + Sizes.stackCardsSpace*(self.cardStacks[number-1].count()-1) - Sizes.viewFirstY)
+                        topView.transform = CGAffineTransform(translationX: -distanceX, y: -distanceY)
+                    }
+                }, completion: { isTrue in
+                    guard let removeCard = self.cardStacks[number-1].removeOne() else { return }
+                    guard let removeCardView = self.cardStacksView?.removeCardView(at: number-1) else { return }
+                    if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
+                    self.spaceCardStacks[index].add(removeCard)
+                    self.spacesView?.addCardView(at: index, view: removeCardView)
+                })
             }
         }
     }
@@ -312,15 +375,24 @@ extension ViewController {
                 guard cardOnTop !== stackCardOnTop else { return }
                 
                 guard cardOnTop.number.rawValue+1 == stackCardOnTop.number.rawValue else { return }
+                guard cardOnTop == stackCardOnTop else { return }
                 
-                if cardOnTop == stackCardOnTop {
-                    guard let removeCard = cardStacks[number-1].removeOne() else { return }
-                    guard let removeCardView = cardStacksView?.removeCardView(at: number-1) else { return }
-                    if !cardStacks[number-1].isEmpty() { cardStacksView?.turnLastCard(at: number-1, stackModel: cardStacks[number-1]) }
-                    cardStacks[index].add(removeCard)
-                    cardStacksView?.addCardView(at: index, view: removeCardView)
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                    self.cardStacksView?.accessTopView(at: number-1) { topView in
+                        let distanceX = CGFloat((number-1-index)*Sizes.cardWitdh + (number-1-index)*5)
+                        var distanceY = CGFloat(self.cardStacks[number-1].count() - self.cardStacks[index].count())
+                        if distanceY >= 0 { distanceY = (distanceY+1) * CGFloat(Sizes.stackCardsSpace) }
+                        else { distanceY = (distanceY-1) * CGFloat(Sizes.stackCardsSpace) }
+                        topView.transform = CGAffineTransform(translationX: -distanceX, y: -distanceY)
+                    }
+                }, completion: { isTrue in
+                    guard let removeCard = self.cardStacks[number-1].removeOne() else { return }
+                    guard let removeCardView = self.cardStacksView?.removeCardView(at: number-1) else { return }
+                    if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
+                    self.cardStacks[index].add(removeCard)
+                    self.cardStacksView?.addCardView(at: index, view: removeCardView)
                     isOver = true
-                }
+                })
             }
             if isOver { return }
         }

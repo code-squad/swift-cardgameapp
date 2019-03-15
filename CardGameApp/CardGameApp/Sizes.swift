@@ -16,4 +16,5 @@ struct Sizes {
     static let viewFirstX = 16
     static let viewFirstY = 20
     static let viewSecondY = 100
+    static let stackCardsSpace = 20
 }
