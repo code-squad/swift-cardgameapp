@@ -44,11 +44,13 @@ class PointDeckView: UIStackView {
     
     /// 빈 카드뷰 추가
     private func setSubView(cardSize: CardSize){
-        for _ in Mark.allCases() {
+        for count in 0..<Mark.allCases().count {
             // 카드 기준점 설정
             let viewPoint = CGPoint(x: 0, y: 0)
             // 기준점에서 카드사이즈로 이미지뷰 생성
-            let emptyCardView = EmptyPointCardView(origin: viewPoint, size: cardSize.cardSize)
+            let emptyCardView = EmptyCardView(origin: viewPoint, size: cardSize.cardSize)
+            // 덱 모델 생성
+            emptyCardView.model.setting(deckType: .pointDeck, deckLine: count)
             
             self.addArrangedSubview(emptyCardView)
         }
