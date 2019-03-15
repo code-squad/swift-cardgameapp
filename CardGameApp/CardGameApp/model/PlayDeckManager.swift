@@ -96,4 +96,9 @@ class PlayDeckManager {
         return result
     }
     
+    /// 카드와 덱라인을 받아서 해당 라인에 추가
+    func addCardTo(deckLine: Int, card: Card) -> CardInfo? {
+        return self.playDeckList[deckLine].addCard(card: card)
+    }
+    
 }
