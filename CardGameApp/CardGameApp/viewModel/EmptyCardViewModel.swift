@@ -9,11 +9,12 @@
 import Foundation
 
 class EmptyCardViewModel {
-    let deckType : DeckType
-    let deckLine : Int
+    var deckType = DeckType.deck
+    var deckLine = 0
     
-    init(deckType: DeckType, DeckLine: Int){
-        self.deckLine = deckLine
+    // 설정
+    func setting(deckType: DeckType, deckLine: Int){
         self.deckType = deckType
+        self.deckLine = deckLine
     }
 }
