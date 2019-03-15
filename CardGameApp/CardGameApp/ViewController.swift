@@ -212,7 +212,7 @@ class ViewController: UIViewController {
         
         // 덱 드로우
         self.gameBoard.pickPlayCards()
-        }
+    }
     
     /// shake 함수.
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
@@ -270,9 +270,9 @@ class ViewController: UIViewController {
             // 이동함수 실행
             moveCardView(pastCardData: pastCardData, cardView: cardView)
         }
-        
-        // 이동전과 이동후가 같은데 덱타입이 플레이덱이고 라인이 다르면 이동
-        else if pastCardData.deckType == .playDeck && pastCardData.deckLine != cardView.cardViewModel.getDeckLine() {
+            
+            // 이동전과 이동후가 같은데 덱타입이 플레이덱이고 라인이 다르면 이동
+        else if pastCardData.deckType == cardView.cardViewModel.getDeckType() && pastCardData.deckLine != cardView.cardViewModel.getDeckLine() {
             moveCardView(pastCardData: pastCardData, cardView: cardView)
         }
     }
@@ -301,12 +301,12 @@ class ViewController: UIViewController {
         // 이동 완료된 뷰 로깅
         os_log("뷰 이동완료. 위치 : %@ , 카드이름 : %@", cardView.cardViewModel.getDeckType().rawValue, cardView.cardViewModel.name())
     }
-
+    
     /// 과거카드데이터, 뷰를 받아서 메인뷰 기준 같은 위치에 같은 모양의 뷰를 생성,추가한 후 리턴한다.
     func makeTempView(pastCardData: PastCardData, cardView: CardView) -> UIImageView {
         // 임시뷰 선언
         let tempCardView = makeTempViewWithoutPosition(cardView: cardView)
-            
+        
         // 임시뷰 위치 계산후 적용
         tempCardView.frame.origin.addPosition(point: calculatePositionInMain(pastCardData: pastCardData, cardView: cardView))
         
@@ -332,6 +332,45 @@ class ViewController: UIViewController {
         tempCardView.frame.size = cardView.frame.size
         
         return tempCardView
+    }
+    
+    /// 카드뷰들을 받아서 좌표를 제외한 나머지 세팅을 한 후 이미지뷰 배열로 리턴
+    func makeManyTempViewsWithoutPosition(cardViews: [CardView]) -> [UIImageView]{
+        // 결과 리턴용 변수
+        var result : [UIImageView] = []
+        
+        // 두 카드뷰 사이의 거리를 이미지뷰 사이에도 적용한다
+        let distance = cardViews[1].frame.origin.y - cardViews[0].frame.origin.y
+        
+        // 반복
+        for cardView in cardViews {
+            result.append(makeTempViewWithoutPosition(cardView: cardView))
+        }
+        
+        // 거리를 적용해준다
+        for count in 1..<result.count {
+            result[count].frame.origin.y += CGFloat(count) * distance
+        }
+        
+        return result
+    }
+    
+    /// 이미지뷰 배열(카드이미지들)을 받아서 세로로 합친다
+    func CombineImageViews(cardImageViews: [UIImageView]) -> UIView {
+        // 결과용 뷰 선언
+        let resultView = UIView(frame: cardImageViews.first!.frame)
+        
+        // 이미지가 짤리지 않도록 결과뷰를 늘려준다.
+        //        resultView.frame.size.height += cardImageViews.l
+        
+        // 모든 이미지뷰를 추가한다
+        for cardView in cardImageViews {
+            
+            //이미지뷰를 살짝 겹쳐서 나열한다. 위치는 뷰마다 이미 적용되어 있음
+            resultView.addSubview(cardView)
+        }
+        
+        return resultView
     }
     
     /// 임시뷰 위치를 과거위치에 기반 계산해서 리턴한다
@@ -418,14 +457,14 @@ class ViewController: UIViewController {
         }
         
         // 임시뷰 이동 애니메이션
-        animate(tempView: tempCardView, originalView: cardView, goalPosition: goalPosition, duration: 0.2)
+        animate(tempView: tempCardView, originalView: cardView, goalPosition: goalPosition, duration: 0.3)
     }
     
     /// 임시뷰를 목표지점으로 이동시킨후 제거하고, 원본뷰 히든 오프 하는 함수
     func animate(tempView: UIView, originalView: UIView, goalPosition: CGPoint, duration: Double){
         // 애니메이션 쇼 플래그가 온이면
         if self.isAnimationShowing {
-            // 임시뷰 이동 애니메이션
+            // 임시뷰 이동 애니메이션            
             UIView.animate(withDuration: duration, animations: {
                 tempView.frame.origin.x = goalPosition.x
                 tempView.frame.origin.y = goalPosition.y
@@ -438,7 +477,7 @@ class ViewController: UIViewController {
                 originalView.isHidden = false
             })
         }
-        // 애니메이션 쇼 플래그가 오프면 애니메이션 없음.
+            // 애니메이션 쇼 플래그가 오프면 애니메이션 없음.
         else {
             // 임시뷰 삭제
             tempView.removeFromSuperview()
@@ -533,6 +572,11 @@ class ViewController: UIViewController {
             // 카드 이동 플래그 온
             self.isDoubleTap = true
             
+            // 카드가 여러장인지 체크
+            if cardView.cardViewModel.getDeckType() == .playDeck {
+                os_log("마지막 카드 ㅇㅈ")
+            }
+            
             // 드래그 뷰 선언
             self.dragView = makeTempViewWithoutPosition(cardView: cardView)
             
@@ -573,6 +617,22 @@ class ViewController: UIViewController {
                     self.isAnimationShowing = true
                 }
             }
+            // 드래그 종료 위치가 비어있는 뷰인지 체크
+            else if let endPositionView = self.view.hitTest(self.dragView.center, with: nil) as? EmptyCardView  {
+                // 로그용 덱라인 문자화
+                let deckLine = String(endPositionView.model.deckLine)
+                os_log("드래그 종료 위치 카드 : 포인트덱뷰 %@ 라인",deckLine)
+                
+                // 원본카드뷰가 이동하는 애니메이션이 보이지 않도록 애니메이션 쇼 플래그 오프
+                self.isAnimationShowing = false
+                
+                let _ = self.gameBoard.addCardTo(deckType: endPositionView.model.deckType, deckLine: endPositionView.model.deckLine, cardInfo: cardView.cardViewModel.cardInfo)
+                
+                // 애니메이션 이후 복구
+                self.isAnimationShowing = true
+            }
+            
+            
             
             // 임시뷰 설정 원복
             dragView.isUserInteractionEnabled = true
@@ -604,7 +664,10 @@ class ViewController: UIViewController {
         // 빈 카드 모양 추가
         for count in 0..<cardSize.maxCardCount {
             // 빈카드 모양 생성
-            let emptyCardView = EmptyPointCardView(origin: CGPoint(x: xPositions[count], y: yPositions[1] + yPositions[0]), size: cardSize.cardSize)
+            let emptyCardView = EmptyCardView(origin: CGPoint(x: xPositions[count], y: yPositions[1] + yPositions[0]), size: cardSize.cardSize)
+            
+            // 모델설정
+            emptyCardView.model.setting(deckType: .playDeck, deckLine: count)
             
             // 추가
             addViewToMain(view: emptyCardView)
