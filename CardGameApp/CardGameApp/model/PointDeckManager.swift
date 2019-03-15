@@ -90,4 +90,27 @@ class PointDeckManager {
     func pickCard(cardInfo: CardInfo) -> Card? {
         return self.pointDeckList[cardInfo.getDeckLine()].pickCard(cardInfo:cardInfo)
     }
+    
+    /// 카드와 덱라인을 받아서 해당 라인에 추가
+    func addCardTo(deckLine: Int, card: Card) -> CardInfo? {
+        // 추가 결과
+        let result = self.pointDeckList[deckLine].addCard(card: card)
+        
+        // 덱 라인 설정
+        if result != nil {
+            card.deckLine = deckLine
+        }
+        
+        return result
+    }
+    
+    /// 덱 전체 리스트를 문자열로 리턴
+    func getAllPointDeckCardName() -> [String] {
+        // 결과용
+        var result : [String] = []
+        for count in 0..<self.pointDeckList.count {
+            result.append("포인트덱 \(count)번라인 카드 : \(self.pointDeckList[count].getAllPointDeckCardName()) .")
+        }
+        return result
+    }
 }
