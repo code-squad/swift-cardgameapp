@@ -10,19 +10,46 @@ import Foundation
 
 class KlondikePresenter {
     
-    private weak var view: KlondikeView?
+    private weak var pileView: PileView?
+    private weak var previewView: PreviewView?
+    private weak var columnsView: ColumnsView?
+    private weak var goalsView: GoalsView?
     private let klondike = Klondike()
     
     init() {
         addObservers()
     }
     
-    func attach(view: KlondikeView) {
-        self.view = view
+    func attach(pileView: PileView) {
+        self.pileView = pileView
     }
     
-    func detachView() {
-        self.view = nil
+    func attach(previewView: PreviewView) {
+        self.previewView = previewView
+    }
+    
+    func attach(columnsView: ColumnsView) {
+        self.columnsView = columnsView
+    }
+    
+    func attach(goalsView: GoalsView) {
+        self.goalsView = goalsView
+    }
+    
+    func detachPileView() {
+        self.pileView = nil
+    }
+    
+    func detachPreviewView() {
+        self.previewView = nil
+    }
+    
+    func detachColumnsView() {
+        self.columnsView = nil
+    }
+    
+    func detachGoalsView() {
+        self.goalsView = nil
     }
     
     func setUp() {
@@ -99,25 +126,25 @@ class KlondikePresenter {
     @objc private func addPileStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
             let cards = userInfo[UserInfoKey.addedCards] as? [Card] else { return }
-        view?.addPileStackView(count: cards.count)
+        pileView?.addPileStackView(count: cards.count)
     }
     
     @objc private func removePileStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
             let count = userInfo[UserInfoKey.countOfPoppedCards] as? Int else { return }
-        view?.removePileStackView(count: count)
+        pileView?.removePileStackView(count: count)
     }
     
     @objc private func addPreviewStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
             let cards = userInfo[UserInfoKey.addedCards] as? [Card] else { return }
-        view?.addPreviewStackView(cards: cards)
+        previewView?.addPreviewStackView(cards: cards)
     }
     
     @objc private func removePreviewStackView(_ noti: Notification) {
         guard let userInfo = noti.userInfo,
             let count = userInfo[UserInfoKey.countOfPoppedCards] as? Int else { return }
-        view?.removePreviewStackView(count: count)
+        previewView?.removePreviewStackView(count: count)
     }
     
     @objc private func addColumnsStackView(_ noti: Notification) {
@@ -125,7 +152,7 @@ class KlondikePresenter {
             let cards = userInfo[UserInfoKey.addedCards] as? [Card],
             let sender = noti.object as? Column,
             let index = klondike.index(of: sender) else { return }
-        view?.addColumnsStackView(cards: cards, index: index)
+        columnsView?.addColumnsStackView(cards: cards, index: index)
     }
     
     @objc private func removeColumnsStackView(_ noti: Notification) {
@@ -134,7 +161,7 @@ class KlondikePresenter {
             let sender = noti.object as? Column,
             let position = klondike.index(of: sender) else { return }
         let topCardOfStack = userInfo[UserInfoKey.topCardOfStack] as? Card
-        view?.removeColumnsStackView(count: count, index: position, card: topCardOfStack)
+        columnsView?.removeColumnsStackView(count: count, index: position, card: topCardOfStack)
     }
     
     @objc private func initialSettingColumns(_ noti: Notification) {
@@ -142,7 +169,7 @@ class KlondikePresenter {
             let countOfBackCard = userInfo[UserInfoKey.countOfBackCards] as? Int,
             let topCardOfColumn = userInfo[UserInfoKey.topCardOfStack] as? Card,
             let index = userInfo[UserInfoKey.index] as? Int else { return }
-        view?.initialSettingColumns(count: countOfBackCard, index: index, card: topCardOfColumn)
+        columnsView?.initialSettingColumns(count: countOfBackCard, index: index, card: topCardOfColumn)
     }
     
     @objc private func addGoalsStackView(_ noti: Notification) {
@@ -150,7 +177,7 @@ class KlondikePresenter {
             let cards = userInfo[UserInfoKey.addedCards] as? [Card],
             let sender = noti.object as? Goal,
             let index = klondike.index(of: sender) else { return }
-        view?.addGoalsStackView(cards: cards, index: index)
+        goalsView?.addGoalsStackView(cards: cards, index: index)
     }
     
     @objc private func removeGoalsStackView(_ noti: Notification) {
@@ -158,6 +185,6 @@ class KlondikePresenter {
             let count = userInfo[UserInfoKey.countOfPoppedCards] as? Int,
             let sender = noti.object as? Goal,
             let index = klondike.index(of: sender) else { return }
-        view?.removeGoalsStackView(count: count, index: index)
+        goalsView?.removeGoalsStackView(count: count, index: index)
     }
 }

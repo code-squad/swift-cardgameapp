@@ -38,7 +38,10 @@ class ViewController: UIViewController {
         guard let image = UIImage(named: "bg_pattern") else { return }
         self.view.backgroundColor = UIColor(patternImage: image)
         
-        self.klondikePresenter.attach(view: self)
+        self.klondikePresenter.attach(pileView: self)
+        self.klondikePresenter.attach(previewView: self)
+        self.klondikePresenter.attach(columnsView: self)
+        self.klondikePresenter.attach(goalsView: self)
         self.klondikePresenter.setUp()
     }
     
@@ -79,7 +82,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: KlondikeView {
+extension ViewController: PileView {
     
     func addPileStackView(count: Int) {
         guard let beforeFrame = self.framePool.dequeue() else {
@@ -110,6 +113,9 @@ extension ViewController: KlondikeView {
         self.framePool.enqueue(self.pileStackView.frame)
         self.pileStackView.removeSubviews(count: count)
     }
+}
+
+extension ViewController: PreviewView {
     
     func addPreviewStackView(cards: [Card]) {
         guard let beforeFrame = self.framePool.dequeue() else { return }
@@ -141,6 +147,9 @@ extension ViewController: KlondikeView {
         self.framePool.enqueue(self.previewStackView.frame)
         self.previewStackView.removeSubviews(count: count)
     }
+}
+
+extension ViewController: ColumnsView {
     
     func addColumnsStackView(cards: [Card], index: Int) {
         guard let stackView = columnsStackView.arrangedSubviews[index] as? UIStackView,
@@ -198,7 +207,7 @@ extension ViewController: KlondikeView {
         let cardImageView = cardImageViewWithDoubleTapGesture(card: card,
                                                               action: #selector(moveColumn))
         stackView.addArrangedSubview(cardImageView)
-
+        
         stackView.isHidden = true
         let animationView = UIView()
         animationView.frame = self.pileStackView.frame
@@ -209,15 +218,15 @@ extension ViewController: KlondikeView {
         cardImageViews.append(CardImageView(card: card))
         let cardStackView = animationStackView(views: cardImageViews)
         animationView.addSubview(cardStackView)
-
+        
         cardStackView.leadingAnchor.constraint(equalTo: animationView.leadingAnchor, constant: 0).isActive = true
         cardStackView.trailingAnchor.constraint(equalTo: animationView.trailingAnchor, constant: 0).isActive = true
         cardStackView.topAnchor.constraint(equalTo: animationView.topAnchor, constant: 0).isActive = true
         cardStackView.bottomAnchor.constraint(equalTo: animationView.bottomAnchor, constant: 0).isActive = true
-
+        
         let heightOfCard = animationView.frame.width * 1.27
         cardStackView.spacing = -heightOfCard * (7/10)
-
+        
         self.view.addSubview(animationView)
         UIView.animate(withDuration: 0.3,
                        delay: 0,
@@ -228,8 +237,11 @@ extension ViewController: KlondikeView {
             stackView.isHidden = false
             animationView.removeFromSuperview()
         })
-
+        
     }
+}
+
+extension ViewController: GoalsView {
     
     func addGoalsStackView(cards: [Card], index: Int) {
         guard let stackView = goalsStackView.arrangedSubviews[index] as? UIStackView,
@@ -266,6 +278,9 @@ extension ViewController: KlondikeView {
         
         stackView.removeSubviews(count: count)
     }
+}
+
+extension ViewController {
     
     private func cardImageViewWithDoubleTapGesture(card: Card, action: Selector) -> UIImageView {
         let tap = UITapGestureRecognizer(target: self, action: action)

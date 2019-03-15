@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7D0BE51C2234EFC300AD559F /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0BE51B2234EFC300AD559F /* Position.swift */; };
-		7D0BE51E2234FA9300AD559F /* KlondikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0BE51D2234FA9300AD559F /* KlondikeView.swift */; };
 		7D0BE5202234FA9E00AD559F /* KlondikePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D0BE51F2234FA9E00AD559F /* KlondikePresenter.swift */; };
 		7D1533BB2214022900C63283 /* Columns.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1533BA2214022900C63283 /* Columns.swift */; };
 		7D1533BD2214036900C63283 /* Goals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D1533BC2214036900C63283 /* Goals.swift */; };
@@ -43,13 +42,16 @@
 		7DC47911220EA2CF0054B529 /* PositionStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC47910220EA2CF0054B529 /* PositionStackView.swift */; };
 		7DC47916220EABD80054B529 /* UserInfoKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DC47915220EABD80054B529 /* UserInfoKey.swift */; };
 		7DD3FB7E2214693800107CB9 /* ColumnStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD3FB7D2214693800107CB9 /* ColumnStackView.swift */; };
+		7DF604ED223B3F8300956F87 /* PileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF604EC223B3F8300956F87 /* PileView.swift */; };
+		7DF604EF223B3F9400956F87 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF604EE223B3F9400956F87 /* PreviewView.swift */; };
+		7DF604F1223B3F9C00956F87 /* ColumnsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF604F0223B3F9C00956F87 /* ColumnsView.swift */; };
+		7DF604F3223B3FAA00956F87 /* GoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF604F2223B3FAA00956F87 /* GoalsView.swift */; };
 		7DF972B92202AC2A00E947B1 /* CardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF972B82202AC2A00E947B1 /* CardImageView.swift */; };
 		7DF99AFB2239418100442F3B /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF99AFA2239418100442F3B /* Queue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7D0BE51B2234EFC300AD559F /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
-		7D0BE51D2234FA9300AD559F /* KlondikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KlondikeView.swift; sourceTree = "<group>"; };
 		7D0BE51F2234FA9E00AD559F /* KlondikePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KlondikePresenter.swift; sourceTree = "<group>"; };
 		7D1533BA2214022900C63283 /* Columns.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Columns.swift; sourceTree = "<group>"; };
 		7D1533BC2214036900C63283 /* Goals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goals.swift; sourceTree = "<group>"; };
@@ -86,6 +88,10 @@
 		7DC47910220EA2CF0054B529 /* PositionStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositionStackView.swift; sourceTree = "<group>"; };
 		7DC47915220EABD80054B529 /* UserInfoKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoKey.swift; sourceTree = "<group>"; };
 		7DD3FB7D2214693800107CB9 /* ColumnStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnStackView.swift; sourceTree = "<group>"; };
+		7DF604EC223B3F8300956F87 /* PileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PileView.swift; sourceTree = "<group>"; };
+		7DF604EE223B3F9400956F87 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
+		7DF604F0223B3F9C00956F87 /* ColumnsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnsView.swift; sourceTree = "<group>"; };
+		7DF604F2223B3FAA00956F87 /* GoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsView.swift; sourceTree = "<group>"; };
 		7DF972B82202AC2A00E947B1 /* CardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImageView.swift; sourceTree = "<group>"; };
 		7DF99AFA2239418100442F3B /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,7 +159,10 @@
 				7D6E52F521FEBCB500DFC342 /* ViewController.swift */,
 				7D6E52F721FEBCB500DFC342 /* Main.storyboard */,
 				7D6E52FA21FEBCB600DFC342 /* Assets.xcassets */,
-				7D0BE51D2234FA9300AD559F /* KlondikeView.swift */,
+				7DF604EC223B3F8300956F87 /* PileView.swift */,
+				7DF604EE223B3F9400956F87 /* PreviewView.swift */,
+				7DF604F0223B3F9C00956F87 /* ColumnsView.swift */,
+				7DF604F2223B3FAA00956F87 /* GoalsView.swift */,
 				7DF99AFA2239418100442F3B /* Queue.swift */,
 				7D0BE5212234FACF00AD559F /* Presenter */,
 				7D7BD3B4220D6F2F003B5656 /* Model */,
@@ -290,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DF604F1223B3F9C00956F87 /* ColumnsView.swift in Sources */,
 				7D6E534F21FEEC1D00DFC342 /* ValidChecker.swift in Sources */,
 				7D214FB522310F750096022D /* CardBackImageView.swift in Sources */,
 				7D6E52F621FEBCB500DFC342 /* ViewController.swift in Sources */,
@@ -301,6 +311,7 @@
 				7D6E535021FEEC1D00DFC342 /* GamePlayer.swift in Sources */,
 				7D6E534B21FEEC1D00DFC342 /* Suit.swift in Sources */,
 				7D6E534A21FEEC1D00DFC342 /* Rank.swift in Sources */,
+				7DF604F3223B3FAA00956F87 /* GoalsView.swift in Sources */,
 				7DC47911220EA2CF0054B529 /* PositionStackView.swift in Sources */,
 				7D6E534E21FEEC1D00DFC342 /* GameOperator.swift in Sources */,
 				7D6E535221FEEC1D00DFC342 /* Card.swift in Sources */,
@@ -316,10 +327,11 @@
 				7D6E535521FEEC1D00DFC342 /* CardGameDeck.swift in Sources */,
 				7D713BE5221E4B4F00D7A240 /* Column.swift in Sources */,
 				7D20BEC4222685C100658A35 /* Klondike.swift in Sources */,
+				7DF604ED223B3F8300956F87 /* PileView.swift in Sources */,
 				7D6E535A21FEEC1D00DFC342 /* GameType.swift in Sources */,
 				7D6E535B21FEEC1D00DFC342 /* NumberOfParticipant.swift in Sources */,
-				7D0BE51E2234FA9300AD559F /* KlondikeView.swift in Sources */,
 				7D6E534C21FEEC1D00DFC342 /* Participant.swift in Sources */,
+				7DF604EF223B3F9400956F87 /* PreviewView.swift in Sources */,
 				7D6E535321FEEC1D00DFC342 /* ScoreCalculator.swift in Sources */,
 				7DF99AFB2239418100442F3B /* Queue.swift in Sources */,
 				7D0BE51C2234EFC300AD559F /* Position.swift in Sources */,
