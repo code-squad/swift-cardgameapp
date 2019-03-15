@@ -338,6 +338,60 @@ class GameBoard : DeckInfo {
         // 체크 결과 확인
         return checkResult
     }
+    
+    /// 덱 모든카드 문자열로 리턴
+    func getAllDeckCardName() -> String {
+        return self.deck.getAllDeckCardName()
+    }
+    
+    /// 오픈덱 모든카드 문자열로 리턴
+    func getAllOpenedDeckCardName() -> String {
+        return self.openedDeck.getAllOpenedDeckCardName()
+    }
+    
+    /// 카드와 덱라인,덱타입을 받아서 해당 라인에 추가
+    func addCardTo(deckType: DeckType, deckLine: Int, cardInfo: CardInfo) -> CardInfo? {
+        // 이동전 카드정보 기록
+        let pastCardData = PastCardData(cardInfo: cardInfo)
+        
+        // 추가카드를 추출시도
+        guard let newCard = pickCard(cardInfo: cardInfo) else { return nil }
+        
+        // 카드 추가 결과
+        var result : CardInfo? = nil
+        
+        switch deckType {
+        case .playDeck : result = self.playDeck.addCardTo(deckLine: deckLine, card: newCard)
+        case .pointDeck : result = self.pointDeck.addCardTo(deckLine: deckLine, card: newCard)
+        default : result = nil
+        }
+        
+        
+        // 추가 실패시 뽑은 카드 원복
+        if result == nil {
+            do {
+                try undoCard(card: newCard)
+            }
+            catch let error as ErrorMessage{
+                os_log("%@", error.rawValue)
+            }
+            catch {
+                os_log("카드 원복 실패 : %@", newCard.name())
+            }
+        }
+        
+        // 카드이동 성공시 노티발생
+        else {
+            NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
+        }
+        
+        return result
+    }
+    
+    /// 덱 전체 리스트를 문자열로 리턴
+    func getAllPointDeckCardName() -> [String] {
+        return self.pointDeck.getAllPointDeckCardName()
+    }
 }
 
 
