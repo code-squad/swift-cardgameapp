@@ -55,4 +55,13 @@ class OpenedDeck {
         self.cardList.append(card)
     }
     
+    /// 덱 전체 리스트를 문자열로 리턴
+    func getAllOpenedDeckCardName() -> String {
+        // 결과용
+        var result : String = "덱 카드 리스트 : "
+        for card in cardList {
+            result.append("\(card.name())\n")
+        }
+        return result
+    }
 }
