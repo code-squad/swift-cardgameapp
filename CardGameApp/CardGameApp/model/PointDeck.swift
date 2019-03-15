@@ -85,4 +85,14 @@ class PointDeck {
         // 다른카드면 닐 리턴
         return nil
     }
+    
+    /// 덱 전체 리스트를 문자열로 리턴
+    func getAllPointDeckCardName() -> String {
+        // 결과용
+        var result : String = ""
+        for card in cardList {
+            result.append("\(card.name()), ")
+        }
+        return result
+    }
 }
