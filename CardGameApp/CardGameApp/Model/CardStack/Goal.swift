@@ -10,16 +10,4 @@ import Foundation
 
 class Goal: CardStack {
 
-    override func addedCardsNotificationName() -> Notification.Name {
-        return .goalDidAdd
-    }
-    
-    override func poppedCountNotificationName() -> Notification.Name {
-        return .goalDidPop
-    }
-}
-
-extension Notification.Name {
-    static let goalDidAdd = Notification.Name("goalDidAdd")
-    static let goalDidPop = Notification.Name("goalDidPop")
 }

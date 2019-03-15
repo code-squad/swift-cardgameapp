@@ -9,17 +9,5 @@
 import Foundation
 
 class Preview: CardStack {
-    
-    override func addedCardsNotificationName() -> Notification.Name {
-        return .previewDidAdd
-    }
-    
-    override func poppedCountNotificationName() -> Notification.Name {
-        return .previewDidPop
-    }
-}
 
-extension Notification.Name {
-    static let previewDidAdd = Notification.Name("previewDidAdd")
-    static let previewDidPop = Notification.Name("previewDidPop")
 }

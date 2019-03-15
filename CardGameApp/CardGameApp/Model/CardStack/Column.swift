@@ -10,23 +10,10 @@ import Foundation
 
 class Column: CardStack {
 
-    override func addedCardsNotificationName() -> Notification.Name {
-        return .columnDidAdd
-    }
-    
     override func postPoppedCountInfo(countOfPoppedCards: Int) {
-        NotificationCenter.default.post(name: poppedCountNotificationName(),
+        NotificationCenter.default.post(name: type(of: self).didPopNotiName(),
                                         object: self,
                                         userInfo: [UserInfoKey.countOfPoppedCards: countOfPoppedCards,
                                                    UserInfoKey.topCardOfStack: self.peek()])
     }
-    
-    override func poppedCountNotificationName() -> Notification.Name {
-        return .columnDidPop
-    }
-}
-
-extension Notification.Name {
-    static let columnDidAdd = Notification.Name("columnDidAdd")
-    static let columnDidPop = Notification.Name("columnDidPop")
 }

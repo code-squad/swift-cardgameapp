@@ -41,7 +41,7 @@ class Columns {
             columns[index] = column
             let countOfBackCards = column.count() - 1
             
-            NotificationCenter.default.post(name: .columnDidCreate,
+            NotificationCenter.default.post(name: type(of: self).didCreateNotiName(),
                                             object: self,
                                             userInfo: [UserInfoKey.countOfBackCards: countOfBackCards,
                                                        UserInfoKey.topCardOfStack: topCardOfColunm,
@@ -70,8 +70,8 @@ class Columns {
     func indexOfMoveableToColumns(_ card: Card) -> Int? {
         return self.columns.firstIndex(where: {card.isMoveableToColumn($0.peek())})
     }
-}
-
-extension Notification.Name {
-    static let columnDidCreate = Notification.Name("columnDidCreate")
+    
+    static func didCreateNotiName() -> Notification.Name {
+        return Notification.Name("\(self)DidCreate")
+    }
 }

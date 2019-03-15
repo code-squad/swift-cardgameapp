@@ -28,23 +28,15 @@ class CardStack : CustomStringConvertible {
     }
     
     func postAddedCardsInfo(addedCards: [Card]) {
-        NotificationCenter.default.post(name: addedCardsNotificationName(),
+        NotificationCenter.default.post(name: type(of: self).didAddNotiName(),
                                         object: self,
                                         userInfo: [UserInfoKey.addedCards: addedCards])
     }
     
-    func addedCardsNotificationName() -> Notification.Name {
-        return .cardStackDidAdd
-    }
-    
     func postPoppedCountInfo(countOfPoppedCards: Int) {
-        NotificationCenter.default.post(name: poppedCountNotificationName(),
+        NotificationCenter.default.post(name: type(of: self).didPopNotiName(),
                                         object: self,
                                         userInfo: [UserInfoKey.countOfPoppedCards: countOfPoppedCards])
-    }
-    
-    func poppedCountNotificationName() -> Notification.Name {
-        return .cardStackDidPop
     }
 
     var description: String {
@@ -145,9 +137,12 @@ class CardStack : CustomStringConvertible {
     func removeTopCard() {
         self.cards.removeLast()
     }
-}
-
-extension Notification.Name {
-    static let cardStackDidAdd = Notification.Name("cardStackDidAdd")
-    static let cardStackDidPop = Notification.Name("cardStackDidPop")
+    
+    static func didAddNotiName() -> Notification.Name {
+        return Notification.Name("\(self)DidAdd")
+    }
+    
+    static func didPopNotiName() -> Notification.Name {
+        return Notification.Name("\(self)DidPop")
+    }
 }

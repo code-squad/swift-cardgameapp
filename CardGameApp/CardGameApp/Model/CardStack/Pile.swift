@@ -9,17 +9,5 @@
 import Foundation
 
 class Pile: CardStack {
-    
-    override func addedCardsNotificationName() -> Notification.Name {
-        return .pileDidAdd
-    }
-    
-    override func poppedCountNotificationName() -> Notification.Name {
-        return .pileDidPop
-    }
-}
 
-extension Notification.Name {
-    static let pileDidAdd = Notification.Name("pileDidAdd")
-    static let pileDidPop = Notification.Name("pileDidPop")
 }

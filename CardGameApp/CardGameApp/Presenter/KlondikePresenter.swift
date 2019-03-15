@@ -79,47 +79,47 @@ class KlondikePresenter {
     private func addObservers() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(addPileStackView),
-                                               name: .pileDidAdd,
+                                               name: Pile.didAddNotiName(),
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(removePileStackView),
-                                               name: .pileDidPop,
+                                               name: Pile.didPopNotiName(),
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(addPreviewStackView),
-                                               name: .previewDidAdd,
+                                               name: Preview.didAddNotiName(),
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(removePreviewStackView),
-                                               name: .previewDidPop,
+                                               name: Preview.didPopNotiName(),
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(initialSettingColumns),
-                                               name: .columnDidCreate,
+                                               name: Columns.didCreateNotiName(),
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(addColumnsStackView),
-                                               name: .columnDidAdd,
+                                               name: Column.didAddNotiName(),
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(removeColumnsStackView),
-                                               name: .columnDidPop,
+                                               name: Column.didPopNotiName(),
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(addGoalsStackView),
-                                               name: .goalDidAdd,
+                                               name: Goal.didAddNotiName(),
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(removeGoalsStackView),
-                                               name: .goalDidPop,
+                                               name: Goal.didPopNotiName(),
                                                object: nil)
     }
     
