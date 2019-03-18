@@ -165,7 +165,7 @@ class GameBoard : DeckInfo {
     func allInfo() -> [CardInfo] {
         return deck.info()
     }
-
+    
     /// 오픈덱 -> 덱 으로 카드전체이동. 순서 유지를 위해서 오픈덱 순서를 뒤집는다
     func openedDeckToDeck(){
         // 순서를 뒤집어줄 임시 배열
@@ -296,7 +296,7 @@ class GameBoard : DeckInfo {
         switch targetCardInfo.getDeckType() {
         case .pointDeck : result = self.pointDeck.addCard(targetCardInfo: targetCardInfo, card: newCard)
         case .playDeck : result = self.playDeck.addCard(targetCardInfo: targetCardInfo, card: newCard)
-        
+            
         // 나머지는 실패처리
         default : result = nil
         }
@@ -313,7 +313,7 @@ class GameBoard : DeckInfo {
                 os_log("카드 원복 실패 : %@", newCard.name())
             }
         }
-        // 추가 성공시 이동된 카드 정보 노티 포스트
+            // 추가 성공시 이동된 카드 정보 노티 포스트
         else {
             NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
         }
@@ -379,8 +379,8 @@ class GameBoard : DeckInfo {
                 os_log("카드 원복 실패 : %@", newCard.name())
             }
         }
-        
-        // 카드이동 성공시 노티발생
+            
+            // 카드이동 성공시 노티발생
         else {
             NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
         }
@@ -388,9 +388,83 @@ class GameBoard : DeckInfo {
         return result
     }
     
-    /// 덱 전체 리스트를 문자열로 리턴
+    /// 포인트덱 전체 리스트를 문자열로 리턴
     func getAllPointDeckCardName() -> [String] {
         return self.pointDeck.getAllPointDeckCardName()
+    }
+    
+    /// 카드추가목표와 카드배열을 받아서 목표에 카드추가
+    func addCardListTo(deckType: DeckType, deckLine: Int, cardInfos: [CardInfo]) -> [CardInfo]? {
+        // 카드가 여러장일때 목표는 플레이덱만 가능
+        guard deckType == .playDeck else { return nil }
+        
+        // 결과리턴용 변수
+        var result : [CardInfo] = []
+        
+        // 모든카드 추가 시도
+        for cardInfo in cardInfos {
+            guard let addResult = addCardTo(deckType: deckType, deckLine: deckLine, cardInfo: cardInfo) else { return nil }
+            result.append(addResult)
+        }
+        
+        return result
+    }
+    
+    
+    /// 카드와 덱라인,덱타입을 받아서 해당 라인에 추가
+    func addCardTo(deckType: DeckType, deckLine: Int, cardInfos: [CardInfo]) -> [CardInfo]? {
+        // 이동전 카드정보를 기록하기 위해 카드인포 추출 - 여러장이여도 출발지는 같다
+        guard let firstCardInfo = cardInfos.first else { return nil }
+        
+        // 이동전 카드정보 기록
+        let pastCardData = PastCardData(cardInfo: firstCardInfo)
+        
+        // 추가카드를 추출시도
+        var pickedCards : [Card] = []
+        
+        // 321 카드를 역순으로 3부터 뽑는다
+        for cardInfo in cardInfos.reversed() {
+            // 추가카드를 추출시도
+            guard let newCard = pickCard(cardInfo: cardInfo) else { return nil }
+            pickedCards.append(newCard)
+        }
+        
+        // 카드 추가 결과
+        var result : [CardInfo] = []
+        
+        // 123 순서로 들어간 카드를 다시 역순으로 추가시도
+        for pickedCard in pickedCards.reversed() {
+            var addedCardInfo : CardInfo? = nil
+            
+            switch deckType {
+            case .playDeck : addedCardInfo = self.playDeck.addCardTo(deckLine: deckLine, card: pickedCard)
+            case .pointDeck : addedCardInfo = self.pointDeck.addCardTo(deckLine: deckLine, card: pickedCard)
+            default : addedCardInfo = nil
+            }
+            
+            
+            // 추가 실패시 뽑은 카드 원복
+            if addedCardInfo == nil {
+                do {
+                    try undoCard(card: pickedCard)
+                }
+                catch let error as ErrorMessage{
+                    os_log("%@", error.rawValue)
+                }
+                catch {
+                    os_log("카드 원복 실패 : %@", pickedCard.name())
+                } // 추가 성공시 . nil 이 아님
+            } else {
+                result.append(addedCardInfo!)
+            }
+        }
+        
+        
+        // 모든 카드이동 성공시 노티발생
+        NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
+        
+        
+        return result
     }
 }
 
