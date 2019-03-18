@@ -381,8 +381,9 @@ extension ViewController {
                     self.cardStacksView?.accessTopView(at: number-1) { topView in
                         let distanceX = CGFloat((number-1-index)*Sizes.cardWitdh + (number-1-index)*5)
                         var distanceY = CGFloat(self.cardStacks[number-1].count() - self.cardStacks[index].count())
-                        if distanceY >= 0 { distanceY = (distanceY+1) * CGFloat(Sizes.stackCardsSpace) }
+                        if distanceY == 0 { distanceY = -(distanceY+1) * CGFloat(Sizes.stackCardsSpace) }
                         else { distanceY = (distanceY-1) * CGFloat(Sizes.stackCardsSpace) }
+                        print("\(distanceX) + \(distanceY)")
                         topView.transform = CGAffineTransform(translationX: -distanceX, y: -distanceY)
                     }
                 }, completion: { isTrue in

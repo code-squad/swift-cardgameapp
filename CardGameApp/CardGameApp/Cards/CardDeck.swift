@@ -47,7 +47,7 @@ class CardDeck {
         var tempCardDeck : [Card] = []
         var tempCard : Card
         for step in stride(from: cardDeck.count-1, through: 0, by: -1) {
-            tempCard = cardDeck.remove(at: Int(arc4random_uniform(UInt32(step))))
+            tempCard = cardDeck.remove(at: Int(arc4random_uniform(UInt32(step+1))))
             tempCardDeck.append(tempCard)
         }
         cardDeck = tempCardDeck

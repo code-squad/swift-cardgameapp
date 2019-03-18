@@ -110,7 +110,7 @@ class CardStacksView: UIStackView {
 
 * UIGestureRecognizer을 이용하여 더블탭 인식 기능을 구현한다.
 
-
+* 애니메이션 기능을 구현한다.
 
 
 
@@ -181,6 +181,58 @@ class ViewController {
     }
 }
 ```
+
+
+
+**애니메이션**
+
+* Animation 가능한 `UIView` 속성
+  1. frame, bounds, center : 뷰의 위치와 크기
+  2. transform : 좌표 행렬
+  3. alpha : 투명도 
+  4. backgroundColor : 배경색
+  5. contentStretch : 확대 / 축소 영역
+* Animation 불가능 속성
+  1. hidden 처럼 중간 값이 계산 불가능한 속성
+
+
+
+ 기본적으로 Animation 기능을 사용하기 위해서 `UIView` 에 구현되어있는 `animate()` 메소드를 사용한다. 여러 인자값을 받는 함수가 있는데 공식문서를 보고 필요에 따라 사용하면 된다.
+
+ 애니메이션 실행되면 `animate()` 밑의 코드부분도 역시 실행된다. 애니메이션이 끝날 때까지 기다리지 않는다. 만약 애니메이션이 끝나고 동작하고 싶은 기능이 있으면 `animate()` 메소드 중에 `completion` 을 인자값으로 받는 메소드를 활용하면 된다. `completion` 부분에 넣어준 클로저가 애니메이션이 종료되고 난 후 실행된다.
+
+```swift
+// 화면이 서서히 노란색이 되도록 설정
+class ViewController: UIViewController {
+  @IBOutlet var image: UIView!
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    UIView.animate(withDuration: 1.0, animation {
+      self.image.backgroundColor = UIColor.yellow
+    }, completion: nil)
+  }
+}
+```
+
+
+
+```swift
+// 화면 사이즈가 커지도록 설정
+class ViewController: UIViewController {
+  @IBOutlet var image: UIView!
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    UIView.animate(withDuration: 1.0, animation {
+			self.image.frame.size.width += 10
+      self.image.frame.size.height += 10
+    }, completion: nil)
+  }
+}
+```
+
+
 
 
 
