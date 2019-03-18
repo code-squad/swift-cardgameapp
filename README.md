@@ -249,3 +249,10 @@ class ViewController: UIViewController {
 3. 상단으로 이동할 수 없는 경우, 스택 중에서 좌측부터 앞면으로 된 카드 중 가장 위에 있는 카드와 다음 조건을 확인하고 조건에 맞으면 그 위로 이동
 
 <img src="10.png" height="500px"/>
+
+
+
+
+
+### Step4
+
