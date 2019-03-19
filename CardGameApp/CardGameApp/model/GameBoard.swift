@@ -480,7 +480,7 @@ class GameBoard : DeckInfo {
     }
     
     /// 포인트덱이 모두 꽉차면 클리어 노티를 포스트
-    private func isAllPointDeckFull() -> Bool {
+    func isAllPointDeckFull() -> Bool {
         // 모든 포인트덱이 맥스인지 체크한다
         return self.pointDeck.isAllPointDeckFull()
     }
