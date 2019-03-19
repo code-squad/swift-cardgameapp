@@ -35,6 +35,7 @@
 		D541055121E3328B00FC7470 /* CardSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541055021E3328B00FC7470 /* CardSize.swift */; };
 		D541055321E5D2D300FC7470 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D541055221E5D2D300FC7470 /* Error.swift */; };
 		D55ADB312229106F004B4B92 /* PlayDeckViewManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55ADB302229106F004B4B92 /* PlayDeckViewManagerModel.swift */; };
+		D55EA1CD223F477500FC8025 /* WatingDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55EA1CC223F477500FC8025 /* WatingDeckView.swift */; };
 		D59033EF222E117D0023CDD4 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59033EE222E117D0023CDD4 /* Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +91,7 @@
 		D541055021E3328B00FC7470 /* CardSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSize.swift; sourceTree = "<group>"; };
 		D541055221E5D2D300FC7470 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		D55ADB302229106F004B4B92 /* PlayDeckViewManagerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayDeckViewManagerModel.swift; sourceTree = "<group>"; };
+		D55EA1CC223F477500FC8025 /* WatingDeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatingDeckView.swift; sourceTree = "<group>"; };
 		D59033EE222E117D0023CDD4 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,6 +141,7 @@
 				D50A33B8221BE33100E318B5 /* PointDeckView.swift */,
 				D506CBEE221E4A8300DA87C5 /* PlayDeckView.swift */,
 				D506CBF0221E4D0800DA87C5 /* PlayDeckViewManager.swift */,
+				D55EA1CC223F477500FC8025 /* WatingDeckView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				D506CBEF221E4A8300DA87C5 /* PlayDeckView.swift in Sources */,
 				D536E56421D4BB64004B7014 /* Card.swift in Sources */,
 				D506CBF1221E4D0800DA87C5 /* PlayDeckViewManager.swift in Sources */,
+				D55EA1CD223F477500FC8025 /* WatingDeckView.swift in Sources */,
 				D5297B652227EF8000452319 /* CardViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

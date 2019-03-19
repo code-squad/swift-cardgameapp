@@ -79,7 +79,7 @@ enum DeckType : String{
     case openedDeck = "openedDeck"
     case pointDeck = "pointDeck"
     case playDeck = "playDeck"
-    
+    case watingDeck = "watingDeck"
 }
 
 protocol CardInfo {
