@@ -32,21 +32,21 @@ class Deck {
     /// 카드를 섞는다
     func shuffle(){
         /// 테스트를 위해서 셔플 기능 사용 중지
-//        // 임시 덱 생성
-//        var tempDeck : [Card] = []
-//        // 카운트 프로퍼티 생성
-//        var cardCount = count()
-//        // 반복문으로 셔플을 시작한다
-//        while cardCount > 0 {
-//            // 0 ~ 카운트 까지중 랜덤수자를 생성한다
-//            let randomNumberingNumber = Int(arc4random_uniform(UInt32(cardCount)))
-//            // 덱의 렌덤위치를 임시덱으로 옮긴다. 이과정에서 기존덱의 항목은 빠진다.
-//            tempDeck.append(self.cardList.remove(at: randomNumberingNumber))
-//            // 작업이 끝나면 카운트를 줄인다
-//            cardCount -= 1
-//        }
-//        // 기존덱을 셔플이 끝난 임시덱으로 바꾼다
-//        cardList = tempDeck
+        // 임시 덱 생성
+        var tempDeck : [Card] = []
+        // 카운트 프로퍼티 생성
+        var cardCount = count()
+        // 반복문으로 셔플을 시작한다
+        while cardCount > 0 {
+            // 0 ~ 카운트 까지중 랜덤수자를 생성한다
+            let randomNumberingNumber = Int(arc4random_uniform(UInt32(cardCount)))
+            // 덱의 렌덤위치를 임시덱으로 옮긴다. 이과정에서 기존덱의 항목은 빠진다.
+            tempDeck.append(self.cardList.remove(at: randomNumberingNumber))
+            // 작업이 끝나면 카운트를 줄인다
+            cardCount -= 1
+        }
+        // 기존덱을 셔플이 끝난 임시덱으로 바꾼다
+        cardList = tempDeck
     }
     
     /// 덱 전체 카드를 정보로 표현
