@@ -95,4 +95,9 @@ class PointDeck {
         }
         return result
     }
+    
+    /// 카드 강제추가. 카드를 되돌리는 역할
+    func undoCard(card: Card){
+        self.cardList.append(card)
+    }
 }
