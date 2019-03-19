@@ -23,6 +23,8 @@ class ViewController: UIViewController {
     var deckView = DeckView()
     /// 오픈덱뷰 생성
     var openedDeckView = OpenedDeckView()
+    /// 카드이동 대기뷰 생성
+    var watingDeckView = WatingDeckView()
     
     
     
@@ -261,6 +263,8 @@ class ViewController: UIViewController {
         case .openedDeck : return self.openedDeckView.subviews.last
         case .playDeck : return self.playDeckView.getView(pastCardData: pastCardData)
         case .pointDeck : return self.pointDeckView.getCardView(pastCardData: pastCardData)
+        case .watingDeck : return self.watingDeckView.subviews.last
+        default : return nil
         }
     }
     
@@ -461,6 +465,7 @@ class ViewController: UIViewController {
         case .openedDeck : goalPosition = self.openedDeckView.addView(cardView: cardView)
         case .pointDeck : goalPosition = self.pointDeckView.addView(cardView: cardView)
         case .playDeck : goalPosition = self.playDeckView.addView(view: cardView, deckLine: cardView.cardViewModel.getDeckLine())
+        case .watingDeck : goalPosition = self.watingDeckView.addView(cardView: cardView)
         }
         
         // 임시뷰 이동 애니메이션
@@ -677,7 +682,7 @@ class ViewController: UIViewController {
                 // 밑에 있는 빈뷰에세 힛테스트를 하기 위해 부모까지 유저인터렉션 해제
                 endPositionPlayDeckView.superview!.isUserInteractionEnabled = false
                 
-                // 힛테스트 다시 시도
+                
                 
                if let endPositionView = self.view.hitTest(self.dragView.center, with: nil) as? EmptyCardView  {
                     // 로그용 덱라인 문자화
@@ -713,13 +718,13 @@ class ViewController: UIViewController {
                 }
                 
                 
-                let _ = self.gameBoard.addCardListTo(deckType: targetCardViewModel.deckType, deckLine: targetCardViewModel.deckLine, cardInfos: cardInfos)
+                let _ = self.gameBoard.addManyCardTo(deckType: targetCardViewModel.deckType, deckLine: targetCardViewModel.deckLine, cardInfos: cardInfos)
+                
             } // 추가시도 카드가 한장이면
             else {
                 let _ = self.gameBoard.addCardTo(deckType: targetCardViewModel.deckType, deckLine: targetCardViewModel.deckLine, cardInfo: movingCardView.cardViewModel.cardInfo)
                 
             }
-            
             
             
             
@@ -817,6 +822,9 @@ class ViewController: UIViewController {
         
         // 플레이덱뷰 생성
         settingPlayDeckViewManager()
+        
+        // 대기댁뷰 메인에 추가
+//        addViewToMain(view: self.watingDeckView)
         
         // 카드배치 시작
         gameStart()

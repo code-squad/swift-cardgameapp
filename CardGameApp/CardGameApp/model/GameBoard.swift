@@ -383,6 +383,7 @@ class GameBoard : DeckInfo {
             // 카드이동 성공시 노티발생
         else {
             NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
+            os_log("")
         }
         
         return result
@@ -393,26 +394,11 @@ class GameBoard : DeckInfo {
         return self.pointDeck.getAllPointDeckCardName()
     }
     
-    /// 카드추가목표와 카드배열을 받아서 목표에 카드추가
-    func addCardListTo(deckType: DeckType, deckLine: Int, cardInfos: [CardInfo]) -> [CardInfo]? {
+    /// 카드배열과 덱라인,덱타입을 받아서 해당 라인에 추가
+    func addManyCardTo(deckType: DeckType, deckLine: Int, cardInfos: [CardInfo]) -> [CardInfo]? {
         // 카드가 여러장일때 목표는 플레이덱만 가능
         guard deckType == .playDeck else { return nil }
         
-        // 결과리턴용 변수
-        var result : [CardInfo] = []
-        
-        // 모든카드 추가 시도
-        for cardInfo in cardInfos {
-            guard let addResult = addCardTo(deckType: deckType, deckLine: deckLine, cardInfo: cardInfo) else { return nil }
-            result.append(addResult)
-        }
-        
-        return result
-    }
-    
-    
-    /// 카드와 덱라인,덱타입을 받아서 해당 라인에 추가
-    func addCardTo(deckType: DeckType, deckLine: Int, cardInfos: [CardInfo]) -> [CardInfo]? {
         // 이동전 카드정보를 기록하기 위해 카드인포 추출 - 여러장이여도 출발지는 같다
         guard let firstCardInfo = cardInfos.first else { return nil }
         
@@ -422,31 +408,41 @@ class GameBoard : DeckInfo {
         // 추가카드를 추출시도
         var pickedCards : [Card] = []
         
-        // 321 카드를 역순으로 3부터 뽑는다
+        // 321 카드를 역순으로 1부터 뽑는다
         for cardInfo in cardInfos.reversed() {
             // 추가카드를 추출시도
             guard let newCard = pickCard(cardInfo: cardInfo) else { return nil }
             pickedCards.append(newCard)
+            // 추출된 카드는 대기덱타입으로 변환
+            newCard.deckType = .watingDeck
         }
+        
+        // 추출이 끝난 카드들을 대기뷰로 이동시킨다
+        for _ in pickedCards {
+            NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
+        }
+        
+        // 카드추출 완료, 노티가 완료되었으므로 이제 출발지점이 대기덱임
+        pastCardData.deckType = .watingDeck
         
         // 카드 추가 결과
         var result : [CardInfo] = []
         
         // 123 순서로 들어간 카드를 다시 역순으로 추가시도
         for pickedCard in pickedCards.reversed() {
-            var addedCardInfo : CardInfo? = nil
+//            var addedCardInfo : CardInfo? = nil
             
-            switch deckType {
-            case .playDeck : addedCardInfo = self.playDeck.addCardTo(deckLine: deckLine, card: pickedCard)
-            case .pointDeck : addedCardInfo = self.pointDeck.addCardTo(deckLine: deckLine, card: pickedCard)
-            default : addedCardInfo = nil
-            }
-            
-            
-            // 추가 실패시 뽑은 카드 원복
-            if addedCardInfo == nil {
+           // 추가목표 이미 체크했으니 플레이덱에 추가시도
+            guard let addedCardInfo = self.playDeck.addCardTo(deckLine: deckLine, card: pickedCard) else {
+                // 추가 실패시 카드 다시 원복
                 do {
+                    // 이전에 추가성공했던 카드도 원복한다
+                    for addedCard in result.reversed() {
+                        addCardTo(deckType: pastCardData.deckType, deckLine: pastCardData.deckLine, cardInfo: addedCard)
+                    }
+                    // 실패한 카드도 원복
                     try undoCard(card: pickedCard)
+                    
                 }
                 catch let error as ErrorMessage{
                     os_log("%@", error.rawValue)
@@ -454,14 +450,21 @@ class GameBoard : DeckInfo {
                 catch {
                     os_log("카드 원복 실패 : %@", pickedCard.name())
                 } // 추가 성공시 . nil 이 아님
-            } else {
-                result.append(addedCardInfo!)
+                
+                return nil
             }
+            
+            result.append(addedCardInfo)
+            
+            
         }
         
         
         // 모든 카드이동 성공시 노티발생
-        NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
+        for _ in result {
+            NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
+        }
+        
         
         
         return result
