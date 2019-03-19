@@ -211,10 +211,11 @@ class GameBoard : DeckInfo {
     }
     
     /// 카드 강제추가. 카드를 되돌리는 역할
-    func undoCard(card: Card) throws {
+    private func undoCard(card: Card) throws {
         switch card.getDeckType() {
         case .openedDeck : self.openedDeck.undoCard(card: card)
         case .playDeck : self.playDeck.undoCard(card: card)
+        case .pointDeck : self.pointDeck.undoCard(card: card)
         default : throw ErrorMessage.failedUndoCard
         }
     }
