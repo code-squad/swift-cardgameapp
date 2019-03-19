@@ -100,4 +100,9 @@ class PointDeck {
     func undoCard(card: Card){
         self.cardList.append(card)
     }
+    
+    /// 맥스카운트를 받아서 현재 카운트와 같은지 리턴
+    func checkSameCount(maxCount: Int) -> Bool {
+        return maxCount == self.cardList.count
+    }
 }

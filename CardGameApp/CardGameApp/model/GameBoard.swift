@@ -476,9 +476,13 @@ class GameBoard : DeckInfo {
             os_log("모델 드래그이동 성공 - %@ 카드 : %@ 덱 %@ 라인에서 %@ 덱 %@ 라인으로.",resultCard.name(), pastCardData.deckType.rawValue, beforeDeckLine, resultCard.getDeckType().rawValue, presentDeckLine)
         }
         
-        
-        
         return result
+    }
+    
+    /// 포인트덱이 모두 꽉차면 클리어 노티를 포스트
+    private func isAllPointDeckFull() -> Bool {
+        // 모든 포인트덱이 맥스인지 체크한다
+        return self.pointDeck.isAllPointDeckFull()
     }
 }
 

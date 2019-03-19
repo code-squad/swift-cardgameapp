@@ -121,10 +121,23 @@ class PointDeckManager {
         return result
     }
     
-    
-    
     /// 카드 강제추가. 카드를 되돌리는 역할
     func undoCard(card: Card){
         self.pointDeckList[card.getDeckLine()].undoCard(card: card)
+    }
+    
+    /// 포인트덱이 모두 꽉차면 클리어 노티를 포스트
+    func isAllPointDeckFull() -> Bool {
+        // 한가지 모양 카드의 맥스 카운트
+        let maxCardCount = Numbering.allCases().count
+        
+        // 포인트덱 리스트의 모든 포인트덱이 꽉 찼는지 체크
+        for deck in self.pointDeckList {
+            // 모든 덱이 맥스값이여아한다
+            guard deck.checkSameCount(maxCount: maxCardCount) == true else { return false }
+        }
+        
+        // 모든 덱이 맥스값이므로 참 리턴
+        return true
     }
 }
