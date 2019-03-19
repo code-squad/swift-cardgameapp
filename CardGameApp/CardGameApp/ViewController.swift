@@ -218,6 +218,12 @@ class ViewController: UIViewController {
     
     /// shake 함수.
     override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+        // 리셋함수를 실행한다
+        resetGame()
+    }
+    
+    /// 게임 리스타트
+    private func resetGame(){
         // 모든 카드뷰 삭제
         self.allCardView.forEach { $0.removeFromSuperview() }
         
@@ -245,19 +251,26 @@ class ViewController: UIViewController {
     
     /// 카드 이동 노티를 받으면 뷰이동 함수를 실행
     @objc func afterCardMovedNoti(notification: Notification){
-        /// 이동된 카드의 과거카드데이터를 받는다
+        // 이동된 카드의 과거카드데이터를 받는다
         guard let pastCardData = notification.object as! PastCardData? else { return () }
         
-        /// 덱타입을 넣어서 이동해야되는 뷰 추출
+        // 덱타입을 넣어서 이동해야되는 뷰 추출
         guard let cardView = getCardView(pastCardData: pastCardData) as? CardView else { return () }
         
-        /// 이전덱타입과 뷰를 넣어서 뷰 이동
+        // 이전덱타입과 뷰를 넣어서 뷰 이동
         rePositinoCardView(pastCardData: pastCardData, cardView: cardView)
         
-        /// 결과 로깅
+        // 결과 로깅
         let beforeDeckLine = String(pastCardData.deckLine)
         let presentDeckLine = String(cardView.cardViewModel.getDeckLine())
         os_log("뷰 이동 성공 - %@ 카드 : %@ 덱 %@ 라인에서 %@ 덱 %@ 라인으로.",cardView.name(), pastCardData.deckType.rawValue, beforeDeckLine, cardView.cardViewModel.getDeckType().rawValue, presentDeckLine)
+        
+        // 게임이 클리어 됬는지 체크
+        if self.gameBoard.isAllPointDeckFull() {
+            // 클리어 얼럿 실행
+            victoryAlert()
+        }
+        
     }
     
     /// 덱타입을 받아서 맞는 카드뷰를 리턴
@@ -777,8 +790,6 @@ class ViewController: UIViewController {
         return gesture
     }
     
-    ///
-    
     /// 빈카드 모양을 덱뷰마다 추가해준다
     private func makeEmptyDeckViews(cardSize: CardSize, xPositions: [CGFloat], yPositions: [CGFloat]){
         // 빈 카드 모양 추가
@@ -794,7 +805,23 @@ class ViewController: UIViewController {
         }
     }
     
-    
+    /// 게임 클리어 얼럿을 띄운다
+    private func victoryAlert(){
+        // 얼럿 메세지를 설정
+        let dialog = UIAlertController(title: "클리어!", message: "축하합니다! 모든 카드를 모으셨습니다!", preferredStyle: .alert)
+        
+        // 액션버튼 내용을 설정
+        let action = UIAlertAction(title: "다시하기", style: UIAlertActionStyle.default){ (action: UIAlertAction) -> Void in
+            // 다시하기 를 누르면 게임 리셋
+            self.resetGame()
+        }
+        
+        // 얼럿과 액션을 조합
+        dialog.addAction(action)
+        
+        // 얼럿을 띄운다
+        self.present(dialog, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
