@@ -10,6 +10,9 @@ import UIKit
 
 extension NSNotification.Name {
     static let tappedCardView = NSNotification.Name(rawValue: "TappedCardView")
+    static let draggingView = NSNotification.Name(rawValue: "DraggingView")
+    static let beganDragView = NSNotification.Name(rawValue: "BeganDragView")
+    static let endedDragView = NSNotification.Name(rawValue: "EndedDragView")
 }
 
 class CardView: UIImageView {
@@ -48,3 +51,22 @@ class CardView: UIImageView {
     }
 }
 
+extension CardView {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let beganPoint = touches.first else { return }
+        NotificationCenter.default.post(name: .beganDragView, object: nil, userInfo: ["beganPoint": beganPoint])
+        super.touchesBegan(touches, with: event)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touchPoint = touches.first else { return }
+        NotificationCenter.default.post(name: .draggingView, object: nil, userInfo: ["touchPoint": touchPoint])
+        super.touchesMoved(touches, with: event)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let endedPoint = touches.first else { return }
+        NotificationCenter.default.post(name: .endedDragView, object: nil, userInfo: ["endedPoint": endedPoint])
+        super.touchesEnded(touches, with: event)
+    }
+}

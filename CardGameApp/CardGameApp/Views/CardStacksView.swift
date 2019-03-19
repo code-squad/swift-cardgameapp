@@ -58,4 +58,9 @@ class CardStacksView: UIStackView {
         guard let stackView = self.arrangedSubviews[stackNumber] as? CardStackView else { return }
         stackView.accessTopView(form)
     }
+    
+    func accessStackView(at stackNumber: Int, form: ([CardView]) -> Void) {
+        guard let stackView = self.arrangedSubviews[stackNumber] as? CardStackView else { return }
+        stackView.accessStackView(form)
+    }
 }

@@ -75,4 +75,8 @@ class CardStackView: UIView {
     func accessTopView(_ form: (CardView) -> Void) {
         form(cardViews[cardViews.count-1])
     }
+    
+    func accessStackView(_ form: ([CardView]) -> Void) {
+        form(cardViews)
+    }
 }

@@ -19,12 +19,19 @@ class ViewController: UIViewController {
     private var cardDeck: CardDeck = CardDeck()         // 모델 카드 덱
     private var reversedCards: CardStack = ReversedCardStack() // 모델 뒤집힌 카드
     
+    var pastPoint: CGPoint?
+    var touchStackNumber: Int?
+    var touchDepth: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         NotificationCenter.default.addObserver(self, selector: #selector(removeOneCardFromDeck), name: .touchedDeck, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(excuteWhenTapped(_:)), name: .tappedCardView, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(addReversedCardView(_:)), name: .addReversedCard, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(baganDrag(_:)), name: .beganDragView, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(excuteWhenDrag(_:)), name: .draggingView, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(endDrag(_:)), name: .endedDragView, object: nil)
         
         setBackgroundPattern()
         initialCardStacks()
@@ -138,6 +145,7 @@ extension ViewController {
         case .reversed: checkRuleFromReversed()
         case .stack(let number): checkRuleFromStack(number: number)
         }
+        touchDepth = nil
     }
     
     private func searchTappedCardView(touched: CGPoint) -> TappedCard {
@@ -194,6 +202,7 @@ extension ViewController {
                 }, completion: { isTrue in
                     self.reversedCardsView?.acceesTopView { topView in
                         topView.transform = CGAffineTransform(translationX: 0, y: 0)
+                        topView.isUserInteractionEnabled = false
                     }
                     guard let removeCard = self.reversedCards.removeOne() else { return }
                     guard let removeCardView = self.reversedCardsView?.removeView() else { return }
@@ -244,6 +253,7 @@ extension ViewController {
                 }, completion: { isTrue in
                     self.reversedCardsView?.acceesTopView { topView in
                         topView.transform = CGAffineTransform(translationX: 0, y: 0)
+                        topView.isUserInteractionEnabled = false
                     }
                     guard let removeCard = self.reversedCards.removeOne() else { return }
                     guard let removeCardView = self.reversedCardsView?.removeView() else { return }
@@ -309,6 +319,10 @@ extension ViewController {
                         topView.transform = CGAffineTransform(translationX: -distanceX, y: -distanceY)
                     }
                 }, completion: { isTrue in
+                    self.cardStacksView?.accessTopView(at: number-1) { topView in
+                        topView.isUserInteractionEnabled = false
+                        topView.transform = CGAffineTransform(translationX: 0, y: 0)
+                    }
                     guard let removeCard = self.cardStacks[number-1].removeOne() else { return }
                     guard let removeCardView = self.cardStacksView?.removeCardView(at: number-1) else { return }
                     if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
@@ -330,6 +344,9 @@ extension ViewController {
                         topView.transform = CGAffineTransform(translationX: -distanceX, y: -distanceY)
                     }
                 }, completion: { isTrue in
+                    self.cardStacksView?.accessTopView(at: number-1) { topView in
+                        topView.transform = CGAffineTransform(translationX: 0, y: 0)
+                    }
                     guard let removeCard = self.cardStacks[number-1].removeOne() else { return }
                     guard let removeCardView = self.cardStacksView?.removeCardView(at: number-1) else { return }
                     if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
@@ -354,8 +371,13 @@ extension ViewController {
                         let distanceX = CGFloat((number-1-index)*Sizes.cardWitdh + (number-1-index)*5)
                         let distanceY = CGFloat(Sizes.viewSecondY + Sizes.stackCardsSpace*(self.cardStacks[number-1].count()-1) - Sizes.viewFirstY)
                         topView.transform = CGAffineTransform(translationX: -distanceX, y: -distanceY)
+                        
                     }
                 }, completion: { isTrue in
+                    self.cardStacksView?.accessTopView(at: number-1) { topView in
+                        topView.isUserInteractionEnabled = false
+                        topView.transform = CGAffineTransform(translationX: 0, y: 0)
+                    }
                     guard let removeCard = self.cardStacks[number-1].removeOne() else { return }
                     guard let removeCardView = self.cardStacksView?.removeCardView(at: number-1) else { return }
                     if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
@@ -387,6 +409,9 @@ extension ViewController {
                         topView.transform = CGAffineTransform(translationX: -distanceX, y: -distanceY)
                     }
                 }, completion: { isTrue in
+                    self.cardStacksView?.accessTopView(at: number-1) { topView in
+                        topView.transform = CGAffineTransform(translationX: 0, y: 0)
+                    }
                     guard let removeCard = self.cardStacks[number-1].removeOne() else { return }
                     guard let removeCardView = self.cardStacksView?.removeCardView(at: number-1) else { return }
                     if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
@@ -397,6 +422,59 @@ extension ViewController {
             }
             if isOver { return }
         }
+    }
+}
+
+extension ViewController {
+    @objc func baganDrag(_ notification: NSNotification) {
+        guard let touches = notification.userInfo?["beganPoint"] as? UITouch else { return }
+        pastPoint = touches.location(in: self.view)
+        
+        let tappedView: TappedCard = searchTappedCardView(touched: pastPoint!)
+        switch tappedView {
+        case .reversed: return
+        case .stack(let number):
+            touchStackNumber = number
+            cardStacksView?.accessStackView(at: number-1) { cardViews in
+                guard let pastPoint = self.pastPoint else { return }
+                for index in 0..<cardViews.count-1 {
+                    if pastPoint.y >= CGFloat(Sizes.viewSecondY) + CGFloat(Sizes.stackCardsSpace*index) &&
+                        pastPoint.y < CGFloat(Sizes.viewSecondY) + CGFloat(Sizes.stackCardsSpace*(index+1)) {
+                        touchDepth = index
+                        break
+                    }
+                }
+                if touchDepth == nil { touchDepth = cardViews.count-1 }
+            }
+        }
+    }
+    
+    @objc func excuteWhenDrag(_ notification: NSNotification) {
+        guard let touch = notification.userInfo?["touchPoint"] as? UITouch else { return }
+        let touchPoint = touch.location(in: self.view)
+        guard touchPoint.y > CGFloat(Sizes.viewSecondY) else { return }
+        let currentX = touchPoint.x
+        let currentY = touchPoint.y
+        
+        guard let touchStackNumber = self.touchStackNumber else { return }
+        guard let touchDepth = self.touchDepth else { return }
+        guard let pastPoint = self.pastPoint else { return }
+        let distanceX = currentX - pastPoint.x
+        let distanceY = currentY - pastPoint.y
+
+        cardStacksView?.accessStackView(at: touchStackNumber-1) { cardViews in
+            for index in touchDepth..<cardViews.count { cardViews[index].transform = CGAffineTransform(translationX: distanceX, y: distanceY) }
+        }
+    }
+    
+    @objc func endDrag(_ notification: NSNotification) {
+        guard let touchStackNumber = self.touchStackNumber else { return }
+        guard let touchDepth = self.touchDepth else { return }
+        
+        cardStacksView?.accessStackView(at: touchStackNumber-1) { cardViews in
+            for index in touchDepth..<cardViews.count { cardViews[index].transform = CGAffineTransform(translationX: 0, y: 0) }
+        }
+        self.touchDepth = nil
     }
 }
 
