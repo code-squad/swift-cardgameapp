@@ -10,8 +10,8 @@ import Foundation
 
 /// 카드 이동전의 데이터가 모이는 객체
 class PastCardData {
-    let deckType : DeckType
-    let deckLine : Int
+    var deckType : DeckType
+    var deckLine : Int
     
     init(cardInfo: CardInfo){
         self.deckType = cardInfo.getDeckType()
