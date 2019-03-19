@@ -39,4 +39,8 @@ class CardImageView: UIImageView {
                                                        constant: 0)
         self.addConstraint(aspectRatioConstraint)
     }
+    
+    func copied() -> CardImageView {
+        return CardImageView(image: self.image)
+    }
 }
