@@ -27,7 +27,6 @@ class ViewController: UIViewController {
     var watingDeckView = WatingDeckView()
     
     
-    
     /// 최대 카드 개수 장수로 카드사이즈 세팅
     private var cardSize = CardSize(maxCardCount: 7)
     
@@ -75,12 +74,6 @@ class ViewController: UIViewController {
         }
     }
     
-    
-    /// 최대 카드 수량 체크
-    private func checkMaxCardCount(startNumber: Int, cardCount: Int) -> Bool {
-        return startNumber > cardSize.maxCardCount || cardCount > cardSize.maxCardCount
-    }
-    
     /// 카드 이미지 출력
     private func makeCardView(widthPosition: Int, heightPosition: Int, cardSize: CardSize, cardInfo: CardInfo) -> CardView {
         // 배경 뷰 생성
@@ -99,7 +92,6 @@ class ViewController: UIViewController {
     func getDeckInfo(deckInfo: DeckInfo) -> [CardInfo] {
         return deckInfo.allInfo()
     }
-    
     
     /// 덱을 카드뷰로 출력
     func drawDeckView(){
@@ -319,7 +311,6 @@ class ViewController: UIViewController {
         // 카드 이미지 갱신
         cardView.refreshImage()
         
-        
         // 이동 완료된 뷰 로깅
         os_log("뷰 이동완료. 위치 : %@ , 카드이름 : %@", cardView.cardViewModel.getDeckType().rawValue, cardView.cardViewModel.name())
     }
@@ -388,9 +379,6 @@ class ViewController: UIViewController {
         // 결과용 뷰 선언
         let resultView = UIImageView(frame: cardImageViews.first!.frame)
         
-        // 이미지가 짤리지 않도록 결과뷰를 늘려준다.
-//        resultView.frame.size.height += cardImageViews.l
-        
         // 모든 이미지뷰를 추가한다
         for cardView in cardImageViews {
             
@@ -435,8 +423,6 @@ class ViewController: UIViewController {
         return point
     }
     
-    
-    
     /// 임시뷰 위치를 현재뷰에 기반 계산해서 리턴한다
     func calculatePositionInMain(cardView: CardView) -> CGPoint {
         // 결과 리턴용 함수
@@ -463,7 +449,7 @@ class ViewController: UIViewController {
         switch cardView.cardViewModel.getDeckType() {
         case .playDeck : point = self.playDeckView.origin(deckLine: cardView.cardViewModel.getDeckLine())
         case .pointDeck : point = self.pointDeckView.origin(deckLine: cardView.cardViewModel.getDeckLine())
-            
+        // 나머지 덱은 1라인 짜리들이라서 수퍼뷰와 같음
         default : point =  cardView.superview!.frame.origin
         }
         
@@ -510,11 +496,10 @@ class ViewController: UIViewController {
         else {
             // 임시뷰 삭제
             tempView.removeFromSuperview()
-            
         }
     }
     
-    /// 임시뷰를 목표지점으로 이동시킨후 제거하고, 원본뷰 히든 오프 하는 함수
+    /// 임시뷰 배열을 받아서 목표지점으로 이동시킨후 제거하고, 원본뷰 히든 오프 하는 함수
     func animate(tempView: UIView, originalViews: [UIView], goalPosition: CGPoint, duration: Double){
         // 애니메이션 쇼 플래그가 온이면
         if self.isAnimationShowing {
@@ -537,7 +522,6 @@ class ViewController: UIViewController {
         else {
             // 임시뷰 삭제
             tempView.removeFromSuperview()
-            
         }
     }
     
@@ -569,6 +553,7 @@ class ViewController: UIViewController {
         
         // 더블클릭된 카드의 카드인포를 게임보드로 전달
         os_log("더블탭 대상 카드인포 전달했습니다. %@ 의 %@", openedCardView.cardViewModel.getDeckType().rawValue, openedCardView.cardViewModel.name())
+        // 카드를 모델내부에서 이동시킨다
         cardViewTryMove(cardInfo: openedCardView.cardViewModel)
         
         // 이벤트 종료. 플래그 오프
@@ -595,7 +580,6 @@ class ViewController: UIViewController {
         } catch {
             os_log("카드 인도 실패 ")
         }
-        
     }
     
     /// 플레이덱뷰매니저 초기세팅
@@ -625,17 +609,12 @@ class ViewController: UIViewController {
         let translation = sender.translation(in: movingCardView.superview)
         
         // 이동카드가 여러장인경우 선언됨
-        let cardsViewsResult = self.playDeckView.AllCardImagesAfter(cardView: movingCardView)
+        //        let cardsViewsResult = self.playDeckView.AllCardImagesAfter(cardView: movingCardView)
         
         // 드래그 이벤트 시작시
         if sender.state == .began {
             // 카드 이동 플래그 온
             self.isDoubleTap = true
-            
-            // 카드가 여러장인지 체크
-            if movingCardView.cardViewModel.getDeckType() == .playDeck {
-                os_log("마지막 카드 ㅇㅈ")
-            }
             
             // 옮기려는 카드가 여러장일 경우
             if let cardsViewsResult = self.playDeckView.AllCardImagesAfter(cardView: movingCardView) {
@@ -648,7 +627,7 @@ class ViewController: UIViewController {
                     selectedCardView.isHidden = true
                 }
             }
-            // 옮기려는 카드가 한장인 경우
+                // 옮기려는 카드가 한장인 경우
             else {
                 // 드래그 뷰 설정
                 self.dragView = makeTempViewWithoutPosition(cardView: movingCardView)
@@ -657,22 +636,21 @@ class ViewController: UIViewController {
                 movingCardView.isHidden = true
             }
             
-            // 임시카드뷰 위치를 설정한다
-//            self.dragView.frame.origin = calculatePositionInMain(cardView: movingCardView)
-            
             // 드래그뷰 센터를 커서 위치로 설정한다
             self.dragView.center = sender.location(in: self.view)
             
-            
+            // 로깅
             os_log("카드 드래그 시작 : %@", movingCardView.name())
+            
+            // 드래그뷰 메인뷰에 추가 및 유저인터랙션 허용
             addViewToMain(view: self.dragView)
             self.dragView.isUserInteractionEnabled = true
         }
         
         // 드래그 이동시
         if sender.state == .changed {
-            let newCenter = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
-            self.dragView.center = newCenter
+            // 터치 좌표가 변하는 만큼 드래그 뷰를 이동시켜준다
+            self.dragView.center = CGPoint(x: initialCenter.x + translation.x, y: initialCenter.y + translation.y)
         }
         
         // 드래그 이벤트 종료시
@@ -682,104 +660,75 @@ class ViewController: UIViewController {
             // 임시뷰가 힛 테스트에 걸리기 때문에 유저 인터렉션 차단
             dragView.isUserInteractionEnabled = false
             
+            // 타겟이 될 카드의 정보를 담는 모델 선언
             let targetCardViewModel = EmptyCardViewModel()
             
             // 드래그 종료 위치가 카드뷰인지 체크
             if let endPositionView = self.view.hitTest(self.dragView.center, with: nil) as? CardView  {
                 os_log("드래그 종료 위치 카드 : %@",endPositionView.name())
                 
-                // 원본카드뷰가 이동하는 애니메이션이 보이지 않도록 애니메이션 쇼 플래그 오프
-                self.isAnimationShowing = false
-                
-//                let _ = self.gameBoard.addCardTo(deckType: endPositionView.cardViewModel.cardInfo.getDeckType(), deckLine: endPositionView.cardViewModel.cardInfo.getDeckLine(), cardInfo: cardView.cardViewModel.cardInfo)
-                
+                //타겟정보 설정
                 targetCardViewModel.setting(deckType: endPositionView.cardViewModel.cardInfo.getDeckType(), deckLine: endPositionView.cardViewModel.cardInfo.getDeckLine())
-                
-                // 애니메이션 이후 복구
-                self.isAnimationShowing = true
             }
-            // 드래그 종료 위치가 비어있는 뷰인지 체크
+                // 드래그 종료 위치가 비어있는 뷰인지 체크
             else if let endPositionPlayDeckView = self.view.hitTest(self.dragView.center, with: nil) as? PlayDeckView  {
                 // 밑에 있는 빈뷰에세 힛테스트를 하기 위해 부모까지 유저인터렉션 해제
                 endPositionPlayDeckView.superview!.isUserInteractionEnabled = false
                 
-                
-                
-               if let endPositionView = self.view.hitTest(self.dragView.center, with: nil) as? EmptyCardView  {
+                if let endPositionView = self.view.hitTest(self.dragView.center, with: nil) as? EmptyCardView  {
                     // 로그용 덱라인 문자화
                     let deckLine = String(endPositionView.model.deckLine)
                     os_log("드래그 종료 위치 카드 : 포인트덱뷰 %@ 라인 빈카드뷰",deckLine)
                     
-                    // 원본카드뷰가 이동하는 애니메이션이 보이지 않도록 애니메이션 쇼 플래그 오프
-                    self.isAnimationShowing = false
-                    
-                    //                let _ = self.gameBoard.addCardTo(deckType: endPositionView.model.deckType, deckLine: endPositionView.model.deckLine, cardInfo: cardView.cardViewModel.cardInfo)
-                    
+                    //타겟정보 설정
                     targetCardViewModel.setting(deckType: endPositionView.model.deckType, deckLine: endPositionView.model.deckLine)
-                    
-                    // 애니메이션 이후 복구
-                    self.isAnimationShowing = true
                 }
-                // 추가가 완료되면 유저인터렉션 다시 설정
+                // 타겟카드뷰 모델 내용추가가 완료되면 유저인터렉션 다시 설정
                 endPositionPlayDeckView.superview!.isUserInteractionEnabled = true
             }
             
+            // 힛테스트가 끝나면 임시뷰 설정 원복
+            dragView.isUserInteractionEnabled = true
             
             // 원본카드뷰가 이동하는 애니메이션이 보이지 않도록 애니메이션 쇼 플래그 오프
             self.isAnimationShowing = false
             
-            // 추가시도 카드가 여러장이면
+            // 카드 추가 시도. 추가시도 카드가 여러장이면
+            let cardsViewsResult = self.playDeckView.AllCardImagesAfter(cardView: movingCardView)
             if cardsViewsResult != nil {
                 // 카드뷰배열 내부의 카드인포들을 추출
                 var cardInfos : [CardInfo] = []
                 for selectedCardView in cardsViewsResult! {
                     cardInfos.append(selectedCardView.cardViewModel.cardInfo)
                 }
-                
-                
+                // 추출한 카드인보배열을 모두 이동
                 let _ = self.gameBoard.addManyCardTo(deckType: targetCardViewModel.deckType, deckLine: targetCardViewModel.deckLine, cardInfos: cardInfos)
                 
             } // 추가시도 카드가 한장이면
             else {
                 let _ = self.gameBoard.addCardTo(deckType: targetCardViewModel.deckType, deckLine: targetCardViewModel.deckLine, cardInfo: movingCardView.cardViewModel.cardInfo)
-                
             }
             
             // 애니메이션 이후 복구
             self.isAnimationShowing = true
             
-            
-            // 임시뷰 설정 원복
-            dragView.isUserInteractionEnabled = true
-            
-            
             // 이동카드가 여러장일경우
             if let cardsViewsResult = self.playDeckView.AllCardImagesAfter(cardView: movingCardView) {
-                
-//                for movedCardView in cardsViewsResult {
-//                    movedCardView.isHidden = false
-//                }
-                
                 // 임시뷰 다시 원위치 후 제거
                 animate(tempView: dragView, originalViews: cardsViewsResult, goalPosition: calculatePositionInMain(cardView: movingCardView), duration: 0.1)
-                
             } // 이동카드가 한장일 경우
             else {
                 // 임시뷰 다시 원위치 후 제거
                 animate(tempView: dragView, originalView: movingCardView, goalPosition: calculatePositionInMain(cardView: movingCardView), duration: 0.1)
-                
             }
-//
-            
             // 카드 이동 플래그 false
             self.isDoubleTap = false
             
             // 드래그 이벤트 종료시점 마지막
         }
-        
+        // 지속적으로 드래그포인트 값을 초기화해준다. 안해주면 이동시 이동거리 이상으로 이동됨
         sender.setTranslation(CGPoint.zero, in: self.view)
     }
-    
     
     /// 카드뷰 드래깅을 위한 pan 제스처 생성함수
     func makePanGetstureForCardView() -> UIPanGestureRecognizer {
@@ -849,13 +798,9 @@ class ViewController: UIViewController {
         
         // 플레이덱뷰 배경 빈카드뷰 생성
         makeEmptyDeckViews(cardSize: self.cardSize, xPositions: self.widthPositions, yPositions: self.heightPositions)
-        // 플레이덱뷰
         
         // 플레이덱뷰 생성
         settingPlayDeckViewManager()
-        
-        // 대기댁뷰 메인에 추가
-//        addViewToMain(view: self.watingDeckView)
         
         // 카드배치 시작
         gameStart()

@@ -415,6 +415,7 @@ class GameBoard : DeckInfo {
         
         // 추출이 끝난 카드들을 대기뷰로 이동시킨다
         for pickedCard in pickedCards {
+            // 추출 결과 노티 포스트
             NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
             
             let beforeDeckLine = String(pastCardData.deckLine)
@@ -435,6 +436,7 @@ class GameBoard : DeckInfo {
                 // 추가 실패시 뽑았던 카드 전체 다시 원복
                 undoCards(cardList: pickedCards, pastCardData: pastCardData, originPastCardData: originPastCardData, failCard: pickedCard)
                 
+                // 실패결과 리턴
                 return nil
             }
             // 추가 성공한 카드를 추가한다
@@ -478,9 +480,7 @@ class GameBoard : DeckInfo {
         catch {
             os_log("카드 원복 실패 : %@", failCard.name())
         }
-        
     }
-    
     
     /// 포인트덱이 모두 꽉차면 클리어 노티를 포스트
     func isAllPointDeckFull() -> Bool {
