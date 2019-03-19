@@ -635,7 +635,7 @@ class ViewController: UIViewController {
                     selectedCardView.isHidden = true
                 }
             }
-            
+            // 옮기려는 카드가 한장인 경우
             else {
                 // 드래그 뷰 설정
                 self.dragView = makeTempViewWithoutPosition(cardView: movingCardView)
@@ -645,7 +645,11 @@ class ViewController: UIViewController {
             }
             
             // 임시카드뷰 위치를 설정한다
-            self.dragView.frame.origin = calculatePositionInMain(cardView: movingCardView)
+//            self.dragView.frame.origin = calculatePositionInMain(cardView: movingCardView)
+            
+            // 드래그뷰 센터를 커서 위치로 설정한다
+            self.dragView.center = sender.location(in: self.view)
+            
             
             os_log("카드 드래그 시작 : %@", movingCardView.name())
             addViewToMain(view: self.dragView)
@@ -706,8 +710,6 @@ class ViewController: UIViewController {
                 // 추가가 완료되면 유저인터렉션 다시 설정
                 endPositionPlayDeckView.superview!.isUserInteractionEnabled = true
             }
-                
-                
             
             
             // 원본카드뷰가 이동하는 애니메이션이 보이지 않도록 애니메이션 쇼 플래그 오프
@@ -729,8 +731,6 @@ class ViewController: UIViewController {
                 let _ = self.gameBoard.addCardTo(deckType: targetCardViewModel.deckType, deckLine: targetCardViewModel.deckLine, cardInfo: movingCardView.cardViewModel.cardInfo)
                 
             }
-            
-            
             
             // 애니메이션 이후 복구
             self.isAnimationShowing = true
