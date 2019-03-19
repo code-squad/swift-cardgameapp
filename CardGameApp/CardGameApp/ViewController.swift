@@ -139,7 +139,6 @@ class ViewController: UIViewController {
         
         // 꺼낸 카드가 덱뷰의 마지막 카드가 맞는지 체크
         guard openedCardView == self.deckView.subviews.last else {
-            os_log("덱뷰의 마지막 카드가 아닙니다")
             return ()
         }
         
@@ -246,14 +245,19 @@ class ViewController: UIViewController {
     
     /// 카드 이동 노티를 받으면 뷰이동 함수를 실행
     @objc func afterCardMovedNoti(notification: Notification){
-        /// 이동된 카드에 맞게 카드뷰를 이동시킨다
-        if let pastCardData = notification.object as! PastCardData? {
-            /// 덱타입을 넣어서 이동해야되는 뷰 추출
-            guard let cardView = getCardView(pastCardData: pastCardData) as? CardView else { return () }
-            
-            /// 이전덱타입과 뷰를 넣어서 뷰 이동
-            rePositinoCardView(pastCardData: pastCardData, cardView: cardView)
-        }
+        /// 이동된 카드의 과거카드데이터를 받는다
+        guard let pastCardData = notification.object as! PastCardData? else { return () }
+        
+        /// 덱타입을 넣어서 이동해야되는 뷰 추출
+        guard let cardView = getCardView(pastCardData: pastCardData) as? CardView else { return () }
+        
+        /// 이전덱타입과 뷰를 넣어서 뷰 이동
+        rePositinoCardView(pastCardData: pastCardData, cardView: cardView)
+        
+        /// 결과 로깅
+        let beforeDeckLine = String(pastCardData.deckLine)
+        let presentDeckLine = String(cardView.cardViewModel.getDeckLine())
+        os_log("뷰 이동 성공 - %@ 카드 : %@ 덱 %@ 라인에서 %@ 덱 %@ 라인으로.",cardView.name(), pastCardData.deckType.rawValue, beforeDeckLine, cardView.cardViewModel.getDeckType().rawValue, presentDeckLine)
     }
     
     /// 덱타입을 받아서 맞는 카드뷰를 리턴
