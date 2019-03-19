@@ -432,7 +432,7 @@ class GameBoard : DeckInfo {
         for pickedCard in pickedCards.reversed() {
            // 추가목표 이미 체크했으니 플레이덱에 추가시도
             guard let addedCardInfo = self.playDeck.addCardTo(deckLine: deckLine, card: pickedCard) else {
-                // 추가 실패시 카드 다시 원복
+                // 추가 실패시 뽑았던 카드 전체 다시 원복
                 undoCards(cardList: pickedCards, pastCardData: pastCardData, originPastCardData: originPastCardData, failCard: pickedCard)
                 
                 return nil
@@ -441,7 +441,7 @@ class GameBoard : DeckInfo {
             result.append(addedCardInfo)
         }
         
-        // 모든 카드이동 성공시 성공카드만큼노티발생
+        // 모든 카드이동 성공시 성공카드 만큼 노티발생
         for resultCard in result {
             // 성공노티 포스트
             NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
