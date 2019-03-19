@@ -64,7 +64,7 @@ class ViewController: UIViewController {
 
         klondikePresenter.moveColumn(position: position)
     }
-    
+        
     //MARK: IBAction
     
     @IBAction func tapPileStackView(_ sender: Any) {
@@ -96,17 +96,13 @@ extension ViewController: PileView {
         animationView.frame = beforeFrame
         self.view.addSubview(animationView)
         
-        UIView.animate(withDuration: 0.3,
-                       delay: 0,
-                       options: .curveEaseOut,
-                       animations: {
-                        animationView.frame.origin = self.pileStackView.frame.origin
-        }, completion: { (_) in
+        let completion: ((Bool) -> Void)? = { [animationView](_) in
             for _ in 0..<count {
-                self.pileStackView.addArrangedSubview(CardBackImageView())
+            self.pileStackView.addArrangedSubview(CardBackImageView())
             }
             animationView.removeFromSuperview()
-        })
+        }
+        animate(cardView: animationView, to: self.pileStackView.frame.origin, completion: completion)
     }
     
     func removePileStackView(count: Int) {
@@ -120,7 +116,8 @@ extension ViewController: PreviewView {
     func addPreviewStackView(cards: [Card]) {
         guard let beforeFrame = self.framePool.dequeue() else { return }
         
-        let animationView = animationCardView(cards: cards, frame: beforeFrame)
+        let views = cardViews(cards: cards)
+        let animationView = animationCardView(views, frame: beforeFrame)
         self.view.addSubview(animationView)
         
         for card in cards {
@@ -129,18 +126,13 @@ extension ViewController: PreviewView {
             cardImageView.isHidden = true
             self.previewStackView.addArrangedSubview(cardImageView)
         }
-        
-        UIView.animate(withDuration: 0.3,
-                       delay: 0,
-                       options: .curveEaseOut,
-                       animations: {
-                        animationView.frame.origin = self.previewStackView.frame.origin
-        }, completion: { (_) in
+        let completion: ((Bool) -> Void)? = { [animationView](_) in
             for subview in self.previewStackView.arrangedSubviews.suffix(cards.count) {
                 subview.isHidden = false
             }
             animationView.removeFromSuperview()
-        })
+        }
+        animate(cardView: animationView, to: self.previewStackView.frame.origin, completion: completion)
     }
     
     func removePreviewStackView(count: Int) {
@@ -154,8 +146,9 @@ extension ViewController: ColumnsView {
     func addColumnsStackView(cards: [Card], index: Int) {
         guard let stackView = columnsStackView.arrangedSubviews[index] as? UIStackView,
             let beforeFrame = self.framePool.dequeue() else { return }
-        
-        let animationView = animationCardView(cards: cards, frame: beforeFrame)
+
+        let views = cardViews(cards: cards)
+        let animationView = animationCardView(views, frame: beforeFrame)
         self.view.addSubview(animationView)
         
         let spacing = animationView.frame.width * 1.27 * (3/10)
@@ -168,19 +161,13 @@ extension ViewController: ColumnsView {
             cardImageView.isHidden = true
             stackView.addArrangedSubview(cardImageView)
         }
-        
-        UIView.animate(withDuration: 0.3,
-                       delay: 0,
-                       options: .curveEaseOut,
-                       animations: {
-                        animationView.frame.origin = origin
-        }, completion: { (_) in
+        let completion: ((Bool) -> Void)? = { [animationView](_) in
             for subview in stackView.arrangedSubviews.suffix(cards.count) {
                 subview.isHidden = false
             }
             animationView.removeFromSuperview()
-        })
-        
+        }
+        animate(cardView: animationView, to: origin, completion: completion)
     }
     
     func removeColumnsStackView(count: Int, index: Int, card: Card?) {
@@ -209,35 +196,21 @@ extension ViewController: ColumnsView {
         stackView.addArrangedSubview(cardImageView)
         
         stackView.isHidden = true
-        let animationView = UIView()
-        animationView.frame = self.pileStackView.frame
+        
         var cardImageViews: [UIView] = []
         for _ in 0..<count {
             cardImageViews.append(CardBackImageView())
         }
         cardImageViews.append(CardImageView(card: card))
-        let cardStackView = animationStackView(views: cardImageViews)
-        animationView.addSubview(cardStackView)
-        
-        cardStackView.leadingAnchor.constraint(equalTo: animationView.leadingAnchor, constant: 0).isActive = true
-        cardStackView.trailingAnchor.constraint(equalTo: animationView.trailingAnchor, constant: 0).isActive = true
-        cardStackView.topAnchor.constraint(equalTo: animationView.topAnchor, constant: 0).isActive = true
-        cardStackView.bottomAnchor.constraint(equalTo: animationView.bottomAnchor, constant: 0).isActive = true
-        
-        let heightOfCard = animationView.frame.width * 1.27
-        cardStackView.spacing = -heightOfCard * (7/10)
-        
+        let animationView = animationCardView(cardImageViews, frame: self.pileStackView.frame)
+        animationView.frame.size = stackView.frame.size
         self.view.addSubview(animationView)
-        UIView.animate(withDuration: 0.3,
-                       delay: 0,
-                       options: .curveEaseOut,
-                       animations: {
-                        animationView.frame = self.view.convert(stackView.frame, from: self.columnsStackView)
-        }, completion: {(_) in
+        
+        let completion: ((Bool) -> Void)? = { [animationView](_) in
             stackView.isHidden = false
             animationView.removeFromSuperview()
-        })
-        
+        }
+        animate(cardView: animationView, to: self.view.convert(stackView.frame.origin, from: self.columnsStackView), completion: completion)
     }
 }
 
@@ -247,7 +220,8 @@ extension ViewController: GoalsView {
         guard let stackView = goalsStackView.arrangedSubviews[index] as? UIStackView,
             let beforeFrame = self.framePool.dequeue() else { return }
         
-        let animationView = animationCardView(cards: cards, frame: beforeFrame)
+        let views = cardViews(cards: cards)
+        let animationView = animationCardView(views, frame: beforeFrame)
         self.view.addSubview(animationView)
         
         for card in cards {
@@ -256,18 +230,14 @@ extension ViewController: GoalsView {
             cardImageView.isHidden = true
             stackView.addArrangedSubview(cardImageView)
         }
-        
-        UIView.animate(withDuration: 0.3,
-                       delay: 0,
-                       options: .curveEaseOut,
-                       animations: {
-                        animationView.frame.origin = self.view.convert(stackView.frame.origin, from: self.goalsStackView)
-        }, completion: {(_) in
+        let destination = self.view.convert(stackView.frame.origin, from: self.goalsStackView)
+        let completion: ((Bool) -> Void)? = { [animationView](_) in
             for subview in stackView.arrangedSubviews.suffix(cards.count) {
                 subview.isHidden = false
             }
             animationView.removeFromSuperview()
-        })
+        }
+        animate(cardView: animationView, to: destination, completion: completion)
     }
     
     func removeGoalsStackView(count: Int, index: Int) {
@@ -300,15 +270,10 @@ extension ViewController {
         return CGRect(origin: origin, size: CGSize(width: width, height: height))
     }
     
-    private func animationCardView(cards: [Card], frame: CGRect) -> UIView {
+    private func animationCardView(_ views: [UIView], frame: CGRect) -> UIView {
         let animationView = UIView()
         animationView.frame = frame
-        var cardImageViews: [CardImageView] = []
-        for card in cards {
-            let cardImageView = CardImageView(card: card)
-            cardImageViews.append(cardImageView)
-        }
-        let cardStackView = animationStackView(views: cardImageViews)
+        let cardStackView = animationStackView(views: views)
         animationView.addSubview(cardStackView)
         
         cardStackView.leadingAnchor.constraint(equalTo: animationView.leadingAnchor, constant: 0).isActive = true
@@ -329,6 +294,23 @@ extension ViewController {
         cardStackView.alignment = .leading
         cardStackView.distribution = .fill
         return cardStackView
+    }
+    
+    private func animate(cardView: UIView, to destination: CGPoint, completion: ((Bool) -> Void)?) {
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       options: .curveEaseOut,
+                       animations: {
+                        cardView.frame.origin = destination
+        }, completion: completion)
+    }
+    
+    private func cardViews(cards: [Card]) -> [UIView] {
+        var views = [UIView]()
+        for card in cards {
+            views.append(CardImageView(card: card))
+        }
+        return views
     }
 }
 
