@@ -395,8 +395,11 @@ class GameBoard : DeckInfo {
         // 이동전 카드정보를 기록하기 위해 카드인포 추출 - 여러장이여도 출발지는 같다
         guard let firstCardInfo = cardInfos.first else { return nil }
         
-        // 이동전 카드정보 기록
+        // 이동전 카드정보 기록 - 진행과정에 따라 변경됨
         let pastCardData = PastCardData(cardInfo: firstCardInfo)
+        
+        // 오리진 과거정보 - 최초 설정후 안바뀜
+        let originPastCardData = PastCardData(cardInfo: firstCardInfo)
         
         // 추가카드를 추출시도
         var pickedCards : [Card] = []
@@ -430,21 +433,7 @@ class GameBoard : DeckInfo {
            // 추가목표 이미 체크했으니 플레이덱에 추가시도
             guard let addedCardInfo = self.playDeck.addCardTo(deckLine: deckLine, card: pickedCard) else {
                 // 추가 실패시 카드 다시 원복
-                do {
-                    // 이전에 추가성공했던 카드도 원복한다
-                    for addedCard in result.reversed() {
-                        addCardTo(deckType: pastCardData.deckType, deckLine: pastCardData.deckLine, cardInfo: addedCard)
-                    }
-                    // 실패한 카드도 원복
-                    try undoCard(card: pickedCard)
-                    
-                }
-                catch let error as ErrorMessage{
-                    os_log("%@", error.rawValue)
-                }
-                catch {
-                    os_log("카드 원복 실패 : %@", pickedCard.name())
-                } // 추가 성공시 . nil 이 아님
+                undoCards(cardList: pickedCards, pastCardData: pastCardData, originPastCardData: originPastCardData, failCard: pickedCard)
                 
                 return nil
             }
@@ -466,6 +455,32 @@ class GameBoard : DeckInfo {
         // 결과 리턴
         return result
     }
+    
+    /// 카드배열, 과거카드데이터 를 받아서 과거덱타입으로 되돌린다
+    private func undoCards(cardList: [Card], pastCardData: PastCardData, originPastCardData: PastCardData, failCard: Card) {
+        do {
+            //뽑았던 모든 카드를 원복한다
+            for card in cardList.reversed() {
+                // 실패한 카드 덱타입을 최초지점 덱타입으로 수정한다
+                card.deckType = originPastCardData.deckType
+                
+                // 카드가 있던곳으로 되돌린다
+                try undoCard(card: card)
+                
+                // 되돌린 카드 이동을 뷰에 적용한다
+                NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
+            }
+        }
+        // 뒤돌리기 실패시
+        catch let error as ErrorMessage{
+            os_log("%@", error.rawValue)
+        }
+        catch {
+            os_log("카드 원복 실패 : %@", failCard.name())
+        }
+        
+    }
+    
     
     /// 포인트덱이 모두 꽉차면 클리어 노티를 포스트
     func isAllPointDeckFull() -> Bool {
