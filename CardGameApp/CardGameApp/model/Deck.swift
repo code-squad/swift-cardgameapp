@@ -29,8 +29,9 @@ class Deck {
         return cardList.popLast()
     }
     
-//    /// 카드를 섞는다
-//    func shuffle(){
+    /// 카드를 섞는다
+    func shuffle(){
+        /// 테스트를 위해서 셔플 기능 사용 중지
 //        // 임시 덱 생성
 //        var tempDeck : [Card] = []
 //        // 카운트 프로퍼티 생성
@@ -46,11 +47,6 @@ class Deck {
 //        }
 //        // 기존덱을 셔플이 끝난 임시덱으로 바꾼다
 //        cardList = tempDeck
-//    }
-    
-    /// 임시용 셔플안함
-    
-    func shuffle(){
     }
     
     /// 덱 전체 카드를 정보로 표현

@@ -14,7 +14,6 @@ protocol CardViewInfo {
     func name() -> String
 }
 
-
 /// 카드 표현을 담당하는 이미지뷰
 class CardView : UIImageView, CardViewInfo {
     // 카드뷰모델

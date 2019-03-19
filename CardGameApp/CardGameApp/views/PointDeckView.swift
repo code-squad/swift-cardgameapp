@@ -10,7 +10,6 @@ import UIKit
 import os
 
 class PointDeckView: UIStackView {
-    
     // 기본 생성자
     init(){
         super.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -25,20 +24,24 @@ class PointDeckView: UIStackView {
         // 뷰 오리진 수정
         self.frame.origin = origin
         
-        // 뷰 사이즈 수정
-        // 세로는 다른 뷰들과 같다
+        // 뷰 사이즈 수정 단계 - 세로는 다른 뷰들과 같다
         self.frame.size.height = cardSize.height
+        
         // 가로는 카드 4장 길이 필요
         self.frame.size.width = cardSize.originWidth * 4 - cardSize.widthPadding * 2
         
+        // 세로로 구성
         self.axis = .horizontal
         
+        // 스페이싱 cardSize.widthPadding * 2
         self.spacing = cardSize.widthPadding * 2
         
+        // 동일하게 채우기 설정
         self.distribution = .fillEqually
         
         self.isUserInteractionEnabled = true
         
+        // 카드사이즈를 기준으로 내부 뷰들 생성
         setSubView(cardSize: cardSize)
     }
     

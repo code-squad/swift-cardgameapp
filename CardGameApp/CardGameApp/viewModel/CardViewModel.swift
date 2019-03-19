@@ -54,22 +54,32 @@ class CardViewModel : CardInfo{
         return self.currentImage
     }
     
-    /// 프로토콜 준수
+    /// 카드이름
     func name() -> String {
         return self.cardInfo.name()
     }
+    
+    /// 카드의 덱라인
     func getDeckLine() -> Int {
         return self.cardInfo.getDeckLine()
     }
+    
+    /// 카드의 덱타입
     func getDeckType() -> DeckType {
         return self.cardInfo.getDeckType()
     }
+    
+    /// 카드의 마크 순위
     func getMarkRank() -> Int {
         return self.cardInfo.getMarkRank()
     }
+    
+    /// 카드의 넘버 순위
     func getNumberingRank() -> Int {
         return self.cardInfo.getNumberingRank()
     }
+    
+    /// 카드의 이미지 이름
     func image() -> String {
         return self.cardInfo.image()
     }

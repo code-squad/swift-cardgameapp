@@ -17,7 +17,6 @@ protocol DeckInfo {
 
 /// 카드게임 진행을 하는 보드
 class GameBoard : DeckInfo {
-    
     /// 덱 선언
     private var deck = Deck()
     /// 사용자가 오픈한 카드가 모이는 덱
@@ -83,7 +82,6 @@ class GameBoard : DeckInfo {
         // 덱 섞기
         tempDeck.shuffle()
         
-        
         // 덱에 전체 카드를 넣는다
         self.deck.addCards(cards: tempDeck.getAllCard())
     }
@@ -100,7 +98,6 @@ class GameBoard : DeckInfo {
         catch {
             os_log("플레이덱 생성실패")
         }
-        
     }
     
     /// 플레이카드 초기배치
@@ -131,7 +128,6 @@ class GameBoard : DeckInfo {
             // 뽑은 카드를 플레이배열에 넣는다
             result.append(popedCard)
         }
-        
         // 결과 리턴
         return result
     }
@@ -144,15 +140,18 @@ class GameBoard : DeckInfo {
         
         // 입력받은 카드인포가 덱의 마지막 카드와 같은지 체크
         guard cardInfo.name() == deck.info().last?.name() else { return nil}
+        
         // 덱에서 한장 추출. 없으면 닐 리턴
         guard let popedCard = deck.removeOne()  else { return nil }
+        
         // 카드 덱타입 수정
         popedCard.deckType = .openedDeck
+        
         // 오픈덱은 뒤집혀야한다. 뒤집기
         popedCard.flip()
+        
         // 추출한 카드를 열은덱 에 추가
         openedDeck.addCard(card: popedCard)
-        
         
         // 카드가 떠난 덱타입 노티
         NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
@@ -221,7 +220,7 @@ class GameBoard : DeckInfo {
     }
     
     /// 카드를 받아서 우선순위에 따라 추가시도한다.
-    func addCard(card: Card) -> CardInfo? {
+    private func addCard(card: Card) -> CardInfo? {
         // 우선순위 : 포인트덱 - 플레이덱. 그 이외는 이동불가
         if let result =  self.pointDeck.addCard(card: card) {
             return result
@@ -234,7 +233,7 @@ class GameBoard : DeckInfo {
     }
     
     /// 카드인포를 받아서 해당되는 카드를 추출한다
-    func pickCard(cardInfo: CardInfo) -> Card? {
+    private func pickCard(cardInfo: CardInfo) -> Card? {
         // 대상카드 체크를 위한 카드인포변수
         var pickedCard : Card?
         let cardDeckType = cardInfo.getDeckType()
@@ -253,15 +252,6 @@ class GameBoard : DeckInfo {
     /// 라인을 받아서 플레이덱 라인의 카드인포 배열 리턴
     func getPlayDeckLineCardInfos(line: Int) -> [CardInfo] {
         return self.playDeck.getLineCardInfos(line: line)
-    }
-    
-    
-    /// 디버깅용 전체체크
-    func allCheck() -> String {
-        var result = ""
-        result += "deck count : " + String(self.deck.count())
-        result += "opendedDeck count : " + String(self.openedDeck.cardList.count)
-        return result
     }
     
     /// 플레이덱 체크
@@ -437,8 +427,6 @@ class GameBoard : DeckInfo {
         
         // 123 순서로 들어간 카드를 다시 역순으로 추가시도
         for pickedCard in pickedCards.reversed() {
-//            var addedCardInfo : CardInfo? = nil
-            
            // 추가목표 이미 체크했으니 플레이덱에 추가시도
             guard let addedCardInfo = self.playDeck.addCardTo(deckLine: deckLine, card: pickedCard) else {
                 // 추가 실패시 카드 다시 원복
@@ -460,22 +448,22 @@ class GameBoard : DeckInfo {
                 
                 return nil
             }
-            
+            // 추가 성공한 카드를 추가한다
             result.append(addedCardInfo)
-            
-            
         }
         
-        
-        // 모든 카드이동 성공시 노티발생
+        // 모든 카드이동 성공시 성공카드만큼노티발생
         for resultCard in result {
+            // 성공노티 포스트
             NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
             
+            // 로깅을 위해서 정수값 문자열로 변형
             let beforeDeckLine = String(pastCardData.deckLine)
             let presentDeckLine = String(resultCard.getDeckLine())
+            // 성공 로깅
             os_log("모델 드래그이동 성공 - %@ 카드 : %@ 덱 %@ 라인에서 %@ 덱 %@ 라인으로.",resultCard.name(), pastCardData.deckType.rawValue, beforeDeckLine, resultCard.getDeckType().rawValue, presentDeckLine)
         }
-        
+        // 결과 리턴
         return result
     }
     
@@ -484,9 +472,15 @@ class GameBoard : DeckInfo {
         // 모든 포인트덱이 맥스인지 체크한다
         return self.pointDeck.isAllPointDeckFull()
     }
+    
+    /// 디버깅용 전체체크
+    func allCheck() -> String {
+        var result = ""
+        result += "deck count : " + String(self.deck.count())
+        result += "opendedDeck count : " + String(self.openedDeck.cardList.count)
+        return result
+    }
 }
-
-
 
 /// 카드 배열의 경우를 위한 확장
 extension Array where Element : Card{
@@ -501,7 +495,6 @@ extension Array where Element : Card{
         if newElement.isFront() == false {
             newElement.flip()
         }
-        
         // 카드추가
         append(newElement)
     }

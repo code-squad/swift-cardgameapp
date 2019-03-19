@@ -27,7 +27,6 @@ class PlayDeck {
                 return true
             }
         }
-        
         // 색이 같거나 이전 넘버링이 아니면 안됨
         return false
     }
@@ -53,10 +52,13 @@ class PlayDeck {
     func setting(card: Card){
         // 과거카드정보 생성
         let pastCardData = PastCardData(cardInfo: card)
+        
+        // 카드 추가시도
         self.cardList.addCard(card)
         
         // 카드 이동 후 덱타입 변경
         card.deckType = .playDeck
+        
         // 카드가 이동했으니 과거카드정보 노티 포스트
         NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
     }

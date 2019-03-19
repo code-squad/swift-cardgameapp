@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 extension CGPoint {
     /// 다른 포인트를 받아서 x,y 좌표를 각각 더한 값을 리턴한다
     func getPlusedPoint(point: CGPoint) -> CGPoint{

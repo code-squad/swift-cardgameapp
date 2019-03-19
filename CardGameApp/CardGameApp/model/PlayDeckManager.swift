@@ -112,5 +112,4 @@ class PlayDeckManager {
         // 결과 리턴
         return result
     }
-    
 }

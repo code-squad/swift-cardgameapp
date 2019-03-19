@@ -24,7 +24,7 @@ class EmptyCardView: UIView {
     }
 }
 
-// 테두리 기능 확장
+// 테두리 설정을 위한 확장
 extension EmptyCardView {
     /// 뷰 테두리 생성
     private func makeBorder(){

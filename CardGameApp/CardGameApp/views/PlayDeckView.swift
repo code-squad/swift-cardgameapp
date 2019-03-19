@@ -9,7 +9,6 @@
 import UIKit
 
 class PlayDeckView: UIStackView {
-    
     /// 카드를 겹쳐보이게 뷰 추가시 세로위치를 조정해서 추가
     func addPlayCardview(_ view: UIView) {
         // 마지막 카드가 있는지 체크. 마지막 카드가 없으면 바로추가
@@ -32,6 +31,7 @@ class PlayDeckView: UIStackView {
         if self.subviews.count > 1 {
             let aheadOfLastView = self.subviews[self.subviews.count - 2] as! CardView
             
+            // 마전카드가 뒷면이면 뒤집어준다
             if aheadOfLastView.isFront() == false {
                 aheadOfLastView.flip()
                 aheadOfLastView.refreshImage()

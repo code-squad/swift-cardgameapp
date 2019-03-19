@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// 카드가 이동중일때 임시로 대기하는 뷰
 class WatingDeckView : UIView {
     /// 뷰를 받아서 추가하고 추가된 뷰의 위치를 리턴한다. 웨이팅덱뷰는 그냥 0.0
     func addView(cardView: CardView) -> CGPoint {

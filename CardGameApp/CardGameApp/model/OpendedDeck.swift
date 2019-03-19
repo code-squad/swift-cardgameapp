@@ -12,8 +12,7 @@ import Foundation
 class OpenedDeck {
     var cardList : [Card] = []
     
-    
-    /// 리셋
+    /// 오픈덱 리셋
     func reset() -> [Card]{
         let allCard = self.cardList
         self.cardList = []
@@ -42,9 +41,12 @@ class OpenedDeck {
     
     /// 카드인포를 받아서 맞는 카드가 있으면 리턴
     func pickCard(cardInfo: CardInfo) -> Card? {
+        // 받은 카드가 마지막 카드와 모양이 같은지 체크
         if cardInfo.name() == self.cardList.last?.name() {
+            // 맞으면 카드 추출 후 리턴
             return self.cardList.popLast()
         }
+            // 다르면 닐 리턴
         else {
             return nil
         }
@@ -52,16 +54,19 @@ class OpenedDeck {
     
     /// 카드 강제추가. 카드를 되돌리는 역할
     func undoCard(card: Card){
+        // 조건없이 추가한다
         self.cardList.append(card)
     }
     
     /// 덱 전체 리스트를 문자열로 리턴
     func getAllOpenedDeckCardName() -> String {
-        // 결과용
+        // 결과용 변수
         var result : String = "덱 카드 리스트 : "
+        // 모든 카드를 문자열로 정리
         for card in cardList {
             result.append("\(card.name())\n")
         }
+        // 리턴
         return result
     }
 }

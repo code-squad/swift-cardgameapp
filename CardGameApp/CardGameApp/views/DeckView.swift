@@ -14,6 +14,7 @@ class DeckView: UIImageView {
         // 뷰 인터랙션 허용
         self.isUserInteractionEnabled = true
     }
+    
     init(origin: CGPoint, size: CGSize){
         let frame = CGRect(origin: origin, size: size)
         super.init(frame: frame)
@@ -38,7 +39,6 @@ class DeckView: UIImageView {
         // 추가된 카드의 위치 = 자신의 위치를 리턴한다
         return self.frame.origin
     }
-    
 }
 
 extension UIView {
