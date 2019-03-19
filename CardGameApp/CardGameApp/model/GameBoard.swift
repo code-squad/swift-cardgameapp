@@ -383,7 +383,9 @@ class GameBoard : DeckInfo {
             // 카드이동 성공시 노티발생
         else {
             NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
-            os_log("")
+            let beforeDeckLine = String(pastCardData.deckLine)
+            let presentDeckLine = String(cardInfo.getDeckLine())
+            os_log("모델 드래그이동 성공 - %@ 카드 : %@ 덱 %@ 라인에서 %@ 덱 %@ 라인으로.",cardInfo.name(), pastCardData.deckType.rawValue, beforeDeckLine, cardInfo.getDeckType().rawValue, presentDeckLine)
         }
         
         return result
@@ -418,8 +420,12 @@ class GameBoard : DeckInfo {
         }
         
         // 추출이 끝난 카드들을 대기뷰로 이동시킨다
-        for _ in pickedCards {
+        for pickedCard in pickedCards {
             NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
+            
+            let beforeDeckLine = String(pastCardData.deckLine)
+            let presentDeckLine = String(pickedCard.getDeckLine())
+            os_log("모델 드래그이동 성공 - %@ 카드 : %@ 덱 %@ 라인에서 %@ 덱 %@ 라인으로.",pickedCard.name(), pastCardData.deckType.rawValue, beforeDeckLine, pickedCard.getDeckType().rawValue, presentDeckLine)
         }
         
         // 카드추출 완료, 노티가 완료되었으므로 이제 출발지점이 대기덱임
@@ -461,8 +467,12 @@ class GameBoard : DeckInfo {
         
         
         // 모든 카드이동 성공시 노티발생
-        for _ in result {
+        for resultCard in result {
             NotificationCenter.default.post(name: .cardMoved, object: pastCardData)
+            
+            let beforeDeckLine = String(pastCardData.deckLine)
+            let presentDeckLine = String(resultCard.getDeckLine())
+            os_log("모델 드래그이동 성공 - %@ 카드 : %@ 덱 %@ 라인에서 %@ 덱 %@ 라인으로.",resultCard.name(), pastCardData.deckType.rawValue, beforeDeckLine, resultCard.getDeckType().rawValue, presentDeckLine)
         }
         
         
