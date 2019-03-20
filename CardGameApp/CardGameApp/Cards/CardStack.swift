@@ -24,10 +24,18 @@ class CardStack {
         return stack.remove(at: stack.count-1)
     }
     
+    func getLast() -> Card {
+        return stack[stack.count-1]
+    }
+    
     func accessCard(form: ([Card]) -> Void) {
         form(stack)
     }
     
+    func accessLastCard(form: (Card) -> Bool) -> Bool {
+        return form(stack[stack.count-1])
+    }
+
     func removeAll() {
         stack.removeAll()
     }
