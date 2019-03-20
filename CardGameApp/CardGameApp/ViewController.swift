@@ -38,8 +38,8 @@ class ViewController: UIViewController {
         initialSpacesStacks()
         initialSpacesView()
         initialViews()
-        initialDeckView()
         initialReversedView()
+        initialDeckView()
     }
     
     @objc func removeOneCardFromDeck() {
@@ -49,11 +49,28 @@ class ViewController: UIViewController {
     
     @objc func addReversedCardView(_ notification: NSNotification) {
         guard let card = notification.userInfo?["card"] as? Card else { return }
-        reversedCardsView?.addView(card: card)
+        
+        deckView?.accessTopView { topView in
+            topView.setCardImage(name: card.description)
+        }
+        
+        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                let distanceX = self.deckView!.frame.maxX - self.reversedCardsView!.frame.maxX
+                self.deckView?.accessTopView { topView in
+                    topView.transform = CGAffineTransform(translationX: -distanceX, y: 0)
+                }
+            }, completion: { isAnimate in
+                guard isAnimate else { return }
+                self.deckView?.accessTopView { topView in
+                    topView.transform = CGAffineTransform(translationX: 0, y: 0)
+                }
+                guard let removeView = self.deckView?.removeView() else { return }
+                self.reversedCardsView?.addView(removeView)
+        })
     }
     
     private func initialReversedView() {
-        let positionX = Int(spacesView!.frame.maxX) + Int((deckView!.frame.minX - spacesView!.frame.maxX)) / 2 - Sizes.cardWitdh / 2
+        let positionX = Int(spacesView!.frame.maxX) + Int((CGFloat(Sizes.deckViewX) - spacesView!.frame.maxX)) / 2 - Sizes.cardWitdh / 2
         reversedCardsView = ReversedCardsView(frame: CGRect(x: positionX, y: Sizes.viewFirstY, width: Sizes.cardWitdh, height: Sizes.cardHeight))
         self.view.addSubview(reversedCardsView!)
     }
@@ -273,7 +290,7 @@ extension ViewController {
                 if cardStacks[index].accessLastCard(form: { topCard in
                     guard cardOnTop.number.rawValue+1 == topCard.number.rawValue else { return false }
                     guard cardOnTop == topCard else { return false }
-                    
+            
                     UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
                         self.reversedCardsView?.acceesTopView { topView in
                             let distanceX = (self.reversedCardsView?.frame.origin.x)! - CGFloat((Sizes.viewFirstX + 5*index + Sizes.cardWitdh*index))

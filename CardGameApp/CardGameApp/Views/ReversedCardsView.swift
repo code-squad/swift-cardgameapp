@@ -23,11 +23,9 @@ class ReversedCardsView: UIView {
         self.backgroundColor = UIColor.clear
     }
     
-    func addView(card: Card) {
-        let reversedCardImage = CardView(frame: CGRect(x: Sizes.originX, y: Sizes.originY, width: Sizes.cardWitdh, height: Sizes.cardHeight))
-        reversedCardImage.setCardImage(name: card.description)
-        reversedViews.append(reversedCardImage)
-        addSubview(reversedCardImage)
+    func addView(_ view: CardView) {
+        reversedViews.append(view)
+        addSubview(view)
     }
     
     func acceesTopView(form: (CardView) -> Void) {

@@ -13,6 +13,7 @@ struct Sizes {
     static let originY = 0
     static let cardWitdh = 50
     static let cardHeight = 70
+    static let deckViewX = 350
     static let viewFirstX = 16
     static let viewFirstY = 20
     static let viewSecondY = 100

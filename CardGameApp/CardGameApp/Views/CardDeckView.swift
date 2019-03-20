@@ -52,8 +52,17 @@ class CardDeckView: UIView {
 extension CardDeckView {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard deckView.count != 0 else { return }
-        deckView.remove(at: deckView.count-1).removeFromSuperview()
         NotificationCenter.default.post(name: .touchedDeck, object: nil)
         super.touchesEnded(touches, with: event)
+    }
+    
+    func removeView() -> CardView {
+        let removeView = deckView.remove(at: deckView.count-1)
+        removeView.removeFromSuperview()
+        return removeView
+    }
+    
+    func accessTopView(form: (CardView) -> Void) {
+        form(deckView[deckView.count-1])
     }
 }
