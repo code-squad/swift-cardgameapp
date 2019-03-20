@@ -675,14 +675,15 @@ class ViewController: UIViewController {
             let targetCardViewModel = EmptyCardViewModel()
             
             // 드래그 종료 위치가 카드뷰인지 체크
-            if let endPositionView = self.view.hitTest(self.dragView.center, with: nil) as? CardView  {
-                os_log("드래그 종료 위치 카드 : %@",endPositionView.name())
+            let endPositionView = self.view.hitTest(self.dragView.center, with: nil)
+            if let endPositionCardView = endPositionView as? CardView  {
+                os_log("드래그 종료 위치 카드 : %@",endPositionCardView.name())
                 
                 //타겟정보 설정
-                targetCardViewModel.setting(deckType: endPositionView.cardViewModel.cardInfo.getDeckType(), deckLine: endPositionView.cardViewModel.cardInfo.getDeckLine())
+                targetCardViewModel.setting(deckType: endPositionCardView.cardViewModel.cardInfo.getDeckType(), deckLine: endPositionCardView.cardViewModel.cardInfo.getDeckLine())
             }
                 // 드래그 종료 위치가 비어있는 뷰인지 체크
-            else if let endPositionPlayDeckView = self.view.hitTest(self.dragView.center, with: nil) as? PlayDeckView  {
+            else if let endPositionPlayDeckView = endPositionView as? PlayDeckView  {
                 // 밑에 있는 빈뷰에세 힛테스트를 하기 위해 부모까지 유저인터렉션 해제
                 endPositionPlayDeckView.superview!.isUserInteractionEnabled = false
                 
