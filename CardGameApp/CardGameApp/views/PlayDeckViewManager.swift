@@ -82,4 +82,16 @@ class PlayDeckViewManager : UIView{
         }
         return playDeckView.AllCardImagesAfter(cardView: cardView)
     }
+    
+    /// 마지막 카드가 뒷면이면 뒤집어준다
+    func flipLastBackImageCardView(){
+        // 모든 플레이덱뷰를 체크한다
+        for subView in self.subviews {
+            // 서브뷰가 카드뷰인지 체크
+            guard let cardView = subView as? PlayDeckView else { continue }
+            
+            // 마지막카드가 뒷면인지 체크한다
+            cardView.flipLastBackImageCardView()
+        }
+    }
 }

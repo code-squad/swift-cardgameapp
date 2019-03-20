@@ -257,12 +257,23 @@ class ViewController: UIViewController {
         let presentDeckLine = String(cardView.cardViewModel.getDeckLine())
         os_log("뷰 이동 성공 - %@ 카드 : %@ 덱 %@ 라인에서 %@ 덱 %@ 라인으로.",cardView.name(), pastCardData.deckType.rawValue, beforeDeckLine, cardView.cardViewModel.getDeckType().rawValue, presentDeckLine)
         
+        // 플레이덱 마지막 카드들 체크
+        flipLastBackPlayCards()
+        
         // 게임이 클리어 됬는지 체크
         if self.gameBoard.isAllPointDeckFull() {
             // 클리어 얼럿 실행
             victoryAlert()
         }
+    }
+    
+    /// 웨이팅덱이 비었으면 이동이 종료된것이니 플레이덱 마지막 카드 체크
+    func flipLastBackPlayCards(){
+        // 웨이팅덱이 비었는지 체크
+        guard self.watingDeckView.subviews.count == 0 else { return () }
         
+        // 비었으면 체크함수 실행
+        self.playDeckView.flipLastBackImageCardView()
     }
     
     /// 덱타입을 받아서 맞는 카드뷰를 리턴

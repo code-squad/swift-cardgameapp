@@ -28,18 +28,30 @@ class PlayDeckView: UIStackView {
     /// 뷰 리턴. 마지막 카드가 나가면 그전 카드는 뒤집는다
     func lastView() -> UIView? {
         // 카드가 2장 이상이면 뒤집어준다
-        if self.subviews.count > 1 {
-            let aheadOfLastView = self.subviews[self.subviews.count - 2] as! CardView
-            
-            // 마전카드가 뒷면이면 뒤집어준다
-            if aheadOfLastView.isFront() == false {
-                aheadOfLastView.flip()
-                aheadOfLastView.refreshImage()
-            }
-        }
+//        if self.subviews.count > 1 {
+//            let aheadOfLastView = self.subviews[self.subviews.count - 2] as! CardView
+//
+//            // 마전카드가 뒷면이면 뒤집어준다
+//            if aheadOfLastView.isFront() == false {
+//                aheadOfLastView.flip()
+//                aheadOfLastView.refreshImage()
+//            }
+//        }
         
         // 마지막뷰 리턴 
         return self.subviews.last
+    }
+    
+    /// 마지막 카드가 뒷면이면 뒤집어준다
+    func flipLastBackImageCardView(){
+        // 마지막 서브뷰가 카드뷰인지 체크
+        guard let lastCardView = self.subviews.last as? CardView else { return () }
+        
+        // 마지맛 카드뷰가 뒷면이면 뒤집어준다
+        if lastCardView.isFront() == false {
+            lastCardView.flip()
+        }
+        
     }
     
     /// 생성 후 세팅
