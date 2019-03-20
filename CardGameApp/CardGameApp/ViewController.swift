@@ -697,6 +697,14 @@ class ViewController: UIViewController {
                 }
                 // 타겟카드뷰 모델 내용추가가 완료되면 유저인터렉션 다시 설정
                 endPositionPlayDeckView.superview!.isUserInteractionEnabled = true
+            } // 빈카드뷰 일 경우
+            else if let endPositionEmptyView = self.view.hitTest(self.dragView.center, with: nil) as? EmptyCardView  {
+                // 로그용 덱라인 문자화
+                let deckLine = String(endPositionEmptyView.model.deckLine)
+                os_log("드래그 종료 위치 카드 : 포인트덱뷰 %@ 라인 빈카드뷰",deckLine)
+                
+                //타겟정보 설정
+                targetCardViewModel.setting(deckType: endPositionEmptyView.model.deckType, deckLine: endPositionEmptyView.model.deckLine)
             }
             
             // 힛테스트가 끝나면 임시뷰 설정 원복
