@@ -61,8 +61,4 @@ extension CardDeckView {
         removeView.removeFromSuperview()
         return removeView
     }
-    
-    func accessTopView(form: (CardView) -> Void) {
-        form(deckView[deckView.count-1])
-    }
 }

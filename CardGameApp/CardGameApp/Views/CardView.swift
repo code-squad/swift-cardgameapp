@@ -66,6 +66,7 @@ extension CardView {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let endedPoint = touches.first else { return }
+        
         NotificationCenter.default.post(name: .endedDragView, object: nil, userInfo: ["endedPoint": endedPoint])
         super.touchesEnded(touches, with: event)
     }

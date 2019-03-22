@@ -49,21 +49,19 @@ class ViewController: UIViewController {
     
     @objc func addReversedCardView(_ notification: NSNotification) {
         guard let card = notification.userInfo?["card"] as? Card else { return }
-        deckView?.accessTopView { topView in
-            topView.setCardImage(name: card.description)
-        }
         
-        UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+        let tempView = CardView(frame: CGRect(x: deckView!.frame.minX, y: deckView!.frame.minY, width: CGFloat(Sizes.cardWitdh), height: CGFloat(Sizes.cardHeight)))
+        tempView.setCardImage(name: card.description)
+        self.view.addSubview(tempView)
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
                 let distanceX = self.deckView!.frame.maxX - self.reversedCardsView!.frame.maxX
-                self.deckView?.accessTopView { topView in
-                    topView.transform = CGAffineTransform(translationX: -distanceX, y: 0)
-                }
+                tempView.transform = CGAffineTransform(translationX: -distanceX, y: 0)
             }, completion: { isAnimate in
                 guard isAnimate else { return }
-                self.deckView?.accessTopView { topView in
-                    topView.transform = CGAffineTransform(translationX: 0, y: 0)
-                }
+                tempView.removeFromSuperview()
                 guard let removeView = self.deckView?.removeView() else { return }
+                removeView.setCardImage(name: card.description)
                 self.reversedCardsView?.addView(removeView)
         })
     }
