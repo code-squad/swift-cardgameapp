@@ -49,7 +49,6 @@ class ViewController: UIViewController {
     
     @objc func addReversedCardView(_ notification: NSNotification) {
         guard let card = notification.userInfo?["card"] as? Card else { return }
-        
         deckView?.accessTopView { topView in
             topView.setCardImage(name: card.description)
         }
@@ -516,20 +515,23 @@ extension ViewController {
         guard let startTouchStackNumber = self.startTouchStackNumber else { return }
         guard let startTouchDepth = self.startTouchDepth else { return }
         
+        var removeCards: [Card] = []
         var removeCardViews: [CardView] = []
-        for index in startTouchDepth..<cardStacks[startTouchStackNumber-1].count() {
-            guard let removeCard = cardStacks[index].removeOne() else { return }
+        for _ in startTouchDepth..<cardStacks[startTouchStackNumber-1].count() {
+            guard let removeCard = cardStacks[startTouchStackNumber-1].removeOne() else { return }
             guard let removeCardView = cardStacksView?.removeCardView(at: startTouchStackNumber-1) else { return }
             removeCardView.transform = CGAffineTransform(translationX: 0, y: 0)
-            cardStacks[destIndex-1].add(removeCard)
+            removeCards.append(removeCard)
             removeCardViews.append(removeCardView)
         }
         
         for index in stride(from: removeCardViews.count-1, through: 0, by: -1) {
+            cardStacks[destIndex-1].add(removeCards[index])
             cardStacksView?.addCardView(at: destIndex-1, view: removeCardViews[index])
         }
+        removeCards.removeAll()
         removeCardViews.removeAll()
-        
+
         if !cardStacks[startTouchStackNumber-1].isEmpty() { self.cardStacksView?.turnLastCard(at: startTouchStackNumber-1, stackModel: self.cardStacks[startTouchStackNumber-1]) }
     }
     
