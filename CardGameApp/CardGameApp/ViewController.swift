@@ -276,11 +276,32 @@ extension ViewController {
                         guard let removeCardView = self.reversedCardsView?.removeView() else { return }
                         self.spaceCardStacks[index].add(removeCard)
                         self.spacesView?.addCardView(at: index, view: removeCardView)
+                        if self.isOverGame() { self.markWinGame() }
                     })
                     return true
                 }) { break }
             }
         }
+        
+    }
+    
+    private func isOverGame() -> Bool {
+        for stack in spaceCardStacks {
+            guard stack.count() == 13 else { return false }
+        }
+        return true
+    }
+    
+    private func markWinGame() {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 130))
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        label.text = "축하합니다"
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.font = label.font.withSize(20)
+        self.view.addSubview(label)
     }
     
     private func animateReversedToStack(_ cardOnTop: Card) {
@@ -400,6 +421,7 @@ extension ViewController {
                         if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
                         self.spaceCardStacks[index].add(removeCard)
                         self.spacesView?.addCardView(at: index, view: removeCardView)
+                        if self.isOverGame() { self.markWinGame() }
                     })
                     return true
                 }) { break }
