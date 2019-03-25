@@ -217,12 +217,11 @@ extension ViewController {
                         topView.frame.origin.x -= distance
                     }
                 }, completion: { isAnimate in
-                    guard let removeCard = self.reversedCards.removeOne() else { return }
-                    guard let removeCardView = self.reversedCardsView?.removeView() else { return }
-                    removeCardView.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
-                    removeCardView.isUserInteractionEnabled = false
-                    self.spaceCardStacks[index].add(removeCard)
-                    self.spacesView?.addCardView(at: index, view: removeCardView)
+                    guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromReversed() else { return }
+                    modelAndView.view.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
+                    modelAndView.view.isUserInteractionEnabled = false
+                    self.cardStacks[index].add(modelAndView.model)
+                    self.cardStacksView?.addCardView(at: index, view: modelAndView.view)
                 })
                 break
             }
@@ -241,11 +240,10 @@ extension ViewController {
                         topView.frame.origin.y += distanceY
                     }
                 }, completion: { isAnimate in
-                    guard let removeCard = self.reversedCards.removeOne() else { return }
-                    guard let removeCardView = self.reversedCardsView?.removeView() else { return }
-                    removeCardView.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
-                    self.cardStacks[index].add(removeCard)
-                    self.cardStacksView?.addCardView(at: index, view: removeCardView)
+                    guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromReversed() else { return }
+                    modelAndView.view.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
+                    self.cardStacks[index].add(modelAndView.model)
+                    self.cardStacksView?.addCardView(at: index, view: modelAndView.view)
                 })
                 break
             }
@@ -264,12 +262,11 @@ extension ViewController {
                             topView.frame.origin.x -= distanceX
                         }
                     }, completion: { isAnimate in
-                        guard let removeCard = self.reversedCards.removeOne() else { return }
-                        guard let removeCardView = self.reversedCardsView?.removeView() else { return }
-                        removeCardView.isUserInteractionEnabled = false
-                        removeCardView.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
-                        self.spaceCardStacks[index].add(removeCard)
-                        self.spacesView?.addCardView(at: index, view: removeCardView)
+                        guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromReversed() else { return }
+                        modelAndView.view.isUserInteractionEnabled = false
+                        modelAndView.view.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
+                        self.cardStacks[index].add(modelAndView.model)
+                        self.cardStacksView?.addCardView(at: index, view: modelAndView.view)
                         if self.isOverGame() { self.markWinGame() }
                     })
                     return true
@@ -314,15 +311,20 @@ extension ViewController {
                             topView.frame.origin.y += distanceY
                         }
                     }, completion: { isAnimate in
-                        guard let removeCard = self.reversedCards.removeOne() else { return }
-                        guard let removeCardView = self.reversedCardsView?.removeView() else { return }
-                        self.cardStacks[index].add(removeCard)
-                        self.cardStacksView?.addCardView(at: index, view: removeCardView)
+                        guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromReversed() else { return }
+                        self.cardStacks[index].add(modelAndView.model)
+                        self.cardStacksView?.addCardView(at: index, view: modelAndView.view)
                     })
                     return true
                 }) { break }
             }
         }
+    }
+    
+    private func removeModelAndViewFromReversed() -> (Card, CardView)? {
+        guard let removeCard = reversedCards.removeOne() else { return nil }
+        guard let removeCardView = reversedCardsView?.removeView() else { return nil }
+        return (removeCard, removeCardView)
     }
 }
 
@@ -350,13 +352,12 @@ extension ViewController {
                         topView.frame.origin.y -= distanceY
                     }
                 }, completion: { isAnimate in
-                    guard let removeCard = self.cardStacks[number-1].removeOne() else { return }
-                    guard let removeCardView = self.cardStacksView?.removeCardView(at: number-1) else { return }
-                    removeCardView.isUserInteractionEnabled = false
-                    removeCardView.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
+                    guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromStack(at: number-1) else { return }
+                    modelAndView.view.isUserInteractionEnabled = false
+                    modelAndView.view.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
                     if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
-                    self.spaceCardStacks[index].add(removeCard)
-                    self.spacesView?.addCardView(at: index, view: removeCardView)
+                    self.spaceCardStacks[index].add(modelAndView.model)
+                    self.spacesView?.addCardView(at: index, view: modelAndView.view)
                 })
                 break
             }
@@ -374,12 +375,11 @@ extension ViewController {
                         topView.frame.origin.y -= distanceY
                     }
                 }, completion: { isAnimate in
-                    guard let removeCard = self.cardStacks[number-1].removeOne() else { return }
-                    guard let removeCardView = self.cardStacksView?.removeCardView(at: number-1) else { return }
-                    removeCardView.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
+                    guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromStack(at: number-1) else { return }
+                    modelAndView.view.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
                     if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
-                    self.cardStacks[index].add(removeCard)
-                    self.cardStacksView?.addCardView(at: index, view: removeCardView)
+                    self.cardStacks[index].add(modelAndView.model)
+                    self.cardStacksView?.addCardView(at: index, view: modelAndView.view)
                 })
                 break
             }
@@ -400,13 +400,12 @@ extension ViewController {
                             topView.frame.origin.y -= distanceY
                         }
                     }, completion: { isAnimate in
-                        guard let removeCard = self.cardStacks[number-1].removeOne() else { return }
-                        guard let removeCardView = self.cardStacksView?.removeCardView(at: number-1) else { return }
-                        removeCardView.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
-                        removeCardView.isUserInteractionEnabled = false
+                        guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromStack(at: number-1) else { return }
+                        modelAndView.view.isUserInteractionEnabled = false
+                        modelAndView.view.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
                         if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
-                        self.spaceCardStacks[index].add(removeCard)
-                        self.spacesView?.addCardView(at: index, view: removeCardView)
+                        self.spaceCardStacks[index].add(modelAndView.model)
+                        self.spacesView?.addCardView(at: index, view: modelAndView.view)
                         if self.isOverGame() { self.markWinGame() }
                     })
                     return true
@@ -433,17 +432,22 @@ extension ViewController {
                             topView.frame.origin.y -= distanceY
                         }
                     }, completion: { isAnimate in
-                        guard let removeCard = self.cardStacks[number-1].removeOne() else { return }
-                        guard let removeCardView = self.cardStacksView?.removeCardView(at: number-1) else { return }
-                        removeCardView.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
+                        guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromStack(at: number-1) else { return }
+                        modelAndView.view.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
                         if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
-                        self.cardStacks[index].add(removeCard)
-                        self.cardStacksView?.addCardView(at: index, view: removeCardView)
+                        self.cardStacks[index].add(modelAndView.model)
+                        self.cardStacksView?.addCardView(at: index, view: modelAndView.view)
                     })
                     return true
                 }) { break }
             }
         }
+    }
+    
+    private func removeModelAndViewFromStack(at index: Int) -> (Card, CardView)? {
+        guard let removeCard = cardStacks[index].removeOne() else { return nil }
+        guard let removeCardView = cardStacksView?.removeCardView(at: index) else { return nil }
+        return (removeCard, removeCardView)
     }
 }
 
