@@ -44,6 +44,7 @@ class PlayDeckViewManager : UIView{
     func addView(view: UIView, deckLine: Int) -> CGPoint{
         // 덱 라인에 맞는 스택뷰 추출
         let playDeckView = getPlayDeckViewFrom(deckLine: deckLine) //  else { return nil }
+        
         // 맞는 스택뷰에 추가
         playDeckView.addPlayCardview(view)
         
@@ -55,6 +56,7 @@ class PlayDeckViewManager : UIView{
     func getView(pastCardData: PastCardData) -> UIView? {
         // 덱 라인에 맞는 스택뷰 추출
         let playDeckView = getPlayDeckViewFrom(deckLine: pastCardData.deckLine) // else { return nil }
+        
         return playDeckView.lastView()
     }
     
