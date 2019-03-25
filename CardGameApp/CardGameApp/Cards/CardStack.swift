@@ -33,6 +33,7 @@ class CardStack {
     }
     
     func accessLastCard(form: (Card) -> Bool) -> Bool {
+        if stack.count == 0 { return false }
         return form(stack[stack.count-1])
     }
 

@@ -220,8 +220,8 @@ extension ViewController {
                     guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromReversed() else { return }
                     modelAndView.view.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
                     modelAndView.view.isUserInteractionEnabled = false
-                    self.cardStacks[index].add(modelAndView.model)
-                    self.cardStacksView?.addCardView(at: index, view: modelAndView.view)
+                    self.spaceCardStacks[index].add(modelAndView.model)
+                    self.spacesView?.addCardView(at: index, view: modelAndView.view)
                 })
                 break
             }
@@ -252,26 +252,24 @@ extension ViewController {
     
     private func animateReversedToSpace(_ cardOnTop: Card) {
         for index in 0..<spaceCardStacks.count {
-            if !spaceCardStacks[index].isEmpty() {
-                if spaceCardStacks[index].accessLastCard(form: { topCard in
-                    guard cardOnTop.shape == topCard.shape else { return false }
-                    
-                    UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
-                        self.reversedCardsView?.acceesTopView { topView in
-                            let distanceX = (self.reversedCardsView?.frame.origin.x)! - CGFloat((Sizes.viewFirstX + 5*index + Sizes.cardWitdh*index))
-                            topView.frame.origin.x -= distanceX
-                        }
-                    }, completion: { isAnimate in
-                        guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromReversed() else { return }
-                        modelAndView.view.isUserInteractionEnabled = false
-                        modelAndView.view.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
-                        self.cardStacks[index].add(modelAndView.model)
-                        self.cardStacksView?.addCardView(at: index, view: modelAndView.view)
-                        if self.isOverGame() { self.markWinGame() }
-                    })
-                    return true
-                }) { break }
-            }
+            if spaceCardStacks[index].accessLastCard(form: { topCard in
+                guard cardOnTop.shape == topCard.shape else { return false }
+                
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                    self.reversedCardsView?.acceesTopView { topView in
+                        let distanceX = (self.reversedCardsView?.frame.origin.x)! - CGFloat((Sizes.viewFirstX + 5*index + Sizes.cardWitdh*index))
+                        topView.frame.origin.x -= distanceX
+                    }
+                }, completion: { isAnimate in
+                    guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromReversed() else { return }
+                    modelAndView.view.isUserInteractionEnabled = false
+                    modelAndView.view.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
+                    self.spaceCardStacks[index].add(modelAndView.model)
+                    self.spacesView?.addCardView(at: index, view: modelAndView.view)
+                    if self.isOverGame() { self.markWinGame() }
+                })
+                return true
+            }) { break }
         }
         
     }
@@ -297,27 +295,25 @@ extension ViewController {
     
     private func animateReversedToStack(_ cardOnTop: Card) {
         for index in 0..<cardStacks.count {
-            if !cardStacks[index].isEmpty() {
-                if cardStacks[index].accessLastCard(form: { topCard in
-                    guard cardOnTop.number.rawValue+1 == topCard.number.rawValue else { return false }
-                    guard cardOnTop == topCard else { return false }
-            
-                    UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
-                        self.reversedCardsView?.acceesTopView { topView in
-                            guard let originX = self.reversedCardsView?.frame.origin.x else { return }
-                            let distanceX = originX - CGFloat((Sizes.viewFirstX + 5*index + Sizes.cardWitdh*index))
-                            let distanceY = CGFloat(Sizes.viewSecondY + Sizes.stackCardsSpace*self.cardStacks[index].count() - Sizes.viewFirstY)
-                            topView.frame.origin.x -= distanceX
-                            topView.frame.origin.y += distanceY
-                        }
-                    }, completion: { isAnimate in
-                        guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromReversed() else { return }
-                        self.cardStacks[index].add(modelAndView.model)
-                        self.cardStacksView?.addCardView(at: index, view: modelAndView.view)
-                    })
-                    return true
-                }) { break }
-            }
+            if cardStacks[index].accessLastCard(form: { topCard in
+                guard cardOnTop.number.rawValue+1 == topCard.number.rawValue else { return false }
+                guard cardOnTop == topCard else { return false }
+                
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                    self.reversedCardsView?.acceesTopView { topView in
+                        guard let originX = self.reversedCardsView?.frame.origin.x else { return }
+                        let distanceX = originX - CGFloat((Sizes.viewFirstX + 5*index + Sizes.cardWitdh*index))
+                        let distanceY = CGFloat(Sizes.viewSecondY + Sizes.stackCardsSpace*self.cardStacks[index].count() - Sizes.viewFirstY)
+                        topView.frame.origin.x -= distanceX
+                        topView.frame.origin.y += distanceY
+                    }
+                }, completion: { isAnimate in
+                    guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromReversed() else { return }
+                    self.cardStacks[index].add(modelAndView.model)
+                    self.cardStacksView?.addCardView(at: index, view: modelAndView.view)
+                })
+                return true
+            }) { break }
         }
     }
     
@@ -388,59 +384,54 @@ extension ViewController {
     
     private func animateStackToSpace(from number: Int, _ cardOnTop: Card) {
         for index in 0..<spaceCardStacks.count {
-            if !spaceCardStacks[index].isEmpty() {
-                if spaceCardStacks[index].accessLastCard(form: { topCard in
-                    guard cardOnTop.shape == topCard.shape else { return false }
-                    
-                    UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
-                        self.cardStacksView?.accessTopView(at: number-1) { topView in
-                            let distanceX = CGFloat((number-1-index)*Sizes.cardWitdh + (number-1-index)*5)
-                            let distanceY = CGFloat(Sizes.viewSecondY + Sizes.stackCardsSpace*(self.cardStacks[number-1].count()-1) - Sizes.viewFirstY)
-                            topView.frame.origin.x -= distanceX
-                            topView.frame.origin.y -= distanceY
-                        }
-                    }, completion: { isAnimate in
-                        guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromStack(at: number-1) else { return }
-                        modelAndView.view.isUserInteractionEnabled = false
-                        modelAndView.view.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
-                        if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
-                        self.spaceCardStacks[index].add(modelAndView.model)
-                        self.spacesView?.addCardView(at: index, view: modelAndView.view)
-                        if self.isOverGame() { self.markWinGame() }
-                    })
-                    return true
-                }) { break }
-            }
+            if spaceCardStacks[index].accessLastCard(form: { topCard in
+                guard cardOnTop.shape == topCard.shape else { return false }
+                
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                    self.cardStacksView?.accessTopView(at: number-1) { topView in
+                        let distanceX = CGFloat((number-1-index)*Sizes.cardWitdh + (number-1-index)*5)
+                        let distanceY = CGFloat(Sizes.viewSecondY + Sizes.stackCardsSpace*(self.cardStacks[number-1].count()-1) - Sizes.viewFirstY)
+                        topView.frame.origin.x -= distanceX
+                        topView.frame.origin.y -= distanceY
+                    }
+                }, completion: { isAnimate in
+                    guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromStack(at: number-1) else { return }
+                    modelAndView.view.isUserInteractionEnabled = false
+                    modelAndView.view.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
+                    if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
+                    self.spaceCardStacks[index].add(modelAndView.model)
+                    self.spacesView?.addCardView(at: index, view: modelAndView.view)
+                    if self.isOverGame() { self.markWinGame() }
+                })
+                return true
+            }) { break }
         }
-            
     }
     
     private func animateStackToStack(from number: Int, _ cardOnTop: Card) {
         for index in 0..<cardStacks.count {
-            if !cardStacks[index].isEmpty() {
-                if cardStacks[index].accessLastCard(form: { topCard in
-                    guard cardOnTop !== topCard else { return false }
-                    guard cardOnTop.number.rawValue+1 == topCard.number.rawValue else { return false }
-                    guard cardOnTop == topCard else { return false }
-                    UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
-                        self.cardStacksView?.accessTopView(at: number-1) { topView in
-                            let distanceX = CGFloat((number-1-index)*Sizes.cardWitdh + (number-1-index)*5)
-                            var distanceY = CGFloat(self.cardStacks[number-1].count() - self.cardStacks[index].count())
-                            if distanceY == 0 { distanceY = -(distanceY+1) * CGFloat(Sizes.stackCardsSpace) }
-                            else { distanceY = (distanceY-1) * CGFloat(Sizes.stackCardsSpace) }
-                            topView.frame.origin.x -= distanceX
-                            topView.frame.origin.y -= distanceY
-                        }
-                    }, completion: { isAnimate in
-                        guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromStack(at: number-1) else { return }
-                        modelAndView.view.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
-                        if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
-                        self.cardStacks[index].add(modelAndView.model)
-                        self.cardStacksView?.addCardView(at: index, view: modelAndView.view)
-                    })
-                    return true
-                }) { break }
-            }
+            if cardStacks[index].accessLastCard(form: { topCard in
+                guard cardOnTop !== topCard else { return false }
+                guard cardOnTop.number.rawValue+1 == topCard.number.rawValue else { return false }
+                guard cardOnTop == topCard else { return false }
+                UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
+                    self.cardStacksView?.accessTopView(at: number-1) { topView in
+                        let distanceX = CGFloat((number-1-index)*Sizes.cardWitdh + (number-1-index)*5)
+                        var distanceY = CGFloat(self.cardStacks[number-1].count() - self.cardStacks[index].count())
+                        if distanceY == 0 { distanceY = -(distanceY+1) * CGFloat(Sizes.stackCardsSpace) }
+                        else { distanceY = (distanceY-1) * CGFloat(Sizes.stackCardsSpace) }
+                        topView.frame.origin.x -= distanceX
+                        topView.frame.origin.y -= distanceY
+                    }
+                }, completion: { isAnimate in
+                    guard let modelAndView: (model: Card, view: CardView) = self.removeModelAndViewFromStack(at: number-1) else { return }
+                    modelAndView.view.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
+                    if !self.cardStacks[number-1].isEmpty() { self.cardStacksView?.turnLastCard(at: number-1, stackModel: self.cardStacks[number-1]) }
+                    self.cardStacks[index].add(modelAndView.model)
+                    self.cardStacksView?.addCardView(at: index, view: modelAndView.view)
+                })
+                return true
+            }) { break }
         }
     }
     
