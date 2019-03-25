@@ -61,7 +61,6 @@ class CardStackView: UIView {
         guard cardViews.count != 0 else { return nil }
         let removeView: CardView = cardViews.remove(at: cardViews.count-1)
         removeView.removeFromSuperview()
-        removeView.frame.origin = CGPoint(x: Sizes.originX, y: Sizes.originY)
         return removeView
     }
     
