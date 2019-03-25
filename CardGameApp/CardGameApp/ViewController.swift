@@ -50,7 +50,7 @@ class ViewController: UIViewController {
     @objc func addReversedCardView(_ notification: NSNotification) {
         guard let card = notification.userInfo?["card"] as? Card else { return }
         
-        let tempView = CardView(frame: CGRect(x: deckView!.frame.minX, y: deckView!.frame.minY, width: CGFloat(Sizes.cardWitdh), height: CGFloat(Sizes.cardHeight)))
+        let tempView = CardView(frame: CGRect(x: Sizes.deckViewX, y: Sizes.viewFirstY, width: Sizes.cardWitdh, height: Sizes.cardHeight))
         tempView.setCardImage(name: card.description)
         self.view.addSubview(tempView)
         
@@ -67,7 +67,8 @@ class ViewController: UIViewController {
     }
     
     private func initialReversedView() {
-        let positionX = Int(spacesView!.frame.maxX) + Int((CGFloat(Sizes.deckViewX) - spacesView!.frame.maxX)) / 2 - Sizes.cardWitdh / 2
+        guard let spaceViewMaxX = spacesView?.frame.maxX else { return }
+        let positionX = Int(spaceViewMaxX) + Int((CGFloat(Sizes.deckViewX) - spaceViewMaxX)) / 2 - Sizes.cardWitdh / 2
         reversedCardsView = ReversedCardsView(frame: CGRect(x: positionX, y: Sizes.viewFirstY, width: Sizes.cardWitdh, height: Sizes.cardHeight))
         self.view.addSubview(reversedCardsView!)
     }
@@ -311,7 +312,8 @@ extension ViewController {
             
                     UIView.animate(withDuration: 1.0, delay: 0, options: .curveEaseInOut, animations: {
                         self.reversedCardsView?.acceesTopView { topView in
-                            let distanceX = (self.reversedCardsView?.frame.origin.x)! - CGFloat((Sizes.viewFirstX + 5*index + Sizes.cardWitdh*index))
+                            guard let originX = self.reversedCardsView?.frame.origin.x else { return }
+                            let distanceX = originX - CGFloat((Sizes.viewFirstX + 5*index + Sizes.cardWitdh*index))
                             let distanceY = CGFloat(Sizes.viewSecondY + Sizes.stackCardsSpace*self.cardStacks[index].count() - Sizes.viewFirstY)
                             topView.transform = CGAffineTransform(translationX: -distanceX, y: distanceY)
                         }
@@ -465,14 +467,14 @@ extension ViewController {
     @objc func baganDrag(_ notification: NSNotification) {
         guard let touch = notification.userInfo?["beganPoint"] as? UITouch else { return }
         pastPoint = touch.location(in: self.view)
+        guard let pastPoint = self.pastPoint else { return }
         
-        let tappedView: TappedCard = searchTappedCardView(touched: pastPoint!)
+        let tappedView: TappedCard = searchTappedCardView(touched: pastPoint)
         switch tappedView {
         case .reversed: return
         case .stack(let number):
             startTouchStackNumber = number
             cardStacksView?.accessStackView(at: number-1) { cardViews in
-                guard let pastPoint = self.pastPoint else { return }
                 for index in 0..<cardViews.count-1 {
                     if pastPoint.y >= CGFloat(Sizes.viewSecondY) + CGFloat(Sizes.stackCardsSpace*index) &&
                         pastPoint.y < CGFloat(Sizes.viewSecondY) + CGFloat(Sizes.stackCardsSpace*(index+1)) {
