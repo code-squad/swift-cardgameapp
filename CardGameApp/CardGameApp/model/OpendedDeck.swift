@@ -41,12 +41,14 @@ class OpenedDeck {
     
     /// 카드인포를 받아서 맞는 카드가 있으면 리턴
     func pickCard(cardInfo: CardInfo) -> Card? {
+        // 마지막 카드 추출
+        guard let lastCardInfo = self.cardList.last else { return nil }
+        
         // 받은 카드가 마지막 카드와 모양이 같은지 체크
-        if cardInfo.name() == self.cardList.last?.name() {
+        if lastCardInfo.isSame(cardInfo: cardInfo) {
             // 맞으면 카드 추출 후 리턴
             return self.cardList.popLast()
-        }
-            // 다르면 닐 리턴
+        }  // 다르면 닐 리턴
         else {
             return nil
         }

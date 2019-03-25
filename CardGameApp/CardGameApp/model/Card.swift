@@ -94,6 +94,7 @@ protocol CardInfo {
     func getDeckType() -> DeckType
     func getDeckLine() -> Int
     func isFront() -> Bool
+    func isSame(cardInfo: CardInfo) -> Bool
 }
 
 /// 카드 객체를 만든다
@@ -195,5 +196,9 @@ class Card : CardInfo {
     func checkDifferentMarkColor(cardInfo: CardInfo) -> Bool {
         // 스페이드,클로버는 짝수. 하트,다이아는 홀수다. 2로 나눈 값이 달라야 추가 가능하다
         return self.getMarkRank() % 2 == cardInfo.getMarkRank() % 2
+    }
+    
+    func isSame(cardInfo: CardInfo) -> Bool {
+        return self.name() == cardInfo.name()
     }
 }

@@ -83,5 +83,10 @@ class CardViewModel : CardInfo{
     func image() -> String {
         return self.cardInfo.image()
     }
+    
+    /// 카드인포를 받아서 자기자신과 비교
+    func isSame(cardInfo: CardInfo) -> Bool {
+        return self.name() == cardInfo.name()
+    }
 }
 
