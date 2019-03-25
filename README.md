@@ -256,3 +256,25 @@ class ViewController: UIViewController {
 
 ### Step4
 
+![screen](./11.png)
+
+- 드래그 드롭은 `UIResponder` 의 `touchesBegan`, `touchesMoved`, `touchesEnded` 메소드를 이용하여 처리하였다.
+
+
+
+1. `touchesBegan` 메소드에서 시작 좌표로 어느 카드 뷰의 어느 깊이까지 눌렀는지 찾게하였다. 그리고 드래그를 위해 처음 눌린 위치를 변수에 저장하였다.
+2. `touchesMoved` 메소드에서 이전좌표와 비교하여 그 차이만큼 움직여 드래그 동작이 이루어질 수 있도록 하였다.
+3. `touchesEnded` 메소드에서 드래그를 놓은 좌표로 어떤 스택에 드롭했는지 조건을 비교해 이동할 지 원래 위치로 이동할지 결정하였다.
+
+
+
+
+
+**실행화면**
+
+![gif](./move.gif)
+
+
+
+
+
