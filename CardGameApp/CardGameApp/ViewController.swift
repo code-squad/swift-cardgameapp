@@ -453,16 +453,20 @@ extension ViewController {
         case .reversed: return
         case .stack(let number):
             startTouchStackNumber = number
-            cardStacksView?.accessStackView(at: number-1) { cardViews in
-                for index in 0..<cardViews.count-1 {
-                    if pastPoint.y >= CGFloat(Sizes.viewSecondY) + CGFloat(Sizes.stackCardsSpace*index) &&
-                        pastPoint.y < CGFloat(Sizes.viewSecondY) + CGFloat(Sizes.stackCardsSpace*(index+1)) {
-                        startTouchDepth = index
-                        break
-                    }
+            searchStartTouchDepth(at: number-1, touchPoint: pastPoint)
+        }
+    }
+    
+    private func searchStartTouchDepth(at index: Int, touchPoint: CGPoint) {
+        cardStacksView?.accessStackView(at: index) { cardViews in
+            for index in 0..<cardViews.count-1 {
+                if touchPoint.y >= CGFloat(Sizes.viewSecondY) + CGFloat(Sizes.stackCardsSpace*index) &&
+                    touchPoint.y < CGFloat(Sizes.viewSecondY) + CGFloat(Sizes.stackCardsSpace*(index+1)) {
+                    startTouchDepth = index
+                    break
                 }
-                if startTouchDepth == nil { startTouchDepth = cardViews.count-1 }
             }
+            if startTouchDepth == nil { startTouchDepth = cardViews.count-1 }
         }
     }
     
