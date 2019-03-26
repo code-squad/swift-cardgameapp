@@ -121,18 +121,14 @@ class Klondike {
         case let .columns(column: column, row: _):
             if columns[column]?.isEmpty() ?? false, draggingCards.first?.isK() ?? false {
                 columns[column]?.put(stack: CardStack(cards: draggingCards))
-                removeCards(with: dragPoint, number: draggingCards.count)
             } else if let card = draggingCards.first, columns[column]?.isMoveable(card) ?? false {
                 columns[column]?.put(stack: CardStack(cards: draggingCards))
-                removeCards(with: dragPoint, number: draggingCards.count)
             }
         case let .goals(column: column):
             if draggingCards.count == 1, goals[column]?.isEmpty() ?? false, draggingCards.first?.isA() ?? false {
                 goals[column]?.put(stack: CardStack(cards: draggingCards))
-                removeCards(with: dragPoint, number: draggingCards.count)
             } else if draggingCards.count == 1, let card = draggingCards.first, goals[column]?.isMoveable(card) ?? false {
                 goals[column]?.push(card: card)
-                removeCards(with: dragPoint, number: draggingCards.count)
             }
         default:
             return

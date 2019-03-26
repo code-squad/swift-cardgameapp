@@ -201,7 +201,7 @@ extension ViewController: ColumnsView {
                                                                            action: #selector(self.moveColumn))
                 stackView.addArrangedSubview(cardImageView)
             }
-                return
+            return
         }
         
         let views = cardViews(cards: cards)
@@ -276,12 +276,13 @@ extension ViewController: GoalsView {
     func addGoalsStackView(cards: [Card], index: Int) {
         guard let stackView = goalsStackView.arrangedSubviews[index] as? UIStackView else { return }
         guard let beforeFrame = self.framePool?.dequeue() else {
-                for card in cards {
-                    let cardImageView = cardImageViewWithDoubleTapGesture(card: card,
-                                                                          action: #selector(moveGoalTopCard))
-                    stackView.addArrangedSubview(cardImageView)
-                }
-                return
+            for card in cards {
+                let cardImageView = cardImageViewWithDoubleTapGesture(card: card,
+                                                                      action: #selector(moveGoalTopCard))
+                stackView.addArrangedSubview(cardImageView)
+            }
+            checkEnd()
+            return
         }
         
         let views = cardViews(cards: cards)
@@ -302,6 +303,7 @@ extension ViewController: GoalsView {
             animationView.removeFromSuperview()
         }
         animate(cardView: animationView, to: destination, completion: completion)
+        checkEnd()
     }
     
     func removeGoalsStackView(count: Int, index: Int) {
@@ -375,6 +377,27 @@ extension ViewController {
             views.append(CardImageView(card: card))
         }
         return views
+    }
+    
+    private func checkEnd() {
+        guard let stackView = goalsStackView.arrangedSubviews as? [UIStackView] else { return }
+        let countOfCompleteGoal = stackView.filter {$0.arrangedSubviews.count == 13}
+        if countOfCompleteGoal.count == 4 {
+            let alert = UIAlertController(title: "축하합니다",
+                                          message: "게임을 클리어 하셨습니다.",
+                                          preferredStyle: .alert)
+            let action = UIAlertAction(title: "다시하기",
+                                       style: .default) { (action) in
+                                        self.klondikePresenter.reset()
+                                        self.framePool?.reset()
+            }
+            let cancel = UIAlertAction(title: "안하기",
+                                       style: .destructive,
+                                       handler: nil)
+            alert.addAction(cancel)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }
     }
 }
 

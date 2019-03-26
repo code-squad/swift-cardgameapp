@@ -15,7 +15,6 @@ class CardStack : CustomStringConvertible {
 
     private var cards : [Card] {
         didSet {
-            print(cards)
             let countOfLatestCards = cards.count - oldValue.count
             if countOfLatestCards > 0 {
                 let addedCards = cards.suffix(countOfLatestCards)
