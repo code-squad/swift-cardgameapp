@@ -14,6 +14,7 @@ class PreviewStackView: PositionStackView, DragableView {
     }
     
     func draggingView(_ location: CGPoint) -> [CardImageView]? {
-        return []
+        guard let cardImageView = arrangedSubviews.last as? CardImageView else { return nil }
+        return [cardImageView]
     }
 }
