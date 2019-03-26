@@ -120,29 +120,38 @@
                                     <outletCollection property="gestureRecognizers" destination="uqy-3p-vnc" appends="YES" id="UQ5-8T-5FK"/>
                                 </connections>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="nJY-eg-22o" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
-                                <rect key="frame" x="267.66666666666669" y="20" width="54.333333333333314" height="69.333333333333329"/>
-                            </stackView>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ub9-cO-OgT">
                                 <rect key="frame" x="238.33333333333337" y="20" width="113" height="69.333333333333329"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="B43-we-Ra9">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="nJY-eg-22o" customClass="PreviewStackView" customModule="CardGameApp" customModuleProvider="target">
+                                <rect key="frame" x="267.66666666666669" y="20" width="54.333333333333314" height="69.333333333333329"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="jvt-9g-7aD" appends="YES" id="Okc-W8-2ZI"/>
+                                </connections>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="B43-we-Ra9" customClass="GoalsStackView" customModule="CardGameApp" customModuleProvider="target">
                                 <rect key="frame" x="4" y="20" width="230.33333333333334" height="69.333333333333329"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="F2k-us-I5l" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="69.333333333333329"/>
+                                        <gestureRecognizers/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="SGw-LN-4q4" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="58.666666666666657" y="0.0" width="54.333333333333343" height="69.333333333333329"/>
+                                        <gestureRecognizers/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="7sd-aE-EHD" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="117.00000000000001" y="0.0" width="54.666666666666671" height="69.333333333333329"/>
+                                        <gestureRecognizers/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="HTu-Zf-98Z" customClass="PositionStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="175.66666666666666" y="0.0" width="54.666666666666657" height="69.333333333333329"/>
+                                        <gestureRecognizers/>
                                     </stackView>
                                 </subviews>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstItem="HTu-Zf-98Z" firstAttribute="width" secondItem="7sd-aE-EHD" secondAttribute="width" id="3up-xe-79E"/>
                                     <constraint firstItem="SGw-LN-4q4" firstAttribute="height" secondItem="F2k-us-I5l" secondAttribute="height" id="9nZ-Qn-OSX"/>
@@ -151,35 +160,50 @@
                                     <constraint firstItem="HTu-Zf-98Z" firstAttribute="height" secondItem="7sd-aE-EHD" secondAttribute="height" id="jcC-Vm-BnZ"/>
                                     <constraint firstItem="SGw-LN-4q4" firstAttribute="width" secondItem="F2k-us-I5l" secondAttribute="width" id="z9s-ee-oVR"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="tqe-9z-ovi" appends="YES" id="Qs2-Mk-ZN7"/>
+                                </connections>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="yAd-XT-oIb">
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="yAd-XT-oIb" customClass="ColumnsStackView" customModule="CardGameApp" customModuleProvider="target">
                                 <rect key="frame" x="4" y="99.333333333333343" width="406" height="69.333333333333343"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pfJ-kv-XFo" customClass="ColumnStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="60"/>
+                                        <gestureRecognizers/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vpu-J9-2UL" customClass="ColumnStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="58.666666666666657" y="0.0" width="54.333333333333343" height="60"/>
+                                        <gestureRecognizers/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oI4-uC-eE0" customClass="ColumnStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="117.00000000000001" y="0.0" width="54.666666666666671" height="60"/>
+                                        <gestureRecognizers/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Oh1-Ld-ce6" customClass="ColumnStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="175.66666666666666" y="0.0" width="54.666666666666657" height="60"/>
+                                        <gestureRecognizers/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Vty-ib-CZC" customClass="ColumnStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="234.33333333333334" y="0.0" width="54.666666666666657" height="60"/>
+                                        <gestureRecognizers/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aEv-rg-YcF" customClass="ColumnStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="293" y="0.0" width="54.333333333333314" height="60"/>
+                                        <gestureRecognizers/>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kyt-ba-P2w" customClass="ColumnStackView" customModule="CardGameApp" customModuleProvider="target">
                                         <rect key="frame" x="351.33333333333331" y="0.0" width="54.666666666666686" height="60"/>
+                                        <gestureRecognizers/>
                                     </stackView>
                                 </subviews>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Q3T-21-Cms" appends="YES" id="emG-Es-0j1"/>
+                                </connections>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="ub9-cO-OgT" firstAttribute="leading" secondItem="9x1-C0-C9A" secondAttribute="leading" id="3Jm-eV-dAi"/>
                             <constraint firstItem="ub9-cO-OgT" firstAttribute="trailing" secondItem="bZf-gU-jzP" secondAttribute="trailing" id="5yv-GZ-7Q0"/>
@@ -229,6 +253,24 @@
                         <action selector="tapPileStackView:" destination="BYZ-38-t0r" id="cVZ-9t-gnk"/>
                     </connections>
                 </tapGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="tqe-9z-ovi" customClass="DragGestureRecognizer" customModule="CardGameApp" customModuleProvider="target">
+                    <connections>
+                        <action selector="drag:" destination="BYZ-38-t0r" id="V8m-mv-eX4"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="1bs-Oa-Y1F"/>
+                    </connections>
+                </panGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="jvt-9g-7aD" customClass="DragGestureRecognizer" customModule="CardGameApp" customModuleProvider="target">
+                    <connections>
+                        <action selector="drag:" destination="BYZ-38-t0r" id="IvU-w2-CZd"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="av7-Vu-Cry"/>
+                    </connections>
+                </panGestureRecognizer>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Q3T-21-Cms" customClass="DragGestureRecognizer" customModule="CardGameApp" customModuleProvider="target">
+                    <connections>
+                        <action selector="drag:" destination="BYZ-38-t0r" id="g5p-IF-QDQ"/>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="R8t-YF-2RI"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="34.782608695652179" y="23.64130434782609"/>
         </scene>

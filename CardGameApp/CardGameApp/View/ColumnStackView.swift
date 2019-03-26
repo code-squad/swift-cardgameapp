@@ -19,4 +19,5 @@ class ColumnStackView: UIStackView {
         let heightOfCard = self.frame.width * 1.27
         self.spacing = -heightOfCard * (7/10)
     }
+    
 }

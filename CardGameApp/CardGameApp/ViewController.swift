@@ -11,12 +11,13 @@ import UIKit
 class ViewController: UIViewController {
     
     private var framePool = Queue(pool: [CGRect]())
-    
+    private var draggingView: UIView?
+    private var realViews: [CardImageView]?
     //MARK: - Properties
     //MARK: IBOutlet
     
     @IBOutlet weak var pileStackView: PositionStackView!
-    @IBOutlet weak var previewStackView: PositionStackView!
+    @IBOutlet weak var previewStackView: PreviewStackView!
     @IBOutlet weak var goalsStackView: UIStackView!
     @IBOutlet weak var columnsStackView: UIStackView!
     
@@ -31,7 +32,7 @@ class ViewController: UIViewController {
     }
     
     //MARK: Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,7 +47,7 @@ class ViewController: UIViewController {
     }
     
     //MARK: Gesture Actions
-
+    
     @objc private func movePreviewTopCard() {
         klondikePresenter.movePreviewTopCard()
     }
@@ -61,10 +62,39 @@ class ViewController: UIViewController {
     @objc private func moveColumn(sender: UITapGestureRecognizer) {
         guard let cardView = sender.view as? CardImageView,
             let position = columnsStackView.positionOfStackViewWith(cardView: cardView) else { return }
-
+        
         klondikePresenter.moveColumn(position: position)
     }
+    
+    @IBAction func drag(_ sender: DragGestureRecognizer) {
+        if sender.state == .began {
+            guard let dragableView = sender.view as? DragableView & UIView else { return }
+            let location = self.view.convert(sender.firstLocation, to: dragableView)
+            guard let suffixViews = dragableView.draggingView(location),
+                let firstView = suffixViews.first,
+                let lastView = suffixViews.last else { return }
+            let frame = absoluteFrameOfStackView(firstView: firstView, lastView: lastView)
+            let copiedViews = suffixViews.copiedCardViews()
+            let animationView = animationCardView(copiedViews, frame: frame)
+            self.view.addSubview(animationView)
+            self.realViews = suffixViews
+            realViews?.hideViews()
+            self.draggingView = animationView
+        }
         
+        if sender.state == .changed {
+            guard let draggingView = draggingView else { return }
+            draggingView.center.x += sender.translation(in: self.view).x
+            draggingView.center.y += sender.translation(in: self.view).y
+            sender.setTranslation(.zero, in: self.view)
+        }
+        
+        if sender.state == .ended {
+            self.realViews?.showViews()
+            self.draggingView?.removeFromSuperview()
+        }
+    }
+    
     //MARK: IBAction
     
     @IBAction func tapPileStackView(_ sender: Any) {
@@ -77,7 +107,6 @@ class ViewController: UIViewController {
         if motion == .motionShake {
             klondikePresenter.reset()
             framePool.reset()
-
         }
     }
 }
@@ -98,7 +127,7 @@ extension ViewController: PileView {
         
         let completion: ((Bool) -> Void)? = { [animationView](_) in
             for _ in 0..<count {
-            self.pileStackView.addArrangedSubview(CardBackImageView())
+                self.pileStackView.addArrangedSubview(CardBackImageView())
             }
             animationView.removeFromSuperview()
         }
@@ -146,7 +175,7 @@ extension ViewController: ColumnsView {
     func addColumnsStackView(cards: [Card], index: Int) {
         guard let stackView = columnsStackView.arrangedSubviews[index] as? UIStackView,
             let beforeFrame = self.framePool.dequeue() else { return }
-
+        
         let views = cardViews(cards: cards)
         let animationView = animationCardView(views, frame: beforeFrame)
         self.view.addSubview(animationView)
@@ -337,5 +366,41 @@ extension UIStackView {
             subview.removeFromSuperview()
         }
     }
+    
+    func suffix(of view: UIView) -> [UIView]? {
+        guard let index = self.arrangedSubviews.firstIndex(of: view) else { return nil }
+        let views = self.arrangedSubviews.suffix(from: index)
+        return Array(views)
+    }
 }
 
+extension Array where Element: CardImageView {
+    func copiedCardViews() -> [CardImageView] {
+        var copiedCardViews = [CardImageView]()
+        for view in self {
+            copiedCardViews.append(view.copied())
+        }
+        return copiedCardViews
+    }
+    
+    func hideViews() {
+        for view in self {
+            view.isHidden = true
+        }
+    }
+    
+    func showViews() {
+        for view in self {
+            view.isHidden = false
+        }
+    }
+}
+
+extension UIViewController: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let dragGesture = gestureRecognizer as? DragGestureRecognizer {
+            dragGesture.firstLocation = touch.location(in: self.view)
+        }
+        return true
+    }
+}
