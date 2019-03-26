@@ -76,6 +76,10 @@ class KlondikePresenter {
         klondike.flipCardsFromThePileToPreview()
     }
     
+    func move(_ dragPoint: DraggingPosition, to dropPoint: DraggingPosition) {
+        klondike.move(dragPoint, to: dropPoint)
+    }
+    
     private func addObservers() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(addPileStackView),

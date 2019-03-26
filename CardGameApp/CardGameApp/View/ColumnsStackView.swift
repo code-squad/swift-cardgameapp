@@ -13,13 +13,22 @@ class ColumnsStackView: UIStackView, DragableView {
     func draggingPosition(_ location: CGPoint) -> DraggingPosition? {
         for subStackView in arrangedSubviews {
             guard let stackView = subStackView as? UIStackView,
-                stackView.frame.contains(location) else { continue }
+                stackView.frame.contains(location) else {
+                    continue
+                    
+            }
             for view in stackView.arrangedSubviews.reversed() {
-                guard !(view is CardBackImageView) else { continue }
+                guard !(view is CardBackImageView) else {
+                    continue
+                    
+                }
                 let frame = stackView.convert(view.frame, to: self)
                 guard frame.contains(location),
                     let column = arrangedSubviews.firstIndex(of: subStackView),
-                    let row = stackView.arrangedSubviews.firstIndex(of: view) else { continue }
+                    let row = stackView.arrangedSubviews.firstIndex(of: view) else {
+                        continue
+                        
+                }
                 return DraggingPosition.columns(column: column, row: row)
             }
         }

@@ -63,15 +63,15 @@ class Card : CustomStringConvertible {
         return isOneStepUpRank(card: card) && isDifferentColor(card: card)
     }
     
-    private func isOneStepDownRank(card: Card) -> Bool {
+    func isOneStepDownRank(card: Card) -> Bool {
         return card.rank.rawValue == self.rank.rawValue - 1
     }
     
-    private func isOneStepUpRank(card: Card) -> Bool {
+    func isOneStepUpRank(card: Card) -> Bool {
         return card.rank.rawValue == self.rank.rawValue + 1
     }
     
-    private func isDifferentColor(card: Card) -> Bool {
+    func isDifferentColor(card: Card) -> Bool {
         return card.suit.color() != self.suit.color()
     }
     

@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    private var framePool = Queue(pool: [CGRect]())
+    private var framePool: Queue? = Queue(pool: [CGRect]())
     private var draggingView: UIView?
     private var realViews: [CardImageView]?
     //MARK: - Properties
@@ -18,8 +18,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var pileStackView: PositionStackView!
     @IBOutlet weak var previewStackView: PreviewStackView!
-    @IBOutlet weak var goalsStackView: UIStackView!
-    @IBOutlet weak var columnsStackView: UIStackView!
+    @IBOutlet weak var goalsStackView: GoalsStackView!
+    @IBOutlet weak var columnsStackView: ColumnsStackView!
     
     //MARK: Instance
     private var klondikePresenter = KlondikePresenter()
@@ -70,6 +70,7 @@ class ViewController: UIViewController {
         if sender.state == .began {
             guard let dragableView = sender.view as? DragableView & UIView else { return }
             let location = self.view.convert(sender.firstLocation, to: dragableView)
+            sender.firstPosition = dragableView.draggingPosition(location)
             guard let suffixViews = dragableView.draggingView(location),
                 let firstView = suffixViews.first,
                 let lastView = suffixViews.last else { return }
@@ -92,6 +93,19 @@ class ViewController: UIViewController {
         if sender.state == .ended {
             self.realViews?.showViews()
             self.draggingView?.removeFromSuperview()
+            framePool = nil
+            if goalsStackView.frame.contains(sender.location(in: self.view)) {
+                let dropPoint = sender.location(in: goalsStackView)
+                guard let dragPosition = sender.firstPosition,
+                    let dropPosition = goalsStackView.draggingPosition(dropPoint) else { return }
+                klondikePresenter.move(dragPosition, to: dropPosition)
+            } else if columnsStackView.frame.contains(sender.location(in: self.view)) {
+                let dropPoint = sender.location(in: columnsStackView)
+                guard let dragPosition = sender.firstPosition,
+                    let dropPosition = columnsStackView.draggingPosition(dropPoint) else { return }
+                klondikePresenter.move(dragPosition, to: dropPosition)
+            }
+            framePool = Queue(pool: [CGRect]())
         }
     }
     
@@ -106,7 +120,7 @@ class ViewController: UIViewController {
     override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         if motion == .motionShake {
             klondikePresenter.reset()
-            framePool.reset()
+            framePool?.reset()
         }
     }
 }
@@ -114,7 +128,7 @@ class ViewController: UIViewController {
 extension ViewController: PileView {
     
     func addPileStackView(count: Int) {
-        guard let beforeFrame = self.framePool.dequeue() else {
+        guard let beforeFrame = self.framePool?.dequeue() else {
             for _ in 0..<count {
                 self.pileStackView.addArrangedSubview(CardBackImageView())
             }
@@ -135,7 +149,7 @@ extension ViewController: PileView {
     }
     
     func removePileStackView(count: Int) {
-        self.framePool.enqueue(self.pileStackView.frame)
+        self.framePool?.enqueue(self.pileStackView.frame)
         self.pileStackView.removeSubviews(count: count)
     }
 }
@@ -143,7 +157,14 @@ extension ViewController: PileView {
 extension ViewController: PreviewView {
     
     func addPreviewStackView(cards: [Card]) {
-        guard let beforeFrame = self.framePool.dequeue() else { return }
+        guard let beforeFrame = self.framePool?.dequeue() else {
+            for card in cards {
+                let cardImageView = cardImageViewWithDoubleTapGesture(card: card,
+                                                                      action: #selector(movePreviewTopCard))
+                self.previewStackView.addArrangedSubview(cardImageView)
+            }
+            return
+        }
         
         let views = cardViews(cards: cards)
         let animationView = animationCardView(views, frame: beforeFrame)
@@ -165,7 +186,7 @@ extension ViewController: PreviewView {
     }
     
     func removePreviewStackView(count: Int) {
-        self.framePool.enqueue(self.previewStackView.frame)
+        self.framePool?.enqueue(self.previewStackView.frame)
         self.previewStackView.removeSubviews(count: count)
     }
 }
@@ -173,8 +194,15 @@ extension ViewController: PreviewView {
 extension ViewController: ColumnsView {
     
     func addColumnsStackView(cards: [Card], index: Int) {
-        guard let stackView = columnsStackView.arrangedSubviews[index] as? UIStackView,
-            let beforeFrame = self.framePool.dequeue() else { return }
+        guard let stackView = columnsStackView.arrangedSubviews[index] as? UIStackView else { return }
+        guard let beforeFrame = self.framePool?.dequeue() else {
+            for card in cards {
+                let cardImageView = self.cardImageViewWithDoubleTapGesture(card: card,
+                                                                           action: #selector(self.moveColumn))
+                stackView.addArrangedSubview(cardImageView)
+            }
+                return
+        }
         
         let views = cardViews(cards: cards)
         let animationView = animationCardView(views, frame: beforeFrame)
@@ -204,7 +232,7 @@ extension ViewController: ColumnsView {
         
         let subviews = stackView.arrangedSubviews.suffix(count)
         guard let first = subviews.first, let last = subviews.last else { return }
-        self.framePool.enqueue(absoluteFrameOfStackView(firstView: first, lastView: last))
+        self.framePool?.enqueue(absoluteFrameOfStackView(firstView: first, lastView: last))
         stackView.removeSubviews(count: count)
         
         if let card = card {
@@ -246,8 +274,15 @@ extension ViewController: ColumnsView {
 extension ViewController: GoalsView {
     
     func addGoalsStackView(cards: [Card], index: Int) {
-        guard let stackView = goalsStackView.arrangedSubviews[index] as? UIStackView,
-            let beforeFrame = self.framePool.dequeue() else { return }
+        guard let stackView = goalsStackView.arrangedSubviews[index] as? UIStackView else { return }
+        guard let beforeFrame = self.framePool?.dequeue() else {
+                for card in cards {
+                    let cardImageView = cardImageViewWithDoubleTapGesture(card: card,
+                                                                          action: #selector(moveGoalTopCard))
+                    stackView.addArrangedSubview(cardImageView)
+                }
+                return
+        }
         
         let views = cardViews(cards: cards)
         let animationView = animationCardView(views, frame: beforeFrame)
@@ -273,7 +308,7 @@ extension ViewController: GoalsView {
         guard let stackView = goalsStackView.arrangedSubviews[index] as? UIStackView else { return }
         
         let frameOfStackView = self.view.convert(stackView.frame, from: self.goalsStackView)
-        self.framePool.enqueue(frameOfStackView)
+        self.framePool?.enqueue(frameOfStackView)
         
         stackView.removeSubviews(count: count)
     }

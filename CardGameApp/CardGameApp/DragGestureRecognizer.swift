@@ -10,4 +10,5 @@ import UIKit
 
 class DragGestureRecognizer: UIPanGestureRecognizer {
     var firstLocation = CGPoint.zero
+    var firstPosition: DraggingPosition?
 }

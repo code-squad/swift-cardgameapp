@@ -103,4 +103,50 @@ class Klondike {
             columns[index]?.put(stack: CardStack(cards: cards))
         }
     }
+    
+    func move(_ dragPoint: DraggingPosition, to dropPoint: DraggingPosition) {
+        var cards: [Card]?
+        switch dragPoint {
+        case let .columns(column: column, row: row):
+            cards = columns[column]?.cardsIn(position: row)
+        case let .goals(column: column):
+            guard let card = goals[column]?.peek() else { return }
+            cards = [card]
+        case .preview:
+            guard let card = preview.peek() else { return }
+            cards = [card]
+        }
+        guard let draggingCards = cards else { return }
+        switch dropPoint {
+        case let .columns(column: column, row: _):
+            if columns[column]?.isEmpty() ?? false, draggingCards.first?.isK() ?? false {
+                columns[column]?.put(stack: CardStack(cards: draggingCards))
+                removeCards(with: dragPoint, number: draggingCards.count)
+            } else if let card = draggingCards.first, columns[column]?.isMoveable(card) ?? false {
+                columns[column]?.put(stack: CardStack(cards: draggingCards))
+                removeCards(with: dragPoint, number: draggingCards.count)
+            }
+        case let .goals(column: column):
+            if draggingCards.count == 1, goals[column]?.isEmpty() ?? false, draggingCards.first?.isA() ?? false {
+                goals[column]?.put(stack: CardStack(cards: draggingCards))
+                removeCards(with: dragPoint, number: draggingCards.count)
+            } else if draggingCards.count == 1, let card = draggingCards.first, goals[column]?.isMoveable(card) ?? false {
+                goals[column]?.push(card: card)
+                removeCards(with: dragPoint, number: draggingCards.count)
+            }
+        default:
+            return
+        }
+    }
+    
+    private func removeCards(with position: DraggingPosition, number: Int) {
+        switch position {
+        case let .columns(column: column, row: _):
+            columns[column]?.remove(number)
+        case let .goals(column: column):
+            goals[column]?.remove(number)
+        case .preview:
+            preview.remove(number)
+        }
+    }
 }

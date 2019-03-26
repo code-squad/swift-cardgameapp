@@ -16,4 +16,9 @@ class Column: CardStack {
                                         userInfo: [UserInfoKey.countOfPoppedCards: countOfPoppedCards,
                                                    UserInfoKey.topCardOfStack: self.peek()])
     }
+    
+    func isMoveable(_ card: Card) -> Bool {
+        guard let peekCard = self.peek() else { return false }
+        return peekCard.isDifferentColor(card: card) && peekCard.isOneStepDownRank(card: card)
+    }
 }

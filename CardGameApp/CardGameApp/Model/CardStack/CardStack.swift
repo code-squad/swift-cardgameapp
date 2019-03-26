@@ -15,6 +15,7 @@ class CardStack : CustomStringConvertible {
 
     private var cards : [Card] {
         didSet {
+            print(cards)
             let countOfLatestCards = cards.count - oldValue.count
             if countOfLatestCards > 0 {
                 let addedCards = cards.suffix(countOfLatestCards)
@@ -144,5 +145,11 @@ class CardStack : CustomStringConvertible {
     
     static func didPopNotiName() -> Notification.Name {
         return Notification.Name("\(self)DidPop")
+    }
+    
+    func remove(_ number: Int) {
+        if (cards.count - number) >= 0 {
+            cards.removeLast(number)
+        }
     }
 }
