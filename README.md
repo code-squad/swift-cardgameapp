@@ -46,3 +46,4 @@ drawImage("player.png", x, y)
 
 ![step-05 animation1](https://user-images.githubusercontent.com/38850628/54986018-38cc3680-4ff5-11e9-862b-efa2d4e45583.gif)
 ![step-05 animation2](https://user-images.githubusercontent.com/38850628/54986017-38cc3680-4ff5-11e9-8ae8-8eb72302a146.gif)
+![step-05 animation3](https://user-images.githubusercontent.com/38850628/54987599-34ede380-4ff8-11e9-889e-3675fd59bddd.gif)
