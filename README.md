@@ -43,3 +43,6 @@ drawImage("player.png", x, y)
 ![step-04 실행화면](https://user-images.githubusercontent.com/38850628/53711063-b03df880-3e83-11e9-8fe3-d66b13c66c6a.gif)
 ![step-04 애니메이션1](https://user-images.githubusercontent.com/38850628/54326872-6a372080-464b-11e9-9177-7b795929a90e.gif)
 ![step-04 애니메이션2](https://user-images.githubusercontent.com/38850628/54326873-6acfb700-464b-11e9-8079-2cf0ee3bf5f0.gif)
+
+![step-05 animation1](https://user-images.githubusercontent.com/38850628/54986018-38cc3680-4ff5-11e9-862b-efa2d4e45583.gif)
+![step-05 animation2](https://user-images.githubusercontent.com/38850628/54986017-38cc3680-4ff5-11e9-8ae8-8eb72302a146.gif)
